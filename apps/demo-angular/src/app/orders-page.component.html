@@ -1,11 +1,18 @@
-<section class="page-grid">
-  <article class="card card--controls">
+<section class="page-grid" data-testid="orders-page">
+  <article class="card card--controls" data-testid="orders-controls-card">
     <div class="card__header">
       <div>
         <p class="eyebrow">Orders Search</p>
         <h2>Admin-table filters that stay shareable.</h2>
       </div>
-      <button type="button" class="ghost-button" (click)="resetFilters()">Reset filters</button>
+      <button
+        type="button"
+        class="ghost-button"
+        data-testid="orders-reset-filters"
+        (click)="resetFilters()"
+      >
+        Reset filters
+      </button>
     </div>
 
     <p class="card__summary">
@@ -21,12 +28,17 @@
           [ngModel]="state.search()"
           (ngModelChange)="updateSearch($event)"
           placeholder="Customer, region, or order ID"
+          data-testid="orders-search-input"
         />
       </label>
 
       <label class="field">
         <span>Status</span>
-        <select [ngModel]="state.status()" (ngModelChange)="updateStatus($event)">
+        <select
+          [ngModel]="state.status()"
+          (ngModelChange)="updateStatus($event)"
+          data-testid="orders-status-select"
+        >
           @for (status of statusOptions; track status) {
             <option [value]="status">{{ status }}</option>
           }
@@ -40,12 +52,17 @@
           min="1"
           [ngModel]="state.page()"
           (ngModelChange)="updatePageNumber($event)"
+          data-testid="orders-page-input"
         />
       </label>
 
       <label class="field">
         <span>Page size</span>
-        <select [ngModel]="state.pageSize()" (ngModelChange)="updatePageSize($event)">
+        <select
+          [ngModel]="state.pageSize()"
+          (ngModelChange)="updatePageSize($event)"
+          data-testid="orders-page-size-select"
+        >
           @for (size of pageSizeOptions; track size) {
             <option [value]="size">{{ size }} rows</option>
           }
@@ -59,35 +76,48 @@
           [ngModel]="tagValue()"
           (ngModelChange)="updateTags($event)"
           placeholder="priority, enterprise"
+          data-testid="orders-tags-input"
         />
       </label>
     </div>
 
-    <div class="status-strip">
-      <p>{{ resultSummary() }}</p>
-      <code>{{ currentUrl() }}</code>
+    <div class="status-strip" data-testid="orders-status-strip">
+      <p data-testid="orders-result-summary">{{ resultSummary() }}</p>
+      <code data-testid="orders-current-url">{{ currentUrl() }}</code>
     </div>
   </article>
 
-  <article class="card card--table">
+  <article class="card card--table" data-testid="orders-table-card">
     <div class="table-head">
       <div>
         <p class="eyebrow">Shareable URL</p>
         <h3>Orders state</h3>
       </div>
       <div class="pager">
-        <button type="button" class="ghost-button" (click)="goToPage(currentPage() - 1)">
+        <button
+          type="button"
+          class="ghost-button"
+          data-testid="orders-previous-page"
+          (click)="goToPage(currentPage() - 1)"
+        >
           Previous
         </button>
-        <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
-        <button type="button" class="ghost-button" (click)="goToPage(currentPage() + 1)">
+        <span data-testid="orders-page-indicator"
+          >Page {{ currentPage() }} of {{ totalPages() }}</span
+        >
+        <button
+          type="button"
+          class="ghost-button"
+          data-testid="orders-next-page"
+          (click)="goToPage(currentPage() + 1)"
+        >
           Next
         </button>
       </div>
     </div>
 
-    <div class="table-wrap">
-      <table>
+    <div class="table-wrap" data-testid="orders-table-wrap">
+      <table data-testid="orders-table">
         <thead>
           <tr>
             <th>Order</th>
@@ -100,7 +130,7 @@
         </thead>
         <tbody>
           @for (record of pagedOrders(); track record.id) {
-            <tr>
+            <tr data-testid="orders-row">
               <td>
                 <strong>{{ record.id }}</strong>
                 <span class="status-chip">{{ record.status }}</span>
@@ -113,7 +143,7 @@
             </tr>
           } @empty {
             <tr>
-              <td colspan="6" class="empty-state">
+              <td colspan="6" class="empty-state" data-testid="orders-empty-state">
                 No rows matched the current combination of query parameters.
               </td>
             </tr>
@@ -123,7 +153,7 @@
     </div>
   </article>
 
-  <aside class="card card--snapshot">
+  <aside class="card card--snapshot" data-testid="orders-snapshot-card">
     <div class="card__header">
       <div>
         <p class="eyebrow">Snapshot</p>
@@ -131,6 +161,6 @@
       </div>
     </div>
 
-    <pre>{{ snapshotJson() }}</pre>
+    <pre data-testid="orders-snapshot-json">{{ snapshotJson() }}</pre>
   </aside>
 </section>

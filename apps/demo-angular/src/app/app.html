@@ -1,8 +1,8 @@
-<div class="app-shell">
+<div class="app-shell" data-testid="demo-app-shell">
   <header class="hero">
     <div class="hero__copy">
       <p class="eyebrow">HexGuard</p>
-      <h1>Type-safe, signal-first URL state for Angular.</h1>
+      <h1 data-testid="demo-title">Type-safe, signal-first URL state for Angular.</h1>
       <p class="hero__summary">
         This demo shows how search forms, admin tables, and dashboards can stay in sync with query
         parameters without leaking parsing or router wiring into component code.
@@ -16,6 +16,7 @@
           [routerLink]="item.route"
           routerLinkActive="nav-card--active"
           [routerLinkActiveOptions]="{ exact: true }"
+          [attr.data-testid]="'nav-link-' + item.route.slice(1)"
         >
           <span class="nav-card__title">{{ item.label }}</span>
           <span class="nav-card__description">{{ item.description }}</span>
@@ -24,7 +25,7 @@
     </nav>
   </header>
 
-  <main class="demo-stage">
+  <main class="demo-stage" data-testid="demo-stage">
     <router-outlet></router-outlet>
   </main>
 </div>

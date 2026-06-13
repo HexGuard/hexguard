@@ -1,11 +1,11 @@
-<section class="dashboard-grid">
-  <article class="card card--filters">
+<section class="dashboard-grid" data-testid="dashboard-page">
+  <article class="card card--filters" data-testid="dashboard-filters-card">
     <div class="card__header">
       <div>
         <p class="eyebrow">Dashboard Filters</p>
         <h2>Push-state history for back and forward navigation.</h2>
       </div>
-      <span class="hint-pill">History mode: push</span>
+      <span class="hint-pill" data-testid="dashboard-history-mode">History mode: push</span>
     </div>
 
     <p class="card__summary">
@@ -19,6 +19,7 @@
           type="button"
           class="tab-button"
           [class.tab-button--active]="state.tab() === tab"
+          [attr.data-testid]="'dashboard-tab-' + tab"
           (click)="selectTab(tab)"
         >
           {{ tab }}
@@ -29,12 +30,22 @@
     <div class="filters-grid">
       <label class="field">
         <span>Start date</span>
-        <input type="date" [ngModel]="startDateValue()" (ngModelChange)="updateStartDate($event)" />
+        <input
+          type="date"
+          [ngModel]="startDateValue()"
+          (ngModelChange)="updateStartDate($event)"
+          data-testid="dashboard-start-date"
+        />
       </label>
 
       <label class="field">
         <span>End date</span>
-        <input type="date" [ngModel]="endDateValue()" (ngModelChange)="updateEndDate($event)" />
+        <input
+          type="date"
+          [ngModel]="endDateValue()"
+          (ngModelChange)="updateEndDate($event)"
+          data-testid="dashboard-end-date"
+        />
       </label>
 
       <label class="toggle">
@@ -43,25 +54,47 @@
           type="checkbox"
           [ngModel]="state.showArchived()"
           (ngModelChange)="toggleArchived($event)"
+          data-testid="dashboard-show-archived"
         />
       </label>
     </div>
 
     <div class="preset-row">
-      <button type="button" class="ghost-button" (click)="applyPreset(7)">Last 7 days</button>
-      <button type="button" class="ghost-button" (click)="applyPreset(30)">Last 30 days</button>
-      <button type="button" class="ghost-button" (click)="clearRange()">Clear range</button>
+      <button
+        type="button"
+        class="ghost-button"
+        data-testid="dashboard-preset-7-days"
+        (click)="applyPreset(7)"
+      >
+        Last 7 days
+      </button>
+      <button
+        type="button"
+        class="ghost-button"
+        data-testid="dashboard-preset-30-days"
+        (click)="applyPreset(30)"
+      >
+        Last 30 days
+      </button>
+      <button
+        type="button"
+        class="ghost-button"
+        data-testid="dashboard-clear-range"
+        (click)="clearRange()"
+      >
+        Clear range
+      </button>
     </div>
 
-    <div class="status-strip">
-      <p>{{ rangeLabel() }}</p>
-      <code>{{ currentUrl() }}</code>
+    <div class="status-strip" data-testid="dashboard-status-strip">
+      <p data-testid="dashboard-range-label">{{ rangeLabel() }}</p>
+      <code data-testid="dashboard-current-url">{{ currentUrl() }}</code>
     </div>
   </article>
 
-  <section class="metric-grid">
+  <section class="metric-grid" data-testid="dashboard-metric-grid">
     @for (metric of metrics(); track metric.label) {
-      <article class="metric-card">
+      <article class="metric-card" data-testid="dashboard-metric-card">
         <p class="eyebrow">{{ state.tab() }}</p>
         <h3>{{ metric.value }}</h3>
         <strong>{{ metric.label }}</strong>
@@ -70,7 +103,7 @@
     }
   </section>
 
-  <aside class="card card--snapshot">
+  <aside class="card card--snapshot" data-testid="dashboard-snapshot-card">
     <div class="card__header">
       <div>
         <p class="eyebrow">Snapshot</p>
@@ -78,6 +111,6 @@
       </div>
     </div>
 
-    <pre>{{ snapshotJson() }}</pre>
+    <pre data-testid="dashboard-snapshot-json">{{ snapshotJson() }}</pre>
   </aside>
 </section>

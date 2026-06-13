@@ -11,6 +11,10 @@
     "test": "pnpm test:lib && pnpm test:app",
     "test:lib": "ng test angular-url-state",
     "test:app": "ng test demo-angular",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:install": "playwright install chromium",
     "test:ci": "ng test angular-url-state --watch=false && ng test demo-angular --watch=false",
     "lint": "eslint \"packages/angular-url-state/src/**/*.ts\" \"apps/demo-angular/src/**/*.ts\"",
     "format": "prettier --write .",
@@ -30,6 +34,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "@eslint/js": "^9.39.4",
     "@angular/build": "^22.0.1",
     "@angular/cli": "^22.0.1",

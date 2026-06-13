@@ -30,7 +30,7 @@ interface OrderRecord {
 }
 
 const STATUS_OPTIONS = ['open', 'closed', 'archived'] as const;
-const PAGE_SIZE_OPTIONS = [10, 25, 50] as const;
+const PAGE_SIZE_OPTIONS = [5, 10, 25, 50] as const;
 const USD_FORMATTER = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -190,7 +190,7 @@ export class OrdersPageComponent {
     {
       search: stringParam(''),
       page: numberParam(1),
-      pageSize: numberParam(10),
+      pageSize: numberParam(5),
       status: enumParam(STATUS_OPTIONS, 'open'),
       tags: arrayParam(stringParam()),
     },

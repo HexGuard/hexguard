@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Check formatting
         run: pnpm format:check
 
@@ -41,8 +44,21 @@ jobs:
       - name: Run tests
         run: pnpm test:ci
 
+      - name: Run Playwright tests
+        run: pnpm test:e2e
+
       - name: Build packages and apps
         run: pnpm build
 
       - name: Verify package artifact
         run: pnpm verify:package
+
+      - name: Upload Playwright artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore

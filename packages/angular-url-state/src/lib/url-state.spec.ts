@@ -6,6 +6,7 @@ import { provideRouter, type Routes } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 
 import {
+  InvalidQueryParamError,
   arrayParam,
   booleanParam,
   enumParam,
@@ -59,11 +60,48 @@ class RemoveInvalidOrdersPageComponent {
   readonly state = urlState(ordersSchema, { invalidParamBehavior: 'removeInvalid' });
 }
 
+@Component({
+  standalone: true,
+  selector: 'hexguard-throw-in-dev-orders-page',
+  template: '',
+})
+class ThrowInDevOrdersPageComponent {
+  readonly state = urlState(ordersSchema, { invalidParamBehavior: 'throwInDev' });
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-multi-state-orders-page',
+  template: '',
+})
+class MultiStateOrdersPageComponent {
+  readonly filtersState = urlState({
+    search: stringParam(''),
+    status: enumParam(['open', 'closed', 'archived'] as const, 'open'),
+  });
+
+  readonly paginationState = urlState({
+    page: numberParam(1),
+    showArchived: booleanParam(false),
+    tags: arrayParam(stringParam()),
+  });
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-static-page',
+  template: '',
+})
+class StaticPageComponent {}
+
 const routes: Routes = [
   { path: 'replace', component: ReplaceOrdersPageComponent },
   { path: 'push', component: PushOrdersPageComponent },
   { path: 'debounce', component: DebouncedOrdersPageComponent },
   { path: 'remove-invalid', component: RemoveInvalidOrdersPageComponent },
+  { path: 'throw-in-dev', component: ThrowInDevOrdersPageComponent },
+  { path: 'multi', component: MultiStateOrdersPageComponent },
+  { path: 'other', component: StaticPageComponent },
 ];
 
 function injectSpyLocation(): SpyLocation {
@@ -191,5 +229,87 @@ describe('urlState', () => {
     expect(component.state.page()).toBe(1);
     expect(component.state.status()).toBe('open');
     expect(location.path()).toBe('/remove-invalid?search=boots');
+  });
+
+  it('throws in dev mode for invalid initial query params when configured', async () => {
+    const harness = await RouterTestingHarness.create();
+
+    await expect(
+      harness.navigateByUrl('/throw-in-dev?page=oops', ThrowInDevOrdersPageComponent),
+    ).rejects.toThrowError(InvalidQueryParamError);
+  });
+
+  it('throws in dev mode for invalid query param changes when configured', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/throw-in-dev?page=2',
+      ThrowInDevOrdersPageComponent,
+    );
+
+    expect(component.state.page()).toBe(2);
+
+    expect(() => {
+      location.go('/throw-in-dev', 'page=oops');
+    }).toThrowError(InvalidQueryParamError);
+  });
+
+  it('allows multiple urlState instances to coordinate disjoint query keys', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/multi?search=boots&status=closed&page=3&showArchived=true&tags=priority',
+      MultiStateOrdersPageComponent,
+    );
+
+    expect(component.filtersState.search()).toBe('boots');
+    expect(component.filtersState.status()).toBe('closed');
+    expect(component.paginationState.page()).toBe(3);
+    expect(component.paginationState.showArchived()).toBe(true);
+    expect(component.paginationState.tags()).toEqual(['priority']);
+
+    component.filtersState.search.set('socks');
+    await harness.fixture.whenStable();
+
+    expect(component.paginationState.page()).toBe(3);
+    expect(component.paginationState.showArchived()).toBe(true);
+    expect(location.path()).toContain('search=socks');
+    expect(location.path()).toContain('status=closed');
+    expect(location.path()).toContain('page=3');
+    expect(location.path()).toContain('showArchived=true');
+    expect(location.path()).toContain('tags=priority');
+
+    component.paginationState.page.set(4);
+    await harness.fixture.whenStable();
+
+    expect(component.filtersState.search()).toBe('socks');
+    expect(component.filtersState.status()).toBe('closed');
+    expect(location.path()).toContain('page=4');
+    expect(location.path()).toContain('search=socks');
+  });
+
+  it('clears pending debounced writes when the owning route is destroyed', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl('/debounce', DebouncedOrdersPageComponent);
+
+    vi.useFakeTimers();
+
+    try {
+      component.state.search.set('boots');
+
+      await harness.navigateByUrl('/other', StaticPageComponent);
+      await harness.fixture.whenStable();
+
+      await vi.advanceTimersByTimeAsync(30);
+      await harness.fixture.whenStable();
+
+      expect(location.path()).toBe('/other');
+      expect(location.urlChanges.some((value) => value.includes('/other?search=boots'))).toBe(
+        false,
+      );
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

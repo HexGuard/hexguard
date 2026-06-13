@@ -1,11 +1,13 @@
 import type { InferSchemaValue, ParamRawValue, UrlStateSchema } from './types';
 import type { UrlStateOptions } from './url-state-options';
 
+/** Minimal query-param source abstraction shared by router integration and tests. */
 export interface QueryParamSource {
   readonly keys?: readonly string[];
   getAll(key: string): string[];
 }
 
+/** Captures one query-param parse failure alongside the chosen fallback. */
 export interface InvalidParamDescriptor {
   readonly key: string;
   readonly raw: ParamRawValue;
@@ -13,11 +15,13 @@ export interface InvalidParamDescriptor {
   readonly fallback: unknown;
 }
 
+/** Parsed schema snapshot and any invalid inputs that were encountered. */
 export interface ParsedUrlState<TSchema extends UrlStateSchema> {
   readonly state: InferSchemaValue<TSchema>;
   readonly invalid: readonly InvalidParamDescriptor[];
 }
 
+/** Deterministically serialized state ready for router navigation. */
 export interface SerializedUrlState {
   readonly queryParams: Record<string, string | readonly string[]>;
   readonly entries: readonly (readonly [string, string])[];
@@ -52,6 +56,7 @@ function entriesToQueryString(entries: readonly (readonly [string, string])[]): 
     .join('&');
 }
 
+/** Reads one key from a query-param source and preserves repeated values. */
 export function readQueryParamValue(source: QueryParamSource, key: string): ParamRawValue {
   const values = source.getAll(key);
 
@@ -62,6 +67,7 @@ export function readQueryParamValue(source: QueryParamSource, key: string): Para
   return values.length === 1 ? values[0] : values;
 }
 
+/** Parses every managed query-param key in schema order. */
 export function parseUrlState<TSchema extends UrlStateSchema>(
   schema: TSchema,
   read: (key: string) => ParamRawValue,
@@ -90,6 +96,9 @@ export function parseUrlState<TSchema extends UrlStateSchema>(
   return { state, invalid };
 }
 
+/**
+ * Serializes managed state in schema order so URLs stay stable and easy to diff.
+ */
 export function serializeUrlState<TSchema extends UrlStateSchema>(
   schema: TSchema,
   snapshot: InferSchemaValue<TSchema>,
@@ -124,6 +133,10 @@ export function serializeUrlState<TSchema extends UrlStateSchema>(
   };
 }
 
+/**
+ * Merges managed params with unmanaged params from the current URL so the
+ * library only owns the keys declared in the schema.
+ */
 export function buildNavigationQuery(
   managedKeys: readonly string[],
   current: QueryParamSource,
@@ -156,6 +169,7 @@ export function buildNavigationQuery(
   };
 }
 
+/** Reads the current full query string in the same deterministic order used for writes. */
 export function readQueryString(current: QueryParamSource, managedKeys: readonly string[]): string {
   const managedKeySet = new Set(managedKeys);
   const orderedKeys = [

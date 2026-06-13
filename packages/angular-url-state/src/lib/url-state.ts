@@ -70,6 +70,8 @@ function createSignalEntry<T>(
   const writable = signal(initialValue, { equal: equals });
   const originalSet = writable.set.bind(writable);
 
+  // Wrap the writable signal so direct writes schedule router synchronization
+  // while URL-originated writes can still bypass re-entrant navigation.
   writable.set = (value: T) => {
     if (equals(writable(), value)) {
       return;
@@ -106,6 +108,13 @@ function throwIfReservedSchemaKeys(schemaKeys: readonly string[]): void {
   }
 }
 
+/**
+ * Creates a typed, signal-backed view of a query-param schema.
+ *
+ * The factory must run inside an Angular injection context because it relies on
+ * `Router`, `ActivatedRoute`, `Location`, and optional global defaults provided
+ * through `provideHexGuardUrlState()`.
+ */
 export function urlState<TSchema extends UrlStateSchema>(
   schema: TSchema,
   options: UrlStateOptionsInput = {},
@@ -146,6 +155,7 @@ export function urlState<TSchema extends UrlStateSchema>(
   const signalMap = {} as UrlStateSignalMap<TSchema>;
 
   const scheduleNavigation = (): void => {
+    // Debounced writes coalesce bursty UI updates such as type-ahead search.
     if (destroyed || applyingUrlState || navigationBatchDepth > 0) {
       return;
     }
@@ -184,6 +194,8 @@ export function urlState<TSchema extends UrlStateSchema>(
       managedQuery,
     );
 
+    // Compare deterministic query strings instead of object identity so we can
+    // avoid no-op router navigations and navigation loops.
     if (
       navigationTarget.queryString === lastKnownQueryString ||
       navigationTarget.queryString === pendingQueryString
@@ -220,6 +232,8 @@ export function urlState<TSchema extends UrlStateSchema>(
     applyingUrlState = true;
 
     try {
+      // URL-originated updates write directly into the wrapped signals without
+      // scheduling another router navigation.
       for (const key of schemaKeys) {
         const entry = entries.get(key);
 
@@ -261,6 +275,8 @@ export function urlState<TSchema extends UrlStateSchema>(
   applyParsedState(initialParsed.state, initialParsed.invalid);
 
   const stopTrackingUrlChanges = location.onUrlChange((url) => {
+    // Listen at the Location boundary so router navigations, popstate, and
+    // direct URL changes all converge through one parse-and-apply path.
     const queryParamMap = router.parseUrl(url).queryParamMap;
 
     lastKnownQueryString = readQueryString(queryParamMap, schemaKeys);

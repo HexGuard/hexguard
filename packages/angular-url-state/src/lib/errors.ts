@@ -12,6 +12,10 @@ function formatRawValue(raw: ParamRawValue): string {
   return JSON.stringify(raw);
 }
 
+/**
+ * Error thrown when strict invalid-param handling is enabled in dev mode and a
+ * query parameter cannot be parsed safely.
+ */
 export class InvalidQueryParamError extends Error {
   constructor(
     readonly key: string,

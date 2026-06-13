@@ -1,5 +1,6 @@
 import type { ParamCodec, ParamParseResult, ParamRawValue } from './types';
 
+/** Additional options for repeated query-param codecs. */
 export interface ArrayParamOptions<T> {
   readonly defaultValue?: readonly T[];
 }
@@ -31,6 +32,7 @@ function parseSingle(raw: ParamRawValue, reason: string): ParamParseResult<strin
   return ok(raw as string);
 }
 
+/** Creates a string codec backed by a single query parameter. */
 export function stringParam(defaultValue = ''): ParamCodec<string> {
   return {
     defaultValue,
@@ -48,6 +50,7 @@ export function stringParam(defaultValue = ''): ParamCodec<string> {
   };
 }
 
+/** Creates a finite-number codec backed by a single query parameter. */
 export function numberParam(defaultValue: number): ParamCodec<number> {
   return {
     defaultValue,
@@ -79,6 +82,7 @@ export function numberParam(defaultValue: number): ParamCodec<number> {
   };
 }
 
+/** Creates a boolean codec that accepts `true/false` and `1/0` in the URL. */
 export function booleanParam(defaultValue: boolean): ParamCodec<boolean> {
   return {
     defaultValue,
@@ -111,6 +115,7 @@ export function booleanParam(defaultValue: boolean): ParamCodec<boolean> {
   };
 }
 
+/** Creates a codec constrained to one of a fixed list of string literals. */
 export function enumParam<const TValues extends readonly [string, ...string[]]>(
   values: TValues,
   defaultValue: TValues[number],
@@ -148,6 +153,12 @@ export function enumParam<const TValues extends readonly [string, ...string[]]>(
   };
 }
 
+/**
+ * Creates a codec for repeated query params.
+ *
+ * Values are parsed item-by-item through `innerCodec` so array validation stays
+ * deterministic and testable.
+ */
 export function arrayParam<T>(
   innerCodec: ParamCodec<T>,
   options: ArrayParamOptions<T> = {},
@@ -216,6 +227,7 @@ export function arrayParam<T>(
   };
 }
 
+/** Creates a codec for ISO-8601 dates stored as query-param strings. */
 export function dateIsoParam(defaultValue: Date | null = null): ParamCodec<Date | null> {
   const normalizedDefault = cloneDate(defaultValue);
 
@@ -259,6 +271,7 @@ export function dateIsoParam(defaultValue: Date | null = null): ParamCodec<Date 
   };
 }
 
+/** Wraps another codec so `null` becomes an explicit legal value. */
 export function nullableParam<T>(innerCodec: ParamCodec<T>): ParamCodec<T | null> {
   const equals = innerCodec.equals ?? defaultEquals;
 

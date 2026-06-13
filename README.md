@@ -1,144 +1,52 @@
 # HexGuard
 
-HexGuard publishes small, production-grade guardrails for Angular and .NET applications. The
-packages in this monorepo focus on boring reliability problems that show up in real teams:
-shareable UI state, repeatable submit flows, predictable API error handling, and operationally
-safe defaults.
+HexGuard publishes small, production-grade guardrails for Angular and .NET applications. This
+repository is the monorepo hub for published packages, demo apps, release automation, and the AI
+workflow docs that keep future package work consistent.
 
-The first package is `@hexguard/angular-url-state`.
+## Package Hub
 
-## What `@hexguard/angular-url-state` solves
+| Package                                 | Status    | Summary                                                                                      | Docs                                                                                                    |
+| --------------------------------------- | --------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`           | Available | Type-safe, signal-first synchronization between Angular state and URL query params.          | [Package README](packages/angular-url-state/README.md), [Deep Dive](docs/packages/angular-url-state.md) |
+| `@hexguard/angular-query-form`          | Planned   | Typed query-form binding on top of URL state for filter-heavy search pages.                  | [Brief](docs/packages/README.md#package-angular-query-form)                                             |
+| `@hexguard/angular-submit-lock`         | Planned   | Prevent duplicate submissions while exposing explicit async busy state.                      | [Brief](docs/packages/README.md#package-angular-submit-lock)                                            |
+| `@hexguard/angular-api-errors`          | Planned   | Normalize backend validation and problem-details payloads into Angular-friendly error state. | [Brief](docs/packages/README.md#package-angular-api-errors)                                             |
+| `@hexguard/angular-table-state`         | Planned   | Reusable sorting, filtering, selection, and pagination orchestration for data tables.        | [Brief](docs/packages/README.md#package-angular-table-state)                                            |
+| `@hexguard/angular-preferences`         | Planned   | Lightweight user preferences for dashboard defaults and admin surfaces.                      | [Brief](docs/packages/README.md#package-angular-preferences)                                            |
+| `@hexguard/angular-dirty-state`         | Planned   | Unsaved-change guards and dirty-state helpers for Angular flows.                             | [Brief](docs/packages/README.md#package-angular-dirty-state)                                            |
+| `@hexguard/angular-http-dedupe`         | Planned   | Request de-duplication helpers for Angular HTTP and resource-style data fetching.            | [Brief](docs/packages/README.md#package-angular-http-dedupe)                                            |
+| `@hexguard/angular-http-resource-debug` | Planned   | Debug tooling around Angular HTTP resource usage and request lifecycles.                     | [Brief](docs/packages/README.md#package-angular-http-resource-debug)                                    |
+| `HexGuard.ProblemDetails`               | Planned   | .NET helpers for creating and mapping RFC 9457 problem-details responses.                    | [Brief](docs/packages/README.md#package-problemdetails)                                                 |
+| `HexGuard.Webhooks`                     | Planned   | .NET webhook verification and event processing primitives.                                   | [Brief](docs/packages/README.md#package-webhooks)                                                       |
+| `HexGuard.Pagination`                   | Planned   | .NET pagination contracts and response helpers for APIs.                                     | [Brief](docs/packages/README.md#package-pagination)                                                     |
 
-Angular applications repeatedly need to keep lightweight UI state in sync with query parameters:
+## Documentation
 
-- search text and filters
-- table pagination and page size
-- tabs and dashboard presets
-- selected IDs and tags
-- date ranges and report options
-- browser back and forward navigation
-
-`@hexguard/angular-url-state` provides a type-safe, signal-first API for that problem without
-introducing a state-management framework or runtime validation dependency.
-
-## Installation
-
-```bash
-pnpm add @hexguard/angular-url-state
-```
-
-Peer dependencies:
-
-- Angular `^22.0.0`
-- Angular Router `^22.0.0`
-
-## Quickstart
-
-```ts
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
-
-import {
-  arrayParam,
-  enumParam,
-  numberParam,
-  provideHexGuardUrlState,
-  stringParam,
-  urlState,
-} from '@hexguard/angular-url-state';
-
-bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes), provideHexGuardUrlState()],
-});
-
-const state = urlState(
-  {
-    search: stringParam(''),
-    page: numberParam(1),
-    status: enumParam(['open', 'closed', 'archived'] as const, 'open'),
-    tags: arrayParam(stringParam()),
-  },
-  {
-    history: 'replace',
-    debounceMs: 250,
-    removeDefaultsFromUrl: true,
-  },
-);
-
-state.search();
-state.search.set('boots');
-state.page.set(2);
-state.patch({ tags: ['priority'] });
-state.reset();
-```
-
-## Supported Param Types
-
-- `stringParam(defaultValue)`
-- `numberParam(defaultValue)`
-- `booleanParam(defaultValue)`
-- `enumParam(values, defaultValue)`
-- `arrayParam(innerCodec, options?)`
-- `dateIsoParam(defaultValue?)`
-- `nullableParam(innerCodec)`
-
-## Invalid URL Handling
-
-Invalid query values are safe by default.
-
-- `fallbackToDefault`: parse failures use the codec default or fallback value.
-- `removeInvalid`: parse failures use the fallback value and the next synchronized URL removes the
-  invalid param.
-- `throwInDev`: throws `InvalidQueryParamError` in Angular dev mode and falls back safely in
-  production mode.
-
-## SSR Considerations
-
-The core library does not reach for `window`, `document`, or `location`. It integrates through
-Angular dependency injection, `Location`, and the Angular Router so the parsing and serialization
-logic stays testable and SSR-safe.
-
-## Browser History Behavior
-
-- `history: 'replace'` keeps fast-moving filters from polluting browser history.
-- `history: 'push'` creates history entries that work with the browser back and forward buttons.
-- external URL changes flow back into signals through Angular routing abstractions.
-
-## Non-goals for V1
-
-- full state management
-- path parameter syncing
-- hash-fragment syncing
-- reactive-forms bindings in the core package
-- UI components
-- local storage or secret persistence
+- [Docs Index](docs/README.md)
+- [Package Catalog](docs/packages/README.md)
+- [Run the Demo](docs/demo/README.md)
+- [AI Workflow](docs/ai/README.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)
 
 ## Local Development
 
 ```bash
 pnpm install
-pnpm build
-pnpm test:ci
 pnpm lint
+pnpm test:ci
+pnpm test:e2e
+pnpm build
 pnpm start
 ```
 
-The monorepo contains:
+Repository layout:
 
 - `packages/angular-url-state`: publishable Angular library
-- `apps/demo-angular`: demo application with realistic URL-state scenarios
-
-## Roadmap
-
-- `@hexguard/angular-submit-lock`
-- `@hexguard/angular-api-errors`
-- `@hexguard/angular-table-state`
-- `@hexguard/angular-preferences`
-- `@hexguard/angular-dirty-state`
-- `@hexguard/angular-http-dedupe`
-- `HexGuard.ProblemDetails`
-- `HexGuard.Webhooks`
-- `HexGuard.Pagination`
+- `apps/demo-angular`: docs-grade demo and Playwright target
+- `docs/`: package guides, demo runbook, AI workflow docs
+- `.github/workflows/`: CI and release automation
 
 ## License
 
