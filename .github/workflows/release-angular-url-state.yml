@@ -43,13 +43,19 @@ jobs:
         with:
           node-version: 22.22.3
           cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            angular/pnpm-lock.yaml
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
+      - name: Install root shell dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Angular workspace dependencies
+        run: pnpm --dir angular install --frozen-lockfile
+
       - name: Install Playwright browser
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm --dir angular exec playwright install --with-deps chromium
 
       - name: Validate workspace
         run: |
@@ -68,8 +74,8 @@ jobs:
         id: metadata
         shell: bash
         run: |
-          PACKAGE_VERSION=$(node -p "require('./packages/angular-url-state/package.json').version")
-          PACKAGE_NAME=$(node -p "require('./packages/angular-url-state/package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./angular/packages/angular-url-state/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./angular/packages/angular-url-state/package.json').name")
           TAG_NAME="${GITHUB_REF_NAME}"
 
           if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
@@ -89,10 +95,10 @@ jobs:
             CREATE_RELEASE="true"
           fi
 
-          TARBALL_PATH=$(find .artifacts -maxdepth 1 -name '*.tgz' -print -quit)
+          TARBALL_PATH=$(find angular/.artifacts -maxdepth 1 -name '*.tgz' -print -quit)
 
           if [[ -z "$TARBALL_PATH" ]]; then
-            echo 'No package tarball was produced in .artifacts.' >&2
+            echo 'No package tarball was produced in angular/.artifacts.' >&2
             exit 1
           fi
 
@@ -107,7 +113,7 @@ jobs:
 
       - name: Publish package to npm
         run: |
-          pnpm --dir dist/angular-url-state publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+          pnpm --dir angular/dist/angular-url-state publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

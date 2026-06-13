@@ -141,6 +141,6 @@ pnpm verify:package
 
 ## Release Contract
 
-- bump `packages/angular-query-form/package.json`
+- bump `angular/packages/angular-query-form/package.json`
 - tag `angular-query-form-v<version>`
 - let `.github/workflows/release-angular-query-form.yml` validate, publish, and create the release

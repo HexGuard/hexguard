@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  root-shell:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,15 +28,39 @@ jobs:
         with:
           node-version: 22.22.3
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install dependencies
+      - name: Install root shell dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright browser
-        run: pnpm exec playwright install --with-deps chromium
 
       - name: Check formatting
         run: pnpm format:check
+
+  angular:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+          cache: pnpm
+          cache-dependency-path: angular/pnpm-lock.yaml
+
+      - name: Install Angular workspace dependencies
+        run: pnpm --dir angular install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm --dir angular exec playwright install --with-deps chromium
 
       - name: Lint
         run: pnpm lint
@@ -59,6 +83,35 @@ jobs:
         with:
           name: playwright-artifacts
           path: |
-            playwright-report
-            test-results
+            angular/playwright-report
+            angular/test-results
           if-no-files-found: ignore
+
+  dotnet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Validate .NET workspace
+        run: |
+          pnpm dotnet:restore
+          pnpm dotnet:build
+          pnpm dotnet:test

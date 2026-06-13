@@ -2,8 +2,10 @@
 
 # Compiled output
 /dist
+/angular/dist
 /tmp
 /out-tsc
+/angular/out-tsc
 /bazel-out
 
 # Node
@@ -31,9 +33,11 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
+/angular/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
+/angular/coverage
 /dotnet/**/bin/
 /dotnet/**/obj/
 /libpeerconnection.log
@@ -41,8 +45,11 @@ testem.log
 /typings
 __screenshots__/
 playwright-report/
+/angular/playwright-report/
 test-results/
+/angular/test-results/
 /.artifacts
+/angular/.artifacts
 pnpm-debug.log
 
 # System files

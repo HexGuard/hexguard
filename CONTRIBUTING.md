@@ -53,12 +53,12 @@ The package publish workflow lives in `.github/workflows/release-angular-url-sta
 Requirements:
 
 - GitHub Actions environment or repository secret `NPM_TOKEN` with publish access to npm
-- package version updated in `packages/angular-url-state/package.json`
+- package version updated in `angular/packages/angular-url-state/package.json`
 - green CI on `main`
 
 Default release path:
 
-1. update `packages/angular-url-state/package.json` to the target version
+1. update `angular/packages/angular-url-state/package.json` to the target version
 2. commit the change on `main`
 3. create and push a tag in the format `angular-url-state-v<version>`
 4. GitHub Actions will validate, build, publish to npm, and attach the tarball to a GitHub release

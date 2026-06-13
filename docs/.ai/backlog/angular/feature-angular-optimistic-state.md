@@ -55,11 +55,12 @@ markers, partial rollback logic, and brittle local reconciliation rules.
 
 - Revisit offline-first concerns only if they emerge repeatedly.
 - Compare overlap with selection-state and async-action once those packages exist.---
-id: feature-angular-optimistic-state
-type: feature
-status: proposed
-created: 2026-06-13
-package: '@hexguard/angular-optimistic-state'
+  id: feature-angular-optimistic-state
+  type: feature
+  status: proposed
+  created: 2026-06-13
+  package: '@hexguard/angular-optimistic-state'
+
 ---
 
 # Angular Optimistic State Package

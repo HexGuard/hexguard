@@ -228,6 +228,12 @@ When stricter behavior is needed:
 - use `removeInvalid` to clean bad query params out of the URL after parsing
 - use `throwInDev` to fail loudly during development while keeping production safe
 
+## Release Contract
+
+- bump `angular/packages/angular-url-state/package.json`
+- tag `angular-url-state-v<version>`
+- let `.github/workflows/release-angular-url-state.yml` validate, publish, and create the release
+
 ## Multiple Instances and Route Transitions
 
 This note only matters in a narrow set of component designs.

@@ -34,7 +34,7 @@ export interface DemoPackageEntry {
 const ANGULAR_URL_STATE_DOCS = [
   {
     label: 'Package README',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-url-state/README.md',
+    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md',
   },
   {
     label: 'Deep package notes',
@@ -49,7 +49,7 @@ const ANGULAR_URL_STATE_DOCS = [
 const ANGULAR_QUERY_FORM_DOCS = [
   {
     label: 'Package README',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-query-form/README.md',
+    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-form/README.md',
   },
   {
     label: 'Deep package notes',
@@ -73,11 +73,11 @@ export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   docsLinks: [
     {
       label: 'API reference',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-url-state/README.md#api-reference',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md#api-reference',
     },
     {
       label: 'Param codecs',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-url-state/README.md#param-codecs',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md#param-codecs',
     },
     {
       label: 'Deep package notes',
@@ -103,7 +103,7 @@ export const ANGULAR_URL_STATE_DASHBOARD_DEMO: DemoPageEntry = {
   docsLinks: [
     {
       label: 'Examples',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-url-state/README.md#examples',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md#examples',
     },
     {
       label: 'Options and defaults',
@@ -145,7 +145,7 @@ export const ANGULAR_QUERY_FORM_ORDERS_DEMO: DemoPageEntry = {
   docsLinks: [
     {
       label: 'Package README',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-query-form/README.md',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-form/README.md',
     },
     {
       label: 'Deep package notes',
@@ -153,7 +153,7 @@ export const ANGULAR_QUERY_FORM_ORDERS_DEMO: DemoPageEntry = {
     },
     {
       label: 'URL state package',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-url-state/README.md',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md',
     },
   ],
   codeSample: {
@@ -175,7 +175,7 @@ export const ANGULAR_QUERY_FORM_RECOVERY_DEMO: DemoPageEntry = {
   docsLinks: [
     {
       label: 'Query-form package',
-      href: 'https://github.com/HexGuard/hexguard/blob/main/packages/angular-query-form/README.md',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-form/README.md',
     },
     {
       label: 'URL state invalid-param behavior',

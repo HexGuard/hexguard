@@ -10,14 +10,14 @@
     "url-state",
     "hexguard"
   ],
-  "homepage": "https://github.com/hexguard/hexguard/tree/main/packages/angular-url-state",
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-url-state",
   "bugs": {
     "url": "https://github.com/hexguard/hexguard/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hexguard/hexguard.git",
-    "directory": "packages/angular-url-state"
+    "directory": "angular/packages/angular-url-state"
   },
   "license": "MIT",
   "peerDependencies": {

@@ -18,6 +18,8 @@
 - [x] Add a package decision record for how .NET packages will coexist with Angular packages in the monorepo.
 - [x] Define the initial dedicated .NET workspace area and root command conventions.
 - [x] Propose a dedicated `angular/` workspace target that isolates Angular-specific code from the repo root.
+- [x] Write a staged Angular workspace migration plan with exact file moves and wrapper-script changes.
+- [x] Propose the final thin root `package.json` and CI shape for split `angular/` and `dotnet/` workspaces.
 
 ## Sidenotes
 
@@ -26,7 +28,7 @@
 
 ## Later
 
-- [ ] Migrate the current Angular workspace into a top-level `angular/` area once release and documentation churn is low enough to absorb the move.
+- [x] Execute the staged Angular workspace move into `angular/` and switch the repo root to wrapper-based Angular commands.
 - [ ] Add changelog generation tied to package-scoped releases.
 - [ ] Introduce smoke tests for published tarballs in a clean consumer fixture.
 - [ ] Add package ownership metadata once the roadmap turns into multiple maintainers.

@@ -1,6 +1,6 @@
 # Demo Runbook
 
-The demo app lives in `apps/demo-angular` and exists for three reasons:
+The demo app lives in `angular/apps/demo-angular` and exists for three reasons:
 
 - explain the intended library usage with realistic UI flows
 - give contributors a fast manual verification surface
@@ -10,6 +10,7 @@ The demo app lives in `apps/demo-angular` and exists for three reasons:
 
 ```bash
 pnpm install
+pnpm angular:install
 pnpm start
 ```
 
@@ -31,11 +32,11 @@ are retained while the demo app uses package-aware routes.
 
 The app is organized as an Angular package showcase:
 
-- `apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata used by navigation, routes, docs links, and tests
-- `apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
-- `apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
-- `apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, and URL-tracking helpers
-- `apps/demo-angular/src/app/generated/demo-snippets.ts`: generated source excerpts shown in the demo inspector panels
+- `angular/apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata used by navigation, routes, docs links, and tests
+- `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
+- `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
+- `angular/apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, and URL-tracking helpers
+- `angular/apps/demo-angular/src/app/generated/demo-snippets.ts`: generated source excerpts shown in the demo inspector panels
 
 Run `pnpm demo:snippets` after changing marked demo source snippets. The build, app tests, and
 Playwright scripts run it automatically.
@@ -77,7 +78,7 @@ Run the end-to-end suite:
 pnpm test:e2e
 ```
 
-The tests start the Angular demo automatically through `playwright.config.ts`.
+The tests start the Angular demo automatically through `angular/playwright.config.ts`.
 
 ## Manual Verification Checklist
 

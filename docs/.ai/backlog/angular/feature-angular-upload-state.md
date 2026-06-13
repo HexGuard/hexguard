@@ -54,11 +54,12 @@ teams commonly rebuild progress tracking, retry logic, and failed-upload UX on e
 
 - Revisit direct composition with a future cross-stack uploads contract.
 - Decide whether drag-and-drop helpers belong in a companion package.---
-id: feature-angular-upload-state
-type: feature
-status: proposed
-created: 2026-06-13
-package: '@hexguard/angular-upload-state'
+  id: feature-angular-upload-state
+  type: feature
+  status: proposed
+  created: 2026-06-13
+  package: '@hexguard/angular-upload-state'
+
 ---
 
 # Angular Upload State Package

@@ -7,7 +7,7 @@ Date: 2026-06-13
 
 The repo now separates Angular and .NET into different spaces inside one strategy repo. After accepting that topology, the next missing piece is a concrete home for future .NET libraries, tests, and sample hosts.
 
-Without a dedicated workspace area, .NET packages would either inherit Angular-oriented assumptions from `packages/` or scatter across ad hoc folders. That would make AI-assisted planning, root command conventions, and package discovery less reliable.
+Without a dedicated workspace area, .NET packages would either inherit Angular-oriented assumptions from `angular/packages/` or scatter across ad hoc folders. That would make AI-assisted planning, root command conventions, and package discovery less reliable.
 
 ## Decision
 

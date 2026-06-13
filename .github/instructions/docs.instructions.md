@@ -3,7 +3,7 @@ description: 'Use when editing repo documentation, package docs, or roadmap cont
 applyTo:
   - 'README.md'
   - 'docs/**/*.md'
-  - 'packages/angular-url-state/README.md'
+  - 'angular/packages/angular-url-state/README.md'
   - 'CONTRIBUTING.md'
 ---
 

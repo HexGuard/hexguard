@@ -1,6 +1,24 @@
 import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
-import { format } from 'prettier';
+import { format, resolveConfig } from 'prettier';
+
+const generatedSnippetsPath = resolve('apps/demo-angular/src/app/generated/demo-snippets.ts');
+const syntheticSnippetPath = resolve(
+  'apps/demo-angular/src/app/generated/demo-snippet.synthetic.ts',
+);
+
+async function formatWithResolvedConfig(source, filepath) {
+  const resolvedConfig =
+    (await resolveConfig(filepath, {
+      editorconfig: true,
+    })) ?? {};
+
+  return format(source, {
+    ...resolvedConfig,
+    filepath,
+  });
+}
 
 const snippets = [
   {
@@ -8,32 +26,40 @@ const snippets = [
     marker: 'orders-demo-state',
     title: 'Orders demo state setup',
     description: 'Generated from the real Orders demo component source.',
-    sourcePath:
+    workspacePath:
       'apps/demo-angular/src/app/features/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
   },
   {
     id: 'angular-url-state/dashboard-demo-state',
     marker: 'dashboard-demo-state',
     title: 'Dashboard demo state setup',
     description: 'Generated from the real Dashboard demo component source.',
-    sourcePath:
+    workspacePath:
       'apps/demo-angular/src/app/features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
   },
   {
     id: 'angular-query-form/orders-demo-state',
     marker: 'query-form-orders-demo',
     title: 'Orders query-form demo setup',
     description: 'Generated from the real Orders Query Form demo component source.',
-    sourcePath:
+    workspacePath:
       'apps/demo-angular/src/app/features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
   },
   {
     id: 'angular-query-form/recovery-demo-state',
     marker: 'query-form-recovery-demo',
     title: 'Recovery query-form demo setup',
     description: 'Generated from the real Recovery Query Form demo component source.',
-    sourcePath:
+    workspacePath:
       'apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
   },
 ];
 
@@ -60,7 +86,7 @@ function extractSnippet(source, marker) {
 
 async function formatClassMemberSnippet(code) {
   const wrapped = `class DemoSnippet {\n${code}\n}\n`;
-  const formatted = await format(wrapped, { parser: 'typescript', singleQuote: true });
+  const formatted = await formatWithResolvedConfig(wrapped, syntheticSnippetPath);
   const bodyStart = formatted.indexOf('{') + 1;
   const bodyEnd = formatted.lastIndexOf('}');
   const body = formatted
@@ -79,7 +105,7 @@ async function formatClassMemberSnippet(code) {
 
 const entries = await Promise.all(
   snippets.map(async (snippet) => {
-    const source = readFileSync(snippet.sourcePath, 'utf8');
+    const source = readFileSync(snippet.workspacePath, 'utf8');
 
     return {
       ...snippet,
@@ -119,6 +145,6 @@ export const DEMO_SOURCE_SNIPPETS: Record<string, DemoSourceSnippet> = ${JSON.st
 `;
 
 writeFileSync(
-  'apps/demo-angular/src/app/generated/demo-snippets.ts',
-  await format(generated, { parser: 'typescript', singleQuote: true }),
+  generatedSnippetsPath,
+  await formatWithResolvedConfig(generated, generatedSnippetsPath),
 );

@@ -53,11 +53,12 @@ detail, edit, and modal routes, and teams rebuild their own back-link and restor
 
 - Revisit scroll restoration only if it stays deterministic and framework-friendly.
 - Compare overlap with page-context once both proposals mature.---
-id: feature-angular-route-memory
-type: feature
-status: proposed
-created: 2026-06-13
-package: '@hexguard/angular-route-memory'
+  id: feature-angular-route-memory
+  type: feature
+  status: proposed
+  created: 2026-06-13
+  package: '@hexguard/angular-route-memory'
+
 ---
 
 # Angular Route Memory Package

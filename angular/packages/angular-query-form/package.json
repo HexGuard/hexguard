@@ -10,14 +10,14 @@
     "url-state",
     "hexguard"
   ],
-  "homepage": "https://github.com/hexguard/hexguard/tree/main/packages/angular-query-form",
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-query-form",
   "bugs": {
     "url": "https://github.com/hexguard/hexguard/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hexguard/hexguard.git",
-    "directory": "packages/angular-query-form"
+    "directory": "angular/packages/angular-query-form"
   },
   "license": "MIT",
   "peerDependencies": {

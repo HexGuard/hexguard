@@ -111,6 +111,6 @@ route transitions.
 
 ## Release Contract
 
-- bump `packages/angular-url-state/package.json`
+- bump `angular/packages/angular-url-state/package.json`
 - tag `angular-url-state-v<version>`
 - let `.github/workflows/release-angular-url-state.yml` validate, publish, and create the release

@@ -2,16 +2,18 @@
 
 ## Repo Map
 
-- `packages/angular-url-state`: publishable Angular library and public API surface
+- `angular/`: Angular workspace for libraries, demo app, Playwright coverage, and Angular-specific tooling
+- `angular/packages/angular-url-state`: publishable Angular library and public API surface
 - `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
-- `apps/demo-angular`: docs-grade demo used by unit and Playwright coverage
+- `angular/apps/demo-angular`: docs-grade demo used by unit and Playwright coverage
 - `docs/`: package guides, demo runbook, roadmap, and AI workflow docs
 - `.github/workflows/`: CI, release, and publish automation
 
 ## Build and Test
 
 - use Node `22.22.3` or newer and pnpm `10.27.0`
-- install with `pnpm install`
+- install root-shell tooling with `pnpm install`
+- install Angular workspace dependencies with `pnpm angular:install`
 - validate library work with `pnpm test:lib` and `pnpm build:lib`
 - validate demo work with `pnpm test:app` and `pnpm test:e2e`
 - validate .NET workspace work with `pnpm dotnet:restore`, `pnpm dotnet:build`, and `pnpm dotnet:test`

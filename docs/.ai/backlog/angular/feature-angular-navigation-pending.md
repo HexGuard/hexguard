@@ -52,11 +52,12 @@ pending markers, especially when resolvers, async page setup, or lazy route data
 
 - Revisit integration with page-context and async-state once those packages are mature.
 - Decide whether skeleton-oriented helpers belong in a companion package.---
-id: feature-angular-navigation-pending
-type: feature
-status: proposed
-created: 2026-06-13
-package: '@hexguard/angular-navigation-pending'
+  id: feature-angular-navigation-pending
+  type: feature
+  status: proposed
+  created: 2026-06-13
+  package: '@hexguard/angular-navigation-pending'
+
 ---
 
 # Angular Navigation Pending Package

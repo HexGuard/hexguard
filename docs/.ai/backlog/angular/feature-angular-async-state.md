@@ -125,25 +125,25 @@ Template helpers can still exist, but they should be thin presentation adapters 
 
 1. Define separate minimal lifecycle contracts for async values and async actions.
 2. Decide whether the value status model should be `idle | loading | loaded | error | reloading`
-  and whether empty-state distinction belongs as a derived helper instead of a core status.
+   and whether empty-state distinction belongs as a derived helper instead of a core status.
 3. Decide whether the action status model should be `idle | pending | succeeded | failed` or
-  whether success should remain a derived signal over `lastResult` and `error`.
+   whether success should remain a derived signal over `lastResult` and `error`.
 4. Implement a signal-backed `asyncState()` factory with typed value, error, and status signals.
 5. Implement a sibling `asyncAction()` factory with typed input, result, error, and pending state.
 6. Support explicit `load()`, `reload()`, `reset()`, and `setValue()` operations for async state.
 7. Support explicit `run()`, `reset()`, and duplicate-run policy for async actions.
 8. Define the error-retention policy during reloads so templates can distinguish first-load errors
-  from background refresh failures.
+   from background refresh failures.
 9. Define the result-retention policy for actions so templates can distinguish first-run failures,
-  latest success, and subsequent retry attempts.
+   latest success, and subsequent retry attempts.
 10. Add derived helpers such as `isLoading`, `isLoaded`, `hasValue`, `isEmpty`, `isReloading`,
-   and `pending` only if they simplify ergonomics without duplicating the status model.
+    and `pending` only if they simplify ergonomics without duplicating the status model.
 11. Add focused tests for first load, successful reload, failed reload, manual reset, empty
-   values, submit success, submit failure, and duplicate-run behavior.
+    values, submit success, submit failure, and duplicate-run behavior.
 12. Decide whether template helpers belong in v0.1 or should wait until the core utility proves
-   itself.
+    itself.
 13. If template helpers are included, keep them optional and thin so they do not become the only
-   supported rendering path.
+    supported rendering path.
 14. Add realistic demos such as dashboard cards, retryable detail views, and save/submit flows.
 
 ## Validation

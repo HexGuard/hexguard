@@ -1,6 +1,6 @@
 ---
-description: 'Use when editing HexGuard library packages under packages/**. Covers clear implementation, performance, testing, code documentation, public API docs, demo sync, packaging, and release readiness for publishable libraries.'
-applyTo: 'packages/**'
+description: 'Use when editing HexGuard library packages under angular/packages/**. Covers clear implementation, performance, testing, code documentation, public API docs, demo sync, packaging, and release readiness for publishable libraries.'
+applyTo: 'angular/packages/**'
 ---
 
 # Library Development

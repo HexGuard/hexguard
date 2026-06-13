@@ -13,7 +13,7 @@ A single flat planning surface makes it too easy to mix Angular-only, .NET-only,
 
 Keep one strategy repo, but treat Angular and .NET as separate spaces.
 
-- Angular remains in the existing Angular-oriented area, with npm packages under `packages/` and Angular apps under `apps/`.
+- Angular now lives in a dedicated top-level `angular/` workspace, with npm packages under `angular/packages/`, Angular apps under `angular/apps/`, and frontend tooling under `angular/`.
 - .NET will get its own dedicated top-level workspace area when scaffolding starts, with separate room for source, tests, and samples.
 - Cross-stack package families keep one shared planning brief so common semantics are designed once before stack-specific implementations diverge.
 - Public workflow docs and planning records stay under `docs/.ai/`, with detailed execution briefs under `docs/.ai/backlog/` split by stack.

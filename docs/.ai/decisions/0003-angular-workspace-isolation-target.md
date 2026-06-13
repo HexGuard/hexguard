@@ -1,6 +1,6 @@
 # 0003 Angular Workspace Isolation Target
 
-Status: Proposed  
+Status: Accepted  
 Date: 2026-06-13
 
 ## Context
@@ -19,6 +19,10 @@ repo governance.
 Move Angular-specific code and tooling into a dedicated top-level `angular/` space, while keeping
 the repository root as a thin cross-stack shell.
 
+The staged execution plan for that move lives in
+`docs/.ai/backlog/angular/chore-angular-workspace-migration.md`. The proposed final root shell and
+CI shape lives in `docs/.ai/decisions/0004-root-shell-and-ci-shape.md`.
+
 ## Target Structure
 
 ```text
@@ -27,9 +31,11 @@ hexguard/
     angular.json
     package.json
     pnpm-workspace.yaml
+    pnpm-lock.yaml
     tsconfig.json
     eslint.config.mjs
     playwright.config.ts
+    playwright/
     scripts/
     apps/
       demo-angular/
@@ -47,16 +53,16 @@ hexguard/
     packages/
   .github/
   package.json
-  pnpm-workspace.yaml
+  pnpm-lock.yaml
 ```
 
 ## Root Responsibilities After the Move
 
 - Keep root docs, repo policies, CI, and security files at the top level.
-- Keep a thin root `package.json` only for cross-stack wrapper commands such as combined build,
-  validation, and release entry points.
-- Keep the root `pnpm-workspace.yaml` limited to delegating into the Angular workspace rather than
-  acting as the Angular workspace itself.
+- Keep a thin root `package.json` for cross-stack wrapper commands and repo-wide tooling that is
+  not Angular-specific, such as formatting docs and workflow files.
+- Do not keep the root as the Angular pnpm workspace. After the move, Angular owns its own
+  `pnpm-workspace.yaml` and `pnpm-lock.yaml` inside `angular/`.
 
 ## Angular Responsibilities After the Move
 
@@ -77,7 +83,7 @@ hexguard/
 - The migration should be staged carefully because it will touch import paths, workspace commands,
   CI, and documentation links.
 
-## Deferred Implementation Notes
+## Implementation Notes
 
 1. Do not move Angular files until current release and documentation churn is low enough to absorb
    a path-heavy migration safely.
