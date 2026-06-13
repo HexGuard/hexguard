@@ -33,6 +33,32 @@
         }
       }
     },
+    "angular-query-form": {
+      "projectType": "library",
+      "root": "packages/angular-query-form",
+      "sourceRoot": "packages/angular-query-form/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-query-form/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-query-form/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-query-form/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

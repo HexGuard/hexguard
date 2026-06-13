@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+.recovery-actions,
+.recovery-pager,
+.recovery-view-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.recovery-controls-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.recovery-field--wide,
+.recovery-view-fieldset {
+  grid-column: 1 / -1;
+}
+
+.recovery-view-fieldset {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.recovery-view-fieldset legend {
+  padding: 0;
+  margin-bottom: 0.2rem;
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.recovery-results-head {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.recovery-results-summary,
+.recovery-incident-card p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.recovery-incident-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.recovery-incident-card {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.2rem;
+}
+
+.recovery-incident-card__head {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recovery-incident-card h4 {
+  margin: 0;
+}
+
+.recovery-incident-card strong,
+.recovery-empty-state {
+  color: var(--color-ink);
+}
+
+.recovery-severity-chip {
+  display: inline-flex;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 180, 91, 0.18);
+  color: #8a4f00;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.recovery-incident-detail {
+  line-height: 1.5;
+}
+
+.recovery-empty-state {
+  padding: 1.4rem;
+}
+
+@media (max-width: 720px) {
+  .recovery-pager {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

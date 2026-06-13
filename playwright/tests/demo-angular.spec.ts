@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 
 const ordersRoute = '/packages/angular-url-state/orders';
 const dashboardRoute = '/packages/angular-url-state/dashboard';
+const queryFormOrdersRoute = '/packages/angular-query-form/orders';
+const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
 
 test.describe('demo-angular', () => {
   test('shows the Angular URL State package overview', async ({ page }) => {
@@ -10,6 +12,14 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-angular-url-state')).toBeVisible();
     await expect(page.getByTestId('package-demo-orders')).toBeVisible();
     await expect(page.getByTestId('package-demo-dashboard')).toBeVisible();
+  });
+
+  test('shows the Angular Query Form package overview', async ({ page }) => {
+    await page.goto('/packages/angular-query-form');
+
+    await expect(page.getByTestId('package-angular-query-form')).toBeVisible();
+    await expect(page.getByTestId('package-query-form-demo-query-form-orders')).toBeVisible();
+    await expect(page.getByTestId('package-query-form-demo-query-form-recovery')).toBeVisible();
   });
 
   test('hydrates the orders page from the page query param', async ({ page }) => {
@@ -168,5 +178,129 @@ test.describe('demo-angular', () => {
 
     await page.goForward();
     await expect(page.getByTestId('dashboard-tab-revenue')).toHaveClass(/tab-button--active/);
+  });
+
+  test('hydrates the query-form orders page from query params', async ({ page }) => {
+    await page.goto(`${queryFormOrdersRoute}?page=2&tags=enterprise`);
+
+    await expect(page.getByTestId('query-form-orders-page')).toBeVisible();
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?page=2&tags=enterprise$/);
+    await expect(page.getByTestId('query-form-orders-page-indicator')).toHaveText('Page 2 of 2');
+    await expect(page.getByTestId('query-form-orders-page-input')).toHaveValue('2');
+    await expect(page.getByTestId('query-form-orders-tag-enterprise')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+    await expect(page.getByTestId('query-form-orders-result-summary')).toContainText(
+      'Showing 6-7 of 7 matching orders.',
+    );
+  });
+
+  test('keeps query-form orders shareable and resets page when filters change', async ({
+    page,
+  }) => {
+    await page.goto(queryFormOrdersRoute);
+
+    await page.getByTestId('query-form-orders-page-input').fill('2');
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?page=2$/);
+
+    await page.getByTestId('query-form-orders-search-input').fill('north');
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?search=north$/);
+    await expect(page.getByTestId('query-form-orders-page-input')).toHaveValue('1');
+    await expect(page.getByTestId('query-form-orders-result-summary')).toContainText(
+      'Showing 1-1 of 1 matching orders.',
+    );
+
+    await page.getByTestId('query-form-orders-tag-priority').click();
+
+    await expect(page).toHaveURL(
+      /\/packages\/angular-query-form\/orders\?search=north&tags=priority/,
+    );
+    await expect(page.getByTestId('query-form-orders-current-url')).toContainText(
+      '/packages/angular-query-form/orders?search=north&tags=priority',
+    );
+    await expect(page.getByTestId('query-form-orders-snapshot-json')).toContainText(
+      '"search": "north"',
+    );
+    await expect(page.getByTestId('query-form-orders-snapshot-json')).toContainText('"priority"');
+
+    await page.getByTestId('query-form-orders-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('query-form-orders-code-sample')).toContainText(
+      'readonly query = queryForm',
+    );
+    await expect(page.getByTestId('query-form-orders-code-sample')).toContainText(
+      'resetKeysOnChange',
+    );
+
+    await page.getByTestId('query-form-orders-reset-filters').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders$/);
+    await expect(page.getByTestId('query-form-orders-current-url')).toHaveText(
+      '/packages/angular-query-form/orders',
+    );
+  });
+
+  test('navigates between query-form demos with the reusable strip', async ({ page }) => {
+    await page.goto(queryFormOrdersRoute);
+
+    await expect(page.getByTestId('query-form-orders-demo-navigation')).toBeVisible();
+    await expect(
+      page.getByTestId('query-form-orders-demo-navigation-demo-query-form-orders'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('query-form-orders-demo-navigation-demo-query-form-recovery').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/recovery$/);
+    await expect(page.getByTestId('query-form-recovery-page')).toBeVisible();
+    await expect(
+      page.getByTestId('query-form-recovery-demo-navigation-demo-query-form-recovery'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('query-form-recovery-demo-navigation-overview').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form$/);
+    await expect(page.getByTestId('package-angular-query-form')).toBeVisible();
+  });
+
+  test('cleans invalid query params on the recovery demo and replays state through history', async ({
+    page,
+  }) => {
+    await page.goto(`${queryFormRecoveryRoute}?query=api&severity=panic&page=oops&view=matrix`);
+
+    await expect(page.getByTestId('query-form-recovery-page')).toBeVisible();
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/recovery\?query=api$/);
+    await expect(page.getByTestId('query-form-recovery-search-input')).toHaveValue('api');
+    await expect(page.getByTestId('query-form-recovery-severity-select')).toHaveValue('all');
+    await expect(page.getByTestId('query-form-recovery-page-input')).toHaveValue('1');
+    await expect(page.getByTestId('query-form-recovery-view-summary')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+    await expect(page.getByTestId('query-form-recovery-cleanup-summary')).toContainText(
+      'Invalid query params are removed after parse.',
+    );
+
+    await page.getByTestId('query-form-recovery-view-detail').click();
+    await expect(page).toHaveURL(/view=detail/);
+
+    await page.getByTestId('query-form-recovery-page-input').fill('2');
+    await expect(page).toHaveURL(/page=2/);
+
+    await page.goBack();
+    await expect(page.getByTestId('query-form-recovery-page-input')).toHaveValue('1');
+    await expect(page).not.toHaveURL(/page=2/);
+
+    await page.goBack();
+    await expect(page.getByTestId('query-form-recovery-view-summary')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+    await expect(page).not.toHaveURL(/view=detail/);
+
+    await page.getByTestId('query-form-recovery-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('query-form-recovery-code-sample')).toContainText(
+      "invalidParamBehavior: 'removeInvalid'",
+    );
+    await expect(page.getByTestId('query-form-recovery-code-sample')).toContainText(
+      "history: 'push'",
+    );
   });
 });

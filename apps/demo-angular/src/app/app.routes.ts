@@ -1,10 +1,15 @@
 import type { Routes } from '@angular/router';
 
 import {
+  ANGULAR_QUERY_FORM_ORDERS_DEMO,
+  ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
   ANGULAR_URL_STATE_ORDERS_DEMO,
   ANGULAR_URL_STATE_PACKAGE,
 } from './demo-registry';
+import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
+import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
+import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
 import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
@@ -31,12 +36,35 @@ export const routes: Routes = [
     title: 'Dashboard Filters Demo',
   },
   {
+    path: 'packages/angular-query-form',
+    component: AngularQueryFormHomePageComponent,
+    title: 'Angular Query Form Demos',
+  },
+  {
+    path: 'packages/angular-query-form/orders',
+    component: OrdersQueryFormDemoPageComponent,
+    title: 'Orders Query Form Demo',
+  },
+  {
+    path: 'packages/angular-query-form/recovery',
+    component: RecoveryQueryFormDemoPageComponent,
+    title: 'Recovery Query Form Demo',
+  },
+  {
     path: 'orders',
     redirectTo: ANGULAR_URL_STATE_ORDERS_DEMO.route.slice(1),
   },
   {
     path: 'dashboard',
     redirectTo: ANGULAR_URL_STATE_DASHBOARD_DEMO.route.slice(1),
+  },
+  {
+    path: 'query-form-orders',
+    redirectTo: ANGULAR_QUERY_FORM_ORDERS_DEMO.route.slice(1),
+  },
+  {
+    path: 'query-form-recovery',
+    redirectTo: ANGULAR_QUERY_FORM_RECOVERY_DEMO.route.slice(1),
   },
   {
     path: '**',

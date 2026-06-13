@@ -19,6 +19,22 @@ const snippets = [
     sourcePath:
       'apps/demo-angular/src/app/features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
   },
+  {
+    id: 'angular-query-form/orders-demo-state',
+    marker: 'query-form-orders-demo',
+    title: 'Orders query-form demo setup',
+    description: 'Generated from the real Orders Query Form demo component source.',
+    sourcePath:
+      'apps/demo-angular/src/app/features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
+  },
+  {
+    id: 'angular-query-form/recovery-demo-state',
+    marker: 'query-form-recovery-demo',
+    title: 'Recovery query-form demo setup',
+    description: 'Generated from the real Recovery Query Form demo component source.',
+    sourcePath:
+      'apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
+  },
 ];
 
 function extractSnippet(source, marker) {

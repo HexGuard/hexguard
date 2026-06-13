@@ -3,22 +3,26 @@
 This page tracks the published package, the next planned packages, and how they relate to one
 another.
 
-## Current Package
+## Current Packages
 
-| Package                       | Status    | Description                                                                             | Primary Docs                                                                                       |
-| ----------------------------- | --------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state` | Available | Type-safe, signal-first synchronization between Angular state and URL query parameters. | [Deep Dive](angular-url-state.md), [npm-facing README](../../packages/angular-url-state/README.md) |
+| Package                        | Status      | Description                                                                                        | Primary Docs                                                                                         |
+| ------------------------------ | ----------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`  | Available   | Type-safe, signal-first synchronization between Angular state and URL query parameters.            | [Deep Dive](angular-url-state.md), [npm-facing README](../../packages/angular-url-state/README.md)   |
+| `@hexguard/angular-query-form` | In Progress | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery. | [Deep Dive](angular-query-form.md), [npm-facing README](../../packages/angular-query-form/README.md) |
 
-## Planned Package Briefs
+## Package Status Notes
 
 <a id="package-angular-query-form"></a>
 
 ### `@hexguard/angular-query-form`
 
-Status: Planned
+Status: In Progress
 
-This package is intended to bind Angular form state to query parameters on top of
-`@hexguard/angular-url-state` without forcing form concerns into the core URL-state package.
+This package now exists in the repo as a Reactive Forms companion to `@hexguard/angular-url-state`.
+It focuses on typed top-level form binding, dependent reset rules such as `search -> page`, and
+demo-driven coverage for history replay and malformed-link recovery.
+
+## Planned Package Briefs
 
 <a id="package-angular-submit-lock"></a>
 
@@ -28,6 +32,16 @@ Status: Planned
 
 Focuses on preventing duplicate submissions and exposing explicit in-flight state for forms and
 command-style interactions.
+
+<a id="package-angular-query-signal-forms"></a>
+
+### `@hexguard/angular-query-signal-forms`
+
+Status: Proposed
+
+Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the
+Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form
+surface continues to evolve.
 
 <a id="package-angular-api-errors"></a>
 

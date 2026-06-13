@@ -1,9 +1,9 @@
-name: Release Angular URL State
+name: Release Angular Query Form
 
 on:
   push:
     tags:
-      - 'angular-url-state-v*'
+      - 'angular-query-form-v*'
   workflow_dispatch:
     inputs:
       npm_tag:
@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   publish:
-    name: Publish @hexguard/angular-url-state
+    name: Publish @hexguard/angular-query-form
     runs-on: ubuntu-latest
     environment: npm
 
@@ -59,21 +59,21 @@ jobs:
           pnpm test:e2e
 
       - name: Build library
-        run: pnpm build:lib:url-state
+        run: pnpm build:lib:query-form
 
       - name: Verify package artifact
-        run: pnpm verify:package:url-state
+        run: pnpm verify:package:query-form
 
       - name: Resolve publish metadata
         id: metadata
         shell: bash
         run: |
-          PACKAGE_VERSION=$(node -p "require('./packages/angular-url-state/package.json').version")
-          PACKAGE_NAME=$(node -p "require('./packages/angular-url-state/package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./packages/angular-query-form/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./packages/angular-query-form/package.json').name")
           TAG_NAME="${GITHUB_REF_NAME}"
 
           if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
-            EXPECTED_TAG="angular-url-state-v${PACKAGE_VERSION}"
+            EXPECTED_TAG="angular-query-form-v${PACKAGE_VERSION}"
 
             if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
               echo "Tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
@@ -89,7 +89,7 @@ jobs:
             CREATE_RELEASE="true"
           fi
 
-          TARBALL_PATH=$(find .artifacts -maxdepth 1 -name '*.tgz' -print -quit)
+          TARBALL_PATH=$(find .artifacts -maxdepth 1 -name 'hexguard-angular-query-form-*.tgz' -print -quit)
 
           if [[ -z "$TARBALL_PATH" ]]; then
             echo 'No package tarball was produced in .artifacts.' >&2
@@ -107,7 +107,7 @@ jobs:
 
       - name: Publish package to npm
         run: |
-          pnpm --dir dist/angular-url-state publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+          pnpm --dir dist/angular-query-form publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

@@ -1,0 +1,197 @@
+<demo-page-layout testId="query-form-orders-page">
+  <demo-navigation-strip demoNavigation testId="query-form-orders-demo-navigation" [demo]="demo" />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="query-form-orders-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Query Form</p>
+        <h2>Reactive Forms filters with shareable query state.</h2>
+      </div>
+
+      <div class="query-orders-actions">
+        <span class="demo-hint-pill" data-testid="query-form-orders-binding-mode"
+          >Reactive Forms + URL state</span
+        >
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-orders-reset-filters"
+          (click)="resetFilters()"
+        >
+          Reset filters
+        </button>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      The form owns the editing experience while the URL stays canonical. Search, page size, and tag
+      changes reset pagination through <code>resetKeysOnChange</code> instead of page-local glue
+      code.
+    </p>
+
+    <form class="query-orders-controls-grid" [formGroup]="form">
+      <label class="demo-field">
+        <span>Search</span>
+        <input
+          type="search"
+          class="demo-input"
+          formControlName="search"
+          placeholder="Customer, region, or order ID"
+          data-testid="query-form-orders-search-input"
+        />
+      </label>
+
+      <label class="demo-field">
+        <span>Status</span>
+        <select
+          class="demo-select"
+          formControlName="status"
+          data-testid="query-form-orders-status-select"
+        >
+          @for (status of statusOptions; track status) {
+            <option [value]="status">{{ status }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="demo-field">
+        <span>Page</span>
+        <input
+          type="number"
+          min="1"
+          class="demo-input"
+          formControlName="page"
+          data-testid="query-form-orders-page-input"
+        />
+      </label>
+
+      <label class="demo-field">
+        <span>Page size</span>
+        <select
+          class="demo-select"
+          formControlName="pageSize"
+          data-testid="query-form-orders-page-size-select"
+        >
+          @for (size of pageSizeOptions; track size) {
+            <option [ngValue]="size">{{ size }} rows</option>
+          }
+        </select>
+      </label>
+
+      <fieldset class="query-orders-tag-fieldset" data-testid="query-form-orders-tags-fieldset">
+        <legend>Tags</legend>
+        <div class="query-orders-tag-row">
+          @for (tag of tagOptions; track tag) {
+            <button
+              type="button"
+              class="demo-tab-button"
+              [class.demo-tab-button--active]="form.controls.tags.value.includes(tag)"
+              [attr.data-testid]="'query-form-orders-tag-' + tag"
+              (click)="toggleTag(tag)"
+            >
+              {{ tag }}
+            </button>
+          }
+        </div>
+      </fieldset>
+    </form>
+
+    <demo-status-strip
+      testId="query-form-orders-status-strip"
+      summaryTestId="query-form-orders-result-summary"
+      urlTestId="query-form-orders-current-url"
+      [summary]="resultSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="query-form-orders-table-card"
+  >
+    <div class="query-orders-table-head">
+      <div>
+        <p class="demo-eyebrow">Query-form snapshot</p>
+        <h3>Orders state</h3>
+      </div>
+      <div class="query-orders-pager">
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-orders-previous-page"
+          (click)="goToPage(currentPage() - 1)"
+        >
+          Previous
+        </button>
+        <span data-testid="query-form-orders-page-indicator"
+          >Page {{ currentPage() }} of {{ totalPages() }}</span
+        >
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-orders-next-page"
+          (click)="goToPage(currentPage() + 1)"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <div class="query-orders-table-wrap" data-testid="query-form-orders-table-wrap">
+      <table class="query-orders-table" data-testid="query-form-orders-table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Region</th>
+            <th>Age</th>
+            <th>Total</th>
+            <th>Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (record of pagedOrders(); track record.id) {
+            <tr data-testid="query-form-orders-row">
+              <td>
+                <strong>{{ record.id }}</strong>
+                <span class="query-orders-status-chip">{{ record.status }}</span>
+              </td>
+              <td>{{ record.customer }}</td>
+              <td>{{ record.region }}</td>
+              <td>{{ record.ageDays }}d</td>
+              <td>{{ currency(record.total) }}</td>
+              <td>{{ record.tags.join(', ') }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td
+                colspan="6"
+                class="query-orders-empty-state"
+                data-testid="query-form-orders-empty-state"
+              >
+                No rows matched the current combination of query-form values.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="query-form-orders-inspector-panel"
+    snapshotTestId="query-form-orders-snapshot-json"
+    codeTestId="query-form-orders-code-sample"
+    title="Live state and source"
+    summary="Switch between the live query-form snapshot and the generated component excerpt that powers it."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

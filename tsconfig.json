@@ -4,6 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@hexguard/angular-query-form": ["./packages/angular-query-form/src/public-api.ts"],
       "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"]
     },
     "noImplicitOverride": true,
@@ -29,6 +30,12 @@
     },
     {
       "path": "./packages/angular-url-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-query-form/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-query-form/tsconfig.spec.json"
     },
     {
       "path": "./apps/demo-angular/tsconfig.app.json"

@@ -1,0 +1,188 @@
+<demo-page-layout testId="query-form-recovery-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="query-form-recovery-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="query-form-recovery-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Query Form</p>
+        <h2>Recover from malformed links without breaking the form.</h2>
+      </div>
+
+      <div class="recovery-actions">
+        <span class="demo-hint-pill" data-testid="query-form-recovery-history-mode"
+          >History mode: push</span
+        >
+        <span class="demo-hint-pill" data-testid="query-form-recovery-invalid-mode"
+          >Invalid strategy: removeInvalid</span
+        >
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-recovery-reset-filters"
+          (click)="resetFilters()"
+        >
+          Reset filters
+        </button>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      This page uses the same form binding surface, but switches URL behavior to push history and
+      remove invalid params. Load it with a bad link, then step through browser history to see the
+      form stay aligned.
+    </p>
+
+    <form class="recovery-controls-grid" [formGroup]="form">
+      <label class="demo-field recovery-field--wide">
+        <span>Search incidents</span>
+        <input
+          type="search"
+          class="demo-input"
+          formControlName="query"
+          placeholder="Service, incident, or owner"
+          data-testid="query-form-recovery-search-input"
+        />
+      </label>
+
+      <label class="demo-field">
+        <span>Severity</span>
+        <select
+          class="demo-select"
+          formControlName="severity"
+          data-testid="query-form-recovery-severity-select"
+        >
+          @for (severity of severityOptions; track severity) {
+            <option [value]="severity">{{ severity }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="demo-field">
+        <span>Page</span>
+        <input
+          type="number"
+          min="1"
+          class="demo-input"
+          formControlName="page"
+          data-testid="query-form-recovery-page-input"
+        />
+      </label>
+
+      <fieldset class="recovery-view-fieldset" data-testid="query-form-recovery-view-fieldset">
+        <legend>View</legend>
+        <div class="recovery-view-row">
+          @for (view of viewOptions; track view) {
+            <button
+              type="button"
+              class="demo-tab-button"
+              [class.demo-tab-button--active]="form.controls.view.value === view"
+              [attr.data-testid]="'query-form-recovery-view-' + view"
+              (click)="form.controls.view.setValue(view)"
+            >
+              {{ view }}
+            </button>
+          }
+        </div>
+      </fieldset>
+    </form>
+
+    <demo-status-strip
+      testId="query-form-recovery-status-strip"
+      summaryTestId="query-form-recovery-cleanup-summary"
+      urlTestId="query-form-recovery-current-url"
+      [summary]="cleanupSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="query-form-recovery-results-card"
+  >
+    <div class="recovery-results-head">
+      <div>
+        <p class="demo-eyebrow">Query-form recovery</p>
+        <h3>Incident list</h3>
+        <p class="recovery-results-summary" data-testid="query-form-recovery-result-summary">
+          {{ resultSummary() }}
+        </p>
+      </div>
+      <div class="recovery-pager">
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-recovery-previous-page"
+          (click)="goToPage(currentPage() - 1)"
+        >
+          Previous
+        </button>
+        <span data-testid="query-form-recovery-page-indicator"
+          >Page {{ currentPage() }} of {{ totalPages() }}</span
+        >
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-recovery-next-page"
+          (click)="goToPage(currentPage() + 1)"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <div class="recovery-incident-grid" [attr.data-view]="form.controls.view.value">
+      @for (incident of pagedIncidents(); track incident.id) {
+        <article
+          class="demo-card recovery-incident-card"
+          data-testid="query-form-recovery-incident-card"
+        >
+          <div class="recovery-incident-card__head">
+            <p class="demo-eyebrow">{{ incident.service }}</p>
+            <span class="recovery-severity-chip">{{ incident.severity }}</span>
+          </div>
+          <h4>{{ incident.title }}</h4>
+          <p>
+            <strong>{{ incident.id }}</strong>
+            <span>Owner: {{ incident.owner }}</span>
+          </p>
+          @if (form.controls.view.value === 'detail') {
+            <p class="recovery-incident-detail">
+              Active for {{ incident.ageMinutes }} minutes. This detail view is part of the URL so
+              history replay is visible in the browser.
+            </p>
+          } @else {
+            <p class="recovery-incident-detail">Active for {{ incident.ageMinutes }} minutes.</p>
+          }
+        </article>
+      } @empty {
+        <article
+          class="demo-card recovery-empty-state"
+          data-testid="query-form-recovery-empty-state"
+        >
+          No incidents matched the current query-form state.
+        </article>
+      }
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="query-form-recovery-inspector-panel"
+    snapshotTestId="query-form-recovery-snapshot-json"
+    codeTestId="query-form-recovery-code-sample"
+    title="Live state and source"
+    summary="This demo focuses on invalid-link cleanup, history replay, and source-backed configuration."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>
