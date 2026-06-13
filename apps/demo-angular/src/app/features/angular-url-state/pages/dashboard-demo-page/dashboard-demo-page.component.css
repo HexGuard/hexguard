@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+.dashboard-actions,
+.dashboard-tabs,
+.dashboard-preset-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dashboard-tabs {
+  margin-top: 0.25rem;
+}
+
+.dashboard-filters-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.dashboard-toggle {
+  display: grid;
+  gap: 0.5rem;
+  align-content: end;
+}
+
+.dashboard-toggle span,
+.dashboard-metric-card strong {
+  color: var(--color-ink);
+}
+
+.dashboard-toggle input {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.dashboard-metric-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.dashboard-metric-card {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.25rem;
+}
+
+.dashboard-metric-card h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+.dashboard-metric-card p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.5;
+}

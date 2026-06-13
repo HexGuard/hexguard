@@ -61,16 +61,31 @@ ordersState.patch({ tags: ['priority', 'enterprise'] });
 
 Registers global defaults for the library through Angular dependency injection.
 
-Supported options:
+The `options` parameter is optional. It sets defaults for every `urlState()` handle created in the
+same injector tree.
 
-- `history: 'replace' | 'push'`
-- `debounceMs: number`
-- `removeDefaultsFromUrl: boolean`
-- `invalidParamBehavior: 'fallbackToDefault' | 'removeInvalid' | 'throwInDev'`
+`urlState(schema, options?)` accepts the same shape for one specific state handle. Resolution order
+is:
+
+1. library defaults
+2. `provideHexGuardUrlState()` defaults
+3. per-call `urlState(schema, options?)` overrides
+
+`debounceMs` is normalized to a non-negative integer. Invalid values fall back to `0`.
+
+| Option                  | Default               | What it controls                                                   | Typical use                                                                                                                                           |
+| ----------------------- | --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `history`               | `'replace'`           | Whether writes replace the current history entry or push a new one | Use `'replace'` for fast-moving filters and search boxes; use `'push'` for tabs, presets, and other state users may navigate with Back/Forward        |
+| `debounceMs`            | `0`                   | Delay before local signal writes trigger router navigation         | Use `150-300` for type-ahead search; keep `0` for clicks, toggles, selects, and pagination                                                            |
+| `removeDefaultsFromUrl` | `true`                | Whether values equal to codec defaults are omitted from the URL    | Keep `true` for short canonical URLs; set `false` if external tooling or shared links depend on explicit default params                               |
+| `invalidParamBehavior`  | `'fallbackToDefault'` | What happens when incoming query params fail to parse              | Use `'fallbackToDefault'` for production-safe behavior, `'removeInvalid'` to scrub bad params, and `'throwInDev'` to catch bad links while developing |
 
 ### `urlState(schema, options?)`
 
 Creates a typed state object whose properties are writable Angular signals.
+
+The optional `options` parameter accepts the same shape described above, but only for this one
+state handle.
 
 ```ts
 const state = urlState({
@@ -215,17 +230,31 @@ When stricter behavior is needed:
 
 ## Multiple Instances and Route Transitions
 
-You can create more than one `urlState()` handle inside the same component when each instance owns
-different query-param keys. Each instance merges unmanaged keys back into the URL, which lets
-independent filter and pagination state compose safely.
+This note only matters in a narrow set of component designs.
 
-Avoid overlapping ownership of the same key across multiple `urlState()` instances. The library
-does not arbitrate conflicting writers for the same query parameter.
+It is safe to split one route into multiple `urlState()` handles when each handle owns different
+query-param keys. A common example is one handle for filters and another for pagination. Each
+instance preserves unmanaged keys when it writes, so those disjoint slices compose correctly.
 
-`urlState()` is scoped to the current Angular injection context. When the hosting component is
-destroyed during a route transition, the library removes its `Location` listener and clears any
-pending debounce timer. Create the state inside the route-aware component that owns that slice of
-URL state.
+The unsupported case is multiple handles trying to own the same key, such as two widgets both
+writing `page` or `search`. In that setup the library does not coordinate competing writers, so the
+last write wins.
+
+This also affects components with debounced URL writes that are destroyed during navigation. The
+library clears the pending timer and removes its `Location` listener when the host component is
+destroyed, so stale writes do not leak into the next route.
+
+Use cases affected by this note:
+
+- one route split into filter state, pagination state, or tab state: supported when keys are disjoint
+- parent and child components that both want to edit the same query param: not recommended
+- long-lived services trying to own route-specific query state across navigation: not recommended
+- debounced search pages that users may leave quickly: supported, because cleanup happens on destroy
+
+For most applications this is not worth "fixing" in the library. Overlapping ownership is usually a
+state-boundary problem, not a missing feature. The simpler pattern is to keep one logical owner for
+each query key and pass signals or update helpers down to child components. A coordination layer is
+only worth building if your app genuinely needs multiple independent editors for the same URL param.
 
 ## Design Notes
 

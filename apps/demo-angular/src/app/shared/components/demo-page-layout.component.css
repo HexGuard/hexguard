@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.demo-page-layout {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+  grid-template-areas:
+    'nav'
+    'intro'
+    'primary'
+    'aside';
+}
+
+.demo-page-layout__intro,
+.demo-page-layout__primary,
+.demo-page-layout__aside,
+.demo-page-layout__nav {
+  min-width: 0;
+}
+
+.demo-page-layout__nav {
+  grid-area: nav;
+}
+
+.demo-page-layout__intro {
+  grid-area: intro;
+}
+
+.demo-page-layout__primary {
+  grid-area: primary;
+}
+
+.demo-page-layout__aside {
+  grid-area: aside;
+}
+
+.demo-page-layout__aside > * {
+  min-width: 0;
+}

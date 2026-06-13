@@ -1,30 +1,36 @@
-<section class="page-grid" data-testid="orders-page">
-  <article class="card card--controls" data-testid="orders-controls-card">
-    <div class="card__header">
+<demo-page-layout testId="orders-page">
+  <demo-navigation-strip demoNavigation testId="orders-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="orders-controls-card">
+    <div class="demo-card__header">
       <div>
-        <p class="eyebrow">Orders Search</p>
-        <h2>Admin-table filters that stay shareable.</h2>
+        <p class="demo-eyebrow">Angular URL State</p>
+        <h2>Orders search with shareable filters.</h2>
       </div>
-      <button
-        type="button"
-        class="ghost-button"
-        data-testid="orders-reset-filters"
-        (click)="resetFilters()"
-      >
-        Reset filters
-      </button>
+
+      <div class="orders-actions">
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="orders-reset-filters"
+          (click)="resetFilters()"
+        >
+          Reset filters
+        </button>
+      </div>
     </div>
 
-    <p class="card__summary">
+    <p class="demo-card__summary">
       Search, status, page, page size, and tag filters all map directly to query parameters.
       Debouncing keeps search input smooth while default values stay out of the URL.
     </p>
 
-    <div class="controls-grid">
-      <label class="field">
+    <div class="orders-controls-grid">
+      <label class="demo-field">
         <span>Search</span>
         <input
           type="search"
+          class="demo-input"
           [ngModel]="state.search()"
           (ngModelChange)="updateSearch($event)"
           placeholder="Customer, region, or order ID"
@@ -32,9 +38,10 @@
         />
       </label>
 
-      <label class="field">
+      <label class="demo-field">
         <span>Status</span>
         <select
+          class="demo-select"
           [ngModel]="state.status()"
           (ngModelChange)="updateStatus($event)"
           data-testid="orders-status-select"
@@ -45,20 +52,22 @@
         </select>
       </label>
 
-      <label class="field">
+      <label class="demo-field">
         <span>Page</span>
         <input
           type="number"
           min="1"
+          class="demo-input"
           [ngModel]="state.page()"
           (ngModelChange)="updatePageNumber($event)"
           data-testid="orders-page-input"
         />
       </label>
 
-      <label class="field">
+      <label class="demo-field">
         <span>Page size</span>
         <select
+          class="demo-select"
           [ngModel]="state.pageSize()"
           (ngModelChange)="updatePageSize($event)"
           data-testid="orders-page-size-select"
@@ -69,10 +78,11 @@
         </select>
       </label>
 
-      <label class="field field--wide">
+      <label class="demo-field orders-field--wide">
         <span>Tags</span>
         <input
           type="text"
+          class="demo-input"
           [ngModel]="tagValue()"
           (ngModelChange)="updateTags($event)"
           placeholder="priority, enterprise"
@@ -81,22 +91,25 @@
       </label>
     </div>
 
-    <div class="status-strip" data-testid="orders-status-strip">
-      <p data-testid="orders-result-summary">{{ resultSummary() }}</p>
-      <code data-testid="orders-current-url">{{ currentUrl() }}</code>
-    </div>
+    <demo-status-strip
+      testId="orders-status-strip"
+      summaryTestId="orders-result-summary"
+      urlTestId="orders-current-url"
+      [summary]="resultSummary()"
+      [currentUrl]="currentUrl()"
+    />
   </article>
 
-  <article class="card card--table" data-testid="orders-table-card">
-    <div class="table-head">
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="orders-table-card">
+    <div class="orders-table-head">
       <div>
-        <p class="eyebrow">Shareable URL</p>
+        <p class="demo-eyebrow">Shareable URL</p>
         <h3>Orders state</h3>
       </div>
-      <div class="pager">
+      <div class="orders-pager">
         <button
           type="button"
-          class="ghost-button"
+          class="demo-button demo-button--ghost"
           data-testid="orders-previous-page"
           (click)="goToPage(currentPage() - 1)"
         >
@@ -107,7 +120,7 @@
         >
         <button
           type="button"
-          class="ghost-button"
+          class="demo-button demo-button--ghost"
           data-testid="orders-next-page"
           (click)="goToPage(currentPage() + 1)"
         >
@@ -116,8 +129,8 @@
       </div>
     </div>
 
-    <div class="table-wrap" data-testid="orders-table-wrap">
-      <table data-testid="orders-table">
+    <div class="orders-table-wrap" data-testid="orders-table-wrap">
+      <table class="orders-table" data-testid="orders-table">
         <thead>
           <tr>
             <th>Order</th>
@@ -133,7 +146,7 @@
             <tr data-testid="orders-row">
               <td>
                 <strong>{{ record.id }}</strong>
-                <span class="status-chip">{{ record.status }}</span>
+                <span class="orders-status-chip">{{ record.status }}</span>
               </td>
               <td>{{ record.customer }}</td>
               <td>{{ record.region }}</td>
@@ -143,7 +156,7 @@
             </tr>
           } @empty {
             <tr>
-              <td colspan="6" class="empty-state" data-testid="orders-empty-state">
+              <td colspan="6" class="orders-empty-state" data-testid="orders-empty-state">
                 No rows matched the current combination of query parameters.
               </td>
             </tr>
@@ -153,14 +166,15 @@
     </div>
   </article>
 
-  <aside class="card card--snapshot" data-testid="orders-snapshot-card">
-    <div class="card__header">
-      <div>
-        <p class="eyebrow">Snapshot</p>
-        <h3>Current signal state</h3>
-      </div>
-    </div>
-
-    <pre data-testid="orders-snapshot-json">{{ snapshotJson() }}</pre>
-  </aside>
-</section>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="orders-inspector-panel"
+    snapshotTestId="orders-snapshot-json"
+    codeTestId="orders-code-sample"
+    title="Live state and source"
+    summary="Switch between the live state snapshot and the generated source excerpt that powers this demo."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

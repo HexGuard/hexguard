@@ -1,0 +1,17 @@
+<section class="demo-page-layout" [attr.data-testid]="testId()">
+  <div class="demo-page-layout__nav">
+    <ng-content select="[demoNavigation]"></ng-content>
+  </div>
+
+  <div class="demo-page-layout__intro">
+    <ng-content select="[demoIntro]"></ng-content>
+  </div>
+
+  <div class="demo-page-layout__primary">
+    <ng-content select="[demoPrimary]"></ng-content>
+  </div>
+
+  <aside class="demo-page-layout__aside">
+    <ng-content select="[demoAside]"></ng-content>
+  </aside>
+</section>

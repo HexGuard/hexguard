@@ -24,6 +24,7 @@
 
 ## References
 
+- see `.github/instructions/library-development.instructions.md` for publishable package development rules
 - see `docs/packages/angular-url-state.md` for library behavior notes
 - see `docs/demo/README.md` for demo and Playwright workflow
 - see `docs/ai/README.md` and `docs/ai/backlog.md` for the AI operating model

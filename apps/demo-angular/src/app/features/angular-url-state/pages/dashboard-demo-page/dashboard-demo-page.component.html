@@ -1,0 +1,127 @@
+<demo-page-layout testId="dashboard-page">
+  <demo-navigation-strip demoNavigation testId="dashboard-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="dashboard-filters-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular URL State</p>
+        <h2>Dashboard filters with browser history.</h2>
+      </div>
+
+      <div class="dashboard-actions">
+        <span class="demo-hint-pill" data-testid="dashboard-history-mode">History mode: push</span>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      Change the tab, toggle archived data, or apply a date preset. Then use the browser back and
+      forward buttons to move through the URL-backed dashboard history.
+    </p>
+
+    <div class="dashboard-tabs">
+      @for (tab of tabs; track tab) {
+        <button
+          type="button"
+          class="demo-tab-button"
+          [class.demo-tab-button--active]="state.tab() === tab"
+          [attr.data-testid]="'dashboard-tab-' + tab"
+          (click)="selectTab(tab)"
+        >
+          {{ tab }}
+        </button>
+      }
+    </div>
+
+    <div class="dashboard-filters-grid">
+      <label class="demo-field">
+        <span>Start date</span>
+        <input
+          type="date"
+          class="demo-input"
+          [ngModel]="startDateValue()"
+          (ngModelChange)="updateStartDate($event)"
+          data-testid="dashboard-start-date"
+        />
+      </label>
+
+      <label class="demo-field">
+        <span>End date</span>
+        <input
+          type="date"
+          class="demo-input"
+          [ngModel]="endDateValue()"
+          (ngModelChange)="updateEndDate($event)"
+          data-testid="dashboard-end-date"
+        />
+      </label>
+
+      <label class="dashboard-toggle">
+        <span>Include archived work</span>
+        <input
+          type="checkbox"
+          [ngModel]="state.showArchived()"
+          (ngModelChange)="toggleArchived($event)"
+          data-testid="dashboard-show-archived"
+        />
+      </label>
+    </div>
+
+    <div class="dashboard-preset-row">
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="dashboard-preset-7-days"
+        (click)="applyPreset(7)"
+      >
+        Last 7 days
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="dashboard-preset-30-days"
+        (click)="applyPreset(30)"
+      >
+        Last 30 days
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="dashboard-clear-range"
+        (click)="clearRange()"
+      >
+        Clear range
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="dashboard-status-strip"
+      summaryTestId="dashboard-range-label"
+      urlTestId="dashboard-current-url"
+      [summary]="rangeLabel()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <section demoPrimary class="dashboard-metric-grid" data-testid="dashboard-metric-grid">
+    @for (metric of metrics(); track metric.label) {
+      <article class="demo-card dashboard-metric-card" data-testid="dashboard-metric-card">
+        <p class="demo-eyebrow">{{ state.tab() }}</p>
+        <h3>{{ metric.value }}</h3>
+        <strong>{{ metric.label }}</strong>
+        <p>{{ metric.detail }}</p>
+      </article>
+    }
+  </section>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="dashboard-inspector-panel"
+    snapshotTestId="dashboard-snapshot-json"
+    codeTestId="dashboard-code-sample"
+    title="Live state and source"
+    summary="Switch between the live dashboard state and the generated source excerpt that powers it."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

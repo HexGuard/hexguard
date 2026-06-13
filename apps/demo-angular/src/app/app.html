@@ -2,24 +2,25 @@
   <header class="hero">
     <div class="hero__copy">
       <p class="eyebrow">HexGuard</p>
-      <h1 data-testid="demo-title">Type-safe, signal-first URL state for Angular.</h1>
+      <h1 data-testid="demo-title">Angular package demos built around real workflows.</h1>
       <p class="hero__summary">
-        This demo shows how search forms, admin tables, and dashboards can stay in sync with query
-        parameters without leaking parsing or router wiring into component code.
+        Explore live package behavior, inspect URL-backed state, and switch into generated source
+        excerpts that stay tied to the demo components behind each workflow.
       </p>
     </div>
 
-    <nav class="hero__nav" aria-label="Demo pages">
-      @for (item of navigation; track item.route) {
+    <nav class="hero__nav" aria-label="Package demos">
+      @for (packageEntry of packages; track packageEntry.route) {
         <a
           class="nav-card"
-          [routerLink]="item.route"
+          [routerLink]="packageEntry.route"
           routerLinkActive="nav-card--active"
           [routerLinkActiveOptions]="{ exact: true }"
-          [attr.data-testid]="'nav-link-' + item.route.slice(1)"
+          [attr.data-testid]="'nav-link-package-' + packageEntry.id"
         >
-          <span class="nav-card__title">{{ item.label }}</span>
-          <span class="nav-card__description">{{ item.description }}</span>
+          <span class="nav-card__title">{{ packageEntry.title }}</span>
+          <span class="nav-card__description">{{ packageEntry.description }}</span>
+          <span class="nav-card__meta">{{ packageEntry.demos.length }} package demos</span>
         </a>
       }
     </nav>

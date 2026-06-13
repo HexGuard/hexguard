@@ -30,6 +30,26 @@ The package is intentionally narrow:
 | `nullableParam()`           | Allows `null` in combination with another codec                                      |
 | `InvalidQueryParamError`    | Dev-mode strict parsing failure                                                      |
 
+## Option Resolution and Defaults
+
+Both `provideHexGuardUrlState(options?)` and `urlState(schema, options?)` accept the same
+`UrlStateOptionsInput` shape.
+
+Resolution order is:
+
+1. library defaults
+2. injector-level defaults from `provideHexGuardUrlState()`
+3. per-instance overrides passed to `urlState()`
+
+`debounceMs` is normalized to a non-negative integer. Invalid values fall back to `0`.
+
+| Option                  | Default               | Notes                                                                                                                                    |
+| ----------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `history`               | `'replace'`           | Best for search/filter churn. Switch to `'push'` for state that should participate in browser history, such as tabs or presets.          |
+| `debounceMs`            | `0`                   | Only affects local writes that schedule navigation. URL-originated hydration still applies immediately.                                  |
+| `removeDefaultsFromUrl` | `true`                | Keeps URLs short by omitting values equal to codec defaults. Turn it off if explicit default params matter to consumers outside the app. |
+| `invalidParamBehavior`  | `'fallbackToDefault'` | `'removeInvalid'` cleans the URL on the next write; `'throwInDev'` throws only in Angular dev mode and stays production-safe otherwise.  |
+
 ## Internal Behavior Notes
 
 - Serialization order follows schema key order so URLs stay deterministic.
@@ -59,6 +79,21 @@ The package is intentionally narrow:
   destroyed, the library tears down the `Location` listener and clears pending debounce timers.
 - The intended pattern is one route-aware component owning each slice of URL state, rather than a
   singleton service that survives unrelated route transitions.
+
+Practical impact:
+
+- safe: one route splits ownership into filters, pagination, and tab state with disjoint keys
+- risky: parent and child components both write `page`, `search`, or another shared key
+- risky: a service outlives the route but continues trying to own route-scoped query params
+- safe: a debounced search page is destroyed during navigation because pending writes are cleaned up
+
+Is it worth fixing in the library?
+
+- usually no, because overlapping ownership is ambiguous by design rather than an implementation gap
+- usually yes only if your product intentionally needs multiple independent editors for the exact
+  same query key and a single owner is not realistic
+- for most apps, the better fix is architectural: one `urlState()` owner per query key, with child
+  components receiving signals or update methods instead of creating their own competing handles
 
 ## Validation Surface
 
