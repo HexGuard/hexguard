@@ -3,6 +3,7 @@
 ## Repo Map
 
 - `packages/angular-url-state`: publishable Angular library and public API surface
+- `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
 - `apps/demo-angular`: docs-grade demo used by unit and Playwright coverage
 - `docs/`: package guides, demo runbook, roadmap, and AI workflow docs
 - `.github/workflows/`: CI, release, and publish automation
@@ -13,6 +14,7 @@
 - install with `pnpm install`
 - validate library work with `pnpm test:lib` and `pnpm build:lib`
 - validate demo work with `pnpm test:app` and `pnpm test:e2e`
+- validate .NET workspace work with `pnpm dotnet:restore`, `pnpm dotnet:build`, and `pnpm dotnet:test`
 - before finishing broader changes, run `pnpm format:check`, `pnpm lint`, `pnpm test:ci`, and `pnpm build`
 
 ## Conventions
@@ -27,4 +29,4 @@
 - see `.github/instructions/library-development.instructions.md` for publishable package development rules
 - see `docs/packages/angular-url-state.md` for library behavior notes
 - see `docs/demo/README.md` for demo and Playwright workflow
-- see `docs/ai/README.md` and `docs/ai/backlog.md` for the AI operating model
+- see `docs/.ai/README.md` and `docs/.ai/backlog.md` for the AI operating model

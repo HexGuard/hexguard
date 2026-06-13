@@ -79,4 +79,4 @@ dist-tag such as `next`.
 - package, demo, and roadmap docs live in `docs/`
 - repo-wide agent guidance lives in `AGENTS.md`
 - file-specific agent instructions live in `.github/instructions/`
-- planning and execution backlog for AI-assisted work lives in `docs/ai/backlog.md`
+- planning and execution backlog for AI-assisted work lives in `docs/.ai/backlog.md`

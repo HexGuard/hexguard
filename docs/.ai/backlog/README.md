@@ -4,6 +4,9 @@ This folder tracks implementation-ready work as one Markdown file per feature, t
 request, or follow-up. The goal is to keep long-lived planning close to the repo while avoiding a
 single backlog file that becomes hard to diff, review, or archive.
 
+The backlog is split into separate Angular, .NET, and cross-stack spaces so stack-specific work
+does not compete for the same planning surface.
+
 ## Proposed Structure
 
 ```text
@@ -11,10 +14,27 @@ docs/
   .ai/
     backlog/
       README.md
-      feature-angular-query-form.md
+      angular/
+        README.md
+        feature-angular-query-form.md
+      dotnet/
+        README.md
+        feature-dotnet-idempotency.md
+      cross-stack/
+        README.md
+        feature-operation-status-cross-stack.md
       ticket-123-short-title.md
       pr-456-review-follow-up.md
 ```
+
+## Stack Spaces
+
+- `angular/`: Angular-only package briefs, demo work, and Angular developer workflow tasks.
+- `dotnet/`: .NET-only package briefs, backend conventions, and reference host work.
+- `cross-stack/`: shared package families and contracts that intentionally span Angular and .NET.
+
+Put each feature brief under the matching stack space. Keep general repo chores, ticket notes, and
+PR follow-ups at the backlog root unless they clearly belong to one stack.
 
 Use one file per unit of work:
 
@@ -83,5 +103,7 @@ Short description of the work and why it matters.
 - Prefer updating the existing backlog file as facts change instead of adding near-duplicates.
 - Move completed or abandoned work to `done` with a short outcome note.
 - Link related docs, packages, PRs, and validation commands directly in the backlog file.
-- Keep `docs/ai/backlog.md` as the short roadmap queue; use this folder for detailed execution
+- Keep `docs/.ai/backlog.md` as the short roadmap queue; use this folder for detailed execution
   tickets.
+- Record repo-topology or workflow decisions that affect multiple backlog files under
+  `docs/.ai/decisions/`.

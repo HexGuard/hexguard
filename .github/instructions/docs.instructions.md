@@ -13,4 +13,4 @@ applyTo:
 - Put operational guides and deeper explanations under `docs/` instead of expanding the root README indefinitely.
 - When package behavior changes, update both the package README and the matching `docs/packages/` page.
 - Demo run instructions belong in `docs/demo/README.md`.
-- AI workflow and planning docs belong in `docs/ai/`.
+- AI workflow and planning docs belong in `docs/.ai/`.

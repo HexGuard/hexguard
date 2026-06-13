@@ -26,7 +26,7 @@ workflow docs that keep future package work consistent.
 - [Docs Index](docs/README.md)
 - [Package Catalog](docs/packages/README.md)
 - [Run the Demo](docs/demo/README.md)
-- [AI Workflow](docs/ai/README.md)
+- [AI Workflow](docs/.ai/README.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security](SECURITY.md)
 
@@ -41,9 +41,18 @@ pnpm build
 pnpm start
 ```
 
+When working in the dedicated .NET space:
+
+```bash
+pnpm dotnet:restore
+pnpm dotnet:build
+pnpm dotnet:test
+```
+
 Repository layout:
 
 - `packages/angular-url-state`: publishable Angular library
+- `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
 - `apps/demo-angular`: docs-grade demo and Playwright target
 - `docs/`: package guides, demo runbook, AI workflow docs
 - `.github/workflows/`: CI and release automation

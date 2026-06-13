@@ -9,8 +9,10 @@ context-heavy prompts.
 - `.github/instructions/angular-url-state.instructions.md`: focused guidance for the library
 - `.github/instructions/demo-angular.instructions.md`: focused guidance for the demo app
 - `.github/instructions/docs.instructions.md`: focused guidance for docs work
-- `docs/ai/backlog.md`: prioritized task queue for future AI-assisted work
-- `docs/ai/release-checklist.md`: release-specific execution checklist
+- `docs/.ai/backlog.md`: prioritized task queue for future AI-assisted work
+- `docs/.ai/backlog/README.md`: detailed execution backlog split into Angular, .NET, and cross-stack spaces
+- `docs/.ai/decisions/README.md`: accepted repo and workflow decisions that affect package planning
+- `docs/.ai/release-checklist.md`: release-specific execution checklist
 
 ## Recommended Task Loop
 
@@ -33,3 +35,9 @@ Add or reprioritize backlog items when:
 - a repeated manual step should become automation
 - a package brief graduates into a concrete design task
 - tests reveal a missing documentation or release step
+
+Use the detailed backlog spaces in `docs/.ai/backlog/` like this:
+
+- `angular/` for Angular-only packages and demo-facing work
+- `dotnet/` for .NET-only packages and backend-facing work
+- `cross-stack/` for paired Angular + .NET package families and shared contracts
