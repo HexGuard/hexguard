@@ -1,0 +1,83 @@
+<section class="dashboard-grid">
+  <article class="card card--filters">
+    <div class="card__header">
+      <div>
+        <p class="eyebrow">Dashboard Filters</p>
+        <h2>Push-state history for back and forward navigation.</h2>
+      </div>
+      <span class="hint-pill">History mode: push</span>
+    </div>
+
+    <p class="card__summary">
+      Change the tab, toggle archived data, or apply a date preset. Then use the browser back and
+      forward buttons to move through the URL-backed dashboard history.
+    </p>
+
+    <div class="tabs">
+      @for (tab of tabs; track tab) {
+        <button
+          type="button"
+          class="tab-button"
+          [class.tab-button--active]="state.tab() === tab"
+          (click)="selectTab(tab)"
+        >
+          {{ tab }}
+        </button>
+      }
+    </div>
+
+    <div class="filters-grid">
+      <label class="field">
+        <span>Start date</span>
+        <input type="date" [ngModel]="startDateValue()" (ngModelChange)="updateStartDate($event)" />
+      </label>
+
+      <label class="field">
+        <span>End date</span>
+        <input type="date" [ngModel]="endDateValue()" (ngModelChange)="updateEndDate($event)" />
+      </label>
+
+      <label class="toggle">
+        <span>Include archived work</span>
+        <input
+          type="checkbox"
+          [ngModel]="state.showArchived()"
+          (ngModelChange)="toggleArchived($event)"
+        />
+      </label>
+    </div>
+
+    <div class="preset-row">
+      <button type="button" class="ghost-button" (click)="applyPreset(7)">Last 7 days</button>
+      <button type="button" class="ghost-button" (click)="applyPreset(30)">Last 30 days</button>
+      <button type="button" class="ghost-button" (click)="clearRange()">Clear range</button>
+    </div>
+
+    <div class="status-strip">
+      <p>{{ rangeLabel() }}</p>
+      <code>{{ currentUrl() }}</code>
+    </div>
+  </article>
+
+  <section class="metric-grid">
+    @for (metric of metrics(); track metric.label) {
+      <article class="metric-card">
+        <p class="eyebrow">{{ state.tab() }}</p>
+        <h3>{{ metric.value }}</h3>
+        <strong>{{ metric.label }}</strong>
+        <p>{{ metric.detail }}</p>
+      </article>
+    }
+  </section>
+
+  <aside class="card card--snapshot">
+    <div class="card__header">
+      <div>
+        <p class="eyebrow">Snapshot</p>
+        <h3>Current dashboard state</h3>
+      </div>
+    </div>
+
+    <pre>{{ snapshotJson() }}</pre>
+  </aside>
+</section>

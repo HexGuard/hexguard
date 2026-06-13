@@ -1,0 +1,24 @@
+import type { ParamRawValue } from './types';
+
+function formatRawValue(raw: ParamRawValue): string {
+  if (raw === null) {
+    return 'null';
+  }
+
+  if (Array.isArray(raw)) {
+    return `[${raw.map((value) => JSON.stringify(value)).join(', ')}]`;
+  }
+
+  return JSON.stringify(raw);
+}
+
+export class InvalidQueryParamError extends Error {
+  constructor(
+    readonly key: string,
+    readonly raw: ParamRawValue,
+    readonly reason: string,
+  ) {
+    super(`Invalid query parameter "${key}": ${reason}. Received ${formatRawValue(raw)}.`);
+    this.name = 'InvalidQueryParamError';
+  }
+}

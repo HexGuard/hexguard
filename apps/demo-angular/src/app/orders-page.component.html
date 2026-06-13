@@ -1,0 +1,136 @@
+<section class="page-grid">
+  <article class="card card--controls">
+    <div class="card__header">
+      <div>
+        <p class="eyebrow">Orders Search</p>
+        <h2>Admin-table filters that stay shareable.</h2>
+      </div>
+      <button type="button" class="ghost-button" (click)="resetFilters()">Reset filters</button>
+    </div>
+
+    <p class="card__summary">
+      Search, status, page, page size, and tag filters all map directly to query parameters.
+      Debouncing keeps search input smooth while default values stay out of the URL.
+    </p>
+
+    <div class="controls-grid">
+      <label class="field">
+        <span>Search</span>
+        <input
+          type="search"
+          [ngModel]="state.search()"
+          (ngModelChange)="updateSearch($event)"
+          placeholder="Customer, region, or order ID"
+        />
+      </label>
+
+      <label class="field">
+        <span>Status</span>
+        <select [ngModel]="state.status()" (ngModelChange)="updateStatus($event)">
+          @for (status of statusOptions; track status) {
+            <option [value]="status">{{ status }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Page</span>
+        <input
+          type="number"
+          min="1"
+          [ngModel]="state.page()"
+          (ngModelChange)="updatePageNumber($event)"
+        />
+      </label>
+
+      <label class="field">
+        <span>Page size</span>
+        <select [ngModel]="state.pageSize()" (ngModelChange)="updatePageSize($event)">
+          @for (size of pageSizeOptions; track size) {
+            <option [value]="size">{{ size }} rows</option>
+          }
+        </select>
+      </label>
+
+      <label class="field field--wide">
+        <span>Tags</span>
+        <input
+          type="text"
+          [ngModel]="tagValue()"
+          (ngModelChange)="updateTags($event)"
+          placeholder="priority, enterprise"
+        />
+      </label>
+    </div>
+
+    <div class="status-strip">
+      <p>{{ resultSummary() }}</p>
+      <code>{{ currentUrl() }}</code>
+    </div>
+  </article>
+
+  <article class="card card--table">
+    <div class="table-head">
+      <div>
+        <p class="eyebrow">Shareable URL</p>
+        <h3>Orders state</h3>
+      </div>
+      <div class="pager">
+        <button type="button" class="ghost-button" (click)="goToPage(currentPage() - 1)">
+          Previous
+        </button>
+        <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+        <button type="button" class="ghost-button" (click)="goToPage(currentPage() + 1)">
+          Next
+        </button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Region</th>
+            <th>Age</th>
+            <th>Total</th>
+            <th>Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (record of pagedOrders(); track record.id) {
+            <tr>
+              <td>
+                <strong>{{ record.id }}</strong>
+                <span class="status-chip">{{ record.status }}</span>
+              </td>
+              <td>{{ record.customer }}</td>
+              <td>{{ record.region }}</td>
+              <td>{{ record.ageDays }}d</td>
+              <td>{{ currency(record.total) }}</td>
+              <td>{{ record.tags.join(', ') }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="empty-state">
+                No rows matched the current combination of query parameters.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <aside class="card card--snapshot">
+    <div class="card__header">
+      <div>
+        <p class="eyebrow">Snapshot</p>
+        <h3>Current signal state</h3>
+      </div>
+    </div>
+
+    <pre>{{ snapshotJson() }}</pre>
+  </aside>
+</section>
