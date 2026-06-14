@@ -22,11 +22,11 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-query-form-demo-query-form-recovery')).toBeVisible();
   });
 
-  test('hydrates the orders page from the page query param', async ({ page }) => {
-    await page.goto(`${ordersRoute}?page=2`);
+  test('hydrates the orders page from the remapped page query param', async ({ page }) => {
+    await page.goto(`${ordersRoute}?p=2`);
 
     await expect(page.getByTestId('orders-page')).toBeVisible();
-    await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders\?page=2$/);
+    await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders\?p=2$/);
     await expect(page.getByTestId('orders-page-indicator')).toHaveText('Page 2 of 2');
     await expect(page.getByTestId('orders-result-summary')).toContainText(
       'Showing 6-7 of 7 matching orders.',
@@ -105,28 +105,27 @@ test.describe('demo-angular', () => {
     }
   });
 
-  test('keeps the orders demo shareable through query params', async ({ page }) => {
+  test('keeps the orders demo shareable through remapped query params', async ({ page }) => {
     await page.goto(ordersRoute);
 
     await expect(page.getByTestId('orders-page')).toBeVisible();
     await page.getByTestId('orders-search-input').fill('north');
     await page.getByTestId('orders-tags-input').fill('priority');
 
-    await expect(page).toHaveURL(
-      /\/packages\/angular-url-state\/orders\?search=north&tags=priority/,
-    );
+    await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders\?q=north&tag=priority/);
     await expect(page.getByTestId('orders-row')).toHaveCount(1);
     await expect(page.getByTestId('orders-result-summary')).toContainText('Showing 1-1 of 1');
     await expect(page.getByTestId('orders-current-url')).toContainText(
-      '/packages/angular-url-state/orders?search=north&tags=priority',
+      '/packages/angular-url-state/orders?q=north&tag=priority',
     );
-    await expect(page.getByTestId('orders-snapshot-json')).toContainText('"search": "north"');
-    await expect(page.getByTestId('orders-snapshot-json')).toContainText('"priority"');
+    await expect(page.getByTestId('orders-snapshot-json')).toContainText('"searchText": "north"');
+    await expect(page.getByTestId('orders-snapshot-json')).toContainText('"selectedTags"');
 
     await page.getByTestId('orders-inspector-panel-tab-code').click();
 
     await expect(page.getByTestId('orders-code-sample')).toContainText('readonly state = urlState');
     await expect(page.getByTestId('orders-code-sample')).toContainText('debounceMs: 250');
+    await expect(page.getByTestId('orders-code-sample')).toContainText("queryKey: 'q'");
     await expect(page.getByTestId('orders-code-sample').locator('.demo-code-line')).not.toHaveCount(
       0,
     );
@@ -140,9 +139,9 @@ test.describe('demo-angular', () => {
   });
 
   test('redirects legacy orders route to the package-scoped demo', async ({ page }) => {
-    await page.goto('/orders?page=2');
+    await page.goto('/orders?p=2');
 
-    await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders\?page=2$/);
+    await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders\?p=2$/);
     await expect(page.getByTestId('orders-page-indicator')).toHaveText('Page 2 of 2');
   });
 

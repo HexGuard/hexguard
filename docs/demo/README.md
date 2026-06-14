@@ -19,7 +19,7 @@ The default development URL is `http://localhost:4200`.
 ## Demo Routes
 
 - `/packages/angular-url-state`: package overview and demo catalog
-- `/packages/angular-url-state/orders`: debounced replace-state search, status, tags, and pagination-friendly URL state with a compact default page size so `/packages/angular-url-state/orders?page=2` is directly demonstrable
+- `/packages/angular-url-state/orders`: debounced replace-state search, status, tags, and pagination-friendly URL state with remapped keys such as `q`, `p`, `size`, and repeated `tag` values, so `/packages/angular-url-state/orders?p=2` is directly demonstrable
 - `/packages/angular-url-state/dashboard`: push-state history for tabs, date ranges, and archive toggles
 - `/packages/angular-query-form`: package overview and demo catalog for the Reactive Forms binding package
 - `/packages/angular-query-form/orders`: debounced search and filter form where `resetKeysOnChange` resets pagination without page-local glue code
@@ -83,7 +83,7 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 ## Manual Verification Checklist
 
 1. Open `/packages/angular-url-state` and confirm both URL-state demos are listed.
-2. Open `/packages/angular-url-state/orders?page=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
+2. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
 3. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
 4. Open `/packages/angular-query-form` and confirm both query-form demos are listed.
 5. Open `/packages/angular-query-form/orders?page=2&tags=enterprise` and confirm the page input, active tag chip, summary, and current URL hydrate from the link.

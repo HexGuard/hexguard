@@ -54,11 +54,35 @@ Resolution order is:
 
 - Serialization order follows schema key order so URLs stay deterministic.
 - Unmanaged query params are preserved on writes so the library only owns declared keys.
+- Schema fields may remap one local property name to a different external query key through
+  `{ codec, queryKey }`.
 - Signal writes are wrapped to schedule router synchronization while URL-originated writes bypass
   re-entrant navigation.
 - Debounced writes coalesce bursty input such as search fields.
 - `removeInvalid` reparses bad URLs into fallback values and then cleans the invalid params from
   the URL.
+
+## Query-Key Remapping
+
+Use `queryKey` when the local TypeScript key should stay descriptive but the external query string
+must honor a legacy contract or stay compact.
+
+```ts
+const state = urlState({
+  searchText: { codec: stringParam(''), queryKey: 'q' },
+  pageNumber: { codec: numberParam(1), queryKey: 'p' },
+  selectedTags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
+});
+```
+
+Key rules:
+
+- local schema keys still drive signals, snapshots, and `patch()` calls
+- `queryKey` defaults to the schema property name, so existing consumers do not need changes
+- deterministic serialization still follows local schema order, not sorted query-key order
+- duplicate `queryKey` values fail fast during `urlState()` setup
+- invalid-param diagnostics carry both the local schema key and the incoming `queryKey` when they differ
+- reserved local names such as `patch`, `reset`, and `snapshot` remain blocked on the returned handle, but the external query key may use those strings
 
 ## Custom Codec Guidance
 

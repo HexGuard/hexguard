@@ -37,10 +37,10 @@ bootstrapApplication(AppComponent, {
 
 const ordersState = urlState(
   {
-    search: stringParam(''),
-    page: numberParam(1),
+    searchText: { codec: stringParam(''), queryKey: 'q' },
+    pageNumber: { codec: numberParam(1), queryKey: 'p' },
     status: enumParam(['open', 'closed', 'archived'] as const, 'open'),
-    tags: arrayParam(stringParam()),
+    selectedTags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
   },
   {
     history: 'replace',
@@ -49,10 +49,10 @@ const ordersState = urlState(
   },
 );
 
-ordersState.search();
-ordersState.search.set('quarterly review');
-ordersState.page.set(2);
-ordersState.patch({ tags: ['priority', 'enterprise'] });
+ordersState.searchText();
+ordersState.searchText.set('quarterly review');
+ordersState.pageNumber.set(2);
+ordersState.patch({ selectedTags: ['priority', 'enterprise'] });
 ```
 
 ## API Reference
@@ -87,6 +87,9 @@ Creates a typed state object whose properties are writable Angular signals.
 The optional `options` parameter accepts the same shape described above, but only for this one
 state handle.
 
+Each schema field may be either a bare codec or an object with `{ codec, queryKey }`. Use
+`queryKey` when the external URL contract should differ from the local TypeScript property name.
+
 ```ts
 const state = urlState({
   search: stringParam(''),
@@ -99,6 +102,33 @@ state.patch({ page: 2 });
 state.snapshot();
 state.reset();
 ```
+
+### Query-key remapping
+
+Use `queryKey` when you want readable local property names but need to preserve a legacy URL
+contract or publish shorter shareable links.
+
+```ts
+const state = urlState({
+  searchText: { codec: stringParam(''), queryKey: 'q' },
+  pageNumber: { codec: numberParam(1), queryKey: 'p' },
+  selectedTags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
+});
+
+state.searchText.set('north');
+state.pageNumber.set(2);
+state.selectedTags.set(['priority']);
+// URL: ?q=north&p=2&tag=priority
+```
+
+Remapping semantics:
+
+- local schema property names remain the keys for signals, `patch()`, and `snapshot()`
+- `queryKey` defaults to the schema property name, so existing schemas keep working unchanged
+- serialization order still follows schema property order, even when `queryKey` differs
+- `queryKey` values must be unique within one schema
+- reserved local handle names such as `patch`, `reset`, and `snapshot` stay reserved, but the
+  external `queryKey` may use those strings
 
 ### Param codecs
 

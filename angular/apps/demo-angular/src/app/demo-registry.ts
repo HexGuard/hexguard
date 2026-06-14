@@ -67,9 +67,9 @@ export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   route: '/packages/angular-url-state/orders',
   legacyRoute: '/orders',
   label: 'Orders Search',
-  title: 'Orders search with debounced replace-state filters',
+  title: 'Orders search with debounced filters and remapped query keys',
   description:
-    'Search text, status, pagination, and tags all stay aligned with shareable query parameters.',
+    'Descriptive local signal names stay aligned with compact shareable query keys such as q, p, size, and repeated tag params.',
   docsLinks: [
     {
       label: 'API reference',

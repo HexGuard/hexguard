@@ -24,6 +24,17 @@ const ordersSchema = {
   tags: arrayParam(stringParam()),
 };
 
+const remappedOrdersSchema = {
+  searchText: { codec: stringParam(''), queryKey: 'q' },
+  pageNumber: { codec: numberParam(1), queryKey: 'p' },
+  statusFilter: {
+    codec: enumParam(['open', 'closed', 'archived'] as const, 'open'),
+    queryKey: 'status',
+  },
+  includeArchived: { codec: booleanParam(false), queryKey: 'archived' },
+  selectedTags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
+};
+
 @Component({
   standalone: true,
   selector: 'hexguard-replace-orders-page',
@@ -31,6 +42,15 @@ const ordersSchema = {
 })
 class ReplaceOrdersPageComponent {
   readonly state = urlState(ordersSchema);
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-remapped-orders-page',
+  template: '',
+})
+class RemappedOrdersPageComponent {
+  readonly state = urlState(remappedOrdersSchema);
 }
 
 @Component({
@@ -71,6 +91,18 @@ class ThrowInDevOrdersPageComponent {
 
 @Component({
   standalone: true,
+  selector: 'hexguard-reserved-query-key-page',
+  template: '',
+})
+class ReservedQueryKeyPageComponent {
+  readonly state = urlState({
+    currentPage: { codec: numberParam(1), queryKey: 'patch' },
+    selectedStatus: { codec: stringParam(''), queryKey: 'snapshot' },
+  });
+}
+
+@Component({
+  standalone: true,
   selector: 'hexguard-multi-state-orders-page',
   template: '',
 })
@@ -96,10 +128,12 @@ class StaticPageComponent {}
 
 const routes: Routes = [
   { path: 'replace', component: ReplaceOrdersPageComponent },
+  { path: 'remapped', component: RemappedOrdersPageComponent },
   { path: 'push', component: PushOrdersPageComponent },
   { path: 'debounce', component: DebouncedOrdersPageComponent },
   { path: 'remove-invalid', component: RemoveInvalidOrdersPageComponent },
   { path: 'throw-in-dev', component: ThrowInDevOrdersPageComponent },
+  { path: 'reserved-query-keys', component: ReservedQueryKeyPageComponent },
   { path: 'multi', component: MultiStateOrdersPageComponent },
   { path: 'other', component: StaticPageComponent },
 ];
@@ -145,6 +179,35 @@ describe('urlState', () => {
 
     expect(location.path()).toBe('/replace');
     expect(location.urlChanges.at(-1)).toBe('replace: /replace');
+  });
+
+  it('hydrates and serializes remapped query keys while keeping local signal names descriptive', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/remapped?q=boots&p=3&status=closed&archived=true&tag=red&tag=blue',
+      RemappedOrdersPageComponent,
+    );
+
+    expect(component.state.searchText()).toBe('boots');
+    expect(component.state.pageNumber()).toBe(3);
+    expect(component.state.statusFilter()).toBe('closed');
+    expect(component.state.includeArchived()).toBe(true);
+    expect(component.state.selectedTags()).toEqual(['red', 'blue']);
+
+    component.state.pageNumber.set(2);
+    await harness.fixture.whenStable();
+
+    expect(location.path()).toBe(
+      '/remapped?q=boots&p=2&status=closed&archived=true&tag=red&tag=blue',
+    );
+    expect(component.state.snapshot()).toEqual({
+      searchText: 'boots',
+      pageNumber: 2,
+      statusFilter: 'closed',
+      includeArchived: true,
+      selectedTags: ['red', 'blue'],
+    });
   });
 
   it('avoids duplicate navigation for equivalent state', async () => {
@@ -252,6 +315,23 @@ describe('urlState', () => {
     expect(() => {
       location.go('/throw-in-dev', 'page=oops');
     }).toThrowError(InvalidQueryParamError);
+  });
+
+  it('allows reserved handle method names as external query keys when remapped', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/reserved-query-keys?patch=4&snapshot=closed',
+      ReservedQueryKeyPageComponent,
+    );
+
+    expect(component.state.currentPage()).toBe(4);
+    expect(component.state.selectedStatus()).toBe('closed');
+
+    component.state.patch({ currentPage: 2 });
+    await harness.fixture.whenStable();
+
+    expect(location.path()).toBe('/reserved-query-keys?patch=2&snapshot=closed');
   });
 
   it('allows multiple urlState instances to coordinate disjoint query keys', async () => {

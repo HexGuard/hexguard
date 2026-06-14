@@ -48,11 +48,11 @@ export class OrdersDemoPageComponent {
   // demo-snippet:start orders-demo-state
   readonly state = urlState(
     {
-      search: stringParam(''),
-      page: numberParam(1),
-      pageSize: numberParam(5),
-      status: enumParam(STATUS_OPTIONS, 'open'),
-      tags: arrayParam(stringParam()),
+      searchText: { codec: stringParam(''), queryKey: 'q' },
+      pageNumber: { codec: numberParam(1), queryKey: 'p' },
+      pageSize: { codec: numberParam(5), queryKey: 'size' },
+      statusFilter: { codec: enumParam(STATUS_OPTIONS, 'open'), queryKey: 'status' },
+      selectedTags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
     },
     {
       debounceMs: 250,
@@ -62,9 +62,9 @@ export class OrdersDemoPageComponent {
   );
   readonly currentUrl = createTrackedCurrentUrl(this.demo.route);
   readonly filteredOrders = computed<readonly OrderRecord[]>(() => {
-    const search = this.state.search().trim().toLowerCase();
-    const activeStatus = this.state.status();
-    const activeTags = this.state.tags();
+    const search = this.state.searchText().trim().toLowerCase();
+    const activeStatus = this.state.statusFilter();
+    const activeTags = this.state.selectedTags();
 
     return ORDER_RECORDS.filter((record) => {
       const matchesSearch =
@@ -82,7 +82,7 @@ export class OrdersDemoPageComponent {
   readonly totalPages = computed(() =>
     Math.max(1, Math.ceil(this.totalResults() / Math.max(this.state.pageSize(), 1))),
   );
-  readonly currentPage = computed(() => Math.min(this.state.page(), this.totalPages()));
+  readonly currentPage = computed(() => Math.min(this.state.pageNumber(), this.totalPages()));
   readonly pagedOrders = computed(() => {
     const pageSize = Math.max(this.state.pageSize(), 1);
     const pageIndex = this.currentPage() - 1;
@@ -102,20 +102,20 @@ export class OrdersDemoPageComponent {
 
     return `Showing ${start}-${end} of ${total} matching orders.`;
   });
-  readonly tagValue = computed(() => this.state.tags().join(', '));
+  readonly tagValue = computed(() => this.state.selectedTags().join(', '));
   readonly snapshotJson = computed(() => formatSnapshot(this.state.snapshot()));
   // demo-snippet:end orders-demo-state
 
   updateSearch(value: string): void {
-    this.state.patch({ search: value.trimStart(), page: 1 });
+    this.state.patch({ searchText: value.trimStart(), pageNumber: 1 });
   }
 
   updateStatus(value: (typeof STATUS_OPTIONS)[number]): void {
-    this.state.patch({ status: value, page: 1 });
+    this.state.patch({ statusFilter: value, pageNumber: 1 });
   }
 
   updatePageSize(value: string): void {
-    this.state.patch({ pageSize: Number(value), page: 1 });
+    this.state.patch({ pageSize: Number(value), pageNumber: 1 });
   }
 
   updatePageNumber(value: string): void {
@@ -123,12 +123,12 @@ export class OrdersDemoPageComponent {
   }
 
   updateTags(value: string): void {
-    this.state.patch({ tags: normalizeTags(value), page: 1 });
+    this.state.patch({ selectedTags: normalizeTags(value), pageNumber: 1 });
   }
 
   goToPage(page: number): void {
     const nextPage = Math.max(1, Math.min(page, this.totalPages()));
-    this.state.page.set(nextPage);
+    this.state.pageNumber.set(nextPage);
   }
 
   resetFilters(): void {

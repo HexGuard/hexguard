@@ -41,11 +41,25 @@ export interface ParamCodec<T> {
   equals?(left: T, right: T): boolean;
 }
 
-/** Object schema used by `urlState()` to map query-param keys to codecs. */
-export type UrlStateSchema = Record<string, ParamCodec<unknown>>;
+/** Optional schema metadata for remapping one local field to a different query key. */
+export interface UrlStateSchemaFieldConfig<T> {
+  readonly codec: ParamCodec<T>;
+  readonly queryKey?: string;
+}
+
+/** One schema field, expressed as either a bare codec or a remapped query-key config. */
+export type UrlStateSchemaField<T> = ParamCodec<T> | UrlStateSchemaFieldConfig<T>;
+
+/** Object schema used by `urlState()` to map local state keys to query-param codecs. */
+export type UrlStateSchema = Record<string, UrlStateSchemaField<unknown>>;
 
 /** Infers the application value type produced by one codec. */
-export type InferCodecValue<TCodec> = TCodec extends ParamCodec<infer TValue> ? TValue : never;
+export type InferCodecValue<TCodec> =
+  TCodec extends ParamCodec<infer TValue>
+    ? TValue
+    : TCodec extends UrlStateSchemaFieldConfig<infer TValue>
+      ? TValue
+      : never;
 
 /** Infers the snapshot object shape represented by a schema. */
 export type InferSchemaValue<TSchema extends UrlStateSchema> = {

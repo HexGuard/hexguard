@@ -1,3 +1,4 @@
+import { type ResolvedUrlStateSchemaField, resolveUrlStateSchema } from './schema';
 import type { InferSchemaValue, ParamRawValue, UrlStateSchema } from './types';
 import type { UrlStateOptions } from './url-state-options';
 
@@ -10,6 +11,7 @@ export interface QueryParamSource {
 /** Captures one query-param parse failure alongside the chosen fallback. */
 export interface InvalidParamDescriptor {
   readonly key: string;
+  readonly queryKey: string;
   readonly raw: ParamRawValue;
   readonly reason: string;
   readonly fallback: unknown;
@@ -71,26 +73,28 @@ export function readQueryParamValue(source: QueryParamSource, key: string): Para
 export function parseUrlState<TSchema extends UrlStateSchema>(
   schema: TSchema,
   read: (key: string) => ParamRawValue,
+  resolvedSchema: readonly ResolvedUrlStateSchemaField[] = resolveUrlStateSchema(schema),
 ): ParsedUrlState<TSchema> {
   const state = {} as InferSchemaValue<TSchema>;
   const invalid: InvalidParamDescriptor[] = [];
 
-  for (const key of Object.keys(schema) as Array<Extract<keyof TSchema, string>>) {
-    const raw = read(key);
-    const parsed = schema[key].parse(raw);
+  for (const field of resolvedSchema) {
+    const raw = read(field.queryKey);
+    const parsed = field.codec.parse(raw);
 
     if (parsed.ok) {
-      (state as Record<string, unknown>)[key] = parsed.value;
+      (state as Record<string, unknown>)[field.key] = parsed.value;
       continue;
     }
 
     invalid.push({
-      key,
+      key: field.key,
+      queryKey: field.queryKey,
       raw,
       reason: parsed.reason,
       fallback: parsed.fallback,
     });
-    (state as Record<string, unknown>)[key] = parsed.fallback;
+    (state as Record<string, unknown>)[field.key] = parsed.fallback;
   }
 
   return { state, invalid };
@@ -103,13 +107,15 @@ export function serializeUrlState<TSchema extends UrlStateSchema>(
   schema: TSchema,
   snapshot: InferSchemaValue<TSchema>,
   options: Pick<UrlStateOptions, 'removeDefaultsFromUrl'>,
+  resolvedSchema: readonly ResolvedUrlStateSchemaField[] = resolveUrlStateSchema(schema),
 ): SerializedUrlState {
   const queryParams: Record<string, string | readonly string[]> = {};
   const entries: Array<readonly [string, string]> = [];
+  const snapshotRecord = snapshot as Record<string, unknown>;
 
-  for (const key of Object.keys(schema) as Array<Extract<keyof TSchema, string>>) {
-    const codec = schema[key];
-    const currentValue = snapshot[key];
+  for (const field of resolvedSchema) {
+    const codec = field.codec;
+    const currentValue = snapshotRecord[field.key];
     const equals = codec.equals ?? defaultEquals;
 
     if (options.removeDefaultsFromUrl && equals(currentValue, codec.defaultValue)) {
@@ -122,8 +128,8 @@ export function serializeUrlState<TSchema extends UrlStateSchema>(
       continue;
     }
 
-    queryParams[key] = Array.isArray(serialized) ? [...serialized] : serialized;
-    appendEntries(entries, key, serialized);
+    queryParams[field.queryKey] = Array.isArray(serialized) ? [...serialized] : serialized;
+    appendEntries(entries, field.queryKey, serialized);
   }
 
   return {
@@ -138,11 +144,11 @@ export function serializeUrlState<TSchema extends UrlStateSchema>(
  * library only owns the keys declared in the schema.
  */
 export function buildNavigationQuery(
-  managedKeys: readonly string[],
+  managedQueryKeys: readonly string[],
   current: QueryParamSource,
   managed: SerializedUrlState,
 ): SerializedUrlState {
-  const managedKeySet = new Set(managedKeys);
+  const managedKeySet = new Set(managedQueryKeys);
   const entries = [...managed.entries];
   const queryParams: Record<string, string | readonly string[]> = {
     ...managed.queryParams,
@@ -170,10 +176,13 @@ export function buildNavigationQuery(
 }
 
 /** Reads the current full query string in the same deterministic order used for writes. */
-export function readQueryString(current: QueryParamSource, managedKeys: readonly string[]): string {
-  const managedKeySet = new Set(managedKeys);
+export function readQueryString(
+  current: QueryParamSource,
+  managedQueryKeys: readonly string[],
+): string {
+  const managedKeySet = new Set(managedQueryKeys);
   const orderedKeys = [
-    ...managedKeys,
+    ...managedQueryKeys,
     ...(current.keys ?? [])
       .filter((key) => !managedKeySet.has(key))
       .sort((left, right) => left.localeCompare(right)),

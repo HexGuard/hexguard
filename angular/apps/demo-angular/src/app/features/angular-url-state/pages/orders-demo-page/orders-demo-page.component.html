@@ -21,8 +21,9 @@
     </div>
 
     <p class="demo-card__summary">
-      Search, status, page, page size, and tag filters all map directly to query parameters.
-      Debouncing keeps search input smooth while default values stay out of the URL.
+      Search, status, page, page size, and tag filters stay aligned with the URL while the component
+      keeps descriptive local state names. Compact query keys such as `q`, `p`, `size`, and repeated
+      `tag` values keep shared links short.
     </p>
 
     <div class="orders-controls-grid">
@@ -31,7 +32,7 @@
         <input
           type="search"
           class="demo-input"
-          [ngModel]="state.search()"
+          [ngModel]="state.searchText()"
           (ngModelChange)="updateSearch($event)"
           placeholder="Customer, region, or order ID"
           data-testid="orders-search-input"
@@ -42,7 +43,7 @@
         <span>Status</span>
         <select
           class="demo-select"
-          [ngModel]="state.status()"
+          [ngModel]="state.statusFilter()"
           (ngModelChange)="updateStatus($event)"
           data-testid="orders-status-select"
         >
@@ -58,7 +59,7 @@
           type="number"
           min="1"
           class="demo-input"
-          [ngModel]="state.page()"
+          [ngModel]="state.pageNumber()"
           (ngModelChange)="updatePageNumber($event)"
           data-testid="orders-page-input"
         />

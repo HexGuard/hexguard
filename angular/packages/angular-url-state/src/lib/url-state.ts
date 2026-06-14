@@ -17,6 +17,7 @@ import {
   readQueryParamValue,
   type InvalidParamDescriptor,
 } from './router-sync';
+import { resolveUrlStateSchema } from './schema';
 import {
   HEXGUARD_URL_STATE_OPTIONS,
   mergeUrlStateOptions,
@@ -127,12 +128,18 @@ export function urlState<TSchema extends UrlStateSchema>(
   const destroyRef = inject(DestroyRef);
   const globalOptions = inject(HEXGUARD_URL_STATE_OPTIONS, { optional: true });
   const resolvedOptions = mergeUrlStateOptions(globalOptions ?? {}, options);
-  const schemaKeys = Object.keys(schema) as Array<Extract<keyof TSchema, string>>;
+  const resolvedSchema = resolveUrlStateSchema(schema);
+  const schemaKeys = resolvedSchema.map((field) => field.key) as Array<
+    Extract<keyof TSchema, string>
+  >;
+  const managedQueryKeys = resolvedSchema.map((field) => field.queryKey);
 
   throwIfReservedSchemaKeys(schemaKeys);
 
-  const initialParsed = parseUrlState(schema, (key) =>
-    readQueryParamValue(route.snapshot.queryParamMap, key),
+  const initialParsed = parseUrlState(
+    schema,
+    (key) => readQueryParamValue(route.snapshot.queryParamMap, key),
+    resolvedSchema,
   );
 
   if (
@@ -141,7 +148,12 @@ export function urlState<TSchema extends UrlStateSchema>(
     initialParsed.invalid.length > 0
   ) {
     const [firstInvalid] = initialParsed.invalid;
-    throw new InvalidQueryParamError(firstInvalid.key, firstInvalid.raw, firstInvalid.reason);
+    throw new InvalidQueryParamError(
+      firstInvalid.key,
+      firstInvalid.raw,
+      firstInvalid.reason,
+      firstInvalid.queryKey,
+    );
   }
 
   let destroyed = false;
@@ -149,7 +161,7 @@ export function urlState<TSchema extends UrlStateSchema>(
   let applyingUrlState = false;
   let pendingTimer: ReturnType<typeof setTimeout> | null = null;
   let pendingQueryString: string | null = null;
-  let lastKnownQueryString = readQueryString(route.snapshot.queryParamMap, schemaKeys);
+  let lastKnownQueryString = readQueryString(route.snapshot.queryParamMap, managedQueryKeys);
 
   const entries = new Map<string, AnySignalEntry>();
   const signalMap = {} as UrlStateSignalMap<TSchema>;
@@ -187,9 +199,9 @@ export function urlState<TSchema extends UrlStateSchema>(
     }
 
     const snapshot = snapshotFromEntries<TSchema>(schemaKeys, entries);
-    const managedQuery = serializeUrlState(schema, snapshot, resolvedOptions);
+    const managedQuery = serializeUrlState(schema, snapshot, resolvedOptions, resolvedSchema);
     const navigationTarget = buildNavigationQuery(
-      schemaKeys,
+      managedQueryKeys,
       route.snapshot.queryParamMap,
       managedQuery,
     );
@@ -226,7 +238,12 @@ export function urlState<TSchema extends UrlStateSchema>(
       invalid.length > 0
     ) {
       const [firstInvalid] = invalid;
-      throw new InvalidQueryParamError(firstInvalid.key, firstInvalid.raw, firstInvalid.reason);
+      throw new InvalidQueryParamError(
+        firstInvalid.key,
+        firstInvalid.raw,
+        firstInvalid.reason,
+        firstInvalid.queryKey,
+      );
     }
 
     applyingUrlState = true;
@@ -264,8 +281,9 @@ export function urlState<TSchema extends UrlStateSchema>(
     scheduleNavigation();
   };
 
-  for (const key of schemaKeys) {
-    const codec = schema[key] as ParamCodec<InferSchemaValue<TSchema>[typeof key]>;
+  for (const field of resolvedSchema) {
+    const key = field.key as Extract<keyof TSchema, string>;
+    const codec = field.codec as ParamCodec<InferSchemaValue<TSchema>[typeof key]>;
     const entry = createSignalEntry(key, codec, initialParsed.state[key], scheduleNavigation);
 
     entries.set(key, entry);
@@ -279,10 +297,14 @@ export function urlState<TSchema extends UrlStateSchema>(
     // direct URL changes all converge through one parse-and-apply path.
     const queryParamMap = router.parseUrl(url).queryParamMap;
 
-    lastKnownQueryString = readQueryString(queryParamMap, schemaKeys);
+    lastKnownQueryString = readQueryString(queryParamMap, managedQueryKeys);
     pendingQueryString = null;
 
-    const parsed = parseUrlState(schema, (key) => readQueryParamValue(queryParamMap, key));
+    const parsed = parseUrlState(
+      schema,
+      (key) => readQueryParamValue(queryParamMap, key),
+      resolvedSchema,
+    );
     applyParsedState(parsed.state, parsed.invalid);
   });
 

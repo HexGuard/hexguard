@@ -26,6 +26,13 @@ const ordersSchema = {
   tags: arrayParam(stringParam()),
 };
 
+const remappedOrdersSchema = {
+  search: { codec: stringParam(''), queryKey: 'q' },
+  page: { codec: numberParam(1), queryKey: 'p' },
+  status: { codec: enumParam(statusOptions, 'open'), queryKey: 'status' },
+  tags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
+};
+
 function createOrdersForm(): FormGroup<{
   search: FormControl<string>;
   page: FormControl<number>;
@@ -78,6 +85,22 @@ class PushQueryOrdersPageComponent {
 
 @Component({
   standalone: true,
+  selector: 'hexguard-remapped-query-orders-page',
+  template: '',
+})
+class RemappedQueryOrdersPageComponent {
+  readonly form = createOrdersForm();
+  readonly query = queryForm(this.form, remappedOrdersSchema, {
+    resetKeysOnChange: {
+      search: ['page'],
+      status: ['page'],
+      tags: ['page'],
+    },
+  });
+}
+
+@Component({
+  standalone: true,
   selector: 'hexguard-remove-invalid-query-orders-page',
   template: '',
 })
@@ -123,6 +146,7 @@ const routes: Routes = [
   { path: 'replace', component: QueryOrdersPageComponent },
   { path: 'debounce', component: DebouncedQueryOrdersPageComponent },
   { path: 'push', component: PushQueryOrdersPageComponent },
+  { path: 'remapped', component: RemappedQueryOrdersPageComponent },
   { path: 'remove-invalid', component: RemoveInvalidQueryOrdersPageComponent },
   { path: 'missing-control', component: MissingControlPageComponent },
   { path: 'invalid-reset-key', component: InvalidResetKeyPageComponent },
@@ -169,6 +193,25 @@ describe('queryForm', () => {
 
     expect(location.path()).toBe('/replace?search=north');
     expect(component.query.urlState.search()).toBe('north');
+  });
+
+  it('supports remapped query keys while keeping form control names stable', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/remapped?q=boots&p=3&status=closed&tag=red&tag=blue',
+      RemappedQueryOrdersPageComponent,
+    );
+
+    expect(component.form.controls.search.value).toBe('boots');
+    expect(component.form.controls.page.value).toBe(3);
+    expect(component.form.controls.status.value).toBe('closed');
+    expect(component.form.controls.tags.value).toEqual(['red', 'blue']);
+
+    component.form.controls.search.setValue('north');
+    await harness.fixture.whenStable();
+
+    expect(location.path()).toBe('/remapped?q=north&status=closed&tag=red&tag=blue');
   });
 
   it('resets dependent keys to codec defaults when configured fields change', async () => {

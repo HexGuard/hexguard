@@ -21,8 +21,13 @@ export class InvalidQueryParamError extends Error {
     readonly key: string,
     readonly raw: ParamRawValue,
     readonly reason: string,
+    readonly queryKey: string = key,
   ) {
-    super(`Invalid query parameter "${key}": ${reason}. Received ${formatRawValue(raw)}.`);
+    super(
+      queryKey === key
+        ? `Invalid query parameter "${key}": ${reason}. Received ${formatRawValue(raw)}.`
+        : `Invalid query parameter "${queryKey}" for schema key "${key}": ${reason}. Received ${formatRawValue(raw)}.`,
+    );
     this.name = 'InvalidQueryParamError';
   }
 }

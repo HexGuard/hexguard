@@ -1,6 +1,12 @@
 import { DestroyRef, assertInInjectionContext, effect, inject } from '@angular/core';
 import type { AbstractControl, FormGroup } from '@angular/forms';
-import { type InferSchemaValue, type UrlStateSchema, urlState } from '@hexguard/angular-url-state';
+import {
+  type InferSchemaValue,
+  type UrlStateSchema,
+  type UrlStateSchemaField,
+  type UrlStateSchemaFieldConfig,
+  urlState,
+} from '@hexguard/angular-url-state';
 
 import { QueryFormControlMissingError, QueryFormResetKeyError } from './errors';
 import type { QueryFormOptions } from './query-form-options';
@@ -11,6 +17,16 @@ const defaultEquals = <T>(left: T, right: T): boolean => Object.is(left, right);
 type AnySchema = UrlStateSchema;
 type AnySnapshot = Record<string, unknown>;
 type ManagedControlMap = ReadonlyMap<string, AbstractControl<unknown>>;
+
+function isSchemaFieldConfig<T>(
+  field: UrlStateSchemaField<T>,
+): field is UrlStateSchemaFieldConfig<T> {
+  return Object.prototype.hasOwnProperty.call(field, 'codec');
+}
+
+function resolveSchemaCodec<T>(field: UrlStateSchemaField<T>) {
+  return isSchemaFieldConfig(field) ? field.codec : field;
+}
 
 function readControl(form: FormGroup, key: string): AbstractControl<unknown> {
   const control = (form.controls as Record<string, AbstractControl<unknown> | undefined>)[key];
@@ -75,7 +91,7 @@ function valuesEqual<TSchema extends AnySchema>(
   left: unknown,
   right: unknown,
 ): boolean {
-  const codec = schema[key];
+  const codec = resolveSchemaCodec(schema[key]);
   const equals = codec.equals ?? defaultEquals;
 
   return equals(left, right);
@@ -186,7 +202,7 @@ export function queryForm<TSchema extends UrlStateSchema>(
           continue;
         }
 
-        const defaultValue = schema[resetKey].defaultValue;
+        const defaultValue = resolveSchemaCodec(schema[resetKey]).defaultValue;
         const currentValue = hasPatchValue(patch, resetKey)
           ? readPatchValue(patch, resetKey)
           : currentState[resetKey];
