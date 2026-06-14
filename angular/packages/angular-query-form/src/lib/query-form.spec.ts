@@ -8,6 +8,7 @@ import { RouterTestingHarness } from '@angular/router/testing';
 
 import {
   QueryFormControlMissingError,
+  QueryFormManagedKeyError,
   QueryFormResetKeyError,
   arrayParam,
   enumParam,
@@ -47,6 +48,18 @@ function createOrdersForm(): FormGroup<{
   });
 }
 
+function createSubsetOrdersForm(): FormGroup<{
+  search: FormControl<string>;
+  status: FormControl<(typeof statusOptions)[number]>;
+  tags: FormControl<string[]>;
+}> {
+  return new FormGroup({
+    search: new FormControl('', { nonNullable: true }),
+    status: new FormControl<(typeof statusOptions)[number]>('open', { nonNullable: true }),
+    tags: new FormControl<string[]>([], { nonNullable: true }),
+  });
+}
+
 @Component({
   standalone: true,
   selector: 'hexguard-query-orders-page',
@@ -81,6 +94,40 @@ class DebouncedQueryOrdersPageComponent {
 class PushQueryOrdersPageComponent {
   readonly form = createOrdersForm();
   readonly query = queryForm(this.form, ordersSchema, { history: 'push' });
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-subset-query-orders-page',
+  template: '',
+})
+class SubsetQueryOrdersPageComponent {
+  readonly form = createSubsetOrdersForm();
+  readonly query = queryForm(this.form, ordersSchema, {
+    managedKeys: ['search', 'status', 'tags'],
+    resetKeysOnChange: {
+      search: ['page'],
+      status: ['page'],
+      tags: ['page'],
+    },
+  });
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-manual-query-orders-page',
+  template: '',
+})
+class ManualQueryOrdersPageComponent {
+  readonly form = createOrdersForm();
+  readonly query = queryForm(this.form, ordersSchema, {
+    syncMode: 'manual',
+    resetKeysOnChange: {
+      search: ['page'],
+      status: ['page'],
+      tags: ['page'],
+    },
+  });
 }
 
 @Component({
@@ -137,6 +184,33 @@ class InvalidResetKeyPageComponent {
 
 @Component({
   standalone: true,
+  selector: 'hexguard-invalid-managed-key-page',
+  template: '',
+})
+class InvalidManagedKeyPageComponent {
+  readonly form = createOrdersForm();
+  readonly query = queryForm(this.form, ordersSchema, {
+    managedKeys: ['search', 'missing' as never],
+  });
+}
+
+@Component({
+  standalone: true,
+  selector: 'hexguard-unmanaged-reset-source-page',
+  template: '',
+})
+class UnmanagedResetSourcePageComponent {
+  readonly form = createSubsetOrdersForm();
+  readonly query = queryForm(this.form, ordersSchema, {
+    managedKeys: ['search', 'status', 'tags'],
+    resetKeysOnChange: {
+      page: ['search'] as never,
+    },
+  });
+}
+
+@Component({
+  standalone: true,
   selector: 'hexguard-static-page',
   template: '',
 })
@@ -146,10 +220,14 @@ const routes: Routes = [
   { path: 'replace', component: QueryOrdersPageComponent },
   { path: 'debounce', component: DebouncedQueryOrdersPageComponent },
   { path: 'push', component: PushQueryOrdersPageComponent },
+  { path: 'subset', component: SubsetQueryOrdersPageComponent },
+  { path: 'manual', component: ManualQueryOrdersPageComponent },
   { path: 'remapped', component: RemappedQueryOrdersPageComponent },
   { path: 'remove-invalid', component: RemoveInvalidQueryOrdersPageComponent },
   { path: 'missing-control', component: MissingControlPageComponent },
   { path: 'invalid-reset-key', component: InvalidResetKeyPageComponent },
+  { path: 'invalid-managed-key', component: InvalidManagedKeyPageComponent },
+  { path: 'unmanaged-reset-source', component: UnmanagedResetSourcePageComponent },
   { path: 'other', component: StaticPageComponent },
 ];
 
@@ -212,6 +290,31 @@ describe('queryForm', () => {
     await harness.fixture.whenStable();
 
     expect(location.path()).toBe('/remapped?q=north&status=closed&tag=red&tag=blue');
+  });
+
+  it('supports binding only a subset of schema keys while keeping url-only keys in the same schema', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/subset?search=boots&page=3&status=closed&tags=red&tags=blue',
+      SubsetQueryOrdersPageComponent,
+    );
+
+    expect(component.form.controls.search.value).toBe('boots');
+    expect(component.form.controls.status.value).toBe('closed');
+    expect(component.form.controls.tags.value).toEqual(['red', 'blue']);
+    expect(component.query.snapshot()).toEqual({
+      search: 'boots',
+      page: 3,
+      status: 'closed',
+      tags: ['red', 'blue'],
+    });
+
+    component.form.controls.search.setValue('north');
+    await harness.fixture.whenStable();
+
+    expect(location.path()).toBe('/subset?search=north&status=closed&tags=red&tags=blue');
+    expect(component.query.urlState.page()).toBe(1);
   });
 
   it('resets dependent keys to codec defaults when configured fields change', async () => {
@@ -285,6 +388,84 @@ describe('queryForm', () => {
     }
   });
 
+  it('supports manual sync mode with staged form edits and explicit commit', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl('/manual?page=3', ManualQueryOrdersPageComponent);
+
+    component.form.controls.search.setValue('north');
+    await harness.fixture.whenStable();
+
+    expect(component.form.controls.page.value).toBe(1);
+    expect(component.query.hasPendingChanges()).toBe(true);
+    expect(component.query.snapshot()).toEqual({
+      search: '',
+      page: 3,
+      status: 'open',
+      tags: [],
+    });
+    expect(location.path()).toBe('/manual?page=3');
+
+    component.query.commit();
+    await harness.fixture.whenStable();
+
+    expect(component.query.hasPendingChanges()).toBe(false);
+    expect(component.query.snapshot()).toEqual({
+      search: 'north',
+      page: 1,
+      status: 'open',
+      tags: [],
+    });
+    expect(location.path()).toBe('/manual?search=north');
+  });
+
+  it('reverts staged manual edits back to the committed URL state', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl(
+      '/manual?search=boots&page=3',
+      ManualQueryOrdersPageComponent,
+    );
+
+    component.form.controls.search.setValue('north');
+    await harness.fixture.whenStable();
+
+    expect(component.query.hasPendingChanges()).toBe(true);
+    expect(component.form.controls.page.value).toBe(1);
+
+    component.query.revert();
+    await harness.fixture.whenStable();
+
+    expect(component.query.hasPendingChanges()).toBe(false);
+    expect(component.form.controls.search.value).toBe('boots');
+    expect(component.form.controls.page.value).toBe(3);
+    expect(location.path()).toBe('/manual?search=boots&page=3');
+  });
+
+  it('overwrites staged manual edits when the committed URL state changes externally', async () => {
+    const location = injectSpyLocation();
+    const harness = await RouterTestingHarness.create();
+    const component = await harness.navigateByUrl('/manual?page=3', ManualQueryOrdersPageComponent);
+
+    component.form.controls.search.setValue('north');
+    await harness.fixture.whenStable();
+
+    expect(component.query.hasPendingChanges()).toBe(true);
+
+    location.go('/manual', 'search=api&page=2');
+    await harness.fixture.whenStable();
+
+    expect(component.query.hasPendingChanges()).toBe(false);
+    expect(component.form.controls.search.value).toBe('api');
+    expect(component.form.controls.page.value).toBe(2);
+    expect(component.query.snapshot()).toEqual({
+      search: 'api',
+      page: 2,
+      status: 'open',
+      tags: [],
+    });
+  });
+
   it('replays pushed query-form state through browser history', async () => {
     const location = injectSpyLocation();
     const harness = await RouterTestingHarness.create();
@@ -334,6 +515,22 @@ describe('queryForm', () => {
 
     await expect(
       harness.navigateByUrl('/invalid-reset-key', InvalidResetKeyPageComponent),
+    ).rejects.toThrowError(QueryFormResetKeyError);
+  });
+
+  it('throws a descriptive error when managedKeys references an unknown schema key', async () => {
+    const harness = await RouterTestingHarness.create();
+
+    await expect(
+      harness.navigateByUrl('/invalid-managed-key', InvalidManagedKeyPageComponent),
+    ).rejects.toThrowError(QueryFormManagedKeyError);
+  });
+
+  it('throws a descriptive error when reset options use an unmanaged source key', async () => {
+    const harness = await RouterTestingHarness.create();
+
+    await expect(
+      harness.navigateByUrl('/unmanaged-reset-source', UnmanagedResetSourcePageComponent),
     ).rejects.toThrowError(QueryFormResetKeyError);
   });
 

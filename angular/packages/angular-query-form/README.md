@@ -38,7 +38,6 @@ bootstrapApplication(AppComponent, {
 
 const form = new FormGroup({
   search: new FormControl('', { nonNullable: true }),
-  page: new FormControl(1, { nonNullable: true }),
   status: new FormControl<'all' | 'open' | 'closed'>('all', { nonNullable: true }),
 });
 
@@ -50,6 +49,8 @@ const query = queryForm(
     status: enumParam(['all', 'open', 'closed'] as const, 'all'),
   },
   {
+    managedKeys: ['search', 'status'],
+    syncMode: 'manual',
     debounceMs: 250,
     history: 'replace',
     resetKeysOnChange: {
@@ -60,16 +61,34 @@ const query = queryForm(
 );
 
 query.snapshot();
-query.patch({ search: 'priority', page: 1 });
+query.hasPendingChanges();
+query.commit();
+query.patch({ page: 2 });
+query.revert();
 query.reset();
 ```
 
+## Feature Matrix
+
+| Capability                                    | Status      | Notes                                                                                                                 |
+| --------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- |
+| Top-level Reactive Forms binding              | Available   | `queryForm()` keeps managed form controls and typed URL state aligned through one underlying `urlState()` handle.     |
+| Dependent-key resets with `resetKeysOnChange` | Available   | Common flows such as `search -> page` and `status -> page` work without page-local synchronization glue.              |
+| Managed subset binding with `managedKeys`     | Available   | Keep URL-only keys such as `page`, `tab`, or `view` outside the form while the same schema still owns them.           |
+| Manual or apply-button sync mode              | Available   | `syncMode: 'manual'` stages edits locally, exposes `hasPendingChanges`, and commits through `commit()` or `revert()`. |
+| Nested control path mapping                   | Proposed    | Paths such as `filters.search` are not supported in `0.1.x`.                                                          |
+| Composable child bindings or slices           | Proposed    | The intended model is still one route-aware owner per managed query slice.                                            |
+| Template-driven forms                         | Not planned | The package intentionally targets Angular Reactive Forms only.                                                        |
+| Validation UI or backend error mapping        | Not planned | Keep the package focused on URL and form synchronization rather than broader form state concerns.                     |
+
 ## What `queryForm()` Owns
 
-- top-level Reactive Forms controls whose names match schema keys
+- top-level Reactive Forms controls for every managed schema key
+- subset binding when only part of the schema should map to the form
 - URL hydration into form controls on initial load and history replay
-- form-originated updates back into query params through `urlState()`
+- live or manual/apply-button form-originated synchronization through `urlState()`
 - dependent-key reset rules such as `search -> page`
+- pending-change tracking for staged manual edits
 - a small high-level handle around the form and URL state
 
 ## What It Does Not Own
@@ -91,41 +110,53 @@ Creates a Reactive Forms binding backed by typed URL query state.
 `queryForm()` must run inside an Angular injection context because it delegates URL behavior to
 `urlState()`.
 
-Schema keys must match top-level controls in the supplied `FormGroup`. Extra controls are allowed,
-but they remain local and unmanaged in `0.1.x`.
+By default, schema keys must match top-level controls in the supplied `FormGroup`. When
+`managedKeys` is provided, only that subset needs matching controls. Remaining schema keys stay
+URL-owned through `query.urlState`.
 
 Returned handle:
 
 - `form`: the original `FormGroup`
 - `urlState`: the underlying `urlState()` handle for direct signal access when needed
-- `snapshot()`: current typed query-form snapshot
-- `patch(value)`: patch URL-backed values through the underlying state
-- `reset()`: reset URL-backed values to codec defaults
+- `hasPendingChanges`: signal that flips on when manual mode has staged edits
+- `snapshot()`: current committed typed query-form snapshot
+- `patch(value)`: immediately patch committed URL-backed values through the underlying state
+- `reset()`: reset committed URL-backed values to codec defaults and clear staged edits
+- `commit()`: write staged manual edits to the URL-backed state
+- `revert()`: discard staged manual edits and resync the form to the committed URL state
 
 Other exported API names you may import directly:
 
 - `QueryForm`
 - `QueryFormControls`
+- `QueryFormManagedKeys`
 - `QueryFormOptions`
 - `QueryFormResetKeysOnChange`
+- `QueryFormSyncMode`
 - `QueryFormControlMissingError`
+- `QueryFormManagedKeyError`
 - `QueryFormResetKeyError`
 
 ### Options
 
 `QueryFormOptions` accepts every `UrlStateOptionsInput` field from
-`@hexguard/angular-url-state`, plus `resetKeysOnChange`.
+`@hexguard/angular-url-state`, plus `managedKeys`, `syncMode`, and `resetKeysOnChange`.
 
-| Option                  | Default                                                   | What it controls                                                 |
-| ----------------------- | --------------------------------------------------------- | ---------------------------------------------------------------- |
-| `history`               | inherited from URL state defaults (`'replace'`)           | push or replace browser history entries                          |
-| `debounceMs`            | inherited from URL state defaults (`0`)                   | delay before form-originated changes navigate                    |
-| `removeDefaultsFromUrl` | inherited from URL state defaults (`true`)                | omit codec defaults from the URL                                 |
-| `invalidParamBehavior`  | inherited from URL state defaults (`'fallbackToDefault'`) | fallback, remove invalid params, or throw in dev                 |
-| `resetKeysOnChange`     | `undefined`                                               | reset dependent keys to codec defaults when a source key changes |
+| Option                  | Default                                                   | What it controls                                                         |
+| ----------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `history`               | inherited from URL state defaults (`'replace'`)           | push or replace browser history entries                                  |
+| `debounceMs`            | inherited from URL state defaults (`0`)                   | delay before form-originated changes navigate                            |
+| `removeDefaultsFromUrl` | inherited from URL state defaults (`true`)                | omit codec defaults from the URL                                         |
+| `invalidParamBehavior`  | inherited from URL state defaults (`'fallbackToDefault'`) | fallback, remove invalid params, or throw in dev                         |
+| `managedKeys`           | every schema key                                          | limit form binding to a schema subset while other keys stay URL-owned    |
+| `syncMode`              | `'live'`                                                  | write immediately or stage edits until `commit()`                        |
+| `resetKeysOnChange`     | `undefined`                                               | reset dependent keys to codec defaults when a managed source key changes |
 
 `resetKeysOnChange` only resets keys that were not explicitly changed in the same form emission.
 This makes patterns like `search -> page` safe even when a user edits both values together.
+
+When `syncMode` is `'manual'`, form edits update only the staged form state until `commit()`.
+`patch()` and `reset()` still act on the committed URL-backed state immediately.
 
 ### Re-exported URL-state building blocks
 
@@ -154,6 +185,10 @@ signal access or URL-state methods that are intentionally not mirrored on form c
 - `form.getRawValue()` is used for managed keys, so disabled URL-backed controls still serialize
   deterministically.
 - Control values are compared with each codec's `equals()` function when available.
+- `snapshot()` always reports the committed URL-backed state. In manual mode, staged form edits do
+  not appear there until `commit()` succeeds.
+- External URL changes overwrite staged manual edits so the form does not drift away from browser
+  history or direct navigation.
 - Invalid query params are handled entirely through the delegated URL-state options.
 
 ## Validation

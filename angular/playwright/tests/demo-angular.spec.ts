@@ -204,6 +204,17 @@ test.describe('demo-angular', () => {
 
     await page.getByTestId('query-form-orders-search-input').fill('north');
 
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?page=2$/);
+    await expect(page.getByTestId('query-form-orders-pending-state')).toContainText(
+      'Draft changes pending',
+    );
+    await expect(page.getByTestId('query-form-orders-page-input')).toHaveValue('2');
+    await expect(page.getByTestId('query-form-orders-mode-note')).toContainText(
+      'Apply or discard before changing pagination.',
+    );
+
+    await page.getByTestId('query-form-orders-apply-filters').click();
+
     await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?search=north$/);
     await expect(page.getByTestId('query-form-orders-page-input')).toHaveValue('1');
     await expect(page.getByTestId('query-form-orders-result-summary')).toContainText(
@@ -211,6 +222,9 @@ test.describe('demo-angular', () => {
     );
 
     await page.getByTestId('query-form-orders-tag-priority').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?search=north$/);
+    await page.getByTestId('query-form-orders-apply-filters').click();
 
     await expect(page).toHaveURL(
       /\/packages\/angular-query-form\/orders\?search=north&tags=priority/,
@@ -227,8 +241,9 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('query-form-orders-code-sample')).toContainText(
       'readonly query = queryForm',
     );
+    await expect(page.getByTestId('query-form-orders-code-sample')).toContainText('managedKeys');
     await expect(page.getByTestId('query-form-orders-code-sample')).toContainText(
-      'resetKeysOnChange',
+      "syncMode: 'manual'",
     );
 
     await page.getByTestId('query-form-orders-reset-filters').click();
@@ -236,6 +251,26 @@ test.describe('demo-angular', () => {
     await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders$/);
     await expect(page.getByTestId('query-form-orders-current-url')).toHaveText(
       '/packages/angular-query-form/orders',
+    );
+  });
+
+  test('discards staged query-form order edits without changing the committed URL state', async ({
+    page,
+  }) => {
+    await page.goto(`${queryFormOrdersRoute}?page=2`);
+
+    await page.getByTestId('query-form-orders-search-input').fill('north');
+    await expect(page.getByTestId('query-form-orders-pending-state')).toContainText(
+      'Draft changes pending',
+    );
+
+    await page.getByTestId('query-form-orders-discard-draft').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-query-form\/orders\?page=2$/);
+    await expect(page.getByTestId('query-form-orders-search-input')).toHaveValue('');
+    await expect(page.getByTestId('query-form-orders-page-input')).toHaveValue('2');
+    await expect(page.getByTestId('query-form-orders-pending-state')).toContainText(
+      'URL is up to date',
     );
   });
 

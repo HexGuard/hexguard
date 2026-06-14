@@ -1,4 +1,4 @@
-import { DestroyRef, assertInInjectionContext, effect, inject } from '@angular/core';
+import { DestroyRef, assertInInjectionContext, effect, inject, signal } from '@angular/core';
 import type { AbstractControl, FormGroup } from '@angular/forms';
 import {
   type InferSchemaValue,
@@ -8,7 +8,11 @@ import {
   urlState,
 } from '@hexguard/angular-url-state';
 
-import { QueryFormControlMissingError, QueryFormResetKeyError } from './errors';
+import {
+  QueryFormControlMissingError,
+  QueryFormManagedKeyError,
+  QueryFormResetKeyError,
+} from './errors';
 import type { QueryFormOptions } from './query-form-options';
 import type { QueryForm, QueryFormControls, QueryFormSchemaKey } from './types';
 
@@ -44,22 +48,55 @@ function hasSchemaKey(schemaKeys: ReadonlySet<string>, key: string): boolean {
 
 function createManagedControls<TSchema extends AnySchema>(
   form: FormGroup,
-  schemaKeys: readonly QueryFormSchemaKey<TSchema>[],
+  managedKeys: readonly QueryFormSchemaKey<TSchema>[],
 ): ManagedControlMap {
   const controls = new Map<string, AbstractControl<unknown>>();
 
-  for (const key of schemaKeys) {
+  for (const key of managedKeys) {
     controls.set(key, readControl(form, key));
   }
 
   return controls;
 }
 
+function normalizeManagedKeys<TSchema extends AnySchema>(
+  schemaKeys: readonly QueryFormSchemaKey<TSchema>[],
+  configuredManagedKeys: QueryFormOptions<TSchema>['managedKeys'],
+): readonly QueryFormSchemaKey<TSchema>[] {
+  if (configuredManagedKeys === undefined) {
+    return schemaKeys;
+  }
+
+  const schemaKeySet = new Set<string>(schemaKeys);
+  const seenManagedKeys = new Set<string>();
+  const normalized: QueryFormSchemaKey<TSchema>[] = [];
+
+  for (const key of configuredManagedKeys as readonly QueryFormSchemaKey<TSchema>[]) {
+    if (!hasSchemaKey(schemaKeySet, key)) {
+      throw new QueryFormManagedKeyError(key);
+    }
+
+    if (seenManagedKeys.has(key)) {
+      throw new QueryFormManagedKeyError(
+        key,
+        `queryForm managedKeys contains duplicate key "${key}".`,
+      );
+    }
+
+    seenManagedKeys.add(key);
+    normalized.push(key);
+  }
+
+  return normalized;
+}
+
 function normalizeResetKeys<TSchema extends AnySchema>(
   schemaKeys: readonly QueryFormSchemaKey<TSchema>[],
+  managedKeys: readonly QueryFormSchemaKey<TSchema>[],
   resetKeysOnChange: QueryFormOptions<TSchema>['resetKeysOnChange'],
 ): ReadonlyMap<QueryFormSchemaKey<TSchema>, readonly QueryFormSchemaKey<TSchema>[]> {
   const schemaKeySet = new Set<string>(schemaKeys);
+  const managedKeySet = new Set<string>(managedKeys);
   const normalized = new Map<QueryFormSchemaKey<TSchema>, readonly QueryFormSchemaKey<TSchema>[]>();
 
   for (const [sourceKey, resetKeys] of Object.entries(resetKeysOnChange ?? {}) as Array<
@@ -67,6 +104,13 @@ function normalizeResetKeys<TSchema extends AnySchema>(
   >) {
     if (!hasSchemaKey(schemaKeySet, sourceKey)) {
       throw new QueryFormResetKeyError(sourceKey);
+    }
+
+    if (!managedKeySet.has(sourceKey)) {
+      throw new QueryFormResetKeyError(
+        sourceKey,
+        `queryForm resetKeysOnChange source key "${sourceKey}" is not managed by this binding.`,
+      );
     }
 
     const safeResetKeys: QueryFormSchemaKey<TSchema>[] = [];
@@ -123,13 +167,62 @@ function readRawFormValues(form: FormGroup): AnySnapshot {
   return form.getRawValue() as AnySnapshot;
 }
 
+function snapshotsEqual<TSchema extends AnySchema>(
+  schema: TSchema,
+  schemaKeys: readonly QueryFormSchemaKey<TSchema>[],
+  left: InferSchemaValue<TSchema>,
+  right: InferSchemaValue<TSchema>,
+): boolean {
+  for (const key of schemaKeys) {
+    if (!valuesEqual(schema, key, left[key], right[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function diffSnapshots<TSchema extends AnySchema>(
+  schema: TSchema,
+  schemaKeys: readonly QueryFormSchemaKey<TSchema>[],
+  left: InferSchemaValue<TSchema>,
+  right: InferSchemaValue<TSchema>,
+): Partial<InferSchemaValue<TSchema>> {
+  const patch: Partial<InferSchemaValue<TSchema>> = {};
+
+  for (const key of schemaKeys) {
+    if (!valuesEqual(schema, key, left[key], right[key])) {
+      setPatchValue(patch, key, right[key]);
+    }
+  }
+
+  return patch;
+}
+
 /**
  * Creates a Reactive Forms binding backed by typed URL query state.
  *
- * `queryForm()` must run inside an Angular injection context. The schema keys
- * must match top-level controls in the supplied `FormGroup`; extra controls are
- * left unmanaged in v0.1.
+ * `queryForm()` must run inside an Angular injection context because it creates
+ * one underlying `urlState()` handle.
+ *
+ * By default every schema key must have a matching top-level control in the
+ * supplied `FormGroup`. When `managedKeys` is provided, only that subset needs
+ * matching controls and the remaining schema keys stay URL-owned through
+ * `query.urlState`.
+ *
+ * `syncMode: 'live'` writes managed form edits through immediately. `syncMode:
+ * 'manual'` stages managed edits locally until `commit()` and exposes
+ * `hasPendingChanges` plus `revert()`.
  */
+export function queryForm<
+  TSchema extends UrlStateSchema,
+  TManagedKey extends QueryFormSchemaKey<TSchema>,
+  TControls extends QueryFormControls<TSchema, TManagedKey>,
+>(
+  form: FormGroup<TControls>,
+  schema: TSchema,
+  options: QueryFormOptions<TSchema, TManagedKey> & { managedKeys: readonly TManagedKey[] },
+): QueryForm<TSchema, FormGroup<TControls>>;
 export function queryForm<
   TSchema extends UrlStateSchema,
   TControls extends QueryFormControls<TSchema>,
@@ -151,19 +244,27 @@ export function queryForm<TSchema extends UrlStateSchema>(
   assertInInjectionContext(queryForm);
 
   const destroyRef = inject(DestroyRef);
-  const { resetKeysOnChange, ...urlStateOptions } = options;
+  const {
+    managedKeys: configuredManagedKeys,
+    resetKeysOnChange,
+    syncMode = 'live',
+    ...urlStateOptions
+  } = options;
   const state = urlState(schema, urlStateOptions);
   const schemaKeys = Object.keys(schema) as QueryFormSchemaKey<TSchema>[];
-  const controls = createManagedControls(form, schemaKeys);
-  const normalizedResetKeys = normalizeResetKeys(schemaKeys, resetKeysOnChange);
+  const managedKeys = normalizeManagedKeys(schemaKeys, configuredManagedKeys);
+  const controls = createManagedControls(form, managedKeys);
+  const normalizedResetKeys = normalizeResetKeys(schemaKeys, managedKeys, resetKeysOnChange);
+  const hasPendingChanges = signal(false);
 
   let applyingStateToForm = false;
+  let stagedState = state.snapshot();
 
   const syncControlsFromSnapshot = (snapshot: InferSchemaValue<TSchema>): void => {
     applyingStateToForm = true;
 
     try {
-      for (const key of schemaKeys) {
+      for (const key of managedKeys) {
         const control = controls.get(key);
 
         if (!control) {
@@ -181,16 +282,23 @@ export function queryForm<TSchema extends UrlStateSchema>(
     }
   };
 
-  const buildFormPatch = (): Partial<InferSchemaValue<TSchema>> => {
-    const currentState = state.snapshot();
+  const syncCommittedState = (snapshot: InferSchemaValue<TSchema>): void => {
+    stagedState = snapshot;
+    hasPendingChanges.set(false);
+    syncControlsFromSnapshot(snapshot);
+  };
+
+  const buildFormPatch = (
+    baseState: InferSchemaValue<TSchema>,
+  ): Partial<InferSchemaValue<TSchema>> => {
     const rawValues = readRawFormValues(form);
     const changedKeys = new Set<QueryFormSchemaKey<TSchema>>();
     const patch: Partial<InferSchemaValue<TSchema>> = {};
 
-    for (const key of schemaKeys) {
+    for (const key of managedKeys) {
       const nextValue = rawValues[key];
 
-      if (!valuesEqual(schema, key, currentState[key], nextValue)) {
+      if (!valuesEqual(schema, key, baseState[key], nextValue)) {
         changedKeys.add(key);
         setPatchValue(patch, key, nextValue);
       }
@@ -205,7 +313,7 @@ export function queryForm<TSchema extends UrlStateSchema>(
         const defaultValue = resolveSchemaCodec(schema[resetKey]).defaultValue;
         const currentValue = hasPatchValue(patch, resetKey)
           ? readPatchValue(patch, resetKey)
-          : currentState[resetKey];
+          : baseState[resetKey];
 
         if (!valuesEqual(schema, resetKey, currentValue, defaultValue)) {
           setPatchValue(patch, resetKey, defaultValue);
@@ -216,19 +324,19 @@ export function queryForm<TSchema extends UrlStateSchema>(
     return patch;
   };
 
-  const applyStatePatch = (patch: Partial<InferSchemaValue<TSchema>>): void => {
+  const applyCommittedPatch = (patch: Partial<InferSchemaValue<TSchema>>): void => {
     if (Object.keys(patch).length === 0) {
       return;
     }
 
     state.patch(patch);
-    syncControlsFromSnapshot(state.snapshot());
+    syncCommittedState(state.snapshot());
   };
 
-  syncControlsFromSnapshot(state.snapshot());
+  syncCommittedState(state.snapshot());
 
   const stateSyncEffect = effect(() => {
-    syncControlsFromSnapshot(state.snapshot());
+    syncCommittedState(state.snapshot());
   });
 
   const formSubscription = form.valueChanges.subscribe(() => {
@@ -236,7 +344,24 @@ export function queryForm<TSchema extends UrlStateSchema>(
       return;
     }
 
-    applyStatePatch(buildFormPatch());
+    if (syncMode === 'manual') {
+      const patch = buildFormPatch(stagedState);
+
+      if (Object.keys(patch).length === 0) {
+        hasPendingChanges.set(!snapshotsEqual(schema, schemaKeys, stagedState, state.snapshot()));
+        return;
+      }
+
+      stagedState = {
+        ...stagedState,
+        ...patch,
+      };
+      hasPendingChanges.set(!snapshotsEqual(schema, schemaKeys, stagedState, state.snapshot()));
+      syncControlsFromSnapshot(stagedState);
+      return;
+    }
+
+    applyCommittedPatch(buildFormPatch(state.snapshot()));
   });
 
   destroyRef.onDestroy(() => {
@@ -247,15 +372,26 @@ export function queryForm<TSchema extends UrlStateSchema>(
   return {
     form,
     urlState: state,
+    hasPendingChanges,
     snapshot(): InferSchemaValue<TSchema> {
       return state.snapshot();
     },
     patch(value: Partial<InferSchemaValue<TSchema>>): void {
-      applyStatePatch(value);
+      applyCommittedPatch(value);
     },
     reset(): void {
       state.reset();
-      syncControlsFromSnapshot(state.snapshot());
+      syncCommittedState(state.snapshot());
+    },
+    commit(): void {
+      if (syncMode !== 'manual') {
+        return;
+      }
+
+      applyCommittedPatch(diffSnapshots(schema, schemaKeys, state.snapshot(), stagedState));
+    },
+    revert(): void {
+      syncCommittedState(state.snapshot());
     },
   };
 }

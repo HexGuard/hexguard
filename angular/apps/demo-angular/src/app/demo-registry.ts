@@ -139,9 +139,9 @@ export const ANGULAR_QUERY_FORM_ORDERS_DEMO: DemoPageEntry = {
   route: '/packages/angular-query-form/orders',
   legacyRoute: '/query-form-orders',
   label: 'Orders Query Form',
-  title: 'Orders filters driven by Reactive Forms and query params',
+  title: 'Orders filters with staged apply mode and shared URL state',
   description:
-    'Reactive Forms controls stay aligned with debounced URL state, pagination reset rules, and generated source snippets.',
+    'Filter controls use manual apply mode while page and page size stay URL-owned through the same schema.',
   docsLinks: [
     {
       label: 'Package README',
@@ -199,7 +199,7 @@ export const ANGULAR_QUERY_FORM_PACKAGE: DemoPackageEntry = {
   label: 'Angular Query Form',
   title: '@hexguard/angular-query-form',
   description:
-    'Reactive Forms demos that show typed query binding, reset-on-change rules, history replay, and malformed-link recovery.',
+    'Reactive Forms demos that show subset binding, staged apply mode, history replay, and malformed-link recovery.',
   docsLinks: ANGULAR_QUERY_FORM_DOCS,
   demos: [ANGULAR_QUERY_FORM_ORDERS_DEMO, ANGULAR_QUERY_FORM_RECOVERY_DEMO],
 };

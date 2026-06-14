@@ -15,6 +15,21 @@ The package is intentionally narrow:
 - no form binding in the core package
 - no runtime validation dependency
 
+## Feature Matrix
+
+| Capability                                            | Status      | Notes                                                                                     |
+| ----------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------- |
+| Typed signal-backed query state                       | Available   | `urlState()` exposes writable signals plus `snapshot()`, `patch()`, and `reset()`.        |
+| Deterministic serialization by schema order           | Available   | Stable serialization keeps shared URLs, docs, and tests predictable.                      |
+| Query-key remapping with `queryKey`                   | Available   | Local TypeScript keys can stay descriptive while the URL follows compact or legacy names. |
+| Unmanaged query-param preservation                    | Available   | Managed writes keep unrelated query params intact.                                        |
+| Invalid-param cleanup on the next managed write       | Available   | `removeInvalid` is intentionally deferred until the next write.                           |
+| Immediate invalid URL normalization                   | Proposed    | Eager cleanup remains an RFC because it changes navigation timing behavior.               |
+| Dev-mode duplicate ownership detection                | Proposed    | Diagnostics for overlapping writers may land later if real adopters need them.            |
+| Reactive Forms binding in the core package            | Not planned | That concern lives in `@hexguard/angular-query-form`.                                     |
+| Transaction or manual-commit mode in the core package | Not planned | Staged edit flows belong in higher-level app state or `@hexguard/angular-query-form`.     |
+| Path params or hash support                           | Not planned | Query-string synchronization remains the package boundary.                                |
+
 ## Public API Map
 
 | Export                      | Role                                                                                 |
@@ -60,7 +75,7 @@ Resolution order is:
   re-entrant navigation.
 - Debounced writes coalesce bursty input such as search fields.
 - `removeInvalid` reparses bad URLs into fallback values and then cleans the invalid params from
-  the URL.
+  the URL on the next managed write.
 
 ## Query-Key Remapping
 

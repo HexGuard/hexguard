@@ -14,8 +14,29 @@
 
       <div class="query-orders-actions">
         <span class="demo-hint-pill" data-testid="query-form-orders-binding-mode"
-          >Reactive Forms + URL state</span
+          >Manual apply + subset binding</span
         >
+        <span class="demo-hint-pill" data-testid="query-form-orders-pending-state">{{
+          query.hasPendingChanges() ? 'Draft changes pending' : 'URL is up to date'
+        }}</span>
+        <button
+          type="button"
+          class="demo-button"
+          data-testid="query-form-orders-apply-filters"
+          [disabled]="!query.hasPendingChanges()"
+          (click)="applyFilters()"
+        >
+          Apply filters
+        </button>
+        <button
+          type="button"
+          class="demo-button demo-button--ghost"
+          data-testid="query-form-orders-discard-draft"
+          [disabled]="!query.hasPendingChanges()"
+          (click)="discardDraft()"
+        >
+          Discard draft
+        </button>
         <button
           type="button"
           class="demo-button demo-button--ghost"
@@ -28,9 +49,8 @@
     </div>
 
     <p class="demo-card__summary">
-      The form owns the editing experience while the URL stays canonical. Search, page size, and tag
-      changes reset pagination through <code>resetKeysOnChange</code> instead of page-local glue
-      code.
+      Search, status, and tag fields are the managed form subset. Their edits stage locally until
+      Apply, while page and page size stay directly URL-owned through the same query schema.
     </p>
 
     <form class="query-orders-controls-grid" [formGroup]="form">
@@ -61,23 +81,29 @@
       <label class="demo-field">
         <span>Page</span>
         <input
+          #pageInput
           type="number"
           min="1"
           class="demo-input"
-          formControlName="page"
+          [value]="currentPage()"
+          [disabled]="query.hasPendingChanges()"
           data-testid="query-form-orders-page-input"
+          (input)="setPageFromInput(pageInput.value)"
         />
       </label>
 
       <label class="demo-field">
         <span>Page size</span>
         <select
+          #pageSizeSelect
           class="demo-select"
-          formControlName="pageSize"
+          [value]="query.urlState.pageSize()"
+          [disabled]="query.hasPendingChanges()"
           data-testid="query-form-orders-page-size-select"
+          (change)="setPageSizeFromInput(pageSizeSelect.value)"
         >
           @for (size of pageSizeOptions; track size) {
-            <option [ngValue]="size">{{ size }} rows</option>
+            <option [value]="size">{{ size }} rows</option>
           }
         </select>
       </label>
@@ -99,6 +125,10 @@
         </div>
       </fieldset>
     </form>
+
+    <p class="query-orders-mode-note" data-testid="query-form-orders-mode-note">
+      {{ stagingSummary() }} Apply or discard before changing pagination.
+    </p>
 
     <demo-status-strip
       testId="query-form-orders-status-strip"
@@ -124,6 +154,7 @@
           type="button"
           class="demo-button demo-button--ghost"
           data-testid="query-form-orders-previous-page"
+          [disabled]="query.hasPendingChanges()"
           (click)="goToPage(currentPage() - 1)"
         >
           Previous
@@ -135,6 +166,7 @@
           type="button"
           class="demo-button demo-button--ghost"
           data-testid="query-form-orders-next-page"
+          [disabled]="query.hasPendingChanges()"
           (click)="goToPage(currentPage() + 1)"
         >
           Next

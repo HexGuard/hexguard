@@ -35,7 +35,8 @@ diagnostics around multi-instance ownership.
 
 ## Current Contract
 
-- Schema property names currently double as query-param keys.
+- Schema property names remain the local TypeScript keys used for signals, `patch()`, and `snapshot()`.
+- Schema fields may optionally remap to external query-param keys through `{ codec, queryKey }`.
 - Serialization order follows schema property order so URLs stay deterministic.
 - Unmanaged query params are preserved on writes.
 - `removeInvalid` reparses into safe values and cleans invalid params on the next managed write.
@@ -49,23 +50,20 @@ diagnostics around multi-instance ownership.
 Accepted follow-up work should graduate into separate backlog files once scope is committed. Until
 then, keep the package roadmap triaged here.
 
-| Idea                                   | Triage       | Real problem solved                                                                                       | Main risk                                                                                     | Recommended next step                                                                   |
-| -------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Query-key aliases or key remapping     | Planned next | Lets apps keep descriptive local signal names while honoring legacy, external, or shortened URL contracts | Expands the schema model and touches parse, serialize, and invalid-reporting paths            | Draft a backward-compatible schema shape and spike deterministic serialization behavior |
-| Immediate invalid URL normalization    | Proposed     | Canonicalizes malformed links without waiting for the next user interaction                               | Triggers navigation during initial parse or history replay and can blur history semantics     | Keep as RFC until a concrete adopter needs eager cleanup                                |
-| Dev-mode duplicate ownership detection | Proposed     | Catches parent or sibling components competing for the same query key before production                   | Requires lifecycle-aware tracking and could warn in cases that are technically safe but noisy | Explore a dev-only warning model before any stronger coordination contract              |
-| Query-key namespace or prefix helpers  | Proposed     | Helps reusable widgets compose param slices without every app hand-prefixing keys manually                | Can duplicate aliasing support and obscure the actual public URL contract                     | Revisit only after aliasing proves insufficient                                         |
-| Transaction or manual-commit mode      | Deferred     | Supports staged local edits without immediate navigation                                                  | Breaks the simple signal-equals-URL mental model that makes the package easy to trust         | Prefer local app state or `@hexguard/angular-query-form` for this workflow first        |
-| Path-param or hash support             | Deferred     | Helps products whose shareable state cannot live in the query string                                      | Broadens the package beyond its current intentionally narrow query-state scope                | Keep out until query-string scope becomes a proven adoption blocker                     |
+| Idea                                   | Triage   | Real problem solved                                                                        | Main risk                                                                                     | Recommended next step                                                            |
+| -------------------------------------- | -------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Immediate invalid URL normalization    | Proposed | Canonicalizes malformed links without waiting for the next user interaction                | Triggers navigation during initial parse or history replay and can blur history semantics     | Keep as RFC until a concrete adopter needs eager cleanup                         |
+| Dev-mode duplicate ownership detection | Proposed | Catches parent or sibling components competing for the same query key before production    | Requires lifecycle-aware tracking and could warn in cases that are technically safe but noisy | Explore a dev-only warning model before any stronger coordination contract       |
+| Query-key namespace or prefix helpers  | Proposed | Helps reusable widgets compose param slices without every app hand-prefixing keys manually | Can duplicate aliasing support and obscure the actual public URL contract                     | Revisit only after aliasing proves insufficient                                  |
+| Transaction or manual-commit mode      | Deferred | Supports staged local edits without immediate navigation                                   | Breaks the simple signal-equals-URL mental model that makes the package easy to trust         | Prefer local app state or `@hexguard/angular-query-form` for this workflow first |
+| Path-param or hash support             | Deferred | Helps products whose shareable state cannot live in the query string                       | Broadens the package beyond its current intentionally narrow query-state scope                | Keep out until query-string scope becomes a proven adoption blocker              |
 
-## Query-Key Alias API Draft
+## Delivered In Current Iteration
 
-### Goal
+- Query-key remapping now lets local signal names stay descriptive while the external URL uses
+  legacy or compact keys such as `q`, `p`, or repeated `tag` params.
 
-Allow the local signal property name to differ from the external query-param key without giving up
-deterministic serialization, typed snapshots, or unmanaged-param preservation.
-
-### Recommended API shape
+## Delivered API Shape
 
 ```ts
 type UrlStateSchemaField<T> =

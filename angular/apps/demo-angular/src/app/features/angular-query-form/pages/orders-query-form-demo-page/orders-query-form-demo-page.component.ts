@@ -28,8 +28,6 @@ import {
 
 type OrdersQueryForm = FormGroup<{
   search: FormControl<string>;
-  page: FormControl<number>;
-  pageSize: FormControl<number>;
   status: FormControl<(typeof QUERY_FORM_ORDER_STATUS_OPTIONS)[number]>;
   tags: FormControl<string[]>;
 }>;
@@ -58,8 +56,6 @@ export class OrdersQueryFormDemoPageComponent {
   // demo-snippet:start query-form-orders-demo
   readonly form: OrdersQueryForm = new FormGroup({
     search: new FormControl('', { nonNullable: true }),
-    page: new FormControl(1, { nonNullable: true }),
-    pageSize: new FormControl(5, { nonNullable: true }),
     status: new FormControl<(typeof QUERY_FORM_ORDER_STATUS_OPTIONS)[number]>('open', {
       nonNullable: true,
     }),
@@ -75,6 +71,8 @@ export class OrdersQueryFormDemoPageComponent {
       tags: arrayParam(stringParam()),
     },
     {
+      managedKeys: ['search', 'status', 'tags'] as const,
+      syncMode: 'manual',
       debounceMs: 250,
       history: 'replace',
       removeDefaultsFromUrl: true,
@@ -82,7 +80,6 @@ export class OrdersQueryFormDemoPageComponent {
         search: ['page'],
         status: ['page'],
         tags: ['page'],
-        pageSize: ['page'],
       },
     },
   );
@@ -127,6 +124,11 @@ export class OrdersQueryFormDemoPageComponent {
 
     return `Showing ${start}-${end} of ${total} matching orders.`;
   });
+  readonly stagingSummary = computed(() =>
+    this.query.hasPendingChanges()
+      ? 'Draft filter changes are staged locally. Apply to update the URL and result set.'
+      : 'Results, URL, and staged filters are aligned.',
+  );
   readonly snapshotJson = computed(() => formatSnapshot(this.query.snapshot()));
   // demo-snippet:end query-form-orders-demo
 
@@ -136,9 +138,34 @@ export class OrdersQueryFormDemoPageComponent {
     this.form.controls.tags.setValue(toggleQueryFormTag(currentTags, tag, this.tagOptions));
   }
 
+  applyFilters(): void {
+    this.query.commit();
+  }
+
+  discardDraft(): void {
+    this.query.revert();
+  }
+
+  setPageFromInput(rawValue: string): void {
+    const parsedPage = Number.parseInt(rawValue, 10);
+
+    this.goToPage(Number.isFinite(parsedPage) ? parsedPage : 1);
+  }
+
+  setPageSizeFromInput(rawValue: string): void {
+    const parsedPageSize = Number.parseInt(rawValue, 10);
+    const nextPageSize = this.pageSizeOptions.find((size) => size === parsedPageSize) ?? 5;
+
+    this.query.patch({
+      page: 1,
+      pageSize: nextPageSize,
+    });
+  }
+
   goToPage(page: number): void {
     const nextPage = Math.max(1, Math.min(page, this.totalPages()));
-    this.form.controls.page.setValue(nextPage);
+
+    this.query.patch({ page: nextPage });
   }
 
   resetFilters(): void {

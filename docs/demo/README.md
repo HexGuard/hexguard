@@ -22,7 +22,7 @@ The default development URL is `http://localhost:4200`.
 - `/packages/angular-url-state/orders`: debounced replace-state search, status, tags, and pagination-friendly URL state with remapped keys such as `q`, `p`, `size`, and repeated `tag` values, so `/packages/angular-url-state/orders?p=2` is directly demonstrable
 - `/packages/angular-url-state/dashboard`: push-state history for tabs, date ranges, and archive toggles
 - `/packages/angular-query-form`: package overview and demo catalog for the Reactive Forms binding package
-- `/packages/angular-query-form/orders`: debounced search and filter form where `resetKeysOnChange` resets pagination without page-local glue code
+- `/packages/angular-query-form/orders`: manual-apply filter form where `managedKeys` keeps `page` and `pageSize` URL-owned while `resetKeysOnChange` still resets pagination when filters are committed
 - `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay for a query-bound incident triage form
 
 Legacy redirects from `/orders`, `/dashboard`, `/query-form-orders`, and `/query-form-recovery`
@@ -86,12 +86,13 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 2. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
 3. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
 4. Open `/packages/angular-query-form` and confirm both query-form demos are listed.
-5. Open `/packages/angular-query-form/orders?page=2&tags=enterprise` and confirm the page input, active tag chip, summary, and current URL hydrate from the link.
-6. On `/packages/angular-query-form/orders`, move to page 2, then change search or tags and confirm page resets to 1 through `resetKeysOnChange`.
-7. Open `/packages/angular-query-form/recovery?query=api&severity=panic&page=oops&view=matrix` and confirm invalid params are removed while the form stays usable.
-8. Use browser back and forward on the recovery demo after changing view and page.
-9. Open each demo source tab and confirm it shows a line-numbered generated setup excerpt from the real component source.
-10. Confirm the current URL strip always reflects the visible state.
+5. Open `/packages/angular-query-form/orders?page=2&tags=enterprise` and confirm the page input, active tag chip, summary, and current URL hydrate from the link even though `page` is not a managed form control.
+6. On `/packages/angular-query-form/orders`, move to page 2, type a search term, confirm the URL stays unchanged until Apply, then click Apply and confirm page resets to 1 through `resetKeysOnChange`.
+7. On `/packages/angular-query-form/orders`, stage a filter change and click Discard draft. Confirm the URL, page input, and filter controls return to the committed state.
+8. Open `/packages/angular-query-form/recovery?query=api&severity=panic&page=oops&view=matrix` and confirm invalid params are removed while the form stays usable.
+9. Use browser back and forward on the recovery demo after changing view and page.
+10. Open each demo source tab and confirm it shows a line-numbered generated setup excerpt from the real component source.
+11. Confirm the current URL strip always reflects the visible committed state.
 
 ## Selector Policy
 

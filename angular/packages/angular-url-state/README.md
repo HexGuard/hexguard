@@ -55,6 +55,21 @@ ordersState.pageNumber.set(2);
 ordersState.patch({ selectedTags: ['priority', 'enterprise'] });
 ```
 
+## Feature Matrix
+
+| Capability                                            | Status      | Notes                                                                                            |
+| ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| Typed signal-backed query state                       | Available   | `urlState()` exposes writable signals plus `snapshot()`, `patch()`, and `reset()`.               |
+| Deterministic serialization by schema order           | Available   | Stable URLs stay predictable for docs, tests, and shared links.                                  |
+| Query-key remapping with `queryKey`                   | Available   | Keep descriptive local property names while honoring compact or legacy query-string contracts.   |
+| Unmanaged query-param preservation                    | Available   | Writes update only declared keys and preserve unrelated params.                                  |
+| Invalid-param cleanup on the next managed write       | Available   | `invalidParamBehavior: 'removeInvalid'` reparses safely and cleans bad params on the next write. |
+| Immediate invalid URL normalization                   | Proposed    | Eager canonicalization is still an RFC because it changes navigation timing semantics.           |
+| Dev-mode duplicate ownership detection                | Proposed    | Better diagnostics for overlapping writers is still under evaluation.                            |
+| Reactive Forms binding in the core package            | Not planned | Use `@hexguard/angular-query-form` for form synchronization.                                     |
+| Transaction or manual-commit mode in the core package | Not planned | Prefer `@hexguard/angular-query-form` or local app state for staged edits.                       |
+| Path params or hash fragments                         | Not planned | The package intentionally stays focused on query-string state.                                   |
+
 ## API Reference
 
 ### `provideHexGuardUrlState(options?)`
@@ -257,6 +272,9 @@ When stricter behavior is needed:
 
 - use `removeInvalid` to clean bad query params out of the URL after parsing
 - use `throwInDev` to fail loudly during development while keeping production safe
+
+`removeInvalid` currently cleans malformed params on the next managed write rather than navigating
+immediately during the initial parse.
 
 ## Release Contract
 

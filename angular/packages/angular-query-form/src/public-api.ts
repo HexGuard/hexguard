@@ -31,7 +31,17 @@ export type {
   UrlStateSchema,
 } from '@hexguard/angular-url-state';
 
-export { QueryFormControlMissingError, QueryFormResetKeyError } from './lib/errors';
+export {
+  QueryFormControlMissingError,
+  QueryFormManagedKeyError,
+  QueryFormResetKeyError,
+} from './lib/errors';
 export { queryForm } from './lib/query-form';
 export type { QueryFormOptions } from './lib/query-form-options';
-export type { QueryForm, QueryFormControls, QueryFormResetKeysOnChange } from './lib/types';
+export type {
+  QueryForm,
+  QueryFormControls,
+  QueryFormManagedKeys,
+  QueryFormResetKeysOnChange,
+  QueryFormSyncMode,
+} from './lib/types';

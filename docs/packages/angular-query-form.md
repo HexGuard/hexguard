@@ -16,27 +16,44 @@ The package is intentionally narrow:
 - no validation-rule or validation-UI abstraction
 - no second query parser or router synchronization layer
 
+## Feature Matrix
+
+| Capability                                    | Status      | Notes                                                                                |
+| --------------------------------------------- | ----------- | ------------------------------------------------------------------------------------ |
+| Top-level Reactive Forms binding              | Available   | `queryForm()` keeps managed top-level controls and one `urlState()` owner aligned.   |
+| Dependent-key resets with `resetKeysOnChange` | Available   | Reset targets return to codec defaults when a managed source key changes.            |
+| Managed subset binding with `managedKeys`     | Available   | One schema can keep URL-only keys such as `page`, `tab`, or `view` outside the form. |
+| Manual or apply-button sync mode              | Available   | `syncMode: 'manual'` stages edits until `commit()` and exposes `hasPendingChanges`.  |
+| Nested control path mapping                   | Proposed    | Nested paths such as `filters.search` remain outside the `0.1.x` surface.            |
+| Composable child bindings or slices           | Proposed    | The package still prefers one route-aware owner per managed query slice.             |
+| Template-driven forms                         | Not planned | Reactive Forms is the intentional scope for this package.                            |
+| Validation UI or backend error mapping        | Not planned | Those concerns stay in application code.                                             |
+
 ## Public API Map
 
-| Export                         | Role                                                |
-| ------------------------------ | --------------------------------------------------- |
-| `queryForm()`                  | Creates the form-to-query binding handle            |
-| `QueryForm`                    | High-level handle shape returned by `queryForm()`   |
-| `QueryFormOptions`             | URL-state options plus dependent-key reset rules    |
-| `QueryFormResetKeysOnChange`   | Maps source keys to keys reset to codec defaults    |
-| `QueryFormControls`            | Typed top-level control map for schema-backed forms |
-| `QueryFormControlMissingError` | Runtime configuration error for missing controls    |
-| `QueryFormResetKeyError`       | Runtime configuration error for invalid reset rules |
+| Export                         | Role                                                 |
+| ------------------------------ | ---------------------------------------------------- |
+| `queryForm()`                  | Creates the form-to-query binding handle             |
+| `QueryForm`                    | High-level handle shape returned by `queryForm()`    |
+| `QueryFormManagedKeys`         | Ordered subset of schema keys bound to the form      |
+| `QueryFormOptions`             | URL-state options plus dependent-key reset rules     |
+| `QueryFormResetKeysOnChange`   | Maps source keys to keys reset to codec defaults     |
+| `QueryFormSyncMode`            | Chooses live or manual/apply-button sync behavior    |
+| `QueryFormControls`            | Typed top-level control map for schema-backed forms  |
+| `QueryFormControlMissingError` | Runtime configuration error for missing controls     |
+| `QueryFormManagedKeyError`     | Runtime configuration error for invalid managed keys |
+| `QueryFormResetKeyError`       | Runtime configuration error for invalid reset rules  |
 
 The package also re-exports the common URL-state codecs and `provideHexGuardUrlState()` helper for
 ergonomic single-package imports.
 
-The returned handle exposes `form`, `urlState`, `snapshot()`, `patch()`, and `reset()`.
+The returned handle exposes `form`, `urlState`, `hasPendingChanges`, `snapshot()`, `patch()`,
+`reset()`, `commit()`, and `revert()`.
 
 ## Option Resolution and Defaults
 
 `queryForm(form, schema, options?)` accepts the same runtime URL behavior options as
-`urlState(schema, options?)`, plus `resetKeysOnChange`.
+`urlState(schema, options?)`, plus `managedKeys`, `syncMode`, and `resetKeysOnChange`.
 
 Resolution order for URL behavior is still:
 
@@ -44,12 +61,15 @@ Resolution order for URL behavior is still:
 2. injector-level defaults from `provideHexGuardUrlState()`
 3. per-instance overrides passed to `queryForm()`
 
-`resetKeysOnChange` is query-form-specific and applies only inside the local binding instance.
+`managedKeys`, `syncMode`, and `resetKeysOnChange` are query-form-specific and apply only inside
+the local binding instance.
 
 Example:
 
 ```ts
 queryForm(form, schema, {
+  managedKeys: ['search', 'status', 'tags'],
+  syncMode: 'manual',
   debounceMs: 250,
   history: 'replace',
   resetKeysOnChange: {
@@ -66,31 +86,39 @@ Practical rules:
 - use `history: 'push'` when query-form view changes should participate in Back/Forward history
 - use `invalidParamBehavior: 'removeInvalid'` when malformed links should clean themselves up on
   the next stable state
+- use `managedKeys` when the route schema includes URL-owned keys such as pagination, tabs, or
+  view mode that should not require matching form controls
+- use `syncMode: 'manual'` when the URL should update only after an explicit Apply action
 - use `resetKeysOnChange` for dependent query semantics such as filter changes resetting pagination
 
 ## Internal Behavior Notes
 
 - `queryForm()` creates one underlying `urlState()` handle and treats it as the single URL owner.
 - `query.urlState` is the explicit low-level escape hatch for direct signal access.
-- Schema keys must match top-level Reactive Forms controls exactly. Missing controls fail fast.
+- By default every schema key must match a top-level Reactive Forms control. When `managedKeys` is
+  provided, only that subset must exist and the rest remain URL-owned.
 - URL-originated writes update controls with `emitEvent: false` to prevent feedback loops and noisy
   dirty/touched behavior.
-- Form-originated writes compare against the current URL-state snapshot and patch only changed
-  keys.
+- Live mode form-originated writes compare against the current URL-state snapshot and patch only
+  changed managed keys.
+- Manual mode stages managed edits locally, keeps `snapshot()` committed, and reports divergence
+  through `hasPendingChanges` until `commit()` or `revert()`.
 - Equality checks come from the schema codec when available, which matters for arrays and other
   non-primitive values.
 - `form.getRawValue()` is used so disabled managed controls still participate predictably in the
   query snapshot.
 - Dependent resets only apply to keys that were not explicitly changed in the same emission.
+- External URL changes overwrite staged manual edits so browser history remains authoritative.
 
-## Top-level Control Scope
+## Managed Subset Scope
 
-In `0.1.x`, the intended pattern is one `FormGroup` with top-level controls named after schema
-keys.
+In `0.1.x`, the intended pattern is one `FormGroup` with top-level controls for each managed schema
+key.
 
 Supported:
 
-- `search`, `page`, `status`, `tags` as top-level controls
+- `search`, `status`, and `tags` as managed top-level controls with `page` left URL-only
+- one schema that mixes managed form keys with URL-owned keys accessed through `query.urlState`
 - extra local form controls that the query-form binding ignores
 - one route-aware component owning one query-form binding
 
@@ -116,7 +144,8 @@ That means:
 
 The demo app currently exercises two query-form workflows:
 
-- `/packages/angular-query-form/orders`: debounced replace-state search and pagination reset rules
+- `/packages/angular-query-form/orders`: staged apply mode plus subset binding where filters live in
+  the form while `page` and `pageSize` stay URL-owned
 - `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay
 
 Both demos expose stable `data-testid` hooks and source-backed inspector panels, so the demos act

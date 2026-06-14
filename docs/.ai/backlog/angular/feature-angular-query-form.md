@@ -241,23 +241,21 @@ Expected behavior:
 Accepted follow-up work should graduate into separate backlog files once scope is committed. Until
 then, keep the package roadmap triaged here.
 
-| Idea                                        | Triage       | Real problem solved                                                                                              | Main risk                                                                                      | Recommended next step                                                             |
-| ------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Subset binding for form-managed keys        | Planned next | Lets one route schema keep URL-only keys such as `tab`, `sort`, or `view` without forcing matching form controls | Reset and hydration semantics become more subtle when the form manages only part of the schema | Draft API around `managedKeys` and spike behavior in a focused follow-up          |
-| Manual or apply-button sync mode            | Proposed     | Supports filter drawers and staged edits where the URL should update only on explicit apply                      | Introduces divergence between current form values and committed URL state                      | Keep as RFC until a concrete adopter needs it                                     |
-| Nested control path mapping                 | Proposed     | Supports common shapes such as `filters.search` without flattening forms                                         | Higher typing and lifecycle complexity than the current top-level model                        | Treat as separate design spike, not the next implementation                       |
-| Composable child bindings or slices         | Proposed     | Allows large pages to split one route query model across child components                                        | Conflicts with the current single URL owner and one-binding-per-route model                    | Revisit only after subset binding proves out                                      |
-| Richer reset policies beyond codec defaults | Proposed     | Covers cases such as reset-to-custom-value or resetting URL-only keys from a form change                         | Option-surface growth can outpace proven need                                                  | Wait for repeated concrete consumer stories                                       |
-| Local-only orchestration helpers            | Deferred     | Could reduce boilerplate when managed and unmanaged controls interact                                            | Pulls the package toward a general form-state manager                                          | Keep out unless repeated demand shows the current unmanaged model is insufficient |
+| Idea                                        | Triage   | Real problem solved                                                                      | Main risk                                                                   | Recommended next step                                                             |
+| ------------------------------------------- | -------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Nested control path mapping                 | Proposed | Supports common shapes such as `filters.search` without flattening forms                 | Higher typing and lifecycle complexity than the current top-level model     | Treat as separate design spike, not the next implementation                       |
+| Composable child bindings or slices         | Proposed | Allows large pages to split one route query model across child components                | Conflicts with the current single URL owner and one-binding-per-route model | Revisit only after subset binding proves out                                      |
+| Richer reset policies beyond codec defaults | Proposed | Covers cases such as reset-to-custom-value or resetting URL-only keys from a form change | Option-surface growth can outpace proven need                               | Wait for repeated concrete consumer stories                                       |
+| Local-only orchestration helpers            | Deferred | Could reduce boilerplate when managed and unmanaged controls interact                    | Pulls the package toward a general form-state manager                       | Keep out unless repeated demand shows the current unmanaged model is insufficient |
 
-## Subset Binding API Draft
+## Delivered In Current Iteration
 
-### Goal
+- `managedKeys` now lets one schema keep URL-only keys such as `page`, `tab`, or `view` outside
+  the form while the same `queryForm()` binding still owns the full query-state schema.
+- `syncMode: 'manual'` now stages managed form edits locally, exposes `hasPendingChanges`, and
+  commits or discards them through `commit()` and `revert()`.
 
-Allow `queryForm()` to bind only a subset of schema keys to top-level form controls while keeping
-one underlying `urlState()` handle as the single URL owner.
-
-### Recommended API shape
+## Delivered API Shape
 
 ```ts
 type QueryFormManagedKeys<TSchema extends UrlStateSchema> = readonly QueryFormSchemaKey<TSchema>[];

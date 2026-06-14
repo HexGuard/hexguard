@@ -88,6 +88,11 @@
   text-align: center;
 }
 
+.query-orders-mode-note {
+  margin: 0;
+  color: var(--color-muted);
+}
+
 @media (max-width: 720px) {
   .query-orders-pager {
     width: 100%;
