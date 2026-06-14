@@ -97,13 +97,14 @@
         <select
           #pageSizeSelect
           class="demo-select"
-          [value]="query.urlState.pageSize()"
           [disabled]="query.hasPendingChanges()"
           data-testid="query-form-orders-page-size-select"
           (change)="setPageSizeFromInput(pageSizeSelect.value)"
         >
           @for (size of pageSizeOptions; track size) {
-            <option [value]="size">{{ size }} rows</option>
+            <option [value]="size" [selected]="query.urlState.pageSize() === size">
+              {{ size }} rows
+            </option>
           }
         </select>
       </label>

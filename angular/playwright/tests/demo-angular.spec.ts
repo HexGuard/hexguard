@@ -194,6 +194,26 @@ test.describe('demo-angular', () => {
     );
   });
 
+  test('hydrates the query-form orders page-size select from URL-owned state', async ({ page }) => {
+    await page.goto(
+      `${queryFormOrdersRoute}?search=bnjhhhjbj&pageSize=10&status=closed&tags=enterprise&tags=retail&tags=renewal`,
+    );
+
+    await expect(page.getByTestId('query-form-orders-page')).toBeVisible();
+    await expect(page.getByTestId('query-form-orders-search-input')).toHaveValue('bnjhhhjbj');
+    await expect(page.getByTestId('query-form-orders-status-select')).toHaveValue('closed');
+    await expect(page.getByTestId('query-form-orders-page-size-select')).toHaveValue('10');
+    await expect(page.getByTestId('query-form-orders-tag-enterprise')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+    await expect(page.getByTestId('query-form-orders-tag-retail')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+    await expect(page.getByTestId('query-form-orders-tag-renewal')).toHaveClass(
+      /demo-tab-button--active/,
+    );
+  });
+
   test('keeps query-form orders shareable and resets page when filters change', async ({
     page,
   }) => {
