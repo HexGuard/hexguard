@@ -36,19 +36,46 @@ export interface AsyncState<TValue, TError = unknown> {
 
 /** High-level handle returned by `observableState()`. */
 export interface ObservableState<TValue, TError = unknown> {
+  /** Current observable lifecycle state. */
   readonly status: Signal<ObservableStateStatus>;
+
+  /** Latest emitted value, or the initial value before the first emission. */
   readonly value: Signal<TValue>;
+
+  /** Latest terminal error for the active or most recent connection. */
   readonly error: Signal<TError | null>;
+
+  /** Whether the latest emitted value is non-empty according to `empty()`. */
   readonly hasValue: Signal<boolean>;
+
+  /** Whether the latest emitted value is considered empty. */
   readonly isEmpty: Signal<boolean>;
+
+  /** Whether no observable connection is active. */
   readonly isIdle: Signal<boolean>;
+
+  /** Whether the handle is connected and waiting for the first emission. */
   readonly isConnecting: Signal<boolean>;
+
+  /** Whether the current connection has emitted at least one value and is still active. */
   readonly isLive: Signal<boolean>;
+
+  /** Whether the current or most recent connection ended with an error. */
   readonly isError: Signal<boolean>;
+
+  /** Whether the current or most recent connection completed normally. */
   readonly isComplete: Signal<boolean>;
+
+  /** Starts the observable subscription when no active connection exists. */
   connect(): void;
+
+  /** Tears down the current subscription and returns the handle to `idle`. */
   disconnect(): void;
+
+  /** Replaces the current subscription with a fresh connection from `source()`. */
   reconnect(): void;
+
+  /** Clears the latest value, error, and connection state back to the initial snapshot. */
   reset(): void;
 }
 

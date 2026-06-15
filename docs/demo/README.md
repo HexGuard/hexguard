@@ -18,6 +18,7 @@ The default development URL is `http://localhost:4200`.
 
 ## Demo Routes
 
+- `/`: HexGuard landing page with current Angular package hubs, repo links, and selected roadmap items
 - `/packages/angular-url-state`: package overview and demo catalog
 - `/packages/angular-url-state/orders`: debounced replace-state search, status, tags, and pagination-friendly URL state with remapped keys such as `q`, `p`, `size`, and repeated `tag` values, so `/packages/angular-url-state/orders?p=2` is directly demonstrable
 - `/packages/angular-url-state/dashboard`: push-state history for tabs, date ranges, and archive toggles
@@ -37,6 +38,7 @@ demo app uses package-aware routes.
 
 The app is organized as an Angular package showcase:
 
+- `angular/apps/demo-angular/src/app/features/site-home/`: repo-facing landing page, package discovery, and roadmap highlights
 - `angular/apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata used by navigation, routes, docs links, and tests
 - `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
@@ -49,15 +51,20 @@ Playwright scripts run it automatically.
 
 ## Source Panels
 
-Each demo inspector includes two tabs:
+Each demo inspector includes two primary tabs:
 
 - `Live state`: the current `state.snapshot()` output
-- `Source`: a generated, Prettier-formatted excerpt from the real demo component source
+- `Source`: generated source pulled from the real demo component files
 
-The source panel is intentionally contextual. API details and conceptual guidance remain in the
-package README and deep docs so the app does not become a second handwritten documentation source.
-Source samples are displayed in a larger line-numbered panel so examples stay readable while still
-being generated from real component code.
+Inside the `Source` tab, the inspector exposes dedicated file tabs for:
+
+- `component.ts`: the full TypeScript component file
+- `template.html`: the full Angular template file
+- `styles.css`: the full component stylesheet
+
+API details and conceptual guidance still live in the package README and deep docs so the app does
+not become a second handwritten documentation source. The source viewer stays generated from real
+component files so the demo does not hide implementation details behind handwritten excerpts.
 
 ## Demo Navigation
 
@@ -88,22 +95,23 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 
 ## Manual Verification Checklist
 
-1. Open `/packages/angular-url-state` and confirm both URL-state demos are listed.
-2. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
-3. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
-4. Open `/packages/angular-query-form` and confirm both query-form demos are listed.
-5. Open `/packages/angular-query-form/orders?page=2&tags=enterprise` and confirm the page input, active tag chip, summary, and current URL hydrate from the link even though `page` is not a managed form control.
-6. On `/packages/angular-query-form/orders`, move to page 2, type a search term, confirm the URL stays unchanged until Apply, then click Apply and confirm page resets to 1 through `resetKeysOnChange`.
-7. On `/packages/angular-query-form/orders`, stage a filter change and click Discard draft. Confirm the URL, page input, and filter controls return to the committed state.
-8. Open `/packages/angular-query-form/recovery?query=api&severity=panic&page=oops&view=matrix` and confirm invalid params are removed while the form stays usable.
-9. Open `/packages/angular-async-state` and confirm all three async-state demos are listed.
-10. Open `/packages/angular-async-state/value`, confirm the idle message renders first, load the healthy scenario, then trigger `Reload with stale error` and confirm the cards stay visible while the refresh error is shown.
-11. Open `/packages/angular-async-state/observable`, connect the feed, emit a healthy snapshot, fail the feed, reconnect, and confirm the last live snapshot stays visible across terminal states until the next emission.
-12. Open `/packages/angular-async-state/action`, trigger `Simulate double submit`, and confirm the success message appears while the backend call counter stays at `1`.
-13. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
-14. Use browser back and forward on the recovery demo after changing view and page.
-15. Open each demo source tab and confirm it shows a line-numbered generated setup excerpt from the real component source.
-16. Confirm the current URL strip always reflects the visible committed state.
+1. Open `/` and confirm the landing page shows the three current Angular packages plus roadmap cards.
+2. Open `/packages/angular-url-state` and confirm both URL-state demos are listed.
+3. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
+4. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
+5. Open `/packages/angular-query-form` and confirm both query-form demos are listed.
+6. Open `/packages/angular-query-form/orders?page=2&tags=enterprise` and confirm the page input, active tag chip, summary, and current URL hydrate from the link even though `page` is not a managed form control.
+7. On `/packages/angular-query-form/orders`, move to page 2, type a search term, confirm the URL stays unchanged until Apply, then click Apply and confirm page resets to 1 through `resetKeysOnChange`.
+8. On `/packages/angular-query-form/orders`, stage a filter change and click Discard draft. Confirm the URL, page input, and filter controls return to the committed state.
+9. Open `/packages/angular-query-form/recovery?query=api&severity=panic&page=oops&view=matrix` and confirm invalid params are removed while the form stays usable.
+10. Open `/packages/angular-async-state` and confirm all three async-state demos are listed.
+11. Open `/packages/angular-async-state/value`, confirm the idle message renders first, load the healthy scenario, then trigger `Reload with stale error` and confirm the cards stay visible while the refresh error is shown.
+12. Open `/packages/angular-async-state/observable`, connect the feed, emit a healthy snapshot, fail the feed, reconnect, and confirm the last live snapshot stays visible across terminal states until the next emission.
+13. Open `/packages/angular-async-state/action`, trigger `Simulate double submit`, and confirm the success message appears while the backend call counter stays at `1`.
+14. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
+15. Use browser back and forward on the recovery demo after changing view and page.
+16. Open the source tab on each demo and confirm it exposes `component.ts`, `template.html`, and `styles.css` tabs generated from the real component files.
+17. Confirm the current URL strip always reflects the visible committed state.
 
 ## Selector Policy
 

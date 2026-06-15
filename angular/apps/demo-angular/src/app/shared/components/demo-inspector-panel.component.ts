@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, signal } from '@angular/core';
 
 import type { DemoLink } from '../../demo-registry';
-import { DEMO_SOURCE_SNIPPETS } from '../../generated/demo-snippets';
+import type { DemoSourceSnippet } from '../../generated/demo-snippets';
 
 @Component({
   selector: 'demo-inspector-panel',
@@ -49,8 +49,25 @@ import { DEMO_SOURCE_SNIPPETS } from '../../generated/demo-snippets';
           <div class="demo-source-meta">
             <strong>{{ currentSnippet.title }}</strong>
             <p>{{ currentSnippet.description }}</p>
-            <code>{{ currentSnippet.sourcePath }}</code>
+            @if (selectedSourceFile(); as sourceFile) {
+              <code>{{ sourceFile.sourcePath }}</code>
+            }
           </div>
+
+          <div class="demo-tab-bar" role="tablist" aria-label="Source files">
+            @for (sourceFile of sourceFiles(); track sourceFile.id) {
+              <button
+                type="button"
+                class="demo-tab-button"
+                [class.demo-tab-button--active]="activeSourceFileId() === sourceFile.id"
+                [attr.data-testid]="codeTestId() + '-file-' + sourceFile.id"
+                (click)="activeSourceFileId.set(sourceFile.id)"
+              >
+                {{ sourceFile.label }}
+              </button>
+            }
+          </div>
+
           <div class="demo-code-frame" [attr.data-testid]="codeTestId()">
             <ol class="demo-code-list" aria-label="Generated source sample">
               @for (line of codeLines(); track $index) {
@@ -61,6 +78,10 @@ import { DEMO_SOURCE_SNIPPETS } from '../../generated/demo-snippets';
               }
             </ol>
           </div>
+        } @else if (sourceLoadState() === 'loading') {
+          <p class="demo-card__summary" [attr.data-testid]="codeTestId()">
+            Loading full component source...
+          </p>
         } @else {
           <p class="demo-card__summary" [attr.data-testid]="codeTestId()">
             Code sample unavailable.
@@ -92,6 +113,52 @@ export class DemoInspectorPanelComponent {
   readonly snapshotTestId = input.required<string>();
   readonly codeTestId = input.required<string>();
   readonly activeTab = signal<'state' | 'code'>('state');
-  readonly snippet = computed(() => DEMO_SOURCE_SNIPPETS[this.snippetId()] ?? null);
-  readonly codeLines = computed(() => this.snippet()?.code.split('\n') ?? []);
+  readonly activeSourceFileId = signal<'ts' | 'html' | 'css'>('ts');
+  readonly sourceLoadState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  readonly sourceSnippets = signal<Record<string, DemoSourceSnippet> | null>(null);
+  readonly snippet = computed(() => this.sourceSnippets()?.[this.snippetId()] ?? null);
+  readonly sourceFiles = computed(() => this.snippet()?.files ?? []);
+  readonly selectedSourceFile = computed(() => {
+    const activeSourceFileId = this.activeSourceFileId();
+    const sourceFiles = this.sourceFiles();
+
+    return sourceFiles.find((file) => file.id === activeSourceFileId) ?? sourceFiles[0] ?? null;
+  });
+  readonly codeLines = computed(() => this.selectedSourceFile()?.code.split('\n') ?? []);
+
+  private sourceLoadPromise: Promise<void> | null = null;
+
+  constructor() {
+    effect(() => {
+      if (this.activeTab() === 'code') {
+        void this.ensureSourceSnippetsLoaded();
+      }
+    });
+  }
+
+  private async ensureSourceSnippetsLoaded(): Promise<void> {
+    if (this.sourceSnippets()) {
+      this.sourceLoadState.set('ready');
+      return;
+    }
+
+    if (this.sourceLoadPromise) {
+      return this.sourceLoadPromise;
+    }
+
+    this.sourceLoadState.set('loading');
+    this.sourceLoadPromise = import('../../generated/demo-snippets')
+      .then(({ DEMO_SOURCE_SNIPPETS }) => {
+        this.sourceSnippets.set(DEMO_SOURCE_SNIPPETS);
+        this.sourceLoadState.set('ready');
+      })
+      .catch(() => {
+        this.sourceLoadState.set('error');
+      })
+      .finally(() => {
+        this.sourceLoadPromise = null;
+      });
+
+    return this.sourceLoadPromise;
+  }
 }

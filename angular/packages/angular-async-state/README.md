@@ -137,7 +137,8 @@ The package exports two optional standalone template helpers:
 - `HexguardAsyncActionOutletComponent`
 
 They are intentionally thin. They render the same headless handles with explicit templates instead
-of introducing their own hidden state model.
+of introducing their own hidden state model. `observableState()` stays headless in `0.1.x`; use
+its signals directly when you need live-stream rendering.
 
 ## Behavioral Notes
 

@@ -23,7 +23,7 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Angular package demos built around real workflows.',
+      'Open-source guardrails for Angular and .NET teams.',
     );
   });
 });

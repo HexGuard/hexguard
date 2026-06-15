@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+
+.package-hub {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.package-hub__overview {
+  background:
+    radial-gradient(circle at top right, rgba(15, 139, 141, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+}
+
+.package-hub__header,
+.package-hub__demos-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.package-hub__header h2,
+.package-hub__info-grid h3,
+.package-hub__demos-heading h3,
+.package-hub__demo-card h3 {
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.package-hub__header-meta {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.package-hub__detail,
+.package-hub__demo-description,
+.package-hub__demo-meta {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.package-hub__info-grid,
+.package-hub__demos-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.package-hub__highlights {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+}
+
+.package-hub__demo-meta {
+  font-size: 0.92rem;
+}

@@ -5,7 +5,7 @@ export interface ObservableStateOptions<TValue, TError = unknown> {
   /** Initial value exposed before the first subscription emits. */
   readonly initialValue: TValue;
 
-  /** Observable factory invoked by `connect()` and `reconnect()`. */
+  /** Observable factory invoked whenever the handle opens a fresh connection. */
   readonly source: () => Observable<TValue>;
 
   /**

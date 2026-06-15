@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import { DEMO_PACKAGES } from './demo-registry';
+import { SITE_CURRENT_PACKAGES, SITE_HEADER_LINKS } from './site-catalog';
 
 @Component({
   selector: 'demo-root',
@@ -11,5 +11,7 @@ import { DEMO_PACKAGES } from './demo-registry';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  readonly packages = DEMO_PACKAGES;
+  readonly headerLinks = SITE_HEADER_LINKS;
+  readonly pageTitle = 'Open-source guardrails for Angular and .NET teams.';
+  readonly packages = SITE_CURRENT_PACKAGES;
 }

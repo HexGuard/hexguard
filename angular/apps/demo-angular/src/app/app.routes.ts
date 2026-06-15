@@ -8,7 +8,6 @@ import {
   ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
   ANGULAR_URL_STATE_ORDERS_DEMO,
-  ANGULAR_URL_STATE_PACKAGE,
 } from './demo-registry';
 import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
@@ -17,6 +16,7 @@ import { AsyncStateValueDemoPageComponent } from './features/angular-async-state
 import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
 import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
 import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
+import { SiteHomePageComponent } from './features/site-home/pages/site-home-page.component';
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
 import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
@@ -24,8 +24,8 @@ import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orde
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: ANGULAR_URL_STATE_PACKAGE.route.slice(1),
+    component: SiteHomePageComponent,
+    title: 'HexGuard Demo Site',
   },
   {
     path: 'packages/angular-url-state',
@@ -107,6 +107,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ANGULAR_URL_STATE_PACKAGE.route.slice(1),
+    redirectTo: '',
   },
 ];

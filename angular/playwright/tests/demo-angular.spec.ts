@@ -9,6 +9,19 @@ const asyncStateObservableRoute = '/packages/angular-async-state/observable';
 const asyncStateActionRoute = '/packages/angular-async-state/action';
 
 test.describe('demo-angular', () => {
+  test('shows the HexGuard landing page', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.getByTestId('site-home-page')).toBeVisible();
+    await expect(page.getByTestId('demo-title')).toContainText(
+      'Open-source guardrails for Angular and .NET teams.',
+    );
+    await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
+    await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
+    await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
+    await expect(page.getByTestId('site-home-roadmap-angular-api-errors')).toBeVisible();
+  });
+
   test('shows the Angular URL State package overview', async ({ page }) => {
     await page.goto('/packages/angular-url-state');
 
@@ -147,6 +160,26 @@ test.describe('demo-angular', () => {
     await expect(page).toHaveURL(/\/packages\/angular-url-state\/orders$/);
     await expect(page.getByTestId('orders-current-url')).toHaveText(
       '/packages/angular-url-state/orders',
+    );
+  });
+
+  test('shows full component TypeScript, template, and styles in the orders source panel', async ({ page }) => {
+    await page.goto(ordersRoute);
+
+    await page.getByTestId('orders-inspector-panel-tab-code').click();
+
+    await expect(page.getByTestId('orders-code-sample')).toContainText(
+      'readonly state = urlState',
+    );
+
+    await page.getByTestId('orders-code-sample-file-html').click();
+    await expect(page.getByTestId('orders-code-sample')).toContainText(
+      '<demo-page-layout testId="orders-page">',
+    );
+
+    await page.getByTestId('orders-code-sample-file-css').click();
+    await expect(page.getByTestId('orders-code-sample')).toContainText(
+      '.orders-controls-grid {',
     );
   });
 

@@ -1,32 +1,70 @@
 <div class="app-shell" data-testid="demo-app-shell">
-  <header class="hero">
-    <div class="hero__copy">
-      <p class="eyebrow">HexGuard</p>
-      <h1 data-testid="demo-title">Angular package demos built around real workflows.</h1>
-      <p class="hero__summary">
-        Explore live package behavior, inspect URL-backed state, and switch into generated source
-        excerpts that stay tied to the demo components behind each workflow.
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__bar demo-card">
+      <a class="brand-lockup" routerLink="/" aria-label="HexGuard home">
+        <span class="brand-lockup__eyebrow">HexGuard</span>
+        <span class="brand-lockup__title">OSS application guardrails</span>
+      </a>
+
+      <nav class="site-links" aria-label="Repository links">
+        @for (link of headerLinks; track link.href) {
+          <a class="site-links__link" [href]="link.href" target="_blank" rel="noreferrer">
+            {{ link.label }}
+          </a>
+        }
+      </nav>
+    </div>
+
+    <div class="site-header__summary">
+      <div class="site-header__copy">
+        <p class="eyebrow">Documentation and demo site</p>
+        <h1 data-testid="demo-title">{{ pageTitle }}</h1>
+        <p class="site-header__lede">
+          Explore the current Angular packages, follow the broader HexGuard roadmap, and move from
+          documentation to live demo routes without losing GitHub and deep-doc context.
+        </p>
+      </div>
+
+      <nav class="package-strip" aria-label="Current packages">
+        @for (packageEntry of packages; track packageEntry.id) {
+          <a
+            class="package-strip__link"
+            [routerLink]="packageEntry.route"
+            routerLinkActive="package-strip__link--active"
+            [attr.data-testid]="'nav-link-package-' + packageEntry.id"
+          >
+            <span class="package-strip__heading">{{ packageEntry.packageName }}</span>
+            <span class="package-strip__summary">{{ packageEntry.summary }}</span>
+            <span class="package-strip__meta"
+              >{{ packageEntry.status }} · {{ packageEntry.demoCount }} live demos</span
+            >
+          </a>
+        }
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="demo-stage" data-testid="demo-stage">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="site-footer demo-card">
+    <div>
+      <p class="demo-eyebrow">HexGuard repo</p>
+      <p class="site-footer__summary">
+        The public site mirrors an active monorepo: Angular packages, future .NET work, demo
+        automation, and the docs that explain the contracts in plain terms.
       </p>
     </div>
 
-    <nav class="hero__nav" aria-label="Package demos">
-      @for (packageEntry of packages; track packageEntry.route) {
-        <a
-          class="nav-card"
-          [routerLink]="packageEntry.route"
-          routerLinkActive="nav-card--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          [attr.data-testid]="'nav-link-package-' + packageEntry.id"
-        >
-          <span class="nav-card__title">{{ packageEntry.title }}</span>
-          <span class="nav-card__description">{{ packageEntry.description }}</span>
-          <span class="nav-card__meta">{{ packageEntry.demos.length }} package demos</span>
+    <div class="demo-link-row">
+      @for (link of headerLinks; track link.href) {
+        <a class="demo-link-chip" [href]="link.href" target="_blank" rel="noreferrer">
+          {{ link.label }}
         </a>
       }
-    </nav>
-  </header>
-
-  <main class="demo-stage" data-testid="demo-stage">
-    <router-outlet></router-outlet>
-  </main>
+    </div>
+  </footer>
 </div>

@@ -41,6 +41,7 @@ export function observableState<TValue, TError = unknown>(
   const error = signal<TError | null>(null);
   const hasEmittedFlag = signal(false);
 
+  // Guards against stale emissions after disconnect, reconnect, or reset.
   let connectionToken = 0;
   let subscription: Subscription | null = null;
 

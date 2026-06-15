@@ -161,6 +161,10 @@ The two outlet components are optional sugar over the same handles.
 - success
 - error
 
+`observableState()` intentionally has no dedicated outlet helper in `0.1.x`. Live-stream UIs tend
+to vary more in how they render terminal states, reconnect controls, and incremental updates, so
+the observable primitive stays headless for now.
+
 These outlets do not own fetching, submitting, retries, or visual styling. They simply branch on
 the handle state and provide typed template contexts.
 
@@ -181,7 +185,7 @@ The demo app currently exercises three async-state workflows:
 - `/packages/angular-async-state/observable`: live observable lifecycle with connect, live updates, empty snapshots, terminal errors, completion, and reconnect
 - `/packages/angular-async-state/action`: explicit action lifecycle with pending, success, failure, and duplicate-run reuse
 
-Both demos expose stable `data-testid` hooks and generated source inspector panels, so the demos
+All three demos expose stable `data-testid` hooks and generated source inspector panels, so the demos
 act as both documentation and Playwright fixtures.
 
 ## Validation Surface

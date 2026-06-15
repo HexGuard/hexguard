@@ -274,6 +274,44 @@ describe('observableState', () => {
     expect(state.value()).toBe('second-value');
   });
 
+  it('maps synchronous source failures before any emission', () => {
+    const state = observableState<string, string>({
+      initialValue: 'seed',
+      source: () => {
+        throw new Error('Socket setup failed.');
+      },
+      mapError: mapErrorMessage,
+    });
+
+    state.connect();
+
+    expect(state.isError()).toBe(true);
+    expect(state.error()).toBe('Socket setup failed.');
+    expect(state.value()).toBe('seed');
+    expect(state.hasValue()).toBe(false);
+  });
+
+  it('honors a custom empty predicate for emitted observable values', () => {
+    const subject = new Subject<{ readonly items: readonly string[] }>();
+    const state = observableState({
+      initialValue: { items: ['seed'] as const },
+      source: () => subject.asObservable(),
+      empty: (value) => value.items.length === 0,
+    });
+
+    state.connect();
+    subject.next({ items: [] });
+
+    expect(state.isLive()).toBe(true);
+    expect(state.isEmpty()).toBe(true);
+    expect(state.hasValue()).toBe(false);
+
+    subject.next({ items: ['HG-1042'] });
+
+    expect(state.isEmpty()).toBe(false);
+    expect(state.hasValue()).toBe(true);
+  });
+
   it('completes without a value and resets back to the initial state', () => {
     const state = observableState({
       initialValue: ['seed'] as string[],

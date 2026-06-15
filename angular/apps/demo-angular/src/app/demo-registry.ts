@@ -101,8 +101,9 @@ export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-url-state/orders-demo-state',
-    label: 'Orders state setup',
-    description: 'The real urlState schema, options, and computed state used by the orders demo.',
+    label: 'Orders component source',
+    description:
+      'The full Orders demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -131,9 +132,9 @@ export const ANGULAR_URL_STATE_DASHBOARD_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-url-state/dashboard-demo-state',
-    label: 'Dashboard state setup',
+    label: 'Dashboard component source',
     description:
-      'The real urlState schema, options, and computed state used by the dashboard demo.',
+      'The full Dashboard demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -173,8 +174,9 @@ export const ANGULAR_QUERY_FORM_ORDERS_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-query-form/orders-demo-state',
-    label: 'Orders query-form setup',
-    description: 'The real Reactive Forms and queryForm setup used by the orders demo.',
+    label: 'Orders query-form component source',
+    description:
+      'The full Orders Query Form component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -203,8 +205,9 @@ export const ANGULAR_QUERY_FORM_RECOVERY_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-query-form/recovery-demo-state',
-    label: 'Recovery query-form setup',
-    description: 'The real queryForm configuration for invalid-link cleanup and history replay.',
+    label: 'Recovery query-form component source',
+    description:
+      'The full Recovery Query Form component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -244,9 +247,9 @@ export const ANGULAR_ASYNC_STATE_VALUE_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-async-state/value-demo-state',
-    label: 'Async value demo setup',
+    label: 'Async value component source',
     description:
-      'The real asyncState configuration and derived lifecycle summary used by this demo.',
+      'The full asyncState value demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -275,9 +278,9 @@ export const ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-async-state/observable-demo-state',
-    label: 'Observable-state demo setup',
+    label: 'Observable-state component source',
     description:
-      'The real observableState configuration and subscription instrumentation used by this demo.',
+      'The full observableState demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -306,9 +309,9 @@ export const ANGULAR_ASYNC_STATE_ACTION_DEMO: DemoPageEntry = {
   ],
   codeSample: {
     snippetId: 'angular-async-state/action-demo-state',
-    label: 'Async action demo setup',
+    label: 'Async action component source',
     description:
-      'The real asyncAction configuration and duplicate-run instrumentation used by this demo.',
+      'The full asyncAction demo component source, including TypeScript, template, and styles.',
   },
 };
 
