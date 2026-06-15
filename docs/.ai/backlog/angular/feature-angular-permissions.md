@@ -1,7 +1,7 @@
 ---
 id: feature-angular-permissions
 type: feature
-status: proposed
+status: in-progress
 created: 2026-06-13
 package: '@hexguard/angular-permissions'
 ---
@@ -35,14 +35,17 @@ centralized, and consistent.
 - Prefer a policy-first headless API.
 - Add template and route helpers only as thin adapters over the core evaluator.
 - Keep the permission model explicit rather than hiding checks inside large declarative config.
+- The first implementation stays limited to capabilities and roles. Resource predicates and a broader DSL remain out of scope.
+- Feature flags remain orthogonal; the package does not compose feature-flag checks into permission decisions in `0.1.0`.
 
 ## Implementation Plan
 
-1. Define the minimal permission model for capabilities, roles, and optional resource context.
-2. Implement a signal-friendly evaluator or store for current access context.
+1. Define the minimal permission model for capabilities and roles.
+2. Implement the pure evaluator plus signal-friendly current-context integration.
 3. Add imperative checks for services and component logic.
-4. Add route guard helpers and optional structural template directives.
+4. Add route guard helpers and a structural template directive.
 5. Add tests covering capability checks, route gating, and template composition.
+6. Add package-home and permissions demo routes to the Angular demo app.
 
 ## Validation
 
@@ -52,5 +55,5 @@ centralized, and consistent.
 
 ## Follow-Ups
 
-- Decide whether feature flags should compose with permissions or stay orthogonal.
+- Decide later whether resource predicates deserve a separate extension surface.
 - Revisit page-context integration once page actions and permissions are both defined.

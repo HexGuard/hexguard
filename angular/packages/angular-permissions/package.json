@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-permissions",
+  "version": "0.1.0",
+  "description": "Headless capability and role evaluation for Angular applications.",
+  "keywords": [
+    "angular",
+    "permissions",
+    "roles",
+    "capabilities",
+    "signals",
+    "authorization",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-permissions",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-permissions"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/router": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

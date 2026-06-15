@@ -5,6 +5,7 @@
   "compilerOptions": {
     "paths": {
       "@hexguard/angular-async-state": ["./packages/angular-async-state/src/public-api.ts"],
+      "@hexguard/angular-permissions": ["./packages/angular-permissions/src/public-api.ts"],
       "@hexguard/angular-query-form": ["./packages/angular-query-form/src/public-api.ts"],
       "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"]
     },
@@ -43,6 +44,12 @@
     },
     {
       "path": "./packages/angular-async-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-permissions/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-permissions/tsconfig.spec.json"
     },
     {
       "path": "./apps/demo-angular/tsconfig.app.json"

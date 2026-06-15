@@ -154,6 +154,47 @@ export const GENERATED_CURRENT_PACKAGES = [
       },
     ],
   },
+  {
+    id: 'angular-permissions',
+    packageName: '@hexguard/angular-permissions',
+    status: 'In Progress',
+    scope: 'Angular',
+    summary:
+      'Headless capability and role evaluation for Angular routes, templates, and feature code.',
+    detail:
+      'Focused on a provider-agnostic permission context, one pure evaluator, and thin Angular adapters for guard helpers, template gating, and imperative checks.',
+    installCommand: 'pnpm add @hexguard/angular-permissions',
+    featureHighlights: [
+      'Pure evaluator plus an injected facade for imperative checks in components and services.',
+      'Thin `CanActivate` and `CanMatch` helpers plus one structural directive over the same evaluator.',
+      'Persona-driven demos for disabled actions, hidden content, and redirected child routes.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that want one explicit contract for route gating, template visibility, and action enablement.',
+      'Screens that already receive normalized capability and role data from an auth or profile layer.',
+      'Teams that need permission behavior to stay inspectable through docs-grade demos instead of scattered boolean glue.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in progress and already exposes the headless evaluator, DI facade, and thin Angular adapters that the demo site uses.',
+      'The first release stays intentionally narrow around capabilities and roles, leaving auth parsing, feature flags, and backend capability contracts outside the package boundary.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-permissions',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-permissions/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-permissions.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
 ] as const satisfies readonly GeneratedCurrentPackageCatalogEntry[];
 
 export const GENERATED_ROADMAP_PACKAGES = [
@@ -240,18 +281,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-undo',
     showOnSiteHome: false,
-  },
-  {
-    id: 'angular-permissions',
-    anchorId: 'package-angular-permissions',
-    packageName: '@hexguard/angular-permissions',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize capability and policy checks across routes, templates, actions, and feature code through a headless Angular permission contract.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-permissions',
-    showOnSiteHome: true,
   },
   {
     id: 'angular-form-drafts',

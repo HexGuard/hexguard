@@ -1,0 +1,125 @@
+<demo-page-layout testId="permissions-routing-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="permissions-routing-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="permissions-routing-intro-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Permissions</p>
+        <h2>Route guards share the same context and requirements as imperative checks.</h2>
+      </div>
+
+      <span class="demo-hint-pill" data-testid="permissions-routing-persona-pill">
+        Persona: {{ session.persona().label }}
+      </span>
+    </div>
+
+    <p class="demo-card__summary">
+      Switch personas and navigate between child routes. Finance uses
+      <code>canActivatePermissions()</code>, while audit uses <code>canMatchPermissions()</code>
+      so the redirect can happen before the child route matches.
+    </p>
+
+    <div class="permissions-routing-toolbar">
+      <label class="demo-field permissions-routing-toolbar__select">
+        <span>Persona</span>
+        <select
+          class="demo-select"
+          [ngModel]="session.personaId()"
+          data-testid="permissions-routing-persona-select"
+          (ngModelChange)="updatePersona($event)"
+        >
+          @for (persona of personas; track persona.id) {
+            <option [value]="persona.id">{{ persona.label }}</option>
+          }
+        </select>
+      </label>
+
+      <div class="permissions-route-state" data-testid="permissions-routing-current-access">
+        <span class="demo-hint-pill"
+          >Finance: {{ canOpenFinance() ? 'allowed' : 'redirected' }}</span
+        >
+        <span class="demo-hint-pill">Audit: {{ canOpenAudit() ? 'matched' : 'blocked' }}</span>
+      </div>
+    </div>
+
+    <demo-status-strip
+      testId="permissions-routing-status-strip"
+      summaryTestId="permissions-routing-summary"
+      urlTestId="permissions-routing-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="permissions-routing-render-card"
+  >
+    <nav
+      class="permissions-route-nav"
+      aria-label="Permissions routing demo"
+      data-testid="permissions-routing-links"
+    >
+      <a
+        class="permissions-route-nav__link"
+        routerLink="overview"
+        routerLinkActive="permissions-route-nav__link--active"
+        data-testid="permissions-routing-link-overview"
+      >
+        Overview
+      </a>
+      <a
+        class="permissions-route-nav__link"
+        routerLink="finance"
+        routerLinkActive="permissions-route-nav__link--active"
+        data-testid="permissions-routing-link-finance"
+      >
+        Finance child route
+      </a>
+      <a
+        class="permissions-route-nav__link"
+        routerLink="audit"
+        routerLinkActive="permissions-route-nav__link--active"
+        data-testid="permissions-routing-link-audit"
+      >
+        Audit child route
+      </a>
+      <a
+        class="permissions-route-nav__link"
+        routerLink="denied"
+        routerLinkActive="permissions-route-nav__link--active"
+        data-testid="permissions-routing-link-denied"
+      >
+        Denied target
+      </a>
+    </nav>
+
+    <section
+      class="permissions-route-panel demo-card demo-card--stack"
+      data-testid="permissions-routing-outlet-card"
+    >
+      <router-outlet />
+    </section>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="permissions-routing-inspector-panel"
+    snapshotTestId="permissions-routing-snapshot-json"
+    codeTestId="permissions-routing-code-sample"
+    title="Route decisions and shell component source"
+    summary="The snapshot shows the normalized permission context, the current route, and the booleans driving the two guard helpers."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

@@ -7,6 +7,8 @@ const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
 const asyncStateValueRoute = '/packages/angular-async-state/value';
 const asyncStateObservableRoute = '/packages/angular-async-state/observable';
 const asyncStateActionRoute = '/packages/angular-async-state/action';
+const permissionsActionsRoute = '/packages/angular-permissions/actions';
+const permissionsRoutingRoute = '/packages/angular-permissions/routing';
 
 test.describe('demo-angular', () => {
   test('shows the HexGuard landing page', async ({ page }) => {
@@ -19,6 +21,7 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
+    await expect(page.getByTestId('site-home-featured-package-angular-permissions')).toBeVisible();
     await expect(
       page.getByTestId('site-home-featured-package-status-angular-url-state'),
     ).toHaveText('Available');
@@ -28,12 +31,18 @@ test.describe('demo-angular', () => {
     await expect(
       page.getByTestId('site-home-featured-package-status-angular-async-state'),
     ).toHaveText('Available');
+    await expect(
+      page.getByTestId('site-home-featured-package-status-angular-permissions'),
+    ).toHaveText('In Progress');
     await expect(page.getByTestId('nav-link-package-angular-url-state')).toContainText('Available');
     await expect(page.getByTestId('nav-link-package-angular-query-form')).toContainText(
       'Available',
     );
     await expect(page.getByTestId('nav-link-package-angular-async-state')).toContainText(
       'Available',
+    );
+    await expect(page.getByTestId('nav-link-package-angular-permissions')).toContainText(
+      'In Progress',
     );
     await expect(page.getByTestId('site-home-roadmap-angular-api-errors')).toBeVisible();
   });
@@ -70,6 +79,17 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-async-state-demo-async-state-value')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-observable')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-action')).toBeVisible();
+  });
+
+  test('shows the Angular Permissions package overview', async ({ page }) => {
+    await page.goto('/packages/angular-permissions');
+
+    await expect(page.getByTestId('package-angular-permissions')).toBeVisible();
+    await expect(page.getByTestId('package-angular-permissions-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-permissions',
+    );
+    await expect(page.getByTestId('package-permissions-demo-permissions-actions')).toBeVisible();
+    await expect(page.getByTestId('package-permissions-demo-permissions-routing')).toBeVisible();
   });
 
   test('hydrates the orders page from the remapped page query param', async ({ page }) => {
@@ -404,6 +424,96 @@ test.describe('demo-angular', () => {
 
     await expect(page).toHaveURL(/\/packages\/angular-async-state$/);
     await expect(page.getByTestId('package-angular-async-state')).toBeVisible();
+  });
+
+  test('navigates between permissions demos with the reusable strip', async ({ page }) => {
+    await page.goto(permissionsActionsRoute);
+
+    await expect(page.getByTestId('permissions-actions-demo-navigation')).toBeVisible();
+    await expect(
+      page.getByTestId('permissions-actions-demo-navigation-demo-permissions-actions'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('permissions-actions-demo-navigation-demo-permissions-routing').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions\/routing\/overview$/);
+    await expect(page.getByTestId('permissions-routing-page')).toBeVisible();
+    await expect(
+      page.getByTestId('permissions-routing-demo-navigation-demo-permissions-routing'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('permissions-routing-demo-navigation-overview').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions$/);
+    await expect(page.getByTestId('package-angular-permissions')).toBeVisible();
+  });
+
+  test('updates permission-gated actions and hidden surfaces when the persona changes', async ({
+    page,
+  }) => {
+    await page.goto(permissionsActionsRoute);
+
+    await expect(page.getByTestId('permissions-actions-page')).toBeVisible();
+    await expect(page.getByTestId('permissions-actions-approve-button')).toBeDisabled();
+    await expect(page.getByTestId('permissions-actions-audit-button')).toBeDisabled();
+    await expect(page.getByTestId('permissions-actions-audit-state')).toHaveText(
+      'Audit review: disabled',
+    );
+    await expect(page.getByTestId('permissions-actions-audit-panel')).toHaveCount(0);
+    await expect(page.getByTestId('permissions-actions-override-fallback')).toBeVisible();
+
+    await page.getByTestId('permissions-actions-persona-select').selectOption('admin');
+
+    await expect(page.getByTestId('permissions-actions-approve-button')).toBeEnabled();
+    await expect(page.getByTestId('permissions-actions-refund-button')).toBeEnabled();
+    await expect(page.getByTestId('permissions-actions-audit-button')).toBeEnabled();
+    await expect(page.getByTestId('permissions-actions-override-button')).toBeEnabled();
+    await expect(page.getByTestId('permissions-actions-audit-state')).toHaveText(
+      'Audit review: enabled',
+    );
+    await expect(page.getByTestId('permissions-actions-audit-panel')).toBeVisible();
+    await expect(page.getByTestId('permissions-actions-override-panel')).toBeVisible();
+    await expect(page.getByTestId('permissions-actions-override-fallback')).toHaveCount(0);
+    await expect(page.getByTestId('permissions-actions-snapshot-json')).toContainText(
+      '"personaId": "admin"',
+    );
+
+    await page.getByTestId('permissions-actions-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('permissions-actions-code-sample')).toContainText(
+      'injectPermissions<string, string>()',
+    );
+    await expect(page.getByTestId('permissions-actions-code-sample')).toContainText(
+      'HexguardCanDirective',
+    );
+  });
+
+  test('redirects unauthorized permission routes and allows them for the right persona', async ({
+    page,
+  }) => {
+    await page.goto(`${permissionsRoutingRoute}/finance`);
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions\/routing\/denied$/);
+    await expect(page.getByTestId('permissions-routing-denied-panel')).toBeVisible();
+
+    await page.getByTestId('permissions-routing-persona-select').selectOption('admin');
+    await page.getByTestId('permissions-routing-link-finance').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions\/routing\/finance$/);
+    await expect(page.getByTestId('permissions-routing-finance-panel')).toBeVisible();
+
+    await page.getByTestId('permissions-routing-persona-select').selectOption('approver');
+    await page.getByTestId('permissions-routing-link-audit').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions\/routing\/denied$/);
+
+    await page.getByTestId('permissions-routing-persona-select').selectOption('admin');
+    await page.getByTestId('permissions-routing-link-audit').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-permissions\/routing\/audit$/);
+    await expect(page.getByTestId('permissions-routing-audit-panel')).toBeVisible();
+    await expect(page.getByTestId('permissions-routing-snapshot-json')).toContainText(
+      '"financeRoute": true',
+    );
   });
 
   test('renders async-state value lifecycle transitions with stale-data reload behavior', async ({

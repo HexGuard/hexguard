@@ -7,11 +7,12 @@ another.
 
 ## Current Packages
 
-| Package                         | Status    | Description                                                                                                            | Primary Docs                                                                                                                                      |
-| ------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state`   | Available | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)     |
-| `@hexguard/angular-query-form`  | Available | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)   |
-| `@hexguard/angular-async-state` | Available | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md) |
+| Package                         | Status      | Description                                                                                                            | Primary Docs                                                                                                                                      |
+| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`   | Available   | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)     |
+| `@hexguard/angular-query-form`  | Available   | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-async-state` | Available   | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md) |
+| `@hexguard/angular-permissions` | In Progress | Headless capability and role evaluation for Angular routes, templates, and feature code.                               | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md) |
 
 ## Package Status Notes
 
@@ -44,6 +45,16 @@ Status: Available
 This package is available as a signal-first async lifecycle companion for Angular value loads, live observable streams, and submit-style actions.
 
 It focuses on explicit value and action state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-permissions"></a>
+
+### `@hexguard/angular-permissions`
+
+Status: In Progress
+
+This package is currently in progress and already exposes the headless evaluator, DI facade, and thin Angular adapters that the demo site uses.
+
+The first release stays intentionally narrow around capabilities and roles, leaving auth parsing, feature flags, and backend capability contracts outside the package boundary.
 
 ## Planned and Proposed Package Briefs
 
@@ -102,14 +113,6 @@ Would standardize multi-step flow state, validation gates, resume behavior, and 
 Status: Proposed
 
 Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.
-
-<a id="package-angular-permissions"></a>
-
-### `@hexguard/angular-permissions`
-
-Status: Proposed
-
-Would standardize capability and policy checks across routes, templates, actions, and feature code through a headless Angular permission contract.
 
 <a id="package-angular-form-drafts"></a>
 

@@ -82,6 +82,34 @@ export const currentPackages = [
       'It focuses on explicit value and action state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers, and a validated publish surface across docs, demos, and package artifacts.',
     ],
   },
+  {
+    id: 'angular-permissions',
+    packageName: '@hexguard/angular-permissions',
+    status: 'In Progress',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-permissions/README.md',
+    deepDivePath: 'docs/packages/angular-permissions.md',
+    repositoryPath: 'angular/packages/angular-permissions',
+    summary:
+      'Headless capability and role evaluation for Angular routes, templates, and feature code.',
+    detail:
+      'Focused on a provider-agnostic permission context, one pure evaluator, and thin Angular adapters for guard helpers, template gating, and imperative checks.',
+    installCommand: 'pnpm add @hexguard/angular-permissions',
+    featureHighlights: [
+      'Pure evaluator plus an injected facade for imperative checks in components and services.',
+      'Thin `CanActivate` and `CanMatch` helpers plus one structural directive over the same evaluator.',
+      'Persona-driven demos for disabled actions, hidden content, and redirected child routes.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that want one explicit contract for route gating, template visibility, and action enablement.',
+      'Screens that already receive normalized capability and role data from an auth or profile layer.',
+      'Teams that need permission behavior to stay inspectable through docs-grade demos instead of scattered boolean glue.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in progress and already exposes the headless evaluator, DI facade, and thin Angular adapters that the demo site uses.',
+      'The first release stays intentionally narrow around capabilities and roles, leaving auth parsing, feature flags, and backend capability contracts outside the package boundary.',
+    ],
+  },
 ];
 
 export const roadmapPackages = [
@@ -154,16 +182,6 @@ export const roadmapPackages = [
     summary:
       'Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.',
     showOnSiteHome: false,
-  },
-  {
-    id: 'angular-permissions',
-    anchorId: 'package-angular-permissions',
-    packageName: '@hexguard/angular-permissions',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize capability and policy checks across routes, templates, actions, and feature code through a headless Angular permission contract.',
-    showOnSiteHome: true,
   },
   {
     id: 'angular-form-drafts',

@@ -39,9 +39,15 @@ The default development URL is `http://localhost:4200`.
 - `/packages/angular-async-state/observable`: live observable lifecycle with explicit connect, reconnect, completion, and terminal error handling
 - `/packages/angular-async-state/action`: async action lifecycle with pending, success, failure, and duplicate-run reuse
 
+### Permissions Demo Routes
+
+- `/packages/angular-permissions`: package overview and demo catalog for the permissions package
+- `/packages/angular-permissions/actions`: one shared persona context drives disabled actions, hidden audit surfaces, and fallback templates through the same permission evaluator
+- `/packages/angular-permissions/routing`: route matching and activation are gated through `canMatchPermissions()` and `canActivatePermissions()` with explicit denied-route redirects
+
 Legacy redirects from `/orders`, `/dashboard`, `/query-form-orders`, `/query-form-recovery`,
-`/async-state-value`, `/async-state-observable`, and `/async-state-action` are retained while the
-demo app uses package-aware routes.
+`/async-state-value`, `/async-state-observable`, `/async-state-action`, `/permissions-actions`,
+and `/permissions-routing` are retained while the demo app uses package-aware routes.
 
 ## Demo Structure
 
@@ -53,6 +59,7 @@ The app is organized as an Angular package showcase:
 - `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-async-state/`: async-state package demos and fixtures
+- `angular/apps/demo-angular/src/app/features/angular-permissions/`: permissions package demos and shared persona fixtures
 - `angular/apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, and URL-tracking helpers
 - `angular/apps/demo-angular/src/app/generated/demo-snippets.ts`: generated source excerpts shown in the demo inspector panels
 
@@ -108,7 +115,7 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 
 ## Manual Verification Checklist
 
-1. Open `/` and confirm the landing page shows the three current Angular packages plus roadmap cards.
+1. Open `/` and confirm the landing page shows the four current Angular packages plus roadmap cards.
 2. Open `/packages/angular-url-state` and confirm both URL-state demos are listed.
 3. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
 4. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
@@ -124,7 +131,10 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 14. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
 15. Use browser back and forward on the recovery demo after changing view and page.
 16. Open the source tab on each demo and confirm it exposes `component.ts`, `template.html`, and `styles.css` tabs generated from the real component files.
-17. Confirm the current URL strip always reflects the visible committed state.
+17. Open `/packages/angular-permissions` and confirm both permissions demos are listed.
+18. Open `/packages/angular-permissions/actions`, switch from `Guest reviewer` to `Admin auditor`, and confirm the approve button enables, the audit panel appears, and the override fallback is replaced by the privileged panel.
+19. Open `/packages/angular-permissions/routing`, switch personas, then navigate to `Finance child route` and `Audit child route`. Confirm unauthorized personas land on the denied panel while authorized personas see the protected child content.
+20. Confirm the current URL strip always reflects the visible committed state.
 
 ## Selector Policy
 

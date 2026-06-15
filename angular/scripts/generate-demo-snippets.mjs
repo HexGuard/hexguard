@@ -88,6 +88,26 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
   },
+  {
+    id: 'angular-permissions/actions-demo-state',
+    title: 'Permissions action demo component source',
+    description:
+      'Generated from the real permissions action demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
+  },
+  {
+    id: 'angular-permissions/routing-demo-state',
+    title: 'Permissions routing demo component source',
+    description:
+      'Generated from the real permissions routing demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

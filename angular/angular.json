@@ -85,6 +85,58 @@
         }
       }
     },
+    "angular-permissions": {
+      "projectType": "library",
+      "root": "packages/angular-permissions",
+      "sourceRoot": "packages/angular-permissions/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-permissions/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-permissions/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-permissions/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-permissions": {
+      "projectType": "library",
+      "root": "packages/angular-permissions",
+      "sourceRoot": "packages/angular-permissions/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-permissions/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-permissions/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-permissions/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

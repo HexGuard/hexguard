@@ -36,10 +36,12 @@ export interface DemoPackageEntry {
 const ANGULAR_URL_STATE_CATALOG = getGeneratedCurrentPackage('angular-url-state');
 const ANGULAR_QUERY_FORM_CATALOG = getGeneratedCurrentPackage('angular-query-form');
 const ANGULAR_ASYNC_STATE_CATALOG = getGeneratedCurrentPackage('angular-async-state');
+const ANGULAR_PERMISSIONS_CATALOG = getGeneratedCurrentPackage('angular-permissions');
 
 const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
 const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
 const ANGULAR_ASYNC_STATE_DOCS = ANGULAR_ASYNC_STATE_CATALOG.docsLinks;
+const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -292,10 +294,83 @@ export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
   ],
 };
 
+export const ANGULAR_PERMISSIONS_ACTIONS_DEMO: DemoPageEntry = {
+  id: 'permissions-actions',
+  packageId: 'angular-permissions',
+  route: '/packages/angular-permissions/actions',
+  legacyRoute: '/permissions-actions',
+  label: 'Action Gating',
+  title: 'Persona-driven action gating through imperative and structural permission checks',
+  description:
+    'One shared permission context drives disabled buttons, hidden audit panels, and fallback templates without mixing auth parsing into the component layer.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-permissions/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-permissions.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-permissions/actions-demo-state',
+    label: 'Permissions action demo source',
+    description:
+      'The full action-gating demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_PERMISSIONS_ROUTING_DEMO: DemoPageEntry = {
+  id: 'permissions-routing',
+  packageId: 'angular-permissions',
+  route: '/packages/angular-permissions/routing',
+  legacyRoute: '/permissions-routing',
+  label: 'Route Gating',
+  title: 'Route matching and activation with the same shared permission context',
+  description:
+    'Finance and audit child routes prove `canActivatePermissions()` and `canMatchPermissions()` without inventing a separate route-only access model.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-permissions/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-permissions.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-permissions/routing-demo-state',
+    label: 'Permissions routing demo source',
+    description:
+      'The full route-gating demo shell source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_PERMISSIONS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-permissions',
+  route: '/packages/angular-permissions',
+  label: 'Angular Permissions',
+  title: ANGULAR_PERMISSIONS_CATALOG.packageName,
+  description: ANGULAR_PERMISSIONS_CATALOG.summary,
+  docsLinks: ANGULAR_PERMISSIONS_DOCS,
+  demos: [ANGULAR_PERMISSIONS_ACTIONS_DEMO, ANGULAR_PERMISSIONS_ROUTING_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
   ANGULAR_ASYNC_STATE_PACKAGE,
+  ANGULAR_PERMISSIONS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

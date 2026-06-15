@@ -1,9 +1,13 @@
 import type { Routes } from '@angular/router';
 
+import { canActivatePermissions, canMatchPermissions } from '@hexguard/angular-permissions';
+
 import {
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
+  ANGULAR_PERMISSIONS_ACTIONS_DEMO,
+  ANGULAR_PERMISSIONS_ROUTING_DEMO,
   ANGULAR_QUERY_FORM_ORDERS_DEMO,
   ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
@@ -13,6 +17,19 @@ import { AngularAsyncStateHomePageComponent } from './features/angular-async-sta
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
 import { AsyncStateObservableDemoPageComponent } from './features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component';
 import { AsyncStateValueDemoPageComponent } from './features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
+import {
+  AUDIT_ROUTE_REQUIREMENT,
+  FINANCE_ROUTE_REQUIREMENT,
+} from './features/angular-permissions/data/permissions-demo.data';
+import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
+import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
+import {
+  PermissionRoutingAuditPanelComponent,
+  PermissionRoutingDeniedPanelComponent,
+  PermissionRoutingDemoPageComponent,
+  PermissionRoutingFinancePanelComponent,
+  PermissionRoutingOverviewPanelComponent,
+} from './features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component';
 import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
 import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
 import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
@@ -78,6 +95,58 @@ export const routes: Routes = [
     title: 'Async Action Lifecycle Demo',
   },
   {
+    path: 'packages/angular-permissions',
+    component: AngularPermissionsHomePageComponent,
+    title: 'Angular Permissions Demos',
+  },
+  {
+    path: 'packages/angular-permissions/actions',
+    component: PermissionActionsDemoPageComponent,
+    title: 'Permissions Action Gating Demo',
+  },
+  {
+    path: 'packages/angular-permissions/routing',
+    component: PermissionRoutingDemoPageComponent,
+    title: 'Permissions Route Gating Demo',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'overview',
+      },
+      {
+        path: 'overview',
+        component: PermissionRoutingOverviewPanelComponent,
+        title: 'Permissions Routing Overview',
+      },
+      {
+        path: 'finance',
+        component: PermissionRoutingFinancePanelComponent,
+        title: 'Permissions Finance Route',
+        canActivate: [
+          canActivatePermissions(FINANCE_ROUTE_REQUIREMENT, {
+            redirectTo: `${ANGULAR_PERMISSIONS_ROUTING_DEMO.route}/denied`,
+          }),
+        ],
+      },
+      {
+        path: 'audit',
+        component: PermissionRoutingAuditPanelComponent,
+        title: 'Permissions Audit Route',
+        canMatch: [
+          canMatchPermissions(AUDIT_ROUTE_REQUIREMENT, {
+            redirectTo: `${ANGULAR_PERMISSIONS_ROUTING_DEMO.route}/denied`,
+          }),
+        ],
+      },
+      {
+        path: 'denied',
+        component: PermissionRoutingDeniedPanelComponent,
+        title: 'Permissions Denied Route',
+      },
+    ],
+  },
+  {
     path: 'orders',
     redirectTo: ANGULAR_URL_STATE_ORDERS_DEMO.route.slice(1),
   },
@@ -104,6 +173,14 @@ export const routes: Routes = [
   {
     path: 'async-state-action',
     redirectTo: ANGULAR_ASYNC_STATE_ACTION_DEMO.route.slice(1),
+  },
+  {
+    path: 'permissions-actions',
+    redirectTo: ANGULAR_PERMISSIONS_ACTIONS_DEMO.route.slice(1),
+  },
+  {
+    path: 'permissions-routing',
+    redirectTo: ANGULAR_PERMISSIONS_ROUTING_DEMO.route.slice(1),
   },
   {
     path: '**',

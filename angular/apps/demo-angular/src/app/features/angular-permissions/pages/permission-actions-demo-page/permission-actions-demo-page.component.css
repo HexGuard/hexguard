@@ -1,0 +1,63 @@
+.permissions-persona-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
+}
+
+.permissions-persona-grid__select {
+  min-width: 0;
+}
+
+.permissions-summary-card {
+  border: 1px solid color-mix(in srgb, var(--demo-border, #d7dde4) 85%, transparent);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--demo-surface, #ffffff) 92%, transparent);
+}
+
+.permissions-action-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.permissions-surface-card {
+  border: 1px solid color-mix(in srgb, var(--demo-border, #d7dde4) 85%, transparent);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--demo-surface, #ffffff) 94%, transparent);
+}
+
+.permissions-surface-card--success {
+  background: color-mix(in srgb, #e9fbf0 72%, var(--demo-surface, #ffffff));
+}
+
+.permissions-surface-card--warning {
+  background: color-mix(in srgb, #fff4dc 78%, var(--demo-surface, #ffffff));
+}
+
+.permissions-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.permissions-access-list {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.permissions-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+@media (max-width: 900px) {
+  .permissions-persona-grid,
+  .permissions-action-grid {
+    grid-template-columns: 1fr;
+  }
+}

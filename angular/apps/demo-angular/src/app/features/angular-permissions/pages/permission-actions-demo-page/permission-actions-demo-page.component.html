@@ -1,0 +1,192 @@
+<demo-page-layout testId="permissions-actions-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="permissions-actions-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="permissions-actions-intro-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Permissions</p>
+        <h2>Imperative checks and structural gating stay on the same permission contract.</h2>
+      </div>
+
+      <span class="demo-hint-pill" data-testid="permissions-actions-persona-pill">
+        Persona: {{ session.persona().label }}
+      </span>
+    </div>
+
+    <p class="demo-card__summary">
+      The page uses <code>canSignal()</code> for disabled actions and <code>*hexguardCan</code>
+      for hidden or fallback content. Both delegate to the same evaluator and the same shared
+      permission context signal.
+    </p>
+
+    <div class="permissions-persona-grid">
+      <label class="demo-field permissions-persona-grid__select">
+        <span>Persona</span>
+        <select
+          class="demo-select"
+          [ngModel]="session.personaId()"
+          data-testid="permissions-actions-persona-select"
+          (ngModelChange)="updatePersona($event)"
+        >
+          @for (persona of personas; track persona.id) {
+            <option [value]="persona.id">{{ persona.label }}</option>
+          }
+        </select>
+      </label>
+
+      <section class="permissions-summary-card" data-testid="permissions-actions-persona-summary">
+        <p class="demo-eyebrow">Current access</p>
+        <h3>{{ session.persona().label }}</h3>
+        <p>{{ session.persona().summary }}</p>
+      </section>
+    </div>
+
+    <demo-status-strip
+      testId="permissions-actions-status-strip"
+      summaryTestId="permissions-actions-summary"
+      urlTestId="permissions-actions-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="permissions-actions-render-card"
+  >
+    <div class="permissions-action-grid">
+      <section class="permissions-surface-card" data-testid="permissions-actions-action-panel">
+        <p class="demo-eyebrow">Imperative checks</p>
+        <h3>Buttons use <code>canSignal()</code> for capabilities and roles</h3>
+
+        <div class="permissions-button-row">
+          <button
+            type="button"
+            class="demo-button"
+            data-testid="permissions-actions-approve-button"
+            [disabled]="!canApproveOrders()"
+          >
+            Approve order
+          </button>
+          <button
+            type="button"
+            class="demo-button demo-button--ghost"
+            data-testid="permissions-actions-refund-button"
+            [disabled]="!canRefundOrders()"
+          >
+            Issue refund
+          </button>
+          <button
+            type="button"
+            class="demo-button demo-button--ghost"
+            data-testid="permissions-actions-audit-button"
+            [disabled]="!canOpenAuditPanel()"
+          >
+            Open audit review
+          </button>
+          <button
+            type="button"
+            class="demo-button demo-button--ghost"
+            data-testid="permissions-actions-override-button"
+            [disabled]="!canUseAdminOverride()"
+          >
+            Force override
+          </button>
+        </div>
+
+        <ul class="permissions-access-list">
+          <li data-testid="permissions-actions-approve-state">
+            Approve orders: {{ canApproveOrders() ? 'enabled' : 'disabled' }}
+          </li>
+          <li data-testid="permissions-actions-refund-state">
+            Refund orders: {{ canRefundOrders() ? 'enabled' : 'disabled' }}
+          </li>
+          <li data-testid="permissions-actions-audit-state">
+            Audit review: {{ canOpenAuditPanel() ? 'enabled' : 'disabled' }}
+          </li>
+          <li data-testid="permissions-actions-override-state">
+            Admin override: {{ canUseAdminOverride() ? 'enabled' : 'disabled' }}
+          </li>
+        </ul>
+      </section>
+
+      <section class="permissions-surface-card" data-testid="permissions-actions-context-panel">
+        <p class="demo-eyebrow">Normalized context</p>
+        <h3>Roles and capabilities passed into the library</h3>
+
+        <div>
+          <strong>Roles</strong>
+          <div class="permissions-chip-row" data-testid="permissions-actions-role-list">
+            @for (role of session.persona().roles; track role) {
+              <span class="demo-hint-pill">{{ role }}</span>
+            }
+          </div>
+        </div>
+
+        <div>
+          <strong>Capabilities</strong>
+          <div class="permissions-chip-row" data-testid="permissions-actions-capability-list">
+            @for (capability of session.persona().capabilities; track capability) {
+              <span class="demo-hint-pill">{{ capability }}</span>
+            }
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section
+      class="permissions-surface-card permissions-surface-card--success"
+      *hexguardCan="auditPanelRequirement"
+      data-testid="permissions-actions-audit-panel"
+    >
+      <p class="demo-eyebrow">Structural directive</p>
+      <h3>Audit review panel is only visible for audit-capable personas.</h3>
+      <p>
+        This surface stays out of the DOM for non-auditors, which keeps action visibility and route
+        visibility aligned with the same headless evaluator.
+      </p>
+    </section>
+
+    <section
+      class="permissions-surface-card"
+      *hexguardCan="adminOverrideRequirement; else overrideDenied"
+      data-testid="permissions-actions-override-panel"
+    >
+      <p class="demo-eyebrow">Else fallback</p>
+      <h3>Admin override console unlocked.</h3>
+      <p>Only the admin persona can see the override controls backed by this requirement.</p>
+    </section>
+
+    <ng-template #overrideDenied>
+      <section
+        class="permissions-surface-card permissions-surface-card--warning"
+        data-testid="permissions-actions-override-fallback"
+      >
+        <p class="demo-eyebrow">Else fallback</p>
+        <h3>Admin override console hidden.</h3>
+        <p>The directive renders this fallback template instead of the privileged surface.</p>
+      </section>
+    </ng-template>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="permissions-actions-inspector-panel"
+    snapshotTestId="permissions-actions-snapshot-json"
+    codeTestId="permissions-actions-code-sample"
+    title="Permission decisions and real component source"
+    summary="The snapshot shows the normalized permission context and the derived decisions that drive both disabled buttons and hidden content."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>
