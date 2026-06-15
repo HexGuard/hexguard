@@ -1,7 +1,7 @@
 ---
 id: feature-angular-query-form
 type: feature
-status: in-progress
+status: done
 created: 2026-06-13
 branch: feature/angular-query-form
 package: '@hexguard/angular-query-form'
@@ -13,13 +13,25 @@ dependsOn:
 
 ## Summary
 
-Build `@hexguard/angular-query-form` as the next publishable HexGuard Angular package. It should
-be a Reactive Forms-only companion to `@hexguard/angular-url-state` that keeps top-level form
-controls, typed query parameters, reset behavior, browser history, and demo snapshots in sync.
+Delivered `@hexguard/angular-query-form` as a publishable Reactive Forms-only companion to
+`@hexguard/angular-url-state` that keeps top-level form controls, typed query parameters, reset
+behavior, browser history, and demo snapshots in sync.
 
-The first release should solve a common admin-app problem: filter-heavy pages need shareable URLs,
+The first release solves a common admin-app problem: filter-heavy pages need shareable URLs,
 debounced form edits, pagination reset rules, default stripping, invalid-link recovery, and
 Back/Forward behavior without each app hand-writing fragile synchronization code.
+
+## Current Repo Status
+
+- `queryForm()` now ships from `angular/packages/angular-query-form` with manual apply mode,
+  managed key subsets, dependent reset rules, and malformed-link recovery behavior layered on top
+  of `@hexguard/angular-url-state`.
+- A package overview route plus two docs-grade demos ship from `apps/demo-angular`, with stable
+  Playwright selectors and generated source snippets.
+- Package README, deep package notes, package catalog, demo runbook, release workflow, and tarball
+  verification all exist and validate against the current `0.1.0` surface.
+- The package remains at `0.1.0` for its first tag-driven release because no prior Angular package
+  tags exist in the repository.
 
 ## Goals
 

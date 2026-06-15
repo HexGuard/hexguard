@@ -10,11 +10,15 @@ on:
         description: 'npm dist-tag to publish under'
         required: false
         default: 'latest'
+      release_tag:
+        description: 'Git tag to attach the GitHub release to when running manually'
+        required: false
+        default: ''
       create_github_release:
         description: 'Create a GitHub release for the current tag'
         required: false
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: write
@@ -76,23 +80,33 @@ jobs:
         run: |
           PACKAGE_VERSION=$(node -p "require('./angular/packages/angular-url-state/package.json').version")
           PACKAGE_NAME=$(node -p "require('./angular/packages/angular-url-state/package.json').name")
-          TAG_NAME="${GITHUB_REF_NAME}"
+          EXPECTED_TAG="angular-url-state-v${PACKAGE_VERSION}"
 
           if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
-            EXPECTED_TAG="angular-url-state-v${PACKAGE_VERSION}"
+            TAG_NAME="${GITHUB_REF_NAME}"
 
             if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
               echo "Tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
               exit 1
             fi
-          fi
-
-          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            NPM_TAG="${{ inputs.npm_tag }}"
-            CREATE_RELEASE="${{ inputs.create_github_release }}"
-          else
             NPM_TAG="latest"
             CREATE_RELEASE="true"
+          else
+            TAG_NAME="${{ inputs.release_tag }}"
+            NPM_TAG="${{ inputs.npm_tag }}"
+            CREATE_RELEASE="${{ inputs.create_github_release }}"
+
+            if [[ "$CREATE_RELEASE" == "true" ]]; then
+              if [[ -z "$TAG_NAME" ]]; then
+                echo 'workflow_dispatch releases require a release_tag input when create_github_release is true.' >&2
+                exit 1
+              fi
+
+              if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
+                echo "release_tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
+                exit 1
+              fi
+            fi
           fi
 
           TARBALL_PATH=$(find angular/.artifacts -maxdepth 1 -name '*.tgz' -print -quit)
@@ -127,6 +141,12 @@ jobs:
           files: ${{ steps.metadata.outputs.tarball_path }}
 
       - name: Summarize publish
+        shell: bash
         run: |
           echo "Published ${{ steps.metadata.outputs.package_name }}@${{ steps.metadata.outputs.package_version }} with npm tag '${{ steps.metadata.outputs.npm_tag }}'." >> "$GITHUB_STEP_SUMMARY"
-          echo "GitHub release tag: ${{ steps.metadata.outputs.tag_name }}" >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "${{ steps.metadata.outputs.create_release }}" == 'true' ]]; then
+            echo "GitHub release tag: ${{ steps.metadata.outputs.tag_name }}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'GitHub release not created by this run.' >> "$GITHUB_STEP_SUMMARY"
+          fi

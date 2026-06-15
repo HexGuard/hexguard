@@ -2,6 +2,7 @@
 
 ## Now
 
+- [x] Prepare the first tag-driven `0.1.0` Angular release pass for `@hexguard/angular-url-state`, `@hexguard/angular-query-form`, and `@hexguard/angular-async-state`.
 - [ ] Add versioning/release note automation for package changes beyond tag-based publishing.
 - [x] Expand Playwright coverage to include invalid-query fallback cases in the demo.
 - [ ] Add a docs site or static docs generation step once multiple packages are published.
@@ -9,8 +10,8 @@
 ## Next
 
 - [x] Design the first API brief for `@hexguard/angular-query-form` on top of URL state.
-- [ ] Publish and smoke-test the first `@hexguard/angular-query-form` release candidate.
-- [ ] Design the package brief for `@hexguard/angular-async-state` as a signal-first async value and async action utility with optional template helpers.
+- [ ] Tag, publish, and smoke-test the first `0.1.0` Angular release set (`@hexguard/angular-url-state`, `@hexguard/angular-query-form`, and `@hexguard/angular-async-state`).
+- [x] Design the package brief for `@hexguard/angular-async-state` as a signal-first async value and async action utility with optional template helpers.
 - [ ] Design the package brief for `@hexguard/angular-optimistic-state` as a reusable optimistic mutation and rollback utility.
 - [ ] Decide whether `@hexguard/angular-query-form` should support local-only controls beyond URL-backed fields.
 - [ ] Design the package brief for `@hexguard/angular-query-signal-forms` as a separate Signal Forms adapter on top of URL state.

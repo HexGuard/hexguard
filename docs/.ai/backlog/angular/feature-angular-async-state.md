@@ -1,7 +1,7 @@
 ---
 id: feature-angular-async-state
 type: feature
-status: in-progress
+status: done
 created: 2026-06-13
 package: '@hexguard/angular-async-state'
 ---
@@ -10,8 +10,8 @@ package: '@hexguard/angular-async-state'
 
 ## Summary
 
-Design `@hexguard/angular-async-state` as a signal-first Angular utility package for standardizing
-the lifecycle around async values and async actions.
+Delivered `@hexguard/angular-async-state` as a signal-first Angular utility package for
+standardizing the lifecycle around async values, live observable streams, and async actions.
 
 The core problem is repeated UI and state boilerplate around API-driven screens. Teams keep
 rewriting slightly different versions of `isLoading`, `hasLoaded`, `error`, `data`, refresh logic,
@@ -24,10 +24,16 @@ and async action state explicit, typed, inspectable, and consistent across featu
 
 ## Current Repo Status
 
-- `asyncState()` and `asyncAction()` now exist in `angular/packages/angular-async-state`.
-- Thin standalone outlet helpers exist for async value and async action rendering.
-- Demo routes exist for value lifecycle and action lifecycle coverage in `apps/demo-angular`.
-- Focused library tests and focused Playwright coverage now exercise the current `0.1.x` surface.
+- `asyncState()`, `observableState()`, and `asyncAction()` now exist in
+  `angular/packages/angular-async-state`.
+- Thin standalone outlet helpers exist for async value and async action rendering, while
+  `observableState()` remains a headless stream primitive in `0.1.x`.
+- Package overview, value, observable, and action demo routes now exist in
+  `apps/demo-angular`.
+- Focused library tests, full Playwright coverage, package docs, release workflow, and tarball
+  verification now exercise the current `0.1.0` surface.
+- The package remains at `0.1.0` for its first tag-driven release because no prior Angular package
+  tags exist in the repository.
 
 ## Goals
 
