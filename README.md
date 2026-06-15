@@ -19,6 +19,8 @@ Current public Angular package entry points are available here:
 
 - [Docs Index](docs/README.md)
 - [Package Catalog](docs/packages/README.md)
+- [Angular URL State Deep Dive](docs/packages/angular-url-state.md)
+- [Angular Query Form Deep Dive](docs/packages/angular-query-form.md)
 - [Angular Async State Deep Dive](docs/packages/angular-async-state.md)
 - [Run the Demo](docs/demo/README.md)
 - [AI Workflow](docs/.ai/README.md)

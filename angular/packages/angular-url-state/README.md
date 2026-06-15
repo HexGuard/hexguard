@@ -10,6 +10,7 @@ safe to parse.
 Additional in-repo guides:
 
 - [Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-url-state.md)
+- [Package demo routes](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md#url-state-demo-routes)
 - [Demo runbook](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md)
 - [Package catalog and roadmap context](https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md)
 
@@ -69,6 +70,17 @@ ordersState.patch({ selectedTags: ['priority', 'enterprise'] });
 | Reactive Forms binding in the core package            | Not planned | Use `@hexguard/angular-query-form` for form synchronization.                                     |
 | Transaction or manual-commit mode in the core package | Not planned | Prefer `@hexguard/angular-query-form` or local app state for staged edits.                       |
 | Path params or hash fragments                         | Not planned | The package intentionally stays focused on query-string state.                                   |
+
+## Demo Routes
+
+This repository ships a package overview page plus two docs-grade demo routes for the public API.
+Start the demo app from the repo root with `pnpm start`, then open:
+
+- `/packages/angular-url-state`: package overview and demo catalog
+- `/packages/angular-url-state/orders?p=2`: remapped query keys plus debounced replace-state filters
+- `/packages/angular-url-state/dashboard`: push-state history for tabs, date presets, and archive toggles
+
+Route expectations and manual verification notes live in the [URL state demo runbook section](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md#url-state-demo-routes).
 
 ## API Reference
 
@@ -155,12 +167,29 @@ Remapping semantics:
 - `dateIsoParam(defaultValue = null)`
 - `nullableParam(innerCodec)`
 
+`ArrayParamOptions<T>` currently exposes one field:
+
+| Field          | Default | What it controls                                                            |
+| -------------- | ------- | --------------------------------------------------------------------------- |
+| `defaultValue` | `[]`    | Fallback array used when the param is missing, invalid, or reset to default |
+
 Each codec exposes:
 
 - `defaultValue`
 - `parse(raw)`
 - `serialize(value)`
 - optional `equals(left, right)` for structural comparisons
+
+### Core types
+
+The package also exports the low-level types most consumers need when building wrappers, tests, or
+custom codecs:
+
+- `UrlState<TSchema>` and `UrlStateSchema`
+- `UrlStateOptions` and `UrlStateOptionsInput`
+- `ParamCodec<T>`, `ParamRawValue`, `ParamParseSuccess<T>`, `ParamParseFailure<T>`, and `ParamParseResult<T>`
+- `InferCodecValue<TCodec>` and `InferSchemaValue<TSchema>`
+- `InvalidParamBehavior`, `UrlStateHistoryMode`, and `InvalidQueryParamError`
 
 ### Custom codecs
 

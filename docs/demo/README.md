@@ -19,12 +19,21 @@ The default development URL is `http://localhost:4200`.
 ## Demo Routes
 
 - `/`: HexGuard landing page with current Angular package hubs, repo links, and selected roadmap items
+
+### URL State Demo Routes
+
 - `/packages/angular-url-state`: package overview and demo catalog
 - `/packages/angular-url-state/orders`: debounced replace-state search, status, tags, and pagination-friendly URL state with remapped keys such as `q`, `p`, `size`, and repeated `tag` values, so `/packages/angular-url-state/orders?p=2` is directly demonstrable
 - `/packages/angular-url-state/dashboard`: push-state history for tabs, date ranges, and archive toggles
+
+### Query Form Demo Routes
+
 - `/packages/angular-query-form`: package overview and demo catalog for the Reactive Forms binding package
 - `/packages/angular-query-form/orders`: manual-apply filter form where `managedKeys` keeps `page` and `pageSize` URL-owned while `resetKeysOnChange` still resets pagination when filters are committed
 - `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay for a query-bound incident triage form
+
+### Async State Demo Routes
+
 - `/packages/angular-async-state`: package overview and demo catalog for async value, live observable, and async action lifecycle primitives
 - `/packages/angular-async-state/value`: async value lifecycle with first-load errors, empty results, successful reloads, and stale-data refresh failures
 - `/packages/angular-async-state/observable`: live observable lifecycle with explicit connect, reconnect, completion, and terminal error handling

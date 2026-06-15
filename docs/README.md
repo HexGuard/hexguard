@@ -6,6 +6,7 @@ This folder holds the deeper documentation that would otherwise overload the roo
 
 - [Package Catalog](packages/README.md)
 - [Angular Async State Deep Dive](packages/angular-async-state.md)
+- [Angular Query Form Deep Dive](packages/angular-query-form.md)
 - [Angular URL State Deep Dive](packages/angular-url-state.md)
 - [Demo Runbook](demo/README.md)
 - [AI Workflow](.ai/README.md)

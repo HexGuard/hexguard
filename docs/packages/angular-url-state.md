@@ -43,7 +43,13 @@ The package is intentionally narrow:
 | `arrayParam()`              | Repeated query-param values                                                          |
 | `dateIsoParam()`            | ISO-8601 date value or `null`                                                        |
 | `nullableParam()`           | Allows `null` in combination with another codec                                      |
+| `ArrayParamOptions`         | Configures repeated query-param defaults for `arrayParam()`                          |
 | `InvalidQueryParamError`    | Dev-mode strict parsing failure                                                      |
+
+Low-level type exports also remain part of the supported public API for wrappers and tests,
+including `UrlState`, `UrlStateSchema`, `UrlStateOptions`, `UrlStateOptionsInput`, `ParamCodec`,
+`ParamRawValue`, `ParamParseResult`, `InferCodecValue`, `InferSchemaValue`,
+`InvalidParamBehavior`, and `UrlStateHistoryMode`.
 
 ## Option Resolution and Defaults
 
@@ -99,6 +105,14 @@ Key rules:
 - invalid-param diagnostics carry both the local schema key and the incoming `queryKey` when they differ
 - reserved local names such as `patch`, `reset`, and `snapshot` remain blocked on the returned handle, but the external query key may use those strings
 
+## Built-in Codec Options
+
+`ArrayParamOptions<T>` currently exposes one field for `arrayParam()`:
+
+| Field          | Default | Description                                                                     |
+| -------------- | ------- | ------------------------------------------------------------------------------- |
+| `defaultValue` | `[]`    | Fallback array used when the param is missing, invalid, or reset to its default |
+
 ## Custom Codec Guidance
 
 - Treat codecs as pure translators between typed application state and query-param strings.
@@ -133,6 +147,15 @@ Is it worth fixing in the library?
   same query key and a single owner is not realistic
 - for most apps, the better fix is architectural: one `urlState()` owner per query key, with child
   components receiving signals or update methods instead of creating their own competing handles
+
+## Demo Routes
+
+Run the demo app locally with `pnpm start`, then inspect the routes listed in the [URL state demo
+runbook section](../demo/README.md#url-state-demo-routes).
+
+- `/packages/angular-url-state`: package overview and demo catalog
+- `/packages/angular-url-state/orders?p=2`: remapped query keys plus debounced replace-state filters
+- `/packages/angular-url-state/dashboard`: push-state tabs, presets, and archive-toggle history replay
 
 ## Validation Surface
 

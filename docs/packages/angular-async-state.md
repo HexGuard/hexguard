@@ -140,6 +140,70 @@ Practical guidance:
 - keep `duplicateRunPolicy: 'reuse'` for most submit buttons and command triggers
 - switch to `reject` only when duplicate submissions should fail loudly and intentionally
 
+## Configuration Reference
+
+### `AsyncStateOptions<TValue, TError>`
+
+| Field          | Required | Description                                                                                      |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| `initialValue` | yes      | Value exposed before the first successful load and restored by `reset()`                         |
+| `load`         | yes      | Promise-returning loader used by both `load()` and `reload()`                                    |
+| `empty`        | no       | Overrides the default empty-value rules when your domain has a different success-empty condition |
+| `mapError`     | no       | Normalizes unknown thrown values into the public error type                                      |
+
+```ts
+const orders = asyncState<string[], OrdersError>({
+  initialValue: [],
+  load: () => api.listOrderIds(),
+  empty: (value) => value.length === 0,
+  mapError: (error) => normalizeOrdersError(error),
+});
+```
+
+Use `asyncState()` only for finite read flows. If the source keeps emitting over time, model it as
+`observableState()` instead of returning an observable from `load`.
+
+### `ObservableStateOptions<TValue, TError>`
+
+| Field          | Required | Description                                                                                       |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------- |
+| `initialValue` | yes      | Value exposed before the first emission and restored by `reset()`                                 |
+| `source`       | yes      | Observable factory invoked whenever the handle opens a fresh connection                           |
+| `empty`        | no       | Overrides the default empty-value rules when an emitted success value should still count as empty |
+| `mapError`     | no       | Normalizes unknown terminal errors into the public error type                                     |
+
+```ts
+const alertsFeed = observableState<FeedSnapshot, FeedError>({
+  initialValue: { alerts: [], updatedAt: null },
+  source: () => monitoringApi.connectAlerts(),
+  empty: (snapshot) => snapshot.alerts.length === 0,
+  mapError: (error) => normalizeFeedError(error),
+});
+```
+
+Keep `source` as a factory that can create a fresh observable per `connect()` or `reconnect()`.
+That avoids reconnecting to an already-consumed stream instance.
+
+### `AsyncActionOptions<TInput, TResult, TError>`
+
+| Field                | Required | Description                                                                                 |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------- |
+| `run`                | yes      | Action body invoked by `run()`. It may return a Promise-like value or a one-shot observable |
+| `mapError`           | no       | Normalizes unknown thrown values into the public error type                                 |
+| `duplicateRunPolicy` | no       | Chooses whether concurrent `run()` calls reuse the in-flight promise or reject              |
+
+```ts
+const saveOrder = asyncAction<{ id: string }, SaveResult, SaveError>({
+  run: (payload) => defer(() => ordersApi.save(payload)),
+  duplicateRunPolicy: 'reject',
+  mapError: (error) => normalizeSaveError(error),
+});
+```
+
+Even when `run` returns an observable, the handle still exposes a Promise-returning `run()` API.
+Keep observable-returning actions finite and one-shot; long-lived streams belong in
+`observableState()`.
+
 ## Template Outlets
 
 The two outlet components are optional sugar over the same handles.
@@ -177,16 +241,18 @@ the handle state and provide typed template contexts.
 - `asyncState()` keeps the last good value during failed reloads to support stale-data UIs.
 - `asyncAction()` keeps the last successful result available across failures so success context is not discarded implicitly.
 
-## Demo Surface
+## Demo Routes
 
-The demo app currently exercises three async-state workflows:
+Run the demo app locally with `pnpm start`, then inspect the routes listed in the [async state demo
+runbook section](../demo/README.md#async-state-demo-routes).
 
+- `/packages/angular-async-state`: package overview and demo catalog
 - `/packages/angular-async-state/value`: explicit value lifecycle with idle, loading, empty, first-load error, successful reload, and stale-data error handling
 - `/packages/angular-async-state/observable`: live observable lifecycle with connect, live updates, empty snapshots, terminal errors, completion, and reconnect
 - `/packages/angular-async-state/action`: explicit action lifecycle with pending, success, failure, and duplicate-run reuse
 
-All three demos expose stable `data-testid` hooks and generated source inspector panels, so the demos
-act as both documentation and Playwright fixtures.
+The overview page and all three demos expose stable `data-testid` hooks and generated source
+inspector panels, so the routes act as both documentation and Playwright fixtures.
 
 ## Validation Surface
 

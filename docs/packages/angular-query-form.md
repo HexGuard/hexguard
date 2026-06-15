@@ -47,6 +47,11 @@ The package is intentionally narrow:
 The package also re-exports the common URL-state codecs and `provideHexGuardUrlState()` helper for
 ergonomic single-package imports.
 
+Low-level URL-state types such as `UrlState`, `UrlStateOptionsInput`, `UrlStateHistoryMode`,
+`InvalidParamBehavior`, `ParamCodec`, `ParamRawValue`, parse-result types, `InferCodecValue`, and
+`InferSchemaValue` are also re-exported so wrapper libraries and tests do not need a second import
+path.
+
 The returned handle exposes `form`, `urlState`, `hasPendingChanges`, `snapshot()`, `patch()`,
 `reset()`, `commit()`, and `revert()`.
 
@@ -140,16 +145,18 @@ That means:
 
 `@hexguard/angular-query-form` should not add its own second invalid-param policy layer.
 
-## Demo Surface
+## Demo Routes
 
-The demo app currently exercises two query-form workflows:
+Run the demo app locally with `pnpm start`, then inspect the routes listed in the [query form demo
+runbook section](../demo/README.md#query-form-demo-routes).
 
+- `/packages/angular-query-form`: package overview and demo catalog
 - `/packages/angular-query-form/orders`: staged apply mode plus subset binding where filters live in
   the form while `page` and `pageSize` stay URL-owned
 - `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay
 
-Both demos expose stable `data-testid` hooks and source-backed inspector panels, so the demos act
-as both documentation and Playwright fixtures.
+The overview page and both demos expose stable `data-testid` hooks and source-backed inspector
+panels, so the routes act as both documentation and Playwright fixtures.
 
 ## Validation Surface
 

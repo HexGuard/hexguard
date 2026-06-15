@@ -9,6 +9,7 @@ rewriting synchronization glue in every component.
 Additional in-repo guides:
 
 - [Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-query-form.md)
+- [Package demo routes](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md#query-form-demo-routes)
 - [Demo runbook](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md)
 - [Package catalog and roadmap context](https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md)
 
@@ -80,6 +81,17 @@ query.reset();
 | Composable child bindings or slices           | Proposed    | The intended model is still one route-aware owner per managed query slice.                                            |
 | Template-driven forms                         | Not planned | The package intentionally targets Angular Reactive Forms only.                                                        |
 | Validation UI or backend error mapping        | Not planned | Keep the package focused on URL and form synchronization rather than broader form state concerns.                     |
+
+## Demo Routes
+
+This repository ships a package overview page plus two docs-grade demo routes for the public API.
+Start the demo app from the repo root with `pnpm start`, then open:
+
+- `/packages/angular-query-form`: package overview and demo catalog
+- `/packages/angular-query-form/orders`: manual apply mode with `managedKeys`, `resetKeysOnChange`, and URL-owned pagination
+- `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay
+
+Route expectations and manual verification notes live in the [query form demo runbook section](https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md#query-form-demo-routes).
 
 ## What `queryForm()` Owns
 
@@ -174,6 +186,11 @@ provider helpers it depends on:
 
 The parsing, serialization, history, and invalid-param semantics still belong to
 `@hexguard/angular-url-state`.
+
+For wrapper libraries, tests, or helper utilities, the package also re-exports low-level URL-state
+types such as `UrlState`, `UrlStateOptions`, `UrlStateOptionsInput`, `UrlStateHistoryMode`,
+`InvalidParamBehavior`, `ParamCodec`, `ParamRawValue`, parse-result types, `InferCodecValue`, and
+`InferSchemaValue`.
 
 Prefer the form surface first. Reach for `query.urlState` only when you specifically need direct
 signal access or URL-state methods that are intentionally not mirrored on form controls.
