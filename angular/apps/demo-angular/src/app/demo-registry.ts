@@ -1,3 +1,5 @@
+import { getGeneratedCurrentPackage } from './generated/package-catalog';
+
 export interface DemoLink {
   readonly label: string;
   readonly href: string;
@@ -31,50 +33,13 @@ export interface DemoPackageEntry {
   readonly demos: readonly DemoPageEntry[];
 }
 
-const ANGULAR_URL_STATE_DOCS = [
-  {
-    label: 'Package README',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-url-state/README.md',
-  },
-  {
-    label: 'Deep package notes',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-url-state.md',
-  },
-  {
-    label: 'Demo runbook',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
-  },
-] as const satisfies readonly DemoLink[];
+const ANGULAR_URL_STATE_CATALOG = getGeneratedCurrentPackage('angular-url-state');
+const ANGULAR_QUERY_FORM_CATALOG = getGeneratedCurrentPackage('angular-query-form');
+const ANGULAR_ASYNC_STATE_CATALOG = getGeneratedCurrentPackage('angular-async-state');
 
-const ANGULAR_QUERY_FORM_DOCS = [
-  {
-    label: 'Package README',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-form/README.md',
-  },
-  {
-    label: 'Deep package notes',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-query-form.md',
-  },
-  {
-    label: 'Demo runbook',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
-  },
-] as const satisfies readonly DemoLink[];
-
-const ANGULAR_ASYNC_STATE_DOCS = [
-  {
-    label: 'Package README',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md',
-  },
-  {
-    label: 'Deep package notes',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-async-state.md',
-  },
-  {
-    label: 'Demo runbook',
-    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
-  },
-] as const satisfies readonly DemoLink[];
+const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
+const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
+const ANGULAR_ASYNC_STATE_DOCS = ANGULAR_ASYNC_STATE_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -142,9 +107,8 @@ export const ANGULAR_URL_STATE_PACKAGE: DemoPackageEntry = {
   id: 'angular-url-state',
   route: '/packages/angular-url-state',
   label: 'Angular URL State',
-  title: '@hexguard/angular-url-state',
-  description:
-    'Signal-first URL state demos that combine live behavior, deterministic query params, and source-backed implementation excerpts.',
+  title: ANGULAR_URL_STATE_CATALOG.packageName,
+  description: ANGULAR_URL_STATE_CATALOG.summary,
   docsLinks: ANGULAR_URL_STATE_DOCS,
   demos: [ANGULAR_URL_STATE_ORDERS_DEMO, ANGULAR_URL_STATE_DASHBOARD_DEMO],
 };
@@ -215,9 +179,8 @@ export const ANGULAR_QUERY_FORM_PACKAGE: DemoPackageEntry = {
   id: 'angular-query-form',
   route: '/packages/angular-query-form',
   label: 'Angular Query Form',
-  title: '@hexguard/angular-query-form',
-  description:
-    'Reactive Forms demos that show subset binding, staged apply mode, history replay, and malformed-link recovery.',
+  title: ANGULAR_QUERY_FORM_CATALOG.packageName,
+  description: ANGULAR_QUERY_FORM_CATALOG.summary,
   docsLinks: ANGULAR_QUERY_FORM_DOCS,
   demos: [ANGULAR_QUERY_FORM_ORDERS_DEMO, ANGULAR_QUERY_FORM_RECOVERY_DEMO],
 };
@@ -319,9 +282,8 @@ export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
   id: 'angular-async-state',
   route: '/packages/angular-async-state',
   label: 'Angular Async State',
-  title: '@hexguard/angular-async-state',
-  description:
-    'Signal-first async value, live observable, and async action demos that keep lifecycle state explicit, typed, and source-backed.',
+  title: ANGULAR_ASYNC_STATE_CATALOG.packageName,
+  description: ANGULAR_ASYNC_STATE_CATALOG.summary,
   docsLinks: ANGULAR_ASYNC_STATE_DOCS,
   demos: [
     ANGULAR_ASYNC_STATE_VALUE_DEMO,

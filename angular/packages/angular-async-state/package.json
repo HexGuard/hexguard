@@ -1,11 +1,13 @@
 {
   "name": "@hexguard/angular-async-state",
   "version": "0.1.0",
-  "description": "Signal-first async value and async action lifecycle state for Angular.",
+  "description": "Signal-first async value, live observable, and async action lifecycle state for Angular.",
   "keywords": [
     "angular",
     "signals",
     "async",
+    "observable",
+    "rxjs",
     "loading-state",
     "submit-lock",
     "hexguard"

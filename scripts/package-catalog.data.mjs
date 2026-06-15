@@ -1,0 +1,327 @@
+export const currentPackages = [
+  {
+    id: 'angular-url-state',
+    packageName: '@hexguard/angular-url-state',
+    status: 'Available',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-url-state/README.md',
+    deepDivePath: 'docs/packages/angular-url-state.md',
+    repositoryPath: 'angular/packages/angular-url-state',
+    summary: 'Type-safe, signal-first synchronization between Angular state and URL query params.',
+    detail:
+      'Designed for filters, dashboards, and shareable deep links where query params need stable decoding, compact keys, and browser-history-aware updates.',
+    installCommand: 'pnpm add @hexguard/angular-url-state',
+    featureHighlights: [
+      'Deterministic query serialization and safe invalid-param fallback behavior.',
+      'Signal-first state with typed codecs and compact query-key remapping.',
+      'Docs-grade demos for filter screens and browser-history-friendly dashboards.',
+    ],
+    bestFitScenarios: [
+      'Search pages where filters, pagination, and shareable links need one typed state contract.',
+      'Operational dashboards that should replay tabs, toggles, and date ranges through browser history.',
+      'Angular apps that need compact query keys without leaking those names into component code.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the most mature current HexGuard Angular surface and anchors the demo site around typed, deterministic URL state.',
+      'It focuses on explicit query-param schemas, stable serialization, compact shared links, and invalid-param handling that fails safely instead of leaving pages half-hydrated.',
+    ],
+  },
+  {
+    id: 'angular-query-form',
+    packageName: '@hexguard/angular-query-form',
+    status: 'Available',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-query-form/README.md',
+    deepDivePath: 'docs/packages/angular-query-form.md',
+    repositoryPath: 'angular/packages/angular-query-form',
+    summary:
+      'Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.',
+    detail:
+      'Built for filter-heavy pages that need URL-owned state, partial form ownership, reset-on-change rules, and malformed-link cleanup without hand-written glue.',
+    installCommand: 'pnpm add @hexguard/angular-query-form @hexguard/angular-url-state',
+    featureHighlights: [
+      'Manual apply mode for staged form commits on noisy filter surfaces.',
+      'Managed key subsets so page and page size can stay URL-owned when needed.',
+      'Recovery demos that prove invalid-link cleanup and coherent history replay.',
+    ],
+    bestFitScenarios: [
+      'Filter screens that should stage edits in a form before committing them to the URL.',
+      'Pages where some query keys stay router-owned while the rest bind to Reactive Forms controls.',
+      'Recovery flows where malformed links should clean themselves up without breaking the form state.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a Reactive Forms companion to `@hexguard/angular-url-state` for filter-heavy Angular screens.',
+      'It focuses on typed top-level form binding, dependent reset rules such as `search -> page`, malformed-link recovery, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+  },
+  {
+    id: 'angular-async-state',
+    packageName: '@hexguard/angular-async-state',
+    status: 'Available',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-async-state/README.md',
+    deepDivePath: 'docs/packages/angular-async-state.md',
+    repositoryPath: 'angular/packages/angular-async-state',
+    summary:
+      'Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.',
+    detail:
+      'Focused on explicit loading, success, stale-data, failure, and duplicate-run behavior for async reads, live streams, and submit-style actions.',
+    installCommand: 'pnpm add @hexguard/angular-async-state rxjs',
+    featureHighlights: [
+      'Headless primitives for async value, observable state, and async action flows.',
+      'Optional outlet helpers that keep lifecycle templates explicit instead of magical.',
+      'Demos for stale-data reloads, reconnectable streams, and duplicate submit reuse.',
+    ],
+    bestFitScenarios: [
+      'Screens that need one explicit state contract for first load, reload, stale value, and failure cases.',
+      'Live observable streams where reconnect, completion, and retained last snapshots should stay visible.',
+      'Submit flows that need duplicate-run reuse and explicit result state without hiding the action handle.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a signal-first async lifecycle companion for Angular value loads, live observable streams, and submit-style actions.',
+      'It focuses on explicit value and action state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+  },
+];
+
+export const roadmapPackages = [
+  {
+    id: 'angular-submit-lock',
+    anchorId: 'package-angular-submit-lock',
+    packageName: '@hexguard/angular-submit-lock',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit in-flight state on top of a broader async action contract.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-optimistic-state',
+    anchorId: 'package-angular-optimistic-state',
+    packageName: '@hexguard/angular-optimistic-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize optimistic mutation, rollback, and reconciliation patterns for Angular screens that need fast local updates without losing correctness.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-upload-state',
+    anchorId: 'package-angular-upload-state',
+    packageName: '@hexguard/angular-upload-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize upload lifecycle state such as queueing, progress, retry, cancel, and completion without forcing one transport implementation.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-route-memory',
+    anchorId: 'package-angular-route-memory',
+    packageName: '@hexguard/angular-route-memory',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize repeated route-memory patterns such as return-to-list, restored filters, last tab, and route-scoped context recovery.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-navigation-pending',
+    anchorId: 'package-angular-navigation-pending',
+    packageName: '@hexguard/angular-navigation-pending',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize route transition busy state, page readiness, and app-level navigation pending indicators through a headless Angular contract.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-permissions',
+    anchorId: 'package-angular-permissions',
+    packageName: '@hexguard/angular-permissions',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize capability and policy checks across routes, templates, actions, and feature code through a headless Angular permission contract.',
+    showOnSiteHome: true,
+  },
+  {
+    id: 'angular-form-drafts',
+    anchorId: 'package-angular-form-drafts',
+    packageName: '@hexguard/angular-form-drafts',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-selection-state',
+    anchorId: 'package-angular-selection-state',
+    packageName: '@hexguard/angular-selection-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize keyed selection, bulk-action enablement, and select-visible behavior for lists and tables through a headless state model.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-feature-flags',
+    anchorId: 'package-angular-feature-flags',
+    packageName: '@hexguard/angular-feature-flags',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize typed feature-flag checks across routes, templates, and service logic while remaining provider-agnostic.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-confirmation',
+    anchorId: 'package-angular-confirmation',
+    packageName: '@hexguard/angular-confirmation',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize confirm/cancel and confirm-and-run flows for destructive or high-impact actions through a headless API with optional dialog adapters.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-live-data',
+    anchorId: 'package-angular-live-data',
+    packageName: '@hexguard/angular-live-data',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize visibility-aware polling, stale indicators, and refresh ergonomics for dashboard-style and operational Angular screens.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-page-context',
+    anchorId: 'package-angular-page-context',
+    packageName: '@hexguard/angular-page-context',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize page titles, breadcrumbs, contextual actions, and route-scoped page chrome through a headless metadata contract.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-command-palette',
+    anchorId: 'package-angular-command-palette',
+    packageName: '@hexguard/angular-command-palette',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize command registration, keyboard shortcuts, and searchable command invocation, with optional palette UI layered over a headless command registry.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-query-signal-forms',
+    anchorId: 'package-angular-query-signal-forms',
+    packageName: '@hexguard/angular-query-signal-forms',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      "Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form surface continues to evolve.",
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-api-errors',
+    anchorId: 'package-angular-api-errors',
+    packageName: '@hexguard/angular-api-errors',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Will normalize backend validation, business-rule failures, and problem-details payloads into a consistent Angular-facing error surface.',
+    showOnSiteHome: true,
+  },
+  {
+    id: 'angular-table-state',
+    anchorId: 'package-angular-table-state',
+    packageName: '@hexguard/angular-table-state',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Builds on URL state to coordinate sorting, paging, filters, and selection in reusable data-table workflows.',
+    showOnSiteHome: true,
+  },
+  {
+    id: 'angular-preferences',
+    anchorId: 'package-angular-preferences',
+    packageName: '@hexguard/angular-preferences',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Targets lightweight user preferences such as dashboard defaults, hidden columns, and saved views.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-dirty-state',
+    anchorId: 'package-angular-dirty-state',
+    packageName: '@hexguard/angular-dirty-state',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Will provide consistent unsaved-change tracking and route-guard integration for Angular screens.',
+    showOnSiteHome: true,
+  },
+  {
+    id: 'angular-http-dedupe',
+    anchorId: 'package-angular-http-dedupe',
+    packageName: '@hexguard/angular-http-dedupe',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Designed to collapse duplicate HTTP work across concurrent consumers while keeping cancellation and cache semantics explicit.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-http-resource-debug',
+    anchorId: 'package-angular-http-resource-debug',
+    packageName: '@hexguard/angular-http-resource-debug',
+    scope: 'Angular',
+    status: 'Planned',
+    summary:
+      'Will add visibility into resource and request lifecycles for teams debugging stale caches, retries, and request churn.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'problemdetails',
+    anchorId: 'package-problemdetails',
+    packageName: 'HexGuard.ProblemDetails',
+    scope: '.NET',
+    status: 'Planned',
+    summary:
+      'Will provide focused .NET helpers for creating and mapping RFC 9457 problem-details responses.',
+    showOnSiteHome: true,
+  },
+  {
+    id: 'webhooks',
+    anchorId: 'package-webhooks',
+    packageName: 'HexGuard.Webhooks',
+    scope: '.NET',
+    status: 'Planned',
+    summary: 'Will provide webhook verification and event-processing primitives for .NET services.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'pagination',
+    anchorId: 'package-pagination',
+    packageName: 'HexGuard.Pagination',
+    scope: '.NET',
+    status: 'Planned',
+    summary:
+      'Will provide pagination contracts and response helpers for APIs that need a clear page model.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'operation-status',
+    anchorId: 'package-operation-status',
+    packageName: 'HexGuard.OperationStatus',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend operation contracts with Angular lifecycle surfaces for long-running workflows such as exports, imports, and admin jobs.',
+    showOnSiteHome: true,
+  },
+];

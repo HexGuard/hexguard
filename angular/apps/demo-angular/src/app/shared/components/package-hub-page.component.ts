@@ -24,10 +24,77 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
 
         <p class="demo-card__summary">{{ packageEntry().summary }}</p>
         <p class="package-hub__detail">{{ packageEntry().detail }}</p>
+
+        <div class="demo-link-row">
+          <a
+            class="demo-link-chip"
+            [href]="packageEntry().docsLinks[0]?.href"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Package README
+          </a>
+          <a
+            class="demo-link-chip"
+            [href]="packageEntry().docsLinks[1]?.href"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Deep package notes
+          </a>
+          <a
+            class="demo-link-chip"
+            [href]="packageEntry().repositoryHref"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Package source
+          </a>
+        </div>
       </article>
 
+      <section class="package-hub__reference-grid">
+        <article
+          class="demo-card demo-card--stack"
+          [attr.data-testid]="overviewTestId() + '-quick-start'"
+        >
+          <div>
+            <p class="demo-eyebrow">Quick start</p>
+            <h3>Install and inspect the contract locally</h3>
+          </div>
+
+          <pre
+            class="demo-code-block package-hub__install-block"
+          ><code>{{ packageEntry().installCommand }}</code></pre>
+
+          <p class="demo-card__summary">
+            Start with the package README for API details, then use the deep notes and live demos to
+            inspect behavior with the real component source visible in the inspector.
+          </p>
+        </article>
+
+        <article
+          class="demo-card demo-card--stack"
+          [attr.data-testid]="overviewTestId() + '-best-fit'"
+        >
+          <div>
+            <p class="demo-eyebrow">Best fit</p>
+            <h3>Where this package earns its keep</h3>
+          </div>
+
+          <ul class="package-hub__scenario-list" aria-label="Best fit scenarios">
+            @for (scenario of packageEntry().bestFitScenarios; track scenario) {
+              <li>{{ scenario }}</li>
+            }
+          </ul>
+        </article>
+      </section>
+
       <section class="package-hub__info-grid">
-        <article class="demo-card demo-card--stack">
+        <article
+          class="demo-card demo-card--stack"
+          [attr.data-testid]="overviewTestId() + '-highlights'"
+        >
           <div>
             <p class="demo-eyebrow">What it covers</p>
             <h3>Production scenarios, not toy examples</h3>
@@ -40,7 +107,10 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
           </ul>
         </article>
 
-        <article class="demo-card demo-card--stack">
+        <article
+          class="demo-card demo-card--stack"
+          [attr.data-testid]="overviewTestId() + '-docs-stack'"
+        >
           <div>
             <p class="demo-eyebrow">Docs and source</p>
             <h3>Move between code, docs, and live routes</h3>
@@ -49,6 +119,11 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
           <p class="demo-card__summary">
             Use the package README for API details, the deep docs for behavior notes, and the demo
             routes for runnable workflows backed by the same repository source.
+          </p>
+
+          <p class="package-hub__detail">
+            Every demo route keeps the live state panel and full component source viewer wired to
+            the same package-specific documentation links.
           </p>
 
           <div class="demo-link-row">
@@ -65,6 +140,24 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
               <a class="demo-link-chip" [href]="link.href" target="_blank" rel="noreferrer">
                 {{ link.label }}
               </a>
+            }
+          </div>
+        </article>
+      </section>
+
+      <section class="package-hub__narrative-grid">
+        <article
+          class="demo-card demo-card--stack"
+          [attr.data-testid]="overviewTestId() + '-status-notes'"
+        >
+          <div>
+            <p class="demo-eyebrow">Status and trajectory</p>
+            <h3>How this package fits the current HexGuard surface</h3>
+          </div>
+
+          <div class="package-hub__paragraphs">
+            @for (paragraph of packageEntry().statusNoteParagraphs; track paragraph) {
+              <p class="demo-card__summary">{{ paragraph }}</p>
             }
           </div>
         </article>

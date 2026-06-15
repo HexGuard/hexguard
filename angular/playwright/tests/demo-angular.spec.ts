@@ -19,6 +19,22 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
+    await expect(
+      page.getByTestId('site-home-featured-package-status-angular-url-state'),
+    ).toHaveText('Available');
+    await expect(
+      page.getByTestId('site-home-featured-package-status-angular-query-form'),
+    ).toHaveText('Available');
+    await expect(
+      page.getByTestId('site-home-featured-package-status-angular-async-state'),
+    ).toHaveText('Available');
+    await expect(page.getByTestId('nav-link-package-angular-url-state')).toContainText('Available');
+    await expect(page.getByTestId('nav-link-package-angular-query-form')).toContainText(
+      'Available',
+    );
+    await expect(page.getByTestId('nav-link-package-angular-async-state')).toContainText(
+      'Available',
+    );
     await expect(page.getByTestId('site-home-roadmap-angular-api-errors')).toBeVisible();
   });
 
@@ -26,6 +42,15 @@ test.describe('demo-angular', () => {
     await page.goto('/packages/angular-url-state');
 
     await expect(page.getByTestId('package-angular-url-state')).toBeVisible();
+    await expect(page.getByTestId('package-angular-url-state-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-url-state',
+    );
+    await expect(page.getByTestId('package-angular-url-state-best-fit')).toContainText(
+      'Search pages where filters, pagination, and shareable links need one typed state contract.',
+    );
+    await expect(page.getByTestId('package-angular-url-state-status-notes')).toContainText(
+      'most mature current HexGuard Angular surface',
+    );
     await expect(page.getByTestId('package-demo-orders')).toBeVisible();
     await expect(page.getByTestId('package-demo-dashboard')).toBeVisible();
   });
@@ -163,14 +188,14 @@ test.describe('demo-angular', () => {
     );
   });
 
-  test('shows full component TypeScript, template, and styles in the orders source panel', async ({ page }) => {
+  test('shows full component TypeScript, template, and styles in the orders source panel', async ({
+    page,
+  }) => {
     await page.goto(ordersRoute);
 
     await page.getByTestId('orders-inspector-panel-tab-code').click();
 
-    await expect(page.getByTestId('orders-code-sample')).toContainText(
-      'readonly state = urlState',
-    );
+    await expect(page.getByTestId('orders-code-sample')).toContainText('readonly state = urlState');
 
     await page.getByTestId('orders-code-sample-file-html').click();
     await expect(page.getByTestId('orders-code-sample')).toContainText(
@@ -178,9 +203,7 @@ test.describe('demo-angular', () => {
     );
 
     await page.getByTestId('orders-code-sample-file-css').click();
-    await expect(page.getByTestId('orders-code-sample')).toContainText(
-      '.orders-controls-grid {',
-    );
+    await expect(page.getByTestId('orders-code-sample')).toContainText('.orders-controls-grid {');
   });
 
   test('redirects legacy orders route to the package-scoped demo', async ({ page }) => {

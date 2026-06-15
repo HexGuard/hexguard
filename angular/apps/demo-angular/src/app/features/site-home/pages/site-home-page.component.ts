@@ -18,11 +18,14 @@ import {
       <article class="site-home__hero demo-card demo-card--stack">
         <div class="site-home__hero-copy">
           <p class="demo-eyebrow">Open-source guardrails</p>
-          <h2>Production-minded Angular demos today, broader HexGuard packages next.</h2>
+          <h2>
+            Production-minded Angular packages and demos available today, broader HexGuard packages
+            next.
+          </h2>
           <p class="demo-card__summary site-home__lede">
             HexGuard is a monorepo for small, explicit application guardrails. The current public
-            surface centers on Angular packages with live demos, while the roadmap previews the next
-            Angular, .NET, and cross-stack contracts under active design.
+            surface includes available Angular packages with live demos, while the roadmap previews
+            the next Angular, .NET, and cross-stack contracts under active design.
           </p>
         </div>
 
@@ -67,7 +70,11 @@ import {
                   <p class="demo-eyebrow">{{ packageEntry.scope }}</p>
                   <h3>{{ packageEntry.packageName }}</h3>
                 </div>
-                <span class="site-status-badge">{{ packageEntry.status }}</span>
+                <span
+                  class="site-status-badge"
+                  [attr.data-testid]="'site-home-featured-package-status-' + packageEntry.id"
+                  >{{ packageEntry.status }}</span
+                >
               </div>
 
               <p class="demo-card__summary">{{ packageEntry.summary }}</p>
@@ -84,7 +91,9 @@ import {
               </div>
 
               <div class="demo-link-row">
-                <a class="site-home__action site-home__action--inline" [routerLink]="packageEntry.route"
+                <a
+                  class="site-home__action site-home__action--inline"
+                  [routerLink]="packageEntry.route"
                   >Open package hub</a
                 >
                 <a

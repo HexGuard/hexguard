@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.27.0",
   "scripts": {
+    "catalog:sync": "node scripts/sync-package-catalog.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "angular:install": "pnpm --dir angular install",

@@ -4,7 +4,7 @@
 
 .package-hub {
   display: grid;
-  gap: 1.25rem;
+  gap: 1.4rem;
 }
 
 .package-hub__overview {
@@ -45,7 +45,9 @@
   line-height: 1.55;
 }
 
+.package-hub__reference-grid,
 .package-hub__info-grid,
+.package-hub__narrative-grid,
 .package-hub__demos-grid {
   display: grid;
   gap: 1rem;
@@ -58,6 +60,26 @@
   margin: 0;
   padding-left: 1.2rem;
   color: var(--color-muted);
+}
+
+.package-hub__scenario-list {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+}
+
+.package-hub__install-block {
+  min-height: 0;
+  padding: 1rem 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.package-hub__paragraphs {
+  display: grid;
+  gap: 0.85rem;
 }
 
 .package-hub__demo-meta {

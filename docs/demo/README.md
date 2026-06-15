@@ -40,6 +40,7 @@ The app is organized as an Angular package showcase:
 
 - `angular/apps/demo-angular/src/app/features/site-home/`: repo-facing landing page, package discovery, and roadmap highlights
 - `angular/apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata used by navigation, routes, docs links, and tests
+- `angular/apps/demo-angular/src/app/generated/package-catalog.ts`: generated package catalog data shared with `docs/packages/README.md`
 - `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-async-state/`: async-state package demos and fixtures
@@ -48,6 +49,9 @@ The app is organized as an Angular package showcase:
 
 Run `pnpm demo:snippets` after changing marked demo source snippets. The build, app tests, and
 Playwright scripts run it automatically.
+
+Run `pnpm catalog:sync` after changing `scripts/package-catalog.data.mjs`. The build, app tests,
+and Playwright scripts also run the catalog sync automatically before demo validation.
 
 ## Source Panels
 
