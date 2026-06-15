@@ -24,13 +24,14 @@ The default development URL is `http://localhost:4200`.
 - `/packages/angular-query-form`: package overview and demo catalog for the Reactive Forms binding package
 - `/packages/angular-query-form/orders`: manual-apply filter form where `managedKeys` keeps `page` and `pageSize` URL-owned while `resetKeysOnChange` still resets pagination when filters are committed
 - `/packages/angular-query-form/recovery`: malformed-link cleanup plus push-state history replay for a query-bound incident triage form
-- `/packages/angular-async-state`: package overview and demo catalog for async value and async action lifecycle primitives
+- `/packages/angular-async-state`: package overview and demo catalog for async value, live observable, and async action lifecycle primitives
 - `/packages/angular-async-state/value`: async value lifecycle with first-load errors, empty results, successful reloads, and stale-data refresh failures
+- `/packages/angular-async-state/observable`: live observable lifecycle with explicit connect, reconnect, completion, and terminal error handling
 - `/packages/angular-async-state/action`: async action lifecycle with pending, success, failure, and duplicate-run reuse
 
 Legacy redirects from `/orders`, `/dashboard`, `/query-form-orders`, `/query-form-recovery`,
-`/async-state-value`, and `/async-state-action` are retained while the demo app uses package-aware
-routes.
+`/async-state-value`, `/async-state-observable`, and `/async-state-action` are retained while the
+demo app uses package-aware routes.
 
 ## Demo Structure
 
@@ -95,13 +96,14 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 6. On `/packages/angular-query-form/orders`, move to page 2, type a search term, confirm the URL stays unchanged until Apply, then click Apply and confirm page resets to 1 through `resetKeysOnChange`.
 7. On `/packages/angular-query-form/orders`, stage a filter change and click Discard draft. Confirm the URL, page input, and filter controls return to the committed state.
 8. Open `/packages/angular-query-form/recovery?query=api&severity=panic&page=oops&view=matrix` and confirm invalid params are removed while the form stays usable.
-9. Open `/packages/angular-async-state` and confirm both async-state demos are listed.
+9. Open `/packages/angular-async-state` and confirm all three async-state demos are listed.
 10. Open `/packages/angular-async-state/value`, confirm the idle message renders first, load the healthy scenario, then trigger `Reload with stale error` and confirm the cards stay visible while the refresh error is shown.
-11. Open `/packages/angular-async-state/action`, trigger `Simulate double submit`, and confirm the success message appears while the backend call counter stays at `1`.
-12. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
-13. Use browser back and forward on the recovery demo after changing view and page.
-14. Open each demo source tab and confirm it shows a line-numbered generated setup excerpt from the real component source.
-15. Confirm the current URL strip always reflects the visible committed state.
+11. Open `/packages/angular-async-state/observable`, connect the feed, emit a healthy snapshot, fail the feed, reconnect, and confirm the last live snapshot stays visible across terminal states until the next emission.
+12. Open `/packages/angular-async-state/action`, trigger `Simulate double submit`, and confirm the success message appears while the backend call counter stays at `1`.
+13. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
+14. Use browser back and forward on the recovery demo after changing view and page.
+15. Open each demo source tab and confirm it shows a line-numbered generated setup excerpt from the real component source.
+16. Confirm the current URL strip always reflects the visible committed state.
 
 ## Selector Policy
 

@@ -72,6 +72,16 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
   },
   {
+    id: 'angular-async-state/observable-demo-state',
+    marker: 'async-state-observable-demo',
+    title: 'Observable-state demo setup',
+    description: 'Generated from the real observableState demo component source.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
+  },
+  {
     id: 'angular-async-state/action-demo-state',
     marker: 'async-state-action-demo',
     title: 'Async action demo setup',

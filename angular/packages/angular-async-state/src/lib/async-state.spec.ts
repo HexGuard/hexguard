@@ -1,8 +1,10 @@
+import { EMPTY, Subject, of } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
 import { asyncAction } from './async-action';
 import { asyncState } from './async-state';
 import { AsyncActionPendingError } from './errors';
+import { observableState } from './observable-state';
 
 function mapErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : 'Unknown error';
@@ -169,5 +171,125 @@ describe('asyncAction', () => {
     expect(action.isIdle()).toBe(true);
     expect(action.error()).toBeNull();
     expect(action.lastResult()).toBeNull();
+  });
+
+  it('accepts one-shot observable results while preserving the existing action handle', async () => {
+    const action = asyncAction<string, string>({
+      run: (value) => of(value.toUpperCase()),
+    });
+
+    await expect(action.run('hexguard')).resolves.toBe('HEXGUARD');
+    expect(action.hasSucceeded()).toBe(true);
+    expect(action.lastResult()).toBe('HEXGUARD');
+  });
+
+  it('treats observable completion without emission as a failure', async () => {
+    const action = asyncAction<void, void, string>({
+      run: () => EMPTY,
+      mapError: mapErrorMessage,
+    });
+
+    await expect(action.run()).rejects.toBe(
+      'asyncAction observable completed without emitting a result.',
+    );
+    expect(action.hasFailed()).toBe(true);
+  });
+});
+
+describe('observableState', () => {
+  it('tracks multi-emission streams through live updates and completion', () => {
+    const subject = new Subject<string>();
+    const state = observableState({
+      initialValue: '',
+      source: () => subject.asObservable(),
+    });
+
+    expect(state.isIdle()).toBe(true);
+
+    state.connect();
+
+    expect(state.isConnecting()).toBe(true);
+
+    subject.next('alpha');
+
+    expect(state.isLive()).toBe(true);
+    expect(state.value()).toBe('alpha');
+    expect(state.hasValue()).toBe(true);
+
+    subject.next('bravo');
+
+    expect(state.value()).toBe('bravo');
+
+    subject.complete();
+
+    expect(state.isComplete()).toBe(true);
+    expect(state.value()).toBe('bravo');
+  });
+
+  it('retains the last emitted value when the stream errors', () => {
+    const subject = new Subject<string>();
+    const state = observableState<string, string>({
+      initialValue: '',
+      source: () => subject.asObservable(),
+      mapError: mapErrorMessage,
+    });
+
+    state.connect();
+    subject.next('live-value');
+    subject.error(new Error('Stream failed.'));
+
+    expect(state.isError()).toBe(true);
+    expect(state.value()).toBe('live-value');
+    expect(state.error()).toBe('Stream failed.');
+    expect(state.hasValue()).toBe(true);
+  });
+
+  it('disconnects and reconnects with a fresh subscription', () => {
+    const first = new Subject<string>();
+    const second = new Subject<string>();
+    let sourceCalls = 0;
+    const state = observableState({
+      initialValue: 'seed',
+      source: () => {
+        sourceCalls += 1;
+
+        return (sourceCalls === 1 ? first : second).asObservable();
+      },
+    });
+
+    state.connect();
+    first.next('first-value');
+
+    state.disconnect();
+    first.next('ignored-after-disconnect');
+
+    expect(state.isIdle()).toBe(true);
+    expect(state.value()).toBe('first-value');
+
+    state.reconnect();
+    second.next('second-value');
+
+    expect(sourceCalls).toBe(2);
+    expect(state.isLive()).toBe(true);
+    expect(state.value()).toBe('second-value');
+  });
+
+  it('completes without a value and resets back to the initial state', () => {
+    const state = observableState({
+      initialValue: ['seed'] as string[],
+      source: () => EMPTY,
+    });
+
+    state.connect();
+
+    expect(state.isComplete()).toBe(true);
+    expect(state.hasValue()).toBe(false);
+    expect(state.value()).toEqual(['seed']);
+
+    state.reset();
+
+    expect(state.isIdle()).toBe(true);
+    expect(state.error()).toBeNull();
+    expect(state.value()).toEqual(['seed']);
   });
 });

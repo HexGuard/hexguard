@@ -23,9 +23,9 @@
     </div>
 
     <p class="demo-card__summary">
-      `asyncAction()` owns pending, success, failure, and duplicate-run handling. The default
-      `reuse` policy folds submit-lock ergonomics into the action without hiding the returned
-      promise or the explicit lifecycle state.
+      `asyncAction()` owns pending, success, failure, and duplicate-run handling. This demo feeds it
+      a one-shot observable so submit-lock ergonomics and command-style RxJS flows share the same
+      Promise-returning handle.
     </p>
 
     <div class="async-action-controls-grid">

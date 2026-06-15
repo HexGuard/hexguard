@@ -1,0 +1,221 @@
+<demo-page-layout testId="async-state-observable-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="async-state-observable-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="async-state-observable-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Async State</p>
+        <h2>Live observable state without flattening the stream into one fetch.</h2>
+      </div>
+
+      <div class="async-toolbar">
+        <span class="demo-hint-pill" data-testid="async-state-observable-status-pill"
+          >Status: {{ liveFeed.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="async-state-observable-connection-count-pill"
+          >Connections: {{ connectionCount() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      `observableState()` keeps the stream live instead of coercing it into a one-shot promise.
+      Connect, disconnect, reconnect, empty snapshots, and terminal events stay explicit, while
+      `asyncAction()` can normalize one-shot observables for command flows separately.
+    </p>
+
+    <div class="async-controls-grid">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-observable-connect"
+        [disabled]="!canConnect()"
+        (click)="connectFeed()"
+      >
+        Connect live feed
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-observable-emit-healthy"
+        [disabled]="!canEmit()"
+        (click)="emitHealthySnapshot()"
+      >
+        Emit healthy snapshot
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-emit-warning"
+        [disabled]="!canEmit()"
+        (click)="emitWarningSnapshot()"
+      >
+        Emit warning snapshot
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-emit-empty"
+        [disabled]="!canEmit()"
+        (click)="emitEmptySnapshot()"
+      >
+        Emit empty snapshot
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-fail-feed"
+        [disabled]="!canEmit()"
+        (click)="failFeed()"
+      >
+        Fail current feed
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-complete-feed"
+        [disabled]="!canEmit()"
+        (click)="completeFeed()"
+      >
+        Complete current feed
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-disconnect"
+        [disabled]="!canEmit()"
+        (click)="disconnectFeed()"
+      >
+        Disconnect feed
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-observable-reconnect"
+        (click)="reconnectFeed()"
+      >
+        Reconnect fresh feed
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-observable-reset"
+        (click)="resetFeed()"
+      >
+        Reset state
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="async-state-observable-status-strip"
+      summaryTestId="async-state-observable-summary"
+      urlTestId="async-state-observable-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="async-state-observable-render-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Headless live rendering</p>
+        <h3>Rendered observable lifecycle state</h3>
+      </div>
+      <span class="demo-hint-pill" data-testid="async-state-observable-feed-pill"
+        >Feed {{ currentFeedId() }}</span
+      >
+    </div>
+
+    @if (liveFeed.isIdle()) {
+      <div class="async-banner async-banner--empty" data-testid="async-state-observable-idle">
+        The live feed is idle. Connect it to start receiving snapshots.
+      </div>
+    }
+
+    @if (liveFeed.isConnecting()) {
+      <div
+        class="async-banner async-banner--loading"
+        data-testid="async-state-observable-connecting"
+      >
+        Feed {{ currentFeedId() }} is connected and waiting for its first snapshot.
+      </div>
+    }
+
+    @if (liveFeed.isLive()) {
+      <div class="async-banner async-banner--success" data-testid="async-state-observable-live">
+        Feed {{ currentFeedId() }} is live and ready for the next snapshot.
+      </div>
+    }
+
+    @if (liveFeed.isError()) {
+      <div class="async-banner async-banner--error" data-testid="async-state-observable-error">
+        {{ liveFeed.error() }}
+      </div>
+    }
+
+    @if (liveFeed.isComplete()) {
+      <div class="async-banner async-banner--warning" data-testid="async-state-observable-complete">
+        Feed {{ currentFeedId() }} completed. Reconnect to open a fresh stream.
+      </div>
+    }
+
+    @if (liveFeed.isEmpty() && (liveFeed.isLive() || liveFeed.isComplete())) {
+      <div class="async-banner async-banner--empty" data-testid="async-state-observable-empty">
+        The latest live snapshot is empty.
+      </div>
+    }
+
+    @if (hasVisibleCards()) {
+      <section class="async-card-grid" data-testid="async-state-observable-cards">
+        @for (card of liveFeed.value(); track card.id) {
+          <article
+            class="async-metric-card"
+            [class.async-metric-card--warning]="card.tone === 'warning'"
+            [class.async-metric-card--critical]="card.tone === 'critical'"
+            data-testid="async-state-observable-card"
+          >
+            <p class="demo-eyebrow">{{ card.label }}</p>
+            <strong>{{ card.value }}</strong>
+            <p>{{ card.detail }}</p>
+          </article>
+        }
+      </section>
+    }
+
+    <ul class="async-fact-list">
+      <li data-testid="async-state-observable-fact-status">Status: {{ liveFeed.status() }}</li>
+      <li data-testid="async-state-observable-fact-connections">
+        Connections: {{ connectionCount() }}
+      </li>
+      <li data-testid="async-state-observable-fact-emissions">Emissions: {{ emissionCount() }}</li>
+      <li data-testid="async-state-observable-fact-has-value">
+        Has value: {{ liveFeed.hasValue() }}
+      </li>
+      <li data-testid="async-state-observable-fact-empty">Is empty: {{ liveFeed.isEmpty() }}</li>
+    </ul>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="async-state-observable-inspector-panel"
+    snapshotTestId="async-state-observable-snapshot-json"
+    codeTestId="async-state-observable-code-sample"
+    title="Live stream state and source"
+    summary="The source excerpt comes from the real demo component, so the observableState setup and explicit subscription lifecycle stay documentation-grade."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

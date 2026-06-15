@@ -63,6 +63,54 @@ export const ASYNC_STATE_REFRESHED_CARDS: readonly AsyncStateMetricCard[] = [
   },
 ] as const;
 
+export const ASYNC_OBSERVABLE_HEALTHY_SNAPSHOT: readonly AsyncStateMetricCard[] = [
+  {
+    id: 'queued-approvals',
+    label: 'Queued approvals',
+    value: '14',
+    detail: 'Fresh approvals are arriving within the live processing target.',
+    tone: 'steady',
+  },
+  {
+    id: 'broker-lag',
+    label: 'Broker lag',
+    value: '18s',
+    detail: 'Regional subscribers are caught up across the active stream.',
+    tone: 'steady',
+  },
+  {
+    id: 'retry-lane',
+    label: 'Retry lane',
+    value: '2',
+    detail: 'Only two approvals are waiting for an automated replay.',
+    tone: 'steady',
+  },
+] as const;
+
+export const ASYNC_OBSERVABLE_WARNING_SNAPSHOT: readonly AsyncStateMetricCard[] = [
+  {
+    id: 'queued-approvals',
+    label: 'Queued approvals',
+    value: '27',
+    detail: 'The queue is growing faster than downstream workers are clearing it.',
+    tone: 'warning',
+  },
+  {
+    id: 'broker-lag',
+    label: 'Broker lag',
+    value: '52s',
+    detail: 'A regional subscriber is drifting above the live target window.',
+    tone: 'warning',
+  },
+  {
+    id: 'retry-lane',
+    label: 'Retry lane',
+    value: '9',
+    detail: 'Replay work is rising and needs attention before the next batch.',
+    tone: 'critical',
+  },
+] as const;
+
 export const ASYNC_ACTION_ORDER_OPTIONS: readonly AsyncActionOrderOption[] = [
   {
     id: 'HG-1042',

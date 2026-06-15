@@ -5,11 +5,11 @@ another.
 
 ## Current Packages
 
-| Package                         | Status      | Description                                                                                          | Primary Docs                                                                                                   |
-| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state`   | Available   | Type-safe, signal-first synchronization between Angular state and URL query parameters.              | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md)     |
-| `@hexguard/angular-async-state` | In Progress | Signal-first async value and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md) |
-| `@hexguard/angular-query-form`  | In Progress | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.   | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md)   |
+| Package                         | Status      | Description                                                                                                            | Primary Docs                                                                                                   |
+| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`   | Available   | Type-safe, signal-first synchronization between Angular state and URL query parameters.                                | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md)     |
+| `@hexguard/angular-async-state` | In Progress | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md) |
+| `@hexguard/angular-query-form`  | In Progress | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md)   |
 
 ## Package Status Notes
 
@@ -30,8 +30,9 @@ demo-driven coverage for history replay and malformed-link recovery.
 Status: In Progress
 
 This package now exists in the repo as a signal-first async lifecycle companion for Angular value
-loads and submit-style actions. It focuses on explicit value and action state, duplicate-run
-control, thin outlet helpers, and demo-driven coverage for stale-data reloads and submit reuse.
+loads, live observable streams, and submit-style actions. It focuses on explicit value and action
+state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers,
+and demo-driven coverage for stale-data reloads, live reconnects, and submit reuse.
 
 ## Planned Package Briefs
 

@@ -250,6 +250,37 @@ export const ANGULAR_ASYNC_STATE_VALUE_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO: DemoPageEntry = {
+  id: 'async-state-observable',
+  packageId: 'angular-async-state',
+  route: '/packages/angular-async-state/observable',
+  legacyRoute: '/async-state-observable',
+  label: 'Observable State',
+  title: 'Live observable state with explicit connect, reconnect, and terminal events',
+  description:
+    'A live approval stream proves multi-emission updates, retained last snapshots on failure or completion, and explicit subscription control without flattening the stream into one fetch.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-async-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-async-state/observable-demo-state',
+    label: 'Observable-state demo setup',
+    description:
+      'The real observableState configuration and subscription instrumentation used by this demo.',
+  },
+};
+
 export const ANGULAR_ASYNC_STATE_ACTION_DEMO: DemoPageEntry = {
   id: 'async-state-action',
   packageId: 'angular-async-state',
@@ -287,9 +318,13 @@ export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
   label: 'Angular Async State',
   title: '@hexguard/angular-async-state',
   description:
-    'Signal-first async value and async action demos that keep lifecycle state explicit, typed, and source-backed.',
+    'Signal-first async value, live observable, and async action demos that keep lifecycle state explicit, typed, and source-backed.',
   docsLinks: ANGULAR_ASYNC_STATE_DOCS,
-  demos: [ANGULAR_ASYNC_STATE_VALUE_DEMO, ANGULAR_ASYNC_STATE_ACTION_DEMO],
+  demos: [
+    ANGULAR_ASYNC_STATE_VALUE_DEMO,
+    ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
+    ANGULAR_ASYNC_STATE_ACTION_DEMO,
+  ],
 };
 
 export const DEMO_PACKAGES = [

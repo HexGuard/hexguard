@@ -5,6 +5,7 @@ const dashboardRoute = '/packages/angular-url-state/dashboard';
 const queryFormOrdersRoute = '/packages/angular-query-form/orders';
 const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
 const asyncStateValueRoute = '/packages/angular-async-state/value';
+const asyncStateObservableRoute = '/packages/angular-async-state/observable';
 const asyncStateActionRoute = '/packages/angular-async-state/action';
 
 test.describe('demo-angular', () => {
@@ -29,6 +30,7 @@ test.describe('demo-angular', () => {
 
     await expect(page.getByTestId('package-angular-async-state')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-value')).toBeVisible();
+    await expect(page.getByTestId('package-async-state-demo-async-state-observable')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-action')).toBeVisible();
   });
 
@@ -399,8 +401,54 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('async-state-action-code-sample')).toContainText(
       'readonly approval = asyncAction',
     );
+    await expect(page.getByTestId('async-state-action-code-sample')).toContainText('timer(450)');
     await expect(page.getByTestId('async-state-action-code-sample')).toContainText(
       'duplicateSummary',
+    );
+  });
+
+  test('renders observable-state live updates, terminal events, and reconnect behavior', async ({
+    page,
+  }) => {
+    await page.goto(asyncStateObservableRoute);
+
+    await expect(page.getByTestId('async-state-observable-idle')).toBeVisible();
+
+    await page.getByTestId('async-state-observable-connect').click();
+    await expect(page.getByTestId('async-state-observable-connecting')).toBeVisible();
+
+    await page.getByTestId('async-state-observable-emit-healthy').click();
+    await expect(page.getByTestId('async-state-observable-live')).toContainText('Feed 1 is live');
+    await expect(page.getByTestId('async-state-observable-card')).toHaveCount(3);
+
+    await page.getByTestId('async-state-observable-fail-feed').click();
+    await expect(page.getByTestId('async-state-observable-error')).toContainText(
+      'Live approval feed 1 stopped while streaming backlog metrics.',
+    );
+    await expect(page.getByTestId('async-state-observable-card')).toHaveCount(3);
+
+    await page.getByTestId('async-state-observable-reconnect').click();
+    await expect(page.getByTestId('async-state-observable-connecting')).toBeVisible();
+
+    await page.getByTestId('async-state-observable-emit-empty').click();
+    await expect(page.getByTestId('async-state-observable-empty')).toContainText(
+      'The latest live snapshot is empty.',
+    );
+
+    await page.getByTestId('async-state-observable-emit-warning').click();
+    await expect(page.getByTestId('async-state-observable-card')).toHaveCount(3);
+
+    await page.getByTestId('async-state-observable-complete-feed').click();
+    await expect(page.getByTestId('async-state-observable-complete')).toContainText(
+      'Feed 2 completed.',
+    );
+
+    await page.getByTestId('async-state-observable-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('async-state-observable-code-sample')).toContainText(
+      'readonly liveFeed = observableState',
+    );
+    await expect(page.getByTestId('async-state-observable-code-sample')).toContainText(
+      'connectionCount.update',
     );
   });
 

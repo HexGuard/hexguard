@@ -1,0 +1,5 @@
+.angular/
+.artifacts/
+dist/
+playwright-report/
+test-results/

@@ -2,6 +2,7 @@ import { computed, signal } from '@angular/core';
 
 import { AsyncActionPendingError } from './errors';
 import type { AsyncActionOptions } from './async-action-options';
+import { toOneShotPromise } from './one-shot-source';
 import type { AsyncAction, AsyncActionRunArgs, AsyncActionStatus } from './types';
 
 function defaultMapError<TError>(error: unknown): TError {
@@ -54,7 +55,10 @@ export function asyncAction<TInput = void, TResult = void, TError = unknown>(
       let pendingRun: Promise<TResult>;
 
       try {
-        pendingRun = Promise.resolve(run(...args));
+        pendingRun = toOneShotPromise(
+          run(...args),
+          'asyncAction observable completed without emitting a result.',
+        );
       } catch (cause) {
         const mappedError = mapError(cause);
 

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { defer, map, timer } from 'rxjs';
 
 import { HexguardAsyncActionOutletComponent, asyncAction } from '@hexguard/angular-async-state';
 
@@ -25,12 +26,6 @@ interface ApprovalResult {
 
 interface ApprovalPayload {
   readonly orderId: string;
-}
-
-function waitForDemoLatency(durationMs: number): Promise<void> {
-  return new Promise((resolve) => {
-    globalThis.setTimeout(resolve, durationMs);
-  });
 }
 
 function mapDemoError(error: unknown): string {
@@ -68,21 +63,25 @@ export class AsyncStateActionDemoPageComponent {
       this.orderOptions[0],
   );
   readonly approval = asyncAction<ApprovalPayload, ApprovalResult, string>({
-    run: async ({ orderId }) => {
-      this.backendCallCount.update((count) => count + 1);
-      const order = this.selectedOrder();
+    run: ({ orderId }) =>
+      defer(() => {
+        this.backendCallCount.update((count) => count + 1);
+        const order = this.selectedOrder();
+        const outcome = this.nextOutcome();
 
-      await waitForDemoLatency(450);
+        return timer(450).pipe(
+          map(() => {
+            if (outcome === 'error') {
+              throw new Error(`Approval service rejected ${orderId} and kept the queue unchanged.`);
+            }
 
-      if (this.nextOutcome() === 'error') {
-        throw new Error(`Approval service rejected ${orderId} and kept the queue unchanged.`);
-      }
-
-      return {
-        orderId,
-        message: `${orderId} for ${order.customer} was approved and queued for downstream sync.`,
-      };
-    },
+            return {
+              orderId,
+              message: `${orderId} for ${order.customer} was approved and queued for downstream sync.`,
+            };
+          }),
+        );
+      }),
     mapError: mapDemoError,
   });
   readonly currentUrl = createTrackedCurrentUrl(this.demo.route);

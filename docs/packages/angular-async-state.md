@@ -11,21 +11,24 @@ package into a cache client, transport abstraction, or opaque component library.
 The package is intentionally narrow:
 
 - explicit value lifecycle state through `asyncState()`
+- explicit live observable lifecycle state through `observableState()`
 - explicit action lifecycle state through `asyncAction()`
 - thin optional Angular outlets over the same headless handles
 - no built-in cache graph, retry engine, or transport integration
 
 ## Feature Matrix
 
-| Capability                                | Status      | Notes                                                                                      |
-| ----------------------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
-| Async value lifecycle with `asyncState`   | Available   | Explicit value, error, idle/loading/loaded/error/reloading, and derived emptiness signals. |
-| Async action lifecycle with `asyncAction` | Available   | Explicit pending, success, failure, and retained `lastResult` for submit-style actions.    |
-| Duplicate-run control                     | Available   | `reuse` is the default; `reject` surfaces `AsyncActionPendingError`.                       |
-| Thin Angular outlet helpers               | Available   | Standalone outlet components render lifecycle templates without adding hidden behavior.    |
-| Custom empty detection                    | Available   | `empty(value)` keeps emptiness domain-specific when default rules are not enough.          |
-| Shared cache graph or request client      | Not planned | Keep that concern in application code or a future dedicated package.                       |
-| Automatic retry and polling               | Not planned | Those policies should stay explicit and app-owned in `0.1.x`.                              |
+| Capability                                       | Status      | Notes                                                                                            |
+| ------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------ |
+| Async value lifecycle with `asyncState`          | Available   | Explicit value, error, idle/loading/loaded/error/reloading, and derived emptiness signals.       |
+| Live observable lifecycle with `observableState` | Available   | Explicit connect/live/error/complete state for multi-emission RxJS streams.                      |
+| Async action lifecycle with `asyncAction`        | Available   | Explicit pending, success, failure, and retained `lastResult` for submit-style actions.          |
+| One-shot observable actions                      | Available   | `asyncAction()` can normalize one-shot observables while preserving a Promise-returning `run()`. |
+| Duplicate-run control                            | Available   | `reuse` is the default; `reject` surfaces `AsyncActionPendingError`.                             |
+| Thin Angular outlet helpers                      | Available   | Standalone outlet components render lifecycle templates without adding hidden behavior.          |
+| Custom empty detection                           | Available   | `empty(value)` keeps emptiness domain-specific when default rules are not enough.                |
+| Shared cache graph or request client             | Not planned | Keep that concern in application code or a future dedicated package.                             |
+| Automatic retry and polling                      | Not planned | Those policies should stay explicit and app-owned in `0.1.x`.                                    |
 
 ## Public API Map
 
@@ -35,6 +38,10 @@ The package is intentionally narrow:
 | `AsyncStateOptions`                  | Configures `initialValue`, `load`, `empty`, and `mapError`    |
 | `AsyncState`                         | High-level handle shape for value-oriented async flows        |
 | `AsyncStateStatus`                   | Value lifecycle status union                                  |
+| `observableState()`                  | Creates the live observable lifecycle handle                  |
+| `ObservableStateOptions`             | Configures `initialValue`, `source`, `empty`, and `mapError`  |
+| `ObservableState`                    | High-level handle shape for observable live-value flows       |
+| `ObservableStateStatus`              | Observable lifecycle status union                             |
 | `HexguardAsyncStateOutletComponent`  | Thin standalone outlet for rendering one `AsyncState` handle  |
 | `asyncAction()`                      | Creates the async action lifecycle handle                     |
 | `AsyncActionOptions`                 | Configures `run`, `mapError`, and `duplicateRunPolicy`        |
@@ -83,8 +90,30 @@ Key behavior:
 
 - repeated `run()` calls while pending default to `reuse`
 - `duplicateRunPolicy: 'reject'` returns a rejected promise with `AsyncActionPendingError`
+- `run()` accepts either a Promise-like result or a one-shot observable source
+- observable actions resolve from the first emitted value and fail if the source completes empty
 - failed runs keep the previous `lastResult()` available until `reset()` or a later success
 - `reset()` clears `error`, `lastResult`, and returns the handle to `idle`
+
+### Live Observable Values
+
+`observableState()` uses:
+
+- `idle`
+- `connecting`
+- `live`
+- `error`
+- `complete`
+
+Key behavior:
+
+- `connect()` starts one active subscription for the handle
+- `disconnect()` tears down the current subscription and returns the handle to `idle`
+- `reconnect()` tears down the previous stream, opens a fresh subscription, and preserves the last
+  visible value until the next emission
+- `error` and `complete` are terminal for the current subscription but retain the latest emitted
+  value until `reset()` or the next reconnect
+- `reset()` clears the last emitted value back to `initialValue` and returns the handle to `idle`
 
 ## Option Resolution and Defaults
 
@@ -98,10 +127,16 @@ Key behavior:
 - `duplicateRunPolicy`: `'reuse'`
 - `mapError`: identity cast of the thrown value
 
+`observableState(options)` defaults:
+
+- `empty`: treats `null`, `undefined`, empty strings, empty arrays, empty maps, and empty sets as empty
+- `mapError`: identity cast of the thrown value
+
 Practical guidance:
 
 - use `mapError` when callers should not see transport-specific thrown shapes
 - use a custom `empty` predicate when a domain-specific “empty success” value differs from the default rules
+- use `observableState()` when the latest value should keep updating over time rather than settling after one fetch
 - keep `duplicateRunPolicy: 'reuse'` for most submit buttons and command triggers
 - switch to `reject` only when duplicate submissions should fail loudly and intentionally
 
@@ -132,6 +167,7 @@ the handle state and provide typed template contexts.
 ## Internal Behavior Notes
 
 - Both factories invoke `load()` and `run()` synchronously, then wrap the result in `Promise.resolve()` so pending state becomes visible immediately.
+- `observableState()` intentionally does not share the finite async-state status model because stream connection and terminal events need different semantics.
 - One handle instance owns one in-flight promise at a time. Reuse is handle-local and never global.
 - Request tokens prevent stale completions from mutating state after `reset()` or `setValue()`.
 - `asyncState()` keeps the last good value during failed reloads to support stale-data UIs.
@@ -139,9 +175,10 @@ the handle state and provide typed template contexts.
 
 ## Demo Surface
 
-The demo app currently exercises two async-state workflows:
+The demo app currently exercises three async-state workflows:
 
 - `/packages/angular-async-state/value`: explicit value lifecycle with idle, loading, empty, first-load error, successful reload, and stale-data error handling
+- `/packages/angular-async-state/observable`: live observable lifecycle with connect, live updates, empty snapshots, terminal errors, completion, and reconnect
 - `/packages/angular-async-state/action`: explicit action lifecycle with pending, success, failure, and duplicate-run reuse
 
 Both demos expose stable `data-testid` hooks and generated source inspector panels, so the demos

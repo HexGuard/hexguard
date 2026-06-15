@@ -3,6 +3,9 @@ import type { Signal } from '@angular/core';
 /** Lifecycle states for async value or fetch-oriented handles. */
 export type AsyncStateStatus = 'idle' | 'loading' | 'loaded' | 'error' | 'reloading';
 
+/** Lifecycle states for observable-backed live value handles. */
+export type ObservableStateStatus = 'idle' | 'connecting' | 'live' | 'error' | 'complete';
+
 /** Lifecycle states for async action or submit-oriented handles. */
 export type AsyncActionStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 
@@ -28,6 +31,24 @@ export interface AsyncState<TValue, TError = unknown> {
   load(): Promise<TValue>;
   reload(): Promise<TValue>;
   setValue(value: TValue): void;
+  reset(): void;
+}
+
+/** High-level handle returned by `observableState()`. */
+export interface ObservableState<TValue, TError = unknown> {
+  readonly status: Signal<ObservableStateStatus>;
+  readonly value: Signal<TValue>;
+  readonly error: Signal<TError | null>;
+  readonly hasValue: Signal<boolean>;
+  readonly isEmpty: Signal<boolean>;
+  readonly isIdle: Signal<boolean>;
+  readonly isConnecting: Signal<boolean>;
+  readonly isLive: Signal<boolean>;
+  readonly isError: Signal<boolean>;
+  readonly isComplete: Signal<boolean>;
+  connect(): void;
+  disconnect(): void;
+  reconnect(): void;
   reset(): void;
 }
 
