@@ -136,6 +136,26 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
+    id: 'angular-wizard-state',
+    anchorId: 'package-angular-wizard-state',
+    packageName: '@hexguard/angular-wizard-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize multi-step flow state, validation gates, resume behavior, and review or confirm steps for create, import, and onboarding experiences.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-undo',
+    anchorId: 'package-angular-undo',
+    packageName: '@hexguard/angular-undo',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.',
+    showOnSiteHome: false,
+  },
+  {
     id: 'angular-permissions',
     anchorId: 'package-angular-permissions',
     packageName: '@hexguard/angular-permissions',
@@ -216,6 +236,16 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
+    id: 'angular-lookups',
+    anchorId: 'package-angular-lookups',
+    packageName: '@hexguard/angular-lookups',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize typed lookup catalogs, label resolution, caching, and invalidation for forms, filters, and display surfaces.',
+    showOnSiteHome: false,
+  },
+  {
     id: 'angular-query-signal-forms',
     anchorId: 'package-angular-query-signal-forms',
     packageName: '@hexguard/angular-query-signal-forms',
@@ -256,6 +286,16 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
+    id: 'angular-tenant-context',
+    anchorId: 'package-angular-tenant-context',
+    packageName: '@hexguard/angular-tenant-context',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize active-tenant selection, route scoping, restore behavior, and tenant-aware client context for multi-tenant Angular apps.',
+    showOnSiteHome: false,
+  },
+  {
     id: 'angular-dirty-state',
     anchorId: 'package-angular-dirty-state',
     packageName: '@hexguard/angular-dirty-state',
@@ -283,6 +323,26 @@ export const roadmapPackages = [
     status: 'Planned',
     summary:
       'Will add visibility into resource and request lifecycles for teams debugging stale caches, retries, and request churn.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-workflow-actions',
+    anchorId: 'package-angular-workflow-actions',
+    packageName: '@hexguard/angular-workflow-actions',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize status-driven action availability, transition reasons, and confirm-and-run flows for approval, ticket, and order workflows.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-edit-locks',
+    anchorId: 'package-angular-edit-locks',
+    packageName: '@hexguard/angular-edit-locks',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize editing lease state, keepalive, takeover, expiry, and conflict banners for collaborative Angular edit screens.',
     showOnSiteHome: false,
   },
   {
@@ -315,6 +375,26 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
+    id: 'outbox',
+    anchorId: 'package-outbox',
+    packageName: 'HexGuard.Outbox',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide reliable post-commit event publication and retry primitives for .NET services using the transactional outbox pattern.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'inbox',
+    anchorId: 'package-inbox',
+    packageName: 'HexGuard.Inbox',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide inbound event deduplication, replay safety, and poison-message handling for .NET webhook and event consumers.',
+    showOnSiteHome: false,
+  },
+  {
     id: 'operation-status',
     anchorId: 'package-operation-status',
     packageName: 'HexGuard.OperationStatus',
@@ -323,5 +403,55 @@ export const roadmapPackages = [
     summary:
       'Would pair backend operation contracts with Angular lifecycle surfaces for long-running workflows such as exports, imports, and admin jobs.',
     showOnSiteHome: true,
+  },
+  {
+    id: 'capabilities',
+    anchorId: 'package-capabilities',
+    packageName: 'HexGuard.Capabilities + @hexguard/angular-permissions',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend-issued capability contracts with Angular permission checks so action gating and authorization drift less across the stack.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'reference-data',
+    anchorId: 'package-reference-data',
+    packageName: 'HexGuard.ReferenceData + @hexguard/angular-lookups',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend reference-data catalogs with Angular lookup caching and label resolution so option lists stay typed, versioned, and reusable.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'tenant-context',
+    anchorId: 'package-tenant-context',
+    packageName: 'HexGuard.TenantContext + @hexguard/angular-tenant-context',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend tenant validation and routing contracts with Angular tenant selection, restore, and header propagation flows.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'workflow-transitions',
+    anchorId: 'package-workflow-transitions',
+    packageName: 'HexGuard.WorkflowTransitions + @hexguard/angular-workflow-actions',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend status-transition rules with Angular action availability and reason capture for approval, ticket, and order workflows.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'edit-locks',
+    anchorId: 'package-edit-locks',
+    packageName: 'HexGuard.EditLocks + @hexguard/angular-edit-locks',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.',
+    showOnSiteHome: false,
   },
 ];
