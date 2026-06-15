@@ -4,6 +4,8 @@ const ordersRoute = '/packages/angular-url-state/orders';
 const dashboardRoute = '/packages/angular-url-state/dashboard';
 const queryFormOrdersRoute = '/packages/angular-query-form/orders';
 const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
+const asyncStateValueRoute = '/packages/angular-async-state/value';
+const asyncStateActionRoute = '/packages/angular-async-state/action';
 
 test.describe('demo-angular', () => {
   test('shows the Angular URL State package overview', async ({ page }) => {
@@ -20,6 +22,14 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('package-query-form-demo-query-form-orders')).toBeVisible();
     await expect(page.getByTestId('package-query-form-demo-query-form-recovery')).toBeVisible();
+  });
+
+  test('shows the Angular Async State package overview', async ({ page }) => {
+    await page.goto('/packages/angular-async-state');
+
+    await expect(page.getByTestId('package-angular-async-state')).toBeVisible();
+    await expect(page.getByTestId('package-async-state-demo-async-state-value')).toBeVisible();
+    await expect(page.getByTestId('package-async-state-demo-async-state-action')).toBeVisible();
   });
 
   test('hydrates the orders page from the remapped page query param', async ({ page }) => {
@@ -314,6 +324,84 @@ test.describe('demo-angular', () => {
 
     await expect(page).toHaveURL(/\/packages\/angular-query-form$/);
     await expect(page.getByTestId('package-angular-query-form')).toBeVisible();
+  });
+
+  test('navigates between async-state demos with the reusable strip', async ({ page }) => {
+    await page.goto(asyncStateValueRoute);
+
+    await expect(page.getByTestId('async-state-value-demo-navigation')).toBeVisible();
+    await expect(
+      page.getByTestId('async-state-value-demo-navigation-demo-async-state-value'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('async-state-value-demo-navigation-demo-async-state-action').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-async-state\/action$/);
+    await expect(page.getByTestId('async-state-action-page')).toBeVisible();
+    await expect(
+      page.getByTestId('async-state-action-demo-navigation-demo-async-state-action'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('async-state-action-demo-navigation-overview').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-async-state$/);
+    await expect(page.getByTestId('package-angular-async-state')).toBeVisible();
+  });
+
+  test('renders async-state value lifecycle transitions with stale-data reload behavior', async ({
+    page,
+  }) => {
+    await page.goto(asyncStateValueRoute);
+
+    await expect(page.getByTestId('async-state-value-idle')).toBeVisible();
+
+    await page.getByTestId('async-state-value-load-healthy').click();
+    await expect(page.getByTestId('async-state-value-loading')).toBeVisible();
+    await expect(page.getByTestId('async-state-value-card')).toHaveCount(3);
+    await expect(page.getByTestId('async-state-value-summary')).toContainText('Loaded 3 cards');
+
+    await page.getByTestId('async-state-value-reload-error').click();
+    await expect(page.getByTestId('async-state-value-reloading')).toBeVisible();
+    await expect(page.getByTestId('async-state-value-stale-error')).toContainText(
+      'Metrics service timed out while loading the dashboard cards.',
+    );
+    await expect(page.getByTestId('async-state-value-card')).toHaveCount(3);
+    await expect(page.getByTestId('async-state-value-status')).toContainText('Lifecycle: error');
+
+    await page.getByTestId('async-state-value-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('async-state-value-code-sample')).toContainText(
+      'readonly cards = asyncState',
+    );
+    await expect(page.getByTestId('async-state-value-code-sample')).toContainText('mapError');
+  });
+
+  test('renders async-state action lifecycle transitions and duplicate-run reuse', async ({
+    page,
+  }) => {
+    await page.goto(asyncStateActionRoute);
+
+    await expect(page.getByTestId('async-state-action-idle')).toBeVisible();
+
+    await page.getByTestId('async-state-action-run-double').click();
+    await expect(page.getByTestId('async-state-action-pending')).toBeVisible();
+    await expect(page.getByTestId('async-state-action-success')).toContainText('was approved');
+    await expect(page.getByTestId('async-state-action-backend-calls')).toContainText('1');
+    await expect(page.getByTestId('async-state-action-duplicate-result')).toContainText(
+      'Reused the same in-flight promise.',
+    );
+
+    await page.getByTestId('async-state-action-run-error').click();
+    await expect(page.getByTestId('async-state-action-error')).toContainText(
+      'Approval service rejected',
+    );
+
+    await page.getByTestId('async-state-action-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('async-state-action-code-sample')).toContainText(
+      'readonly approval = asyncAction',
+    );
+    await expect(page.getByTestId('async-state-action-code-sample')).toContainText(
+      'duplicateSummary',
+    );
   });
 
   test('cleans invalid query params on the recovery demo and replays state through history', async ({

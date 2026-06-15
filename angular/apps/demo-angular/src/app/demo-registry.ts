@@ -61,6 +61,21 @@ const ANGULAR_QUERY_FORM_DOCS = [
   },
 ] as const satisfies readonly DemoLink[];
 
+const ANGULAR_ASYNC_STATE_DOCS = [
+  {
+    label: 'Package README',
+    href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md',
+  },
+  {
+    label: 'Deep package notes',
+    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-async-state.md',
+  },
+  {
+    label: 'Demo runbook',
+    href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+  },
+] as const satisfies readonly DemoLink[];
+
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
   packageId: 'angular-url-state',
@@ -204,7 +219,84 @@ export const ANGULAR_QUERY_FORM_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_QUERY_FORM_ORDERS_DEMO, ANGULAR_QUERY_FORM_RECOVERY_DEMO],
 };
 
-export const DEMO_PACKAGES = [ANGULAR_URL_STATE_PACKAGE, ANGULAR_QUERY_FORM_PACKAGE] as const;
+export const ANGULAR_ASYNC_STATE_VALUE_DEMO: DemoPageEntry = {
+  id: 'async-state-value',
+  packageId: 'angular-async-state',
+  route: '/packages/angular-async-state/value',
+  legacyRoute: '/async-state-value',
+  label: 'Value Lifecycle',
+  title: 'Async value lifecycle with empty, error, and stale-data reload states',
+  description:
+    'A dashboard-card loader proves first-load errors, empty results, successful reloads, and stale-data refresh failures through explicit outlet templates.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md',
+    },
+    {
+      label: 'API reference',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md#api-reference',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-async-state.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-async-state/value-demo-state',
+    label: 'Async value demo setup',
+    description:
+      'The real asyncState configuration and derived lifecycle summary used by this demo.',
+  },
+};
+
+export const ANGULAR_ASYNC_STATE_ACTION_DEMO: DemoPageEntry = {
+  id: 'async-state-action',
+  packageId: 'angular-async-state',
+  route: '/packages/angular-async-state/action',
+  legacyRoute: '/async-state-action',
+  label: 'Action Lifecycle',
+  title: 'Async action lifecycle with pending, success, failure, and duplicate-run reuse',
+  description:
+    'A submit-style approval flow proves explicit pending, success, failure, and in-flight promise reuse without hiding the action handle.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-async-state/README.md',
+    },
+    {
+      label: 'Outlet helpers',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-async-state.md#template-outlets',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-async-state/action-demo-state',
+    label: 'Async action demo setup',
+    description:
+      'The real asyncAction configuration and duplicate-run instrumentation used by this demo.',
+  },
+};
+
+export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-async-state',
+  route: '/packages/angular-async-state',
+  label: 'Angular Async State',
+  title: '@hexguard/angular-async-state',
+  description:
+    'Signal-first async value and async action demos that keep lifecycle state explicit, typed, and source-backed.',
+  docsLinks: ANGULAR_ASYNC_STATE_DOCS,
+  demos: [ANGULAR_ASYNC_STATE_VALUE_DEMO, ANGULAR_ASYNC_STATE_ACTION_DEMO],
+};
+
+export const DEMO_PACKAGES = [
+  ANGULAR_URL_STATE_PACKAGE,
+  ANGULAR_QUERY_FORM_PACKAGE,
+  ANGULAR_ASYNC_STATE_PACKAGE,
+] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 
 export function getDemoPackage(packageId: string): DemoPackageEntry | undefined {

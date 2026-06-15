@@ -61,6 +61,26 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
   },
+  {
+    id: 'angular-async-state/value-demo-state',
+    marker: 'async-state-value-demo',
+    title: 'Async value demo setup',
+    description: 'Generated from the real asyncState value demo component source.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
+  },
+  {
+    id: 'angular-async-state/action-demo-state',
+    marker: 'async-state-action-demo',
+    title: 'Async action demo setup',
+    description: 'Generated from the real asyncAction demo component source.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
+  },
 ];
 
 function extractSnippet(source, marker) {

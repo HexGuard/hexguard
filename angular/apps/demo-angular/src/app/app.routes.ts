@@ -1,12 +1,17 @@
 import type { Routes } from '@angular/router';
 
 import {
+  ANGULAR_ASYNC_STATE_ACTION_DEMO,
+  ANGULAR_ASYNC_STATE_VALUE_DEMO,
   ANGULAR_QUERY_FORM_ORDERS_DEMO,
   ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
   ANGULAR_URL_STATE_ORDERS_DEMO,
   ANGULAR_URL_STATE_PACKAGE,
 } from './demo-registry';
+import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
+import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
+import { AsyncStateValueDemoPageComponent } from './features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
 import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
 import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
 import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
@@ -51,6 +56,21 @@ export const routes: Routes = [
     title: 'Recovery Query Form Demo',
   },
   {
+    path: 'packages/angular-async-state',
+    component: AngularAsyncStateHomePageComponent,
+    title: 'Angular Async State Demos',
+  },
+  {
+    path: 'packages/angular-async-state/value',
+    component: AsyncStateValueDemoPageComponent,
+    title: 'Async Value Lifecycle Demo',
+  },
+  {
+    path: 'packages/angular-async-state/action',
+    component: AsyncStateActionDemoPageComponent,
+    title: 'Async Action Lifecycle Demo',
+  },
+  {
     path: 'orders',
     redirectTo: ANGULAR_URL_STATE_ORDERS_DEMO.route.slice(1),
   },
@@ -65,6 +85,14 @@ export const routes: Routes = [
   {
     path: 'query-form-recovery',
     redirectTo: ANGULAR_QUERY_FORM_RECOVERY_DEMO.route.slice(1),
+  },
+  {
+    path: 'async-state-value',
+    redirectTo: ANGULAR_ASYNC_STATE_VALUE_DEMO.route.slice(1),
+  },
+  {
+    path: 'async-state-action',
+    redirectTo: ANGULAR_ASYNC_STATE_ACTION_DEMO.route.slice(1),
   },
   {
     path: '**',

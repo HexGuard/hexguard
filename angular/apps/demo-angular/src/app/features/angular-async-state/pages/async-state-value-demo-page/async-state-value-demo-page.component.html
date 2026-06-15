@@ -1,0 +1,193 @@
+<demo-page-layout testId="async-state-value-page">
+  <demo-navigation-strip demoNavigation testId="async-state-value-demo-navigation" [demo]="demo" />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="async-state-value-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Async State</p>
+        <h2>Async value lifecycle without hidden fetch state.</h2>
+      </div>
+
+      <div class="async-toolbar">
+        <span class="demo-hint-pill" data-testid="async-state-value-status-pill"
+          >Status: {{ cards.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="async-state-value-request-count-pill"
+          >Requests: {{ requestCount() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      `asyncState()` stays headless: load and reload are explicit, empty is derived, first-load
+      errors differ from stale-data refresh failures, and the optional outlet stays a thin renderer
+      over the same handle.
+    </p>
+
+    <div class="async-controls-grid">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-value-load-healthy"
+        [disabled]="isBusy()"
+        (click)="loadHealthy()"
+      >
+        Load dashboard cards
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-value-load-empty"
+        [disabled]="isBusy()"
+        (click)="loadEmpty()"
+      >
+        Load empty result
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-value-load-error"
+        [disabled]="isBusy()"
+        (click)="loadFailure()"
+      >
+        Fail current load
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-value-reload-fresh"
+        [disabled]="!cards.hasLoaded() || isBusy()"
+        (click)="reloadWithFreshData()"
+      >
+        Reload with new data
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-value-reload-error"
+        [disabled]="!cards.hasLoaded() || isBusy()"
+        (click)="reloadWithFailure()"
+      >
+        Reload with stale error
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-value-reset"
+        (click)="resetState()"
+      >
+        Reset state
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="async-state-value-status-strip"
+      summaryTestId="async-state-value-summary"
+      urlTestId="async-state-value-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="async-state-value-render-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Outlet rendering</p>
+        <h3>Rendered async value state</h3>
+      </div>
+      <span class="demo-hint-pill" data-testid="async-state-value-status"
+        >Lifecycle: {{ cards.status() }}</span
+      >
+    </div>
+
+    <hexguard-async-state-outlet
+      [state]="cards"
+      [idleTemplate]="idleTemplate"
+      [valueTemplate]="valueTemplate"
+      [loadingTemplate]="loadingTemplate"
+      [errorTemplate]="errorTemplate"
+      [emptyTemplate]="emptyTemplate"
+      [reloadingTemplate]="reloadingTemplate"
+      [staleErrorTemplate]="staleErrorTemplate"
+    />
+
+    <ng-template #idleTemplate>
+      <div class="async-banner async-banner--empty" data-testid="async-state-value-idle">
+        No request has run yet. Choose a scenario to load the dashboard cards.
+      </div>
+    </ng-template>
+
+    <ng-template #loadingTemplate>
+      <div class="async-banner async-banner--loading" data-testid="async-state-value-loading">
+        Loading dashboard cards for the first render.
+      </div>
+    </ng-template>
+
+    <ng-template #errorTemplate let-error>
+      <div class="async-banner async-banner--error" data-testid="async-state-value-error">
+        {{ error }}
+      </div>
+    </ng-template>
+
+    <ng-template #emptyTemplate>
+      <div class="async-banner async-banner--empty" data-testid="async-state-value-empty">
+        No dashboard cards were returned for this scenario.
+      </div>
+    </ng-template>
+
+    <ng-template #reloadingTemplate>
+      <div class="async-banner async-banner--loading" data-testid="async-state-value-reloading">
+        Refreshing while the previous dashboard cards stay visible.
+      </div>
+    </ng-template>
+
+    <ng-template #staleErrorTemplate let-error="error">
+      <div class="async-banner async-banner--warning" data-testid="async-state-value-stale-error">
+        {{ error }}
+      </div>
+    </ng-template>
+
+    <ng-template #valueTemplate let-cards>
+      <section class="async-card-grid" data-testid="async-state-value-cards">
+        @for (card of cards; track card.id) {
+          <article
+            class="async-metric-card"
+            [class.async-metric-card--warning]="card.tone === 'warning'"
+            [class.async-metric-card--critical]="card.tone === 'critical'"
+            data-testid="async-state-value-card"
+          >
+            <p class="demo-eyebrow">{{ card.label }}</p>
+            <strong>{{ card.value }}</strong>
+            <p>{{ card.detail }}</p>
+          </article>
+        }
+      </section>
+    </ng-template>
+
+    <ul class="async-fact-list">
+      <li data-testid="async-state-value-fact-loaded">Has loaded: {{ cards.hasLoaded() }}</li>
+      <li data-testid="async-state-value-fact-has-value">Has value: {{ cards.hasValue() }}</li>
+      <li data-testid="async-state-value-fact-empty">Is empty: {{ cards.isEmpty() }}</li>
+    </ul>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="async-state-value-inspector-panel"
+    snapshotTestId="async-state-value-snapshot-json"
+    codeTestId="async-state-value-code-sample"
+    title="Live lifecycle state and source"
+    summary="The source tab is generated from the real demo component, so the outlet usage and asyncState contract stay in sync with the package docs."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

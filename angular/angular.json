@@ -59,6 +59,32 @@
         }
       }
     },
+    "angular-async-state": {
+      "projectType": "library",
+      "root": "packages/angular-async-state",
+      "sourceRoot": "packages/angular-async-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-async-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-async-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-async-state/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

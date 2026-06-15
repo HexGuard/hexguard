@@ -1,0 +1,165 @@
+<demo-page-layout testId="async-state-action-page">
+  <demo-navigation-strip demoNavigation testId="async-state-action-demo-navigation" [demo]="demo" />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="async-state-action-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Async State</p>
+        <h2>Async action lifecycle without button-local state drift.</h2>
+      </div>
+
+      <div class="async-toolbar">
+        <span class="demo-hint-pill" data-testid="async-state-action-status-pill"
+          >Status: {{ approval.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="async-state-action-call-count-pill"
+          >Backend calls: {{ backendCallCount() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      `asyncAction()` owns pending, success, failure, and duplicate-run handling. The default
+      `reuse` policy folds submit-lock ergonomics into the action without hiding the returned
+      promise or the explicit lifecycle state.
+    </p>
+
+    <div class="async-action-controls-grid">
+      <label class="demo-field async-action-controls-grid__select">
+        <span>Order</span>
+        <select
+          class="demo-select"
+          [ngModel]="selectedOrderId()"
+          data-testid="async-state-action-order-select"
+          (ngModelChange)="updateSelectedOrder($event)"
+        >
+          @for (order of orderOptions; track order.id) {
+            <option [value]="order.id">{{ order.id }} · {{ order.customer }}</option>
+          }
+        </select>
+      </label>
+
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="async-state-action-run-success"
+        [disabled]="approval.isPending()"
+        (click)="runSuccess()"
+      >
+        Approve selected order
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-action-run-double"
+        [disabled]="approval.isPending()"
+        (click)="runDoubleSubmit()"
+      >
+        Simulate double submit
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-action-run-error"
+        [disabled]="approval.isPending()"
+        (click)="runFailure()"
+      >
+        Force failure
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-action-reset"
+        (click)="resetAction()"
+      >
+        Reset action
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="async-state-action-status-strip"
+      summaryTestId="async-state-action-summary"
+      urlTestId="async-state-action-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="async-state-action-render-card"
+  >
+    <div class="async-action-grid">
+      <section class="async-order-card" data-testid="async-state-action-selected-order">
+        <p class="demo-eyebrow">Selected order</p>
+        <h3>{{ selectedOrder().id }}</h3>
+        <p>{{ selectedOrder().customer }} · {{ selectedOrder().region }}</p>
+        <strong>{{ currency(selectedOrder().total) }}</strong>
+      </section>
+
+      <section class="async-order-card" data-testid="async-state-action-result-panel">
+        <p class="demo-eyebrow">Outlet rendering</p>
+        <h3>Rendered async action state</h3>
+
+        <hexguard-async-action-outlet
+          [action]="approval"
+          [idleTemplate]="idleTemplate"
+          [pendingTemplate]="pendingTemplate"
+          [successTemplate]="successTemplate"
+          [errorTemplate]="errorTemplate"
+        />
+
+        <ng-template #idleTemplate>
+          <div class="async-banner async-banner--empty" data-testid="async-state-action-idle">
+            The action is idle and ready to submit.
+          </div>
+        </ng-template>
+
+        <ng-template #pendingTemplate>
+          <div class="async-banner async-banner--loading" data-testid="async-state-action-pending">
+            Submitting approval for {{ selectedOrder().id }}.
+          </div>
+        </ng-template>
+
+        <ng-template #successTemplate let-result>
+          <div class="async-banner async-banner--success" data-testid="async-state-action-success">
+            {{ result?.message }}
+          </div>
+        </ng-template>
+
+        <ng-template #errorTemplate let-error>
+          <div class="async-banner async-banner--error" data-testid="async-state-action-error">
+            {{ error }}
+          </div>
+        </ng-template>
+      </section>
+    </div>
+
+    <ul class="async-fact-list">
+      <li data-testid="async-state-action-status">Status: {{ approval.status() }}</li>
+      <li data-testid="async-state-action-backend-calls">
+        Backend calls: {{ backendCallCount() }}
+      </li>
+      <li data-testid="async-state-action-duplicate-result">
+        Duplicate submit: {{ duplicateSummaryText() }}
+      </li>
+    </ul>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="async-state-action-inspector-panel"
+    snapshotTestId="async-state-action-snapshot-json"
+    codeTestId="async-state-action-code-sample"
+    title="Live action state and source"
+    summary="The source excerpt comes from the real demo component, so the asyncAction setup and duplicate-run instrumentation stay documentation-grade."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

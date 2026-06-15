@@ -5,10 +5,11 @@ another.
 
 ## Current Packages
 
-| Package                        | Status      | Description                                                                                        | Primary Docs                                                                                                 |
-| ------------------------------ | ----------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `@hexguard/angular-url-state`  | Available   | Type-safe, signal-first synchronization between Angular state and URL query parameters.            | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md)   |
-| `@hexguard/angular-query-form` | In Progress | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery. | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md) |
+| Package                         | Status      | Description                                                                                          | Primary Docs                                                                                                   |
+| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`   | Available   | Type-safe, signal-first synchronization between Angular state and URL query parameters.              | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md)     |
+| `@hexguard/angular-async-state` | In Progress | Signal-first async value and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md) |
+| `@hexguard/angular-query-form`  | In Progress | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.   | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md)   |
 
 ## Package Status Notes
 
@@ -22,6 +23,16 @@ This package now exists in the repo as a Reactive Forms companion to `@hexguard/
 It focuses on typed top-level form binding, dependent reset rules such as `search -> page`, and
 demo-driven coverage for history replay and malformed-link recovery.
 
+<a id="package-angular-async-state"></a>
+
+### `@hexguard/angular-async-state`
+
+Status: In Progress
+
+This package now exists in the repo as a signal-first async lifecycle companion for Angular value
+loads and submit-style actions. It focuses on explicit value and action state, duplicate-run
+control, thin outlet helpers, and demo-driven coverage for stale-data reloads and submit reuse.
+
 ## Planned Package Briefs
 
 <a id="package-angular-submit-lock"></a>
@@ -32,16 +43,6 @@ Status: Planned
 
 May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit
 in-flight state on top of a broader async action contract.
-
-<a id="package-angular-async-state"></a>
-
-### `@hexguard/angular-async-state`
-
-Status: Proposed
-
-Would standardize async value and async action lifecycle state such as loading, loaded,
-reloading, pending, success, empty, and error through a signal-first utility API, with optional
-thin template helpers layered on top.
 
 <a id="package-angular-optimistic-state"></a>
 
@@ -219,40 +220,40 @@ Scores use `1-5` where higher adoption means broader repeated demand, higher com
 harder package to design and support well, and higher differentiation means a stronger HexGuard
 story beyond thin wrappers.
 
-| Package                                                         | Scope       | Status   | Adoption | Complexity | Differentiation | Priority |
-| --------------------------------------------------------------- | ----------- | -------- | -------- | ---------- | --------------- | -------- |
-| `@hexguard/angular-async-state`                                 | Angular     | Proposed | 5        | 3          | 4               | High     |
-| `@hexguard/angular-api-errors`                                  | Angular     | Planned  | 5        | 3          | 5               | High     |
-| `@hexguard/angular-permissions`                                 | Angular     | Proposed | 5        | 3          | 4               | High     |
-| `@hexguard/angular-form-drafts`                                 | Angular     | Proposed | 4        | 3          | 4               | High     |
-| `@hexguard/angular-selection-state`                             | Angular     | Proposed | 4        | 3          | 4               | High     |
-| `HexGuard.OperationStatus + @hexguard/angular-operation-status` | Cross-stack | Proposed | 5        | 4          | 5               | High     |
-| `HexGuard.Idempotency + @hexguard/angular-idempotency`          | Cross-stack | Proposed | 5        | 4          | 5               | High     |
-| `HexGuard.ProblemDetails`                                       | .NET        | Planned  | 5        | 3          | 4               | High     |
-| `@hexguard/angular-table-state`                                 | Angular     | Planned  | 4        | 4          | 4               | High     |
-| `HexGuard.ValidationContracts + @hexguard/angular-api-errors`   | Cross-stack | Proposed | 4        | 4          | 5               | High     |
-| `HexGuard.QueryContracts + @hexguard/angular-query-contracts`   | Cross-stack | Proposed | 4        | 4          | 4               | High     |
-| `@hexguard/angular-optimistic-state`                            | Angular     | Proposed | 4        | 4          | 4               | High     |
-| `HexGuard.Concurrency`                                          | .NET        | Proposed | 4        | 4          | 4               | High     |
-| `@hexguard/angular-feature-flags`                               | Angular     | Proposed | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-live-data`                                   | Angular     | Proposed | 4        | 4          | 4               | Medium   |
-| `@hexguard/angular-dirty-state`                                 | Angular     | Planned  | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-upload-state`                                | Angular     | Proposed | 4        | 4          | 4               | Medium   |
-| `HexGuard.PreferenceSync + @hexguard/angular-preferences`       | Cross-stack | Proposed | 4        | 4          | 4               | Medium   |
-| `HexGuard.EndpointConventions`                                  | .NET        | Proposed | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-preferences`                                 | Angular     | Planned  | 3        | 2          | 3               | Medium   |
-| `@hexguard/angular-confirmation`                                | Angular     | Proposed | 4        | 2          | 2               | Medium   |
-| `@hexguard/angular-navigation-pending`                          | Angular     | Proposed | 3        | 3          | 3               | Medium   |
-| `HexGuard.Uploads + @hexguard/angular-upload-state`             | Cross-stack | Proposed | 4        | 5          | 4               | Explore  |
-| `HexGuard.Filtering`                                            | .NET        | Proposed | 3        | 3          | 3               | Explore  |
-| `HexGuard.AuditTrail`                                           | .NET        | Proposed | 3        | 3          | 3               | Explore  |
-| `@hexguard/angular-page-context`                                | Angular     | Proposed | 3        | 2          | 3               | Explore  |
-| `@hexguard/angular-command-palette`                             | Angular     | Proposed | 3        | 3          | 4               | Explore  |
-| `@hexguard/angular-query-signal-forms`                          | Angular     | Proposed | 3        | 4          | 3               | Explore  |
-| `@hexguard/angular-http-dedupe`                                 | Angular     | Planned  | 3        | 4          | 4               | Explore  |
-| `@hexguard/angular-http-resource-debug`                         | Angular     | Planned  | 2        | 4          | 5               | Explore  |
-| `@hexguard/angular-route-memory`                                | Angular     | Proposed | 3        | 3          | 3               | Explore  |
-| `@hexguard/angular-submit-lock`                                 | Angular     | Planned  | 3        | 2          | 2               | Explore  |
+| Package                                                         | Scope       | Status      | Adoption | Complexity | Differentiation | Priority |
+| --------------------------------------------------------------- | ----------- | ----------- | -------- | ---------- | --------------- | -------- |
+| `@hexguard/angular-async-state`                                 | Angular     | In Progress | 5        | 3          | 4               | High     |
+| `@hexguard/angular-api-errors`                                  | Angular     | Planned     | 5        | 3          | 5               | High     |
+| `@hexguard/angular-permissions`                                 | Angular     | Proposed    | 5        | 3          | 4               | High     |
+| `@hexguard/angular-form-drafts`                                 | Angular     | Proposed    | 4        | 3          | 4               | High     |
+| `@hexguard/angular-selection-state`                             | Angular     | Proposed    | 4        | 3          | 4               | High     |
+| `HexGuard.OperationStatus + @hexguard/angular-operation-status` | Cross-stack | Proposed    | 5        | 4          | 5               | High     |
+| `HexGuard.Idempotency + @hexguard/angular-idempotency`          | Cross-stack | Proposed    | 5        | 4          | 5               | High     |
+| `HexGuard.ProblemDetails`                                       | .NET        | Planned     | 5        | 3          | 4               | High     |
+| `@hexguard/angular-table-state`                                 | Angular     | Planned     | 4        | 4          | 4               | High     |
+| `HexGuard.ValidationContracts + @hexguard/angular-api-errors`   | Cross-stack | Proposed    | 4        | 4          | 5               | High     |
+| `HexGuard.QueryContracts + @hexguard/angular-query-contracts`   | Cross-stack | Proposed    | 4        | 4          | 4               | High     |
+| `@hexguard/angular-optimistic-state`                            | Angular     | Proposed    | 4        | 4          | 4               | High     |
+| `HexGuard.Concurrency`                                          | .NET        | Proposed    | 4        | 4          | 4               | High     |
+| `@hexguard/angular-feature-flags`                               | Angular     | Proposed    | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-live-data`                                   | Angular     | Proposed    | 4        | 4          | 4               | Medium   |
+| `@hexguard/angular-dirty-state`                                 | Angular     | Planned     | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-upload-state`                                | Angular     | Proposed    | 4        | 4          | 4               | Medium   |
+| `HexGuard.PreferenceSync + @hexguard/angular-preferences`       | Cross-stack | Proposed    | 4        | 4          | 4               | Medium   |
+| `HexGuard.EndpointConventions`                                  | .NET        | Proposed    | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-preferences`                                 | Angular     | Planned     | 3        | 2          | 3               | Medium   |
+| `@hexguard/angular-confirmation`                                | Angular     | Proposed    | 4        | 2          | 2               | Medium   |
+| `@hexguard/angular-navigation-pending`                          | Angular     | Proposed    | 3        | 3          | 3               | Medium   |
+| `HexGuard.Uploads + @hexguard/angular-upload-state`             | Cross-stack | Proposed    | 4        | 5          | 4               | Explore  |
+| `HexGuard.Filtering`                                            | .NET        | Proposed    | 3        | 3          | 3               | Explore  |
+| `HexGuard.AuditTrail`                                           | .NET        | Proposed    | 3        | 3          | 3               | Explore  |
+| `@hexguard/angular-page-context`                                | Angular     | Proposed    | 3        | 2          | 3               | Explore  |
+| `@hexguard/angular-command-palette`                             | Angular     | Proposed    | 3        | 3          | 4               | Explore  |
+| `@hexguard/angular-query-signal-forms`                          | Angular     | Proposed    | 3        | 4          | 3               | Explore  |
+| `@hexguard/angular-http-dedupe`                                 | Angular     | Planned     | 3        | 4          | 4               | Explore  |
+| `@hexguard/angular-http-resource-debug`                         | Angular     | Planned     | 2        | 4          | 5               | Explore  |
+| `@hexguard/angular-route-memory`                                | Angular     | Proposed    | 3        | 3          | 3               | Explore  |
+| `@hexguard/angular-submit-lock`                                 | Angular     | Planned     | 3        | 2          | 2               | Explore  |
 
 ## Angular Candidate Prioritization Matrix
 

@@ -1,7 +1,7 @@
 ---
 id: feature-angular-async-state
 type: feature
-status: proposed
+status: in-progress
 created: 2026-06-13
 package: '@hexguard/angular-async-state'
 ---
@@ -21,6 +21,13 @@ templates drift into inconsistent patterns.
 This package should standardize async state as a reusable primitive first, with optional template
 helpers second. The main value is not a spinner component. The main value is making async value
 and async action state explicit, typed, inspectable, and consistent across feature code.
+
+## Current Repo Status
+
+- `asyncState()` and `asyncAction()` now exist in `angular/packages/angular-async-state`.
+- Thin standalone outlet helpers exist for async value and async action rendering.
+- Demo routes exist for value lifecycle and action lifecycle coverage in `apps/demo-angular`.
+- Focused library tests and focused Playwright coverage now exercise the current `0.1.x` surface.
 
 ## Goals
 
