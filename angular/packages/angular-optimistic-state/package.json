@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-optimistic-state",
+  "version": "0.1.0",
+  "description": "Signal-first optimistic mutation state for Angular.",
+  "keywords": [
+    "angular",
+    "signals",
+    "optimistic-ui",
+    "rollback",
+    "reconciliation",
+    "state",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-optimistic-state",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-optimistic-state"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

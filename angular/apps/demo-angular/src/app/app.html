@@ -17,8 +17,8 @@
       </nav>
     </div>
 
-    <div class="site-header__summary">
-      <div class="site-header__copy">
+    <div class="site-header__summary demo-card">
+      <div class="site-header__copy site-header__summary-copy">
         <p class="eyebrow">Documentation and demo site</p>
         <h1 data-testid="demo-title">{{ pageTitle }}</h1>
         <p class="site-header__lede">
@@ -27,7 +27,7 @@
         </p>
       </div>
 
-      <nav class="package-strip" aria-label="Current packages">
+      <nav class="package-strip site-header__packages" aria-label="Current packages">
         @for (packageEntry of packages; track packageEntry.id) {
           <a
             class="package-strip__link"

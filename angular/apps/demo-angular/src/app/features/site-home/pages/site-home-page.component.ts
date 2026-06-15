@@ -16,35 +16,44 @@ import {
   template: `
     <section class="site-home" data-testid="site-home-page">
       <article class="site-home__hero demo-card demo-card--stack">
-        <div class="site-home__hero-copy">
-          <p class="demo-eyebrow">Open-source guardrails</p>
-          <h2>
-            Production-minded Angular packages and demos available today, broader HexGuard packages
-            next.
-          </h2>
-          <p class="demo-card__summary site-home__lede">
-            HexGuard is a monorepo for small, explicit application guardrails. The current public
-            surface includes available Angular packages with live demos, while the roadmap previews
-            the next Angular, .NET, and cross-stack contracts under active design.
-          </p>
-        </div>
+        <div class="site-home__hero-grid">
+          <div class="site-home__hero-copy">
+            <p class="demo-eyebrow">Open-source guardrails</p>
+            <h2>
+              Production-minded Angular packages and demos available today, broader HexGuard
+              packages next.
+            </h2>
+            <p class="demo-card__summary site-home__lede">
+              HexGuard is a monorepo for small, explicit application guardrails. The current public
+              surface includes available Angular packages with live demos, while the roadmap
+              previews the next Angular, .NET, and cross-stack contracts under active design.
+            </p>
 
-        <div class="site-home__actions">
-          @for (action of actions; track action.href) {
-            <a class="site-home__action" [href]="action.href" target="_blank" rel="noreferrer">
-              {{ action.label }}
-            </a>
-          }
-        </div>
-
-        <dl class="site-home__metrics" aria-label="Repository metrics">
-          @for (metric of metrics; track metric.label) {
-            <div class="site-home__metric">
-              <dt>{{ metric.label }}</dt>
-              <dd>{{ metric.value }}</dd>
+            <div class="site-home__actions">
+              @for (action of actions; track action.href) {
+                <a class="site-home__action" [href]="action.href" target="_blank" rel="noreferrer">
+                  {{ action.label }}
+                </a>
+              }
             </div>
-          }
-        </dl>
+          </div>
+
+          <div class="site-home__hero-panel">
+            <p class="demo-eyebrow">Current surface</p>
+            <p class="site-home__hero-panel-copy">
+              Live packages, test-backed demos, and docs that stay close to the implementation.
+            </p>
+
+            <dl class="site-home__metrics" aria-label="Repository metrics">
+              @for (metric of metrics; track metric.label) {
+                <div class="site-home__metric">
+                  <dt>{{ metric.label }}</dt>
+                  <dd>{{ metric.value }}</dd>
+                </div>
+              }
+            </dl>
+          </div>
+        </div>
       </article>
 
       <section class="site-home__section" aria-labelledby="featured-packages-heading">
@@ -66,12 +75,12 @@ import {
               [attr.data-testid]="'site-home-featured-package-' + packageEntry.id"
             >
               <div class="site-home__package-header">
-                <div>
+                <div class="site-home__package-title">
                   <p class="demo-eyebrow">{{ packageEntry.scope }}</p>
                   <h3>{{ packageEntry.packageName }}</h3>
                 </div>
                 <span
-                  class="site-status-badge"
+                  class="site-status-badge site-home__package-status"
                   [attr.data-testid]="'site-home-featured-package-status-' + packageEntry.id"
                   >{{ packageEntry.status }}</span
                 >
@@ -86,32 +95,34 @@ import {
                 }
               </ul>
 
-              <div class="site-home__package-meta">
-                <span class="demo-hint-pill">{{ packageEntry.demoCount }} live demos</span>
-              </div>
+              <div class="site-home__package-footer">
+                <div class="site-home__package-meta">
+                  <span class="demo-hint-pill">{{ packageEntry.demoCount }} live demos</span>
+                </div>
 
-              <div class="demo-link-row">
-                <a
-                  class="site-home__action site-home__action--inline"
-                  [routerLink]="packageEntry.route"
-                  >Open package hub</a
-                >
-                <a
-                  class="demo-link-chip"
-                  [href]="packageEntry.repositoryHref"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View package source
-                </a>
-                <a
-                  class="demo-link-chip"
-                  [href]="packageEntry.docsLinks[0]?.href"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Package docs
-                </a>
+                <div class="demo-link-row site-home__package-links">
+                  <a
+                    class="site-home__action site-home__action--inline"
+                    [routerLink]="packageEntry.route"
+                    >Open package hub</a
+                  >
+                  <a
+                    class="demo-link-chip"
+                    [href]="packageEntry.repositoryHref"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View package source
+                  </a>
+                  <a
+                    class="demo-link-chip"
+                    [href]="packageEntry.docsLinks[0]?.href"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Package docs
+                  </a>
+                </div>
               </div>
             </article>
           }
@@ -155,7 +166,7 @@ import {
               [attr.data-testid]="'site-home-roadmap-' + packageEntry.id"
             >
               <div class="site-home__package-header">
-                <div>
+                <div class="site-home__package-title">
                   <p class="demo-eyebrow">{{ packageEntry.scope }}</p>
                   <h3>{{ packageEntry.packageName }}</h3>
                 </div>

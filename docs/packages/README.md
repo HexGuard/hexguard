@@ -7,12 +7,13 @@ another.
 
 ## Current Packages
 
-| Package                         | Status      | Description                                                                                                            | Primary Docs                                                                                                                                      |
-| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state`   | Available   | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)     |
-| `@hexguard/angular-query-form`  | Available   | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)   |
-| `@hexguard/angular-async-state` | Available   | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md) |
-| `@hexguard/angular-permissions` | In Progress | Headless capability and role evaluation for Angular routes, templates, and feature code.                               | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md) |
+| Package                              | Status    | Description                                                                                                            | Primary Docs                                                                                                                                                |
+| ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`        | Available | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-query-form`       | Available | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-async-state`      | Available | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
+| `@hexguard/angular-optimistic-state` | Available | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.  | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
+| `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                               | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
 
 ## Package Status Notes
 
@@ -46,15 +47,25 @@ This package is available as a signal-first async lifecycle companion for Angula
 
 It focuses on explicit value and action state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers, and a validated publish surface across docs, demos, and package artifacts.
 
+<a id="package-angular-optimistic-state"></a>
+
+### `@hexguard/angular-optimistic-state`
+
+Status: Available
+
+This package is available as the optimistic-mutation companion for Angular screens that should feel immediate without turning rollback and overlap behavior into hidden cache magic.
+
+It focuses on explicit committed value versus optimistic overlay state, configurable same-target conflict policy, thin template helpers, and a validated publish surface across docs, demos, and package artifacts.
+
 <a id="package-angular-permissions"></a>
 
 ### `@hexguard/angular-permissions`
 
-Status: In Progress
+Status: Available
 
-This package is currently in progress and already exposes the headless evaluator, DI facade, and thin Angular adapters that the demo site uses.
+This package is available as a headless permissions companion for Angular routes, templates, and feature code.
 
-The first release stays intentionally narrow around capabilities and roles, leaving auth parsing, feature flags, and backend capability contracts outside the package boundary.
+It focuses on one provider-agnostic capability and role contract, a shared evaluator, thin Angular adapters, and a validated publish surface across docs, demos, and package artifacts.
 
 ## Planned and Proposed Package Briefs
 
@@ -65,14 +76,6 @@ The first release stays intentionally narrow around capabilities and roles, leav
 Status: Planned
 
 May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit in-flight state on top of a broader async action contract.
-
-<a id="package-angular-optimistic-state"></a>
-
-### `@hexguard/angular-optimistic-state`
-
-Status: Proposed
-
-Would standardize optimistic mutation, rollback, and reconciliation patterns for Angular screens that need fast local updates without losing correctness.
 
 <a id="package-angular-upload-state"></a>
 

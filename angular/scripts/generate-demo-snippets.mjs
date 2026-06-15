@@ -89,6 +89,36 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
   },
   {
+    id: 'angular-optimistic-state/toggle-demo-state',
+    title: 'Optimistic toggle component source',
+    description:
+      'Generated from the real optimistic toggle demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
+  },
+  {
+    id: 'angular-optimistic-state/inline-edit-demo-state',
+    title: 'Optimistic inline-edit component source',
+    description:
+      'Generated from the real optimistic inline-edit demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
+  },
+  {
+    id: 'angular-optimistic-state/bulk-demo-state',
+    title: 'Optimistic bulk component source',
+    description:
+      'Generated from the real optimistic bulk demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
+  },
+  {
     id: 'angular-permissions/actions-demo-state',
     title: 'Permissions action demo component source',
     description:

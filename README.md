@@ -13,7 +13,9 @@ Current public Angular package entry points are available here:
 
 - [@hexguard/angular-url-state](angular/packages/angular-url-state/README.md)
 - [@hexguard/angular-async-state](angular/packages/angular-async-state/README.md)
+- [@hexguard/angular-optimistic-state](angular/packages/angular-optimistic-state/README.md)
 - [@hexguard/angular-query-form](angular/packages/angular-query-form/README.md)
+- [@hexguard/angular-permissions](angular/packages/angular-permissions/README.md)
 
 ## Documentation
 
@@ -22,6 +24,8 @@ Current public Angular package entry points are available here:
 - [Angular URL State Deep Dive](docs/packages/angular-url-state.md)
 - [Angular Query Form Deep Dive](docs/packages/angular-query-form.md)
 - [Angular Async State Deep Dive](docs/packages/angular-async-state.md)
+- [Angular Optimistic State Deep Dive](docs/packages/angular-optimistic-state.md)
+- [Angular Permissions Deep Dive](docs/packages/angular-permissions.md)
 - [Run the Demo](docs/demo/README.md)
 - [AI Workflow](docs/.ai/README.md)
 - [Contributing](CONTRIBUTING.md)
@@ -50,7 +54,7 @@ pnpm dotnet:test
 Repository layout:
 
 - `angular/`: Angular workspace for libraries, demo app, Playwright coverage, and Angular-specific tooling
-- `angular/packages/`: publishable Angular libraries such as `angular-url-state`, `angular-async-state`, and `angular-query-form`
+- `angular/packages/`: publishable Angular libraries such as `angular-url-state`, `angular-async-state`, `angular-optimistic-state`, and `angular-query-form`
 - `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
 - `angular/apps/demo-angular`: docs-grade demo and Playwright target
 - `docs/`: package guides, demo runbook, AI workflow docs

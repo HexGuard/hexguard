@@ -1,0 +1,174 @@
+<demo-page-layout testId="optimistic-state-bulk-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="optimistic-state-bulk-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-bulk-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Optimistic State</p>
+        <h2>Bulk publish flows where the latest intent wins visually.</h2>
+      </div>
+
+      <div class="optimistic-toolbar">
+        <span class="demo-hint-pill" data-testid="optimistic-state-bulk-status-pill"
+          >Status: {{ bulkChanges.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="optimistic-state-bulk-policy-pill"
+          >Policy: {{ bulkChanges.conflictPolicy() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      This route fixes `optimisticState()` to `replace`. A second bulk command replaces the visible
+      optimistic overlay immediately, so the latest local intent wins while stale completions stop
+      mutating state.
+    </p>
+
+    <div class="optimistic-controls-grid">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="optimistic-state-bulk-publish"
+        [disabled]="selectedCount() === 0"
+        (click)="publishSelected()"
+      >
+        Publish selected
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-bulk-revert"
+        [disabled]="selectedCount() === 0"
+        (click)="revertSelected()"
+      >
+        Return selected to draft
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-bulk-replace"
+        [disabled]="selectedCount() === 0"
+        (click)="runReplacementSequence()"
+      >
+        Replace in-flight bulk run
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-bulk-fail"
+        [disabled]="selectedCount() === 0"
+        (click)="failSelected()"
+      >
+        Force failure
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-bulk-reset"
+        (click)="resetDemo()"
+      >
+        Reset demo
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="optimistic-state-bulk-status-strip"
+      summaryTestId="optimistic-state-bulk-summary"
+      urlTestId="optimistic-state-bulk-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-bulk-render-card"
+  >
+    <div class="optimistic-render-grid">
+      <section class="optimistic-surface" data-testid="optimistic-state-bulk-selection-panel">
+        <p class="demo-eyebrow">Selected rows</p>
+        <h3>Pick the rows affected by the next bulk run</h3>
+
+        <div class="optimistic-row-list">
+          @for (row of bulkChanges.value(); track row.id) {
+            <label
+              class="optimistic-row optimistic-row--selectable"
+              [class.is-pending]="row.pending"
+              [attr.data-testid]="'optimistic-state-bulk-row-' + row.id"
+            >
+              <div class="optimistic-row__meta">
+                <div>
+                  <h4>{{ row.label }}</h4>
+                  <p>{{ row.id }}</p>
+                </div>
+
+                <span class="optimistic-status-badge">{{ row.status }}</span>
+              </div>
+
+              <span class="optimistic-row__selection">
+                <input
+                  type="checkbox"
+                  [checked]="selectedIds().includes(row.id)"
+                  [attr.data-testid]="'optimistic-state-bulk-select-' + row.id"
+                  (change)="toggleSelection(row.id, $any($event.target).checked)"
+                />
+                Selected for the next bulk action
+              </span>
+
+              @if (row.pending) {
+                <span class="demo-hint-pill">Pending bulk overlay</span>
+              }
+            </label>
+          }
+        </div>
+      </section>
+
+      <section class="optimistic-surface" data-testid="optimistic-state-bulk-facts-panel">
+        <p class="demo-eyebrow">Bulk facts</p>
+        <h3>One shared target, explicit replacement behavior</h3>
+
+        @if (bulkChanges.isError()) {
+          <div
+            class="optimistic-callout optimistic-callout--error"
+            data-testid="optimistic-state-bulk-error"
+          >
+            {{ bulkChanges.error() }}
+          </div>
+        }
+
+        <ul class="optimistic-fact-list">
+          <li data-testid="optimistic-state-bulk-selected-count">
+            Selected count: {{ selectedCount() }}
+          </li>
+          <li data-testid="optimistic-state-bulk-published-count">
+            Published rows: {{ publishedCount() }}
+          </li>
+          <li data-testid="optimistic-state-bulk-replace-summary">
+            {{ replaceSummary() }}
+          </li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="optimistic-state-bulk-inspector-panel"
+    snapshotTestId="optimistic-state-bulk-snapshot-json"
+    codeTestId="optimistic-state-bulk-code-sample"
+    title="Bulk optimistic state and source"
+    summary="The source excerpt comes from the real demo component, so bulk replacement behavior and rollback wiring stay documentation-grade."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

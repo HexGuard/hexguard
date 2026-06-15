@@ -6,6 +6,9 @@ import {
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
+  ANGULAR_OPTIMISTIC_STATE_BULK_DEMO,
+  ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO,
+  ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO,
   ANGULAR_PERMISSIONS_ACTIONS_DEMO,
   ANGULAR_PERMISSIONS_ROUTING_DEMO,
   ANGULAR_QUERY_FORM_ORDERS_DEMO,
@@ -17,6 +20,10 @@ import { AngularAsyncStateHomePageComponent } from './features/angular-async-sta
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
 import { AsyncStateObservableDemoPageComponent } from './features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component';
 import { AsyncStateValueDemoPageComponent } from './features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
+import { AngularOptimisticStateHomePageComponent } from './features/angular-optimistic-state/pages/angular-optimistic-state-home-page.component';
+import { OptimisticStateBulkDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component';
+import { OptimisticStateInlineEditDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component';
+import { OptimisticStateToggleDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component';
 import {
   AUDIT_ROUTE_REQUIREMENT,
   FINANCE_ROUTE_REQUIREMENT,
@@ -93,6 +100,26 @@ export const routes: Routes = [
     path: 'packages/angular-async-state/action',
     component: AsyncStateActionDemoPageComponent,
     title: 'Async Action Lifecycle Demo',
+  },
+  {
+    path: 'packages/angular-optimistic-state',
+    component: AngularOptimisticStateHomePageComponent,
+    title: 'Angular Optimistic State Demos',
+  },
+  {
+    path: 'packages/angular-optimistic-state/toggle',
+    component: OptimisticStateToggleDemoPageComponent,
+    title: 'Optimistic Toggle Demo',
+  },
+  {
+    path: 'packages/angular-optimistic-state/inline-edit',
+    component: OptimisticStateInlineEditDemoPageComponent,
+    title: 'Optimistic Inline Edit Demo',
+  },
+  {
+    path: 'packages/angular-optimistic-state/bulk',
+    component: OptimisticStateBulkDemoPageComponent,
+    title: 'Optimistic Bulk Demo',
   },
   {
     path: 'packages/angular-permissions',
@@ -173,6 +200,18 @@ export const routes: Routes = [
   {
     path: 'async-state-action',
     redirectTo: ANGULAR_ASYNC_STATE_ACTION_DEMO.route.slice(1),
+  },
+  {
+    path: 'optimistic-toggle',
+    redirectTo: ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO.route.slice(1),
+  },
+  {
+    path: 'optimistic-inline-edit',
+    redirectTo: ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO.route.slice(1),
+  },
+  {
+    path: 'optimistic-bulk',
+    redirectTo: ANGULAR_OPTIMISTIC_STATE_BULK_DEMO.route.slice(1),
   },
   {
     path: 'permissions-actions',

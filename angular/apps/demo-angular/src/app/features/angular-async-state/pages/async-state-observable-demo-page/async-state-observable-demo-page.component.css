@@ -25,9 +25,10 @@
   display: grid;
   gap: 0.55rem;
   padding: 1rem;
-  border: 1px solid rgba(31, 36, 48, 0.08);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+  box-shadow: var(--shadow-soft);
 }
 
 .async-metric-card strong {
@@ -40,42 +41,43 @@
 }
 
 .async-metric-card--warning {
-  border-color: rgba(172, 105, 0, 0.22);
-  background: rgba(255, 243, 205, 0.72);
+  border-color: rgba(172, 105, 0, 0.18);
+  background: linear-gradient(180deg, rgba(255, 243, 205, 0.84), rgba(253, 232, 197, 0.76));
 }
 
 .async-metric-card--critical {
-  border-color: rgba(154, 31, 31, 0.22);
-  background: rgba(255, 232, 232, 0.82);
+  border-color: rgba(154, 31, 31, 0.18);
+  background: linear-gradient(180deg, rgba(255, 232, 232, 0.92), rgba(255, 214, 214, 0.78));
 }
 
 .async-banner {
   padding: 0.95rem 1rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(31, 36, 48, 0.08);
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
 }
 
 .async-banner--loading {
-  background: rgba(225, 239, 250, 0.9);
+  background: linear-gradient(180deg, rgba(225, 239, 250, 0.95), rgba(212, 230, 244, 0.78));
 }
 
 .async-banner--success {
-  background: rgba(230, 247, 236, 0.9);
-  border-color: rgba(46, 125, 50, 0.22);
+  background: linear-gradient(180deg, rgba(230, 247, 236, 0.94), rgba(217, 239, 224, 0.82));
+  border-color: rgba(46, 125, 50, 0.18);
 }
 
 .async-banner--error {
-  background: rgba(255, 232, 232, 0.9);
-  border-color: rgba(154, 31, 31, 0.22);
+  background: linear-gradient(180deg, rgba(255, 232, 232, 0.94), rgba(255, 214, 214, 0.8));
+  border-color: rgba(154, 31, 31, 0.18);
 }
 
 .async-banner--empty {
-  background: rgba(244, 245, 247, 0.9);
+  background: linear-gradient(180deg, rgba(244, 245, 247, 0.94), rgba(233, 236, 239, 0.8));
 }
 
 .async-banner--warning {
-  background: rgba(255, 243, 205, 0.9);
-  border-color: rgba(172, 105, 0, 0.22);
+  background: linear-gradient(180deg, rgba(255, 243, 205, 0.94), rgba(253, 232, 197, 0.82));
+  border-color: rgba(172, 105, 0, 0.18);
 }
 
 .async-fact-list {

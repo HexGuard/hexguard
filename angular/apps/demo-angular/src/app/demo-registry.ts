@@ -36,11 +36,13 @@ export interface DemoPackageEntry {
 const ANGULAR_URL_STATE_CATALOG = getGeneratedCurrentPackage('angular-url-state');
 const ANGULAR_QUERY_FORM_CATALOG = getGeneratedCurrentPackage('angular-query-form');
 const ANGULAR_ASYNC_STATE_CATALOG = getGeneratedCurrentPackage('angular-async-state');
+const ANGULAR_OPTIMISTIC_STATE_CATALOG = getGeneratedCurrentPackage('angular-optimistic-state');
 const ANGULAR_PERMISSIONS_CATALOG = getGeneratedCurrentPackage('angular-permissions');
 
 const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
 const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
 const ANGULAR_ASYNC_STATE_DOCS = ANGULAR_ASYNC_STATE_CATALOG.docsLinks;
+const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks;
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
@@ -294,6 +296,113 @@ export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
   ],
 };
 
+export const ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO: DemoPageEntry = {
+  id: 'optimistic-state-toggle',
+  packageId: 'angular-optimistic-state',
+  route: '/packages/angular-optimistic-state/toggle',
+  legacyRoute: '/optimistic-toggle',
+  label: 'Toggle Conflict Policy',
+  title: 'Optimistic toggle flows with configurable same-target overlap behavior',
+  description:
+    'A feature-toggle workflow proves immediate optimistic overlays, rollback on failure, and visible reject, queue, or replace behavior for the same target.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-optimistic-state/README.md',
+    },
+    {
+      label: 'Conflict policies',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-optimistic-state.md#conflict-policies',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-optimistic-state/toggle-demo-state',
+    label: 'Optimistic toggle component source',
+    description:
+      'The full optimistic toggle demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO: DemoPageEntry = {
+  id: 'optimistic-state-inline-edit',
+  packageId: 'angular-optimistic-state',
+  route: '/packages/angular-optimistic-state/inline-edit',
+  legacyRoute: '/optimistic-inline-edit',
+  label: 'Inline Edit Queue',
+  title: 'Optimistic inline edits with queued follow-up saves and canonical reconciliation',
+  description:
+    'A draft-row editor fixes the policy to `queue` so a second save waits its turn and reconciles to the confirmed server title.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-optimistic-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-optimistic-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-optimistic-state/inline-edit-demo-state',
+    label: 'Optimistic inline-edit component source',
+    description:
+      'The full optimistic inline-edit demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_OPTIMISTIC_STATE_BULK_DEMO: DemoPageEntry = {
+  id: 'optimistic-state-bulk',
+  packageId: 'angular-optimistic-state',
+  route: '/packages/angular-optimistic-state/bulk',
+  legacyRoute: '/optimistic-bulk',
+  label: 'Bulk Replace Flow',
+  title: 'Optimistic bulk publish with replace behavior for the latest shared target intent',
+  description:
+    'A bulk publish workflow fixes the policy to `replace` so a later bulk command immediately becomes the visible optimistic overlay.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-optimistic-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-optimistic-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-optimistic-state/bulk-demo-state',
+    label: 'Optimistic bulk component source',
+    description:
+      'The full optimistic bulk demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_OPTIMISTIC_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-optimistic-state',
+  route: '/packages/angular-optimistic-state',
+  label: 'Angular Optimistic State',
+  title: ANGULAR_OPTIMISTIC_STATE_CATALOG.packageName,
+  description: ANGULAR_OPTIMISTIC_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_OPTIMISTIC_STATE_DOCS,
+  demos: [
+    ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO,
+    ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO,
+    ANGULAR_OPTIMISTIC_STATE_BULK_DEMO,
+  ],
+};
+
 export const ANGULAR_PERMISSIONS_ACTIONS_DEMO: DemoPageEntry = {
   id: 'permissions-actions',
   packageId: 'angular-permissions',
@@ -370,6 +479,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
   ANGULAR_ASYNC_STATE_PACKAGE,
+  ANGULAR_OPTIMISTIC_STATE_PACKAGE,
   ANGULAR_PERMISSIONS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);

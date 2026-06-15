@@ -11,7 +11,7 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
     <section class="package-hub" [attr.data-testid]="overviewTestId()">
       <article class="demo-card demo-card--stack package-hub__overview">
         <div class="package-hub__header">
-          <div>
+          <div class="package-hub__header-copy">
             <p class="demo-eyebrow">{{ packageEntry().scope }} package hub</p>
             <h2>{{ packageEntry().packageName }}</h2>
           </div>
@@ -25,7 +25,7 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
         <p class="demo-card__summary">{{ packageEntry().summary }}</p>
         <p class="package-hub__detail">{{ packageEntry().detail }}</p>
 
-        <div class="demo-link-row">
+        <div class="demo-link-row package-hub__overview-links">
           <a
             class="demo-link-chip"
             [href]="packageEntry().docsLinks[0]?.href"
@@ -126,7 +126,7 @@ import type { SitePackageCatalogEntry } from '../../site-catalog';
             the same package-specific documentation links.
           </p>
 
-          <div class="demo-link-row">
+          <div class="demo-link-row package-hub__docs-links">
             <a
               class="demo-link-chip"
               [href]="packageEntry().repositoryHref"
@@ -208,6 +208,8 @@ export class PackageHubPageComponent {
         return 'Reactive Forms flow, generated source panel, and docs links';
       case 'angular-async-state':
         return 'Lifecycle state flow, generated source panel, and docs links';
+      case 'angular-optimistic-state':
+        return 'Optimistic workflow, generated source panel, and docs links';
       case 'angular-permissions':
         return 'Permission context flow, generated source panel, and docs links';
       default:

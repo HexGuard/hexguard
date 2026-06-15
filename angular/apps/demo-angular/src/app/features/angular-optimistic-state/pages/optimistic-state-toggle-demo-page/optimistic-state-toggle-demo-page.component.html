@@ -1,0 +1,213 @@
+<demo-page-layout testId="optimistic-state-toggle-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="optimistic-state-toggle-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-toggle-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Optimistic State</p>
+        <h2>Optimistic toggles with configurable same-target overlap behavior.</h2>
+      </div>
+
+      <div class="optimistic-toolbar">
+        <span class="demo-hint-pill" data-testid="optimistic-state-toggle-status-pill"
+          >Status: {{ featureToggles.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="optimistic-state-toggle-policy-pill"
+          >Policy: {{ featureToggles.conflictPolicy() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      `optimisticState()` keeps the committed value, optimistic overlay, and same-target overlap
+      policy explicit. Switch policies here to see reject, queue, and replace behavior without
+      hiding rollback behind a cache client.
+    </p>
+
+    <div class="optimistic-controls-grid">
+      <label class="demo-field optimistic-controls-grid__wide">
+        <span>Feature</span>
+        <select
+          class="demo-select"
+          [ngModel]="selectedFeatureId()"
+          data-testid="optimistic-state-toggle-feature-select"
+          (ngModelChange)="updateSelectedFeature($event)"
+        >
+          @for (feature of featureToggles.value(); track feature.id) {
+            <option [value]="feature.id">{{ feature.label }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="demo-field optimistic-controls-grid__wide">
+        <span>Conflict policy</span>
+        <select
+          class="demo-select"
+          [ngModel]="featureToggles.conflictPolicy()"
+          data-testid="optimistic-state-toggle-policy-select"
+          (ngModelChange)="updateConflictPolicy($event)"
+        >
+          @for (option of policyOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="optimistic-state-toggle-enable"
+        (click)="enableSelected()"
+      >
+        Enable selected feature
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-toggle-disable"
+        (click)="disableSelected()"
+      >
+        Disable selected feature
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-toggle-overlap"
+        (click)="runOverlap()"
+      >
+        Trigger overlap
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-toggle-fail"
+        (click)="failSelected()"
+      >
+        Force failure
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-toggle-reset"
+        (click)="resetDemo()"
+      >
+        Reset demo
+      </button>
+    </div>
+
+    <p class="demo-card__summary" data-testid="optimistic-state-toggle-policy-detail">
+      {{ policyDetail() }}
+    </p>
+
+    <demo-status-strip
+      testId="optimistic-state-toggle-status-strip"
+      summaryTestId="optimistic-state-toggle-summary"
+      urlTestId="optimistic-state-toggle-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-toggle-render-card"
+  >
+    <div class="optimistic-render-grid">
+      <section class="optimistic-surface" data-testid="optimistic-state-toggle-render-panel">
+        <p class="demo-eyebrow">Outlet rendering</p>
+        <h3>Current optimistic list</h3>
+
+        <hexguard-optimistic-state-outlet
+          [state]="featureToggles"
+          [valueTemplate]="valueTemplate"
+          [pendingTemplate]="pendingTemplate"
+          [errorTemplate]="errorTemplate"
+        />
+
+        <ng-template #pendingTemplate let-entries>
+          <div
+            class="optimistic-callout optimistic-callout--pending"
+            data-testid="optimistic-state-toggle-pending"
+          >
+            {{ entries.length }} mutation is pending under the {{ featureToggles.conflictPolicy() }}
+            policy.
+          </div>
+        </ng-template>
+
+        <ng-template #errorTemplate let-error>
+          <div
+            class="optimistic-callout optimistic-callout--error"
+            data-testid="optimistic-state-toggle-error"
+          >
+            {{ error }}
+          </div>
+        </ng-template>
+
+        <ng-template #valueTemplate let-features>
+          <div class="optimistic-feature-list">
+            @for (feature of features; track feature.id) {
+              <article
+                class="optimistic-feature-row"
+                [class.is-pending]="feature.pending"
+                [attr.data-testid]="'optimistic-state-toggle-row-' + feature.id"
+              >
+                <div class="optimistic-feature-row__meta">
+                  <div>
+                    <h4>{{ feature.label }}</h4>
+                    <p>{{ feature.description }}</p>
+                  </div>
+
+                  <span class="optimistic-status-badge">{{
+                    feature.enabled ? 'Enabled' : 'Disabled'
+                  }}</span>
+                </div>
+
+                @if (feature.pending) {
+                  <span class="demo-hint-pill">Pending local overlay</span>
+                }
+              </article>
+            }
+          </div>
+        </ng-template>
+      </section>
+
+      <section class="optimistic-surface" data-testid="optimistic-state-toggle-facts-panel">
+        <p class="demo-eyebrow">Conflict policy facts</p>
+        <h3>Visible overlap story</h3>
+
+        <ul class="optimistic-fact-list">
+          <li data-testid="optimistic-state-toggle-pending-count">
+            Pending count: {{ featureToggles.pendingCount() }}
+          </li>
+          <li data-testid="optimistic-state-toggle-queued-count">
+            Queued count: {{ featureToggles.queuedCount() }}
+          </li>
+          <li data-testid="optimistic-state-toggle-overlap-summary">
+            {{ overlapSummary() }}
+          </li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="optimistic-state-toggle-inspector-panel"
+    snapshotTestId="optimistic-state-toggle-snapshot-json"
+    codeTestId="optimistic-state-toggle-code-sample"
+    title="Live optimistic state and source"
+    summary="The source excerpt comes from the real demo component, so the conflict-policy configuration and rollback wiring stay documentation-grade."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

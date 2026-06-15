@@ -4,22 +4,34 @@
 
 .package-hub {
   display: grid;
-  gap: 1.4rem;
+  gap: 1.6rem;
 }
 
 .package-hub__overview {
   background:
-    radial-gradient(circle at top right, rgba(15, 139, 141, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+    radial-gradient(circle at top right, rgba(20, 101, 111, 0.18), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(217, 119, 75, 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 240, 231, 0.82));
 }
 
 .package-hub__header,
 .package-hub__demos-heading {
   display: flex;
-  gap: 1rem;
+  gap: 1rem 1.25rem;
   align-items: end;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.package-hub__header {
+  align-items: start;
+}
+
+.package-hub__header-copy {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1 1 18rem;
 }
 
 .package-hub__header h2,
@@ -30,11 +42,18 @@
   color: var(--color-ink);
 }
 
+.package-hub__header h2,
+.package-hub__demos-heading h3 {
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
 .package-hub__header-meta {
   display: flex;
   gap: 0.8rem;
-  align-items: center;
+  align-items: start;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .package-hub__detail,
@@ -51,7 +70,19 @@
 .package-hub__demos-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+.package-hub__reference-grid,
+.package-hub__info-grid,
+.package-hub__narrative-grid,
+.package-hub__demos {
+  min-width: 0;
+}
+
+.package-hub__demos {
+  display: grid;
+  gap: 1rem;
 }
 
 .package-hub__highlights {
@@ -84,4 +115,42 @@
 
 .package-hub__demo-meta {
   font-size: 0.92rem;
+}
+
+.package-hub__overview-links,
+.package-hub__docs-links {
+  width: 100%;
+}
+
+.package-hub__overview-links > *,
+.package-hub__docs-links > * {
+  flex: 1 1 12rem;
+  justify-content: center;
+}
+
+.package-hub__demo-card {
+  height: 100%;
+  align-content: start;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 240, 231, 0.8));
+}
+
+@media (min-width: 1100px) {
+  .package-hub__narrative-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .package-hub__overview-links > *,
+  .package-hub__docs-links > * {
+    flex-basis: 14rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .package-hub__overview-links > *,
+  .package-hub__docs-links > * {
+    flex-basis: 100%;
+  }
 }

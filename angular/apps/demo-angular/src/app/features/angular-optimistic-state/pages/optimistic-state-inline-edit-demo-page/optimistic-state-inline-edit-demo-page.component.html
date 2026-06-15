@@ -1,0 +1,174 @@
+<demo-page-layout testId="optimistic-state-inline-edit-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="optimistic-state-inline-edit-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-inline-edit-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Optimistic State</p>
+        <h2>Inline edits with queued follow-up saves and canonical server reconciliation.</h2>
+      </div>
+
+      <div class="optimistic-toolbar">
+        <span class="demo-hint-pill" data-testid="optimistic-state-inline-edit-status-pill"
+          >Status: {{ draftEdits.status() }}</span
+        >
+        <span class="demo-hint-pill" data-testid="optimistic-state-inline-edit-policy-pill"
+          >Policy: {{ draftEdits.conflictPolicy() }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      This route fixes `optimisticState()` to the `queue` policy. A second save for the same draft
+      row waits until the first settles, so queued intent is explicit instead of racing hidden form
+      state.
+    </p>
+
+    <div class="optimistic-controls-grid">
+      <label class="demo-field optimistic-controls-grid__wide">
+        <span>Draft row</span>
+        <select
+          class="demo-select"
+          [ngModel]="selectedRowId()"
+          data-testid="optimistic-state-inline-edit-row-select"
+          (ngModelChange)="updateSelectedRow($event)"
+        >
+          @for (row of draftEdits.value(); track row.id) {
+            <option [value]="row.id">{{ row.id }} · {{ row.owner }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="demo-field optimistic-controls-grid__wide">
+        <span>Draft title</span>
+        <input
+          class="demo-input"
+          [ngModel]="draftTitle()"
+          data-testid="optimistic-state-inline-edit-input"
+          (ngModelChange)="draftTitle.set($event)"
+        />
+      </label>
+
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="optimistic-state-inline-edit-save"
+        (click)="saveDraft()"
+      >
+        Save draft
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-inline-edit-queue"
+        (click)="queueFollowUpSave()"
+      >
+        Queue follow-up save
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-inline-edit-fail"
+        (click)="failDraft()"
+      >
+        Force failure
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="optimistic-state-inline-edit-reset"
+        (click)="resetDemo()"
+      >
+        Reset demo
+      </button>
+    </div>
+
+    <demo-status-strip
+      testId="optimistic-state-inline-edit-status-strip"
+      summaryTestId="optimistic-state-inline-edit-summary"
+      urlTestId="optimistic-state-inline-edit-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="optimistic-state-inline-edit-render-card"
+  >
+    <div class="optimistic-render-grid">
+      <section class="optimistic-surface" data-testid="optimistic-state-inline-edit-list-panel">
+        <p class="demo-eyebrow">Current optimistic rows</p>
+        <h3>Queued intent becomes visible only after the first save settles</h3>
+
+        <div class="optimistic-row-list">
+          @for (row of draftEdits.value(); track row.id) {
+            <article
+              class="optimistic-row"
+              [class.is-pending]="row.pending"
+              [attr.data-testid]="'optimistic-state-inline-edit-row-' + row.id"
+            >
+              <div class="optimistic-row__meta">
+                <div>
+                  <h4>{{ row.title }}</h4>
+                  <p>{{ row.owner }}</p>
+                </div>
+
+                @if (row.pending) {
+                  <span class="demo-hint-pill">Pending save</span>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+
+      <section class="optimistic-surface" data-testid="optimistic-state-inline-edit-facts-panel">
+        <p class="demo-eyebrow">Queue facts</p>
+        <h3>One row, explicit overlap behavior</h3>
+
+        @if (draftEdits.isError()) {
+          <div
+            class="optimistic-callout optimistic-callout--error"
+            data-testid="optimistic-state-inline-edit-error"
+          >
+            {{ draftEdits.error() }}
+          </div>
+        }
+
+        <ul class="optimistic-fact-list">
+          <li data-testid="optimistic-state-inline-edit-pending-count">
+            Pending count: {{ draftEdits.pendingCount() }}
+          </li>
+          <li data-testid="optimistic-state-inline-edit-queued-count">
+            Queued count: {{ draftEdits.queuedCount() }}
+          </li>
+          <li data-testid="optimistic-state-inline-edit-queue-summary">
+            {{ queueSummary() }}
+          </li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="optimistic-state-inline-edit-inspector-panel"
+    snapshotTestId="optimistic-state-inline-edit-snapshot-json"
+    codeTestId="optimistic-state-inline-edit-code-sample"
+    title="Queued optimistic edits and source"
+    summary="The source excerpt comes from the real demo component, so queued same-row saves and reconciliation logic stay documentation-grade."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

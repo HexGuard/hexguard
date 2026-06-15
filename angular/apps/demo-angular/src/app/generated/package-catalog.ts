@@ -155,9 +155,50 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-optimistic-state',
+    packageName: '@hexguard/angular-optimistic-state',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.',
+    detail:
+      'Focused on toggles, inline edits, and bulk actions where local overlays should feel immediate while rollback, queueing, and overwrite behavior stay explicit and inspectable.',
+    installCommand: 'pnpm add @hexguard/angular-optimistic-state',
+    featureHighlights: [
+      'Headless optimistic-state primitive with explicit apply, rollback, and success reconciliation.',
+      'Configurable same-target conflict policies with `reject`, `queue`, and `replace` behavior.',
+      'Thin Angular outlet helper plus docs-grade demos for toggles, inline edits, and bulk publish flows.',
+    ],
+    bestFitScenarios: [
+      'Fast toggles where a field should update immediately but still roll back cleanly on failure.',
+      'Inline edit workflows that need queued or replaceable optimistic saves for one row at a time.',
+      'Bulk actions where multiple rows should preview the local outcome before the server confirms it.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as the optimistic-mutation companion for Angular screens that should feel immediate without turning rollback and overlap behavior into hidden cache magic.',
+      'It focuses on explicit committed value versus optimistic overlay state, configurable same-target conflict policy, thin template helpers, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-optimistic-state',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-optimistic-state/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-optimistic-state.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-permissions',
     packageName: '@hexguard/angular-permissions',
-    status: 'In Progress',
+    status: 'Available',
     scope: 'Angular',
     summary:
       'Headless capability and role evaluation for Angular routes, templates, and feature code.',
@@ -175,8 +216,8 @@ export const GENERATED_CURRENT_PACKAGES = [
       'Teams that need permission behavior to stay inspectable through docs-grade demos instead of scattered boolean glue.',
     ],
     statusNoteParagraphs: [
-      'This package is currently in progress and already exposes the headless evaluator, DI facade, and thin Angular adapters that the demo site uses.',
-      'The first release stays intentionally narrow around capabilities and roles, leaving auth parsing, feature flags, and backend capability contracts outside the package boundary.',
+      'This package is available as a headless permissions companion for Angular routes, templates, and feature code.',
+      'It focuses on one provider-agnostic capability and role contract, a shared evaluator, thin Angular adapters, and a validated publish surface across docs, demos, and package artifacts.',
     ],
     repositoryHref:
       'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-permissions',
@@ -208,18 +249,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit in-flight state on top of a broader async action contract.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-submit-lock',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-optimistic-state',
-    anchorId: 'package-angular-optimistic-state',
-    packageName: '@hexguard/angular-optimistic-state',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize optimistic mutation, rollback, and reconciliation patterns for Angular screens that need fast local updates without losing correctness.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-optimistic-state',
     showOnSiteHome: false,
   },
   {

@@ -7,6 +7,9 @@ const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
 const asyncStateValueRoute = '/packages/angular-async-state/value';
 const asyncStateObservableRoute = '/packages/angular-async-state/observable';
 const asyncStateActionRoute = '/packages/angular-async-state/action';
+const optimisticStateToggleRoute = '/packages/angular-optimistic-state/toggle';
+const optimisticStateInlineEditRoute = '/packages/angular-optimistic-state/inline-edit';
+const optimisticStateBulkRoute = '/packages/angular-optimistic-state/bulk';
 const permissionsActionsRoute = '/packages/angular-permissions/actions';
 const permissionsRoutingRoute = '/packages/angular-permissions/routing';
 
@@ -21,6 +24,9 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
+    await expect(
+      page.getByTestId('site-home-featured-package-angular-optimistic-state'),
+    ).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-permissions')).toBeVisible();
     await expect(
       page.getByTestId('site-home-featured-package-status-angular-url-state'),
@@ -32,8 +38,11 @@ test.describe('demo-angular', () => {
       page.getByTestId('site-home-featured-package-status-angular-async-state'),
     ).toHaveText('Available');
     await expect(
+      page.getByTestId('site-home-featured-package-status-angular-optimistic-state'),
+    ).toHaveText('Available');
+    await expect(
       page.getByTestId('site-home-featured-package-status-angular-permissions'),
-    ).toHaveText('In Progress');
+    ).toHaveText('Available');
     await expect(page.getByTestId('nav-link-package-angular-url-state')).toContainText('Available');
     await expect(page.getByTestId('nav-link-package-angular-query-form')).toContainText(
       'Available',
@@ -41,10 +50,89 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('nav-link-package-angular-async-state')).toContainText(
       'Available',
     );
+    await expect(page.getByTestId('nav-link-package-angular-optimistic-state')).toContainText(
+      'Available',
+    );
     await expect(page.getByTestId('nav-link-package-angular-permissions')).toContainText(
-      'In Progress',
+      'Available',
     );
     await expect(page.getByTestId('site-home-roadmap-angular-api-errors')).toBeVisible();
+  });
+
+  test('keeps landing page package cards and badges within the viewport across widths', async ({
+    page,
+  }) => {
+    for (const width of [320, 480, 720, 1024]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto('/');
+
+      const layout = await page.evaluate(() => {
+        const packageCards = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            'article[data-testid^="site-home-featured-package-"]',
+          ),
+        );
+        const packageBadges = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '[data-testid^="site-home-featured-package-status-"]',
+          ),
+        );
+        const navCards = Array.from(
+          document.querySelectorAll<HTMLElement>('a[data-testid^="nav-link-package-"]'),
+        );
+
+        if (packageCards.length === 0 || packageBadges.length === 0 || navCards.length === 0) {
+          throw new Error('Landing page package cards did not render.');
+        }
+
+        return {
+          pageScrollWidth: document.documentElement.scrollWidth,
+          viewportWidth: window.innerWidth,
+          cardBounds: packageCards.map((element) => {
+            const rect = element.getBoundingClientRect();
+
+            return { left: rect.left, right: rect.right };
+          }),
+          badgeBounds: packageBadges.map((element) => {
+            const rect = element.getBoundingClientRect();
+            const cardRect = element.closest('article')?.getBoundingClientRect();
+
+            if (!cardRect) {
+              throw new Error('Package badge was rendered outside an article card.');
+            }
+
+            return {
+              left: rect.left,
+              right: rect.right,
+              cardLeft: cardRect.left,
+              cardRight: cardRect.right,
+            };
+          }),
+          navBounds: navCards.map((element) => {
+            const rect = element.getBoundingClientRect();
+
+            return { left: rect.left, right: rect.right };
+          }),
+        };
+      });
+
+      expect(layout.pageScrollWidth).toBeLessThanOrEqual(layout.viewportWidth);
+
+      for (const card of layout.cardBounds) {
+        expect(card.left).toBeGreaterThanOrEqual(-0.5);
+        expect(card.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      }
+
+      for (const badge of layout.badgeBounds) {
+        expect(badge.left).toBeGreaterThanOrEqual(badge.cardLeft - 0.5);
+        expect(badge.right).toBeLessThanOrEqual(badge.cardRight + 0.5);
+      }
+
+      for (const nav of layout.navBounds) {
+        expect(nav.left).toBeGreaterThanOrEqual(-0.5);
+        expect(nav.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      }
+    }
   });
 
   test('shows the Angular URL State package overview', async ({ page }) => {
@@ -64,6 +152,85 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-demo-dashboard')).toBeVisible();
   });
 
+  test('keeps package hub badges, pills, and demo cards within the viewport across widths', async ({
+    page,
+  }) => {
+    for (const width of [320, 480, 720, 1024]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto('/packages/angular-url-state');
+
+      const layout = await page.evaluate(() => {
+        const overview = document.querySelector<HTMLElement>(
+          '[data-testid="package-angular-url-state"] .package-hub__overview',
+        );
+        const headerMetaItems = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '[data-testid="package-angular-url-state"] .package-hub__header-meta > *',
+          ),
+        );
+        const overviewLinks = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '[data-testid="package-angular-url-state"] .package-hub__overview-links > *',
+          ),
+        );
+        const demoCards = Array.from(
+          document.querySelectorAll<HTMLElement>('[data-testid^="package-demo-"]'),
+        );
+
+        if (
+          !overview ||
+          headerMetaItems.length === 0 ||
+          overviewLinks.length === 0 ||
+          demoCards.length === 0
+        ) {
+          throw new Error('Package hub layout elements did not render.');
+        }
+
+        const overviewRect = overview.getBoundingClientRect();
+
+        return {
+          pageScrollWidth: document.documentElement.scrollWidth,
+          viewportWidth: window.innerWidth,
+          overview: { left: overviewRect.left, right: overviewRect.right },
+          headerMeta: headerMetaItems.map((element) => {
+            const rect = element.getBoundingClientRect();
+
+            return { left: rect.left, right: rect.right };
+          }),
+          overviewLinks: overviewLinks.map((element) => {
+            const rect = element.getBoundingClientRect();
+
+            return { left: rect.left, right: rect.right };
+          }),
+          demoCards: demoCards.map((element) => {
+            const rect = element.getBoundingClientRect();
+
+            return { left: rect.left, right: rect.right };
+          }),
+        };
+      });
+
+      expect(layout.pageScrollWidth).toBeLessThanOrEqual(layout.viewportWidth);
+      expect(layout.overview.left).toBeGreaterThanOrEqual(-0.5);
+      expect(layout.overview.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+
+      for (const item of layout.headerMeta) {
+        expect(item.left).toBeGreaterThanOrEqual(layout.overview.left - 0.5);
+        expect(item.right).toBeLessThanOrEqual(layout.overview.right + 0.5);
+      }
+
+      for (const link of layout.overviewLinks) {
+        expect(link.left).toBeGreaterThanOrEqual(layout.overview.left - 0.5);
+        expect(link.right).toBeLessThanOrEqual(layout.overview.right + 0.5);
+      }
+
+      for (const card of layout.demoCards) {
+        expect(card.left).toBeGreaterThanOrEqual(-0.5);
+        expect(card.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      }
+    }
+  });
+
   test('shows the Angular Query Form package overview', async ({ page }) => {
     await page.goto('/packages/angular-query-form');
 
@@ -79,6 +246,24 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-async-state-demo-async-state-value')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-observable')).toBeVisible();
     await expect(page.getByTestId('package-async-state-demo-async-state-action')).toBeVisible();
+  });
+
+  test('shows the Angular Optimistic State package overview', async ({ page }) => {
+    await page.goto('/packages/angular-optimistic-state');
+
+    await expect(page.getByTestId('package-angular-optimistic-state')).toBeVisible();
+    await expect(page.getByTestId('package-angular-optimistic-state-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-optimistic-state',
+    );
+    await expect(
+      page.getByTestId('package-optimistic-state-demo-optimistic-state-toggle'),
+    ).toBeVisible();
+    await expect(
+      page.getByTestId('package-optimistic-state-demo-optimistic-state-inline-edit'),
+    ).toBeVisible();
+    await expect(
+      page.getByTestId('package-optimistic-state-demo-optimistic-state-bulk'),
+    ).toBeVisible();
   });
 
   test('shows the Angular Permissions package overview', async ({ page }) => {
@@ -172,6 +357,44 @@ test.describe('demo-angular', () => {
       expect(layout.codeScrollWidth).toBeGreaterThanOrEqual(layout.codeClientWidth);
       expect(layout.tableScrollWidth).toBeGreaterThanOrEqual(layout.tableClientWidth);
       expect(layout.pageScrollWidth).toBeLessThanOrEqual(layout.viewportWidth);
+    }
+  });
+
+  test('keeps the orders demo within the viewport at narrow widths', async ({ page }) => {
+    for (const width of [320, 480, 720]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(ordersRoute);
+
+      const layout = await page.evaluate(() => {
+        const controls = document.querySelector('[data-testid="orders-controls-card"]');
+        const tableCard = document.querySelector('[data-testid="orders-table-card"]');
+        const inspector = document.querySelector('[data-testid="orders-inspector-panel"]');
+        const tableWrap = document.querySelector('[data-testid="orders-table-wrap"]');
+
+        if (!controls || !tableCard || !inspector || !tableWrap) {
+          throw new Error('Orders layout elements were not rendered.');
+        }
+
+        return {
+          controls: controls.getBoundingClientRect(),
+          tableCard: tableCard.getBoundingClientRect(),
+          inspector: inspector.getBoundingClientRect(),
+          tableClientWidth: tableWrap.clientWidth,
+          tableScrollWidth: tableWrap.scrollWidth,
+          pageScrollWidth: document.documentElement.scrollWidth,
+          viewportWidth: window.innerWidth,
+        };
+      });
+
+      expect(layout.pageScrollWidth).toBeLessThanOrEqual(layout.viewportWidth);
+      expect(layout.controls.left).toBeGreaterThanOrEqual(-0.5);
+      expect(layout.controls.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      expect(layout.tableCard.left).toBeGreaterThanOrEqual(-0.5);
+      expect(layout.tableCard.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      expect(layout.inspector.left).toBeGreaterThanOrEqual(-0.5);
+      expect(layout.inspector.right).toBeLessThanOrEqual(layout.viewportWidth + 0.5);
+      expect(layout.inspector.top).toBeGreaterThan(layout.tableCard.top);
+      expect(layout.tableScrollWidth).toBeGreaterThanOrEqual(layout.tableClientWidth);
     }
   });
 
@@ -426,6 +649,32 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-angular-async-state')).toBeVisible();
   });
 
+  test('navigates between optimistic-state demos with the reusable strip', async ({ page }) => {
+    await page.goto(optimisticStateToggleRoute);
+
+    await expect(page.getByTestId('optimistic-state-toggle-demo-navigation')).toBeVisible();
+    await expect(
+      page.getByTestId('optimistic-state-toggle-demo-navigation-demo-optimistic-state-toggle'),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page
+      .getByTestId('optimistic-state-toggle-demo-navigation-demo-optimistic-state-inline-edit')
+      .click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-optimistic-state\/inline-edit$/);
+    await expect(page.getByTestId('optimistic-state-inline-edit-page')).toBeVisible();
+    await expect(
+      page.getByTestId(
+        'optimistic-state-inline-edit-demo-navigation-demo-optimistic-state-inline-edit',
+      ),
+    ).toHaveAttribute('aria-current', 'page');
+
+    await page.getByTestId('optimistic-state-inline-edit-demo-navigation-overview').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-optimistic-state$/);
+    await expect(page.getByTestId('package-angular-optimistic-state')).toBeVisible();
+  });
+
   test('navigates between permissions demos with the reusable strip', async ({ page }) => {
     await page.goto(permissionsActionsRoute);
 
@@ -571,6 +820,105 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('async-state-action-code-sample')).toContainText(
       'duplicateSummary',
     );
+  });
+
+  test('renders optimistic toggle conflict policy behavior and the generated source panel', async ({
+    page,
+  }) => {
+    await page.goto(optimisticStateToggleRoute);
+
+    await expect(page.getByTestId('optimistic-state-toggle-page')).toBeVisible();
+
+    await page.getByTestId('optimistic-state-toggle-overlap').click();
+    await expect(page.getByTestId('optimistic-state-toggle-overlap-summary')).toContainText(
+      'rejected before it could replace',
+    );
+    await expect(page.getByTestId('optimistic-state-toggle-status-pill')).toContainText(
+      'Status: idle',
+    );
+
+    await page.getByTestId('optimistic-state-toggle-policy-select').selectOption('queue');
+    await page.getByTestId('optimistic-state-toggle-overlap').click();
+    await expect(page.getByTestId('optimistic-state-toggle-queued-count')).toContainText('1');
+    await expect(page.getByTestId('optimistic-state-toggle-status-pill')).toContainText(
+      'Status: idle',
+    );
+
+    await page.getByTestId('optimistic-state-toggle-policy-select').selectOption('replace');
+    await page.getByTestId('optimistic-state-toggle-overlap').click();
+    await expect(page.getByTestId('optimistic-state-toggle-overlap-summary')).toContainText(
+      'replaced the active optimistic overlay immediately',
+    );
+    await expect(page.getByTestId('optimistic-state-toggle-status-pill')).toContainText(
+      'Status: idle',
+    );
+
+    await page.getByTestId('optimistic-state-toggle-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('optimistic-state-toggle-code-sample')).toContainText(
+      'readonly featureToggles = optimisticState',
+    );
+    await expect(page.getByTestId('optimistic-state-toggle-code-sample')).toContainText(
+      'conflictPolicy',
+    );
+  });
+
+  test('renders optimistic inline-edit queue behavior and canonical reconciliation', async ({
+    page,
+  }) => {
+    await page.goto(optimisticStateInlineEditRoute);
+
+    await expect(page.getByTestId('optimistic-state-inline-edit-page')).toBeVisible();
+
+    await page.getByTestId('optimistic-state-inline-edit-input').fill('resolve renewal webhook');
+    await page.getByTestId('optimistic-state-inline-edit-queue').click();
+
+    await expect(page.getByTestId('optimistic-state-inline-edit-queued-count')).toContainText('1');
+    await expect(page.getByTestId('optimistic-state-inline-edit-row-draft-101')).toContainText(
+      'Resolve Renewal Webhook Follow-Up',
+    );
+    await expect(page.getByTestId('optimistic-state-inline-edit-status-pill')).toContainText(
+      'Status: idle',
+    );
+
+    await page.getByTestId('optimistic-state-inline-edit-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('optimistic-state-inline-edit-code-sample')).toContainText(
+      "conflictPolicy: 'queue'",
+    );
+    await expect(page.getByTestId('optimistic-state-inline-edit-code-sample')).toContainText(
+      'normalizeTitle',
+    );
+  });
+
+  test('renders optimistic bulk replace behavior and rollback-friendly state inspection', async ({
+    page,
+  }) => {
+    await page.goto(optimisticStateBulkRoute);
+
+    await expect(page.getByTestId('optimistic-state-bulk-page')).toBeVisible();
+
+    await page.getByTestId('optimistic-state-bulk-replace').click();
+    await expect(page.getByTestId('optimistic-state-bulk-replace-summary')).toContainText(
+      'replaced the active optimistic overlay immediately',
+    );
+    await expect(page.getByTestId('optimistic-state-bulk-status-pill')).toContainText(
+      'Status: idle',
+    );
+    await expect(page.getByTestId('optimistic-state-bulk-row-campaign-219')).toContainText('draft');
+
+    await page.getByTestId('optimistic-state-bulk-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('optimistic-state-bulk-code-sample')).toContainText(
+      "conflictPolicy: 'replace'",
+    );
+    await expect(page.getByTestId('optimistic-state-bulk-code-sample')).toContainText(
+      "getTarget: () => 'bulk-publish'",
+    );
+  });
+
+  test('redirects legacy optimistic toggle route to the package-scoped demo', async ({ page }) => {
+    await page.goto('/optimistic-toggle');
+
+    await expect(page).toHaveURL(/\/packages\/angular-optimistic-state\/toggle$/);
+    await expect(page.getByTestId('optimistic-state-toggle-page')).toBeVisible();
   });
 
   test('renders observable-state live updates, terminal events, and reconnect behavior', async ({
