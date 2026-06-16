@@ -1,0 +1,180 @@
+<demo-page-layout testId="lookups-backend-page">
+  <demo-navigation-strip demoNavigation testId="lookups-backend-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="lookups-backend-intro-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Lookups + .NET sample API</p>
+        <h2>One shared backend endpoint feeds the Angular lookup cache through a real browser request.</h2>
+      </div>
+
+      <div class="lookups-toolbar">
+        <span class="demo-hint-pill" data-testid="lookups-backend-version-pill">
+          Version: {{ lookups.version() ?? 'not loaded' }}
+        </span>
+        <span class="demo-hint-pill" data-testid="lookups-backend-request-count-pill">
+          Requests: {{ repository.loadCount() }}
+        </span>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      This page keeps the Angular integration thin: <code>provideHexGuardLookups()</code> still owns
+      the cache, but the loader performs a real cross-origin fetch to the shared .NET sample API
+      under <code>/api/angular-lookups/catalog</code>.
+    </p>
+
+    <div class="lookups-connection-grid">
+      <label class="demo-field">
+        <span>Sample API origin</span>
+        <input
+          class="demo-input"
+          [ngModel]="apiBaseUrl()"
+          data-testid="lookups-backend-api-base-url-input"
+          (ngModelChange)="updateApiBaseUrl($event)"
+        />
+      </label>
+
+      <label class="demo-field">
+        <span>Catalog scenario</span>
+        <select
+          class="demo-select"
+          [ngModel]="selectedScenario()"
+          data-testid="lookups-backend-scenario-select"
+          [disabled]="isBusy()"
+          (ngModelChange)="updateScenario($event)"
+        >
+          @for (scenario of scenarioOptions; track scenario.value) {
+            <option [value]="scenario.value">{{ scenario.label }}</option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <div class="lookups-action-row">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="lookups-backend-load-button"
+        [disabled]="isBusy()"
+        (click)="loadSelectedScenario()"
+      >
+        Load selected scenario
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-backend-reload-button"
+        [disabled]="!lookupState.hasLoaded() || isBusy()"
+        (click)="reloadSelectedScenario()"
+      >
+        Reload current scenario
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-backend-invalidate-button"
+        (click)="invalidateCatalog()"
+      >
+        Invalidate cache
+      </button>
+    </div>
+
+    @if (requestUrl(); as requestUrl) {
+      <p class="lookups-request-url" data-testid="lookups-backend-request-url">
+        Request URL: {{ requestUrl }}
+      </p>
+    }
+
+    @if (errorMessage(); as errorMessage) {
+      <p class="lookups-banner lookups-banner--warning" data-testid="lookups-backend-error">
+        {{ errorMessage }}
+      </p>
+    }
+
+    <demo-status-strip
+      testId="lookups-backend-status-strip"
+      summaryTestId="lookups-backend-summary"
+      urlTestId="lookups-backend-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="lookups-backend-grid-card">
+    <div class="lookups-surface-grid">
+      <section class="lookups-surface-card" data-testid="lookups-backend-contract-panel">
+        <p class="demo-eyebrow">Integration contract</p>
+        <h3>One package-scoped backend route, one shared cache facade</h3>
+
+        <ul class="lookups-selection-list">
+          <li data-testid="lookups-backend-endpoint-path">Endpoint: /api/angular-lookups/catalog</li>
+          <li data-testid="lookups-backend-active-scenario">Scenario: {{ selectedScenario() }}</li>
+          <li data-testid="lookups-backend-active-version">
+            Catalog version: {{ lookups.version() ?? 'not loaded' }}
+          </li>
+          <li data-testid="lookups-backend-request-total">
+            Requests made: {{ repository.loadCount() }}
+          </li>
+        </ul>
+
+        <p class="demo-card__summary">
+          The same <code>LookupCatalog</code> contract powers the sample API and the Angular label
+          resolver, so refreshed labels and invalid payloads are visible without writing page-local
+          mapping code.
+        </p>
+      </section>
+
+      <section class="lookups-surface-card" data-testid="lookups-backend-grid">
+        <p class="demo-eyebrow">Live backend labels</p>
+        <h3>Template rendering stays unchanged even when the backend scenario changes</h3>
+
+        <div class="lookups-table-shell">
+          <table class="lookups-table">
+            <thead>
+              <tr>
+                <th scope="col">SKU</th>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Lifecycle</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of products; track product.sku) {
+                <tr [attr.data-testid]="'lookups-backend-row-' + product.sku">
+                  <td>{{ product.sku }}</td>
+                  <td>{{ product.name }}</td>
+                  <td [attr.data-testid]="'lookups-backend-category-' + product.sku">
+                    {{ product.categoryKey | hexguardLookupLabel: 'categories': 'Unknown category' }}
+                  </td>
+                  <td [attr.data-testid]="'lookups-backend-supplier-' + product.sku">
+                    {{ product.supplierKey | hexguardLookupLabel: 'suppliers': 'Unknown supplier' }}
+                  </td>
+                  <td [attr.data-testid]="'lookups-backend-lifecycle-' + product.sku">
+                    {{
+                      product.lifecycleKey
+                        | hexguardLookupLabel: 'lifecycleStates': 'Unknown lifecycle state'
+                    }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="lookups-backend-inspector-panel"
+    snapshotTestId="lookups-backend-snapshot-json"
+    codeTestId="lookups-backend-code-sample"
+    title="Live sample API state and real component source"
+    summary="The snapshot includes the selected API origin, scenario, request URL, and the labels resolved from the last successful backend catalog."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

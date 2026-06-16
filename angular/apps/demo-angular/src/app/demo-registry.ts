@@ -36,12 +36,14 @@ export interface DemoPackageEntry {
 const ANGULAR_URL_STATE_CATALOG = getGeneratedCurrentPackage('angular-url-state');
 const ANGULAR_QUERY_FORM_CATALOG = getGeneratedCurrentPackage('angular-query-form');
 const ANGULAR_ASYNC_STATE_CATALOG = getGeneratedCurrentPackage('angular-async-state');
+const ANGULAR_LOOKUPS_CATALOG = getGeneratedCurrentPackage('angular-lookups');
 const ANGULAR_OPTIMISTIC_STATE_CATALOG = getGeneratedCurrentPackage('angular-optimistic-state');
 const ANGULAR_PERMISSIONS_CATALOG = getGeneratedCurrentPackage('angular-permissions');
 
 const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
 const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
 const ANGULAR_ASYNC_STATE_DOCS = ANGULAR_ASYNC_STATE_CATALOG.docsLinks;
+const ANGULAR_LOOKUPS_DOCS = ANGULAR_LOOKUPS_CATALOG.docsLinks;
 const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks;
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 
@@ -296,6 +298,113 @@ export const ANGULAR_ASYNC_STATE_PACKAGE: DemoPackageEntry = {
   ],
 };
 
+export const ANGULAR_LOOKUPS_EDITOR_DEMO: DemoPageEntry = {
+  id: 'lookups-editor',
+  packageId: 'angular-lookups',
+  route: '/packages/angular-lookups/editor',
+  legacyRoute: '/lookups-editor',
+  label: 'Editor Options',
+  title: 'Shared product lookup options for editable category, supplier, and lifecycle fields',
+  description:
+    'A product editor proves one catalog load can populate three related select surfaces, then refresh those labels in place when the catalog version changes.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-lookups/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-lookups.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-lookups/editor-demo-state',
+    label: 'Lookup editor demo source',
+    description:
+      'The full lookup editor demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_LOOKUPS_BACKEND_DEMO: DemoPageEntry = {
+  id: 'lookups-backend',
+  packageId: 'angular-lookups',
+  route: '/packages/angular-lookups/backend',
+  legacyRoute: '/lookups-backend',
+  label: 'Live Backend Catalog',
+  title: 'Frontend plus backend lookups integration through the shared .NET sample API',
+  description:
+    'A live browser request proves the Angular cache can hydrate from the shared .NET sample API, refresh labels in place, and reject invalid payloads without changing template code.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-lookups/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-lookups.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-lookups/backend-demo-state',
+    label: 'Lookup backend demo source',
+    description:
+      'The full live backend lookup demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_LOOKUPS_SUMMARY_DEMO: DemoPageEntry = {
+  id: 'lookups-summary',
+  packageId: 'angular-lookups',
+  route: '/packages/angular-lookups/summary',
+  legacyRoute: '/lookups-summary',
+  label: 'Detail Labels',
+  title: 'Detail-grid label resolution through a shared lookup cache and thin label pipe',
+  description:
+    'A product summary grid proves display labels, refreshes, and missing-key fallbacks without re-fetching catalog data per row or template surface.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-lookups/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-lookups.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-lookups/summary-demo-state',
+    label: 'Lookup summary demo source',
+    description:
+      'The full lookup summary demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_LOOKUPS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-lookups',
+  route: '/packages/angular-lookups',
+  label: 'Angular Lookups',
+  title: ANGULAR_LOOKUPS_CATALOG.packageName,
+  description: ANGULAR_LOOKUPS_CATALOG.summary,
+  docsLinks: ANGULAR_LOOKUPS_DOCS,
+  demos: [
+    ANGULAR_LOOKUPS_EDITOR_DEMO,
+    ANGULAR_LOOKUPS_SUMMARY_DEMO,
+    ANGULAR_LOOKUPS_BACKEND_DEMO,
+  ],
+};
+
 export const ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO: DemoPageEntry = {
   id: 'optimistic-state-toggle',
   packageId: 'angular-optimistic-state',
@@ -479,6 +588,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
   ANGULAR_ASYNC_STATE_PACKAGE,
+  ANGULAR_LOOKUPS_PACKAGE,
   ANGULAR_OPTIMISTIC_STATE_PACKAGE,
   ANGULAR_PERMISSIONS_PACKAGE,
 ] as const;

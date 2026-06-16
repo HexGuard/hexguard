@@ -5,6 +5,7 @@
   "compilerOptions": {
     "paths": {
       "@hexguard/angular-async-state": ["./packages/angular-async-state/src/public-api.ts"],
+      "@hexguard/angular-lookups": ["./packages/angular-lookups/src/public-api.ts"],
       "@hexguard/angular-optimistic-state": [
         "./packages/angular-optimistic-state/src/public-api.ts"
       ],
@@ -47,6 +48,12 @@
     },
     {
       "path": "./packages/angular-async-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-lookups/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-lookups/tsconfig.spec.json"
     },
     {
       "path": "./packages/angular-optimistic-state/tsconfig.lib.json"

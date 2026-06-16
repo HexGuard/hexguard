@@ -1,0 +1,188 @@
+<demo-page-layout testId="lookups-editor-page">
+  <demo-navigation-strip demoNavigation testId="lookups-editor-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="lookups-editor-intro-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Lookups</p>
+        <h2>One versioned catalog feeds typed select options without form-local lookup drift.</h2>
+      </div>
+
+      <div class="lookups-toolbar">
+        <span class="demo-hint-pill" data-testid="lookups-editor-version-pill">
+          Version: {{ lookups.version() ?? 'not loaded' }}
+        </span>
+        <span class="demo-hint-pill" data-testid="lookups-editor-request-count-pill">
+          Requests: {{ repository.loadCount() }}
+        </span>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      <code>provideHexGuardLookups()</code> owns the cache while the page resolves options through
+      <code>injectLookups()</code>. Reloading the catalog updates the same selects without
+      duplicating fetch or mapping logic per control.
+    </p>
+
+    <div class="lookups-action-row">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="lookups-editor-load-button"
+        [disabled]="isBusy()"
+        (click)="loadBaseCatalog()"
+      >
+        Load base catalog
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-editor-refresh-button"
+        [disabled]="isBusy()"
+        (click)="reloadRefreshedCatalog()"
+      >
+        Reload with refreshed labels
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-editor-invalid-button"
+        [disabled]="isBusy()"
+        (click)="loadInvalidCatalog()"
+      >
+        Load invalid catalog
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-editor-invalidate-button"
+        (click)="invalidateCatalog()"
+      >
+        Invalidate cache
+      </button>
+    </div>
+
+    @if (errorMessage(); as errorMessage) {
+      <p class="lookups-banner lookups-banner--warning" data-testid="lookups-editor-error">
+        {{ errorMessage }}
+      </p>
+    }
+
+    <demo-status-strip
+      testId="lookups-editor-status-strip"
+      summaryTestId="lookups-editor-summary"
+      urlTestId="lookups-editor-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="lookups-editor-form-card">
+    <div class="lookups-surface-grid">
+      <section class="lookups-surface-card" data-testid="lookups-editor-form-panel">
+        <p class="demo-eyebrow">Typed options</p>
+        <h3>Three fields reuse the same shared lookup contract</h3>
+
+        <div class="lookups-select-grid">
+          <label class="demo-field">
+            <span>Category</span>
+            <select
+              class="demo-select"
+              [ngModel]="categoryKey()"
+              data-testid="lookups-editor-category-select"
+              [disabled]="!lookupState.hasLoaded()"
+              (ngModelChange)="updateCategoryKey($event)"
+            >
+              @for (option of categoryOptions(); track option.key) {
+                <option [value]="option.key">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="demo-field">
+            <span>Supplier</span>
+            <select
+              class="demo-select"
+              [ngModel]="supplierKey()"
+              data-testid="lookups-editor-supplier-select"
+              [disabled]="!lookupState.hasLoaded()"
+              (ngModelChange)="updateSupplierKey($event)"
+            >
+              @for (option of supplierOptions(); track option.key) {
+                <option [value]="option.key">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="demo-field">
+            <span>Lifecycle state</span>
+            <select
+              class="demo-select"
+              [ngModel]="lifecycleKey()"
+              data-testid="lookups-editor-lifecycle-select"
+              [disabled]="!lookupState.hasLoaded()"
+              (ngModelChange)="updateLifecycleKey($event)"
+            >
+              @for (option of lifecycleOptions(); track option.key) {
+                <option [value]="option.key">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="lookups-surface-card" data-testid="lookups-editor-selection-panel">
+        <p class="demo-eyebrow">Resolved summary</p>
+        <h3>One draft record, three shared labels</h3>
+
+        <ul class="lookups-selection-list">
+          <li data-testid="lookups-editor-product-sku">SKU: {{ draft.sku }}</li>
+          <li data-testid="lookups-editor-product-name">Name: {{ draft.name }}</li>
+          <li data-testid="lookups-editor-category-label">
+            Category: {{ selectedSummary().category }}
+          </li>
+          <li data-testid="lookups-editor-supplier-label">
+            Supplier: {{ selectedSummary().supplier }}
+          </li>
+          <li data-testid="lookups-editor-lifecycle-label">
+            Lifecycle: {{ selectedSummary().lifecycle }}
+          </li>
+        </ul>
+
+        <p class="demo-card__summary">
+          Invalid reloads fail explicitly while the previous labels remain available through the
+          same cache instance.
+        </p>
+      </section>
+    </div>
+
+    <section class="lookups-collection-grid" aria-label="Lookup collection counts">
+      @for (
+        entry of [
+          { key: 'categories', count: categoryOptions().length },
+          { key: 'suppliers', count: supplierOptions().length },
+          { key: 'lifecycleStates', count: lifecycleOptions().length },
+        ];
+        track entry.key
+      ) {
+        <article class="lookups-collection-card" [attr.data-testid]="'lookups-editor-collection-' + entry.key">
+          <p class="demo-eyebrow">Collection</p>
+          <h3>{{ entry.key }}</h3>
+          <p>{{ entry.count }} options currently visible.</p>
+        </article>
+      }
+    </section>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="lookups-editor-inspector-panel"
+    snapshotTestId="lookups-editor-snapshot-json"
+    codeTestId="lookups-editor-code-sample"
+    title="Lookup cache state and real component source"
+    summary="The snapshot shows cache lifecycle state, the active catalog version, and the labels resolved from the current draft keys."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

@@ -89,6 +89,36 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
   },
   {
+    id: 'angular-lookups/editor-demo-state',
+    title: 'Lookup editor demo component source',
+    description:
+      'Generated from the real lookup editor demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
+  },
+  {
+    id: 'angular-lookups/backend-demo-state',
+    title: 'Lookup backend integration demo component source',
+    description:
+      'Generated from the real lookup backend demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
+  },
+  {
+    id: 'angular-lookups/summary-demo-state',
+    title: 'Lookup summary demo component source',
+    description:
+      'Generated from the real lookup summary demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
+  },
+  {
     id: 'angular-optimistic-state/toggle-demo-state',
     title: 'Optimistic toggle component source',
     description:

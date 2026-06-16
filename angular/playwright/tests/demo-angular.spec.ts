@@ -7,6 +7,9 @@ const queryFormRecoveryRoute = '/packages/angular-query-form/recovery';
 const asyncStateValueRoute = '/packages/angular-async-state/value';
 const asyncStateObservableRoute = '/packages/angular-async-state/observable';
 const asyncStateActionRoute = '/packages/angular-async-state/action';
+const lookupsBackendRoute = '/packages/angular-lookups/backend';
+const lookupsEditorRoute = '/packages/angular-lookups/editor';
+const lookupsSummaryRoute = '/packages/angular-lookups/summary';
 const optimisticStateToggleRoute = '/packages/angular-optimistic-state/toggle';
 const optimisticStateInlineEditRoute = '/packages/angular-optimistic-state/inline-edit';
 const optimisticStateBulkRoute = '/packages/angular-optimistic-state/bulk';
@@ -24,6 +27,7 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
+    await expect(page.getByTestId('site-home-featured-package-angular-lookups')).toBeVisible();
     await expect(
       page.getByTestId('site-home-featured-package-angular-optimistic-state'),
     ).toBeVisible();
@@ -38,6 +42,9 @@ test.describe('demo-angular', () => {
       page.getByTestId('site-home-featured-package-status-angular-async-state'),
     ).toHaveText('Available');
     await expect(
+      page.getByTestId('site-home-featured-package-status-angular-lookups'),
+    ).toHaveText('Available');
+    await expect(
       page.getByTestId('site-home-featured-package-status-angular-optimistic-state'),
     ).toHaveText('Available');
     await expect(
@@ -50,6 +57,7 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('nav-link-package-angular-async-state')).toContainText(
       'Available',
     );
+    await expect(page.getByTestId('nav-link-package-angular-lookups')).toContainText('Available');
     await expect(page.getByTestId('nav-link-package-angular-optimistic-state')).toContainText(
       'Available',
     );
@@ -248,6 +256,18 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-async-state-demo-async-state-action')).toBeVisible();
   });
 
+  test('shows the Angular Lookups package overview', async ({ page }) => {
+    await page.goto('/packages/angular-lookups');
+
+    await expect(page.getByTestId('package-angular-lookups')).toBeVisible();
+    await expect(page.getByTestId('package-angular-lookups-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-lookups @hexguard/angular-async-state',
+    );
+    await expect(page.getByTestId('package-lookups-demo-lookups-editor')).toBeVisible();
+    await expect(page.getByTestId('package-lookups-demo-lookups-summary')).toBeVisible();
+    await expect(page.getByTestId('package-lookups-demo-lookups-backend')).toBeVisible();
+  });
+
   test('shows the Angular Optimistic State package overview', async ({ page }) => {
     await page.goto('/packages/angular-optimistic-state');
 
@@ -275,6 +295,39 @@ test.describe('demo-angular', () => {
     );
     await expect(page.getByTestId('package-permissions-demo-permissions-actions')).toBeVisible();
     await expect(page.getByTestId('package-permissions-demo-permissions-routing')).toBeVisible();
+  });
+
+  test('navigates between lookups demos with the reusable strip', async ({ page }) => {
+    await page.goto(lookupsEditorRoute);
+
+    await expect(page.getByTestId('lookups-editor-demo-navigation')).toBeVisible();
+    await expect(page.getByTestId('lookups-editor-demo-navigation-demo-lookups-editor')).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+
+    await page.getByTestId('lookups-editor-demo-navigation-demo-lookups-summary').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-lookups\/summary$/);
+    await expect(page.getByTestId('lookups-summary-page')).toBeVisible();
+    await expect(page.getByTestId('lookups-summary-demo-navigation-demo-lookups-summary')).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+
+    await page.getByTestId('lookups-summary-demo-navigation-demo-lookups-backend').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-lookups\/backend$/);
+    await expect(page.getByTestId('lookups-backend-page')).toBeVisible();
+    await expect(page.getByTestId('lookups-backend-demo-navigation-demo-lookups-backend')).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+
+    await page.getByTestId('lookups-backend-demo-navigation-overview').click();
+
+    await expect(page).toHaveURL(/\/packages\/angular-lookups$/);
+    await expect(page.getByTestId('package-angular-lookups')).toBeVisible();
   });
 
   test('hydrates the orders page from the remapped page query param', async ({ page }) => {
@@ -733,6 +786,130 @@ test.describe('demo-angular', () => {
     );
     await expect(page.getByTestId('permissions-actions-code-sample')).toContainText(
       'HexguardCanDirective',
+    );
+  });
+
+  test('loads editor options from one shared lookups catalog and keeps labels visible on invalid refresh', async ({
+    page,
+  }) => {
+    await page.goto(lookupsEditorRoute);
+
+    await expect(page.getByTestId('lookups-editor-page')).toBeVisible();
+    await expect(page.getByTestId('lookups-editor-category-select')).toBeDisabled();
+
+    await page.getByTestId('lookups-editor-load-button').click();
+
+    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText('products-2026-06-15');
+    await expect(page.getByTestId('lookups-editor-category-select')).toBeEnabled();
+    await expect(page.getByTestId('lookups-editor-category-label')).toContainText('Hardware');
+    await expect(page.getByTestId('lookups-editor-supplier-label')).toContainText(
+      'Contoso Industrial',
+    );
+
+    await page.getByTestId('lookups-editor-refresh-button').click();
+
+    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText('products-2026-07-01');
+    await expect(page.getByTestId('lookups-editor-category-label')).toContainText(
+      'Hardware and Devices',
+    );
+    await expect(page.getByTestId('lookups-editor-supplier-label')).toContainText(
+      'Contoso Global',
+    );
+
+    await page.getByTestId('lookups-editor-invalid-button').click();
+
+    await expect(page.getByTestId('lookups-editor-error')).toContainText(
+      "Duplicate collection key 'categories'.",
+    );
+    await expect(page.getByTestId('lookups-editor-category-label')).toContainText(
+      'Hardware and Devices',
+    );
+
+    await page.getByTestId('lookups-editor-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('lookups-editor-code-sample')).toContainText(
+      'provideHexGuardLookups',
+    );
+  });
+
+  test('resolves summary-grid labels through the shared pipe and keeps explicit fallbacks for missing keys', async ({
+    page,
+  }) => {
+    await page.goto(lookupsSummaryRoute);
+
+    await expect(page.getByTestId('lookups-summary-page')).toBeVisible();
+
+    await page.getByTestId('lookups-summary-load-button').click();
+
+    await expect(page.getByTestId('lookups-summary-category-HG-2401')).toContainText('Hardware');
+    await expect(page.getByTestId('lookups-summary-supplier-HG-2403')).toContainText(
+      'Unknown supplier',
+    );
+
+    await page.getByTestId('lookups-summary-refresh-button').click();
+
+    await expect(page.getByTestId('lookups-summary-category-HG-2401')).toContainText(
+      'Hardware and Devices',
+    );
+    await expect(page.getByTestId('lookups-summary-supplier-HG-2401')).toContainText(
+      'Contoso Global',
+    );
+    await expect(page.getByTestId('lookups-summary-summary')).toContainText('resolved 3 rows');
+
+    await page.getByTestId('lookups-summary-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('lookups-summary-code-sample')).toContainText(
+      'HexguardLookupLabelPipe',
+    );
+  });
+
+  test('hydrates lookups from the shared .NET sample API and preserves labels across an invalid refresh', async ({
+    page,
+  }) => {
+    await page.goto(lookupsBackendRoute);
+
+    await expect(page.getByTestId('lookups-backend-page')).toBeVisible();
+    await expect(page.getByTestId('lookups-backend-api-base-url-input')).toHaveValue(
+      'http://127.0.0.1:5074',
+    );
+
+    await page.getByTestId('lookups-backend-load-button').click();
+
+    await expect(page.getByTestId('lookups-backend-version-pill')).toContainText(
+      'products-2026-06-15',
+    );
+    await expect(page.getByTestId('lookups-backend-request-url')).toContainText(
+      '/api/angular-lookups/catalog?scenario=base',
+    );
+    await expect(page.getByTestId('lookups-backend-category-HG-2401')).toContainText('Hardware');
+    await expect(page.getByTestId('lookups-backend-supplier-HG-2401')).toContainText(
+      'Contoso Industrial',
+    );
+
+    await page.getByTestId('lookups-backend-scenario-select').selectOption('refreshed');
+    await page.getByTestId('lookups-backend-reload-button').click();
+
+    await expect(page.getByTestId('lookups-backend-version-pill')).toContainText(
+      'products-2026-07-01',
+    );
+    await expect(page.getByTestId('lookups-backend-category-HG-2401')).toContainText(
+      'Hardware and Devices',
+    );
+    await expect(page.getByTestId('lookups-backend-supplier-HG-2401')).toContainText(
+      'Contoso Global',
+    );
+
+    await page.getByTestId('lookups-backend-scenario-select').selectOption('invalid');
+    await page.getByTestId('lookups-backend-reload-button').click();
+
+    await expect(page.getByTestId('lookups-backend-error')).toContainText(
+      "Duplicate collection key 'categories'.",
+    );
+    await expect(page.getByTestId('lookups-backend-category-HG-2401')).toContainText(
+      'Hardware and Devices',
+    );
+
+    await page.getByTestId('lookups-backend-inspector-panel-tab-code').click();
+    await expect(page.getByTestId('lookups-backend-code-sample')).toContainText(
+      'PRODUCT_LOOKUPS_BACKEND_DEMO_REPOSITORY',
     );
   });
 

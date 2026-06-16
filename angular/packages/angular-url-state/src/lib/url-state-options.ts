@@ -26,7 +26,20 @@ export const HEXGUARD_URL_STATE_OPTIONS = new InjectionToken<UrlStateOptionsInpu
   'HEXGUARD_URL_STATE_OPTIONS',
 );
 
-/** Registers global defaults for all `urlState()` instances created in the injector tree. */
+/**
+ * Registers global defaults for all `urlState()` instances created in the active
+ * injector tree.
+ *
+ * Call once at the bootstrap or route providers level so that all state handles
+ * in the same tree inherit the same history mode, debounce delay, default-param
+ * stripping, and invalid-param handling behavior without repeating options per
+ * call site.
+ *
+ * @param options - Partial overrides for the library defaults documented on
+ *                  `UrlStateOptions`. Omitted fields use safe built-in defaults.
+ * @returns Environment providers that can be passed to `bootstrapApplication`
+ *          or `Route` provider arrays.
+ */
 export function provideHexGuardUrlState(options: UrlStateOptionsInput = {}): EnvironmentProviders {
   return makeEnvironmentProviders([
     {

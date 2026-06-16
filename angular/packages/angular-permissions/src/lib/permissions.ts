@@ -10,7 +10,16 @@ import type {
   PermissionRequirement,
 } from './types';
 
-/** Injects an imperative permissions facade backed by the current permission context signal. */
+/**
+ * Injects an imperative permissions facade backed by the current permission
+ * context signal.
+ *
+ * The returned facade exposes `can()` for one-shot checks, `canSignal()` for
+ * reactive template bindings, `evaluate()` for detailed decision inspection,
+ * and `decisionSignal()` for reactive decision tracking.
+ *
+ * Must be called within an Angular injection context.
+ */
 export function injectPermissions<
   TCapability extends PermissionKey = string,
   TRole extends PermissionKey = string,

@@ -1,0 +1,143 @@
+<demo-page-layout testId="lookups-summary-page">
+  <demo-navigation-strip demoNavigation testId="lookups-summary-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="lookups-summary-intro-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Lookups</p>
+        <h2>Shared keys resolve into stable labels across detail and table surfaces.</h2>
+      </div>
+
+      <div class="lookups-toolbar">
+        <span class="demo-hint-pill" data-testid="lookups-summary-version-pill">
+          Version: {{ lookups.version() ?? 'not loaded' }}
+        </span>
+        <span class="demo-hint-pill" data-testid="lookups-summary-request-count-pill">
+          Requests: {{ repository.loadCount() }}
+        </span>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      The grid renders labels through <code>HexguardLookupLabelPipe</code> while the inspector
+      still shows the same labels resolved imperatively from <code>injectLookups()</code>.
+    </p>
+
+    <div class="lookups-action-row">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="lookups-summary-load-button"
+        [disabled]="isBusy()"
+        (click)="loadBaseCatalog()"
+      >
+        Load base catalog
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-summary-refresh-button"
+        [disabled]="isBusy()"
+        (click)="reloadRefreshedCatalog()"
+      >
+        Reload refreshed labels
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="lookups-summary-invalidate-button"
+        (click)="invalidateCatalog()"
+      >
+        Invalidate cache
+      </button>
+    </div>
+
+    @if (errorMessage(); as errorMessage) {
+      <p class="lookups-banner lookups-banner--warning" data-testid="lookups-summary-error">
+        {{ errorMessage }}
+      </p>
+    }
+
+    <demo-status-strip
+      testId="lookups-summary-status-strip"
+      summaryTestId="lookups-summary-summary"
+      urlTestId="lookups-summary-current-url"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="lookups-summary-grid-card">
+    <div class="lookups-surface-grid">
+      <section class="lookups-surface-card" data-testid="lookups-summary-grid">
+        <p class="demo-eyebrow">Template labels</p>
+        <h3>One grid uses the pipe to resolve shared catalog values</h3>
+
+        <div class="lookups-table-shell">
+          <table class="lookups-table">
+            <thead>
+              <tr>
+                <th scope="col">SKU</th>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Lifecycle</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of products; track product.sku) {
+                <tr [attr.data-testid]="'lookups-summary-row-' + product.sku">
+                  <td>{{ product.sku }}</td>
+                  <td>{{ product.name }}</td>
+                  <td [attr.data-testid]="'lookups-summary-category-' + product.sku">
+                    {{ product.categoryKey | hexguardLookupLabel: 'categories': 'Unknown category' }}
+                  </td>
+                  <td [attr.data-testid]="'lookups-summary-supplier-' + product.sku">
+                    {{ product.supplierKey | hexguardLookupLabel: 'suppliers': 'Unknown supplier' }}
+                  </td>
+                  <td [attr.data-testid]="'lookups-summary-lifecycle-' + product.sku">
+                    {{
+                      product.lifecycleKey
+                        | hexguardLookupLabel: 'lifecycleStates': 'Unknown lifecycle state'
+                    }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="lookups-surface-card" data-testid="lookups-summary-resolution-panel">
+        <p class="demo-eyebrow">Resolved snapshot</p>
+        <h3>Imperative reads match the same labels used in the table</h3>
+
+        <ul class="lookups-resolution-list">
+          @for (row of resolvedRows(); track row.sku) {
+            <li [attr.data-testid]="'lookups-summary-resolved-' + row.sku">
+              <strong>{{ row.sku }}</strong>: {{ row.category }} / {{ row.supplier }} /
+              {{ row.lifecycle }}
+            </li>
+          }
+        </ul>
+
+        <p class="demo-card__summary">
+          The third row intentionally keeps a missing supplier key so fallback rendering stays
+          explicit instead of silently fabricating a label.
+        </p>
+      </section>
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="lookups-summary-inspector-panel"
+    snapshotTestId="lookups-summary-snapshot-json"
+    codeTestId="lookups-summary-code-sample"
+    title="Resolved labels and real component source"
+    summary="The snapshot shows the exact labels resolved for each row, including explicit fallback handling for a missing supplier key."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demo.docsLinks"
+    [snippetId]="demo.codeSample.snippetId"
+  />
+</demo-page-layout>

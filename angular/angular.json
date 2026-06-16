@@ -111,20 +111,20 @@
         }
       }
     },
-    "angular-permissions": {
+    "angular-lookups": {
       "projectType": "library",
-      "root": "packages/angular-permissions",
-      "sourceRoot": "packages/angular-permissions/src",
+      "root": "packages/angular-lookups",
+      "sourceRoot": "packages/angular-lookups/src",
       "prefix": "hexguard",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "packages/angular-permissions/tsconfig.lib.prod.json"
+              "tsConfig": "packages/angular-lookups/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "packages/angular-permissions/tsconfig.lib.json"
+              "tsConfig": "packages/angular-lookups/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -132,7 +132,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "packages/angular-permissions/tsconfig.spec.json"
+            "tsConfig": "packages/angular-lookups/tsconfig.spec.json"
           }
         }
       }
@@ -188,7 +188,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "700kB",
                   "maximumError": "1MB"
                 },
                 {

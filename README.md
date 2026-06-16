@@ -9,13 +9,27 @@ workflow docs that keep future package work consistent.
 The detailed package and roadmap catalog now lives in [docs/packages/README.md](docs/packages/README.md)
 and is generated from the same source metadata that drives the Angular demo website.
 
-Current public Angular package entry points are available here:
+### Compatibility Matrix
 
-- [@hexguard/angular-url-state](angular/packages/angular-url-state/README.md)
-- [@hexguard/angular-async-state](angular/packages/angular-async-state/README.md)
-- [@hexguard/angular-optimistic-state](angular/packages/angular-optimistic-state/README.md)
-- [@hexguard/angular-query-form](angular/packages/angular-query-form/README.md)
-- [@hexguard/angular-permissions](angular/packages/angular-permissions/README.md)
+| Package | Version | Angular | Peer dependencies | Status |
+|---|---|---|---|---|
+| `@hexguard/angular-url-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router` | Available |
+| `@hexguard/angular-async-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs` | Available |
+| `@hexguard/angular-query-form` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`, `@angular/router`, `@hexguard/angular-url-state` | Available |
+| `@hexguard/angular-optimistic-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs` | Available |
+| `@hexguard/angular-permissions` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router` | Available |
+| `@hexguard/angular-lookups` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state` | Available |
+
+All packages are licensed under MIT and published with `publishConfig: { access: "public" }`.
+
+Current public Angular package entry points with README and changelog:
+
+- [@hexguard/angular-url-state](angular/packages/angular-url-state/README.md) — [changelog](angular/packages/angular-url-state/CHANGELOG.md)
+- [@hexguard/angular-async-state](angular/packages/angular-async-state/README.md) — [changelog](angular/packages/angular-async-state/CHANGELOG.md)
+- [@hexguard/angular-lookups](angular/packages/angular-lookups/README.md) — [changelog](angular/packages/angular-lookups/CHANGELOG.md)
+- [@hexguard/angular-optimistic-state](angular/packages/angular-optimistic-state/README.md) — [changelog](angular/packages/angular-optimistic-state/CHANGELOG.md)
+- [@hexguard/angular-query-form](angular/packages/angular-query-form/README.md) — [changelog](angular/packages/angular-query-form/CHANGELOG.md)
+- [@hexguard/angular-permissions](angular/packages/angular-permissions/README.md) — [changelog](angular/packages/angular-permissions/CHANGELOG.md)
 
 ## Documentation
 
@@ -24,6 +38,7 @@ Current public Angular package entry points are available here:
 - [Angular URL State Deep Dive](docs/packages/angular-url-state.md)
 - [Angular Query Form Deep Dive](docs/packages/angular-query-form.md)
 - [Angular Async State Deep Dive](docs/packages/angular-async-state.md)
+- [Angular Lookups Deep Dive](docs/packages/angular-lookups.md)
 - [Angular Optimistic State Deep Dive](docs/packages/angular-optimistic-state.md)
 - [Angular Permissions Deep Dive](docs/packages/angular-permissions.md)
 - [Run the Demo](docs/demo/README.md)
@@ -36,11 +51,19 @@ Current public Angular package entry points are available here:
 ```bash
 pnpm install
 pnpm angular:install
+pnpm dotnet:restore
 pnpm lint
 pnpm test:ci
 pnpm test:e2e
 pnpm build
 pnpm start
+```
+
+For the live Angular lookups frontend + backend example, run the shared sample API in a second
+terminal:
+
+```bash
+pnpm dotnet:start:demo-api
 ```
 
 When working in the dedicated .NET space:
@@ -56,6 +79,7 @@ Repository layout:
 - `angular/`: Angular workspace for libraries, demo app, Playwright coverage, and Angular-specific tooling
 - `angular/packages/`: publishable Angular libraries such as `angular-url-state`, `angular-async-state`, `angular-optimistic-state`, and `angular-query-form`
 - `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
+- `dotnet/samples/`: one shared sample API with package-scoped folders and future cross-stack demos
 - `angular/apps/demo-angular`: docs-grade demo and Playwright target
 - `docs/`: package guides, demo runbook, AI workflow docs
 - `.github/workflows/`: CI and release automation

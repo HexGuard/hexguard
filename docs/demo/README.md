@@ -16,6 +16,15 @@ pnpm start
 
 The default development URL is `http://localhost:4200`.
 
+For the live frontend + backend lookups demo, start the shared .NET sample API in a second shell:
+
+```bash
+pnpm dotnet:start:demo-api
+```
+
+The sample API serves `http://127.0.0.1:5074` and groups demo endpoints by package under
+`/api/<package-id>/...`.
+
 ## Demo Routes
 
 - `/`: HexGuard landing page with current Angular package hubs, repo links, and selected roadmap items
@@ -39,6 +48,13 @@ The default development URL is `http://localhost:4200`.
 - `/packages/angular-async-state/observable`: live observable lifecycle with explicit connect, reconnect, completion, and terminal error handling
 - `/packages/angular-async-state/action`: async action lifecycle with pending, success, failure, and duplicate-run reuse
 
+### Lookups Demo Routes
+
+- `/packages/angular-lookups`: package overview and demo catalog for lookup catalog caching and label resolution
+- `/packages/angular-lookups/editor`: typed product editor options driven by one shared categories, suppliers, and lifecycle catalog
+- `/packages/angular-lookups/summary`: detail-grid label resolution with refreshed labels and explicit missing-key fallback behavior
+- `/packages/angular-lookups/backend`: live HTTP integration against the shared .NET sample API with base, refreshed, and invalid backend scenarios
+
 ### Optimistic State Demo Routes
 
 - `/packages/angular-optimistic-state`: package overview and demo catalog for optimistic mutation, rollback, and reconciliation primitives
@@ -53,9 +69,10 @@ The default development URL is `http://localhost:4200`.
 - `/packages/angular-permissions/routing`: route matching and activation are gated through `canMatchPermissions()` and `canActivatePermissions()` with explicit denied-route redirects
 
 Legacy redirects from `/orders`, `/dashboard`, `/query-form-orders`, `/query-form-recovery`,
-`/async-state-value`, `/async-state-observable`, `/async-state-action`, `/optimistic-toggle`,
-`/optimistic-inline-edit`, `/optimistic-bulk`, `/permissions-actions`, and
-`/permissions-routing` are retained while the demo app uses package-aware routes.
+`/async-state-value`, `/async-state-observable`, `/async-state-action`, `/lookups-editor`,
+`/lookups-summary`, `/lookups-backend`, `/optimistic-toggle`, `/optimistic-inline-edit`, `/optimistic-bulk`,
+`/permissions-actions`, and `/permissions-routing` are retained while the demo app uses
+package-aware routes.
 
 ## Demo Structure
 
@@ -67,6 +84,8 @@ The app is organized as an Angular package showcase:
 - `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-async-state/`: async-state package demos and fixtures
+- `angular/apps/demo-angular/src/app/features/angular-lookups/`: lookups package demos and product-catalog fixtures
+- `dotnet/samples/HexGuard.SampleApi/Packages/`: one shared sample API with folders per demoed package instead of separate per-package hosts
 - `angular/apps/demo-angular/src/app/features/angular-optimistic-state/`: optimistic-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-permissions/`: permissions package demos and shared persona fixtures
 - `angular/apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, and URL-tracking helpers
@@ -120,11 +139,12 @@ Run the end-to-end suite:
 pnpm test:e2e
 ```
 
-The tests start the Angular demo automatically through `angular/playwright.config.ts`.
+The tests start both the Angular demo and the shared .NET sample API automatically through
+`angular/playwright.config.ts`.
 
 ## Manual Verification Checklist
 
-1. Open `/` and confirm the landing page shows the five current Angular packages plus roadmap cards.
+1. Open `/` and confirm the landing page shows the six current Angular packages plus roadmap cards.
 2. Open `/packages/angular-url-state` and confirm both URL-state demos are listed.
 3. Open `/packages/angular-url-state/orders?p=2` and confirm the page indicator, table rows, and page input hydrate from the URL.
 4. Open `/packages/angular-url-state/dashboard`, switch tabs, apply a date preset, and use browser back and forward.
@@ -140,14 +160,23 @@ The tests start the Angular demo automatically through `angular/playwright.confi
 14. Trigger `Force failure` on the async action demo and confirm the error template replaces the success message.
 15. Use browser back and forward on the recovery demo after changing view and page.
 16. Open the source tab on each demo and confirm it exposes `component.ts`, `template.html`, and `styles.css` tabs generated from the real component files.
-17. Open `/packages/angular-optimistic-state` and confirm all three optimistic-state demos are listed.
-18. Open `/packages/angular-optimistic-state/toggle`, switch the conflict policy between `reject`, `queue`, and `replace`, run `Trigger overlap`, and confirm the overlap summary changes with the selected policy.
-19. Open `/packages/angular-optimistic-state/inline-edit`, queue a follow-up save, and confirm the second title waits in the queue until the first save settles.
-20. Open `/packages/angular-optimistic-state/bulk`, run `Replace in-flight bulk run`, and confirm the replacement summary updates while the visible bulk overlay reflects the latest intent.
-21. Open `/packages/angular-permissions` and confirm both permissions demos are listed.
-22. Open `/packages/angular-permissions/actions`, switch from `Guest reviewer` to `Admin auditor`, and confirm the approve button enables, the audit panel appears, and the override fallback is replaced by the privileged panel.
-23. Open `/packages/angular-permissions/routing`, switch personas, then navigate to `Finance child route` and `Audit child route`. Confirm unauthorized personas land on the denied panel while authorized personas see the protected child content.
-24. Confirm the current URL strip always reflects the visible committed state.
+17. Open `/packages/angular-lookups` and confirm all three lookups demos are listed.
+18. Open `/packages/angular-lookups/editor`, load the base catalog, and confirm the category, supplier, and lifecycle selects populate from one shared catalog.
+19. On `/packages/angular-lookups/editor`, run `Reload with refreshed labels` and confirm the version pill changes while the currently selected labels update in place.
+20. On `/packages/angular-lookups/editor`, run `Load invalid catalog` after a successful load and confirm the error is shown while the previous labels remain visible.
+21. Open `/packages/angular-lookups/summary`, load the base catalog, and confirm the grid resolves labels while the missing supplier row falls back to `Unknown supplier`.
+22. On `/packages/angular-lookups/summary`, run `Reload refreshed labels` and confirm the table updates labels such as `Hardware and Devices` and `Contoso Global`.
+23. Start `pnpm dotnet:start:demo-api`, open `/packages/angular-lookups/backend`, load the base scenario, and confirm the page fetches `products-2026-06-15` from `http://127.0.0.1:5074/api/angular-lookups/catalog?scenario=base`.
+24. On `/packages/angular-lookups/backend`, switch to the refreshed scenario, reload it, and confirm the same draft and table labels update to `Hardware and Devices` and `Contoso Global`.
+25. On `/packages/angular-lookups/backend`, switch to the invalid scenario, reload it, and confirm the validation error is shown while the previous successful labels stay visible.
+26. Open `/packages/angular-optimistic-state` and confirm all three optimistic-state demos are listed.
+27. Open `/packages/angular-optimistic-state/toggle`, switch the conflict policy between `reject`, `queue`, and `replace`, run `Trigger overlap`, and confirm the overlap summary changes with the selected policy.
+28. Open `/packages/angular-optimistic-state/inline-edit`, queue a follow-up save, and confirm the second title waits in the queue until the first save settles.
+29. Open `/packages/angular-optimistic-state/bulk`, run `Replace in-flight bulk run`, and confirm the replacement summary updates while the visible bulk overlay reflects the latest intent.
+30. Open `/packages/angular-permissions` and confirm both permissions demos are listed.
+31. Open `/packages/angular-permissions/actions`, switch from `Guest reviewer` to `Admin auditor`, and confirm the approve button enables, the audit panel appears, and the override fallback is replaced by the privileged panel.
+32. Open `/packages/angular-permissions/routing`, switch personas, then navigate to `Finance child route` and `Audit child route`. Confirm unauthorized personas land on the denied panel while authorized personas see the protected child content.
+33. Confirm the current URL strip always reflects the visible committed state.
 
 ## Selector Policy
 

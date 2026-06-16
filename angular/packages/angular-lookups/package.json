@@ -1,0 +1,38 @@
+{
+  "name": "@hexguard/angular-lookups",
+  "version": "0.1.0",
+  "description": "Typed lookup catalog caching and label resolution for Angular applications.",
+  "keywords": [
+    "angular",
+    "lookups",
+    "reference-data",
+    "signals",
+    "caching",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-lookups",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-lookups"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@hexguard/angular-async-state": "^0.1.0"
+  },
+  "devDependencies": {
+    "@hexguard/angular-async-state": "workspace:*"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

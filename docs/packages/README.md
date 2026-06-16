@@ -12,6 +12,7 @@ another.
 | `@hexguard/angular-url-state`        | Available | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
 | `@hexguard/angular-query-form`       | Available | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-async-state`      | Available | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
+| `@hexguard/angular-lookups`          | Available | Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.                    | [Deep Dive](angular-lookups.md), [npm-facing README](../../angular/packages/angular-lookups/README.md), [Demo runbook](../demo/README.md)                   |
 | `@hexguard/angular-optimistic-state` | Available | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.  | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
 | `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                               | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
 
@@ -46,6 +47,16 @@ Status: Available
 This package is available as a signal-first async lifecycle companion for Angular value loads, live observable streams, and submit-style actions.
 
 It focuses on explicit value and action state, duplicate-run control, explicit subscription lifecycle for streams, thin outlet helpers, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-lookups"></a>
+
+### `@hexguard/angular-lookups`
+
+Status: Available
+
+This package is available as the lookup-catalog companion for Angular screens that consume backend reference data.
+
+It focuses on one versioned catalog contract, explicit cache lifecycle, label resolution, thin template helpers, and a validated publish surface across docs, demos, package artifacts, and one shared demo API.
 
 <a id="package-angular-optimistic-state"></a>
 
@@ -172,14 +183,6 @@ Would standardize page titles, breadcrumbs, contextual actions, and route-scoped
 Status: Proposed
 
 Would standardize command registration, keyboard shortcuts, and searchable command invocation, with optional palette UI layered over a headless command registry.
-
-<a id="package-angular-lookups"></a>
-
-### `@hexguard/angular-lookups`
-
-Status: Proposed
-
-Would standardize typed lookup catalogs, label resolution, caching, and invalidation for forms, filters, and display surfaces.
 
 <a id="package-angular-query-signal-forms"></a>
 

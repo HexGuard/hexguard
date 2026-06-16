@@ -9,6 +9,7 @@ This folder holds the deeper documentation that would otherwise overload the roo
 - [Angular Optimistic State Deep Dive](packages/angular-optimistic-state.md)
 - [Angular Query Form Deep Dive](packages/angular-query-form.md)
 - [Angular URL State Deep Dive](packages/angular-url-state.md)
+- [Angular Lookups Deep Dive](packages/angular-lookups.md)
 - [Demo Runbook](demo/README.md)
 - [AI Workflow](.ai/README.md)
 - [AI Decisions](.ai/decisions/README.md)

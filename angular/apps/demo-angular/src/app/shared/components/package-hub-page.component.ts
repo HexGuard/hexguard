@@ -208,6 +208,8 @@ export class PackageHubPageComponent {
         return 'Reactive Forms flow, generated source panel, and docs links';
       case 'angular-async-state':
         return 'Lifecycle state flow, generated source panel, and docs links';
+      case 'angular-lookups':
+        return 'Lookup cache flow, generated source panel, and docs links';
       case 'angular-optimistic-state':
         return 'Optimistic workflow, generated source panel, and docs links';
       case 'angular-permissions':

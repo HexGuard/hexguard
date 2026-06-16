@@ -1,2 +1,11 @@
 <Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/HexGuard.SampleApi/HexGuard.SampleApi.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/HexGuard.ReferenceData/HexGuard.ReferenceData.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HexGuard.ReferenceData.Tests/HexGuard.ReferenceData.Tests.csproj" />
+  </Folder>
 </Solution>

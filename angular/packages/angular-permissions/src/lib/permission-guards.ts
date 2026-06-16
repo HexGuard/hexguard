@@ -14,7 +14,18 @@ export interface PermissionGuardOptions {
   readonly redirectTo?: PermissionGuardRedirect;
 }
 
-/** Creates a `CanActivateFn` backed by the shared permission evaluator. */
+/**
+ * Creates a `CanActivateFn` backed by the shared permission evaluator.
+ *
+ * The returned guard calls `injectPermissions()` internally, so it must run
+ * within an Angular injection context. When access is denied and a
+ * `redirectTo` option is provided, the guard returns a `UrlTree` instead of
+ * `false`, enabling navigation to a dedicated denied route.
+ *
+ * @param requirement - The permission requirement that must be satisfied.
+ * @param options - Optional redirect behavior when access is denied.
+ * @returns A `CanActivateFn` suitable for `canActivate` in route configs.
+ */
 export function canActivatePermissions<
   TCapability extends PermissionKey = string,
   TRole extends PermissionKey = string,
@@ -27,7 +38,18 @@ export function canActivatePermissions<
   return () => evaluateGuard(requirement, options);
 }
 
-/** Creates a `CanMatchFn` backed by the shared permission evaluator. */
+/**
+ * Creates a `CanMatchFn` backed by the shared permission evaluator.
+ *
+ * The returned guard calls `injectPermissions()` internally, so it must run
+ * within an Angular injection context. When access is denied and a
+ * `redirectTo` option is provided, the guard returns a `UrlTree` instead of
+ * `false`, enabling navigation to a dedicated denied route.
+ *
+ * @param requirement - The permission requirement that must be satisfied.
+ * @param options - Optional redirect behavior when access is denied.
+ * @returns A `CanMatchFn` suitable for `canMatch` in route configs.
+ */
 export function canMatchPermissions<
   TCapability extends PermissionKey = string,
   TRole extends PermissionKey = string,

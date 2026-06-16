@@ -6,6 +6,9 @@ import {
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
+  ANGULAR_LOOKUPS_BACKEND_DEMO,
+  ANGULAR_LOOKUPS_EDITOR_DEMO,
+  ANGULAR_LOOKUPS_SUMMARY_DEMO,
   ANGULAR_OPTIMISTIC_STATE_BULK_DEMO,
   ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO,
   ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO,
@@ -20,6 +23,10 @@ import { AngularAsyncStateHomePageComponent } from './features/angular-async-sta
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
 import { AsyncStateObservableDemoPageComponent } from './features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component';
 import { AsyncStateValueDemoPageComponent } from './features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
+import { LookupsBackendDemoPageComponent } from './features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component';
+import { AngularLookupsHomePageComponent } from './features/angular-lookups/pages/angular-lookups-home-page.component';
+import { LookupsEditorDemoPageComponent } from './features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component';
+import { LookupsSummaryDemoPageComponent } from './features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component';
 import { AngularOptimisticStateHomePageComponent } from './features/angular-optimistic-state/pages/angular-optimistic-state-home-page.component';
 import { OptimisticStateBulkDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component';
 import { OptimisticStateInlineEditDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component';
@@ -100,6 +107,26 @@ export const routes: Routes = [
     path: 'packages/angular-async-state/action',
     component: AsyncStateActionDemoPageComponent,
     title: 'Async Action Lifecycle Demo',
+  },
+  {
+    path: 'packages/angular-lookups',
+    component: AngularLookupsHomePageComponent,
+    title: 'Angular Lookups Demos',
+  },
+  {
+    path: 'packages/angular-lookups/editor',
+    component: LookupsEditorDemoPageComponent,
+    title: 'Lookup Editor Demo',
+  },
+  {
+    path: 'packages/angular-lookups/summary',
+    component: LookupsSummaryDemoPageComponent,
+    title: 'Lookup Summary Demo',
+  },
+  {
+    path: 'packages/angular-lookups/backend',
+    component: LookupsBackendDemoPageComponent,
+    title: 'Lookup Backend Integration Demo',
   },
   {
     path: 'packages/angular-optimistic-state',
@@ -200,6 +227,18 @@ export const routes: Routes = [
   {
     path: 'async-state-action',
     redirectTo: ANGULAR_ASYNC_STATE_ACTION_DEMO.route.slice(1),
+  },
+  {
+    path: 'lookups-editor',
+    redirectTo: ANGULAR_LOOKUPS_EDITOR_DEMO.route.slice(1),
+  },
+  {
+    path: 'lookups-summary',
+    redirectTo: ANGULAR_LOOKUPS_SUMMARY_DEMO.route.slice(1),
+  },
+  {
+    path: 'lookups-backend',
+    redirectTo: ANGULAR_LOOKUPS_BACKEND_DEMO.route.slice(1),
   },
   {
     path: 'optimistic-toggle',
