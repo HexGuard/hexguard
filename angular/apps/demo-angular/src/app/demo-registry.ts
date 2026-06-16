@@ -39,6 +39,7 @@ const ANGULAR_ASYNC_STATE_CATALOG = getGeneratedCurrentPackage('angular-async-st
 const ANGULAR_LOOKUPS_CATALOG = getGeneratedCurrentPackage('angular-lookups');
 const ANGULAR_OPTIMISTIC_STATE_CATALOG = getGeneratedCurrentPackage('angular-optimistic-state');
 const ANGULAR_PERMISSIONS_CATALOG = getGeneratedCurrentPackage('angular-permissions');
+const ANGULAR_API_ERRORS_CATALOG = getGeneratedCurrentPackage('angular-api-errors');
 
 const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
 const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
@@ -46,6 +47,7 @@ const ANGULAR_ASYNC_STATE_DOCS = ANGULAR_ASYNC_STATE_CATALOG.docsLinks;
 const ANGULAR_LOOKUPS_DOCS = ANGULAR_LOOKUPS_CATALOG.docsLinks;
 const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks;
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
+const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -584,6 +586,47 @@ export const ANGULAR_PERMISSIONS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_PERMISSIONS_ACTIONS_DEMO, ANGULAR_PERMISSIONS_ROUTING_DEMO],
 };
 
+export const FORM_VALIDATION_DEMO: DemoPageEntry = {
+  id: 'form-validation',
+  packageId: 'angular-api-errors',
+  route: '/packages/angular-api-errors/form-validation',
+  legacyRoute: '/api-errors-form-validation',
+  label: 'Form Validation Demo',
+  title: 'Backend validation errors bound to Angular form controls',
+  description:
+    'A product form proves apiFormErrors() maps dot-separated field paths from the validation contract onto FormControl.setErrors(). Model-level errors appear as page-level messages below the form.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-api-errors/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-api-errors.md',
+    },
+    {
+      label: 'Validation Contracts (.NET)',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/validation-contracts.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-api-errors/form-validation-demo-state',
+    label: 'Form validation component source',
+    description:
+      'The full form validation demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-api-errors',
+  route: '/packages/angular-api-errors',
+  label: 'Angular API Errors',
+  title: ANGULAR_API_ERRORS_CATALOG.packageName,
+  description: ANGULAR_API_ERRORS_CATALOG.summary,
+  docsLinks: ANGULAR_API_ERRORS_DOCS,
+  demos: [FORM_VALIDATION_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -591,6 +634,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_LOOKUPS_PACKAGE,
   ANGULAR_OPTIMISTIC_STATE_PACKAGE,
   ANGULAR_PERMISSIONS_PACKAGE,
+  ANGULAR_API_ERRORS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

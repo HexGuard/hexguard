@@ -11,7 +11,8 @@
       ],
       "@hexguard/angular-permissions": ["./packages/angular-permissions/src/public-api.ts"],
       "@hexguard/angular-query-form": ["./packages/angular-query-form/src/public-api.ts"],
-      "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"]
+      "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"],
+      "@hexguard/angular-api-errors": ["./packages/angular-api-errors/src/public-api.ts"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

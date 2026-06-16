@@ -1,0 +1,113 @@
+.form-validation-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-validation-demo__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-validation-demo__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-validation-demo__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #555);
+}
+
+.form-validation-demo__input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.form-validation-demo__input--invalid {
+  border-color: var(--color-error, #d32f2f);
+  background-color: var(--color-error-bg, #fff5f5);
+}
+
+.form-validation-demo__error-text {
+  font-size: 0.75rem;
+  color: var(--color-error, #d32f2f);
+  margin: 0;
+}
+
+.form-validation-demo__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.form-validation-demo__submit-btn {
+  padding: 0.5rem 1.5rem;
+  background: var(--color-primary, #1976d2);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.form-validation-demo__clear-btn {
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  color: var(--color-text-secondary, #555);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.form-validation-demo__page-errors {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-error-bg, #fff5f5);
+  border: 1px solid var(--color-error, #d32f2f);
+  border-radius: 4px;
+}
+
+.form-validation-demo__page-error {
+  font-size: 0.875rem;
+  color: var(--color-error, #d32f2f);
+  margin: 0.25rem 0;
+}
+
+.form-validation-demo__tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.form-validation-demo__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  background: var(--color-tag-bg, #e3f2fd);
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.form-validation-demo__tag-remove {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.form-validation-demo__add-tag {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}

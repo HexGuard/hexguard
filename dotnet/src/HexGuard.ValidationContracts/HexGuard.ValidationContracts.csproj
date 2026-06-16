@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>HexGuard.ValidationContracts</PackageId>
+    <Version>0.1.0</Version>
+    <Description>Standard validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>

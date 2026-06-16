@@ -20,6 +20,7 @@ import {
   ANGULAR_URL_STATE_ORDERS_DEMO,
   DOTNET_REFERENCE_DATA_HOME,
   DOTNET_SAMPLE_API_EXPLORER,
+  FORM_VALIDATION_DEMO,
 } from './demo-registry';
 import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
@@ -56,6 +57,8 @@ import { SiteHomePageComponent } from './features/site-home/pages/site-home-page
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
 import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
+import { AngularApiErrorsHomePageComponent } from './features/angular-api-errors/pages/angular-api-errors-home-page.component';
+import { FormValidationDemoPageComponent } from './features/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
 
 export const routes: Routes = [
   {
@@ -205,6 +208,16 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'packages/angular-api-errors',
+    component: AngularApiErrorsHomePageComponent,
+    title: 'Angular API Errors Demos',
+  },
+  {
+    path: 'packages/angular-api-errors/form-validation',
+    component: FormValidationDemoPageComponent,
+    title: 'Form Validation Demo',
+  },
   // ── .NET showcase routes ────────────────────────────────────────
   {
     path: 'dotnet',
@@ -249,6 +262,10 @@ export const routes: Routes = [
   {
     path: 'async-state-action',
     redirectTo: ANGULAR_ASYNC_STATE_ACTION_DEMO.route.slice(1),
+  },
+  {
+    path: 'api-errors-form-validation',
+    redirectTo: FORM_VALIDATION_DEMO.route.slice(1),
   },
   {
     path: 'lookups-editor',

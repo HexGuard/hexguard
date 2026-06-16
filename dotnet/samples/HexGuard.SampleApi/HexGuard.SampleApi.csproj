@@ -8,5 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/HexGuard.ReferenceData/HexGuard.ReferenceData.csproj" />
+    <ProjectReference Include="../../src/HexGuard.ValidationContracts/HexGuard.ValidationContracts.csproj" />
   </ItemGroup>
 </Project>

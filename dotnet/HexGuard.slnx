@@ -4,8 +4,10 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/HexGuard.ReferenceData/HexGuard.ReferenceData.csproj" />
+    <Project Path="src/HexGuard.ValidationContracts/HexGuard.ValidationContracts.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/HexGuard.ReferenceData.Tests/HexGuard.ReferenceData.Tests.csproj" />
+    <Project Path="tests/HexGuard.ValidationContracts.Tests/HexGuard.ValidationContracts.Tests.csproj" />
   </Folder>
 </Solution>

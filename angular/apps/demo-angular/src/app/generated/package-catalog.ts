@@ -237,6 +237,47 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-api-errors',
+    packageName: '@hexguard/angular-api-errors',
+    status: 'In Progress',
+    scope: 'Angular',
+    summary:
+      'Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state.',
+    detail:
+      'Designed for Angular apps that need to map backend validation errors onto form controls, extract page-level messages, and maintain consistent error state through signals — without hand-written parsing glue.',
+    installCommand: 'pnpm add @hexguard/angular-api-errors',
+    featureHighlights: [
+      'RFC 9457 Problem Details parsing with typed ApiValidationResult contracts and field-level error extraction.',
+      'Reactive Forms integration that maps dot-separated field paths to FormControl.setErrors() with automatic touched marking.',
+      'Signal-based page-level error state with hasFieldError, clear, and append support for toast and banner flows.',
+    ],
+    bestFitScenarios: [
+      'Angular forms that need to map backend validation errors onto specific controls after a failed API submission.',
+      'Screens that display page-level banners or toast alerts from model-level validation or business-rule failures.',
+      'Angular apps that consume RFC 9457 Problem Details responses and need a typed, inspectable error surface.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in development and paired with HexGuard.ValidationContracts on the .NET side.',
+      'It focuses on typed validation error contracts, field-level form binding, signal-based page error state, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-api-errors',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-api-errors/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-api-errors.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-permissions',
     packageName: '@hexguard/angular-permissions',
     status: 'Available',
@@ -449,15 +490,15 @@ export const GENERATED_ROADMAP_PACKAGES = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-api-errors',
-    anchorId: 'package-angular-api-errors',
-    packageName: '@hexguard/angular-api-errors',
-    scope: 'Angular',
-    status: 'Planned',
+    id: 'validation-contracts',
+    anchorId: 'package-validation-contracts',
+    packageName: 'HexGuard.ValidationContracts',
+    scope: '.NET',
+    status: 'Proposed',
     summary:
-      'Will normalize backend validation, business-rule failures, and problem-details payloads into a consistent Angular-facing error surface.',
+      'Provides standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
     docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-api-errors',
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-validation-contracts',
     showOnSiteHome: true,
   },
   {

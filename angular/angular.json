@@ -163,6 +163,32 @@
         }
       }
     },
+    "angular-api-errors": {
+      "projectType": "library",
+      "root": "packages/angular-api-errors",
+      "sourceRoot": "packages/angular-api-errors/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-api-errors/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-api-errors/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-api-errors/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

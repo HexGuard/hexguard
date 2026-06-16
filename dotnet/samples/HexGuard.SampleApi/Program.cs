@@ -3,6 +3,7 @@ using HexGuard.SampleApi.Packages.AngularLookups;
 using HexGuard.SampleApi.Packages.AngularOptimisticState;
 using HexGuard.SampleApi.Packages.AngularPermissions;
 using HexGuard.SampleApi.Packages.HexGuardReferenceData;
+using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,14 @@ app.MapGet("/", () => Results.Ok(new
             catalogEndpoint = "/api/reference-data/catalog",
             note = ".NET-only — demonstrates HexGuard.ReferenceData library directly",
         },
+        new
+        {
+            id = "hexguard-validation-contracts",
+            route = "/api/validation-contracts",
+            validateEndpoint = "/api/validation-contracts/validate (POST)",
+            errorCodesEndpoint = "/api/validation-contracts/error-codes",
+            note = ".NET validation contract shapes and RFC 9457 Problem Details",
+        },
     },
 }));
 
@@ -68,6 +77,7 @@ app.MapAsyncStateSampleEndpoints();
 app.MapOptimisticStateSampleEndpoints();
 app.MapPermissionsSampleEndpoints();
 app.MapReferenceDataSampleEndpoints();
+app.MapValidationContractsSampleEndpoints();
 
 app.Run();
 

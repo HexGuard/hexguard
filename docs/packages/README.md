@@ -7,14 +7,15 @@ another.
 
 ## Current Packages
 
-| Package                              | Status    | Description                                                                                                            | Primary Docs                                                                                                                                                |
-| ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state`        | Available | Type-safe, signal-first synchronization between Angular state and URL query params.                                    | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
-| `@hexguard/angular-query-form`       | Available | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                     | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
-| `@hexguard/angular-async-state`      | Available | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers. | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
-| `@hexguard/angular-lookups`          | Available | Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.                    | [Deep Dive](angular-lookups.md), [npm-facing README](../../angular/packages/angular-lookups/README.md), [Demo runbook](../demo/README.md)                   |
-| `@hexguard/angular-optimistic-state` | Available | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.  | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
-| `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                               | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
+| Package                              | Status      | Description                                                                                                                                                                                           | Primary Docs                                                                                                                                                |
+| ------------------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`        | Available   | Type-safe, signal-first synchronization between Angular state and URL query params.                                                                                                                   | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-query-form`       | Available   | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                                                                                                    | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-async-state`      | Available   | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.                                                                                | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
+| `@hexguard/angular-lookups`          | Available   | Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.                                                                                                   | [Deep Dive](angular-lookups.md), [npm-facing README](../../angular/packages/angular-lookups/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-optimistic-state` | Available   | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.                                                                                 | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
+| `@hexguard/angular-api-errors`       | In Progress | Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state. | [Deep Dive](angular-api-errors.md), [npm-facing README](../../angular/packages/angular-api-errors/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-permissions`      | Available   | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
 
 ## Package Status Notes
 
@@ -67,6 +68,16 @@ Status: Available
 This package is available as the optimistic-mutation companion for Angular screens that should feel immediate without turning rollback and overlap behavior into hidden cache magic.
 
 It focuses on explicit committed value versus optimistic overlay state, configurable same-target conflict policy, thin template helpers, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-api-errors"></a>
+
+### `@hexguard/angular-api-errors`
+
+Status: In Progress
+
+This package is currently in development and paired with HexGuard.ValidationContracts on the .NET side.
+
+It focuses on typed validation error contracts, field-level form binding, signal-based page error state, and a validated publish surface across docs, demos, and package artifacts.
 
 <a id="package-angular-permissions"></a>
 
@@ -192,13 +203,13 @@ Status: Proposed
 
 Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form surface continues to evolve.
 
-<a id="package-angular-api-errors"></a>
+<a id="package-validation-contracts"></a>
 
-### `@hexguard/angular-api-errors`
+### `HexGuard.ValidationContracts`
 
-Status: Planned
+Status: Proposed
 
-Will normalize backend validation, business-rule failures, and problem-details payloads into a consistent Angular-facing error surface.
+Provides standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.
 
 <a id="package-angular-table-state"></a>
 
