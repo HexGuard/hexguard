@@ -1183,4 +1183,90 @@ test.describe('demo-angular', () => {
       "history: 'push'",
     );
   });
+
+  // ── angular-api-errors demo tests ──────────────────────────────────
+
+  const formValidationRoute = '/packages/angular-api-errors/form-validation';
+
+  test('shows the Angular API Errors package overview', async ({ page }) => {
+    await page.goto('/packages/angular-api-errors');
+
+    await expect(page.getByTestId('package-angular-api-errors')).toBeVisible();
+    await expect(page.getByTestId('package-angular-api-errors-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-api-errors',
+    );
+    await expect(page.getByTestId('package-angular-api-errors-best-fit')).toContainText(
+      'Angular forms that need to map backend validation errors onto specific controls',
+    );
+    await expect(page.getByTestId('package-api-errors-demo-form-validation')).toBeVisible();
+  });
+
+  test('maps validation errors onto form controls in the form-validation demo', async ({
+    page,
+  }) => {
+    await page.goto(formValidationRoute);
+
+    await expect(page.getByTestId('form-validation-demo')).toBeVisible();
+    await expect(page.getByTestId('form-validation-demo-form')).toBeVisible();
+
+    // Submit with empty fields — should show field-level errors
+    await page.getByTestId('form-validation-demo-submit').click();
+
+    await expect(page.getByTestId('form-validation-demo-name-error')).toContainText(
+      'Product name is required.',
+    );
+    await expect(page.getByTestId('form-validation-demo-price-error')).toContainText(
+      'Price must be greater than zero.',
+    );
+    await expect(page.getByTestId('form-validation-demo-category-error')).toContainText(
+      'Category is required.',
+    );
+
+    // Fill in valid data and submit
+    await page.getByTestId('form-validation-demo-name-input').fill('Wireless Mouse');
+    await page.getByTestId('form-validation-demo-price-input').fill('29.99');
+    await page.getByTestId('form-validation-demo-category-input').selectOption('Electronics');
+    await page.getByTestId('form-validation-demo-sku-input').fill('ELE-123456');
+
+    // Submit valid — should succeed
+    await page.getByTestId('form-validation-demo-submit').click();
+
+    await expect(page.getByTestId('form-validation-demo-name-error')).not.toBeVisible();
+    await expect(page.getByTestId('form-validation-demo-snapshot-json')).toContainText(
+      '"isValid": true',
+    );
+
+    // Submit with invalid SKU — should show field error
+    await page.getByTestId('form-validation-demo-sku-input').fill('bad-sku');
+    await page.getByTestId('form-validation-demo-submit').click();
+
+    await expect(page.getByTestId('form-validation-demo-sku-error')).toContainText(
+      'SKU must match the pattern XXX-999999.',
+    );
+
+    // Fill many tags and submit — should show page-level error
+    await page.getByTestId('form-validation-demo-tag-input').fill('a');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+    await page.getByTestId('form-validation-demo-tag-input').fill('b');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+    await page.getByTestId('form-validation-demo-tag-input').fill('c');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+    await page.getByTestId('form-validation-demo-tag-input').fill('d');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+    await page.getByTestId('form-validation-demo-tag-input').fill('e');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+    await page.getByTestId('form-validation-demo-tag-input').fill('f');
+    await page.getByTestId('form-validation-demo-tag-input').press('Enter');
+
+    await page.getByTestId('form-validation-demo-submit').click();
+    await expect(page.getByTestId('form-validation-demo-page-errors')).toContainText(
+      'At most 5 tags are allowed.',
+    );
+
+    // Clear the form — errors should disappear
+    await page.getByTestId('form-validation-demo-clear').click();
+    await expect(page.getByTestId('form-validation-demo-page-errors')).not.toBeVisible();
+    await expect(page.getByTestId('form-validation-demo-name-input')).toHaveValue('');
+    await expect(page.getByTestId('form-validation-demo-price-input')).toHaveValue('0');
+  });
 });

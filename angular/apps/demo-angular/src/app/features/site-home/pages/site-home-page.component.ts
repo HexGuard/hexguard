@@ -1,13 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import {
+  SITE_CROSS_STACK_PAIRS,
   SITE_CURRENT_PACKAGES,
   SITE_DOTNET_PACKAGES,
   SITE_METRICS,
   SITE_PILLARS,
   SITE_PRIMARY_ACTIONS,
   SITE_ROADMAP_PACKAGES,
+  SITE_SHARED_API_CONSUMERS,
+  SECTION_COLLAPSED_LIMIT,
+  CROSS_STACK_COLLAPSED_LIMIT,
 } from '../../../site-catalog';
 
 @Component({
@@ -16,6 +20,7 @@ import {
   imports: [RouterLink],
   template: `
     <section class="site-home" data-testid="site-home-page">
+      <!-- Hero -->
       <article class="site-home__hero demo-card demo-card--stack">
         <div class="site-home__hero-grid">
           <div class="site-home__hero-copy">
@@ -54,11 +59,12 @@ import {
         </div>
       </article>
 
-      <section class="site-home__section" aria-labelledby="featured-packages-heading">
+      <!-- Angular packages -->
+      <section class="site-home__section" aria-labelledby="angular-packages-heading">
         <div class="site-home__section-heading">
           <div>
-            <p class="demo-eyebrow">Current packages</p>
-            <h2 id="featured-packages-heading">Live package hubs with runnable demos</h2>
+            <p class="demo-eyebrow">Angular packages</p>
+            <h2 id="angular-packages-heading">Live package hubs with runnable demos</h2>
           </div>
           <p class="demo-card__summary">
             Each package hub links to docs, GitHub source, and the same demo routes that back
@@ -67,7 +73,12 @@ import {
         </div>
 
         <div class="site-home__package-grid">
-          @for (packageEntry of currentPackages; track packageEntry.id) {
+          @for (
+            packageEntry of angularPackagesExpanded()
+              ? currentPackages
+              : currentPackages.slice(0, sectionCollapsedLimit);
+            track packageEntry.id
+          ) {
             <article
               class="demo-card demo-card--stack site-home__package-card"
               [attr.data-testid]="'site-home-featured-package-' + packageEntry.id"
@@ -86,6 +97,15 @@ import {
 
               <p class="demo-card__summary">{{ packageEntry.summary }}</p>
               <p class="site-home__detail">{{ packageEntry.detail }}</p>
+
+              @if (packageEntry.dotnetCounterpartLabel) {
+                <p class="site-home__counterpart">
+                  <span class="demo-hint-pill site-home__counterpart-pill"
+                    >.NET counterpart: {{ packageEntry.dotnetCounterpartLabel }}</span
+                  >
+                  <a class="demo-link-chip" routerLink="/dotnet">Open .NET hub</a>
+                </p>
+              }
 
               <ul class="site-home__highlights" aria-label="Package highlights">
                 @for (highlight of packageEntry.featureHighlights; track highlight) {
@@ -125,13 +145,29 @@ import {
             </article>
           }
         </div>
+
+        @if (currentPackages.length > sectionCollapsedLimit) {
+          <button
+            class="site-home__expand-toggle"
+            type="button"
+            (click)="angularPackagesExpanded.set(!angularPackagesExpanded())"
+            [attr.data-testid]="'site-home-angular-expand-toggle'"
+          >
+            {{
+              angularPackagesExpanded()
+                ? 'Show fewer packages'
+                : 'Show all ' + currentPackages.length + ' Angular packages'
+            }}
+          </button>
+        }
       </section>
 
-      <section class="site-home__section" aria-labelledby="stack-heading">
+      <!-- .NET packages -->
+      <section class="site-home__section" aria-labelledby="dotnet-packages-heading">
         <div class="site-home__section-heading">
           <div>
-            <p class="demo-eyebrow">Cross-stack</p>
-            <h2 id="stack-heading">.NET packages and shared demo API</h2>
+            <p class="demo-eyebrow">.NET packages</p>
+            <h2 id="dotnet-packages-heading">NuGet libraries and shared demo API</h2>
           </div>
           <p class="demo-card__summary">
             The .NET workspace provides NuGet libraries and a shared SampleApi that backs both
@@ -141,7 +177,12 @@ import {
         </div>
 
         <div class="site-home__package-grid">
-          @for (packageEntry of dotnetPackages; track packageEntry.id) {
+          @for (
+            packageEntry of dotnetPackagesExpanded()
+              ? dotnetPackages
+              : dotnetPackages.slice(0, sectionCollapsedLimit);
+            track packageEntry.id
+          ) {
             <article
               class="demo-card demo-card--stack site-home__package-card"
               [attr.data-testid]="'site-home-dotnet-package-' + packageEntry.id"
@@ -160,6 +201,15 @@ import {
 
               <p class="demo-card__summary">{{ packageEntry.summary }}</p>
 
+              @if (packageEntry.angularCounterpartLabel) {
+                <p class="site-home__counterpart">
+                  <span class="demo-hint-pill site-home__counterpart-pill"
+                    >Angular counterpart: {{ packageEntry.angularCounterpartLabel }}</span
+                  >
+                  <a class="demo-link-chip" [routerLink]="'/'">Open Angular hub</a>
+                </p>
+              }
+
               <div class="site-home__package-footer">
                 <div class="site-home__package-meta">
                   <span class="demo-hint-pill">{{ packageEntry.demoCount }} demos</span>
@@ -173,7 +223,7 @@ import {
                   >
                   <a
                     class="demo-link-chip"
-                    href="https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ReferenceData"
+                    [href]="packageEntry.dotnetPackage.docsLinks[0]?.href"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -181,7 +231,7 @@ import {
                   </a>
                   <a
                     class="demo-link-chip"
-                    href="https://github.com/HexGuard/hexguard/tree/main/dotnet"
+                    [href]="packageEntry.dotnetPackage.docsLinks[2]?.href"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -192,8 +242,118 @@ import {
             </article>
           }
         </div>
+
+        @if (dotnetPackages.length > sectionCollapsedLimit) {
+          <button
+            class="site-home__expand-toggle"
+            type="button"
+            (click)="dotnetPackagesExpanded.set(!dotnetPackagesExpanded())"
+            [attr.data-testid]="'site-home-dotnet-expand-toggle'"
+          >
+            {{
+              dotnetPackagesExpanded()
+                ? 'Show fewer packages'
+                : 'Show all ' + dotnetPackages.length + ' .NET packages'
+            }}
+          </button>
+        }
       </section>
 
+      <!-- Cross-stack packages -->
+      <section class="site-home__section" aria-labelledby="cross-stack-heading">
+        <div class="site-home__section-heading">
+          <div>
+            <p class="demo-eyebrow">Cross-stack</p>
+            <h2 id="cross-stack-heading">Paired Angular + .NET packages</h2>
+          </div>
+          <p class="demo-card__summary">
+            Packages that share domain concepts, a shared API, or complementary contracts across the
+            Angular and .NET workspaces.
+          </p>
+        </div>
+
+        <div class="site-home__cross-stack-grid">
+          @for (
+            pair of crossStackExpanded()
+              ? crossStackPairs
+              : crossStackPairs.slice(0, crossStackCollapsedLimit);
+            track pair.angularId
+          ) {
+            <article
+              class="demo-card demo-card--stack site-home__cross-card"
+              [attr.data-testid]="'site-home-cross-pair-' + pair.angularId"
+            >
+              <div class="site-home__cross-header">
+                <p class="demo-eyebrow">{{ pair.pairingLabel }}</p>
+                <div class="site-home__cross-badges">
+                  <span class="site-status-badge">Angular</span>
+                  <span class="site-status-badge">.NET</span>
+                </div>
+              </div>
+
+              <p class="demo-card__summary">{{ pair.description }}</p>
+
+              <div class="site-home__cross-stacks">
+                <div class="site-home__cross-stack">
+                  <p class="site-home__cross-stack-label">Angular</p>
+                  <p class="site-home__cross-stack-name">{{ pair.angularLabel }}</p>
+                </div>
+                <div class="site-home__cross-stack">
+                  <p class="site-home__cross-stack-label">.NET</p>
+                  <p class="site-home__cross-stack-name">{{ pair.dotnetLabel }}</p>
+                </div>
+              </div>
+
+              <div class="demo-link-row site-home__cross-links">
+                <a
+                  class="site-home__action site-home__action--inline"
+                  [routerLink]="'/packages/' + pair.angularId"
+                  >Open Angular hub</a
+                >
+                <a class="site-home__action site-home__action--inline" routerLink="/dotnet"
+                  >Open .NET hub</a
+                >
+              </div>
+            </article>
+          }
+        </div>
+
+        @if (crossStackPairs.length > crossStackCollapsedLimit) {
+          <button
+            class="site-home__expand-toggle"
+            type="button"
+            (click)="crossStackExpanded.set(!crossStackExpanded())"
+            [attr.data-testid]="'site-home-cross-expand-toggle'"
+          >
+            {{
+              crossStackExpanded()
+                ? 'Show fewer pairs'
+                : 'Show all ' + crossStackPairs.length + ' cross-stack pairs'
+            }}
+          </button>
+        }
+
+        <!-- Shared API consumers (always visible as a compact list) -->
+        @if (sharedApiConsumers.length > 0) {
+          <div class="demo-card demo-card--stack site-home__shared-api-card">
+            <p class="demo-eyebrow">Shared API consumers</p>
+            <p class="demo-card__summary">
+              These Angular packages connect to the .NET SampleApi for live HTTP demos. Start the
+              API with <code>pnpm dotnet:start:demo-api</code> to enable backend integration.
+            </p>
+            <div class="demo-link-row">
+              @for (consumer of sharedApiConsumers; track consumer.angularId) {
+                <a class="demo-link-chip" [routerLink]="'/packages/' + consumer.angularId">{{
+                  consumer.angularLabel
+                }}</a>
+              }
+              <a class="demo-link-chip" routerLink="/dotnet/sample-api">SampleApi Explorer</a>
+            </div>
+          </div>
+        }
+      </section>
+
+      <!-- Design goals -->
       <section class="site-home__section" aria-labelledby="pillars-heading">
         <div class="site-home__section-heading">
           <div>
@@ -212,6 +372,7 @@ import {
         </div>
       </section>
 
+      <!-- Roadmap -->
       <section class="site-home__section" aria-labelledby="roadmap-heading">
         <div class="site-home__section-heading">
           <div>
@@ -266,6 +427,15 @@ export class SiteHomePageComponent {
   readonly metrics = SITE_METRICS;
   readonly currentPackages = SITE_CURRENT_PACKAGES;
   readonly dotnetPackages = SITE_DOTNET_PACKAGES;
+  readonly crossStackPairs = SITE_CROSS_STACK_PAIRS;
+  readonly sharedApiConsumers = SITE_SHARED_API_CONSUMERS;
   readonly pillars = SITE_PILLARS;
   readonly roadmapPackages = SITE_ROADMAP_PACKAGES;
+
+  readonly sectionCollapsedLimit = SECTION_COLLAPSED_LIMIT;
+  readonly crossStackCollapsedLimit = CROSS_STACK_COLLAPSED_LIMIT;
+
+  readonly angularPackagesExpanded = signal(false);
+  readonly dotnetPackagesExpanded = signal(false);
+  readonly crossStackExpanded = signal(false);
 }

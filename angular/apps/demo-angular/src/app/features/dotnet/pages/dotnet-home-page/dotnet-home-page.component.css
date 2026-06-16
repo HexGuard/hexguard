@@ -3,57 +3,243 @@
 }
 
 .dotnet-home {
-  max-width: 1100px;
-  margin-inline: auto;
-  padding: 1.5rem;
+  display: grid;
+  gap: 1.75rem;
 }
 
+/* ── Hero ──────────────────────────────────── */
+
+.dotnet-home__hero {
+  overflow: hidden;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
+}
+
+.dotnet-home__hero h2 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(2rem, 3.4vw, 3.35rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.dotnet-home__lede {
+  max-width: 52rem;
+}
+
+/* ── Section shared ────────────────────────── */
+
 .dotnet-home__section {
-  margin-bottom: 2.5rem;
+  display: grid;
+  gap: 1.15rem;
 }
 
 .dotnet-home__section-heading {
-  margin-bottom: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
+
+.dotnet-home__section-heading h2 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.dotnet-home__section-heading p {
+  max-width: 42rem;
+}
+
+/* ── Package cards (site-home style) ───────── */
 
 .dotnet-home__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
 }
 
-@media (min-width: 720px) {
-  .dotnet-home__grid {
-    grid-template-columns: 1fr 1fr;
+.dotnet-home__package-card {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.dotnet-home__package-header {
+  display: flex;
+  gap: 0.8rem 1rem;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dotnet-home__package-title {
+  min-width: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.dotnet-home__package-title h3 {
+  margin: 0;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.dotnet-home__package-header .site-status-badge {
+  flex: 0 1 auto;
+  align-self: flex-start;
+}
+
+/* ── Counterpart badge ─────────────────────── */
+
+.dotnet-home__counterpart {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.dotnet-home__counterpart-pill {
+  background: rgba(217, 119, 75, 0.1);
+  border-color: rgba(217, 119, 75, 0.3);
+  color: #a35832;
+}
+
+/* ── Demo links inside the package card ────── */
+
+.dotnet-home__demos {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.dotnet-home__demo-link {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.55);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.dotnet-home__demo-link:hover,
+.dotnet-home__demo-link:focus-visible {
+  border-color: var(--color-accent-border);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.dotnet-home__demo-label {
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dotnet-home__demo-desc {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* ── Package footer ────────────────────────── */
+
+.dotnet-home__package-footer {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: auto;
+}
+
+.dotnet-home__package-meta {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dotnet-home__package-links {
+  align-items: stretch;
+}
+
+.dotnet-home__package-links > * {
+  flex: 1 1 12rem;
+}
+
+/* ── Getting started ───────────────────────── */
+
+.dotnet-home__start-card {
+  background: rgba(248, 252, 251, 0.72);
+  border-color: rgba(13, 73, 82, 0.14);
+}
+
+/* ── Cross-stack grid ──────────────────────── */
+
+.dotnet-home__cross-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+}
+
+.dotnet-home__cross-chip {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 240, 231, 0.8)),
+    var(--color-surface);
+}
+
+.dotnet-home__cross-chip-label {
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dotnet-home__cross-chip-desc {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* ── Media queries ─────────────────────────── */
+
+@media (max-width: 900px) {
+  .dotnet-home__package-links > * {
+    flex: 1 1 13rem;
   }
 }
 
-.dotnet-home__card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+@media (max-width: 720px) {
+  .dotnet-home__hero,
+  .dotnet-home__package-card {
+    padding: 1.2rem;
+  }
+
+  .dotnet-home__package-meta,
+  .dotnet-home__package-links {
+    align-items: stretch;
+  }
+
+  .dotnet-home__package-links > * {
+    width: 100%;
+    flex-basis: 100%;
+  }
 }
 
-.dotnet-home__card-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.dotnet-home__card-title {
-  flex: 1;
-}
-
-.dotnet-home__card-status {
-  flex-shrink: 0;
-}
-
-.dotnet-home__card-footer {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-top: auto;
-  padding-top: 0.75rem;
+@media (max-width: 560px) {
+  .dotnet-home {
+    gap: 1.35rem;
+  }
 }
