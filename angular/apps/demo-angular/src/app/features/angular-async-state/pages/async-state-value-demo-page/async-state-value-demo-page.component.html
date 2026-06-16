@@ -84,6 +84,20 @@
       </button>
     </div>
 
+    <div class="async-toolbar" style="margin-top: 0.75rem;">
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="async-state-value-toggle-api"
+        (click)="useLiveApi.set(!useLiveApi())"
+      >
+        {{ useLiveApi() ? 'Switch to mock data' : 'Load from API' }}
+      </button>
+      <span class="demo-hint-pill" data-testid="async-state-value-api-mode">
+        Data source: {{ useLiveApi() ? 'Live .NET API' : 'Mock data' }}
+      </span>
+    </div>
+
     <demo-status-strip
       testId="async-state-value-status-strip"
       summaryTestId="async-state-value-summary"

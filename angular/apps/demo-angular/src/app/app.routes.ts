@@ -18,6 +18,8 @@ import {
   ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
   ANGULAR_URL_STATE_ORDERS_DEMO,
+  DOTNET_REFERENCE_DATA_HOME,
+  DOTNET_SAMPLE_API_EXPLORER,
 } from './demo-registry';
 import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
 import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
@@ -47,6 +49,9 @@ import {
 import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
 import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
 import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
+import { DotnetHomePageComponent } from './features/dotnet/pages/dotnet-home-page/dotnet-home-page.component';
+import { ReferenceDataDemoPageComponent } from './features/dotnet/pages/reference-data-demo-page/reference-data-demo-page.component';
+import { SampleApiExplorerPageComponent } from './features/dotnet/pages/sample-api-explorer-page/sample-api-explorer-page.component';
 import { SiteHomePageComponent } from './features/site-home/pages/site-home-page.component';
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
@@ -200,6 +205,23 @@ export const routes: Routes = [
       },
     ],
   },
+  // ── .NET showcase routes ────────────────────────────────────────
+  {
+    path: 'dotnet',
+    component: DotnetHomePageComponent,
+    title: 'HexGuard .NET Packages',
+  },
+  {
+    path: 'dotnet/reference-data',
+    component: ReferenceDataDemoPageComponent,
+    title: 'ReferenceData Library Demo',
+  },
+  {
+    path: 'dotnet/sample-api',
+    component: SampleApiExplorerPageComponent,
+    title: 'SampleApi Explorer',
+  },
+  // ── Legacy redirects ────────────────────────────────────────────
   {
     path: 'orders',
     redirectTo: ANGULAR_URL_STATE_ORDERS_DEMO.route.slice(1),

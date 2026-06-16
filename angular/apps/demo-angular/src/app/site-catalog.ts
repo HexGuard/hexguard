@@ -1,4 +1,4 @@
-import { getDemoPackage, type DemoPackageEntry } from './demo-registry';
+import { DOTNET_PACKAGES, getDemoPackage, type DemoPackageEntry, type DotnetPackageEntry } from './demo-registry';
 import {
   GENERATED_CURRENT_PACKAGES,
   GENERATED_ROADMAP_PACKAGES,
@@ -15,6 +15,17 @@ export interface SitePackageCatalogEntry extends GeneratedCurrentPackageCatalogE
   readonly route: string;
   readonly demoCount: number;
   readonly demoPackage: DemoPackageEntry;
+}
+
+export interface DotnetSitePackageCatalogEntry {
+  readonly id: string;
+  readonly packageName: string;
+  readonly nugetId: string;
+  readonly status: string;
+  readonly summary: string;
+  readonly route: string;
+  readonly demoCount: number;
+  readonly dotnetPackage: DotnetPackageEntry;
 }
 
 export type RoadmapPackageEntry = GeneratedRoadmapPackageEntry;
@@ -67,7 +78,7 @@ export const SITE_PILLARS = [
   {
     title: 'Docs-grade demos',
     description:
-      'Every current Angular package ships with realistic UI flows, stable selectors, and live state inspection so behavior stays easy to verify.',
+      'Every current package ships with realistic UI flows, stable selectors, and live state inspection so behavior stays easy to verify.',
   },
   {
     title: 'Small, explicit APIs',
@@ -77,7 +88,7 @@ export const SITE_PILLARS = [
   {
     title: 'Angular first, broader roadmap',
     description:
-      'Today the site highlights Angular packages and demos, while the wider catalog previews .NET and cross-stack guardrails that fit the same design style.',
+      'Angular packages anchor the site today, with .NET packages and cross-stack pairs shown through the same shared demo API and validated the same way.',
   },
 ] as const satisfies readonly SitePillar[];
 
@@ -107,11 +118,24 @@ export function getSitePackage(packageId: string): SitePackageCatalogEntry {
   return packageEntry;
 }
 
+export const SITE_DOTNET_PACKAGES: readonly DotnetSitePackageCatalogEntry[] =
+  DOTNET_PACKAGES.map((dotnetPackage) => ({
+    id: dotnetPackage.id,
+    packageName: dotnetPackage.nugetId,
+    nugetId: dotnetPackage.nugetId,
+    status: dotnetPackage.status,
+    summary: dotnetPackage.summary,
+    route: dotnetPackage.route,
+    demoCount: dotnetPackage.demos.length,
+    dotnetPackage,
+  }));
+
 export const SITE_ROADMAP_PACKAGES = GENERATED_ROADMAP_PACKAGES.filter(
   (entry) => entry.showOnSiteHome,
 );
 
-const demoCount = SITE_CURRENT_PACKAGES.reduce((total, entry) => total + entry.demoCount, 0);
+const angularDemoCount = SITE_CURRENT_PACKAGES.reduce((total, entry) => total + entry.demoCount, 0);
+const dotnetDemoCount = SITE_DOTNET_PACKAGES.reduce((total, entry) => total + entry.demoCount, 0);
 
 export const SITE_METRICS = [
   {
@@ -120,10 +144,10 @@ export const SITE_METRICS = [
   },
   {
     label: 'Live demo routes',
-    value: String(demoCount),
+    value: String(angularDemoCount),
   },
   {
-    label: 'Roadmap entries highlighted',
-    value: String(SITE_ROADMAP_PACKAGES.length),
+    label: '.NET packages and demos',
+    value: String(SITE_DOTNET_PACKAGES.length),
   },
 ] as const satisfies readonly SiteMetric[];

@@ -601,3 +601,118 @@ export function getDemoPackage(packageId: string): DemoPackageEntry | undefined 
 export function getDemoPage(pageId: string): DemoPageEntry | undefined {
   return DEMO_PAGES.find((entry) => entry.id === pageId);
 }
+
+// ── .NET showcase types ──────────────────────────────────────────────
+
+export interface DotnetDemoCodeSample {
+  readonly snippetId: string;
+  readonly label: string;
+  readonly language: 'csharp';
+  readonly description: string;
+}
+
+export interface DotnetDemoPageEntry {
+  readonly id: string;
+  readonly packageId: string;
+  readonly route: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+  readonly docsLinks: readonly DemoLink[];
+  readonly codeSample?: DotnetDemoCodeSample;
+}
+
+export interface DotnetPackageEntry {
+  readonly id: string;
+  readonly route: string;
+  readonly label: string;
+  readonly title: string;
+  readonly nugetId: string;
+  readonly description: string;
+  readonly summary: string;
+  readonly status: 'Available' | 'In Progress';
+  readonly docsLinks: readonly DemoLink[];
+  readonly demos: readonly DotnetDemoPageEntry[];
+}
+
+export const DOTNET_REFERENCE_DATA_HOME: DotnetDemoPageEntry = {
+  id: 'reference-data',
+  packageId: 'hexguard-reference-data',
+  route: '/dotnet/reference-data',
+  label: 'ReferenceData Library',
+  title: 'HexGuard.ReferenceData ÔÇö typed catalog contracts and validation',
+  description:
+    'Demonstrates the ReferenceDataCatalog, ReferenceDataCollection, ReferenceDataItem types and the ReferenceDataCatalogValidator directly from the HexGuard.ReferenceData library via the shared SampleApi.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ReferenceData',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+};
+
+export const DOTNET_SAMPLE_API_EXPLORER: DotnetDemoPageEntry = {
+  id: 'sample-api',
+  packageId: 'hexguard-reference-data',
+  route: '/dotnet/sample-api',
+  label: 'SampleApi Explorer',
+  title: 'Shared .NET Sample API endpoint explorer',
+  description:
+    'Discovers and invokes every endpoint group registered in the running HexGuard.SampleApi. Shows live JSON responses alongside C# source references.',
+  docsLinks: [
+    {
+      label: 'Sample API source',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+};
+
+export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
+  {
+    id: 'hexguard-reference-data',
+    route: '/dotnet',
+    label: 'HexGuard .NET',
+    title: 'HexGuard .NET Packages',
+    nugetId: 'HexGuard.ReferenceData',
+    description:
+      '.NET guardrail libraries and shared sample API for backend catalog contracts, validation, and reference-data patterns.',
+    summary:
+      'Typed reference-data catalog contracts and validation helpers for .NET applications, demonstrated through the shared HexGuard.SampleApi.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ReferenceData',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_REFERENCE_DATA_HOME, DOTNET_SAMPLE_API_EXPLORER],
+  },
+];
+
+export function getDotnetPackage(packageId: string): DotnetPackageEntry | undefined {
+  return DOTNET_PACKAGES.find((entry) => entry.id === packageId);
+}
+
+export function getDotnetDemoPage(pageId: string): DotnetDemoPageEntry | undefined {
+  return DOTNET_PACKAGES.flatMap((pkg) => pkg.demos).find((entry) => entry.id === pageId);
+}

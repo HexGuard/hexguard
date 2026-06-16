@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.dotnet-home {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: 1.5rem;
+}
+
+.dotnet-home__section {
+  margin-bottom: 2.5rem;
+}
+
+.dotnet-home__section-heading {
+  margin-bottom: 1.25rem;
+}
+
+.dotnet-home__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .dotnet-home__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dotnet-home__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dotnet-home__card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dotnet-home__card-title {
+  flex: 1;
+}
+
+.dotnet-home__card-status {
+  flex-shrink: 0;
+}
+
+.dotnet-home__card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}

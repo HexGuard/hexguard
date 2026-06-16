@@ -83,6 +83,34 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-lookups',
+    packageName: '@hexguard/angular-lookups',
+    status: 'Available',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-lookups/README.md',
+    deepDivePath: 'docs/packages/angular-lookups.md',
+    repositoryPath: 'angular/packages/angular-lookups',
+    summary:
+      'Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.',
+    detail:
+      'Designed for backend reference-data catalogs where one cached payload should feed select options, summary labels, live backend refresh, and missing-key handling without screen-local mapping code.',
+    installCommand: 'pnpm add @hexguard/angular-lookups @hexguard/angular-async-state',
+    featureHighlights: [
+      'Loader-backed cache with explicit load, reload, validation, and invalidate behavior.',
+      'Injected facade plus one thin template label pipe over the same catalog contract.',
+      'Docs-grade demos for typed option lists, a live .NET-backed sample API flow, versioned label refresh, and explicit missing-key fallbacks.',
+    ],
+    bestFitScenarios: [
+      'Forms that need typed option lists from one backend reference-data catalog.',
+      'Detail and table views that should resolve stable display labels from shared keys.',
+      'Angular apps that want explicit lookup lifecycle state instead of ad hoc select-option services.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as the lookup-catalog companion for Angular screens that consume backend reference data.',
+      'It focuses on one versioned catalog contract, explicit cache lifecycle, label resolution, thin template helpers, and a validated publish surface across docs, demos, package artifacts, and one shared demo API.',
+    ],
+  },
+  {
     id: 'angular-optimistic-state',
     packageName: '@hexguard/angular-optimistic-state',
     status: 'Available',
@@ -269,16 +297,6 @@ export const roadmapPackages = [
     status: 'Proposed',
     summary:
       'Would standardize command registration, keyboard shortcuts, and searchable command invocation, with optional palette UI layered over a headless command registry.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-lookups',
-    anchorId: 'package-angular-lookups',
-    packageName: '@hexguard/angular-lookups',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize typed lookup catalogs, label resolution, caching, and invalidation for forms, filters, and display surfaces.',
     showOnSiteHome: false,
   },
   {

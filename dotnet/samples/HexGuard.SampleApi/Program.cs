@@ -1,4 +1,8 @@
+using HexGuard.SampleApi.Packages.AngularAsyncState;
 using HexGuard.SampleApi.Packages.AngularLookups;
+using HexGuard.SampleApi.Packages.AngularOptimisticState;
+using HexGuard.SampleApi.Packages.AngularPermissions;
+using HexGuard.SampleApi.Packages.HexGuardReferenceData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +23,7 @@ app.UseCors("DemoFrontends");
 app.MapGet("/", () => Results.Ok(new
 {
     sampleApi = "HexGuard shared demo API",
-    packages = new[]
+    packages = new object[]
     {
         new
         {
@@ -28,10 +32,42 @@ app.MapGet("/", () => Results.Ok(new
             catalogEndpoint = "/api/angular-lookups/catalog?scenario=base",
             scenarios = new[] { "base", "refreshed", "invalid" },
         },
+        new
+        {
+            id = "angular-async-state",
+            route = "/api/angular-async-state",
+            metricsEndpoint = "/api/angular-async-state/metrics?scenario=base",
+            scenarios = new[] { "base", "refreshed" },
+        },
+        new
+        {
+            id = "angular-optimistic-state",
+            route = "/api/angular-optimistic-state",
+            featuresEndpoint = "/api/angular-optimistic-state/features",
+            draftsEndpoint = "/api/angular-optimistic-state/drafts",
+        },
+        new
+        {
+            id = "angular-permissions",
+            route = "/api/angular-permissions",
+            personasEndpoint = "/api/angular-permissions/personas",
+            userEndpoint = "/api/angular-permissions/user?persona=guest",
+        },
+        new
+        {
+            id = "hexguard-reference-data",
+            route = "/api/reference-data",
+            catalogEndpoint = "/api/reference-data/catalog",
+            note = ".NET-only — demonstrates HexGuard.ReferenceData library directly",
+        },
     },
 }));
 
 app.MapAngularLookupsSampleEndpoints();
+app.MapAsyncStateSampleEndpoints();
+app.MapOptimisticStateSampleEndpoints();
+app.MapPermissionsSampleEndpoints();
+app.MapReferenceDataSampleEndpoints();
 
 app.Run();
 

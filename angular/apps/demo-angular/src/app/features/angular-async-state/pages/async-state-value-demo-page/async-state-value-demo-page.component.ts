@@ -46,12 +46,28 @@ export class AsyncStateValueDemoPageComponent {
 
   // demo-snippet:start async-state-value-demo
   private readonly loadScenario = signal<LoadScenario>('healthy');
+  readonly useLiveApi = signal(false);
   readonly requestCount = signal(0);
   readonly cards = asyncState<readonly AsyncStateMetricCard[], string>({
     initialValue: [],
     load: async () => {
       this.requestCount.update((count) => count + 1);
       const scenario = this.loadScenario();
+      const useApi = this.useLiveApi();
+
+      if (useApi) {
+        const apiScenario = scenario === 'refresh' ? 'refreshed' : 'base';
+        const response = await fetch(
+          `http://127.0.0.1:5074/api/angular-async-state/metrics?scenario=${apiScenario}`,
+        );
+
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}: ${response.statusText}`);
+        }
+
+        const data = (await response.json()) as { cards: AsyncStateMetricCard[] };
+        return data.cards;
+      }
 
       await waitForDemoLatency(450);
 
@@ -95,7 +111,8 @@ export class AsyncStateValueDemoPageComponent {
       return 'The loader completed successfully, but this scenario returned no dashboard cards.';
     }
 
-    return `Loaded ${this.cards.value().length} cards across ${this.requestCount()} request(s).`;
+    const source = this.useLiveApi() ? 'Live .NET API' : 'Mock data';
+    return `Loaded ${this.cards.value().length} cards across ${this.requestCount()} request(s). Source: ${source}.`;
   });
   readonly snapshotJson = computed(() =>
     formatSnapshot({
@@ -106,6 +123,7 @@ export class AsyncStateValueDemoPageComponent {
       error: this.cards.error(),
       requestCount: this.requestCount(),
       scenario: this.loadScenario(),
+      useLiveApi: this.useLiveApi(),
       value: this.cards.value(),
     }),
   );
