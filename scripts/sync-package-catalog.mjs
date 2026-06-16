@@ -110,7 +110,7 @@ export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
   readonly status: 'Available' | 'In Progress';
-  readonly scope: 'Angular';
+  readonly scope: 'Angular' | '.NET';
   readonly summary: string;
   readonly detail: string;
   readonly installCommand: string;

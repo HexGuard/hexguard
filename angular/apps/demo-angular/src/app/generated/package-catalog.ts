@@ -9,7 +9,7 @@ export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
   readonly status: 'Available' | 'In Progress';
-  readonly scope: 'Angular';
+  readonly scope: 'Angular' | '.NET';
   readonly summary: string;
   readonly detail: string;
   readonly installCommand: string;
@@ -311,6 +311,46 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-permissions.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'hexguard-reference-data',
+    packageName: 'HexGuard.ReferenceData',
+    status: 'Available',
+    scope: '.NET',
+    summary: 'Typed reference-data catalog contracts and validation helpers for .NET applications.',
+    detail:
+      'Provides ReferenceDataCatalog, ReferenceDataCollection, and ReferenceDataItem types plus a built-in validator that catches duplicate keys, missing metadata, and empty labels. Demonstrated through the shared HexGuard.SampleApi.',
+    installCommand: 'dotnet add package HexGuard.ReferenceData',
+    featureHighlights: [
+      'Versioned catalog contract with metadata-driven cache invalidation.',
+      'Built-in validator that catches duplicate collection keys, missing fields, and empty labels.',
+      'IReferenceDataCatalogProvider interface and StaticReferenceDataCatalogProvider for in-memory or DI-backed usage.',
+    ],
+    bestFitScenarios: [
+      'Backend services that need a typed reference-data contract instead of ad hoc key-value mappings.',
+      'APIs that serve option lists, lookup tables, or versioned catalogs to frontend consumers.',
+      'Teams that want validation guardrails before malformed catalogs reach downstream consumers.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.',
+      'It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ReferenceData',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.ReferenceData/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-reference-data.md',
       },
       {
         label: 'Demo runbook',

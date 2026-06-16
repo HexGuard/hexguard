@@ -194,6 +194,34 @@ export const currentPackages = [
       'It focuses on one provider-agnostic capability and role contract, a shared evaluator, thin Angular adapters, and a validated publish surface across docs, demos, and package artifacts.',
     ],
   },
+  {
+    id: 'hexguard-reference-data',
+    packageName: 'HexGuard.ReferenceData',
+    status: 'Available',
+    scope: '.NET',
+    readmePath: 'dotnet/src/HexGuard.ReferenceData/README.md',
+    deepDivePath: 'docs/packages/hexguard-reference-data.md',
+    repositoryPath: 'dotnet/src/HexGuard.ReferenceData',
+    summary:
+      'Typed reference-data catalog contracts and validation helpers for .NET applications.',
+    detail:
+      'Provides ReferenceDataCatalog, ReferenceDataCollection, and ReferenceDataItem types plus a built-in validator that catches duplicate keys, missing metadata, and empty labels. Demonstrated through the shared HexGuard.SampleApi.',
+    installCommand: 'dotnet add package HexGuard.ReferenceData',
+    featureHighlights: [
+      'Versioned catalog contract with metadata-driven cache invalidation.',
+      'Built-in validator that catches duplicate collection keys, missing fields, and empty labels.',
+      'IReferenceDataCatalogProvider interface and StaticReferenceDataCatalogProvider for in-memory or DI-backed usage.',
+    ],
+    bestFitScenarios: [
+      'Backend services that need a typed reference-data contract instead of ad hoc key-value mappings.',
+      'APIs that serve option lists, lookup tables, or versioned catalogs to frontend consumers.',
+      'Teams that want validation guardrails before malformed catalogs reach downstream consumers.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.',
+      'It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.',
+    ],
+  },
 ];
 
 export const roadmapPackages = [

@@ -17,6 +17,14 @@
         error code constants, and RFC 9457 Problem Details mapping.
       </p>
 
+      <div class="validation-contracts-demo__cross-stack">
+        <span class="demo-hint-pill">.NET: HexGuard.ValidationContracts</span>
+        <span class="demo-hint-pill">&harr;</span>
+        <span class="demo-hint-pill">Angular: @hexguard/angular-api-errors</span>
+        <span class="demo-hint-pill">&harr;</span>
+        <span class="demo-hint-pill">RFC 9457 Problem Details</span>
+      </div>
+
       <div class="validation-contracts-demo__toolbar">
         <div class="validation-contracts-demo__actions">
           <button
@@ -44,7 +52,6 @@
             Validate (invalid)
           </button>
         </div>
-        <span class="demo-hint-pill">{{ statusText() }}</span>
       </div>
 
       @if (lastUrl(); as url) {
@@ -52,6 +59,14 @@
           {{ url }}
         </p>
       }
+
+      <demo-status-strip
+        testId="valcon-status-strip"
+        summaryTestId="valcon-summary"
+        urlTestId="valcon-current-url"
+        [summary]="statusText()"
+        [currentUrl]="currentUrl()"
+      />
 
       @if (error(); as err) {
         <div class="demo-banner demo-banner--error" data-testid="valcon-error-banner">

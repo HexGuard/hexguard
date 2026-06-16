@@ -35,12 +35,16 @@ Current public Angular package entry points with README and changelog:
 
 - [Docs Index](docs/README.md)
 - [Package Catalog](docs/packages/README.md)
-- [Angular URL State Deep Dive](docs/packages/angular-url-state.md)
-- [Angular Query Form Deep Dive](docs/packages/angular-query-form.md)
-- [Angular Async State Deep Dive](docs/packages/angular-async-state.md)
-- [Angular Lookups Deep Dive](docs/packages/angular-lookups.md)
-- [Angular Optimistic State Deep Dive](docs/packages/angular-optimistic-state.md)
-- [Angular Permissions Deep Dive](docs/packages/angular-permissions.md)
+### Angular Packages
+- [`@hexguard/angular-url-state` Deep Dive](docs/packages/angular-url-state.md)
+- [`@hexguard/angular-query-form` Deep Dive](docs/packages/angular-query-form.md)
+- [`@hexguard/angular-async-state` Deep Dive](docs/packages/angular-async-state.md)
+- [`@hexguard/angular-lookups` Deep Dive](docs/packages/angular-lookups.md)
+- [`@hexguard/angular-optimistic-state` Deep Dive](docs/packages/angular-optimistic-state.md)
+- [`@hexguard/angular-permissions` Deep Dive](docs/packages/angular-permissions.md)
+### .NET Packages
+- [`HexGuard.ReferenceData` Deep Dive](docs/packages/hexguard-reference-data.md)
+### Workspace & Workflow
 - [Run the Demo](docs/demo/README.md)
 - [AI Workflow](docs/.ai/README.md)
 - [Contributing](CONTRIBUTING.md)
@@ -59,12 +63,16 @@ pnpm build
 pnpm start
 ```
 
-For the live Angular lookups frontend + backend example, run the shared sample API in a second
+For live backend integration across Angular and .NET demos, run the shared sample API in a second
 terminal:
 
 ```bash
 pnpm dotnet:start:demo-api
 ```
+
+The API serves five endpoint groups — angular-lookups, angular-async-state, angular-optimistic-state,
+angular-permissions, and hexguard-reference-data — on `http://127.0.0.1:5074`. See the
+[demo runbook](docs/demo/README.md) for the full route list.
 
 When working in the dedicated .NET space:
 

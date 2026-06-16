@@ -16,14 +16,26 @@ pnpm start
 
 The default development URL is `http://localhost:4200`.
 
-For the live frontend + backend lookups demo, start the shared .NET sample API in a second shell:
+For live backend integration across multiple demo pages, start the shared .NET sample API in a second
+shell:
 
 ```bash
 pnpm dotnet:start:demo-api
 ```
 
-The sample API serves `http://127.0.0.1:5074` and groups demo endpoints by package under
-`/api/<package-id>/...`.
+The shared sample API listens on `http://127.0.0.1:5074` and groups demo endpoints by package
+under `/api/<package-id>/...`. Five endpoint groups are registered:
+
+- **angular-lookups** — `GET /api/angular-lookups/catalog?scenario=base|refreshed|invalid`
+- **angular-async-state** — `GET /api/angular-async-state/metrics?scenario=base|refreshed`,
+  `GET /observable?scenario=healthy|warning`, `POST /orders/{id}/approve`
+- **angular-optimistic-state** — `GET /api/angular-optimistic-state/features|drafts|campaigns`,
+  `POST /features/{id}|/drafts/{id}|/campaigns/{id}`
+- **angular-permissions** — `GET /api/angular-permissions/personas`,
+  `GET /user?persona=guest|analyst|approver|admin`
+- **hexguard-reference-data** — `GET /api/reference-data/catalog`,
+  `GET /catalog/validate`, `GET /catalog/invalid`, `GET /collections/{key}`
+  (.NET-only — demonstrates `HexGuard.ReferenceData` library directly)
 
 ## Demo Routes
 
@@ -68,6 +80,29 @@ The sample API serves `http://127.0.0.1:5074` and groups demo endpoints by packa
 - `/packages/angular-permissions/actions`: one shared persona context drives disabled actions, hidden audit surfaces, and fallback templates through the same permission evaluator
 - `/packages/angular-permissions/routing`: route matching and activation are gated through `canMatchPermissions()` and `canActivatePermissions()` with explicit denied-route redirects
 
+### .NET Showcase Routes
+
+- `/dotnet`: .NET packages hub with NuGet overview, workspace links, and getting-started instructions
+- `/dotnet/reference-data`: `HexGuard.ReferenceData` library demo — live API calls, validation
+  results, and contract explorer
+- `/dotnet/sample-api`: shared SampleApi endpoint explorer that discovers all 5 package groups
+  and lets you invoke individual endpoints with live JSON responses
+
+### Cross-Stack API Routes
+
+These Angular demos connect to the shared .NET SampleApi for real HTTP integration. Start the API
+with `pnpm dotnet:start:demo-api` then use the demo controls to switch between mock data and live
+backend calls.
+
+- `/packages/angular-lookups/backend`: lookups catalog from .NET — paired with
+  `HexGuard.ReferenceData` contract types
+- `/packages/angular-async-state/value`: async value lifecycle with "Load from API" toggle
+  that fetches `GET /api/angular-async-state/metrics`
+- `/packages/angular-optimistic-state/toggle`: optimistic feature toggles — .NET endpoint at
+  `GET /api/angular-optimistic-state/features`
+- `/packages/angular-permissions/actions`: permissions persona gating — live fetch from
+  `GET /api/angular-permissions/user?persona=`
+
 Legacy redirects from `/orders`, `/dashboard`, `/query-form-orders`, `/query-form-recovery`,
 `/async-state-value`, `/async-state-observable`, `/async-state-action`, `/lookups-editor`,
 `/lookups-summary`, `/lookups-backend`, `/optimistic-toggle`, `/optimistic-inline-edit`, `/optimistic-bulk`,
@@ -78,18 +113,20 @@ package-aware routes.
 
 The app is organized as an Angular package showcase:
 
-- `angular/apps/demo-angular/src/app/features/site-home/`: repo-facing landing page, package discovery, and roadmap highlights
-- `angular/apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata used by navigation, routes, docs links, and tests
+- `angular/apps/demo-angular/src/app/features/site-home/`: repo-facing landing page, package discovery, cross-stack pairs section, and roadmap highlights
+- `angular/apps/demo-angular/src/app/site-catalog.ts`: Angular, .NET, and cross-stack package metadata used by the landing page
+- `angular/apps/demo-angular/src/app/demo-registry.ts`: package and demo metadata (Angular and .NET) used by navigation, routes, docs links, and tests
 - `angular/apps/demo-angular/src/app/generated/package-catalog.ts`: generated package catalog data shared with `docs/packages/README.md`
 - `angular/apps/demo-angular/src/app/features/angular-url-state/`: URL-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-query-form/`: query-form package demos and fixtures
-- `angular/apps/demo-angular/src/app/features/angular-async-state/`: async-state package demos and fixtures
+- `angular/apps/demo-angular/src/app/features/angular-async-state/`: async-state package demos and fixtures (includes "Load from API" toggle)
 - `angular/apps/demo-angular/src/app/features/angular-lookups/`: lookups package demos and product-catalog fixtures
-- `dotnet/samples/HexGuard.SampleApi/Packages/`: one shared sample API with folders per demoed package instead of separate per-package hosts
 - `angular/apps/demo-angular/src/app/features/angular-optimistic-state/`: optimistic-state package demos and fixtures
 - `angular/apps/demo-angular/src/app/features/angular-permissions/`: permissions package demos and shared persona fixtures
-- `angular/apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, and URL-tracking helpers
+- `angular/apps/demo-angular/src/app/features/dotnet/`: .NET showcase pages — hub, ReferenceData demo, SampleApi explorer
+- `angular/apps/demo-angular/src/app/shared/`: reusable layout, inspector, formatting, URL-tracking helpers, and navigation strip (extended for .NET)
 - `angular/apps/demo-angular/src/app/generated/demo-snippets.ts`: generated source excerpts shown in the demo inspector panels
+- `dotnet/samples/HexGuard.SampleApi/Packages/`: one shared sample API with folders per demoed package — 5 endpoint groups (angular-lookups, angular-async-state, angular-optimistic-state, angular-permissions, hexguard-reference-data)
 
 Run `pnpm demo:snippets` after changing marked demo source snippets. The build, app tests, and
 Playwright scripts run it automatically.
@@ -177,6 +214,18 @@ The tests start both the Angular demo and the shared .NET sample API automatical
 31. Open `/packages/angular-permissions/actions`, switch from `Guest reviewer` to `Admin auditor`, and confirm the approve button enables, the audit panel appears, and the override fallback is replaced by the privileged panel.
 32. Open `/packages/angular-permissions/routing`, switch personas, then navigate to `Finance child route` and `Audit child route`. Confirm unauthorized personas land on the denied panel while authorized personas see the protected child content.
 33. Confirm the current URL strip always reflects the visible committed state.
+34. Open `/dotnet` and confirm the .NET package hub shows the ReferenceData library with demo
+    links and getting-started instructions.
+35. Open `/dotnet/reference-data`, click "Load valid catalog", and confirm the contract panel and
+    JSON response render with collections and items.
+36. On `/dotnet/reference-data`, click "Load invalid catalog" and confirm the validation error list
+    appears with duplicate key messages.
+37. Open `/dotnet/sample-api`, click "Discover endpoints", and confirm all 5 endpoint groups are
+    listed with "Try it" buttons.
+38. On `/dotnet/sample-api`, click "Try it" on the hexguard-reference-data catalog endpoint and
+    confirm the JSON response from the real library types renders.
+39. Open `/packages/angular-async-state/value`, click "Load from API" (turns on live mode),
+    then click "Load dashboard cards" and confirm the data source indicator shows "Live .NET API".
 
 ## Selector Policy
 

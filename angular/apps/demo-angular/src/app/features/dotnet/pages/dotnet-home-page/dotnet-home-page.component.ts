@@ -192,6 +192,13 @@ import { SITE_DOTNET_PACKAGES } from '../../../../site-catalog';
             <span class="dotnet-home__cross-chip-label">angular-permissions</span>
             <span class="dotnet-home__cross-chip-desc">Action Gating</span>
           </a>
+          <a
+            class="demo-card demo-card--nav dotnet-home__cross-chip"
+            [routerLink]="'/packages/angular-api-errors/backend'"
+          >
+            <span class="dotnet-home__cross-chip-label">angular-api-errors</span>
+            <span class="dotnet-home__cross-chip-desc">Backend Validation</span>
+          </a>
         </div>
       </section>
     </section>

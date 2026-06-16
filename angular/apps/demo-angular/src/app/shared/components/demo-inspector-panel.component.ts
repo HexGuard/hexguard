@@ -24,15 +24,17 @@ import type { DemoSourceSnippet } from '../../generated/demo-snippets';
           >
             Live state
           </button>
-          <button
-            type="button"
-            class="demo-tab-button"
-            [class.demo-tab-button--active]="activeTab() === 'code'"
-            [attr.data-testid]="panelTestId() + '-tab-code'"
-            (click)="activeTab.set('code')"
-          >
-            Source
-          </button>
+          @if (snippetId()) {
+            <button
+              type="button"
+              class="demo-tab-button"
+              [class.demo-tab-button--active]="activeTab() === 'code'"
+              [attr.data-testid]="panelTestId() + '-tab-code'"
+              (click)="activeTab.set('code')"
+            >
+              Source
+            </button>
+          }
         </div>
       </div>
 

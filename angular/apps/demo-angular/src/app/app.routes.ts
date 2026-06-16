@@ -3,6 +3,7 @@ import type { Routes } from '@angular/router';
 import { canActivatePermissions, canMatchPermissions } from '@hexguard/angular-permissions';
 
 import {
+  ANGULAR_API_ERRORS_BACKEND_DEMO,
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
@@ -59,6 +60,7 @@ import { AngularUrlStateHomePageComponent } from './features/angular-url-state/p
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
 import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
 import { AngularApiErrorsHomePageComponent } from './features/angular-api-errors/pages/angular-api-errors-home-page.component';
+import { ApiErrorsBackendDemoPageComponent } from './features/angular-api-errors/pages/api-errors-backend-demo-page/api-errors-backend-demo-page.component';
 import { FormValidationDemoPageComponent } from './features/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
 
 export const routes: Routes = [
@@ -219,6 +221,11 @@ export const routes: Routes = [
     component: FormValidationDemoPageComponent,
     title: 'Form Validation Demo',
   },
+  {
+    path: 'packages/angular-api-errors/backend',
+    component: ApiErrorsBackendDemoPageComponent,
+    title: 'Backend Validation Demo',
+  },
   // ── .NET showcase routes ────────────────────────────────────────
   {
     path: 'dotnet',
@@ -272,6 +279,10 @@ export const routes: Routes = [
   {
     path: 'api-errors-form-validation',
     redirectTo: FORM_VALIDATION_DEMO.route.slice(1),
+  },
+  {
+    path: 'api-errors-backend',
+    redirectTo: ANGULAR_API_ERRORS_BACKEND_DEMO.route.slice(1),
   },
   {
     path: 'lookups-editor',

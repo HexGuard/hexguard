@@ -613,6 +613,37 @@ export const FORM_VALIDATION_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_API_ERRORS_BACKEND_DEMO: DemoPageEntry = {
+  id: 'api-errors-backend',
+  packageId: 'angular-api-errors',
+  route: '/packages/angular-api-errors/backend',
+  legacyRoute: '/api-errors-backend',
+  label: 'Backend Validation Demo',
+  title: 'Cross-stack validation via the shared .NET SampleApi',
+  description:
+    'Proves the end-to-end validation pipeline: the Angular apiFormErrors() consumes RFC 9457 Problem Details payloads that the HexGuard.ValidationContracts .NET library produces.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-api-errors/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-api-errors.md',
+    },
+    {
+      label: 'Validation Contracts (.NET)',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/validation-contracts.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-api-errors/backend-demo-state',
+    label: 'Backend validation component source',
+    description:
+      'The full cross-stack validation demo component source, including TypeScript, template, and styles.',
+  },
+};
+
 export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
   id: 'angular-api-errors',
   route: '/packages/angular-api-errors',
@@ -620,7 +651,7 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
   title: ANGULAR_API_ERRORS_CATALOG.packageName,
   description: ANGULAR_API_ERRORS_CATALOG.summary,
   docsLinks: ANGULAR_API_ERRORS_DOCS,
-  demos: [FORM_VALIDATION_DEMO],
+  demos: [FORM_VALIDATION_DEMO, ANGULAR_API_ERRORS_BACKEND_DEMO],
 };
 
 export const DEMO_PACKAGES = [

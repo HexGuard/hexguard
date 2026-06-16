@@ -172,27 +172,29 @@ export const SITE_PILLARS = [
 ] as const satisfies readonly SitePillar[];
 
 function buildCurrentPackages(): readonly SitePackageCatalogEntry[] {
-  return GENERATED_CURRENT_PACKAGES.map((packageEntry) => {
-    const demoPackage = getDemoPackage(packageEntry.id);
+  return GENERATED_CURRENT_PACKAGES
+    .filter((packageEntry) => packageEntry.scope === 'Angular')
+    .map((packageEntry) => {
+      const demoPackage = getDemoPackage(packageEntry.id);
 
-    if (!demoPackage) {
-      throw new Error(`Missing demo package for site catalog entry ${packageEntry.id}.`);
-    }
+      if (!demoPackage) {
+        throw new Error(`Missing demo package for site catalog entry ${packageEntry.id}.`);
+      }
 
-    const dotnetCounterpartId = ANGULAR_TO_DOTNET_COUNTERPART[packageEntry.id] ?? null;
-    const dotnetCounterpart = dotnetCounterpartId
-      ? DOTNET_PACKAGES.find((p) => p.id === dotnetCounterpartId)
-      : null;
+      const dotnetCounterpartId = ANGULAR_TO_DOTNET_COUNTERPART[packageEntry.id] ?? null;
+      const dotnetCounterpart = dotnetCounterpartId
+        ? DOTNET_PACKAGES.find((p) => p.id === dotnetCounterpartId)
+        : null;
 
-    return {
-      ...packageEntry,
-      route: demoPackage.route,
-      demoCount: demoPackage.demos.length,
-      demoPackage,
-      dotnetCounterpartId,
-      dotnetCounterpartLabel: dotnetCounterpart?.nugetId ?? null,
-    };
-  });
+      return {
+        ...packageEntry,
+        route: demoPackage.route,
+        demoCount: demoPackage.demos.length,
+        demoPackage,
+        dotnetCounterpartId,
+        dotnetCounterpartLabel: dotnetCounterpart?.nugetId ?? null,
+      };
+    });
 }
 
 let _currentPackages: readonly SitePackageCatalogEntry[] | null = null;

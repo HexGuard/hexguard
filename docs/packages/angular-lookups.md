@@ -7,6 +7,17 @@ labels separately across forms, filters, and detail views.
 This package keeps the contract explicit through one validated catalog shape, one loader-backed
 cache, one injected facade, and one thin template label pipe.
 
+## .NET Counterpart
+
+This Angular package pairs with `HexGuard.ReferenceData` on the .NET side. The .NET library owns
+the same typed catalog contract (`ReferenceDataCatalog`, `ReferenceDataCollection`,
+`ReferenceDataItem`) with a built-in validator, while the Angular package handles caching, label
+resolution, and template rendering.
+
+Both stacks validate the same catalog shape through the shared `HexGuard.SampleApi`. The .NET
+deep-dive is at [hexguard-reference-data.md](hexguard-reference-data.md) and the library source
+lives in [`dotnet/src/HexGuard.ReferenceData/`](../../dotnet/src/HexGuard.ReferenceData/).
+
 ## Install
 
 ```bash
@@ -21,11 +32,15 @@ pnpm dotnet:start:demo-api
 ```
 
 The shared sample API listens on `http://127.0.0.1:5074` and serves package-scoped demo routes
-under `/api/<package-id>/...`. The first implemented slice is the Angular lookups catalog:
+under `/api/<package-id>/...`. The reference-data endpoints demonstrate the `HexGuard.ReferenceData`
+library types:
 
 - `GET /api/angular-lookups/catalog?scenario=base`
 - `GET /api/angular-lookups/catalog?scenario=refreshed`
 - `GET /api/angular-lookups/catalog?scenario=invalid`
+- `GET /api/reference-data/catalog` (direct library usage, .NET-only demo)
+- `GET /api/reference-data/catalog/validate`
+- `GET /api/reference-data/catalog/invalid`
 
 ## Contract Shape
 

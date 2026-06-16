@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { DemoInspectorPanelComponent } from '../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../shared/components/demo-page-layout.component';
+import { DemoStatusStripComponent } from '../../../../shared/components/demo-status-strip.component';
+import { createTrackedCurrentUrl } from '../../../../shared/current-url.signal';
 import { DOTNET_VALIDATION_CONTRACTS_HOME, getDotnetPackage } from '../../../../demo-registry';
 import type { DemoPageEntry } from '../../../../demo-registry';
 
@@ -14,6 +16,7 @@ const API_BASE = 'http://127.0.0.1:5074';
     DemoPageLayoutComponent,
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,
+    DemoStatusStripComponent,
   ],
   templateUrl: './validation-contracts-demo-page.component.html',
   styleUrls: ['./validation-contracts-demo-page.component.css'],
@@ -43,11 +46,13 @@ export class ValidationContractsDemoPageComponent {
     codeSample: { snippetId: '', label: '', description: '' },
   };
 
+  readonly currentUrl = createTrackedCurrentUrl(this.dotnetDemo.route);
+
   readonly statusText = computed(() => {
-    if (this.isBusy()) return 'Loading\u2026';
-    if (this.error()) return 'Error';
+    if (this.isBusy()) return 'Calling the .NET SampleApi\u2026';
+    if (this.error()) return 'Request failed \u2014 see error banner for details.';
     if (this.lastScenario()) return `Loaded: ${this.lastScenario()}`;
-    return 'Idle \u2014 click a button to start';
+    return 'Idle \u2014 click a button above to call the .NET ValidationContracts SampleApi.';
   });
 
   readonly snapshotJson = computed(() => this.responseJson() ?? '{}');
@@ -56,6 +61,7 @@ export class ValidationContractsDemoPageComponent {
     this.isBusy.set(true);
     this.error.set(null);
     this.lastUrl.set(url);
+    this.lastScenario.set(null);
 
     try {
       const response = await fetch(url);
@@ -96,6 +102,7 @@ export class ValidationContractsDemoPageComponent {
     this.isBusy.set(true);
     this.error.set(null);
     this.lastUrl.set(url);
+    this.lastScenario.set(null);
 
     fetch(url, {
       method: 'POST',
@@ -131,6 +138,7 @@ export class ValidationContractsDemoPageComponent {
     this.isBusy.set(true);
     this.error.set(null);
     this.lastUrl.set(url);
+    this.lastScenario.set(null);
 
     fetch(url, {
       method: 'POST',

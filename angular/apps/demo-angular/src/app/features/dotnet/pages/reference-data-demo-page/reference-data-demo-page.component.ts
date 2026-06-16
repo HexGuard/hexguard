@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { DemoInspectorPanelComponent } from '../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../shared/components/demo-page-layout.component';
+import { DemoStatusStripComponent } from '../../../../shared/components/demo-status-strip.component';
+import { createTrackedCurrentUrl } from '../../../../shared/current-url.signal';
 import { DOTNET_REFERENCE_DATA_HOME, getDotnetPackage } from '../../../../demo-registry';
 import type { DemoPageEntry } from '../../../../demo-registry';
 
@@ -11,7 +13,12 @@ const API_BASE = 'http://127.0.0.1:5074';
 @Component({
   standalone: true,
   selector: 'demo-reference-data-page',
-  imports: [DemoPageLayoutComponent, DemoInspectorPanelComponent, DemoNavigationStripComponent],
+  imports: [
+    DemoPageLayoutComponent,
+    DemoInspectorPanelComponent,
+    DemoNavigationStripComponent,
+    DemoStatusStripComponent,
+  ],
   template: `
     <demo-page-layout testId="reference-data-page">
       <demo-navigation-strip
@@ -34,6 +41,12 @@ const API_BASE = 'http://127.0.0.1:5074';
             </p>
           </article>
 
+          <div class="reference-data-demo__cross-stack">
+            <span class="demo-hint-pill">.NET: HexGuard.ReferenceData</span>
+            <span class="demo-hint-pill">&harr;</span>
+            <span class="demo-hint-pill">Angular: @hexguard/angular-lookups</span>
+          </div>
+
           <div class="reference-data-demo__toolbar">
             <div class="reference-data-demo__actions">
               <button
@@ -53,8 +66,21 @@ const API_BASE = 'http://127.0.0.1:5074';
                 Load invalid catalog
               </button>
             </div>
-            <span class="demo-hint-pill">{{ statusText() }}</span>
           </div>
+
+          @if (lastRequestUrl(); as url) {
+            <p class="reference-data-demo__req-url" data-testid="refdata-request-url">
+              {{ url }}
+            </p>
+          }
+
+          <demo-status-strip
+            testId="refdata-status-strip"
+            summaryTestId="refdata-summary"
+            urlTestId="refdata-current-url"
+            [summary]="statusText()"
+            [currentUrl]="currentUrl()"
+          />
 
           @if (error()) {
             <div class="demo-banner demo-banner--error" data-testid="refdata-error-banner">
@@ -68,15 +94,19 @@ const API_BASE = 'http://127.0.0.1:5074';
         <div class="reference-data-demo__grid">
           <div class="reference-data-demo__contract-panel">
             <article class="demo-card demo-card--stack">
-              <p class="demo-eyebrow">Library contracts</p>
-              <h3>Public types</h3>
+              <div class="demo-card__header">
+                <div>
+                  <p class="demo-eyebrow">Library contracts</p>
+                  <h3>Public types</h3>
+                </div>
+                <span class="demo-hint-pill" data-testid="refdata-collection-count">
+                  {{ collectionCount() }} collections
+                </span>
+              </div>
               <p class="demo-card__summary">The library exports these core types:</p>
               <ul class="reference-data-demo__type-list">
                 <li class="reference-data-demo__type-item">
                   <strong>ReferenceDataCatalog</strong> — versioned root with metadata + collections
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataCatalogMetadata</strong> — Version + GeneratedAtUtc
                 </li>
                 <li class="reference-data-demo__type-item">
                   <strong>ReferenceDataCollection</strong> — named family with Key, Revision, Items
@@ -85,39 +115,38 @@ const API_BASE = 'http://127.0.0.1:5074';
                   <strong>ReferenceDataItem</strong> — lookup option with Key, Label, IsActive
                 </li>
                 <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataCatalogValidator</strong> — validates contract
+                  <strong>ReferenceDataCatalogValidator</strong> — validates contract shape
                 </li>
                 <li class="reference-data-demo__type-item">
                   <strong>IReferenceDataCatalogProvider</strong> — async provider interface
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>StaticReferenceDataCatalogProvider</strong> — in-memory provider
                 </li>
               </ul>
             </article>
 
             @if (validationResult(); as result) {
               <article class="demo-card demo-card--stack">
-                <p class="demo-eyebrow">Validation</p>
-                <h3>Results</h3>
-                <div class="reference-data-demo__validation-results">
-                  @if (result.isValid) {
-                    <span
-                      class="reference-data-demo__valid-badge reference-data-demo__valid-badge--pass"
-                    >
-                      ✓ Catalog is valid
-                    </span>
-                  } @else {
-                    <span
-                      class="reference-data-demo__valid-badge reference-data-demo__valid-badge--fail"
-                    >
-                      ✗ {{ result.errors.length }} validation error(s)
-                    </span>
-                    @for (err of result.errors; track err) {
-                      <div class="reference-data-demo__error-item">{{ err }}</div>
-                    }
-                  }
+                <div class="demo-card__header">
+                  <div>
+                    <p class="demo-eyebrow">Validation</p>
+                    <h3>Results</h3>
+                  </div>
+                  <span
+                    class="reference-data-demo__valid-badge"
+                    [class.reference-data-demo__valid-badge--pass]="result.isValid"
+                    [class.reference-data-demo__valid-badge--fail]="!result.isValid"
+                  >
+                    {{ result.isValid ? '\u2713 Valid' : '\u2717 ' + result.errors.length + ' error(s)' }}
+                  </span>
                 </div>
+                @if (!result.isValid) {
+                  <div class="reference-data-demo__error-list">
+                    @for (err of result.errors; track err) {
+                      <div class="reference-data-demo__error-item" data-testid="refdata-error-item">
+                        {{ err }}
+                      </div>
+                    }
+                  </div>
+                }
               </article>
             }
           </div>
@@ -125,8 +154,12 @@ const API_BASE = 'http://127.0.0.1:5074';
           <div>
             @if (responseJson(); as json) {
               <article class="demo-card demo-card--stack">
-                <p class="demo-eyebrow">API response</p>
-                <h3>Raw JSON</h3>
+                <div class="demo-card__header">
+                  <div>
+                    <p class="demo-eyebrow">API response</p>
+                    <h3>Raw JSON</h3>
+                  </div>
+                </div>
                 <pre class="demo-code-block" data-testid="refdata-response-json">{{ json }}</pre>
               </article>
             }
@@ -160,6 +193,8 @@ export class ReferenceDataDemoPageComponent {
   readonly error = signal<string | null>(null);
   readonly isBusy = signal(false);
   readonly lastScenario = signal<string | null>(null);
+  readonly lastRequestUrl = signal<string | null>(null);
+  readonly currentUrl = createTrackedCurrentUrl(this.dotnetDemo.route);
 
   readonly dummyDemoEntry: DemoPageEntry = {
     id: 'reference-data',
@@ -185,10 +220,10 @@ export class ReferenceDataDemoPageComponent {
   });
 
   readonly statusText = computed(() => {
-    if (this.isBusy()) return 'Loading\u2026';
-    if (this.error()) return 'Error';
-    if (this.lastScenario()) return `Loaded: ${this.lastScenario()}`;
-    return 'Idle \u2014 click a button to start';
+    if (this.isBusy()) return 'Fetching catalog from the shared SampleApi\u2026';
+    if (this.error()) return 'Request failed \u2014 see error banner for details.';
+    if (this.lastScenario()) return `Loaded catalog: ${this.lastScenario()}`;
+    return 'Idle \u2014 click a button above to load a catalog from the .NET SampleApi.';
   });
 
   readonly snapshotJson = computed(() => {
@@ -200,6 +235,7 @@ export class ReferenceDataDemoPageComponent {
   private async fetchAndSet(url: string, scenarioLabel: string): Promise<void> {
     this.isBusy.set(true);
     this.error.set(null);
+    this.lastRequestUrl.set(url);
     this.validationResult.set(null);
 
     try {

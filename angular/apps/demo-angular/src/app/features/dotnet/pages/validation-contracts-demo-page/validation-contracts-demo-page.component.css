@@ -46,3 +46,16 @@
   color: var(--color-text-tertiary, #888);
   word-break: break-all;
 }
+
+.validation-contracts-demo__cross-stack {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+}
+
+.validation-contracts-demo__grid {
+  display: grid;
+  gap: 1rem;
+}
