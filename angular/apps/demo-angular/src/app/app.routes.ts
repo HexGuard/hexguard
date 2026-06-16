@@ -53,6 +53,7 @@ import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-for
 import { DotnetHomePageComponent } from './features/dotnet/pages/dotnet-home-page/dotnet-home-page.component';
 import { ReferenceDataDemoPageComponent } from './features/dotnet/pages/reference-data-demo-page/reference-data-demo-page.component';
 import { SampleApiExplorerPageComponent } from './features/dotnet/pages/sample-api-explorer-page/sample-api-explorer-page.component';
+import { ValidationContractsDemoPageComponent } from './features/dotnet/pages/validation-contracts-demo-page/validation-contracts-demo-page.component';
 import { SiteHomePageComponent } from './features/site-home/pages/site-home-page.component';
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
@@ -228,6 +229,11 @@ export const routes: Routes = [
     path: 'dotnet/reference-data',
     component: ReferenceDataDemoPageComponent,
     title: 'ReferenceData Library Demo',
+  },
+  {
+    path: 'dotnet/validation-contracts',
+    component: ValidationContractsDemoPageComponent,
+    title: 'ValidationContracts Library Demo',
   },
   {
     path: 'dotnet/sample-api',

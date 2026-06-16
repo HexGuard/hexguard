@@ -719,7 +719,58 @@ export const DOTNET_SAMPLE_API_EXPLORER: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
+  id: 'validation-contracts',
+  packageId: 'hexguard-validation-contracts',
+  route: '/dotnet/validation-contracts',
+  label: 'ValidationContracts Library',
+  title: 'HexGuard.ValidationContracts — validation error contracts and RFC 9457 support',
+  description:
+    'Demonstrates ValidationError, ValidationResult, FieldPath, and ValidationErrorCode types from the HexGuard.ValidationContracts library, with RFC 9457 Problem Details integration through the shared SampleApi.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ValidationContracts',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/validation-contracts.md',
+    },
+  ],
+};
+
 export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
+  {
+    id: 'hexguard-validation-contracts',
+    route: '/dotnet',
+    label: 'HexGuard .NET Validation',
+    title: 'HexGuard.ValidationContracts',
+    nugetId: 'HexGuard.ValidationContracts',
+    description:
+      'Validation error contracts (field path, code, message) and RFC 9457 Problem Details helpers for .NET APIs, demonstrated through the shared HexGuard.SampleApi.',
+    summary:
+      'Standard error contracts with RFC 9457 Problem Details mapping and optional FluentValidation integration.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ValidationContracts',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_VALIDATION_CONTRACTS_HOME],
+  },
   {
     id: 'hexguard-reference-data',
     route: '/dotnet',

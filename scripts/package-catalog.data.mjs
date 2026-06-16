@@ -141,7 +141,7 @@ export const currentPackages = [
   {
     id: 'angular-api-errors',
     packageName: '@hexguard/angular-api-errors',
-    status: 'In Progress',
+    status: 'Available',
     scope: 'Angular',
     readmePath: 'angular/packages/angular-api-errors/README.md',
     deepDivePath: 'docs/packages/angular-api-errors.md',
@@ -342,7 +342,7 @@ export const roadmapPackages = [
     anchorId: 'package-validation-contracts',
     packageName: 'HexGuard.ValidationContracts',
     scope: '.NET',
-    status: 'Proposed',
+    status: 'Planned',
     summary:
       'Provides standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
     showOnSiteHome: true,

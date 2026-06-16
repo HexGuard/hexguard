@@ -239,7 +239,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-api-errors',
     packageName: '@hexguard/angular-api-errors',
-    status: 'In Progress',
+    status: 'Available',
     scope: 'Angular',
     summary:
       'Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state.',
@@ -494,7 +494,7 @@ export const GENERATED_ROADMAP_PACKAGES = [
     anchorId: 'package-validation-contracts',
     packageName: 'HexGuard.ValidationContracts',
     scope: '.NET',
-    status: 'Proposed',
+    status: 'Planned',
     summary:
       'Provides standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
     docsHref:

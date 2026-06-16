@@ -1,0 +1,111 @@
+<demo-page-layout testId="validation-contracts-page">
+  <demo-navigation-strip
+    [demo]="dummyDemoEntry"
+    testId="valcon-nav"
+    [dotnetDemo]="dotnetDemo"
+    [dotnetPackage]="dotnetPackage()"
+    demoNavigation
+  />
+
+  <article demoIntro>
+    <div class="validation-contracts-demo">
+      <p class="demo-eyebrow">HexGuard.ValidationContracts</p>
+      <h2>Validation error contracts and RFC 9457 Problem Details</h2>
+      <p class="demo-card__summary">
+        This page demonstrates the <code>HexGuard.ValidationContracts</code> NuGet library through the
+        shared .NET SampleApi. The library provides typed validation error records, field path helpers,
+        error code constants, and RFC 9457 Problem Details mapping.
+      </p>
+
+      <div class="validation-contracts-demo__toolbar">
+        <div class="validation-contracts-demo__actions">
+          <button
+            class="demo-button"
+            (click)="loadErrorCodes()"
+            data-testid="valcon-load-codes"
+            [disabled]="isBusy()"
+          >
+            Load error codes
+          </button>
+          <button
+            class="demo-button"
+            (click)="validateProduct()"
+            data-testid="valcon-validate-valid"
+            [disabled]="isBusy()"
+          >
+            Validate (valid)
+          </button>
+          <button
+            class="demo-button demo-button--secondary"
+            (click)="validateInvalid()"
+            data-testid="valcon-validate-invalid"
+            [disabled]="isBusy()"
+          >
+            Validate (invalid)
+          </button>
+        </div>
+        <span class="demo-hint-pill">{{ statusText() }}</span>
+      </div>
+
+      @if (lastUrl(); as url) {
+        <p class="validation-contracts-demo__request-url" data-testid="valcon-request-url">
+          {{ url }}
+        </p>
+      }
+
+      @if (error(); as err) {
+        <div class="demo-banner demo-banner--error" data-testid="valcon-error-banner">
+          {{ err }}
+        </div>
+      }
+    </div>
+  </article>
+
+  <article demoPrimary>
+    <div class="validation-contracts-demo__grid">
+      <article class="demo-card demo-card--stack">
+        <p class="demo-eyebrow">Library contracts</p>
+        <h3>Public types</h3>
+        <p class="demo-card__summary">The library exports these core types:</p>
+        <ul class="validation-contracts-demo__type-list">
+          <li class="validation-contracts-demo__type-item">
+            <strong>ValidationError</strong> — Field, Code, Message, IsFieldError
+          </li>
+          <li class="validation-contracts-demo__type-item">
+            <strong>ValidationResult</strong> — Errors, TraceId, IsValid, field filtering
+          </li>
+          <li class="validation-contracts-demo__type-item">
+            <strong>ValidationResultBuilder</strong> — fluent error construction
+          </li>
+          <li class="validation-contracts-demo__type-item">
+            <strong>FieldPath</strong> — Child, Index, IndexChild, GetParent, GetLeaf
+          </li>
+          <li class="validation-contracts-demo__type-item">
+            <strong>ValidationErrorCode</strong> — Required, InvalidFormat, OutOfRange, etc.
+          </li>
+          <li class="validation-contracts-demo__type-item">
+            <strong>ValidationResultProblemDetails</strong> — RFC 9457 adapter
+          </li>
+        </ul>
+      </article>
+
+      @if (responseJson(); as json) {
+        <article class="demo-card demo-card--stack">
+          <p class="demo-eyebrow">API response</p>
+          <h3>Raw JSON</h3>
+          <pre class="demo-code-block" data-testid="valcon-response-json">{{ json }}</pre>
+        </article>
+      }
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    title="Demo state"
+    [snapshotJson]="snapshotJson()"
+    snippetId=""
+    panelTestId="valcon-inspector"
+    snapshotTestId="valcon-snapshot"
+    codeTestId="valcon-code"
+  />
+</demo-page-layout>
