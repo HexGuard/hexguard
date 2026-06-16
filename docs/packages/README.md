@@ -374,6 +374,110 @@ Status: Proposed
 
 Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.
 
+<a id="package-angular-notifications"></a>
+
+### `@hexguard/angular-notifications`
+
+Status: Proposed
+
+Would standardize headless notification queue, toast stacking, timeout, and dismissal semantics for Angular apps without forcing one UI library.
+
+<a id="package-angular-debounce"></a>
+
+### `@hexguard/angular-debounce`
+
+Status: Proposed
+
+Would provide a reusable debounced value signal with configurable wait, leading/trailing, distinct-until-changed semantics, and pending state for search-as-you-type and auto-save workflows.
+
+<a id="package-angular-breakpoint-observer"></a>
+
+### `@hexguard/angular-breakpoint-observer`
+
+Status: Proposed
+
+Would standardize reactive TypeScript breakpoint detection with typed breakpoint contracts and signal-based active-breakpoint helpers so component logic can respond to viewport changes.
+
+<a id="package-angular-clipboard"></a>
+
+### `@hexguard/angular-clipboard`
+
+Status: Proposed
+
+Would provide a dependency-free async clipboard wrapper with fallback chain, copy feedback state, and optional directive for Angular apps.
+
+<a id="package-angular-form-utils"></a>
+
+### `@hexguard/angular-form-utils`
+
+Status: Proposed
+
+Would standardize cross-field validators, dirty-check helpers, unsaved-changes guards, and form-level dirty state tracking for Angular forms.
+
+<a id="package-angular-recently-viewed"></a>
+
+### `@hexguard/angular-recently-viewed`
+
+Status: Proposed
+
+Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.
+
+<a id="package-angular-pagination"></a>
+
+### `@hexguard/angular-pagination`
+
+Status: Proposed
+
+Would provide Angular pagination state signals, page-change helpers, and URL-compatible page state to pair with HexGuard.Pagination on the .NET side.
+
+<a id="package-dotnet-downloads"></a>
+
+### `HexGuard.Downloads`
+
+Status: Proposed
+
+Would provide file download helpers for content-disposition, range requests, large-file streaming, and cache header conventions in ASP.NET Core APIs.
+
+<a id="package-dotnet-cors"></a>
+
+### `HexGuard.Cors`
+
+Status: Proposed
+
+Would provide preconfigured CORS policy builders for common scenarios (SPA, public API, internal) with pattern-based origin matching and explicit policy naming.
+
+<a id="package-bulk-operations"></a>
+
+### `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`
+
+Status: Proposed
+
+Would pair backend bulk-operation contracts with Angular selection-state integration for multi-item actions such as delete, archive, approve, and reassign with partial-success (HTTP 207) reporting.
+
+<a id="package-exports"></a>
+
+### `HexGuard.Exports + @hexguard/angular-exports`
+
+Status: Proposed
+
+Would pair backend export-generation contracts (CSV, Excel, PDF) with Angular download progress, poll-for-ready helpers, and file-save behavior.
+
+<a id="package-change-tracking"></a>
+
+### `HexGuard.ChangeTracking + @hexguard/angular-change-tracking`
+
+Status: Proposed
+
+Would pair backend field-level change tracking contracts with Angular change-set rendering helpers for PATCH responses, audit UIs, and field-level update feedback.
+
+<a id="package-imports"></a>
+
+### `HexGuard.Imports + @hexguard/angular-imports`
+
+Status: Proposed
+
+Would pair backend import-session contracts (column mapping, row validation, commit-or-discard) with Angular import preview and row-level error display for CSV and Excel import workflows.
+
 ## Broader Prioritization Matrix
 
 Scores use `1-5` where higher adoption means broader repeated demand, higher complexity means a

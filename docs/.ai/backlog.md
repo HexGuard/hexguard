@@ -26,6 +26,14 @@
 
 - [ ] Keep `HexGuard.OperationStatus + @hexguard/angular-operation-status` as a parked paired package family until the Angular and .NET spaces both need it.
 - [ ] Keep `HexGuard.Idempotency + @hexguard/angular-idempotency` as a parked paired package family until the Angular and .NET spaces both need it.
+- [ ] Keep `@hexguard/angular-notifications` as a proposed headless notification queue and toast state package — high impact, small surface, unique in catalog.
+- [ ] Keep `@hexguard/angular-debounce` as a proposed debounced value signal package for search-as-you-type and auto-save workflows.
+- [ ] Keep `@hexguard/angular-breakpoint-observer` as a proposed reactive TypeScript breakpoint detection package.
+- [ ] Keep `@hexguard/angular-form-utils` as a proposed cross-field validators and dirty-check helpers package.
+- [ ] Keep `HexGuard.BulkOperations + @hexguard/angular-bulk-operations` as a parked cross-stack pair for multi-item actions with partial-success (HTTP 207) reporting.
+- [ ] Keep `HexGuard.Exports + @hexguard/angular-exports` as a parked cross-stack pair for CSV/Excel/PDF export contracts and client-side download tracking.
+- [ ] Keep `HexGuard.ChangeTracking + @hexguard/angular-change-tracking` as a parked cross-stack pair for field-level change set contracts and audit UI helpers.
+- [ ] Keep `HexGuard.Imports + @hexguard/angular-imports` as a parked cross-stack pair for CSV/Excel import sessions with column mapping, preview, and row-level error display.
 
 ## Later
 
@@ -33,3 +41,7 @@
 - [ ] Add changelog generation tied to package-scoped releases.
 - [ ] Introduce smoke tests for published tarballs in a clean consumer fixture.
 - [ ] Add package ownership metadata once the roadmap turns into multiple maintainers.
+- [ ] Design the package brief for `@hexguard/angular-notifications` as a headless notification queue with configurable stacking, timeout, pause-on-hover, and accessibility semantics.
+- [ ] Design the package brief for `@hexguard/angular-debounce` as a debounced value signal with configurable wait, leading/trailing, distinct-until-changed, and pending state.
+- [ ] Design the package brief for `@hexguard/angular-pagination` as an Angular pagination state signals package to pair with `HexGuard.Pagination`.
+- [ ] Design the package brief for `HexGuard.BulkOperations + @hexguard/angular-bulk-operations` as a cross-stack pair for bulk create/update/delete with per-item success/failure reporting.

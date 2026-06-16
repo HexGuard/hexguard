@@ -564,4 +564,134 @@ export const roadmapPackages = [
       'Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.',
     showOnSiteHome: false,
   },
+  {
+    id: 'angular-notifications',
+    anchorId: 'package-angular-notifications',
+    packageName: '@hexguard/angular-notifications',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize headless notification queue, toast stacking, timeout, and dismissal semantics for Angular apps without forcing one UI library.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-debounce',
+    anchorId: 'package-angular-debounce',
+    packageName: '@hexguard/angular-debounce',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a reusable debounced value signal with configurable wait, leading/trailing, distinct-until-changed semantics, and pending state for search-as-you-type and auto-save workflows.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-breakpoint-observer',
+    anchorId: 'package-angular-breakpoint-observer',
+    packageName: '@hexguard/angular-breakpoint-observer',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize reactive TypeScript breakpoint detection with typed breakpoint contracts and signal-based active-breakpoint helpers so component logic can respond to viewport changes.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-clipboard',
+    anchorId: 'package-angular-clipboard',
+    packageName: '@hexguard/angular-clipboard',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a dependency-free async clipboard wrapper with fallback chain, copy feedback state, and optional directive for Angular apps.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-form-utils',
+    anchorId: 'package-angular-form-utils',
+    packageName: '@hexguard/angular-form-utils',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize cross-field validators, dirty-check helpers, unsaved-changes guards, and form-level dirty state tracking for Angular forms.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-recently-viewed',
+    anchorId: 'package-angular-recently-viewed',
+    packageName: '@hexguard/angular-recently-viewed',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-pagination',
+    anchorId: 'package-angular-pagination',
+    packageName: '@hexguard/angular-pagination',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide Angular pagination state signals, page-change helpers, and URL-compatible page state to pair with HexGuard.Pagination on the .NET side.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-downloads',
+    anchorId: 'package-dotnet-downloads',
+    packageName: 'HexGuard.Downloads',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide file download helpers for content-disposition, range requests, large-file streaming, and cache header conventions in ASP.NET Core APIs.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-cors',
+    anchorId: 'package-dotnet-cors',
+    packageName: 'HexGuard.Cors',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide preconfigured CORS policy builders for common scenarios (SPA, public API, internal) with pattern-based origin matching and explicit policy naming.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'bulk-operations',
+    anchorId: 'package-bulk-operations',
+    packageName: 'HexGuard.BulkOperations + @hexguard/angular-bulk-operations',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend bulk-operation contracts with Angular selection-state integration for multi-item actions such as delete, archive, approve, and reassign with partial-success (HTTP 207) reporting.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'exports',
+    anchorId: 'package-exports',
+    packageName: 'HexGuard.Exports + @hexguard/angular-exports',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend export-generation contracts (CSV, Excel, PDF) with Angular download progress, poll-for-ready helpers, and file-save behavior.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'change-tracking',
+    anchorId: 'package-change-tracking',
+    packageName: 'HexGuard.ChangeTracking + @hexguard/angular-change-tracking',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend field-level change tracking contracts with Angular change-set rendering helpers for PATCH responses, audit UIs, and field-level update feedback.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'imports',
+    anchorId: 'package-imports',
+    packageName: 'HexGuard.Imports + @hexguard/angular-imports',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend import-session contracts (column mapping, row validation, commit-or-discard) with Angular import preview and row-level error display for CSV and Excel import workflows.',
+    showOnSiteHome: false,
+  },
 ];
