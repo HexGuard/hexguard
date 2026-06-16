@@ -19,8 +19,8 @@
     </div>
 
     <p class="demo-card__summary">
-      The grid renders labels through <code>HexguardLookupLabelPipe</code> while the inspector
-      still shows the same labels resolved imperatively from <code>injectLookups()</code>.
+      The grid renders labels through <code>HexguardLookupLabelPipe</code> while the inspector still
+      shows the same labels resolved imperatively from <code>injectLookups()</code>.
     </p>
 
     <div class="lookups-action-row">
@@ -90,15 +90,19 @@
                   <td>{{ product.sku }}</td>
                   <td>{{ product.name }}</td>
                   <td [attr.data-testid]="'lookups-summary-category-' + product.sku">
-                    {{ product.categoryKey | hexguardLookupLabel: 'categories': 'Unknown category' }}
+                    {{
+                      product.categoryKey | hexguardLookupLabel: 'categories' : 'Unknown category'
+                    }}
                   </td>
                   <td [attr.data-testid]="'lookups-summary-supplier-' + product.sku">
-                    {{ product.supplierKey | hexguardLookupLabel: 'suppliers': 'Unknown supplier' }}
+                    {{
+                      product.supplierKey | hexguardLookupLabel: 'suppliers' : 'Unknown supplier'
+                    }}
                   </td>
                   <td [attr.data-testid]="'lookups-summary-lifecycle-' + product.sku">
                     {{
                       product.lifecycleKey
-                        | hexguardLookupLabel: 'lifecycleStates': 'Unknown lifecycle state'
+                        | hexguardLookupLabel: 'lifecycleStates' : 'Unknown lifecycle state'
                     }}
                   </td>
                 </tr>
@@ -115,7 +119,8 @@
         <ul class="lookups-resolution-list">
           @for (row of resolvedRows(); track row.sku) {
             <li [attr.data-testid]="'lookups-summary-resolved-' + row.sku">
-              <strong>{{ row.sku }}</strong>: {{ row.category }} / {{ row.supplier }} /
+              <strong>{{ row.sku }}</strong
+              >: {{ row.category }} / {{ row.supplier }} /
               {{ row.lifecycle }}
             </li>
           }

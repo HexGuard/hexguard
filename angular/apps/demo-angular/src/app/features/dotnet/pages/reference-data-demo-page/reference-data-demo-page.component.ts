@@ -11,11 +11,7 @@ const API_BASE = 'http://127.0.0.1:5074';
 @Component({
   standalone: true,
   selector: 'demo-reference-data-page',
-  imports: [
-    DemoPageLayoutComponent,
-    DemoInspectorPanelComponent,
-    DemoNavigationStripComponent,
-  ],
+  imports: [DemoPageLayoutComponent, DemoInspectorPanelComponent, DemoNavigationStripComponent],
   template: `
     <demo-page-layout testId="reference-data-page">
       <demo-navigation-strip
@@ -155,9 +151,7 @@ const API_BASE = 'http://127.0.0.1:5074';
 })
 export class ReferenceDataDemoPageComponent {
   readonly dotnetDemo = DOTNET_REFERENCE_DATA_HOME;
-  readonly dotnetPackage = computed(() =>
-    getDotnetPackage('hexguard-reference-data'),
-  );
+  readonly dotnetPackage = computed(() => getDotnetPackage('hexguard-reference-data'));
 
   readonly apiBase = API_BASE;
 

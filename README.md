@@ -11,14 +11,14 @@ and is generated from the same source metadata that drives the Angular demo webs
 
 ### Compatibility Matrix
 
-| Package | Version | Angular | Peer dependencies | Status |
-|---|---|---|---|---|
-| `@hexguard/angular-url-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router` | Available |
-| `@hexguard/angular-async-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs` | Available |
-| `@hexguard/angular-query-form` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`, `@angular/router`, `@hexguard/angular-url-state` | Available |
-| `@hexguard/angular-optimistic-state` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs` | Available |
-| `@hexguard/angular-permissions` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router` | Available |
-| `@hexguard/angular-lookups` | 0.1.0 | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state` | Available |
+| Package                              | Version | Angular | Peer dependencies                                                                                      | Status    |
+| ------------------------------------ | ------- | ------- | ------------------------------------------------------------------------------------------------------ | --------- |
+| `@hexguard/angular-url-state`        | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                  | Available |
+| `@hexguard/angular-async-state`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                             | Available |
+| `@hexguard/angular-query-form`       | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`, `@angular/router`, `@hexguard/angular-url-state` | Available |
+| `@hexguard/angular-optimistic-state` | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                             | Available |
+| `@hexguard/angular-permissions`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                  | Available |
+| `@hexguard/angular-lookups`          | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state`                                    | Available |
 
 All packages are licensed under MIT and published with `publishConfig: { access: "public" }`.
 

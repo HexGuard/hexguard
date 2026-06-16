@@ -55,7 +55,12 @@ describe('DefaultApiErrorState', () => {
   });
 
   it('addError appends a single error', () => {
-    state.addError({ field: 'name', code: 'Required', message: 'Name is required.', isFieldError: true });
+    state.addError({
+      field: 'name',
+      code: 'Required',
+      message: 'Name is required.',
+      isFieldError: true,
+    });
     expect(state.errors().length).toBe(1);
   });
 

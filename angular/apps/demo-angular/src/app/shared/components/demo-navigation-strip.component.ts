@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { getDemoPackage, getDotnetPackage, type DemoPageEntry, type DotnetDemoPageEntry, type DotnetPackageEntry } from '../../demo-registry';
+import {
+  getDemoPackage,
+  getDotnetPackage,
+  type DemoPageEntry,
+  type DotnetDemoPageEntry,
+  type DotnetPackageEntry,
+} from '../../demo-registry';
 
 @Component({
   selector: 'demo-navigation-strip',

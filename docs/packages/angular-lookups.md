@@ -55,14 +55,14 @@ The first implementation assumes one payload can serve multiple lookup families 
 
 ## Feature Matrix
 
-| Capability | Status | Notes |
-| ---------- | ------ | ----- |
-| Loader-backed catalog cache | Available | `provideHexGuardLookups()` owns the async lifecycle, current version, reload, and invalidate behavior. |
-| Imperative lookup facade | Available | `injectLookups()` resolves collections, options, labels, and missing-key checks from the shared cache. |
-| Thin template label pipe | Available | `HexguardLookupLabelPipe` resolves labels for display-only templates and keeps fallback rendering explicit. |
-| Catalog validation | Available | Malformed payloads throw `LookupCatalogValidationError` instead of silently hydrating partial state. |
-| Localized or per-tenant catalogs | Deferred | The first release keeps one generic catalog shape and leaves locale- or tenant-specific orchestration to the host app. |
-| UI widgets such as select components | Not planned | The package owns lookup state and label resolution, not opinionated form controls. |
+| Capability                           | Status      | Notes                                                                                                                  |
+| ------------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Loader-backed catalog cache          | Available   | `provideHexGuardLookups()` owns the async lifecycle, current version, reload, and invalidate behavior.                 |
+| Imperative lookup facade             | Available   | `injectLookups()` resolves collections, options, labels, and missing-key checks from the shared cache.                 |
+| Thin template label pipe             | Available   | `HexguardLookupLabelPipe` resolves labels for display-only templates and keeps fallback rendering explicit.            |
+| Catalog validation                   | Available   | Malformed payloads throw `LookupCatalogValidationError` instead of silently hydrating partial state.                   |
+| Localized or per-tenant catalogs     | Deferred    | The first release keeps one generic catalog shape and leaves locale- or tenant-specific orchestration to the host app. |
+| UI widgets such as select components | Not planned | The package owns lookup state and label resolution, not opinionated form controls.                                     |
 
 ## Demo Routes
 
@@ -95,11 +95,11 @@ Registers one lookup cache for the active injector tree.
 
 `HexGuardLookupsOptions<TError>` fields:
 
-| Field | Required | Description |
-| ----- | -------- | ----------- |
-| `load` | yes | Async loader returning the full `LookupCatalog`. |
-| `initialCatalog` | no | Seed catalog used before the first remote load succeeds. |
-| `mapError` | no | Maps unknown transport failures into the host app's public error type. |
+| Field            | Required | Description                                                            |
+| ---------------- | -------- | ---------------------------------------------------------------------- |
+| `load`           | yes      | Async loader returning the full `LookupCatalog`.                       |
+| `initialCatalog` | no       | Seed catalog used before the first remote load succeeds.               |
+| `mapError`       | no       | Maps unknown transport failures into the host app's public error type. |
 
 ### `injectLookups()`
 

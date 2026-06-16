@@ -69,9 +69,7 @@ describe('ApiErrorParser', () => {
   describe('parseValidationErrors', () => {
     it('parses simple errors array', () => {
       const body = {
-        errors: [
-          { field: 'name', code: 'Required', message: 'Name is required.' },
-        ],
+        errors: [{ field: 'name', code: 'Required', message: 'Name is required.' }],
       };
 
       const result = parser.parseValidationErrors(body);
@@ -108,7 +106,9 @@ describe('ApiErrorParser', () => {
     it('returns null when no match', () => {
       const result = {
         isValid: true,
-        errors: [{ field: 'name', code: 'Required', message: 'Name is required.', isFieldError: true }],
+        errors: [
+          { field: 'name', code: 'Required', message: 'Name is required.', isFieldError: true },
+        ],
       };
 
       const error = parser.extractFieldError(result, 'email');
@@ -154,7 +154,12 @@ describe('ApiErrorParser', () => {
         isValid: false,
         errors: [
           { field: 'items.0.name', code: 'Required', message: 'Required.', isFieldError: true },
-          { field: 'items.0.price', code: 'OutOfRange', message: 'Out of range.', isFieldError: true },
+          {
+            field: 'items.0.price',
+            code: 'OutOfRange',
+            message: 'Out of range.',
+            isFieldError: true,
+          },
           { field: 'items.1.name', code: 'Required', message: 'Required.', isFieldError: true },
           { field: 'name', code: 'Required', message: 'Required.', isFieldError: true },
         ],

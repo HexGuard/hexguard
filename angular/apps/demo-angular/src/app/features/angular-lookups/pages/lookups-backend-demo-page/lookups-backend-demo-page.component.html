@@ -5,7 +5,9 @@
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Angular Lookups + .NET sample API</p>
-        <h2>One shared backend endpoint feeds the Angular lookup cache through a real browser request.</h2>
+        <h2>
+          One shared backend endpoint feeds the Angular lookup cache through a real browser request.
+        </h2>
       </div>
 
       <div class="lookups-toolbar">
@@ -108,7 +110,9 @@
         <h3>One package-scoped backend route, one shared cache facade</h3>
 
         <ul class="lookups-selection-list">
-          <li data-testid="lookups-backend-endpoint-path">Endpoint: /api/angular-lookups/catalog</li>
+          <li data-testid="lookups-backend-endpoint-path">
+            Endpoint: /api/angular-lookups/catalog
+          </li>
           <li data-testid="lookups-backend-active-scenario">Scenario: {{ selectedScenario() }}</li>
           <li data-testid="lookups-backend-active-version">
             Catalog version: {{ lookups.version() ?? 'not loaded' }}
@@ -146,15 +150,19 @@
                   <td>{{ product.sku }}</td>
                   <td>{{ product.name }}</td>
                   <td [attr.data-testid]="'lookups-backend-category-' + product.sku">
-                    {{ product.categoryKey | hexguardLookupLabel: 'categories': 'Unknown category' }}
+                    {{
+                      product.categoryKey | hexguardLookupLabel: 'categories' : 'Unknown category'
+                    }}
                   </td>
                   <td [attr.data-testid]="'lookups-backend-supplier-' + product.sku">
-                    {{ product.supplierKey | hexguardLookupLabel: 'suppliers': 'Unknown supplier' }}
+                    {{
+                      product.supplierKey | hexguardLookupLabel: 'suppliers' : 'Unknown supplier'
+                    }}
                   </td>
                   <td [attr.data-testid]="'lookups-backend-lifecycle-' + product.sku">
                     {{
                       product.lifecycleKey
-                        | hexguardLookupLabel: 'lifecycleStates': 'Unknown lifecycle state'
+                        | hexguardLookupLabel: 'lifecycleStates' : 'Unknown lifecycle state'
                     }}
                   </td>
                 </tr>

@@ -10,30 +10,30 @@ validation contract alignment.
 
 ## Feature Matrix
 
-| Capability | Status | Notes |
-|------------|--------|-------|
-| `ValidationError` record | ✅ Available | Field path, error code, message, `IsFieldError` helper |
-| `ValidationResult` record | ✅ Available | `IsValid`, `FieldErrors`, `ModelErrors`, `ForField()`, `ForFieldPrefix()` |
-| `FieldPath` helpers | ✅ Available | `Child()`, `Index()`, `IndexChild()`, `GetParent()`, `GetLeaf()` |
-| `ValidationErrorCode` constants | ✅ Available | `Required`, `InvalidFormat`, `OutOfRange`, `Duplicate`, etc. |
-| `ValidationResultBuilder` | ✅ Available | Fluent builder: `AddError()`, `AddModelError()`, `WithTraceId()` |
-| `ValidationResultProblemDetails` | ✅ Available | RFC 9457 Problem Details adapter with `errors` extension |
-| `FluentValidationExtensions.AsValidationResult()` | ✅ Available | Conditional compile (`HEXGUARD_HAS_FLUENTVALIDATION`) |
-| Minimal API integration | ✅ Available | `ToProblemDetailsExtensions()` for `Results.Problem()` |
-| Sample API endpoints | ✅ Available | `/api/validation-contracts/validate` (POST), `/api/validation-contracts/error-codes` (GET) |
-| DataAnnotations mapping | 🚧 Planned | Extension method for `ValidationResult` collection |
+| Capability                                        | Status       | Notes                                                                                      |
+| ------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
+| `ValidationError` record                          | ✅ Available | Field path, error code, message, `IsFieldError` helper                                     |
+| `ValidationResult` record                         | ✅ Available | `IsValid`, `FieldErrors`, `ModelErrors`, `ForField()`, `ForFieldPrefix()`                  |
+| `FieldPath` helpers                               | ✅ Available | `Child()`, `Index()`, `IndexChild()`, `GetParent()`, `GetLeaf()`                           |
+| `ValidationErrorCode` constants                   | ✅ Available | `Required`, `InvalidFormat`, `OutOfRange`, `Duplicate`, etc.                               |
+| `ValidationResultBuilder`                         | ✅ Available | Fluent builder: `AddError()`, `AddModelError()`, `WithTraceId()`                           |
+| `ValidationResultProblemDetails`                  | ✅ Available | RFC 9457 Problem Details adapter with `errors` extension                                   |
+| `FluentValidationExtensions.AsValidationResult()` | ✅ Available | Conditional compile (`HEXGUARD_HAS_FLUENTVALIDATION`)                                      |
+| Minimal API integration                           | ✅ Available | `ToProblemDetailsExtensions()` for `Results.Problem()`                                     |
+| Sample API endpoints                              | ✅ Available | `/api/validation-contracts/validate` (POST), `/api/validation-contracts/error-codes` (GET) |
+| DataAnnotations mapping                           | 🚧 Planned   | Extension method for `ValidationResult` collection                                         |
 
 ## Public API Map
 
-| Type | Kind | Role |
-|------|------|------|
-| `ValidationError` | `sealed record` | Single validation error: `Field`, `Code`, `Message`, `IsFieldError` |
-| `ValidationResult` | `sealed record` | Error aggregation: `Errors`, `TraceId`, `IsValid`, filter helpers |
-| `FieldPath` | `static partial class` | Path construction: `Root`, `Child()`, `Index()`, `IndexChild()`, `GetParent()`, `GetLeaf()` |
-| `ValidationErrorCode` | `static partial class` | Error code constants: `Required`, `InvalidFormat`, `MaxLength`, etc. |
-| `ValidationResultBuilder` | `sealed class` | Fluent builder: `AddError()`, `AddModelError()`, `WithTraceId()`, `Build()` |
-| `ValidationResultProblemDetails` | `sealed record` | RFC 9457 adapter: `FromResult()`, `ToProblemDetailsExtensions()` |
-| `FluentValidationExtensions` | `static class` | `AsValidationResult()` — conditional on `HEXGUARD_HAS_FLUENTVALIDATION` |
+| Type                             | Kind                   | Role                                                                                        |
+| -------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------- |
+| `ValidationError`                | `sealed record`        | Single validation error: `Field`, `Code`, `Message`, `IsFieldError`                         |
+| `ValidationResult`               | `sealed record`        | Error aggregation: `Errors`, `TraceId`, `IsValid`, filter helpers                           |
+| `FieldPath`                      | `static partial class` | Path construction: `Root`, `Child()`, `Index()`, `IndexChild()`, `GetParent()`, `GetLeaf()` |
+| `ValidationErrorCode`            | `static partial class` | Error code constants: `Required`, `InvalidFormat`, `MaxLength`, etc.                        |
+| `ValidationResultBuilder`        | `sealed class`         | Fluent builder: `AddError()`, `AddModelError()`, `WithTraceId()`, `Build()`                 |
+| `ValidationResultProblemDetails` | `sealed record`        | RFC 9457 adapter: `FromResult()`, `ToProblemDetailsExtensions()`                            |
+| `FluentValidationExtensions`     | `static class`         | `AsValidationResult()` — conditional on `HEXGUARD_HAS_FLUENTVALIDATION`                     |
 
 ## Option Resolution & Defaults
 
@@ -52,44 +52,44 @@ var result = new ValidationResultBuilder()
 
 ### ValidationError
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `Field` | `string` | Dot-separated field path, empty for model-level errors |
-| `Code` | `string` | Machine-readable error code |
-| `Message` | `string` | Human-readable error description |
-| `IsFieldError` | `bool` (derived) | `true` when `Field.Length > 0` |
+| Property       | Type             | Description                                            |
+| -------------- | ---------------- | ------------------------------------------------------ |
+| `Field`        | `string`         | Dot-separated field path, empty for model-level errors |
+| `Code`         | `string`         | Machine-readable error code                            |
+| `Message`      | `string`         | Human-readable error description                       |
+| `IsFieldError` | `bool` (derived) | `true` when `Field.Length > 0`                         |
 
 ### ValidationResult
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `Errors` | `IReadOnlyList<ValidationError>` | All validation errors |
-| `TraceId` | `string?` | Optional correlation identifier |
-| `IsValid` | `bool` (derived) | `true` when `Errors.Count == 0` |
-| `FieldErrors` | `IReadOnlyList<ValidationError>` (derived) | Only field-level errors |
-| `ModelErrors` | `IReadOnlyList<ValidationError>` (derived) | Only model-level errors |
+| Property      | Type                                       | Description                     |
+| ------------- | ------------------------------------------ | ------------------------------- |
+| `Errors`      | `IReadOnlyList<ValidationError>`           | All validation errors           |
+| `TraceId`     | `string?`                                  | Optional correlation identifier |
+| `IsValid`     | `bool` (derived)                           | `true` when `Errors.Count == 0` |
+| `FieldErrors` | `IReadOnlyList<ValidationError>` (derived) | Only field-level errors         |
+| `ModelErrors` | `IReadOnlyList<ValidationError>` (derived) | Only model-level errors         |
 
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `ForField(string field)` | `IReadOnlyList<ValidationError>` | Errors matching exact field path |
-| `ForFieldPrefix(string prefix)` | `IReadOnlyList<ValidationError>` | Errors under a field prefix |
+| Method                          | Returns                          | Description                      |
+| ------------------------------- | -------------------------------- | -------------------------------- |
+| `ForField(string field)`        | `IReadOnlyList<ValidationError>` | Errors matching exact field path |
+| `ForFieldPrefix(string prefix)` | `IReadOnlyList<ValidationError>` | Errors under a field prefix      |
 
 ### ValidationResultProblemDetails
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `Type` | `string` | `"about:blank"` | Error type URI |
-| `Title` | `string` | `"One or more validation errors occurred."` | Short summary |
-| `Status` | `int` | `400` | HTTP status code |
-| `Detail` | `string?` | `null` | Specific explanation |
-| `Instance` | `string?` | `null` | Occurrence URI |
-| `TraceId` | `string?` | `null` | From `ValidationResult.TraceId` |
-| `Errors` | `IReadOnlyList<ValidationError>` | empty | From `ValidationResult.Errors` |
+| Property   | Type                             | Default                                     | Description                     |
+| ---------- | -------------------------------- | ------------------------------------------- | ------------------------------- |
+| `Type`     | `string`                         | `"about:blank"`                             | Error type URI                  |
+| `Title`    | `string`                         | `"One or more validation errors occurred."` | Short summary                   |
+| `Status`   | `int`                            | `400`                                       | HTTP status code                |
+| `Detail`   | `string?`                        | `null`                                      | Specific explanation            |
+| `Instance` | `string?`                        | `null`                                      | Occurrence URI                  |
+| `TraceId`  | `string?`                        | `null`                                      | From `ValidationResult.TraceId` |
+| `Errors`   | `IReadOnlyList<ValidationError>` | empty                                       | From `ValidationResult.Errors`  |
 
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `FromResult(ValidationResult, statusCode, detail, instance)` | `ValidationResultProblemDetails` | Factory |
-| `ToProblemDetailsExtensions()` | `Dictionary<string, object?>` | For `Results.Problem(extensions: ...)` |
+| Method                                                       | Returns                          | Description                            |
+| ------------------------------------------------------------ | -------------------------------- | -------------------------------------- |
+| `FromResult(ValidationResult, statusCode, detail, instance)` | `ValidationResultProblemDetails` | Factory                                |
+| `ToProblemDetailsExtensions()`                               | `Dictionary<string, object?>`    | For `Results.Problem(extensions: ...)` |
 
 ## Internal Behavior Notes
 
@@ -108,11 +108,11 @@ var result = new ValidationResultBuilder()
 
 The shared .NET sample API (`HexGuard.SampleApi`) exposes:
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/validation-contracts/` | GET | Package overview with contract shape |
-| `/api/validation-contracts/validate` | POST | Validates a sample product payload, returns RFC 9457 Problem Details |
-| `/api/validation-contracts/error-codes` | GET | Lists all known error codes |
+| Endpoint                                | Method | Description                                                          |
+| --------------------------------------- | ------ | -------------------------------------------------------------------- |
+| `/api/validation-contracts/`            | GET    | Package overview with contract shape                                 |
+| `/api/validation-contracts/validate`    | POST   | Validates a sample product payload, returns RFC 9457 Problem Details |
+| `/api/validation-contracts/error-codes` | GET    | Lists all known error codes                                          |
 
 Start the sample API:
 

@@ -165,7 +165,10 @@
         ];
         track entry.key
       ) {
-        <article class="lookups-collection-card" [attr.data-testid]="'lookups-editor-collection-' + entry.key">
+        <article
+          class="lookups-collection-card"
+          [attr.data-testid]="'lookups-editor-collection-' + entry.key"
+        >
           <p class="demo-eyebrow">Collection</p>
           <h3>{{ entry.key }}</h3>
           <p>{{ entry.count }} options currently visible.</p>

@@ -1,4 +1,9 @@
-import { DOTNET_PACKAGES, getDemoPackage, type DemoPackageEntry, type DotnetPackageEntry } from './demo-registry';
+import {
+  DOTNET_PACKAGES,
+  getDemoPackage,
+  type DemoPackageEntry,
+  type DotnetPackageEntry,
+} from './demo-registry';
 import {
   GENERATED_CURRENT_PACKAGES,
   GENERATED_ROADMAP_PACKAGES,
@@ -118,8 +123,8 @@ export function getSitePackage(packageId: string): SitePackageCatalogEntry {
   return packageEntry;
 }
 
-export const SITE_DOTNET_PACKAGES: readonly DotnetSitePackageCatalogEntry[] =
-  DOTNET_PACKAGES.map((dotnetPackage) => ({
+export const SITE_DOTNET_PACKAGES: readonly DotnetSitePackageCatalogEntry[] = DOTNET_PACKAGES.map(
+  (dotnetPackage) => ({
     id: dotnetPackage.id,
     packageName: dotnetPackage.nugetId,
     nugetId: dotnetPackage.nugetId,
@@ -128,7 +133,8 @@ export const SITE_DOTNET_PACKAGES: readonly DotnetSitePackageCatalogEntry[] =
     route: dotnetPackage.route,
     demoCount: dotnetPackage.demos.length,
     dotnetPackage,
-  }));
+  }),
+);
 
 export const SITE_ROADMAP_PACKAGES = GENERATED_ROADMAP_PACKAGES.filter(
   (entry) => entry.showOnSiteHome,

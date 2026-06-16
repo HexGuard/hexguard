@@ -3,7 +3,14 @@ import { computed, InjectionToken, type Provider } from '@angular/core';
 import { asyncState } from '@hexguard/angular-async-state';
 
 import { LookupCatalogValidationError } from './errors';
-import { EMPTY_LOOKUP_CATALOG, EMPTY_LOOKUP_ITEMS, assertLookupCatalog, findLookupCollection, findLookupItem, resolveLookupLabel } from './lookup-catalog';
+import {
+  EMPTY_LOOKUP_CATALOG,
+  EMPTY_LOOKUP_ITEMS,
+  assertLookupCatalog,
+  findLookupCollection,
+  findLookupItem,
+  resolveLookupLabel,
+} from './lookup-catalog';
 import type { HexGuardLookupsOptions } from './lookup-catalog-options';
 import type { HexGuardLookupError, HexGuardLookups, LookupCatalog, LookupItem } from './types';
 
@@ -31,7 +38,9 @@ export function provideHexGuardLookups<TError = unknown>(
   ];
 }
 
-function createLookupsHandle<TError>(options: HexGuardLookupsOptions<TError>): HexGuardLookups<TError> {
+function createLookupsHandle<TError>(
+  options: HexGuardLookupsOptions<TError>,
+): HexGuardLookups<TError> {
   const initialCatalog =
     options.initialCatalog === undefined
       ? EMPTY_LOOKUP_CATALOG
@@ -97,5 +106,7 @@ function mapLookupError<TError>(
   error: unknown,
   mapError?: (error: unknown) => TError,
 ): HexGuardLookupError<TError> {
-  return error instanceof LookupCatalogValidationError ? error : (mapError?.(error) ?? (error as TError));
+  return error instanceof LookupCatalogValidationError
+    ? error
+    : (mapError?.(error) ?? (error as TError));
 }

@@ -20,9 +20,7 @@ import {
         <div class="site-home__hero-grid">
           <div class="site-home__hero-copy">
             <p class="demo-eyebrow">Open-source guardrails</p>
-            <h2>
-              Angular and .NET guardrails with live demos, docs, and a shared sample API.
-            </h2>
+            <h2>Angular and .NET guardrails with live demos, docs, and a shared sample API.</h2>
             <p class="demo-card__summary site-home__lede">
               HexGuard is a monorepo for small, explicit application guardrails. The current public
               surface includes Angular packages and .NET libraries with live demos, a shared sample

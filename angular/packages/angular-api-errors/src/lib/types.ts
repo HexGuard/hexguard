@@ -59,5 +59,3 @@ export interface HexGuardApiErrorsOptions {
    */
   readonly strictParsing?: boolean;
 }
-
-

@@ -32,7 +32,12 @@ describe('apiFormErrors', () => {
       errors: [
         { field: 'name', code: 'Required', message: 'Name is required.', isFieldError: true },
         { field: '', code: 'BusinessRule', message: 'General failure.', isFieldError: false },
-        { field: 'nonexistent', code: 'InvalidFormat', message: 'No matching control.', isFieldError: true },
+        {
+          field: 'nonexistent',
+          code: 'InvalidFormat',
+          message: 'No matching control.',
+          isFieldError: true,
+        },
       ],
     };
 

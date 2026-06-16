@@ -24,7 +24,10 @@ export function validateLookupCatalog(catalog: LookupCatalog): readonly string[]
   if (!isRecord(catalog.metadata)) {
     errors.push('Metadata is required.');
   } else {
-    if (typeof catalog.metadata.version !== 'string' || catalog.metadata.version.trim().length === 0) {
+    if (
+      typeof catalog.metadata.version !== 'string' ||
+      catalog.metadata.version.trim().length === 0
+    ) {
       errors.push('Metadata.version is required.');
     }
 
@@ -69,7 +72,9 @@ export function validateLookupCatalog(catalog: LookupCatalog): readonly string[]
 
     for (const item of collectionItems) {
       if (!isRecord(item)) {
-        errors.push(`Collection '${String(collectionKey)}' cannot contain null or primitive items.`);
+        errors.push(
+          `Collection '${String(collectionKey)}' cannot contain null or primitive items.`,
+        );
         continue;
       }
 
@@ -79,7 +84,9 @@ export function validateLookupCatalog(catalog: LookupCatalog): readonly string[]
       if (itemKey === null || itemKey.trim().length === 0) {
         errors.push(`Collection '${String(collectionKey)}' contains an item with an empty key.`);
       } else if (itemKeys.has(itemKey)) {
-        errors.push(`Collection '${String(collectionKey)}' contains duplicate item key '${itemKey}'.`);
+        errors.push(
+          `Collection '${String(collectionKey)}' contains duplicate item key '${itemKey}'.`,
+        );
       } else {
         itemKeys.add(itemKey);
       }
@@ -111,9 +118,7 @@ export function findLookupCollection(
   catalog: LookupCatalog,
   collectionKey: string,
 ): LookupCollection | null {
-  return (
-    catalog.collections.find((collection) => collection.key === collectionKey) ?? null
-  );
+  return catalog.collections.find((collection) => collection.key === collectionKey) ?? null;
 }
 
 /** Finds one item inside one collection by exact keys. */

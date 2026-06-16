@@ -54,9 +54,7 @@ export const appProviders = [provideHexGuardLookups({ load: catalogLoader })];
 @Component({
   standalone: true,
   imports: [HexguardLookupLabelPipe],
-  template: `
-    <p>Category: {{ categoryKey | hexguardLookupLabel: 'categories': 'Unknown' }}</p>
-  `,
+  template: ` <p>Category: {{ categoryKey | hexguardLookupLabel: 'categories' : 'Unknown' }}</p> `,
 })
 export class ProductSummaryComponent {
   protected readonly categoryKey = 'hardware';

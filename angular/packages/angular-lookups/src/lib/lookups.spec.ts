@@ -233,7 +233,7 @@ describe('HexguardLookupLabelPipe', () => {
 @Component({
   standalone: true,
   imports: [HexguardLookupLabelPipe],
-  template: `{{ itemKey() | hexguardLookupLabel: 'categories': 'Unknown' }}`,
+  template: `{{ itemKey() | hexguardLookupLabel: 'categories' : 'Unknown' }}`,
 })
 class LookupLabelPipeHostComponent {
   readonly itemKey = signal('hardware');

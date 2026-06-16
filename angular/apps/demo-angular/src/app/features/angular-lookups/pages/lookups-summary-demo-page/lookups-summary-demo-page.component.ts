@@ -84,7 +84,9 @@ export class LookupsSummaryDemoPageComponent {
     }
 
     if (this.lookupState.isError()) {
-      return this.errorMessage() ?? 'The first lookup load failed before any labels were available.';
+      return (
+        this.errorMessage() ?? 'The first lookup load failed before any labels were available.'
+      );
     }
 
     return `Catalog ${this.lookups.version() ?? 'unknown'} resolved ${this.products.length} rows, including explicit fallbacks for missing keys.`;
@@ -133,7 +135,9 @@ export class LookupsSummaryDemoPageComponent {
         break;
     }
 
-    const promise = this.lookupState.hasLoaded() ? this.lookups.reload() : this.lookups.ensureLoaded();
+    const promise = this.lookupState.hasLoaded()
+      ? this.lookups.reload()
+      : this.lookups.ensureLoaded();
 
     void promise.catch(() => undefined);
   }

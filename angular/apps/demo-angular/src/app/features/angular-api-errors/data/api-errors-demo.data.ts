@@ -10,13 +10,7 @@ export interface ProductFormPayload {
 }
 
 /** Valid categories for the product form demo. */
-export const VALID_CATEGORIES = [
-  'Electronics',
-  'Clothing',
-  'Home',
-  'Books',
-  'Sports',
-] as const;
+export const VALID_CATEGORIES = ['Electronics', 'Clothing', 'Home', 'Books', 'Sports'] as const;
 
 /**
  * Simulates a backend validation call against the shared contract.
@@ -32,24 +26,54 @@ export function simulateValidation(payload: ProductFormPayload): ApiValidationRe
   // Name validation
   const name = payload.name.trim();
   if (name.length === 0) {
-    errors.push({ field: 'name', code: 'Required', message: 'Product name is required.', isFieldError: true });
+    errors.push({
+      field: 'name',
+      code: 'Required',
+      message: 'Product name is required.',
+      isFieldError: true,
+    });
   } else if (name.length > 100) {
-    errors.push({ field: 'name', code: 'MaxLength', message: 'Product name must not exceed 100 characters.', isFieldError: true });
+    errors.push({
+      field: 'name',
+      code: 'MaxLength',
+      message: 'Product name must not exceed 100 characters.',
+      isFieldError: true,
+    });
   }
 
   // Price validation
   if (payload.price <= 0) {
-    errors.push({ field: 'price', code: 'OutOfRange', message: 'Price must be greater than zero.', isFieldError: true });
+    errors.push({
+      field: 'price',
+      code: 'OutOfRange',
+      message: 'Price must be greater than zero.',
+      isFieldError: true,
+    });
   } else if (payload.price > 100_000) {
-    errors.push({ field: 'price', code: 'OutOfRange', message: 'Price must not exceed 100,000.', isFieldError: true });
+    errors.push({
+      field: 'price',
+      code: 'OutOfRange',
+      message: 'Price must not exceed 100,000.',
+      isFieldError: true,
+    });
   }
 
   // Category validation
   const category = payload.category.trim();
   if (category.length === 0) {
-    errors.push({ field: 'category', code: 'Required', message: 'Category is required.', isFieldError: true });
-  } else if (!VALID_CATEGORIES.includes(category as typeof VALID_CATEGORIES[number])) {
-    errors.push({ field: 'category', code: 'InvalidFormat', message: `'${category}' is not a recognized category.`, isFieldError: true });
+    errors.push({
+      field: 'category',
+      code: 'Required',
+      message: 'Category is required.',
+      isFieldError: true,
+    });
+  } else if (!VALID_CATEGORIES.includes(category as (typeof VALID_CATEGORIES)[number])) {
+    errors.push({
+      field: 'category',
+      code: 'InvalidFormat',
+      message: `'${category}' is not a recognized category.`,
+      isFieldError: true,
+    });
   }
 
   // SKU validation (pattern: XXX-999999)
@@ -57,13 +81,23 @@ export function simulateValidation(payload: ProductFormPayload): ApiValidationRe
   if (sku.length > 0) {
     const skuPattern = /^[A-Z]{3}-\d{6}$/;
     if (!skuPattern.test(sku)) {
-      errors.push({ field: 'sku', code: 'InvalidFormat', message: 'SKU must match the pattern XXX-999999.', isFieldError: true });
+      errors.push({
+        field: 'sku',
+        code: 'InvalidFormat',
+        message: 'SKU must match the pattern XXX-999999.',
+        isFieldError: true,
+      });
     }
   }
 
   // Tags validation
   if (payload.tags.length > 5) {
-    errors.push({ field: 'tags', code: 'MaxLength', message: 'At most 5 tags are allowed.', isFieldError: true });
+    errors.push({
+      field: 'tags',
+      code: 'MaxLength',
+      message: 'At most 5 tags are allowed.',
+      isFieldError: true,
+    });
   }
 
   return {

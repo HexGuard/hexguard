@@ -83,8 +83,7 @@
   display: grid;
   gap: 1.35rem;
   padding: clamp(1.3rem, 1rem + 1.2vw, 1.8rem);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 239, 228, 0.78));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 239, 228, 0.78));
 }
 
 .site-header__copy {

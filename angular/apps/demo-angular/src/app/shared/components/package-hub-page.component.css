@@ -131,8 +131,7 @@
 .package-hub__demo-card {
   height: 100%;
   align-content: start;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 240, 231, 0.8));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 240, 231, 0.8));
 }
 
 @media (min-width: 1100px) {

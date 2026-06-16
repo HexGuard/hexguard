@@ -11,11 +11,7 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:5074';
 @Component({
   standalone: true,
   selector: 'demo-sample-api-explorer-page',
-  imports: [
-    DemoPageLayoutComponent,
-    DemoInspectorPanelComponent,
-    DemoNavigationStripComponent,
-  ],
+  imports: [DemoPageLayoutComponent, DemoInspectorPanelComponent, DemoNavigationStripComponent],
   template: `
     <demo-page-layout testId="sample-api-explorer">
       <demo-navigation-strip
@@ -77,7 +73,13 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:5074';
               >
                 <div>
                   <p class="demo-eyebrow">{{ pkg.id }}</p>
-                  <h3>{{ pkg.id === 'hexguard-reference-data' ? '.NET-only library demo' : 'Angular package demo' }}</h3>
+                  <h3>
+                    {{
+                      pkg.id === 'hexguard-reference-data'
+                        ? '.NET-only library demo'
+                        : 'Angular package demo'
+                    }}
+                  </h3>
                 </div>
 
                 <div class="explorer__endpoint-row">
@@ -96,10 +98,7 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:5074';
                   <div class="explorer__endpoint-row">
                     <span class="explorer__method-badge explorer__method-badge--get">GET</span>
                     <code>{{ pkg.catalogEndpoint }}</code>
-                    <button
-                      class="demo-link-chip"
-                      (click)="callEndpoint(pkg.catalogEndpoint)"
-                    >
+                    <button class="demo-link-chip" (click)="callEndpoint(pkg.catalogEndpoint)">
                       Try it
                     </button>
                   </div>
@@ -135,9 +134,7 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:5074';
 })
 export class SampleApiExplorerPageComponent {
   readonly dotnetDemo = DOTNET_SAMPLE_API_EXPLORER;
-  readonly dotnetPackage = computed(() =>
-    getDotnetPackage('hexguard-reference-data'),
-  );
+  readonly dotnetPackage = computed(() => getDotnetPackage('hexguard-reference-data'));
 
   readonly apiBase = signal(DEFAULT_API_BASE);
   readonly discoveryResult = signal<any>(null);
@@ -219,9 +216,7 @@ export class SampleApiExplorerPageComponent {
 
       this.lastEndpoint.set(path);
     } catch (err) {
-      this.error.set(
-        `Request failed: ${err instanceof Error ? err.message : String(err)}`,
-      );
+      this.error.set(`Request failed: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       this.isBusy.set(false);
     }

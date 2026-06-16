@@ -95,7 +95,9 @@ export class LookupsBackendDemoPageComponent {
     }
 
     if (this.lookupState.isError()) {
-      return this.errorMessage() ?? 'The sample API request failed before any catalog was available.';
+      return (
+        this.errorMessage() ?? 'The sample API request failed before any catalog was available.'
+      );
     }
 
     return `Catalog ${this.lookups.version() ?? 'unknown'} loaded from the shared sample API and resolved ${this.products.length} display rows.`;
@@ -129,7 +131,9 @@ export class LookupsBackendDemoPageComponent {
   }
 
   loadSelectedScenario(): void {
-    const promise = this.lookupState.hasLoaded() ? this.lookups.reload() : this.lookups.ensureLoaded();
+    const promise = this.lookupState.hasLoaded()
+      ? this.lookups.reload()
+      : this.lookups.ensureLoaded();
 
     void promise.catch(() => undefined);
   }

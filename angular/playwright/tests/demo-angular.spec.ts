@@ -41,9 +41,9 @@ test.describe('demo-angular', () => {
     await expect(
       page.getByTestId('site-home-featured-package-status-angular-async-state'),
     ).toHaveText('Available');
-    await expect(
-      page.getByTestId('site-home-featured-package-status-angular-lookups'),
-    ).toHaveText('Available');
+    await expect(page.getByTestId('site-home-featured-package-status-angular-lookups')).toHaveText(
+      'Available',
+    );
     await expect(
       page.getByTestId('site-home-featured-package-status-angular-optimistic-state'),
     ).toHaveText('Available');
@@ -301,28 +301,25 @@ test.describe('demo-angular', () => {
     await page.goto(lookupsEditorRoute);
 
     await expect(page.getByTestId('lookups-editor-demo-navigation')).toBeVisible();
-    await expect(page.getByTestId('lookups-editor-demo-navigation-demo-lookups-editor')).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await expect(
+      page.getByTestId('lookups-editor-demo-navigation-demo-lookups-editor'),
+    ).toHaveAttribute('aria-current', 'page');
 
     await page.getByTestId('lookups-editor-demo-navigation-demo-lookups-summary').click();
 
     await expect(page).toHaveURL(/\/packages\/angular-lookups\/summary$/);
     await expect(page.getByTestId('lookups-summary-page')).toBeVisible();
-    await expect(page.getByTestId('lookups-summary-demo-navigation-demo-lookups-summary')).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await expect(
+      page.getByTestId('lookups-summary-demo-navigation-demo-lookups-summary'),
+    ).toHaveAttribute('aria-current', 'page');
 
     await page.getByTestId('lookups-summary-demo-navigation-demo-lookups-backend').click();
 
     await expect(page).toHaveURL(/\/packages\/angular-lookups\/backend$/);
     await expect(page.getByTestId('lookups-backend-page')).toBeVisible();
-    await expect(page.getByTestId('lookups-backend-demo-navigation-demo-lookups-backend')).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await expect(
+      page.getByTestId('lookups-backend-demo-navigation-demo-lookups-backend'),
+    ).toHaveAttribute('aria-current', 'page');
 
     await page.getByTestId('lookups-backend-demo-navigation-overview').click();
 
@@ -799,7 +796,9 @@ test.describe('demo-angular', () => {
 
     await page.getByTestId('lookups-editor-load-button').click();
 
-    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText('products-2026-06-15');
+    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText(
+      'products-2026-06-15',
+    );
     await expect(page.getByTestId('lookups-editor-category-select')).toBeEnabled();
     await expect(page.getByTestId('lookups-editor-category-label')).toContainText('Hardware');
     await expect(page.getByTestId('lookups-editor-supplier-label')).toContainText(
@@ -808,13 +807,13 @@ test.describe('demo-angular', () => {
 
     await page.getByTestId('lookups-editor-refresh-button').click();
 
-    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText('products-2026-07-01');
+    await expect(page.getByTestId('lookups-editor-version-pill')).toContainText(
+      'products-2026-07-01',
+    );
     await expect(page.getByTestId('lookups-editor-category-label')).toContainText(
       'Hardware and Devices',
     );
-    await expect(page.getByTestId('lookups-editor-supplier-label')).toContainText(
-      'Contoso Global',
-    );
+    await expect(page.getByTestId('lookups-editor-supplier-label')).toContainText('Contoso Global');
 
     await page.getByTestId('lookups-editor-invalid-button').click();
 
