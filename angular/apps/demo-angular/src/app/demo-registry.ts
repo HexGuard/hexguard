@@ -781,7 +781,7 @@ export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
 export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
   {
     id: 'hexguard-validation-contracts',
-    route: '/dotnet',
+    route: '/dotnet/hexguard-validation-contracts',
     label: 'HexGuard .NET Validation',
     title: 'HexGuard.ValidationContracts',
     nugetId: 'HexGuard.ValidationContracts',
@@ -808,7 +808,7 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
   },
   {
     id: 'hexguard-reference-data',
-    route: '/dotnet',
+    route: '/dotnet/hexguard-reference-data',
     label: 'HexGuard .NET',
     title: 'HexGuard .NET Packages',
     nugetId: 'HexGuard.ReferenceData',

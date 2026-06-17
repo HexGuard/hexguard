@@ -27,7 +27,7 @@ import {
         </div>
       </article>
 
-      <!-- Package cards -->
+      <!-- Package cards with inline demo links -->
       <section class="dotnet-home__section" aria-labelledby="dotnet-packages-heading">
         <div class="dotnet-home__section-heading">
           <div>
@@ -35,13 +35,29 @@ import {
             <h2 id="dotnet-packages-heading">Available .NET libraries with live demos</h2>
           </div>
           <p class="demo-card__summary">
-            Each card links to demo routes, source code, and the .NET workspace overview.
+            Each card links to a dedicated package hub with docs, source, and demo routes.
           </p>
         </div>
 
         <div class="dotnet-home__grid">
-          @for (entry of unifiedEntries; track entry.id) {
-            <demo-package-card [entry]="entry" />
+          @for (pkg of dotnetPackages; track pkg.id) {
+            <div class="dotnet-home__card-group">
+              <demo-package-card [entry]="toUnifiedDotnetEntry(pkg)" />
+
+              <!-- Inline demo links -->
+              <div class="dotnet-home__demos">
+                @for (demo of pkg.dotnetPackage.demos; track demo.id) {
+                  <a
+                    class="dotnet-home__demo-link"
+                    [routerLink]="demo.route"
+                    [attr.data-testid]="'dotnet-demo-link-' + demo.id"
+                  >
+                    <span class="dotnet-home__demo-label">{{ demo.label }}</span>
+                    <span class="dotnet-home__demo-desc">{{ demo.description }}</span>
+                  </a>
+                }
+              </div>
+            </div>
           }
         </div>
       </section>
@@ -142,5 +158,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DotnetHomePageComponent {
-  readonly unifiedEntries = SITE_DOTNET_PACKAGES.map(toUnifiedDotnetEntry);
+  readonly dotnetPackages = SITE_DOTNET_PACKAGES;
+  protected readonly toUnifiedDotnetEntry = toUnifiedDotnetEntry;
 }
