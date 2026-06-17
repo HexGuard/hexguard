@@ -39,7 +39,11 @@ conditions, and inconsistent rollout rules across Angular apps.
 ## Proposed Public API
 
 ```ts
-import { provideFeatureFlags, injectFlag, type FeatureFlagProvider } from '@hexguard/angular-feature-flags';
+import {
+  provideFeatureFlags,
+  injectFlag,
+  type FeatureFlagProvider,
+} from '@hexguard/angular-feature-flags';
 
 // Provider setup
 const provider: FeatureFlagProvider = {
@@ -58,14 +62,12 @@ export const appProviders = [provideFeatureFlags(provider)];
 // Component usage
 const betaFlag = injectFlag('beta-feature');
 
-betaFlag.isEnabled;      // Signal<boolean>
-betaFlag.variant;        // Signal<string | null>
-betaFlag.payload;        // Signal<Record<string, string> | null>
+betaFlag.isEnabled; // Signal<boolean>
+betaFlag.variant; // Signal<string | null>
+betaFlag.payload; // Signal<Record<string, string> | null>
 
 // Route guards
-const routes = [
-  { path: 'beta', canMatch: [flagMatch('beta-feature')], component: BetaComponent },
-];
+const routes = [{ path: 'beta', canMatch: [flagMatch('beta-feature')], component: BetaComponent }];
 
 // Template directive
 // @if (flag('beta-feature').isEnabled()) { <beta-component /> }

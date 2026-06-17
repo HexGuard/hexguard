@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { SITE_DOTNET_PACKAGES } from '../../../../site-catalog';
+import { PackageCardComponent } from '../../../../shared/components/package-card/package-card.component';
+import {
+  SITE_DOTNET_PACKAGES,
+  toUnifiedDotnetEntry,
+} from '../../../../site-catalog';
 
 @Component({
   standalone: true,
   selector: 'demo-dotnet-home-page',
-  imports: [RouterLink],
+  imports: [PackageCardComponent, RouterLink],
   template: `
     <section class="dotnet-home" data-testid="dotnet-home-page">
       <!-- Hero -->
@@ -23,7 +27,7 @@ import { SITE_DOTNET_PACKAGES } from '../../../../site-catalog';
         </div>
       </article>
 
-      <!-- Package cards (site-home style) -->
+      <!-- Package cards -->
       <section class="dotnet-home__section" aria-labelledby="dotnet-packages-heading">
         <div class="dotnet-home__section-heading">
           <div>
@@ -36,77 +40,8 @@ import { SITE_DOTNET_PACKAGES } from '../../../../site-catalog';
         </div>
 
         <div class="dotnet-home__grid">
-          @for (packageEntry of dotnetPackages; track packageEntry.id) {
-            <article
-              class="demo-card demo-card--stack dotnet-home__package-card"
-              [attr.data-testid]="'dotnet-package-card-' + packageEntry.id"
-            >
-              <div class="dotnet-home__package-header">
-                <div class="dotnet-home__package-title">
-                  <p class="demo-eyebrow">NuGet</p>
-                  <h3>{{ packageEntry.packageName }}</h3>
-                </div>
-                <span
-                  class="site-status-badge"
-                  [attr.data-testid]="'dotnet-package-status-' + packageEntry.id"
-                  >{{ packageEntry.status }}</span
-                >
-              </div>
-
-              <p class="demo-card__summary">{{ packageEntry.summary }}</p>
-
-              @if (packageEntry.angularCounterpartLabel) {
-                <p class="dotnet-home__counterpart">
-                  <span class="demo-hint-pill dotnet-home__counterpart-pill"
-                    >Angular counterpart: {{ packageEntry.angularCounterpartLabel }}</span
-                  >
-                  <a class="demo-link-chip" routerLink="/">Open Angular home</a>
-                </p>
-              }
-
-              <div class="dotnet-home__demos">
-                @for (demo of packageEntry.dotnetPackage.demos; track demo.id) {
-                  <a
-                    class="dotnet-home__demo-link"
-                    [routerLink]="demo.route"
-                    [attr.data-testid]="'dotnet-demo-link-' + demo.id"
-                  >
-                    <span class="dotnet-home__demo-label">{{ demo.label }}</span>
-                    <span class="dotnet-home__demo-desc">{{ demo.description }}</span>
-                  </a>
-                }
-              </div>
-
-              <div class="dotnet-home__package-footer">
-                <div class="dotnet-home__package-meta">
-                  <span class="demo-hint-pill">{{ packageEntry.demoCount }} demos</span>
-                </div>
-
-                <div class="demo-link-row dotnet-home__package-links">
-                  <a
-                    class="site-home__action site-home__action--inline"
-                    [routerLink]="packageEntry.route"
-                    >Open .NET hub</a
-                  >
-                  <a
-                    class="demo-link-chip"
-                    [href]="packageEntry.dotnetPackage.docsLinks[0]?.href"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View source
-                  </a>
-                  <a
-                    class="demo-link-chip"
-                    [href]="packageEntry.dotnetPackage.docsLinks[2]?.href"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    .NET workspace
-                  </a>
-                </div>
-              </div>
-            </article>
+          @for (entry of unifiedEntries; track entry.id) {
+            <demo-package-card [entry]="entry" />
           }
         </div>
       </section>
@@ -207,5 +142,5 @@ import { SITE_DOTNET_PACKAGES } from '../../../../site-catalog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DotnetHomePageComponent {
-  readonly dotnetPackages = SITE_DOTNET_PACKAGES;
+  readonly unifiedEntries = SITE_DOTNET_PACKAGES.map(toUnifiedDotnetEntry);
 }

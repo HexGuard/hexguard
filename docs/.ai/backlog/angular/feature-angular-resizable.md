@@ -30,16 +30,16 @@ const resizable = injectResizable({
   minSize: 48,
   maxSize: 600,
   direction: 'horizontal',
-  snapThreshold: 50,          // pixels — snap closed below this
+  snapThreshold: 50, // pixels — snap closed below this
   storage: localStorageResizeStorage('sidebar-width'),
 });
 
-resizable.size;              // Signal<number> — current width/height in px
-resizable.isResizing;        // Signal<boolean>
-resizable.isSnapped;         // Signal<boolean> — collapsed below threshold
+resizable.size; // Signal<number> — current width/height in px
+resizable.isResizing; // Signal<boolean>
+resizable.isSnapped; // Signal<boolean> — collapsed below threshold
 
 // Bind to pointer events
-resizable.onPointerDown(event);  // attach to mousedown/touchstart on drag handle
+resizable.onPointerDown(event); // attach to mousedown/touchstart on drag handle
 ```
 
 ## Implementation Plan

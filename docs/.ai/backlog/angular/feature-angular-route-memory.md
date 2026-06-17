@@ -88,7 +88,7 @@ memory.autoSave('orders-list', () => ({
 }));
 
 // Signals
-memory.hasMemory('orders-list');   // Signal<boolean>
+memory.hasMemory('orders-list'); // Signal<boolean>
 ```
 
 ### Phase 0: Foundation

@@ -66,16 +66,16 @@ const upload = injectUploadState({
   multiple: true,
 });
 
-upload.queue;              // Signal<UploadItem[]>
-upload.active;             // Signal<UploadItem | null>
-upload.isUploading;        // Signal<boolean>
-upload.completed;          // Signal<UploadItem[]>
-upload.failed;             // Signal<UploadItem[]>
+upload.queue; // Signal<UploadItem[]>
+upload.active; // Signal<UploadItem | null>
+upload.isUploading; // Signal<boolean>
+upload.completed; // Signal<UploadItem[]>
+upload.failed; // Signal<UploadItem[]>
 
-upload.upload(file);       // starts upload with progress tracking
-upload.retry(itemId);      // retries a failed upload
-upload.cancel(itemId);     // cancels an in-progress upload
-upload.clearCompleted();   // removes completed items from state
+upload.upload(file); // starts upload with progress tracking
+upload.retry(itemId); // retries a failed upload
+upload.cancel(itemId); // cancels an in-progress upload
+upload.clearCompleted(); // removes completed items from state
 ```
 
 ## Implementation Plan
@@ -114,4 +114,3 @@ upload.clearCompleted();   // removes completed items from state
 - `pnpm dotnet:test`.
 - `pnpm test:lib:upload-state`.
 - `pnpm test:e2e`.
-

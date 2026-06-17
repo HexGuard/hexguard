@@ -49,21 +49,21 @@ const wizard = injectWizardState({
   storage: localStorageWizardStorage('create-order-wizard'),
 });
 
-wizard.currentStep;       // Signal<WizardStep>
-wizard.currentIndex;       // Signal<number>
-wizard.isFirst;            // Signal<boolean>
-wizard.isLast;             // Signal<boolean>
-wizard.canGoNext;          // Signal<boolean> — false when validation gate fails
-wizard.canGoBack;          // Signal<boolean>
-wizard.progress;           // Signal<number> — 0–100
-wizard.isFinished;         // Signal<boolean>
+wizard.currentStep; // Signal<WizardStep>
+wizard.currentIndex; // Signal<number>
+wizard.isFirst; // Signal<boolean>
+wizard.isLast; // Signal<boolean>
+wizard.canGoNext; // Signal<boolean> — false when validation gate fails
+wizard.canGoBack; // Signal<boolean>
+wizard.progress; // Signal<number> — 0–100
+wizard.isFinished; // Signal<boolean>
 
-wizard.next();             // advances if canGoNext
+wizard.next(); // advances if canGoNext
 wizard.back();
 wizard.goToStep('review');
-wizard.finish();           // marks complete, fires onFinish
-wizard.cancel();           // fires onCancel
-wizard.reset();            // resets to step 0, clears collected data
+wizard.finish(); // marks complete, fires onFinish
+wizard.cancel(); // fires onCancel
+wizard.reset(); // resets to step 0, clears collected data
 ```
 
 ## Implementation Plan

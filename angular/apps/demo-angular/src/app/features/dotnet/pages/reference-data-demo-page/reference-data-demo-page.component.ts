@@ -29,11 +29,7 @@ const API_BASE = 'http://127.0.0.1:5074';
         demoNavigation
       />
 
-      <article
-        demoIntro
-        class="demo-card demo-card--stack"
-        data-testid="reference-data-demo-page"
-      >
+      <article demoIntro class="demo-card demo-card--stack" data-testid="reference-data-demo-page">
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">HexGuard.ReferenceData</p>
@@ -43,9 +39,9 @@ const API_BASE = 'http://127.0.0.1:5074';
         </div>
 
         <p class="demo-card__summary">
-          This page demonstrates the <code>HexGuard.ReferenceData</code> NuGet library through
-          the shared .NET SampleApi. The library provides typed catalog contracts, collection
-          and item types, and a built-in validator.
+          This page demonstrates the <code>HexGuard.ReferenceData</code> NuGet library through the
+          shared .NET SampleApi. The library provides typed catalog contracts, collection and item
+          types, and a built-in validator.
         </p>
 
         <div class="refdata-cross-stack">
@@ -132,7 +128,7 @@ const API_BASE = 'http://127.0.0.1:5074';
                 [class.refdata-valid-badge--pass]="result.isValid"
                 [class.refdata-valid-badge--fail]="!result.isValid"
               >
-                {{ result.isValid ? '\u2713 Valid' : '\u2717 ' + result.errors.length + ' error(s)' }}
+                {{ result.isValid ? '✓ Valid' : '✗ ' + result.errors.length + ' error(s)' }}
               </span>
             </div>
             @if (!result.isValid) {

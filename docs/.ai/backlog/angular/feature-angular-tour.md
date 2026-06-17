@@ -47,40 +47,57 @@ import { injectTour, type TourStep } from '@hexguard/angular-tour';
 
 const tour = injectTour({
   steps: [
-    { id: 'welcome', title: 'Welcome', description: 'Here is the dashboard overview.', placement: 'center' },
-    { id: 'search', title: 'Search', description: 'Use the search bar to find orders.', target: '#search-input', placement: 'bottom' },
-    { id: 'filters', title: 'Filters', description: 'Filter by status and date range.', target: '#filter-panel', placement: 'right' },
+    {
+      id: 'welcome',
+      title: 'Welcome',
+      description: 'Here is the dashboard overview.',
+      placement: 'center',
+    },
+    {
+      id: 'search',
+      title: 'Search',
+      description: 'Use the search bar to find orders.',
+      target: '#search-input',
+      placement: 'bottom',
+    },
+    {
+      id: 'filters',
+      title: 'Filters',
+      description: 'Filter by status and date range.',
+      target: '#filter-panel',
+      placement: 'right',
+    },
   ],
-  canShow: featureFlags.isEnabled('product-tour'),  // optional gate
+  canShow: featureFlags.isEnabled('product-tour'), // optional gate
   storage: localStorageTourStorage('product-tour-v1'),
   onComplete: () => console.log('Tour finished'),
   onDismiss: () => console.log('Tour dismissed'),
 });
 
 // Signals
-tour.isActive;          // Signal<boolean>
-tour.currentStep;       // Signal<TourStep | null>
-tour.currentIndex;      // Signal<number>
-tour.totalSteps;        // number
-tour.isFirst;           // Signal<boolean>
-tour.isLast;            // Signal<boolean>
-tour.progress;          // Signal<number> — 0-100
-tour.isCompleted;       // Signal<boolean>
+tour.isActive; // Signal<boolean>
+tour.currentStep; // Signal<TourStep | null>
+tour.currentIndex; // Signal<number>
+tour.totalSteps; // number
+tour.isFirst; // Signal<boolean>
+tour.isLast; // Signal<boolean>
+tour.progress; // Signal<number> — 0-100
+tour.isCompleted; // Signal<boolean>
 
 // Navigation
 tour.start();
 tour.next();
 tour.prev();
 tour.goToStep(2);
-tour.dismiss();          // marks completed without finishing all steps
-tour.reset();            // clears completion state, allows re-show
+tour.dismiss(); // marks completed without finishing all steps
+tour.reset(); // clears completion state, allows re-show
 
 // Step model
 interface TourStep {
   id: string;
   title: string;
   description: string;
-  target?: string;             // CSS selector for highlight element
+  target?: string; // CSS selector for highlight element
   placement?: 'top' | 'bottom' | 'left' | 'right' | 'center';
 }
 

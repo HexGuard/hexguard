@@ -103,4 +103,3 @@ builder.Services.AddHexGuardEndpointConventions();
 - Revisit deeper integration with `HexGuard.ProblemDetails` for consistent error payloads.
 - Consider adding a `Results.Extensions.WithCacheHeaders()` helper in a future version.
 - Evaluate response-envelope standardization (wrap all responses in `{ data, meta }`) as an optional mode.
-

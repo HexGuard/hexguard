@@ -55,13 +55,13 @@ registry.register({
 });
 
 // Search
-registry.search('create');           // Signal<Command[]>
+registry.search('create'); // Signal<Command[]>
 
 // Invoke by shortcut
-registry.handleShortcut(event);      // matches against registered shortcuts
+registry.handleShortcut(event); // matches against registered shortcuts
 
 // Palette state
-registry.paletteOpen;                // Signal<boolean>
+registry.paletteOpen; // Signal<boolean>
 registry.togglePalette();
 registry.openPalette();
 registry.closePalette();

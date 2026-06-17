@@ -50,6 +50,34 @@ export interface CrossStackPair {
   readonly description: string;
 }
 
+/** Scope identifier used by the unified package card system. */
+export type UnifiedScope = 'Angular' | '.NET' | 'Cross-stack';
+
+/**
+ * Unified package entry for rendering any package (Angular, .NET, or
+ * cross-stack) through a single card component.
+ *
+ * Build via the adapter functions below rather than constructing directly.
+ */
+export interface UnifiedPackageEntry {
+  readonly id: string;
+  readonly packageName: string;
+  readonly scope: UnifiedScope;
+  readonly status: string;
+  readonly summary: string;
+  readonly detail: string | null;
+  readonly featureHighlights: readonly string[];
+  readonly route: string;
+  readonly demoCount: number;
+  /** Display label for the counterpart package in the other stack, if any. */
+  readonly counterpartLabel: string | null;
+  /** Router link to the counterpart package hub, if any. */
+  readonly counterpartRoute: string | null;
+  readonly repositoryHref: string;
+  readonly docsLinks: readonly { label: string; href: string }[];
+  readonly installCommand: string | null;
+}
+
 export type RoadmapPackageEntry = GeneratedRoadmapPackageEntry;
 
 export interface SitePillar {
@@ -97,7 +125,7 @@ export const SITE_PRIMARY_ACTIONS = [
 ] as const satisfies readonly SiteLink[];
 
 /** Number of cards to show in a collapsed section before the expand toggle. */
-export const SECTION_COLLAPSED_LIMIT = 4;
+export const SECTION_COLLAPSED_LIMIT = 6;
 
 /** Number of cross-stack pair cards to show before the expand toggle. */
 export const CROSS_STACK_COLLAPSED_LIMIT = 3;
@@ -153,6 +181,163 @@ const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
   'hexguard-validation-contracts': 'angular-api-errors',
 };
 
+// ── Unified package adapters ───────────────────────────────────────
+
+/**
+ * Adapt an Angular SitePackageCatalogEntry to the unified card interface.
+ * Cross-stack counterpart info is baked into the entry's dotnet fields.
+ */
+export function toUnifiedAngularEntry(
+  entry: SitePackageCatalogEntry,
+): UnifiedPackageEntry {
+  return {
+    id: entry.id,
+    packageName: entry.packageName,
+    scope: 'Angular',
+    status: entry.status,
+    summary: entry.summary,
+    detail: entry.detail,
+    featureHighlights: entry.featureHighlights,
+    route: entry.route,
+    demoCount: entry.demoCount,
+    counterpartLabel: entry.dotnetCounterpartLabel,
+    counterpartRoute: entry.dotnetCounterpartId
+      ? `/dotnet/${entry.dotnetCounterpartId}`
+      : null,
+    repositoryHref: entry.repositoryHref,
+    docsLinks: entry.docsLinks,
+    installCommand: entry.installCommand,
+  };
+}
+
+/**
+ * Adapt a .NET DotnetSitePackageCatalogEntry to the unified card interface.
+ * Uses dotnetPackage fields for docs and source links.
+ */
+export function toUnifiedDotnetEntry(
+  entry: DotnetSitePackageCatalogEntry,
+): UnifiedPackageEntry {
+  return {
+    id: entry.id,
+    packageName: entry.packageName,
+    scope: '.NET',
+    status: entry.status,
+    summary: entry.summary,
+    detail: null,
+    featureHighlights: [],
+    route: entry.route,
+    demoCount: entry.demoCount,
+    counterpartLabel: entry.angularCounterpartLabel,
+    counterpartRoute: entry.angularCounterpartId
+      ? `/packages/${entry.angularCounterpartId}`
+      : null,
+    repositoryHref: entry.dotnetPackage.docsLinks[0]?.href ?? '',
+    docsLinks: entry.dotnetPackage.docsLinks,
+    installCommand: `dotnet add package ${entry.nugetId}`,
+  };
+}
+
+/**
+ * Adapt a CrossStackPair to the unified card interface.
+ * Uses the Angular package name and route as the primary identity,
+ * with the .NET package as the counterpart.
+ */
+function toUnifiedCrossStackEntry(
+  pair: CrossStackPair,
+): UnifiedPackageEntry {
+  return {
+    id: pair.angularId,
+    packageName: pair.angularLabel,
+    scope: 'Cross-stack',
+    status: 'Available',
+    summary: pair.description,
+    detail: null,
+    featureHighlights: [],
+    route: `/cross-stack/${pair.angularId}`,
+    demoCount: 2, // one from each stack
+    counterpartLabel: pair.dotnetLabel,
+    counterpartRoute: `/dotnet/${pair.dotnetId}`,
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard',
+    docsLinks: [],
+    installCommand: null,
+  };
+}
+
+// ── Cross-stack package hub entry ─────────────────────────────────
+
+export interface CrossStackPackageHubEntry {
+  readonly id: string;
+  readonly angularId: string;
+  readonly dotnetId: string;
+  readonly pairingLabel: string;
+  readonly description: string;
+  readonly angularPackage: SitePackageCatalogEntry;
+  readonly dotnetPackage: DotnetSitePackageCatalogEntry;
+  readonly integrationNotes: readonly string[];
+}
+
+let _crossStackHubEntries: readonly CrossStackPackageHubEntry[] | null = null;
+
+function buildCrossStackHubEntry(pair: CrossStackPair): CrossStackPackageHubEntry {
+  const angularPkg = getCurrentPackages().find((p) => p.id === pair.angularId);
+  const dotnetPkg = getDotnetPackages().find((p) => p.id === pair.dotnetId);
+
+  if (!angularPkg || !dotnetPkg) {
+    throw new Error(
+      `Cannot build cross-stack hub entry for pair ${pair.angularId} / ${pair.dotnetId}: missing package data.`,
+    );
+  }
+
+  return {
+    id: pair.angularId,
+    angularId: pair.angularId,
+    dotnetId: pair.dotnetId,
+    pairingLabel: pair.pairingLabel,
+    description: pair.description,
+    angularPackage: angularPkg,
+    dotnetPackage: dotnetPkg,
+    integrationNotes: [
+      `The ${angularPkg.packageName} Angular package and ${dotnetPkg.packageName} .NET library work together through the shared HexGuard.SampleApi.`,
+      `Angular code consumes typed contracts (${pair.pairingLabel}) that the .NET library validates and serves. ` +
+        `The SampleApi provides live endpoints that both stacks use for end-to-end integration testing and demo workflows.`,
+      `To run the full cross-stack experience, start the API with \`pnpm dotnet:start:demo-api\` and navigate to any demo route that supports live backend integration.`,
+    ],
+  };
+}
+
+export function getCrossStackHubEntries(): readonly CrossStackPackageHubEntry[] {
+  if (!_crossStackHubEntries) {
+    _crossStackHubEntries = SITE_CROSS_STACK_PAIRS.map(buildCrossStackHubEntry);
+  }
+  return _crossStackHubEntries;
+}
+
+export function getCrossStackHubEntry(pairId: string): CrossStackPackageHubEntry {
+  const entry = getCrossStackHubEntries().find((e) => e.id === pairId);
+  if (!entry) {
+    throw new Error(`Missing cross-stack hub entry for ${pairId}.`);
+  }
+  return entry;
+}
+
+let _unifiedPackages: readonly UnifiedPackageEntry[] | null = null;
+
+/**
+ * Returns the combined list of all packages (Angular, .NET, cross-stack)
+ * as unified entries for the site home showcase.
+ */
+export function getUnifiedPackages(): readonly UnifiedPackageEntry[] {
+  if (!_unifiedPackages) {
+    _unifiedPackages = [
+      ...getCurrentPackages().map(toUnifiedAngularEntry),
+      ...getDotnetPackages().map(toUnifiedDotnetEntry),
+      ...SITE_CROSS_STACK_PAIRS.map(toUnifiedCrossStackEntry),
+    ];
+  }
+  return _unifiedPackages;
+}
+
 export const SITE_PILLARS = [
   {
     title: 'Docs-grade demos',
@@ -172,9 +357,8 @@ export const SITE_PILLARS = [
 ] as const satisfies readonly SitePillar[];
 
 function buildCurrentPackages(): readonly SitePackageCatalogEntry[] {
-  return GENERATED_CURRENT_PACKAGES
-    .filter((packageEntry) => packageEntry.scope === 'Angular')
-    .map((packageEntry) => {
+  return GENERATED_CURRENT_PACKAGES.filter((packageEntry) => packageEntry.scope === 'Angular').map(
+    (packageEntry) => {
       const demoPackage = getDemoPackage(packageEntry.id);
 
       if (!demoPackage) {
@@ -194,7 +378,8 @@ function buildCurrentPackages(): readonly SitePackageCatalogEntry[] {
         dotnetCounterpartId,
         dotnetCounterpartLabel: dotnetCounterpart?.nugetId ?? null,
       };
-    });
+    },
+  );
 }
 
 let _currentPackages: readonly SitePackageCatalogEntry[] | null = null;
@@ -267,15 +452,22 @@ export const SITE_ROADMAP_PACKAGES = GENERATED_ROADMAP_PACKAGES.filter(
 
 export const SITE_METRICS = [
   {
-    label: 'Current Angular packages',
-    value: String(getCurrentPackages().length),
+    label: 'Current packages',
+    value: String(getUnifiedPackages().length),
   },
   {
     label: 'Live demo routes',
-    value: String(getCurrentPackages().reduce((total, entry) => total + entry.demoCount, 0)),
+    value: String(
+      getCurrentPackages().reduce((total, entry) => total + entry.demoCount, 0) +
+        getDotnetPackages().reduce((total, entry) => total + entry.demoCount, 0),
+    ),
   },
   {
-    label: '.NET packages and demos',
-    value: String(getDotnetPackages().length),
+    label: 'Cross-stack pairs',
+    value: String(SITE_CROSS_STACK_PAIRS.length),
+  },
+  {
+    label: 'Stacks covered',
+    value: '3',
   },
 ] as const satisfies readonly SiteMetric[];

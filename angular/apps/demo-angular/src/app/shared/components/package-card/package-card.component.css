@@ -1,0 +1,134 @@
+:host {
+  display: contents;
+}
+
+.package-card {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  align-content: start;
+}
+
+.package-card__header {
+  display: flex;
+  gap: 0.8rem 1rem;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.package-card__title {
+  min-width: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.package-card__title h3 {
+  margin: 0;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.package-card__status {
+  flex: 0 1 auto;
+  align-self: flex-start;
+}
+
+.package-card__detail {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.package-card__highlights {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+}
+
+.package-card__counterpart {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.package-card__counterpart-pill {
+  background: rgba(217, 119, 75, 0.1);
+  border-color: rgba(217, 119, 75, 0.3);
+  color: #a35832;
+}
+
+.package-card__footer {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: auto;
+}
+
+.package-card__meta {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.package-card__links {
+  align-items: stretch;
+}
+
+.package-card__links > * {
+  flex: 1 1 12rem;
+}
+
+.package-card__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  max-width: 100%;
+  padding: 0.95rem 1.15rem;
+  border: 1px solid rgba(13, 73, 82, 0.24);
+  border-radius: 1.05rem;
+  background: linear-gradient(180deg, #155e68, #0d4952);
+  color: white;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.package-card__action:hover,
+.package-card__action:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(180deg, #176d76, #0f525a);
+}
+
+@media (max-width: 900px) {
+  .package-card__links > * {
+    flex: 1 1 13rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .package-card {
+    padding: 1.2rem;
+  }
+
+  .package-card__meta,
+  .package-card__links {
+    align-items: stretch;
+  }
+
+  .package-card__links > * {
+    width: 100%;
+    flex-basis: 100%;
+  }
+}

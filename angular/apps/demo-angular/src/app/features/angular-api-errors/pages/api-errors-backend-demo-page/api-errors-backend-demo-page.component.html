@@ -1,11 +1,16 @@
 <demo-page-layout testId="api-errors-backend-page">
-  <demo-navigation-strip demoNavigation testId="api-errors-backend-demo-navigation" [demo]="demoEntry" />
+  <demo-navigation-strip
+    demoNavigation
+    testId="api-errors-backend-demo-navigation"
+    [demo]="demoEntry"
+  />
 
   <article demoIntro>
     <p class="demo-eyebrow">Cross-Stack Validation</p>
     <h2>Backend validation via the shared .NET SampleApi</h2>
     <p class="demo-card__summary">
-      This demo proves the end-to-end validation pipeline. The <code>@hexguard/angular-api-errors</code>
+      This demo proves the end-to-end validation pipeline. The
+      <code>@hexguard/angular-api-errors</code>
       Angular package consumes RFC 9457 Problem Details payloads that the
       <code>HexGuard.ValidationContracts</code> .NET library produces.
     </p>
@@ -47,7 +52,9 @@
     }
 
     @if (errorMessage(); as err) {
-      <div class="demo-banner demo-banner--error" data-testid="api-errors-backend-error">{{ err }}</div>
+      <div class="demo-banner demo-banner--error" data-testid="api-errors-backend-error">
+        {{ err }}
+      </div>
     }
   </article>
 
@@ -65,7 +72,9 @@
           <input
             id="be-name"
             class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+            [class.api-errors-backend__input--invalid]="
+              form.get('name')?.invalid && form.get('name')?.touched
+            "
             formControlName="name"
             placeholder="Enter product name"
             data-testid="api-errors-backend-name-input"
@@ -84,7 +93,9 @@
             id="be-price"
             type="number"
             class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="form.get('price')?.invalid && form.get('price')?.touched"
+            [class.api-errors-backend__input--invalid]="
+              form.get('price')?.invalid && form.get('price')?.touched
+            "
             formControlName="price"
             placeholder="0.00"
             data-testid="api-errors-backend-price-input"
@@ -102,7 +113,9 @@
           <select
             id="be-category"
             class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="form.get('category')?.invalid && form.get('category')?.touched"
+            [class.api-errors-backend__input--invalid]="
+              form.get('category')?.invalid && form.get('category')?.touched
+            "
             formControlName="category"
             data-testid="api-errors-backend-category-input"
           >
@@ -112,7 +125,10 @@
             }
           </select>
           @if (form.get('category')?.invalid && form.get('category')?.touched) {
-            <p class="api-errors-backend__field-error" data-testid="api-errors-backend-category-error">
+            <p
+              class="api-errors-backend__field-error"
+              data-testid="api-errors-backend-category-error"
+            >
               {{ fieldError('category') }}
             </p>
           }
@@ -124,7 +140,9 @@
           <input
             id="be-sku"
             class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="form.get('sku')?.invalid && form.get('sku')?.touched"
+            [class.api-errors-backend__input--invalid]="
+              form.get('sku')?.invalid && form.get('sku')?.touched
+            "
             formControlName="sku"
             placeholder="ELE-123456"
             data-testid="api-errors-backend-sku-input"
@@ -141,9 +159,19 @@
           <label class="api-errors-backend__label">Tags (max 5)</label>
           <div class="api-errors-backend__tags-row">
             @for (tag of tags(); track tag; let i = $index) {
-              <span class="api-errors-backend__tag" [attr.data-testid]="'api-errors-backend-tag-' + i">
+              <span
+                class="api-errors-backend__tag"
+                [attr.data-testid]="'api-errors-backend-tag-' + i"
+              >
                 {{ tag }}
-                <button type="button" class="api-errors-backend__tag-remove" (click)="removeTag(i)" [attr.data-testid]="'api-errors-backend-tag-remove-' + i">&times;</button>
+                <button
+                  type="button"
+                  class="api-errors-backend__tag-remove"
+                  (click)="removeTag(i)"
+                  [attr.data-testid]="'api-errors-backend-tag-remove-' + i"
+                >
+                  &times;
+                </button>
               </span>
             }
           </div>
@@ -159,10 +187,20 @@
         </div>
 
         <div class="api-errors-backend__form-actions">
-          <button type="submit" class="demo-button" data-testid="api-errors-backend-submit" [disabled]="isSubmitting()">
+          <button
+            type="submit"
+            class="demo-button"
+            data-testid="api-errors-backend-submit"
+            [disabled]="isSubmitting()"
+          >
             {{ isSubmitting() ? 'Submitting\u2026' : 'Submit' }}
           </button>
-          <button type="button" class="demo-button demo-button--secondary" (click)="resetForm()" data-testid="api-errors-backend-clear">
+          <button
+            type="button"
+            class="demo-button demo-button--secondary"
+            (click)="resetForm()"
+            data-testid="api-errors-backend-clear"
+          >
             Clear
           </button>
         </div>
@@ -172,7 +210,9 @@
         <div class="api-errors-backend__page-errors" data-testid="api-errors-backend-page-errors">
           <p class="demo-eyebrow">Page-level errors</p>
           @for (err of pageErrors(); track err) {
-            <p class="api-errors-backend__field-error" data-testid="api-errors-backend-page-error">{{ err.message }}</p>
+            <p class="api-errors-backend__field-error" data-testid="api-errors-backend-page-error">
+              {{ err.message }}
+            </p>
           }
         </div>
       }

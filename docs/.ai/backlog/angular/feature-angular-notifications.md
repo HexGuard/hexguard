@@ -40,7 +40,11 @@ The repeated problem is that most business apps need a notification queue (succe
 ## Proposed Public API
 
 ```ts
-import { injectNotificationQueue, type Notification, type NotificationOptions } from '@hexguard/angular-notifications';
+import {
+  injectNotificationQueue,
+  type Notification,
+  type NotificationOptions,
+} from '@hexguard/angular-notifications';
 
 // Type of notification
 type NotificationType = 'success' | 'error' | 'warning' | 'info';
@@ -51,16 +55,16 @@ interface Notification<TMeta = undefined> {
   type: NotificationType;
   message: string;
   detail?: string;
-  timeout?: number;           // ms, 0 = sticky
+  timeout?: number; // ms, 0 = sticky
   meta?: TMeta;
   createdAt: number;
 }
 
 // Queue configuration
 interface NotificationQueueConfig {
-  maxVisible?: number;        // default 5
-  defaultTimeout?: number;    // default 5000
-  pauseOnHover?: boolean;     // default true
+  maxVisible?: number; // default 5
+  defaultTimeout?: number; // default 5000
+  pauseOnHover?: boolean; // default true
 }
 
 // Injected facade
@@ -68,7 +72,7 @@ interface NotificationQueue {
   readonly visible: Signal<Notification[]>;
   readonly queue: Signal<Notification[]>;
 
-  push(notification: NotificationOptions): string;   // returns id
+  push(notification: NotificationOptions): string; // returns id
   dismiss(id: string): void;
   dismissAll(): void;
   dismissType(type: NotificationType): void;

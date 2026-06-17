@@ -131,4 +131,3 @@ builder.Services.AddHexGuardFiltering(options =>
 - Revisit nested-property filtering (e.g., `address.city.contains`) if flat filtering proves insufficient.
 - Evaluate client-side query-contract generation (TypeScript types from filter definition).
 - Consider integration with `HexGuard.Pagination` for combined filter+sort+page list endpoints.
-

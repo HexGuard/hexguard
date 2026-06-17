@@ -42,10 +42,14 @@ The repeated problem is that CSS media queries handle presentation, but componen
 ## Proposed Public API
 
 ```ts
-import { injectBreakpointObserver, type BreakpointConfig } from '@hexguard/angular-breakpoint-observer';
+import {
+  injectBreakpointObserver,
+  type BreakpointConfig,
+} from '@hexguard/angular-breakpoint-observer';
 
 const bp = injectBreakpointObserver({
-  breakpoints: {               // custom breakpoints (default shown below)
+  breakpoints: {
+    // custom breakpoints (default shown below)
     sm: 640,
     md: 768,
     lg: 1024,
@@ -55,17 +59,17 @@ const bp = injectBreakpointObserver({
 });
 
 // Reactive signals
-const active = bp.active;                // Signal<'sm' | 'md' | 'lg' | 'xl' | '2xl'>
-const isMobile = bp.below('md');         // Signal<boolean> — viewport < 768px
-const isDesktop = bp.above('lg');        // Signal<boolean> — viewport >= 1024px
+const active = bp.active; // Signal<'sm' | 'md' | 'lg' | 'xl' | '2xl'>
+const isMobile = bp.below('md'); // Signal<boolean> — viewport < 768px
+const isDesktop = bp.above('lg'); // Signal<boolean> — viewport >= 1024px
 const isTablet = bp.matches('(min-width: 768px) and (max-width: 1023px)');
 
 // All breakpoints as individual signals for template binding
-bp.breakpoints;                          // { sm: Signal<boolean>, md: Signal<boolean>, ... }
+bp.breakpoints; // { sm: Signal<boolean>, md: Signal<boolean>, ... }
 
 // Options
 interface BreakpointObserverOptions {
-  breakpoints?: Record<string, number>;  // name → min-width in px
+  breakpoints?: Record<string, number>; // name → min-width in px
 }
 
 // Return type
@@ -97,9 +101,9 @@ interface BreakpointObserver {
 ### Phase 2: Demo & Docs
 
 9. Add a demo route at `/packages/angular-breakpoint-observer` showing:
-    - Live active-breakpoint display that changes when resizing
-    - Column visibility toggling based on breakpoints (hide column below md)
-    - Layout orientation switch (table ↔ cards based on breakpoint)
+   - Live active-breakpoint display that changes when resizing
+   - Column visibility toggling based on breakpoints (hide column below md)
+   - Layout orientation switch (table ↔ cards based on breakpoint)
 10. Add Playwright coverage for the demo page.
 11. Write the deep-dive doc at `docs/packages/angular-breakpoint-observer.md`.
 12. Update the npm-facing `README.md`.

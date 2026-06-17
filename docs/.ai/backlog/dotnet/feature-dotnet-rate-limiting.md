@@ -10,7 +10,7 @@ package: 'HexGuard.RateLimiting'
 
 ## Summary
 
-Design `HexGuard.RateLimiting` as a .NET package for standardizing rate-limit policy configuration helpers, standard rate-limit response header conventions (Retry-After, RateLimit-*), and client-friendly error payloads on top of ASP.NET Core's built-in rate-limiting middleware.
+Design `HexGuard.RateLimiting` as a .NET package for standardizing rate-limit policy configuration helpers, standard rate-limit response header conventions (Retry-After, RateLimit-\*), and client-friendly error payloads on top of ASP.NET Core's built-in rate-limiting middleware.
 
 The repeated problem is that ASP.NET Core 7+ ships a flexible rate-limiting middleware, but teams repeatedly implement the same conventions around rate-limit response headers (the `RateLimit-*` IETF draft headers), `Retry-After` formatting, consistent `429 Too Many Requests` problem-details payloads, and policy naming conventions. A thin conventions package on top of the built-in middleware would eliminate this boilerplate.
 

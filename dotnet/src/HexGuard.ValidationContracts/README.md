@@ -63,15 +63,15 @@ var validationResult = fluentResult.AsValidationResult(traceId: "trace-abc");
 
 ## Features
 
-| Feature | Status |
-|---------|--------|
-| `ValidationError` record (Field, Code, Message, IsFieldError) | ✅ Available |
-| `ValidationResult` record (IsValid, FieldErrors, ModelErrors, ForField, ForFieldPrefix) | ✅ Available |
-| `FieldPath` helpers (Child, Index, IndexChild, GetParent, GetLeaf) | ✅ Available |
-| `ValidationErrorCode` constants (Required, InvalidFormat, OutOfRange, etc.) | ✅ Available |
-| `ValidationResultBuilder` fluent builder | ✅ Available |
-| `ValidationResultProblemDetails` RFC 9457 adapter | ✅ Available |
-| `FluentValidationExtensions.AsValidationResult()` | ✅ Available (conditional) |
+| Feature                                                                                 | Status                     |
+| --------------------------------------------------------------------------------------- | -------------------------- |
+| `ValidationError` record (Field, Code, Message, IsFieldError)                           | ✅ Available               |
+| `ValidationResult` record (IsValid, FieldErrors, ModelErrors, ForField, ForFieldPrefix) | ✅ Available               |
+| `FieldPath` helpers (Child, Index, IndexChild, GetParent, GetLeaf)                      | ✅ Available               |
+| `ValidationErrorCode` constants (Required, InvalidFormat, OutOfRange, etc.)             | ✅ Available               |
+| `ValidationResultBuilder` fluent builder                                                | ✅ Available               |
+| `ValidationResultProblemDetails` RFC 9457 adapter                                       | ✅ Available               |
+| `FluentValidationExtensions.AsValidationResult()`                                       | ✅ Available (conditional) |
 
 ## Links
 

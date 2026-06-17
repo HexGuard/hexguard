@@ -15,13 +15,7 @@ export interface ProductPayload {
 /**
  * Valid categories recognized by the .NET SampleApi validation endpoint.
  */
-export const VALID_CATEGORIES = [
-  'Electronics',
-  'Clothing',
-  'Home',
-  'Books',
-  'Sports',
-] as const;
+export const VALID_CATEGORIES = ['Electronics', 'Clothing', 'Home', 'Books', 'Sports'] as const;
 
 export const EMPTY_PRODUCT: ProductPayload = {
   name: '',
@@ -41,34 +35,74 @@ export function simulateBackendValidation(payload: ProductPayload): {
 
   const name = payload.name.trim();
   if (name.length === 0) {
-    errors.push({ field: 'name', code: 'Required', message: 'Product name is required.', isFieldError: true });
+    errors.push({
+      field: 'name',
+      code: 'Required',
+      message: 'Product name is required.',
+      isFieldError: true,
+    });
   } else if (name.length > 100) {
-    errors.push({ field: 'name', code: 'MaxLength', message: 'Product name must not exceed 100 characters.', isFieldError: true });
+    errors.push({
+      field: 'name',
+      code: 'MaxLength',
+      message: 'Product name must not exceed 100 characters.',
+      isFieldError: true,
+    });
   }
 
   if (payload.price <= 0) {
-    errors.push({ field: 'price', code: 'OutOfRange', message: 'Price must be greater than zero.', isFieldError: true });
+    errors.push({
+      field: 'price',
+      code: 'OutOfRange',
+      message: 'Price must be greater than zero.',
+      isFieldError: true,
+    });
   } else if (payload.price > 100_000) {
-    errors.push({ field: 'price', code: 'OutOfRange', message: 'Price must not exceed 100,000.', isFieldError: true });
+    errors.push({
+      field: 'price',
+      code: 'OutOfRange',
+      message: 'Price must not exceed 100,000.',
+      isFieldError: true,
+    });
   }
 
   const category = payload.category.trim();
   if (category.length === 0) {
-    errors.push({ field: 'category', code: 'Required', message: 'Category is required.', isFieldError: true });
-  } else if (!VALID_CATEGORIES.includes(category as typeof VALID_CATEGORIES[number])) {
-    errors.push({ field: 'category', code: 'InvalidFormat', message: `'${category}' is not a recognized category.`, isFieldError: true });
+    errors.push({
+      field: 'category',
+      code: 'Required',
+      message: 'Category is required.',
+      isFieldError: true,
+    });
+  } else if (!VALID_CATEGORIES.includes(category as (typeof VALID_CATEGORIES)[number])) {
+    errors.push({
+      field: 'category',
+      code: 'InvalidFormat',
+      message: `'${category}' is not a recognized category.`,
+      isFieldError: true,
+    });
   }
 
   const sku = payload.sku.trim();
   if (sku.length > 0) {
     const skuPattern = /^[A-Z]{3}-\d{6}$/;
     if (!skuPattern.test(sku)) {
-      errors.push({ field: 'sku', code: 'InvalidFormat', message: 'SKU must match the pattern XXX-999999.', isFieldError: true });
+      errors.push({
+        field: 'sku',
+        code: 'InvalidFormat',
+        message: 'SKU must match the pattern XXX-999999.',
+        isFieldError: true,
+      });
     }
   }
 
   if (payload.tags.length > 5) {
-    errors.push({ field: 'tags', code: 'MaxLength', message: 'At most 5 tags are allowed.', isFieldError: true });
+    errors.push({
+      field: 'tags',
+      code: 'MaxLength',
+      message: 'At most 5 tags are allowed.',
+      isFieldError: true,
+    });
   }
 
   return {

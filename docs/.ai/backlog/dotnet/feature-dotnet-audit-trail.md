@@ -116,4 +116,3 @@ builder.Services.AddHexGuardAuditTrail(options =>
 - Revisit structured storage backends (EF Core, MongoDB, Elasticsearch) as companion packages.
 - Evaluate audit-event enrichment pipeline (add geolocation, user-agent, etc.).
 - Consider integration with `HexGuard.SoftDelete` for audit-aware deletion tracking.
-

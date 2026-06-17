@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.stack-hub {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.stack-hub__hero {
+  overflow: hidden;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
+}

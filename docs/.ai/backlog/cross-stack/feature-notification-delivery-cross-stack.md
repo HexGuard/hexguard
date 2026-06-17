@@ -84,7 +84,7 @@ interface InboxState {
   readonly isLoading: Signal<boolean>;
   markRead(id: string): void;
   markAllRead(): void;
-  navigateTo(notification: Notification): void;   // router.navigate by deepLink
+  navigateTo(notification: Notification): void; // router.navigate by deepLink
 }
 ```
 

@@ -118,10 +118,10 @@ interface SkeletonState {
 ### Phase 2: Demo & Docs
 
 8. Add a demo route at `/packages/angular-skeleton` showing:
-    - Card skeleton, table-row skeleton, avatar+text skeleton variants
-    - Shimmer animation toggle
-    - Integration with async-state value loading
-    - Custom skeleton variant passthrough
+   - Card skeleton, table-row skeleton, avatar+text skeleton variants
+   - Shimmer animation toggle
+   - Integration with async-state value loading
+   - Custom skeleton variant passthrough
 9. Add Playwright coverage for the demo page.
 10. Write the deep-dive doc at `docs/packages/angular-skeleton.md`.
 11. Update the npm-facing `README.md`.

@@ -111,9 +111,9 @@ interface EmptyStateHandle {
 ### Phase 2: Demo & Docs
 
 7. Add a demo route at `/packages/angular-empty-state` showing:
-    - All built-in empty-state types with contextual messages
-    - Integration with async-state (load empty list, load error, clear)
-    - Custom empty state with illustration slot and action
+   - All built-in empty-state types with contextual messages
+   - Integration with async-state (load empty list, load error, clear)
+   - Custom empty state with illustration slot and action
 8. Add Playwright coverage for the demo page.
 9. Write the deep-dive doc at `docs/packages/angular-empty-state.md`.
 10. Update the npm-facing `README.md`.

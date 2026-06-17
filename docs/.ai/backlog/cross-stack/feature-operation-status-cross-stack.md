@@ -71,14 +71,14 @@ const operation = injectOperationStatus('job-abc-123', {
   onComplete: (result) => console.log('Done', result),
 });
 
-operation.status;             // Signal<OperationStatus | null>
-operation.isRunning;          // Signal<boolean>
-operation.isCompleted;        // Signal<boolean>
-operation.isFailed;           // Signal<boolean>
-operation.progressPercent;    // Signal<number>
-operation.stage;              // Signal<string | null>
-operation.error;              // Signal<string | null>
-operation.cancel();           // POST /api/operations/{id}/cancel
+operation.status; // Signal<OperationStatus | null>
+operation.isRunning; // Signal<boolean>
+operation.isCompleted; // Signal<boolean>
+operation.isFailed; // Signal<boolean>
+operation.progressPercent; // Signal<number>
+operation.stage; // Signal<string | null>
+operation.error; // Signal<string | null>
+operation.cancel(); // POST /api/operations/{id}/cancel
 ```
 
 ## Implementation Plan
@@ -127,4 +127,3 @@ operation.cancel();           // POST /api/operations/{id}/cancel
 - Revisit SSE push for lower-latency status updates instead of polling.
 - Evaluate integration with `HexGuard.BackgroundJobs` for automatic job-status tracking.
 - Consider adding batch status endpoint (`GET /api/operations?ids=...`) for dashboards.
-

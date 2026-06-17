@@ -40,17 +40,18 @@ The repeated problem is that Angular has no built-in equivalent to React error b
 
 ```ts
 import { Component } from '@angular/core';
-import { HexguardErrorBoundaryComponent, injectErrorBoundary, type ErrorBoundaryFallbackContext } from '@hexguard/angular-error-boundary';
+import {
+  HexguardErrorBoundaryComponent,
+  injectErrorBoundary,
+  type ErrorBoundaryFallbackContext,
+} from '@hexguard/angular-error-boundary';
 
 // Component usage
 @Component({
   standalone: true,
   imports: [HexguardErrorBoundaryComponent],
   template: `
-    <hexguard-error-boundary
-      [fallback]="myFallback"
-      (errorChanged)="onError($event)"
-    >
+    <hexguard-error-boundary [fallback]="myFallback" (errorChanged)="onError($event)">
       <my-risky-component />
     </hexguard-error-boundary>
 

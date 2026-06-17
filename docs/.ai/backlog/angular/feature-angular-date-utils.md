@@ -47,42 +47,39 @@ import { injectDateUtils, DateRange } from '@hexguard/angular-date-utils';
 const utils = injectDateUtils();
 
 // Relative time
-utils.relativeTime(new Date('2026-06-15'));           // "2 days ago"
-utils.relativeTime(new Date('2026-06-20'));           // "in 3 days"
-utils.shortRelativeTime(Date.now() - 300_000);         // "5m ago"
-utils.shortRelativeTime(Date.now() - 7200_000);        // "2h ago"
-utils.shortRelativeTime(Date.now() - 86400_000 * 3);   // "3d ago"
-utils.exactRelativeTime(d);                            // "2 days, 4 hours ago"
+utils.relativeTime(new Date('2026-06-15')); // "2 days ago"
+utils.relativeTime(new Date('2026-06-20')); // "in 3 days"
+utils.shortRelativeTime(Date.now() - 300_000); // "5m ago"
+utils.shortRelativeTime(Date.now() - 7200_000); // "2h ago"
+utils.shortRelativeTime(Date.now() - 86400_000 * 3); // "3d ago"
+utils.exactRelativeTime(d); // "2 days, 4 hours ago"
 
 // Compact formatting
-utils.compactDate(new Date('2026-06-17'));            // "Jun 17"
-utils.compactDate(new Date('2025-06-17'));            // "Jun 17, 2025" (different year)
-utils.compactDateTime(new Date());                     // "Jun 17, 3:45 PM"
+utils.compactDate(new Date('2026-06-17')); // "Jun 17"
+utils.compactDate(new Date('2025-06-17')); // "Jun 17, 2025" (different year)
+utils.compactDateTime(new Date()); // "Jun 17, 3:45 PM"
 
 // Business days
-utils.isWeekend(new Date('2026-06-17'));               // false (Wednesday)
-utils.addBusinessDays(new Date('2026-06-17'), 3);      // Mon Jun 22 (skips weekend)
-utils.businessDaysBetween(start, end);                 // number
+utils.isWeekend(new Date('2026-06-17')); // false (Wednesday)
+utils.addBusinessDays(new Date('2026-06-17'), 3); // Mon Jun 22 (skips weekend)
+utils.businessDaysBetween(start, end); // number
 
 // Duration
-utils.durationBetween(start, end);                     // { days: 5, hours: 3, minutes: 0 }
-utils.formatDuration({ days: 5, hours: 3 });           // "5d 3h"
-utils.ageInYears(birthDate);                           // 34
+utils.durationBetween(start, end); // { days: 5, hours: 3, minutes: 0 }
+utils.formatDuration({ days: 5, hours: 3 }); // "5d 3h"
+utils.ageInYears(birthDate); // 34
 
 // Date range model
-const range = new DateRange(
-  new Date('2026-06-01'),
-  new Date('2026-06-30'),
-);
-range.start;                              // Date
-range.end;                                // Date
-range.isValid;                            // true (end >= start)
-range.durationDays;                       // 29
-range.contains(new Date('2026-06-15'));   // true
-range.overlaps(otherRange);               // boolean
+const range = new DateRange(new Date('2026-06-01'), new Date('2026-06-30'));
+range.start; // Date
+range.end; // Date
+range.isValid; // true (end >= start)
+range.durationDays; // 29
+range.contains(new Date('2026-06-15')); // true
+range.overlaps(otherRange); // boolean
 
 // Preset factories
-DateRange.last7Days();                    // rolling 7-day window
+DateRange.last7Days(); // rolling 7-day window
 DateRange.last30Days();
 DateRange.thisMonth();
 DateRange.lastMonth();

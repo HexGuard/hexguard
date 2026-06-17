@@ -62,12 +62,48 @@ import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orde
 import { AngularApiErrorsHomePageComponent } from './features/angular-api-errors/pages/angular-api-errors-home-page.component';
 import { ApiErrorsBackendDemoPageComponent } from './features/angular-api-errors/pages/api-errors-backend-demo-page/api-errors-backend-demo-page.component';
 import { FormValidationDemoPageComponent } from './features/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
+import { AngularHubPageComponent } from './features/angular-hub/pages/angular-hub-page.component';
+import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cross-stack-hub-page.component';
+import { CrossStackApiErrorsHubPageComponent } from './features/cross-stack/pages/cross-stack-api-errors-hub/cross-stack-api-errors-hub-page.component';
+import { CrossStackLookupsHubPageComponent } from './features/cross-stack/pages/cross-stack-lookups-hub/cross-stack-lookups-hub-page.component';
+import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
+import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: SiteHomePageComponent,
     title: 'HexGuard Demo Site',
+  },
+  {
+    path: 'angular',
+    component: AngularHubPageComponent,
+    title: 'Angular Packages',
+  },
+  {
+    path: 'cross-stack',
+    component: CrossStackHubPageComponent,
+    title: 'Cross-Stack Packages',
+  },
+  {
+    path: 'cross-stack/angular-lookups',
+    component: CrossStackLookupsHubPageComponent,
+    title: 'Lookups + ReferenceData Cross-Stack Hub',
+  },
+  {
+    path: 'cross-stack/angular-api-errors',
+    component: CrossStackApiErrorsHubPageComponent,
+    title: 'API Errors + Validation Contracts Cross-Stack Hub',
+  },
+  {
+    path: 'dotnet/hexguard-reference-data',
+    component: DotnetReferenceDataHubPageComponent,
+    title: 'HexGuard.ReferenceData Package Hub',
+  },
+  {
+    path: 'dotnet/hexguard-validation-contracts',
+    component: DotnetValidationContractsHubPageComponent,
+    title: 'HexGuard.ValidationContracts Package Hub',
   },
   {
     path: 'packages/angular-url-state',

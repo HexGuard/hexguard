@@ -20,7 +20,12 @@ import {
 @Component({
   standalone: true,
   selector: 'demo-api-errors-backend-page',
-  imports: [ReactiveFormsModule, DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent],
+  imports: [
+    ReactiveFormsModule,
+    DemoInspectorPanelComponent,
+    DemoNavigationStripComponent,
+    DemoPageLayoutComponent,
+  ],
   templateUrl: './api-errors-backend-demo-page.component.html',
   styleUrls: ['./api-errors-backend-demo-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -93,15 +98,27 @@ export class ApiErrorsBackendDemoPageComponent {
       if (this.useLiveApi()) {
         const result = await VALIDATION_API_REPOSITORY.validate(payload);
         this.lastUrl.set(VALIDATION_API_REPOSITORY.lastRequestUrl());
-        const apiResult = { errors: result.errors, isValid: result.isValid, traceId: result.traceId };
+        const apiResult = {
+          errors: result.errors,
+          isValid: result.isValid,
+          traceId: result.traceId,
+        };
         const pageErrs = apiFormErrors(this.form, apiResult);
         this.pageErrors.set(pageErrs);
-        this.rawResponse.set({ status: result.status, errors: result.errors, isValid: result.isValid });
+        this.rawResponse.set({
+          status: result.status,
+          errors: result.errors,
+          isValid: result.isValid,
+        });
       } else {
         const result = simulateBackendValidation(payload);
         const pageErrs = apiFormErrors(this.form, result);
         this.pageErrors.set(pageErrs);
-        this.rawResponse.set({ errors: result.errors, isValid: result.isValid, traceId: result.traceId });
+        this.rawResponse.set({
+          errors: result.errors,
+          isValid: result.isValid,
+          traceId: result.traceId,
+        });
       }
     } catch (err) {
       this.errorMessage.set(err instanceof Error ? err.message : 'Unknown error');

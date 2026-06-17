@@ -138,10 +138,10 @@ interface PaginationHandle {
 ### Phase 2: Demo & Docs
 
 9. Add a demo route at `/packages/angular-pagination` showing:
-    - A paginated list with page navigation, page-size selector, and item-range display
-    - URL-synced page state (via mock or real url-state)
-    - Integration with async-state (load page on page change)
-    - Reset-to-page-1 when total changes
+   - A paginated list with page navigation, page-size selector, and item-range display
+   - URL-synced page state (via mock or real url-state)
+   - Integration with async-state (load page on page change)
+   - Reset-to-page-1 when total changes
 10. Add Playwright coverage for the demo page.
 11. Write the deep-dive doc at `docs/packages/angular-pagination.md`.
 12. Update the npm-facing `README.md`.

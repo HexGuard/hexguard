@@ -115,4 +115,3 @@ public static TBuilder RequireIdempotency<TBuilder>(this TBuilder builder);
 - Revisit Redis/DB store implementations as companion packages.
 - Evaluate idempotency-key generation on the client side in the cross-stack `@hexguard/angular-idempotency` package.
 - Consider idempotency for async/background operations if demand grows.
-

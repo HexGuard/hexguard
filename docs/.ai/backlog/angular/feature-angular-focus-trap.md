@@ -77,16 +77,16 @@ export class MyDialogComponent {
   }
 
   // Reactive state
-  readonly trapActive = this.focusTrap.isActive;   // Signal<boolean>
+  readonly trapActive = this.focusTrap.isActive; // Signal<boolean>
 }
 
 // Options
 interface FocusTrapOptions {
   initialFocus?: 'auto' | 'first' | 'container' | ElementRef;
-  firstFocusSelector?: string;          // custom first-focus query
-  lastFocusSelector?: string;           // custom last-focus query
-  restoreFocusOnDeactivate?: boolean;   // default true
-  onEscape?: () => void;                // escape key callback
+  firstFocusSelector?: string; // custom first-focus query
+  lastFocusSelector?: string; // custom last-focus query
+  restoreFocusOnDeactivate?: boolean; // default true
+  onEscape?: () => void; // escape key callback
 }
 
 // Return type

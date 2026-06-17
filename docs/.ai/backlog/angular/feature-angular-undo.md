@@ -55,15 +55,15 @@ undo.push({
 });
 
 // Reactive state
-undo.pendingUndos;           // Signal<ActionWithTimer[]>
-undo.hasPending;             // Signal<boolean>
+undo.pendingUndos; // Signal<ActionWithTimer[]>
+undo.hasPending; // Signal<boolean>
 undo.undosForType('delete'); // Signal<ActionWithTimer[]>
 
 // Imperative
 undo.undo('delete-order-42');
 undo.undoGroup('batch-1');
-undo.commit('delete-order-42');  // expire immediately
-undo.clear();                     // cancel all pending undo windows
+undo.commit('delete-order-42'); // expire immediately
+undo.clear(); // cancel all pending undo windows
 ```
 
 ## Implementation Plan

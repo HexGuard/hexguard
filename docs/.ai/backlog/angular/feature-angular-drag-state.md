@@ -103,9 +103,9 @@ const newItems = computeReorder(sourceItems, targetItems, {
 ### Phase 2: Demo & Docs
 
 8. Add a demo route at `/packages/angular-drag-state` showing:
-    - Kanban board with cross-column drag
-    - Sortable list with reorder
-    - Cancel vs confirm behavior
+   - Kanban board with cross-column drag
+   - Sortable list with reorder
+   - Cancel vs confirm behavior
 9. Add Playwright coverage.
 10. Write `docs/packages/angular-drag-state.md`.
 11. Update `README.md`.

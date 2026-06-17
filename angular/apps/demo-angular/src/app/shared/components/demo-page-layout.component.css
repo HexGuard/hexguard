@@ -39,3 +39,13 @@
 .demo-page-layout__aside > * {
   min-width: 0;
 }
+
+@media (min-width: 1100px) {
+  .demo-page-layout {
+    grid-template-areas:
+      'nav    nav'
+      'intro  aside'
+      'primary aside';
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.55fr);
+  }
+}

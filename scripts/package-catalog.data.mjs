@@ -202,8 +202,7 @@ export const currentPackages = [
     readmePath: 'dotnet/src/HexGuard.ReferenceData/README.md',
     deepDivePath: 'docs/packages/hexguard-reference-data.md',
     repositoryPath: 'dotnet/src/HexGuard.ReferenceData',
-    summary:
-      'Typed reference-data catalog contracts and validation helpers for .NET applications.',
+    summary: 'Typed reference-data catalog contracts and validation helpers for .NET applications.',
     detail:
       'Provides ReferenceDataCatalog, ReferenceDataCollection, and ReferenceDataItem types plus a built-in validator that catches duplicate keys, missing metadata, and empty labels. Demonstrated through the shared HexGuard.SampleApi.',
     installCommand: 'dotnet add package HexGuard.ReferenceData',

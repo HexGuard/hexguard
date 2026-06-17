@@ -78,7 +78,7 @@ export const appProviders = [
 
 // In a component
 const warnings = injectApiVersionWarnings();
-warnings.activeWarnings();    // Signal<ApiVersionWarning[]>
+warnings.activeWarnings(); // Signal<ApiVersionWarning[]>
 // → [{ version: 1, sunset: '2026-12-31', message: 'API v1 will be retired on Dec 31, 2026', migrationUrl: '/api/v2/orders' }]
 ```
 

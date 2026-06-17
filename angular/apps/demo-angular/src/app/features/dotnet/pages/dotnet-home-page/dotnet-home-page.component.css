@@ -54,124 +54,12 @@
   max-width: 42rem;
 }
 
-/* ── Package cards (site-home style) ───────── */
+/* ── Package grid ──────────────────────────── */
 
 .dotnet-home__grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-}
-
-.dotnet-home__package-card {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-}
-
-.dotnet-home__package-header {
-  display: flex;
-  gap: 0.8rem 1rem;
-  align-items: start;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.dotnet-home__package-title {
-  min-width: 0;
-  display: grid;
-  gap: 0.2rem;
-}
-
-.dotnet-home__package-title h3 {
-  margin: 0;
-  color: var(--color-ink);
-  overflow-wrap: anywhere;
-}
-
-.dotnet-home__package-header .site-status-badge {
-  flex: 0 1 auto;
-  align-self: flex-start;
-}
-
-/* ── Counterpart badge ─────────────────────── */
-
-.dotnet-home__counterpart {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0;
-}
-
-.dotnet-home__counterpart-pill {
-  background: rgba(217, 119, 75, 0.1);
-  border-color: rgba(217, 119, 75, 0.3);
-  color: #a35832;
-}
-
-/* ── Demo links inside the package card ────── */
-
-.dotnet-home__demos {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.dotnet-home__demo-link {
-  display: grid;
-  gap: 0.15rem;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.55);
-  color: inherit;
-  text-decoration: none;
-  transition:
-    border-color 150ms ease,
-    background 150ms ease;
-}
-
-.dotnet-home__demo-link:hover,
-.dotnet-home__demo-link:focus-visible {
-  border-color: var(--color-accent-border);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.dotnet-home__demo-label {
-  color: var(--color-accent-strong);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.dotnet-home__demo-desc {
-  color: var(--color-muted);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* ── Package footer ────────────────────────── */
-
-.dotnet-home__package-footer {
-  display: grid;
-  gap: 0.9rem;
-  margin-top: auto;
-}
-
-.dotnet-home__package-meta {
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.dotnet-home__package-links {
-  align-items: stretch;
-}
-
-.dotnet-home__package-links > * {
-  flex: 1 1 12rem;
 }
 
 /* ── Getting started ───────────────────────── */
@@ -215,26 +103,9 @@
 
 /* ── Media queries ─────────────────────────── */
 
-@media (max-width: 900px) {
-  .dotnet-home__package-links > * {
-    flex: 1 1 13rem;
-  }
-}
-
 @media (max-width: 720px) {
-  .dotnet-home__hero,
-  .dotnet-home__package-card {
+  .dotnet-home__hero {
     padding: 1.2rem;
-  }
-
-  .dotnet-home__package-meta,
-  .dotnet-home__package-links {
-    align-items: stretch;
-  }
-
-  .dotnet-home__package-links > * {
-    width: 100%;
-    flex-basis: 100%;
   }
 }
 

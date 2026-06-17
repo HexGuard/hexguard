@@ -47,12 +47,12 @@ import { injectStorage } from '@hexguard/angular-storage';
 const prefs = injectStorage('user-preferences', {
   defaultValue: { theme: 'light', sidebar: true },
   version: 2,
-  ttlMs: 7 * 24 * 60 * 60 * 1000,       // 7 day expiry
-  storage: 'local',                        // 'local' | 'session' (default 'local')
+  ttlMs: 7 * 24 * 60 * 60 * 1000, // 7 day expiry
+  storage: 'local', // 'local' | 'session' (default 'local')
 });
 
 // Reactive signal — updates when the value changes in any tab
-const value = prefs.value;                 // Signal<{ theme: string; sidebar: boolean }>
+const value = prefs.value; // Signal<{ theme: string; sidebar: boolean }>
 
 // Write — persists and updates the signal
 prefs.set({ theme: 'dark', sidebar: false });
@@ -64,14 +64,14 @@ prefs.patch({ theme: 'dark' });
 prefs.clear();
 
 // Metadata
-const meta = prefs.meta;                   // Signal<'stored' | 'expired' | 'missing' | 'versionMismatch'>
+const meta = prefs.meta; // Signal<'stored' | 'expired' | 'missing' | 'versionMismatch'>
 
 // Option interface
 interface StorageOptions<T> {
   defaultValue: T;
-  version?: number;                        // for schema migration detection (default 1)
-  ttlMs?: number;                          // time-to-live in ms (default: no expiry)
-  storage?: 'local' | 'session';           // default 'local'
+  version?: number; // for schema migration detection (default 1)
+  ttlMs?: number; // time-to-live in ms (default: no expiry)
+  storage?: 'local' | 'session'; // default 'local'
 }
 
 // Return type

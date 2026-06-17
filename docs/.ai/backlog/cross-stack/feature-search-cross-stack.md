@@ -94,13 +94,13 @@ interface HighlightToken {
 
 // Headless autocomplete state
 interface AutocompleteState<T> {
-  readonly query: WritableSignal<string>;       // bound to input
+  readonly query: WritableSignal<string>; // bound to input
   readonly results: Signal<SearchResult<T>[]>;
   readonly isOpen: Signal<boolean>;
   readonly isLoading: Signal<boolean>;
   readonly isEmpty: Signal<boolean>;
   readonly selectedIndex: Signal<number | null>;
-  readonly highlightedText: (result: SearchResult<T>) => string;  // applies <mark> tags
+  readonly highlightedText: (result: SearchResult<T>) => string; // applies <mark> tags
   open(): void;
   close(): void;
   selectNext(): void;

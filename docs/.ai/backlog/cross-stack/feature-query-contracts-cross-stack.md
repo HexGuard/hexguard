@@ -63,7 +63,11 @@ public record QueryResponse<T>(
 ### Angular
 
 ```ts
-import { toQueryRequest, type QueryRequest, type QueryResponse } from '@hexguard/angular-query-contracts';
+import {
+  toQueryRequest,
+  type QueryRequest,
+  type QueryResponse,
+} from '@hexguard/angular-query-contracts';
 
 // Map URL state to typed request
 const request: QueryRequest = toQueryRequest({
@@ -114,4 +118,3 @@ const response = await api.post<QueryResponse<Order>>('/api/orders/query', reque
 - `pnpm dotnet:test`.
 - `pnpm test:lib:query-contracts`.
 - `pnpm test:e2e`.
-

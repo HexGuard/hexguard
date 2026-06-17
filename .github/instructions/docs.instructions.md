@@ -3,6 +3,8 @@ description: 'Use when editing repo documentation, package docs, or roadmap cont
 applyTo:
   - 'README.md'
   - 'docs/**/*.md'
+  - '.github/prompts/**'
+  - '.github/agents/**'
   - 'angular/packages/angular-url-state/README.md'
   - 'CONTRIBUTING.md'
 ---

@@ -48,12 +48,12 @@ const upload = injectUploadState({
   maxFileSize: 50 * 1024 * 1024,
 });
 
-upload.queue;              // Signal<UploadItem[]>
-upload.active;             // Signal<UploadItem | null>
-upload.isUploading;        // Signal<boolean>
-upload.completed;          // Signal<UploadItem[]>
-upload.failed;             // Signal<UploadItem[]>
-upload.progress;           // Signal<number> — 0–100 overall
+upload.queue; // Signal<UploadItem[]>
+upload.active; // Signal<UploadItem | null>
+upload.isUploading; // Signal<boolean>
+upload.completed; // Signal<UploadItem[]>
+upload.failed; // Signal<UploadItem[]>
+upload.progress; // Signal<number> — 0–100 overall
 
 upload.upload(file);
 upload.retry(itemId);
@@ -66,7 +66,7 @@ interface UploadItem {
   id: string;
   file: File;
   status: 'queued' | 'uploading' | 'completed' | 'failed' | 'cancelled';
-  progress: number;         // 0–100
+  progress: number; // 0–100
   response?: unknown;
   error?: string;
 }

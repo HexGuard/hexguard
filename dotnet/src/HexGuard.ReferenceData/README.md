@@ -69,38 +69,38 @@ if (errors.Count > 0)
 
 The root aggregate. Holds one set of metadata and one list of named collections.
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `Metadata` | `ReferenceDataCatalogMetadata` | Version + generation timestamp |
-| `Collections` | `IReadOnlyList<ReferenceDataCollection>` | Named collection families |
-| `FindCollection(string key)` | `ReferenceDataCollection?` | Finds one collection by key (ordinal) |
-| `GetRequiredCollection(string key)` | `ReferenceDataCollection` | Same but throws `KeyNotFoundException` |
+| Member                              | Type                                     | Description                            |
+| ----------------------------------- | ---------------------------------------- | -------------------------------------- |
+| `Metadata`                          | `ReferenceDataCatalogMetadata`           | Version + generation timestamp         |
+| `Collections`                       | `IReadOnlyList<ReferenceDataCollection>` | Named collection families              |
+| `FindCollection(string key)`        | `ReferenceDataCollection?`               | Finds one collection by key (ordinal)  |
+| `GetRequiredCollection(string key)` | `ReferenceDataCollection`                | Same but throws `KeyNotFoundException` |
 
 ### `ReferenceDataCatalogMetadata`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `Version` | `string` | Cache-invalidation key (e.g. `"products-2026-06-15"`) |
-| `GeneratedAtUtc` | `DateTimeOffset` | When this catalog was generated |
+| Field            | Type             | Description                                           |
+| ---------------- | ---------------- | ----------------------------------------------------- |
+| `Version`        | `string`         | Cache-invalidation key (e.g. `"products-2026-06-15"`) |
+| `GeneratedAtUtc` | `DateTimeOffset` | When this catalog was generated                       |
 
 ### `ReferenceDataCollection`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `Key` | `string` | Unique collection identifier |
-| `Revision` | `string?` | Optional revision tracker |
-| `Items` | `IReadOnlyList<ReferenceDataItem>` | Lookup options |
-| `FindItem(string key)` | `ReferenceDataItem?` | Finds one item by key (ordinal) |
-| `FindLabel(string key)` | `string?` | Shorthand for `FindItem(key)?.Label` |
+| Field                   | Type                               | Description                          |
+| ----------------------- | ---------------------------------- | ------------------------------------ |
+| `Key`                   | `string`                           | Unique collection identifier         |
+| `Revision`              | `string?`                          | Optional revision tracker            |
+| `Items`                 | `IReadOnlyList<ReferenceDataItem>` | Lookup options                       |
+| `FindItem(string key)`  | `ReferenceDataItem?`               | Finds one item by key (ordinal)      |
+| `FindLabel(string key)` | `string?`                          | Shorthand for `FindItem(key)?.Label` |
 
 ### `ReferenceDataItem`
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `Key` | `string` | — | Stable identifier |
-| `Label` | `string` | — | Display text |
-| `IsActive` | `bool` | `true` | Whether this option is currently active |
-| `Description` | `string?` | `null` | Optional longer description |
+| Field         | Type      | Default | Description                             |
+| ------------- | --------- | ------- | --------------------------------------- |
+| `Key`         | `string`  | —       | Stable identifier                       |
+| `Label`       | `string`  | —       | Display text                            |
+| `IsActive`    | `bool`    | `true`  | Whether this option is currently active |
+| `Description` | `string?` | `null`  | Optional longer description             |
 
 ### `IReferenceDataCatalogProvider`
 
@@ -123,9 +123,9 @@ and returns the same frozen instance on every call.
 
 Static guard that checks all contract rules (see [Validation Rules](#validation-rules)).
 
-| Method | Behavior |
-|--------|----------|
-| `Validate(catalog)` | Returns error list (empty when valid) |
+| Method                     | Behavior                                                |
+| -------------------------- | ------------------------------------------------------- |
+| `Validate(catalog)`        | Returns error list (empty when valid)                   |
 | `ValidateOrThrow(catalog)` | Throws `ReferenceDataValidationException` on violations |
 
 ### `ReferenceDataValidationException`
@@ -225,21 +225,21 @@ app.MapGet("/api/catalog/validate", () =>
 
 The validator checks 13 contract rules:
 
-| # | Rule | Error message |
-|---|------|---------------|
-| 1 | Catalog is not null | *(ArgumentNullException)* |
-| 2 | `Metadata` is not null | `"Metadata is required."` |
-| 3 | `Metadata.Version` is not empty | `"Metadata.Version is required."` |
-| 4 | `Metadata.GeneratedAtUtc` is set | `"Metadata.GeneratedAtUtc must be set."` |
-| 5 | `Collections` is not null | `"Collections are required."` |
-| 6 | No null entries in `Collections` | `"Collections cannot contain null entries."` |
-| 7 | Every collection `Key` is non-empty | `"Collection keys are required."` |
-| 8 | No duplicate collection keys | `"Duplicate collection key '{key}'."` |
-| 9 | Every collection has non-null `Items` | `"Collection '{key}' must include items."` |
-| 10 | No null items in any collection | `"Collection '{key}' cannot contain null items."` |
-| 11 | Every item `Key` is non-empty | `"Collection '{key}' contains an item with an empty key."` |
-| 12 | No duplicate item keys in a collection | `"Collection '{key}' contains duplicate item key '{key}'."` |
-| 13 | Every item `Label` is non-empty | `"Collection '{key}' contains an empty label for key '{key}'."` |
+| #   | Rule                                   | Error message                                                   |
+| --- | -------------------------------------- | --------------------------------------------------------------- |
+| 1   | Catalog is not null                    | _(ArgumentNullException)_                                       |
+| 2   | `Metadata` is not null                 | `"Metadata is required."`                                       |
+| 3   | `Metadata.Version` is not empty        | `"Metadata.Version is required."`                               |
+| 4   | `Metadata.GeneratedAtUtc` is set       | `"Metadata.GeneratedAtUtc must be set."`                        |
+| 5   | `Collections` is not null              | `"Collections are required."`                                   |
+| 6   | No null entries in `Collections`       | `"Collections cannot contain null entries."`                    |
+| 7   | Every collection `Key` is non-empty    | `"Collection keys are required."`                               |
+| 8   | No duplicate collection keys           | `"Duplicate collection key '{key}'."`                           |
+| 9   | Every collection has non-null `Items`  | `"Collection '{key}' must include items."`                      |
+| 10  | No null items in any collection        | `"Collection '{key}' cannot contain null items."`               |
+| 11  | Every item `Key` is non-empty          | `"Collection '{key}' contains an item with an empty key."`      |
+| 12  | No duplicate item keys in a collection | `"Collection '{key}' contains duplicate item key '{key}'."`     |
+| 13  | Every item `Label` is non-empty        | `"Collection '{key}' contains an empty label for key '{key}'."` |
 
 ## Cross-Stack Pairing
 

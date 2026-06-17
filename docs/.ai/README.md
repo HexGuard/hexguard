@@ -28,6 +28,23 @@ context-heavy prompts.
 - demo change: `pnpm test:app`, `pnpm test:e2e`, `pnpm build:demo`
 - repo-wide change: `pnpm format:check`, `pnpm lint`, `pnpm test:ci`, `pnpm build`
 
+## Task Prompts
+
+Invocable slash-command prompts and custom agents for package lifecycle workflows.
+
+| Invocation                                    | File                                                  | Purpose                                                                                                                 |
+| --------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `/find-package-ideas`                         | `.github/prompts/find-package-ideas.prompt.md`        | Research gaps in the package catalog, produce structured package briefs under `docs/.ai/backlog/`                       |
+| `/assess-package-readiness`                   | `.github/prompts/assess-package-readiness.prompt.md`  | Audit an existing package against 9 production-readiness criteria, produce an improvement plan under `docs/.ai/audits/` |
+| `/plan-package-development`                   | `.github/prompts/plan-package-development.prompt.md`  | Shortcut — delegates to the Package Development Planner custom agent                                                    |
+| Agent picker: **Package Development Planner** | `.github/agents/package-development-planner.agent.md` | Full end-to-end planning: API design → phases → tests → docs → demo → release                                           |
+
+### When to Use Each
+
+- **Find new package ideas**: You have a broad domain or technology area and want to discover what packages HexGuard is missing.
+- **Assess package readiness**: You are considering a release, a public announcement, or a refactoring pass and need to know exactly what needs improvement.
+- **Plan package development**: You have a concrete package concept and need a detailed implementation plan that a coding agent can follow.
+
 ## When to Update the Backlog
 
 Add or reprioritize backlog items when:

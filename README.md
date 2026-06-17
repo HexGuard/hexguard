@@ -35,16 +35,22 @@ Current public Angular package entry points with README and changelog:
 
 - [Docs Index](docs/README.md)
 - [Package Catalog](docs/packages/README.md)
+
 ### Angular Packages
+
 - [`@hexguard/angular-url-state` Deep Dive](docs/packages/angular-url-state.md)
 - [`@hexguard/angular-query-form` Deep Dive](docs/packages/angular-query-form.md)
 - [`@hexguard/angular-async-state` Deep Dive](docs/packages/angular-async-state.md)
 - [`@hexguard/angular-lookups` Deep Dive](docs/packages/angular-lookups.md)
 - [`@hexguard/angular-optimistic-state` Deep Dive](docs/packages/angular-optimistic-state.md)
 - [`@hexguard/angular-permissions` Deep Dive](docs/packages/angular-permissions.md)
+
 ### .NET Packages
+
 - [`HexGuard.ReferenceData` Deep Dive](docs/packages/hexguard-reference-data.md)
+
 ### Workspace & Workflow
+
 - [Run the Demo](docs/demo/README.md)
 - [AI Workflow](docs/.ai/README.md)
 - [Contributing](CONTRIBUTING.md)

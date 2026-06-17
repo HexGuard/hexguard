@@ -63,17 +63,17 @@ import { injectPreference, injectPreferenceSync } from '@hexguard/angular-prefer
 // Local-first with optional sync
 const theme = injectPreference('theme', {
   defaultValue: 'light',
-  sync: true,                          // syncs to server when set
+  sync: true, // syncs to server when set
 });
 
-theme.value;        // Signal<string>
-theme.set('dark');  // updates locally + syncs to server
-theme.syncStatus;   // Signal<'synced' | 'pending' | 'error'>
+theme.value; // Signal<string>
+theme.set('dark'); // updates locally + syncs to server
+theme.syncStatus; // Signal<'synced' | 'pending' | 'error'>
 
 // Batch
 const sync = injectPreferenceSync();
-sync.push(theme);                      // registers for sync
-sync.syncAll();                        // pushes all pending preferences
+sync.push(theme); // registers for sync
+sync.syncAll(); // pushes all pending preferences
 ```
 
 ## Implementation Plan
@@ -110,4 +110,3 @@ sync.syncAll();                        // pushes all pending preferences
 - `pnpm dotnet:test`.
 - `pnpm test:lib:preferences`.
 - `pnpm test:e2e`.
-

@@ -303,6 +303,18 @@ pre {
   box-shadow: var(--shadow-soft);
 }
 
+.site-links__link--stack {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.site-links__link--active {
+  border-color: var(--color-accent-border-strong);
+  background: rgba(20, 101, 111, 0.1);
+  color: var(--color-accent-strong);
+}
+
 .demo-link-row > *,
 .demo-tab-bar > * {
   min-width: 0;

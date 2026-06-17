@@ -18,11 +18,11 @@ The package is intentionally narrow:
 
 ## Cross-Stack Pairing
 
-| Layer | Package | Role |
-|-------|---------|------|
-| .NET  | `HexGuard.ReferenceData` | Validates and serves the versioned catalog contract |
-| Angular | `@hexguard/angular-lookups` | Loads, caches, and resolves labels from the catalog |
-| Shared | `HexGuard.SampleApi` | Exposes the catalog via `GET /api/angular-lookups/catalog` and `GET /api/reference-data/catalog` |
+| Layer   | Package                     | Role                                                                                             |
+| ------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
+| .NET    | `HexGuard.ReferenceData`    | Validates and serves the versioned catalog contract                                              |
+| Angular | `@hexguard/angular-lookups` | Loads, caches, and resolves labels from the catalog                                              |
+| Shared  | `HexGuard.SampleApi`        | Exposes the catalog via `GET /api/angular-lookups/catalog` and `GET /api/reference-data/catalog` |
 
 The `lookups` Angular demo at `/packages/angular-lookups/backend` and the `reference-data` .NET demo
 at `/dotnet/reference-data` both draw from the same SampleApi and prove that the contract stays
@@ -30,16 +30,16 @@ consistent across stacks.
 
 ## Public API Map
 
-| Type | Role |
-| ---- | ---- |
-| `ReferenceDataCatalog` | Versioned root with `Metadata` and `Collections` |
-| `ReferenceDataCatalogMetadata` | Cache invalidation key (`Version` + `GeneratedAtUtc`) |
-| `ReferenceDataCollection` | Named family with `Key`, `Revision`, and `Items` |
-| `ReferenceDataItem` | One lookup option with `Key`, `Label`, `IsActive`, `Description` |
-| `ReferenceDataCatalogValidator` | Static validator — catches duplicates, missing fields, null entries |
-| `ReferenceDataValidationException` | Thrown by `ValidateOrThrow()` with collected errors |
-| `IReferenceDataCatalogProvider` | Async provider interface for loading catalogs |
-| `StaticReferenceDataCatalogProvider` | Validate-on-construct in-memory provider |
+| Type                                 | Role                                                                |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| `ReferenceDataCatalog`               | Versioned root with `Metadata` and `Collections`                    |
+| `ReferenceDataCatalogMetadata`       | Cache invalidation key (`Version` + `GeneratedAtUtc`)               |
+| `ReferenceDataCollection`            | Named family with `Key`, `Revision`, and `Items`                    |
+| `ReferenceDataItem`                  | One lookup option with `Key`, `Label`, `IsActive`, `Description`    |
+| `ReferenceDataCatalogValidator`      | Static validator — catches duplicates, missing fields, null entries |
+| `ReferenceDataValidationException`   | Thrown by `ValidateOrThrow()` with collected errors                 |
+| `IReferenceDataCatalogProvider`      | Async provider interface for loading catalogs                       |
+| `StaticReferenceDataCatalogProvider` | Validate-on-construct in-memory provider                            |
 
 ## Validation Rules
 
@@ -60,12 +60,12 @@ The `ReferenceDataCatalogValidator.Validate()` method checks:
 
 The shared SampleApi exposes these `HexGuard.ReferenceData`-specific endpoints:
 
-| Endpoint | Description |
-| -------- | ----------- |
-| `GET /api/reference-data/catalog` | Serves a valid `ReferenceDataCatalog` through `StaticReferenceDataCatalogProvider` |
-| `GET /api/reference-data/catalog/validate` | Runs the validator on a known-good catalog and returns the error list |
-| `GET /api/reference-data/catalog/invalid` | Returns a malformed catalog (duplicate collections) and the validator's error list |
-| `GET /api/reference-data/collections/{key}` | Fetches one collection by key from the valid catalog |
+| Endpoint                                    | Description                                                                        |
+| ------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `GET /api/reference-data/catalog`           | Serves a valid `ReferenceDataCatalog` through `StaticReferenceDataCatalogProvider` |
+| `GET /api/reference-data/catalog/validate`  | Runs the validator on a known-good catalog and returns the error list              |
+| `GET /api/reference-data/catalog/invalid`   | Returns a malformed catalog (duplicate collections) and the validator's error list |
+| `GET /api/reference-data/collections/{key}` | Fetches one collection by key from the valid catalog                               |
 
 Start the API from the repo root:
 

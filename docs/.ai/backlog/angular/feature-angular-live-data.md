@@ -43,20 +43,20 @@ import { injectLiveData } from '@hexguard/angular-live-data';
 const live = injectLiveData({
   fetch: () => fetch('/api/metrics'),
   intervalMs: 30_000,
-  pauseWhenHidden: true,           // uses @hexguard/angular-visibility
+  pauseWhenHidden: true, // uses @hexguard/angular-visibility
   staleAfterMs: 60_000,
   retryPolicy: { maxRetries: 3, backoffMs: 1000 },
 });
 
-live.value;              // Signal<T | null>
-live.isLoading;          // Signal<boolean>
-live.isStale;            // Signal<boolean>
-live.lastRefreshed;      // Signal<Date | null>
-live.error;              // Signal<Error | null>
+live.value; // Signal<T | null>
+live.isLoading; // Signal<boolean>
+live.isStale; // Signal<boolean>
+live.lastRefreshed; // Signal<Date | null>
+live.error; // Signal<Error | null>
 
-live.refresh();          // manual refresh
-live.pause();            // pause polling
-live.resume();           // resume polling
+live.refresh(); // manual refresh
+live.pause(); // pause polling
+live.resume(); // resume polling
 ```
 
 ## Implementation Plan

@@ -110,9 +110,9 @@ public static class SoftDeleteRestoreExtensions
 ### Phase 2: Sample API & Demo
 
 9. Add a `HexGuard.SoftDelete` endpoint group to the shared `HexGuard.SampleApi` demonstrating:
-    - A `Products` DbContext with soft-delete enabled
-    - GET (excludes deleted), GET with deleted included, DELETE (soft), POST restore
-    - In-memory EF Core provider for demo purposes
+   - A `Products` DbContext with soft-delete enabled
+   - GET (excludes deleted), GET with deleted included, DELETE (soft), POST restore
+   - In-memory EF Core provider for demo purposes
 10. Add integration tests via `WebApplicationFactory` for the sample endpoint.
 11. Write the deep-dive doc at `docs/packages/hexguard-soft-delete.md`.
 12. Update the NuGet-facing `README.md` with quickstart and API reference.

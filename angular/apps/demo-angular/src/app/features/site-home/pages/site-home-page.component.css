@@ -12,58 +12,27 @@
 .site-home__hero {
   overflow: hidden;
   gap: 1.5rem;
+  padding: 2rem 2.5rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
-}
-
-.site-home__hero-grid {
-  display: grid;
-  gap: 1.25rem;
 }
 
 .site-home__hero-copy {
   max-width: 44rem;
 }
 
-.site-home__hero-copy h2,
-.site-home__section-heading h2,
-.site-home__package-card h3,
-.site-home__pillar-card h3,
-.site-home__roadmap-card h3,
-.site-home__cross-card h3 {
+.site-home__hero-copy h2 {
   margin: 0;
   color: var(--color-ink);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
 }
 
-.site-home__hero-copy h2,
-.site-home__section-heading h2 {
-  font-size: clamp(2rem, 3.4vw, 3.35rem);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
+.site-home__lede {
+  max-width: 52rem;
 }
 
-.site-home__lede,
-.site-home__detail {
-  max-width: 58rem;
-}
-
-.site-home__hero-panel {
-  display: grid;
-  gap: 0.95rem;
-  align-content: start;
-  padding: 1.15rem;
-  border: 1px solid rgba(13, 73, 82, 0.12);
-  border-radius: 1.25rem;
-  background: rgba(248, 252, 251, 0.72);
-}
-
-.site-home__hero-panel-copy {
-  margin: 0;
-  color: var(--color-muted);
-  line-height: 1.6;
-}
-
-.site-home__actions,
-.site-home__package-meta {
+.site-home__actions {
   display: flex;
   gap: 0.8rem;
   align-items: center;
@@ -98,23 +67,25 @@
   background: linear-gradient(180deg, #176d76, #0f525a);
 }
 
-.site-home__action--inline {
-  background: linear-gradient(180deg, #176d76, #115963);
-}
+/* ── Metrics bar ───────────────────────────── */
 
-.site-home__metrics {
+.site-home__metrics-bar {
   display: grid;
   gap: 0.85rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
   margin: 0;
 }
 
 .site-home__metric {
   min-width: 0;
-  padding: 1rem;
+  padding: 0.85rem 1rem;
   border: 1px solid rgba(13, 73, 82, 0.12);
   border-radius: 1.05rem;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(248, 252, 251, 0.72);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
 }
 
 .site-home__metric dt {
@@ -126,11 +97,53 @@
 }
 
 .site-home__metric dd {
-  margin: 0.45rem 0 0;
+  margin: 0;
   color: var(--color-ink);
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* ── Filter bar ────────────────────────────── */
+
+.site-home__filter-bar {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.site-home__filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.3rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-strong);
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.site-home__filter-chip:hover,
+.site-home__filter-chip:focus-visible {
+  border-color: var(--color-accent-border-strong);
+  background: rgba(20, 101, 111, 0.08);
+}
+
+.site-home__filter-chip--active {
+  background: var(--color-accent-strong);
+  border-color: transparent;
+  color: white;
 }
 
 /* ── Section shared ────────────────────────── */
@@ -146,6 +159,14 @@
   align-items: end;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.site-home__section-heading h2 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
 }
 
 .site-home__section-heading p {
@@ -185,26 +206,15 @@
   box-shadow: var(--surface-glow), var(--shadow-medium);
 }
 
-/* ── Package grids ─────────────────────────── */
+/* ── Package grid ──────────────────────────── */
 
-.site-home__package-grid,
-.site-home__cross-stack-grid,
-.site-home__pillar-grid,
-.site-home__roadmap-grid {
+.site-home__package-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
 }
 
-.site-home__package-card,
-.site-home__roadmap-card {
-  height: 100%;
-}
-
-.site-home__package-card {
-  position: relative;
-  overflow: hidden;
-}
+/* ── Roadmap ───────────────────────────────── */
 
 .site-home__package-header {
   display: flex;
@@ -221,117 +231,20 @@
 }
 
 .site-home__package-title h3 {
-  overflow-wrap: anywhere;
-}
-
-.site-home__package-status {
-  flex: 0 1 auto;
-  align-self: flex-start;
-}
-
-.site-home__highlights {
-  display: grid;
-  gap: 0.7rem;
-  margin: 0;
-  padding-left: 1.2rem;
-  color: var(--color-muted);
-}
-
-.site-home__package-footer {
-  display: grid;
-  gap: 0.9rem;
-  margin-top: auto;
-}
-
-.site-home__package-links {
-  align-items: stretch;
-}
-
-.site-home__package-links > * {
-  flex: 1 1 12rem;
-}
-
-/* ── Counterpart badge ─────────────────────── */
-
-.site-home__counterpart {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0;
-}
-
-.site-home__counterpart-pill {
-  background: rgba(217, 119, 75, 0.1);
-  border-color: rgba(217, 119, 75, 0.3);
-  color: #a35832;
-}
-
-/* ── Cross-stack cards ─────────────────────── */
-
-.site-home__cross-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background:
-    radial-gradient(circle at top right, rgba(217, 119, 75, 0.1), transparent 26%),
-    radial-gradient(circle at bottom left, rgba(20, 101, 111, 0.1), transparent 22%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 240, 231, 0.82));
-}
-
-.site-home__cross-header {
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.site-home__cross-badges {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.site-home__cross-stacks {
-  display: grid;
-  gap: 0.75rem;
-  grid-template-columns: 1fr 1fr;
-}
-
-.site-home__cross-stack {
-  display: grid;
-  gap: 0.25rem;
-  padding: 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.site-home__cross-stack-label {
-  margin: 0;
-  color: var(--color-accent-strong);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.site-home__cross-stack-name {
   margin: 0;
   color: var(--color-ink);
-  font-weight: 700;
-  font-size: 0.92rem;
   overflow-wrap: anywhere;
 }
 
-.site-home__cross-links {
-  margin-top: auto;
-  padding-top: 0.5rem;
+.site-home__pillar-grid,
+.site-home__roadmap-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
 }
 
-.site-home__cross-links > * {
-  flex: 1 1 10rem;
-  justify-content: center;
+.site-home__roadmap-card {
+  height: 100%;
 }
 
 /* ── Shared API consumers ──────────────────── */
@@ -343,65 +256,40 @@
 
 /* ── Media queries ─────────────────────────── */
 
-@media (min-width: 960px) {
-  .site-home__hero-grid {
-    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.82fr);
-    align-items: start;
-  }
-}
-
 @media (max-width: 900px) {
-  .site-home__actions > *,
-  .site-home__package-links > * {
+  .site-home__actions > * {
     flex: 1 1 13rem;
-  }
-
-  .site-home__cross-stacks {
-    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 720px) {
-  .site-home__hero,
-  .site-home__package-card,
-  .site-home__cross-card,
-  .site-home__roadmap-card,
-  .site-home__pillar-card {
+  .site-home__hero {
     padding: 1.2rem;
   }
 
-  .site-home__actions,
-  .site-home__package-meta,
-  .site-home__package-links {
+  .site-home__actions {
     align-items: stretch;
   }
 
   .site-home__action,
-  .site-home__package-links > *,
   .site-home__actions > * {
     width: 100%;
-  }
-
-  .site-home__package-links > * {
-    flex-basis: 100%;
-  }
-
-  .site-home__cross-stacks {
-    grid-template-columns: 1fr;
   }
 
   .site-home__expand-toggle {
     width: 100%;
     justify-self: stretch;
   }
+
+  .site-home__metric {
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: start;
+  }
 }
 
 @media (max-width: 560px) {
   .site-home {
     gap: 1.35rem;
-  }
-
-  .site-home__metric dd {
-    font-size: 1.75rem;
   }
 }

@@ -37,10 +37,10 @@ const calendar = injectCalendarState({
   availableSlots: derived(() => fetchSlots(calendar.selectedDate())),
 });
 
-calendar.selectedDate;        // Signal<Date>
-calendar.weekDays;            // Signal<Date[]>
-calendar.availableSlots;      // Signal<TimeSlot[]>
-calendar.selectedSlot;        // Signal<TimeSlot | null>
+calendar.selectedDate; // Signal<Date>
+calendar.weekDays; // Signal<Date[]>
+calendar.availableSlots; // Signal<TimeSlot[]>
+calendar.selectedSlot; // Signal<TimeSlot | null>
 
 calendar.selectSlot(slot);
 calendar.nextWeek();

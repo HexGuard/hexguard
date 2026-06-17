@@ -52,15 +52,14 @@ const ok: boolean = await confirm.ask({
 });
 
 // Confirm and run async action
-const result = await confirm.run(
-  { title: 'Archive?', message: 'Archive this record?' },
-  async () => archiveService.archive(recordId),
+const result = await confirm.run({ title: 'Archive?', message: 'Archive this record?' }, async () =>
+  archiveService.archive(recordId),
 );
 // → { confirmed: true, result: ... } | { confirmed: false }
 
 // Reactive state
-confirm.isOpen;          // Signal<boolean>
-confirm.currentRequest;  // Signal<ConfirmationRequest | null>
+confirm.isOpen; // Signal<boolean>
+confirm.currentRequest; // Signal<ConfirmationRequest | null>
 ```
 
 ## Implementation Plan
