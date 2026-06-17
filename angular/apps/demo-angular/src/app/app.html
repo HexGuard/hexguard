@@ -60,20 +60,27 @@
 
         @if (packageMenuOpen()) {
           <nav class="package-dropdown__menu" aria-label="Current packages">
-            @for (packageEntry of packages; track packageEntry.id) {
-              <a
-                class="package-dropdown__link"
-                [routerLink]="packageEntry.route"
-                routerLinkActive="package-dropdown__link--active"
-                (click)="closePackageMenu()"
-                [attr.data-testid]="'nav-link-package-' + packageEntry.id"
-              >
-                <span class="package-dropdown__heading">{{ packageEntry.packageName }}</span>
-                <span class="package-dropdown__meta"
-                  >{{ packageEntry.scope }} · {{ packageEntry.status }} · {{ packageEntry.demoCount }}
-                  live demo{{ packageEntry.demoCount !== 1 ? 's' : '' }}</span
-                >
-              </a>
+            @for (section of menuSections; track section.scope) {
+              <div class="package-dropdown__section">
+                <span class="package-dropdown__section-label">{{ section.label }}</span>
+                @for (packageEntry of section.packages; track packageEntry.id) {
+                  <a
+                    class="package-dropdown__link"
+                    [routerLink]="packageEntry.route"
+                    routerLinkActive="package-dropdown__link--active"
+                    (click)="closePackageMenu()"
+                    [attr.data-testid]="'nav-link-package-' + packageEntry.id"
+                  >
+                    <span class="package-dropdown__heading">{{
+                      packageEntry.packageName
+                    }}</span>
+                    <span class="package-dropdown__meta"
+                      >{{ packageEntry.status }} · {{ packageEntry.demoCount }}
+                      live demo{{ packageEntry.demoCount !== 1 ? 's' : '' }}</span
+                    >
+                  </a>
+                }
+              </div>
             }
           </nav>
         }

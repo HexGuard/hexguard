@@ -76,6 +76,7 @@ import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cro
 import { CrossStackApiErrorsHubPageComponent } from './features/cross-stack/pages/cross-stack-api-errors-hub/cross-stack-api-errors-hub-page.component';
 import { CrossStackLookupsHubPageComponent } from './features/cross-stack/pages/cross-stack-lookups-hub/cross-stack-lookups-hub-page.component';
 import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
+import { DotnetProblemDetailsHubPageComponent } from './features/dotnet/pages/dotnet-problem-details-hub-page/dotnet-problem-details-hub-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
 
 export const routes: Routes = [
@@ -103,6 +104,11 @@ export const routes: Routes = [
     path: 'cross-stack/angular-api-errors',
     component: CrossStackApiErrorsHubPageComponent,
     title: 'API Errors + Validation Contracts Cross-Stack Hub',
+  },
+  {
+    path: 'dotnet/hexguard-problem-details',
+    component: DotnetProblemDetailsHubPageComponent,
+    title: 'HexGuard.ProblemDetails Package Hub',
   },
   {
     path: 'dotnet/hexguard-reference-data',

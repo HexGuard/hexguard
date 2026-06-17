@@ -148,11 +148,11 @@ export const SITE_CROSS_STACK_PAIRS: readonly CrossStackPair[] = [
   {
     angularId: 'angular-api-errors',
     angularLabel: '@hexguard/angular-api-errors',
-    dotnetId: 'hexguard-validation-contracts',
-    dotnetLabel: 'HexGuard.ValidationContracts',
-    pairingLabel: 'Validation / RFC 9457',
+    dotnetId: 'hexguard-problem-details',
+    dotnetLabel: 'HexGuard.ProblemDetails',
+    pairingLabel: 'Problem Details / RFC 9457',
     description:
-      'Angular ApiErrors consumes RFC 9457 Problem Details payloads that the .NET ValidationContracts library produces, creating a typed error pipeline from backend to form control.',
+      'Angular ApiErrors consumes RFC 9457 Problem Details payloads that HexGuard.ProblemDetails produces and HexGuard.ValidationContracts extends — creating a layered typed error pipeline from backend to form control.',
   },
 ];
 
@@ -172,13 +172,14 @@ export const SITE_SHARED_API_CONSUMERS: readonly {
 /** Map from Angular package id to .NET counterpart id. */
 const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string | null> = {
   'angular-lookups': 'hexguard-reference-data',
-  'angular-api-errors': 'hexguard-validation-contracts',
+  'angular-api-errors': 'hexguard-problem-details',
 };
 
 /** Map from .NET package id to Angular counterpart id. */
 const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
   'hexguard-reference-data': 'angular-lookups',
-  'hexguard-validation-contracts': 'angular-api-errors',
+  'hexguard-problem-details': 'angular-api-errors',
+  'hexguard-validation-contracts': null,
 };
 
 // ── Unified package adapters ───────────────────────────────────────

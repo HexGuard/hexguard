@@ -308,6 +308,36 @@ export const currentPackages = [
       'It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.',
     ],
   },
+  {
+    id: 'hexguard-problem-details',
+    packageName: 'HexGuard.ProblemDetails',
+    status: 'Available',
+    scope: '.NET',
+    readmePath: 'dotnet/src/HexGuard.ProblemDetails/README.md',
+    deepDivePath: 'docs/packages/hexguard-problem-details.md',
+    repositoryPath: 'dotnet/src/HexGuard.ProblemDetails',
+    summary: 'RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.',
+    detail: 'Provides the core ProblemDetails record, fluent builder, well-known problem type constants, catch-all middleware, and Minimal API result extensions. Pairs with @hexguard/angular-api-errors for end-to-end typed error pipelines across stacks.',
+    installCommand: 'dotnet add package HexGuard.ProblemDetails',
+    featureHighlights: [
+      'RFC 9457–compliant ProblemDetails record with extension member support.',
+      'Fluent ProblemDetailsBuilder for constructing responses.',
+      'ProblemDetailsException for throw-vs-return middleware patterns.',
+      'ASP.NET Core middleware for automatic error interception.',
+      'Minimal API IResult extension methods.',
+      'No external dependencies — pure net10.0.',
+    ],
+    bestFitScenarios: [
+      'Standardizing HTTP error responses across ASP.NET Core APIs.',
+      'End-to-end typed error pipelines with @hexguard/angular-api-errors.',
+      'Replacing ad hoc error shapes with RFC 9457–compliant payloads.',
+    ],
+    statusNoteParagraphs: [
+      'Initial release focuses on core types, builder, middleware, and Minimal API extensions.',
+      'Paired with @hexguard/angular-api-errors which consumes the same RFC 9457 Problem Details contract.',
+      'HexGuard.ValidationContracts can depend on this package for its Problem Details adapter in a future release.',
+    ],
+  },
 ];
 
 export const roadmapPackages = [

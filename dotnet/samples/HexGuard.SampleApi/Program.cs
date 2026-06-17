@@ -2,6 +2,7 @@ using HexGuard.SampleApi.Packages.AngularAsyncState;
 using HexGuard.SampleApi.Packages.AngularLookups;
 using HexGuard.SampleApi.Packages.AngularOptimisticState;
 using HexGuard.SampleApi.Packages.AngularPermissions;
+using HexGuard.SampleApi.Packages.HexGuardProblemDetails;
 using HexGuard.SampleApi.Packages.HexGuardReferenceData;
 using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 
@@ -20,6 +21,8 @@ builder.Services.AddCors((options) =>
 var app = builder.Build();
 
 app.UseCors("DemoFrontends");
+
+app.UseMiddleware<HexGuard.ProblemDetails.ProblemDetailsMiddleware>();
 
 app.MapGet("/", () => Results.Ok(new
 {
@@ -69,6 +72,15 @@ app.MapGet("/", () => Results.Ok(new
             errorCodesEndpoint = "/api/validation-contracts/error-codes",
             note = ".NET validation contract shapes and RFC 9457 Problem Details",
         },
+        new
+        {
+            id = "hexguard-problem-details",
+            route = "/api/problem-details",
+            validationEndpoint = "/api/problem-details/validation",
+            notFoundEndpoint = "/api/problem-details/not-found",
+            serverErrorEndpoint = "/api/problem-details/server-error",
+            note = "RFC 9457 Problem Details — core types, builder, middleware",
+        },
     },
 }));
 
@@ -76,6 +88,7 @@ app.MapAngularLookupsSampleEndpoints();
 app.MapAsyncStateSampleEndpoints();
 app.MapOptimisticStateSampleEndpoints();
 app.MapPermissionsSampleEndpoints();
+app.MapProblemDetailsSampleEndpoints();
 app.MapReferenceDataSampleEndpoints();
 app.MapValidationContractsSampleEndpoints();
 

@@ -203,6 +203,28 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.package-dropdown__section {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.package-dropdown__section + .package-dropdown__section {
+  margin-top: 0.2rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.package-dropdown__section-label {
+  display: block;
+  padding: 0.45rem 0.75rem 0.25rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .demo-stage {
   display: block;
 }

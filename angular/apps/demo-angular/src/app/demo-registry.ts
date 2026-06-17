@@ -919,7 +919,62 @@ export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-problem-details',
+  packageId: 'hexguard-problem-details',
+  route: '/dotnet/hexguard-problem-details',
+  label: 'Problem Details Library',
+  title: 'HexGuard.ProblemDetails — RFC 9457 Problem Details for .NET',
+  description:
+    'Demonstrates ProblemDetails record, ProblemDetailsBuilder, and ProblemDetailsMiddleware from the HexGuard.ProblemDetails library, paired with @hexguard/angular-api-errors for end-to-end RFC 9457 Problem Details across stacks.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ProblemDetails',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-problem-details.md',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-api-errors/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
+  {
+    id: 'hexguard-problem-details',
+    route: '/dotnet/hexguard-problem-details',
+    label: 'HexGuard ProblemDetails',
+    title: 'HexGuard.ProblemDetails',
+    nugetId: 'HexGuard.ProblemDetails',
+    description:
+      'RFC 9457 Problem Details types, builder, middleware, and Minimal API result extensions for .NET. Pairs with @hexguard/angular-api-errors.',
+    summary:
+      'RFC 9457 Problem Details — core types, builder, middleware, and Minimal API IResult extensions for producing standard error responses.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ProblemDetails',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_PROBLEM_DETAILS_HOME],
+  },
   {
     id: 'hexguard-validation-contracts',
     route: '/dotnet/hexguard-validation-contracts',
