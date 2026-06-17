@@ -1,10 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
 import { NotificationService } from './notification.service';
 import type { NotificationType } from './types';
 
 /**
  * Standalone outlet component that renders the current notification stack.
+ *
+ * By default the outlet uses `position: fixed` in the top-right corner.
+ * Set `[inline]="true"` when rendering inside a constrained container
+ * (e.g. a demo preview panel) to use static flow positioning.
  *
  * Each notification is rendered as a `<div>` with the CSS class
  * `notification` and a modifier class `notification--{type}` (e.g.
@@ -14,12 +18,21 @@ import type { NotificationType } from './types';
  * ```html
  * <hexguard-notification-outlet />
  * ```
+ *
+ * @example
+ * ```html
+ * <hexguard-notification-outlet [inline]="true" />
+ * ```
  */
 @Component({
   standalone: true,
   selector: 'hexguard-notification-outlet',
   template: `
-    <div class="notifications-outlet" data-testid="notification-outlet">
+    <div
+      class="notifications-outlet"
+      [class.notifications-outlet--inline]="inline()"
+      data-testid="notification-outlet"
+    >
       @for (notification of service.notifications(); track notification.id) {
         <div
           class="notification notification--{{ notification.type }}"
@@ -69,6 +82,10 @@ import type { NotificationType } from './types';
       gap: 0.5rem;
       max-width: 24rem;
     }
+    .notifications-outlet--inline {
+      position: static;
+      max-width: 100%;
+    }
     .notification {
       display: flex;
       align-items: flex-start;
@@ -109,4 +126,7 @@ import type { NotificationType } from './types';
 })
 export class HexguardNotificationOutletComponent {
   readonly service = inject(NotificationService);
+
+  /** When true, renders the outlet with static positioning instead of fixed. */
+  readonly inline = input(false);
 }

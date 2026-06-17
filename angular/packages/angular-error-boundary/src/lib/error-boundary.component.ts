@@ -1,31 +1,23 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   computed,
-  DestroyRef,
+  ContentChild,
+  EmbeddedViewRef,
   inject,
   Input,
   type Signal,
   signal,
   TemplateRef,
+  ViewContainerRef,
   ViewEncapsulation,
-  ErrorHandler,
+  type DoCheck,
 } from '@angular/core';
 
 import type { ErrorBoundaryContext } from './types';
-
-/**
- * Global stack of active error boundary controllers, used to route errors
- * from `ErrorHandler` to the innermost active boundary.
- *
- * Mutated by `activate()`/`deactivate()` — the array reference stays const.
- *
- * Each boundary wraps `ErrorHandler.handleError` so it routes errors through
- * the stack first. Multiple boundaries chain correctly: each wrapper
- * delegates to the previous one when no boundary captures the error.
- */
-const boundaryStack: ErrorBoundaryController[] = [];
 
 /**
  * Tracks a single error boundary's error state.
@@ -36,17 +28,6 @@ class ErrorBoundaryController {
   readonly hasError: Signal<boolean> = computed(() => this.errorSignal() !== null);
   readonly caughtError: Signal<unknown | null> = this.errorSignal.asReadonly();
 
-  activate(): void {
-    boundaryStack.push(this);
-  }
-
-  deactivate(): void {
-    const idx = boundaryStack.indexOf(this);
-    if (idx >= 0) {
-      boundaryStack.splice(idx, 1);
-    }
-  }
-
   capture(error: unknown): void {
     this.errorSignal.set(error);
   }
@@ -54,37 +35,33 @@ class ErrorBoundaryController {
   reset(): void {
     this.errorSignal.set(null);
   }
-
-  /** Route an error to the topmost active boundary. Returns true if captured. */
-  static routeToTop(error: unknown): boolean {
-    const top = boundaryStack[boundaryStack.length - 1];
-    if (top) {
-      top.capture(error);
-      return true;
-    }
-    return false;
-  }
 }
 
 /**
- * Declarative error boundary component that catches render-time and async
- * errors from projected content and displays a configurable fallback UI.
+ * Declarative error boundary component that catches render-time errors
+ * from projected content rendered as `<ng-template>` and displays a
+ * configurable fallback UI.
  *
- * Errors occurring inside projected content are intercepted by wrapping
- * Angular's `ErrorHandler`, routing them to this boundary instead of letting
- * them propagate to the global handler.
+ * Content MUST be wrapped in an `<ng-template>`. The template is rendered
+ * as an embedded view in the boundary's change-detection scope, and errors
+ * during its rendering are caught locally by wrapping
+ * `ViewContainerRef.createEmbeddedView()` / `EmbeddedViewRef.detectChanges()`.
  *
  * @example
  * ```html
  * <hexguard-error-boundary>
- *   <my-risky-widget />
+ *   <ng-template>
+ *     <my-risky-widget />
+ *   </ng-template>
  * </hexguard-error-boundary>
  * ```
  *
  * @example
  * ```html
  * <hexguard-error-boundary [fallback]="fallbackTpl">
- *   <my-risky-widget />
+ *   <ng-template>
+ *     <my-risky-widget />
+ *   </ng-template>
  * </hexguard-error-boundary>
  *
  * <ng-template #fallbackTpl let-ctx>
@@ -124,8 +101,6 @@ class ErrorBoundaryController {
           </div>
         }
       </div>
-    } @else {
-      <ng-content />
     }
   `,
   styles: [
@@ -160,14 +135,25 @@ class ErrorBoundaryController {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HexguardErrorBoundaryComponent {
+export class HexguardErrorBoundaryComponent implements DoCheck, AfterViewInit {
   private readonly controller = new ErrorBoundaryController();
+  private readonly vcr = inject(ViewContainerRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  /** Flag to avoid re-entrant rendering. */
+  private contentViewRef: EmbeddedViewRef<unknown> | null = null;
+  private needsRender = true;
 
   /**
    * Optional custom fallback template. Receives an `ErrorBoundaryContext`
    * with `$implicit`, `error`, and `reset()`.
    */
   @Input() fallback: TemplateRef<ErrorBoundaryContext> | undefined;
+
+  /**
+   * Content projected as `<ng-template>`.
+   */
+  @ContentChild(TemplateRef) contentTemplate: TemplateRef<unknown> | undefined;
 
   /** Whether an error has been caught. */
   readonly hasError = this.controller.hasError;
@@ -182,30 +168,40 @@ export class HexguardErrorBoundaryComponent {
     reset: () => this.reset(),
   }));
 
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-    const errHandler = inject(ErrorHandler);
+  ngAfterViewInit(): void {
+    this.renderContent();
+  }
 
-    // Wrap ErrorHandler.handleError so errors route through the boundary
-    // stack first. Each component wraps it; the wrappers chain correctly
-    // because each captures the previous value of handleError.
-    const originalHandleError = errHandler.handleError.bind(errHandler);
-    errHandler.handleError = (error: unknown) => {
-      if (!ErrorBoundaryController.routeToTop(error)) {
-        // No active boundary — delegate to the original handler
-        originalHandleError(error);
-      }
-    };
+  /**
+   * On each CD pass, re-create the embedded view. This ensures that
+   * render-time errors thrown inside the content template are caught by
+   * our local try-catch, rather than propagating to Angular's global
+   * ErrorHandler where they cannot be correctly associated with this
+   * boundary when multiple sibling boundaries exist.
+   */
+  ngDoCheck(): void {
+    if (!this.hasError() && this.contentTemplate) {
+      this.renderContent();
+    }
+  }
 
-    this.controller.activate();
-
-    destroyRef.onDestroy(() => {
-      this.controller.deactivate();
-    });
+  private renderContent(): void {
+    this.vcr.clear();
+    try {
+      this.contentViewRef = this.vcr.createEmbeddedView(this.contentTemplate!);
+      this.contentViewRef.detectChanges();
+    } catch (e) {
+      this.vcr.clear();
+      this.controller.capture(e);
+      this.cdr.markForCheck();
+    }
   }
 
   /** Clear the error state and re-render the projected content. */
   reset(): void {
     this.controller.reset();
+    if (this.contentTemplate) {
+      this.renderContent();
+    }
   }
 }

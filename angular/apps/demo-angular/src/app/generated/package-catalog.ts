@@ -895,30 +895,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-notifications',
-    anchorId: 'package-angular-notifications',
-    packageName: '@hexguard/angular-notifications',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize headless notification queue, toast stacking, timeout, and dismissal semantics for Angular apps without forcing one UI library.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-notifications',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-debounce',
-    anchorId: 'package-angular-debounce',
-    packageName: '@hexguard/angular-debounce',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide a reusable debounced value signal with configurable wait, leading/trailing, distinct-until-changed semantics, and pending state for search-as-you-type and auto-save workflows.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-debounce',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-breakpoint-observer',
     anchorId: 'package-angular-breakpoint-observer',
     packageName: '@hexguard/angular-breakpoint-observer',
@@ -1228,18 +1204,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would pair backend user-presence contracts (online, away, last-seen) with Angular presence state, typing indicators, and collaborative awareness signals for real-time multi-user features.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-user-presence-cross-stack',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-error-boundary',
-    anchorId: 'package-angular-error-boundary',
-    packageName: '@hexguard/angular-error-boundary',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide a declarative error boundary component that catches Angular component render errors, displays fallback UI, and exposes retry and recovery state through signals.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-error-boundary',
     showOnSiteHome: false,
   },
   {

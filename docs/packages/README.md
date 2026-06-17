@@ -407,22 +407,6 @@ Status: Proposed
 
 Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.
 
-<a id="package-angular-notifications"></a>
-
-### `@hexguard/angular-notifications`
-
-Status: Proposed
-
-Would standardize headless notification queue, toast stacking, timeout, and dismissal semantics for Angular apps without forcing one UI library.
-
-<a id="package-angular-debounce"></a>
-
-### `@hexguard/angular-debounce`
-
-Status: Proposed
-
-Would provide a reusable debounced value signal with configurable wait, leading/trailing, distinct-until-changed semantics, and pending state for search-as-you-type and auto-save workflows.
-
 <a id="package-angular-breakpoint-observer"></a>
 
 ### `@hexguard/angular-breakpoint-observer`
@@ -630,14 +614,6 @@ Would pair backend cache-invalidation contracts (cache tags, invalidation header
 Status: Proposed
 
 Would pair backend user-presence contracts (online, away, last-seen) with Angular presence state, typing indicators, and collaborative awareness signals for real-time multi-user features.
-
-<a id="package-angular-error-boundary"></a>
-
-### `@hexguard/angular-error-boundary`
-
-Status: Proposed
-
-Would provide a declarative error boundary component that catches Angular component render errors, displays fallback UI, and exposes retry and recovery state through signals.
 
 <a id="package-angular-skeleton"></a>
 

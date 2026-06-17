@@ -1,4 +1,4 @@
-import { Component, ErrorHandler } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HexguardErrorBoundaryComponent } from './error-boundary.component';
@@ -12,16 +12,45 @@ import { HexguardErrorBoundaryComponent } from './error-boundary.component';
 })
 class SafeComponent {}
 
+/** Host using `<ng-template>` (required by the boundary). */
 @Component({
   standalone: true,
   template: `
     <hexguard-error-boundary>
-      <safe-component />
+      <ng-template>
+        <safe-component />
+      </ng-template>
     </hexguard-error-boundary>
   `,
   imports: [HexguardErrorBoundaryComponent, SafeComponent],
 })
 class SafeHostComponent {}
+
+/** Helper: throws during construction (= during template rendering). */
+@Component({
+  standalone: true,
+  selector: 'error-thrower',
+  template: ``,
+})
+class ErrorThrowerComponent {
+  constructor() {
+    throw new Error('Rendering error');
+  }
+}
+
+/** Host that throws during rendering inside the boundary. */
+@Component({
+  standalone: true,
+  template: `
+    <hexguard-error-boundary>
+      <ng-template>
+        <error-thrower />
+      </ng-template>
+    </hexguard-error-boundary>
+  `,
+  imports: [HexguardErrorBoundaryComponent, ErrorThrowerComponent],
+})
+class ErrorThrowingHostComponent {}
 
 /** Create an error boundary component through Angular DI. */
 function createErrorBoundary(): HexguardErrorBoundaryComponent {
@@ -30,7 +59,7 @@ function createErrorBoundary(): HexguardErrorBoundaryComponent {
 }
 
 describe(HexguardErrorBoundaryComponent.name, () => {
-  describe('with safe content', () => {
+  describe('with safe content (ng-template)', () => {
     let fixture: ComponentFixture<SafeHostComponent>;
 
     beforeEach(async () => {
@@ -42,7 +71,7 @@ describe(HexguardErrorBoundaryComponent.name, () => {
       fixture.detectChanges();
     });
 
-    it('renders the projected content', () => {
+    it('renders the projected template content', () => {
       const content = fixture.nativeElement.querySelector(
         '[data-testid="normal-content"]',
       );
@@ -55,6 +84,21 @@ describe(HexguardErrorBoundaryComponent.name, () => {
         '[data-testid="error-boundary-fallback"]',
       );
       expect(fallback).toBeFalsy();
+    });
+  });
+
+  describe('render-time error catching', () => {
+    it('catches a throw during content creation and shows the fallback', () => {
+      const fixture = TestBed.createComponent(ErrorThrowingHostComponent);
+
+      // The error is thrown synchronously during createEmbeddedView /
+      // detectChanges, caught by the try-catch in the boundary.
+      fixture.detectChanges();
+
+      const fallback = fixture.nativeElement.querySelector(
+        '[data-testid="error-boundary-fallback"]',
+      );
+      expect(fallback).toBeTruthy();
     });
   });
 
@@ -72,18 +116,14 @@ describe(HexguardErrorBoundaryComponent.name, () => {
         reset(): void;
         controller: {
           errorSignal: { set: (v: unknown) => void };
-          activate(): void;
-          deactivate(): void;
         };
       };
-      boundary.controller.activate();
       boundary.controller.errorSignal.set(new Error('Test'));
       expect(boundary.hasError()).toBe(true);
 
       boundary.reset();
       expect(boundary.hasError()).toBe(false);
       expect(boundary.caughtError()).toBeNull();
-      boundary.controller.deactivate();
     });
 
     it('fallbackContext provides error and reset in the template context', () => {
@@ -91,11 +131,8 @@ describe(HexguardErrorBoundaryComponent.name, () => {
         fallbackContext(): { error: unknown; $implicit: unknown; reset: () => void };
         controller: {
           errorSignal: { set: (v: unknown) => void };
-          activate(): void;
-          deactivate(): void;
         };
       };
-      boundary.controller.activate();
       const testError = new Error('Context test');
       boundary.controller.errorSignal.set(testError);
 
@@ -103,26 +140,6 @@ describe(HexguardErrorBoundaryComponent.name, () => {
       expect(ctx.error).toBe(testError);
       expect(ctx.$implicit).toBe(testError);
       expect(typeof ctx.reset).toBe('function');
-      boundary.controller.deactivate();
-    });
-  });
-
-  describe('ErrorHandler integration', () => {
-    it('intercepts errors and routes them to the active boundary', () => {
-      const boundary = createErrorBoundary() as unknown as {
-        hasError(): boolean;
-        caughtError(): unknown;
-        controller: { activate(): void; deactivate(): void };
-      };
-      const errorHandler = TestBed.inject(ErrorHandler);
-
-      boundary.controller.activate();
-      const testError = new Error('Boundary test');
-      errorHandler.handleError(testError);
-
-      expect(boundary.hasError()).toBe(true);
-      expect(boundary.caughtError()).toBe(testError);
-      boundary.controller.deactivate();
     });
   });
 });

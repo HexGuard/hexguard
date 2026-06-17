@@ -43,61 +43,82 @@ import { formatSnapshot } from '../../../../shared/formatting';
           <code>NotificationService</code> manages a typed notification queue. Click the buttons
           below to trigger different notification types.
         </p>
+
+        <demo-status-strip
+          testId="notifications-demo-status"
+          summary="Headless notification queue with auto-dismiss."
+          currentUrl="Angular Notifications Demo"
+          summaryTestId="notifications-demo-summary"
+          urlTestId="notifications-demo-url"
+        />
       </article>
 
       <!-- demo-snippet:start angular-notifications/demo-state -->
-      <section class="demo-card" data-testid="notifications-demo-playground">
-        <p class="demo-card__section-label">Playground</p>
-
-        <div class="notify-actions">
-          @for (action of typeActions; track action.type) {
-            <button
-              type="button"
-              class="notify-btn notify-btn--{{ action.type }}"
-              (click)="notify(action.type)"
-              [attr.data-testid]="'notify-' + action.type"
-            >
-              {{ action.label }}
-            </button>
-          }
+      <article demoPrimary class="demo-card demo-card--stack" data-testid="notifications-demo-playground">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Notifications</p>
+            <h3>Toast playground</h3>
+          </div>
         </div>
 
-        <div class="notify-controls">
-          <label class="notify-label">
-            Duration (ms):
-            <input
-              type="number"
-              [ngModel]="durationMs()"
-              (ngModelChange)="durationMs.set($event)"
-              min="0"
-              step="500"
-              class="notify-input"
-              data-testid="notifications-duration"
-            />
-            <span class="notify-hint">(0 = persistent)</span>
-          </label>
+        <div class="notify-grid">
+          <div class="notify-controls">
+            <p class="notify-sub-label">Trigger a notification:</p>
+            <div class="notify-buttons">
+              @for (action of typeActions; track action.type) {
+                <button
+                  type="button"
+                  class="notify-chip notify-chip--{{ action.type }}"
+                  (click)="notify(action.type)"
+                  [attr.data-testid]="'notify-' + action.type"
+                >
+                  {{ action.label }}
+                </button>
+              }
+            </div>
+
+            <div class="notify-config">
+              <label class="notify-config-row">
+                <span class="notify-config-label">Duration:</span>
+                <input
+                  type="number"
+                  [ngModel]="durationMs()"
+                  (ngModelChange)="durationMs.set($event)"
+                  min="0"
+                  step="500"
+                  class="notify-duration-input"
+                  data-testid="notifications-duration"
+                />
+                <span class="notify-hint">ms (0 = persistent)</span>
+              </label>
+            </div>
+
+            <div class="notify-toolbar">
+              <span class="notify-queue-count" data-testid="notification-count">
+                Queue: <strong>{{ service.count() }}</strong>
+              </span>
+              <button type="button" class="demo-button demo-button--ghost" (click)="dismissAll()" data-testid="dismiss-all">
+                Dismiss All
+              </button>
+            </div>
+          </div>
+
+          <div class="notify-preview">
+            <p class="notify-sub-label">Toast preview:</p>
+            <div class="notify-preview-box">
+              @if (service.count() === 0) {
+                <p class="notify-empty">Notifications appear here</p>
+              }
+              <hexguard-notification-outlet [inline]="true" />
+            </div>
+          </div>
         </div>
-
-        <div class="notify-toolbar">
-          <button
-            type="button"
-            class="notify-dismiss-all"
-            (click)="dismissAll()"
-            data-testid="dismiss-all"
-          >
-            Dismiss All ({{ service.count() }})
-          </button>
-        </div>
-
-        <p class="notify-counter" data-testid="notification-count">
-          Active notifications: {{ service.count() }}
-        </p>
-
-        <hexguard-notification-outlet />
-      </section>
+      </article>
       <!-- demo-snippet:end -->
 
       <demo-inspector-panel
+        demoAside
         panelTestId="notifications-inspector-panel"
         eyebrow="Reference"
         title="Toast queue state"
@@ -108,41 +129,49 @@ import { formatSnapshot } from '../../../../shared/formatting';
         snapshotTestId="notifications-snapshot-json"
         codeTestId="notifications-code-sample"
       />
-
-      <demo-status-strip
-        summary="Headless notification queue with auto-dismiss."
-        currentUrl="Angular Notifications Demo"
-        summaryTestId="notifications-demo-summary"
-        urlTestId="notifications-demo-url"
-        testId="notifications-demo-status"
-      />
     </demo-page-layout>
   `,
   styles: [
     `
-    .notify-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .notify-btn {
-      padding: 0.5rem 1rem; border: none; border-radius: 0.25rem;
-      cursor: pointer; font-size: 0.875rem; color: #fff;
+    .notify-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 800px) { .notify-grid { grid-template-columns: 1fr; } }
+    .notify-sub-label { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--color-muted); }
+    .notify-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .notify-chip {
+      padding: 0.5rem 0.9rem; border: 1px solid var(--color-border); border-radius: 2rem;
+      background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+      cursor: pointer; font-size: 0.8rem; font-weight: 600;
+      box-shadow: var(--shadow-soft); transition: transform 120ms ease, box-shadow 120ms ease;
     }
-    .notify-btn--success { background: #28a745; }
-    .notify-btn--error { background: #dc3545; }
-    .notify-btn--info { background: #17a2b8; }
-    .notify-btn--warning { background: #ffc107; color: #333; }
-    .notify-controls { margin-bottom: 0.75rem; }
-    .notify-label { font-size: 0.875rem; }
-    .notify-input {
-      width: 5rem; margin-left: 0.5rem; padding: 0.25rem;
-      border: 1px solid #ccc; border-radius: 0.25rem;
+    .notify-chip:hover { transform: translateY(-1px); box-shadow: var(--shadow-medium); }
+    .notify-chip--success { border-color: #28a745; color: #155724; }
+    .notify-chip--error { border-color: #dc3545; color: #721c24; }
+    .notify-chip--info { border-color: #17a2b8; color: #0c5460; }
+    .notify-chip--warning { border-color: #ffc107; color: #856404; }
+    .notify-config { margin-bottom: 1rem; }
+    .notify-config-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .notify-config-label { font-size: 0.85rem; color: var(--color-muted); }
+    .notify-duration-input {
+      width: 5rem; padding: 0.35rem 0.5rem;
+      border: 1px solid var(--color-border); border-radius: 0.5rem;
+      font-size: 0.85rem; background: white;
     }
-    .notify-hint { margin-left: 0.5rem; color: #888; font-size: 0.75rem; }
-    .notify-toolbar { margin-bottom: 0.75rem; }
-    .notify-dismiss-all {
-      padding: 0.5rem 1rem; border: 1px solid #ccc;
-      border-radius: 0.25rem; background: #fff; cursor: pointer;
+    .notify-duration-input:focus { border-color: var(--color-accent-strong); outline: none; }
+    .notify-hint { color: var(--color-muted); font-size: 0.72rem; }
+    .notify-toolbar {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      padding: 0.6rem 0.75rem; border: 1px solid var(--color-border);
+      border-radius: 1rem; background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+      box-shadow: var(--shadow-soft);
     }
-    .notify-dismiss-all:hover { background: #f5f5f5; }
-    .notify-counter { font-size: 0.875rem; color: #666; margin-bottom: 1rem; }
+    .notify-queue-count { font-size: 0.85rem; }
+    .notify-queue-count strong { color: var(--color-ink); }
+    .notify-preview-box {
+      min-height: 6rem; border: 1px dashed var(--color-border);
+      border-radius: 1rem; padding: 0.75rem;
+      background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+    }
+    .notify-empty { margin: 0; color: var(--color-muted); font-size: 0.82rem; text-align: center; padding: 2rem 0; }
   `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

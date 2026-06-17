@@ -48,23 +48,36 @@
         </p>
       </div>
 
-      <nav class="package-strip site-header__packages" aria-label="Current packages">
-        @for (packageEntry of packages; track packageEntry.id) {
-          <a
-            class="package-strip__link"
-            [routerLink]="packageEntry.route"
-            routerLinkActive="package-strip__link--active"
-            [attr.data-testid]="'nav-link-package-' + packageEntry.id"
-          >
-            <span class="package-strip__heading">{{ packageEntry.packageName }}</span>
-            <span class="package-strip__summary">{{ packageEntry.summary }}</span>
-            <span class="package-strip__meta"
-              >{{ packageEntry.scope }} · {{ packageEntry.status }} · {{ packageEntry.demoCount }}
-              live demo{{ packageEntry.demoCount !== 1 ? 's' : '' }}</span
-            >
-          </a>
+      <div class="package-dropdown">
+        <button
+          type="button"
+          class="package-dropdown__trigger"
+          (click)="togglePackageMenu()"
+          [attr.data-testid]="'package-menu-trigger'"
+        >
+          {{ packageMenuOpen() ? '▾ Packages' : '▸ Packages' }}
+        </button>
+
+        @if (packageMenuOpen()) {
+          <nav class="package-dropdown__menu" aria-label="Current packages">
+            @for (packageEntry of packages; track packageEntry.id) {
+              <a
+                class="package-dropdown__link"
+                [routerLink]="packageEntry.route"
+                routerLinkActive="package-dropdown__link--active"
+                (click)="closePackageMenu()"
+                [attr.data-testid]="'nav-link-package-' + packageEntry.id"
+              >
+                <span class="package-dropdown__heading">{{ packageEntry.packageName }}</span>
+                <span class="package-dropdown__meta"
+                  >{{ packageEntry.scope }} · {{ packageEntry.status }} · {{ packageEntry.demoCount }}
+                  live demo{{ packageEntry.demoCount !== 1 ? 's' : '' }}</span
+                >
+              </a>
+            }
+          </nav>
         }
-      </nav>
+      </div>
     </div>
   </header>
 

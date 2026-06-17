@@ -4,15 +4,15 @@
 
 .site-home {
   display: grid;
-  gap: 1.75rem;
+  gap: 1.25rem;
 }
 
 /* ── Hero ──────────────────────────────────── */
 
 .site-home__hero {
   overflow: hidden;
-  gap: 1.5rem;
-  padding: 2rem 2.5rem;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
 }
 
@@ -23,18 +23,19 @@
 .site-home__hero-copy h2 {
   margin: 0;
   color: var(--color-ink);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .site-home__lede {
   max-width: 52rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-home__actions {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -43,15 +44,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
+  min-height: 2.2rem;
   max-width: 100%;
-  padding: 0.95rem 1.15rem;
+  padding: 0.5rem 0.85rem;
   border: 1px solid rgba(13, 73, 82, 0.24);
-  border-radius: 1.05rem;
+  border-radius: 0.75rem;
   background: linear-gradient(180deg, #155e68, #0d4952);
   color: white;
-  font-weight: 700;
-  line-height: 1.3;
+  font-weight: 600;
+  font-size: 0.82rem;
+  line-height: 1.2;
   text-decoration: none;
   box-shadow: var(--shadow-soft);
   transition:
@@ -71,37 +73,37 @@
 
 .site-home__metrics-bar {
   display: grid;
-  gap: 0.85rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
   margin: 0;
 }
 
 .site-home__metric {
   min-width: 0;
-  padding: 0.85rem 1rem;
+  padding: 0.6rem 0.75rem;
   border: 1px solid rgba(13, 73, 82, 0.12);
-  border-radius: 1.05rem;
+  border-radius: 0.75rem;
   background: rgba(248, 252, 251, 0.72);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   justify-content: space-between;
 }
 
 .site-home__metric dt {
   color: var(--color-muted);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .site-home__metric dd {
   margin: 0;
   color: var(--color-ink);
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
@@ -109,7 +111,7 @@
 
 .site-home__filter-bar {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
@@ -117,16 +119,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.3rem;
-  padding: 0.45rem 0.9rem;
+  min-height: 1.8rem;
+  padding: 0.3rem 0.7rem;
   border: 1px solid var(--color-accent-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface-strong);
   color: var(--color-accent-strong);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   cursor: pointer;
   transition:
     background 150ms ease,
@@ -150,12 +152,12 @@
 
 .site-home__section {
   display: grid;
-  gap: 1.15rem;
+  gap: 0.85rem;
 }
 
 .site-home__section-heading {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: end;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -164,9 +166,9 @@
 .site-home__section-heading h2 {
   margin: 0;
   color: var(--color-ink);
-  font-size: clamp(1.45rem, 2.2vw, 2rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .site-home__section-heading p {
@@ -179,16 +181,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   justify-self: start;
-  min-height: 2.6rem;
-  padding: 0.6rem 1rem;
+  min-height: 2rem;
+  padding: 0.4rem 0.8rem;
   border: 1px solid var(--color-accent-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface-strong);
   color: var(--color-accent-strong);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   cursor: pointer;
@@ -210,8 +212,8 @@
 
 .site-home__package-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
 }
 
 /* ── Roadmap ───────────────────────────────── */
@@ -239,8 +241,8 @@
 .site-home__pillar-grid,
 .site-home__roadmap-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
 }
 
 .site-home__roadmap-card {
@@ -252,6 +254,7 @@
 .site-home__shared-api-card {
   background: rgba(248, 252, 251, 0.72);
   border-color: rgba(13, 73, 82, 0.14);
+  padding: 0.85rem 1rem;
 }
 
 /* ── Media queries ─────────────────────────── */
@@ -264,7 +267,7 @@
 
 @media (max-width: 720px) {
   .site-home__hero {
-    padding: 1.2rem;
+    padding: 1rem;
   }
 
   .site-home__actions {
@@ -283,13 +286,13 @@
 
   .site-home__metric {
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.3rem;
     align-items: start;
   }
 }
 
 @media (max-width: 560px) {
   .site-home {
-    gap: 1.35rem;
+    gap: 1rem;
   }
 }

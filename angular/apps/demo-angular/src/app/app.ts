@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { getUnifiedPackages, SITE_CURRENT_PACKAGES, SITE_HEADER_LINKS } from './site-catalog';
@@ -13,9 +13,18 @@ import { getUnifiedPackages, SITE_CURRENT_PACKAGES, SITE_HEADER_LINKS } from './
 export class App {
   readonly headerLinks = SITE_HEADER_LINKS;
   readonly pageTitle = 'Open-source guardrails for Angular and .NET teams.';
+  readonly packageMenuOpen = signal(false);
 
-  /** All current packages (Angular + .NET) for the header strip. */
+  /** All current packages (Angular + .NET) for the header menu. */
   readonly packages = getUnifiedPackages().filter(
     (p) => p.scope === 'Angular' || p.scope === '.NET',
   );
+
+  togglePackageMenu(): void {
+    this.packageMenuOpen.update((v) => !v);
+  }
+
+  closePackageMenu(): void {
+    this.packageMenuOpen.set(false);
+  }
 }

@@ -650,26 +650,7 @@ export const roadmapPackages = [
       'Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.',
     showOnSiteHome: false,
   },
-  {
-    id: 'angular-notifications',
-    anchorId: 'package-angular-notifications',
-    packageName: '@hexguard/angular-notifications',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize headless notification queue, toast stacking, timeout, and dismissal semantics for Angular apps without forcing one UI library.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-debounce',
-    anchorId: 'package-angular-debounce',
-    packageName: '@hexguard/angular-debounce',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide a reusable debounced value signal with configurable wait, leading/trailing, distinct-until-changed semantics, and pending state for search-as-you-type and auto-save workflows.',
-    showOnSiteHome: false,
-  },
+
   {
     id: 'angular-breakpoint-observer',
     anchorId: 'package-angular-breakpoint-observer',
@@ -928,16 +909,6 @@ export const roadmapPackages = [
     status: 'Proposed',
     summary:
       'Would pair backend user-presence contracts (online, away, last-seen) with Angular presence state, typing indicators, and collaborative awareness signals for real-time multi-user features.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-error-boundary',
-    anchorId: 'package-angular-error-boundary',
-    packageName: '@hexguard/angular-error-boundary',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide a declarative error boundary component that catches Angular component render errors, displays fallback UI, and exposes retry and recovery state through signals.',
     showOnSiteHome: false,
   },
   {

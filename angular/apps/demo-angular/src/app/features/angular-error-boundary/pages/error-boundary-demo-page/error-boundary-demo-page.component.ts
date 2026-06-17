@@ -38,65 +38,94 @@ import { formatSnapshot } from '../../../../shared/formatting';
           <code>HexguardErrorBoundaryComponent</code> catches errors from projected content. Try
           the default fallback and the custom fallback below.
         </p>
+
+        <demo-status-strip
+          testId="error-boundary-demo-status"
+          summary="Declarative error boundary with fallback and reset."
+          currentUrl="Angular Error Boundary Demo"
+          summaryTestId="error-boundary-demo-summary"
+          urlTestId="error-boundary-demo-url"
+        />
       </article>
 
       <!-- demo-snippet:start angular-error-boundary/demo-state -->
-      <section class="demo-card" data-testid="error-boundary-demo-playground">
-        <p class="demo-card__section-label">Default fallback</p>
+      <article demoPrimary class="demo-card demo-card--stack" data-testid="error-boundary-demo-playground">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Error boundary</p>
+            <h3>Default fallback</h3>
+          </div>
+        </div>
+        <p class="demo-card__summary">
+          Click <strong>Throw error</strong> to trigger the boundary. The default fallback shows an
+          error message with a Retry button that restores the original content.
+        </p>
 
         <hexguard-error-boundary>
-          <div class="error-boundary-content" data-testid="error-boundary-safe-content">
-            <p>This content is safe until you click the button.</p>
-            <button
-              type="button"
-              class="throw-btn"
-              (click)="throwRenderError()"
-              data-testid="trigger-error"
-            >
-              Throw error
-            </button>
-          </div>
+          <ng-template>
+            @if (checkRenderError()) { }
+            <div class="boundary-safe" data-testid="error-boundary-safe-content">
+              <div class="boundary-safe__inner">
+                <span class="boundary-icon">✓</span>
+                <div>
+                  <strong>Safe content</strong>
+                  <p class="boundary-safe__desc">This content renders normally until an error is thrown.</p>
+                </div>
+              </div>
+              <button type="button" class="boundary-trigger" (click)="throwRenderError()" data-testid="trigger-error">
+                Throw error
+              </button>
+            </div>
+          </ng-template>
         </hexguard-error-boundary>
-      </section>
+      </article>
 
-      <section class="demo-card" data-testid="error-boundary-demo-custom">
-        <p class="demo-card__section-label">Custom fallback</p>
+      <article demoPrimary class="demo-card demo-card--stack" data-testid="error-boundary-demo-custom">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Error boundary</p>
+            <h3>Custom fallback</h3>
+          </div>
+        </div>
         <p class="demo-card__summary">
-          The custom fallback template receives the error and a reset function.
+          The custom fallback receives the error context with a <code>reset()</code> function.
         </p>
 
         <hexguard-error-boundary [fallback]="customFallback">
-          <div class="error-boundary-content">
-            <p>This content also throws on click.</p>
-            <button
-              type="button"
-              class="throw-btn"
-              (click)="throwCustomError()"
-              data-testid="trigger-custom-error"
-            >
-              Throw (custom fallback)
-            </button>
-          </div>
+          <ng-template>
+            @if (checkCustomError()) { }
+            <div class="boundary-safe">
+              <div class="boundary-safe__inner">
+                <span class="boundary-icon">✓</span>
+                <div>
+                  <strong>Safe content (custom)</strong>
+                  <p class="boundary-safe__desc">This content also throws and triggers a custom fallback.</p>
+                </div>
+              </div>
+              <button type="button" class="boundary-trigger" (click)="throwCustomError()" data-testid="trigger-custom-error">
+                Throw error
+              </button>
+            </div>
+          </ng-template>
         </hexguard-error-boundary>
 
-        <ng-template #customFallback let-ctx>
-          <div class="custom-fallback" data-testid="custom-fallback">
-            <p><strong>Custom error view</strong></p>
-            <p class="custom-fallback-detail">{{ ctx.error?.message }}</p>
-            <button
-              type="button"
-              (click)="ctx.reset()"
-              data-testid="custom-retry"
-              class="retry-btn"
-            >
+        <ng-template #customFallback let-error="error" let-reset="reset">
+          <div class="boundary-error" data-testid="custom-fallback">
+            <div class="boundary-error__head">
+              <span class="boundary-icon boundary-icon--warn">⚠</span>
+              <strong>Custom error boundary</strong>
+            </div>
+            <p class="boundary-error__msg">{{ error?.message || 'Unknown error' }}</p>
+            <button type="button" (click)="reset()" data-testid="custom-retry" class="demo-button">
               Try again
             </button>
           </div>
         </ng-template>
-      </section>
+      </article>
       <!-- demo-snippet:end -->
 
       <demo-inspector-panel
+        demoAside
         panelTestId="error-boundary-inspector-panel"
         eyebrow="Reference"
         title="Error boundary state"
@@ -106,33 +135,40 @@ import { formatSnapshot } from '../../../../shared/formatting';
         snapshotTestId="error-boundary-snapshot-json"
         codeTestId="error-boundary-code-sample"
       />
-
-      <demo-status-strip
-        summary="Declarative error boundary with fallback and reset."
-        currentUrl="Angular Error Boundary Demo"
-        summaryTestId="error-boundary-demo-summary"
-        urlTestId="error-boundary-demo-url"
-        testId="error-boundary-demo-status"
-      />
     </demo-page-layout>
   `,
   styles: [
     `
-    .error-boundary-content { padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.375rem; }
-    .error-boundary-content p { margin: 0 0 0.75rem; }
-    .throw-btn {
-      padding: 0.5rem 1rem; border: 1px solid #dc3545; border-radius: 0.25rem;
-      background: #fff; color: #dc3545; cursor: pointer; font-size: 0.875rem;
+    .boundary-safe {
+      padding: 1rem; border: 1px solid var(--color-border);
+      border-radius: 1rem; background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+      box-shadow: var(--shadow-soft);
     }
-    .throw-btn:hover { background: #dc3545; color: #fff; }
-    .custom-fallback {
-      padding: 1rem; border: 2px solid #ffc107; border-radius: 0.375rem;
-      background: #fff3cd; color: #856404;
+    .boundary-safe__inner {
+      display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;
     }
-    .custom-fallback-detail { font-size: 0.8125rem; margin: 0.5rem 0; }
-    .retry-btn {
-      padding: 0.375rem 0.75rem; border: 1px solid currentColor;
-      border-radius: 0.25rem; background: none; cursor: pointer;
+    .boundary-safe__desc { margin: 0.15rem 0 0; font-size: 0.85rem; color: var(--color-muted); }
+    .boundary-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2rem; height: 2rem; border-radius: 50%; flex-shrink: 0;
+      background: #d4edda; color: #155724; font-size: 1.1rem;
+    }
+    .boundary-icon--warn { background: #f8d7da; color: #721c24; }
+    .boundary-trigger {
+      padding: 0.45rem 0.85rem; border: 1px solid #dc3545; border-radius: 2rem;
+      background: white; color: #dc3545; cursor: pointer; font-size: 0.82rem;
+      font-weight: 600; box-shadow: var(--shadow-soft);
+      transition: background 150ms ease, color 150ms ease;
+    }
+    .boundary-trigger:hover { background: #dc3545; color: #fff; }
+    .boundary-error {
+      padding: 1rem; border: 1px solid rgba(217,119,75,0.3);
+      border-radius: 1rem; background: linear-gradient(180deg, rgba(255,243,205,0.84), rgba(253,232,197,0.76));
+      box-shadow: var(--shadow-soft);
+    }
+    .boundary-error__head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .boundary-error__msg {
+      margin: 0 0 0.75rem; font-size: 0.85rem; font-family: var(--font-mono); word-break: break-word;
     }
   `,
   ],
@@ -140,23 +176,61 @@ import { formatSnapshot } from '../../../../shared/formatting';
 })
 export class ErrorBoundaryDemoPageComponent {
   readonly demo = ANGULAR_ERROR_BOUNDARY_DEMO;
-  private readonly errorFlag = signal(false);
+
+  /**
+   * Queued error messages. Set by click handlers, consumed (thrown) during the
+   * next CD pass in the corresponding `check*Error()` method.
+   *
+   * Uses a plain property — NOT a signal — because writing to a `WritableSignal`
+   * during template evaluation is prohibited in Angular 22 (NG0600).
+   */
+  private queuedDefaultError: string | null = null;
+  private queuedCustomError: string | null = null;
+
+  /** Signal that tracks whether an error has been triggered (for the live snapshot). */
+  private readonly errorTriggered = signal(false);
 
   readonly snapshotJson = computed(() =>
     formatSnapshot({
-      errorTriggered: this.errorFlag(),
+      errorTriggered: this.errorTriggered(),
     }),
   );
 
+  /** Click handler for the first boundary's "Throw error" button. */
   throwRenderError(): void {
-    this.errorFlag.set(true);
-    throw new Error('Render error triggered by user.');
+    this.queuedDefaultError = 'Render error triggered by user.';
+    this.errorTriggered.set(true);
   }
 
+  /** Click handler for the second boundary's "Throw error" button. */
   throwCustomError(): void {
-    const error = new Error('Custom boundary error — message shown in fallback.');
-    setTimeout(() => {
-      throw error;
-    }, 50);
+    this.queuedCustomError = 'Custom boundary error — message shown in fallback.';
+    this.errorTriggered.set(true);
+  }
+
+  /**
+   * Called during template rendering inside the first boundary's `<ng-template>`.
+   * Throws if an error is queued, consuming it.
+   */
+  checkRenderError(): boolean {
+    if (this.queuedDefaultError !== null) {
+      const msg = this.queuedDefaultError;
+      this.queuedDefaultError = null;
+      throw new Error(msg);
+    }
+    return false;
+  }
+
+  /**
+   * Called during template rendering inside the second boundary's `<ng-template>`.
+   * Throws if an error is queued, consuming it.
+   */
+  checkCustomError(): boolean {
+    if (this.queuedCustomError !== null) {
+      const msg = this.queuedCustomError;
+      this.queuedCustomError = null;
+      throw new Error(msg);
+    }
+    return false;
   }
 }

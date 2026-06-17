@@ -23,11 +23,10 @@ import {
       <article class="site-home__hero demo-card demo-card--stack">
         <div class="site-home__hero-copy">
           <p class="demo-eyebrow">Open-source guardrails</p>
-          <h2>Angular and .NET guardrails with live demos, docs, and a shared sample API.</h2>
+          <h2>Angular and .NET guardrails with live demos and a shared sample API.</h2>
           <p class="demo-card__summary site-home__lede">
-            HexGuard is a monorepo for small, explicit application guardrails. The current public
-            surface includes Angular packages and .NET libraries with live demos, a shared sample
-            API that proves cross-stack integration, and a roadmap of planned packages.
+            Small, explicit Angular packages and .NET libraries with live demos and a shared
+            cross-stack API. Browse packages below or visit the monorepo on GitHub.
           </p>
 
           <div class="site-home__actions">
