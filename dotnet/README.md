@@ -38,3 +38,8 @@ pnpm dotnet:start:demo-api
 The current implementation serves `http://127.0.0.1:5074/api/angular-lookups/catalog` with base,
 refreshed, and invalid scenarios so the Angular demo can show both successful frontend-backend
 integration and explicit validation failures.
+
+## Package READMEs
+
+- [HexGuard.ReferenceData](src/HexGuard.ReferenceData/README.md) — typed reference-data catalog contracts and validation
+- [HexGuard.ValidationContracts](src/HexGuard.ValidationContracts/README.md) — validation error contracts and RFC 9457 Problem Details

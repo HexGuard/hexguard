@@ -37,13 +37,73 @@ teams commonly rebuild progress tracking, retry logic, and failed-upload UX on e
 - Keep progress, queue, and retry semantics explicit.
 - Avoid coupling the package to one HTTP or storage implementation.
 
+## Proposed Public API
+
+```ts
+import { injectUploadState } from '@hexguard/angular-upload-state';
+
+const upload = injectUploadState({
+  url: '/api/uploads',
+  multiple: true,
+  maxFileSize: 50 * 1024 * 1024,
+});
+
+upload.queue;              // Signal<UploadItem[]>
+upload.active;             // Signal<UploadItem | null>
+upload.isUploading;        // Signal<boolean>
+upload.completed;          // Signal<UploadItem[]>
+upload.failed;             // Signal<UploadItem[]>
+upload.progress;           // Signal<number> — 0–100 overall
+
+upload.upload(file);
+upload.retry(itemId);
+upload.cancel(itemId);
+upload.clearCompleted();
+upload.clearAll();
+
+// UploadItem
+interface UploadItem {
+  id: string;
+  file: File;
+  status: 'queued' | 'uploading' | 'completed' | 'failed' | 'cancelled';
+  progress: number;         // 0–100
+  response?: unknown;
+  error?: string;
+}
+```
+
 ## Implementation Plan
 
-1. Define the upload item lifecycle contract.
-2. Support queue, progress, cancel, retry, and completion transitions.
-3. Add pluggable transport hooks for file transfer.
-4. Define aggregate helpers for overall queue state.
-5. Add focused tests and demos for document and bulk import flows.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-upload-state/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Define `UploadItem`, `UploadState` types with status enum.
+4. Implement `injectUploadState()` — manages queue, active upload, progress tracking.
+5. Implement `upload()` — creates UploadItem, sends via `XMLHttpRequest` with `upload.onprogress`.
+6. Implement `cancel()` — aborts `XMLHttpRequest`.
+7. Implement `retry()` — creates new UploadItem from failed item data.
+8. Implement aggregate signals: `isUploading`, `progress` (overall), `completed`, `failed`.
+9. Add unit tests for: queue management, progress updates, cancel, retry, completion, failure, clear, concurrent uploads.
+
+### Phase 2: Demo & Docs
+
+10. Add demo route with file picker, upload queue, progress bars, retry/cancel buttons.
+11. Add Playwright coverage.
+12. Write docs.
+
+### Phase 3: Release
+
+13. Add verify script, release workflow.
+14. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:upload-state`.
+- `pnpm test:e2e`.
 
 ## Validation
 

@@ -35,13 +35,69 @@ storage keys, schema changes, restore prompts, and discard behavior differently 
 - Keep draft identity explicit so apps can scope drafts by route, entity, or user.
 - Avoid tying the package only to one Angular form model in v0.1.
 
+## Proposed Public API
+
+```ts
+import { injectDraft, type DraftStorage } from '@hexguard/angular-form-drafts';
+
+const draft = injectDraft('order-form-42', {
+  version: 2,
+  storage: localStorageDraftStorage(),
+  autosaveIntervalMs: 10_000,
+});
+
+draft.data;              // Signal<T | null>
+draft.hasDraft;          // Signal<boolean>
+draft.isSaving;          // Signal<boolean>
+draft.lastSaved;         // Signal<Date | null>
+draft.version;           // number
+
+// Autosave watches a signal source
+draft.autosave(formValuesSignal);
+
+// Manual control
+draft.save(data);
+draft.restore();
+draft.discard();
+draft.clear();
+
+// Storage adapters
+localStorageDraftStorage(namespace: string): DraftStorage;
+sessionStorageDraftStorage(namespace: string): DraftStorage;
+inMemoryDraftStorage(): DraftStorage;
+```
+
 ## Implementation Plan
 
-1. Define draft identity, serialization, and versioning rules.
-2. Implement a headless draft controller with save, restore, discard, and clear operations.
-3. Add storage adapter interfaces for local and session persistence.
-4. Define migration behavior for draft schema changes.
-5. Add tests for autosave, restore prompts, version mismatch, and discard flows.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-form-drafts/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Define `DraftStorage` interface and built-in adapters (localStorage, sessionStorage, in-memory).
+4. Implement `injectDraft()` with save, restore, discard, clear operations.
+5. Implement versioning — compare draft version against expected version, discard on mismatch.
+6. Implement autosave via `effect()` + configurable debounce interval.
+7. Implement `hasDraft` signal for showing restore prompts.
+8. Add unit tests for: save/restore cycle, version mismatch discard, autosave timing, discard, clear, missing key, storage error recovery, concurrent saves.
+
+### Phase 2: Demo & Docs
+
+9. Add demo route with an edit form, autosave indicator, restore prompt on revisit, discard button.
+10. Add Playwright coverage.
+11. Write docs, update README.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:form-drafts`.
+- `pnpm test:e2e`.
 
 ## Validation
 

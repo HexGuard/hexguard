@@ -36,13 +36,75 @@ conditions, and inconsistent rollout rules across Angular apps.
 - Treat template and guard helpers as thin wrappers over a headless flag evaluator.
 - Keep targeting and user-context rules explicit rather than hidden in opaque expressions.
 
+## Proposed Public API
+
+```ts
+import { provideFeatureFlags, injectFlag, type FeatureFlagProvider } from '@hexguard/angular-feature-flags';
+
+// Provider setup
+const provider: FeatureFlagProvider = {
+  getFlag: async (key) => {
+    const res = await fetch(`/api/flags/${key}`);
+    return res.json();
+  },
+  getAllFlags: async () => {
+    const res = await fetch('/api/flags');
+    return res.json();
+  },
+};
+
+export const appProviders = [provideFeatureFlags(provider)];
+
+// Component usage
+const betaFlag = injectFlag('beta-feature');
+
+betaFlag.isEnabled;      // Signal<boolean>
+betaFlag.variant;        // Signal<string | null>
+betaFlag.payload;        // Signal<Record<string, string> | null>
+
+// Route guards
+const routes = [
+  { path: 'beta', canMatch: [flagMatch('beta-feature')], component: BetaComponent },
+];
+
+// Template directive
+// @if (flag('beta-feature').isEnabled()) { <beta-component /> }
+
+// Dev overrides
+// Set localStorage override: localStorage.setItem('flag:beta-feature', 'true')
+```
+
 ## Implementation Plan
 
-1. Define the typed flag contract and provider adapter surface.
-2. Implement imperative checks and signal-friendly flag access.
-3. Add route and template helpers.
-4. Define local override support for development and testing.
-5. Add tests and demos for gating and rollout behavior.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-feature-flags/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Define `FeatureFlagProvider` interface and `FlagDefinition` type.
+4. Implement `injectFlag(key)` — returns signal-based flag state.
+5. Implement `provideFeatureFlags()` — registers provider and loads flags.
+6. Implement route guard helpers: `flagMatch(key)`, `flagActivate(key)`.
+7. Implement local override support — check `localStorage` before provider.
+8. Add unit tests for: flag evaluation, provider loading, cache, overrides, route guards, template usage, missing flag fallback.
+
+### Phase 2: Demo & Docs
+
+9. Add demo route showing flag-gated features, toggle simulation, override panel.
+10. Add Playwright coverage.
+11. Write docs.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:feature-flags`.
+- `pnpm test:e2e`.
 
 ## Validation
 

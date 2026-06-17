@@ -35,13 +35,65 @@ those contracts drift between feature areas.
 - Keep rendering adapters optional.
 - Treat page actions and metadata as route-scoped state rather than global mutable UI config.
 
+## Proposed Public API
+
+```ts
+import { injectPageContext, type PageContext, type PageAction } from '@hexguard/angular-page-context';
+
+@Component({ ... })
+export class MyComponent {
+  private readonly page = injectPageContext();
+
+  constructor() {
+    this.page.set({
+      title: 'Order Details',
+      breadcrumbs: [{ label: 'Orders', route: '/orders' }, { label: 'Order #42' }],
+      tabs: [{ id: 'details', label: 'Details' }, { id: 'history', label: 'History' }],
+      actions: [
+        { id: 'edit', label: 'Edit', icon: 'pencil', route: '/orders/42/edit' },
+        { id: 'delete', label: 'Delete', icon: 'trash', confirm: 'Delete this order?' },
+      ],
+    });
+  }
+
+  // Derived signals
+  readonly title = this.page.title;               // Signal<string>
+  readonly breadcrumbs = this.page.breadcrumbs;    // Signal<Breadcrumb[]>
+  readonly activeTab = this.page.activeTab;        // Signal<string>
+  readonly actions = this.page.actions;            // Signal<PageAction[]>
+}
+```
+
 ## Implementation Plan
 
-1. Define the page-context contract for titles, breadcrumbs, tabs, and actions.
-2. Implement route-scoped providers or helpers for setting and reading page context.
-3. Add permission and feature-flag composition points for action visibility.
-4. Add tests and demos for dashboard, details, and edit pages.
-5. Keep shell rendering optional in v0.1.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-page-context/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Define `PageContext`, `Breadcrumb`, `PageAction`, `PageTab` types.
+4. Implement `injectPageContext()` with signals for title, breadcrumbs, tabs, actions, activeTab.
+5. Implement `set()` method that updates all context fields at once.
+6. Implement `activeTab` signal — set via `setActiveTab(id)`.
+7. Add unit tests for: context update, partial update, active tab switching, empty state, permission-gated actions.
+
+### Phase 2: Demo & Docs
+
+8. Add demo route showing dashboard shell, breadcrumb nav, tab switching, action visibility.
+9. Add Playwright coverage.
+10. Write docs, update README.
+
+### Phase 3: Release
+
+11. Add verify script, release workflow.
+12. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:page-context`.
+- `pnpm test:e2e`.
 
 ## Validation
 

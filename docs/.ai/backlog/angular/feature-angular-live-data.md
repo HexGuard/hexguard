@@ -35,13 +35,61 @@ refresh buttons, and stale-data indicators for every dashboard or queue screen.
 - Keep visibility and cadence behavior explicit.
 - Treat stale indicators and refresh state as first-class outputs.
 
+## Proposed Public API
+
+```ts
+import { injectLiveData } from '@hexguard/angular-live-data';
+
+const live = injectLiveData({
+  fetch: () => fetch('/api/metrics'),
+  intervalMs: 30_000,
+  pauseWhenHidden: true,           // uses @hexguard/angular-visibility
+  staleAfterMs: 60_000,
+  retryPolicy: { maxRetries: 3, backoffMs: 1000 },
+});
+
+live.value;              // Signal<T | null>
+live.isLoading;          // Signal<boolean>
+live.isStale;            // Signal<boolean>
+live.lastRefreshed;      // Signal<Date | null>
+live.error;              // Signal<Error | null>
+
+live.refresh();          // manual refresh
+live.pause();            // pause polling
+live.resume();           // resume polling
+```
+
 ## Implementation Plan
 
-1. Define the refresh lifecycle contract and stale-state semantics.
-2. Implement cadence, pause-on-hidden, and manual refresh orchestration.
-3. Compose with async-state for value/error rendering.
-4. Add backoff or retry policy only if it stays small and explicit.
-5. Add tests and demos for dashboard, queue, and KPI-card workflows.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-live-data/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Implement `injectLiveData()` with `setInterval`-based polling and `DestroyRef` cleanup.
+4. Implement `pauseWhenHidden` via `document.visibilityState` (or optional `@hexguard/angular-visibility` peer).
+5. Implement `isStale` — true if no refresh within `staleAfterMs`.
+6. Implement retry with exponential backoff.
+7. Implement `pause()`/`resume()`/`refresh()` controls.
+8. Add unit tests for: polling cycle, pause/resume, hidden pause, stale detection, retry, error recovery, manual refresh, cleanup.
+
+### Phase 2: Demo & Docs
+
+9. Add demo route showing dashboard KPI cards with live updates, stale badge, pause button.
+10. Add Playwright coverage.
+11. Write docs.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:live-data`.
+- `pnpm test:e2e`.
 
 ## Validation
 

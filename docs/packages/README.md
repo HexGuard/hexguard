@@ -734,193 +734,233 @@ Status: Proposed
 
 Would pair backend API version negotiation, Sunset and Deprecation header conventions with Angular endpoint-version awareness, deprecation warnings, and migration-path helpers.
 
+<a id="package-angular-file-picker"></a>
+
+### `@hexguard/angular-file-picker`
+
+Status: Proposed
+
+Would standardize file-selection state with type/size validation, preview, drag-and-drop zone state, and multi-file queue management for Angular apps before upload.
+
+<a id="package-angular-resizable"></a>
+
+### `@hexguard/angular-resizable`
+
+Status: Proposed
+
+Would standardize resizable split-pane and draggable-edge state with configurable min/max constraints, snap thresholds, and optional position persistence for dashboard and admin-panel layouts.
+
+<a id="package-dotnet-background-jobs"></a>
+
+### `HexGuard.BackgroundJobs`
+
+Status: Proposed
+
+Would provide background job scheduling contracts, recurring job definitions, job-status tracking, and configurable retry policies with persistence abstraction for .NET applications.
+
+<a id="package-dotnet-export"></a>
+
+### `HexGuard.Export`
+
+Status: Proposed
+
+Would provide standardized CSV, Excel, and PDF export-generation helpers with consistent file-result contracts, content-disposition conventions, and background-export status tracking for ASP.NET Core APIs.
+
+<a id="package-signalr-cross-stack"></a>
+
+### `HexGuard.SignalR + @hexguard/angular-signalr`
+
+Status: Proposed
+
+Would pair backend typed SignalR hub contracts with Angular SignalR connection state, reconnection strategy, channel lifecycle, and typed event-stream signals for real-time full-duplex communication.
+
 ## Broader Prioritization Matrix
 
 Scores use `1-5` where higher adoption means broader repeated demand, higher complexity means a
 harder package to design and support well, and higher differentiation means a stronger HexGuard
 story beyond thin wrappers.
 
-| Package                                                                       | Scope       | Status    | Adoption | Complexity | Differentiation | Priority |
-| ----------------------------------------------------------------------------- | ----------- | --------- | -------- | ---------- | --------------- | -------- |
-| `@hexguard/angular-async-state`                                               | Angular     | Available | 5        | 3          | 4               | High     |
-| `@hexguard/angular-api-errors`                                                | Angular     | Planned   | 5        | 3          | 5               | High     |
-| `@hexguard/angular-permissions`                                               | Angular     | Proposed  | 5        | 3          | 4               | High     |
-| `@hexguard/angular-error-boundary`                                            | Angular     | Proposed  | 5        | 3          | 4               | High     |
-| `@hexguard/angular-debounce`                                                  | Angular     | Proposed  | 5        | 2          | 3               | High     |
-| `HexGuard.Capabilities + @hexguard/angular-permissions`                       | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
-| `HexGuard.ReferenceData + @hexguard/angular-lookups`                          | Cross-stack | Proposed  | 5        | 3          | 4               | High     |
-| `HexGuard.OperationStatus + @hexguard/angular-operation-status`               | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
-| `HexGuard.Idempotency + @hexguard/angular-idempotency`                        | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
-| `HexGuard.ProblemDetails`                                                     | .NET        | Planned   | 5        | 3          | 4               | High     |
-| `@hexguard/angular-notifications`                                             | Angular     | Proposed  | 5        | 2          | 4               | High     |
-| `@hexguard/angular-form-drafts`                                               | Angular     | Proposed  | 4        | 3          | 4               | High     |
-| `@hexguard/angular-selection-state`                                           | Angular     | Proposed  | 4        | 3          | 4               | High     |
-| `HexGuard.ValidationContracts + @hexguard/angular-api-errors`                 | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
-| `HexGuard.QueryContracts + @hexguard/angular-query-contracts`                 | Cross-stack | Proposed  | 4        | 4          | 4               | High     |
-| `HexGuard.FeatureFlags + @hexguard/angular-feature-flags`                     | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
-| `HexGuard.NotificationDelivery + @hexguard/angular-notification-inbox`         | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
-| `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`                 | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
-| `@hexguard/angular-table-state`                                               | Angular     | Planned   | 4        | 4          | 4               | High     |
-| `@hexguard/angular-lookups`                                                   | Angular     | Proposed  | 4        | 3          | 4               | High     |
-| `@hexguard/angular-optimistic-state`                                          | Angular     | Proposed  | 4        | 4          | 4               | High     |
-| `HexGuard.Outbox`                                                             | .NET        | Proposed  | 4        | 4          | 5               | High     |
-| `HexGuard.Concurrency`                                                        | .NET        | Proposed  | 4        | 4          | 4               | High     |
-| `@hexguard/angular-wizard-state`                                              | Angular     | Proposed  | 4        | 3          | 4               | High     |
-| `HexGuard.WorkflowTransitions + @hexguard/angular-workflow-actions`           | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
-| `HexGuard.FeatureFlags`                                                       | .NET        | Proposed  | 4        | 3          | 4               | High     |
-| `@hexguard/angular-network-status`                                            | Angular     | Proposed  | 4        | 2          | 4               | Medium   |
-| `@hexguard/angular-visibility`                                                | Angular     | Proposed  | 4        | 2          | 4               | Medium   |
-| `@hexguard/angular-form-utils`                                                | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-scroll-state`                                              | Angular     | Proposed  | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-storage`                                                   | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-window-state`                                              | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-skeleton`                                                  | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-empty-state`                                               | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-date-utils`                                                | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-focus-trap`                                                | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-activity-indicator`                                        | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-pagination`                                                | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-feature-flags`                                             | Angular     | Proposed  | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-live-data`                                                 | Angular     | Proposed  | 4        | 4          | 4               | Medium   |
-| `@hexguard/angular-dirty-state`                                               | Angular     | Planned   | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-upload-state`                                              | Angular     | Proposed  | 4        | 4          | 4               | Medium   |
-| `@hexguard/angular-theme`                                                     | Angular     | Proposed  | 4        | 2          | 2               | Medium   |
-| `HexGuard.Search + @hexguard/angular-search`                                  | Cross-stack | Proposed  | 4        | 3          | 4               | Medium   |
-| `HexGuard.SoftDelete`                                                         | .NET        | Proposed  | 4        | 2          | 3               | Medium   |
-| `HexGuard.RateLimiting`                                                       | .NET        | Proposed  | 4        | 3          | 3               | Medium   |
-| `HexGuard.DataSeeding`                                                        | .NET        | Proposed  | 4        | 2          | 3               | Medium   |
-| `HexGuard.Cors`                                                               | .NET        | Proposed  | 4        | 2          | 2               | Medium   |
-| `HexGuard.PreferenceSync + @hexguard/angular-preferences`                     | Cross-stack | Proposed  | 4        | 4          | 4               | Medium   |
-| `HexGuard.EndpointConventions`                                                | .NET        | Proposed  | 4        | 3          | 3               | Medium   |
-| `@hexguard/angular-preferences`                                               | Angular     | Planned   | 3        | 2          | 3               | Medium   |
-| `@hexguard/angular-confirmation`                                              | Angular     | Proposed  | 4        | 2          | 2               | Medium   |
-| `@hexguard/angular-undo`                                                      | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
-| `@hexguard/angular-navigation-pending`                                        | Angular     | Proposed  | 3        | 3          | 3               | Medium   |
-| `HexGuard.TenantContext + @hexguard/angular-tenant-context`                   | Cross-stack | Proposed  | 3        | 4          | 4               | Medium   |
-| `HexGuard.EditLocks + @hexguard/angular-edit-locks`                           | Cross-stack | Proposed  | 3        | 4          | 4               | Medium   |
-| `HexGuard.Uploads + @hexguard/angular-upload-state`                           | Cross-stack | Proposed  | 4        | 5          | 4               | Explore  |
-| `HexGuard.Exports + @hexguard/angular-exports`                                | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.ChangeTracking + @hexguard/angular-change-tracking`                 | Cross-stack | Proposed  | 3        | 3          | 4               | Explore  |
-| `HexGuard.Imports + @hexguard/angular-imports`                                | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.Sse + @hexguard/angular-sse`                                        | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.Caching + @hexguard/angular-caching`                                | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.UserPresence + @hexguard/angular-user-presence`                     | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.Scheduling + @hexguard/angular-scheduling`                          | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.ApiVersioning + @hexguard/angular-api-versioning`                   | Cross-stack | Proposed  | 3        | 3          | 4               | Explore  |
-| `HexGuard.Inbox`                                                              | .NET        | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.Filtering`                                                          | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
-| `HexGuard.AuditTrail`                                                         | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
-| `HexGuard.Notifications`                                                      | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
-| `HexGuard.StateMachine`                                                       | .NET        | Proposed  | 3        | 4          | 4               | Explore  |
-| `HexGuard.Caching`                                                            | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
-| `HexGuard.Search`                                                             | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
-| `HexGuard.Downloads`                                                          | .NET        | Proposed  | 3        | 2          | 2               | Explore  |
-| `@hexguard/angular-page-context`                                              | Angular     | Proposed  | 3        | 2          | 3               | Explore  |
-| `@hexguard/angular-tour`                                                      | Angular     | Proposed  | 3        | 3          | 4               | Explore  |
-| `@hexguard/angular-drag-state`                                                | Angular     | Proposed  | 3        | 4          | 3               | Explore  |
-| `@hexguard/angular-breakpoint-observer`                                       | Angular     | Proposed  | 3        | 2          | 3               | Explore  |
-| `@hexguard/angular-command-palette`                                           | Angular     | Proposed  | 3        | 3          | 4               | Explore  |
-| `@hexguard/angular-query-signal-forms`                                        | Angular     | Proposed  | 3        | 4          | 3               | Explore  |
-| `@hexguard/angular-http-dedupe`                                               | Angular     | Planned   | 3        | 4          | 4               | Explore  |
-| `@hexguard/angular-http-resource-debug`                                       | Angular     | Planned   | 2        | 4          | 5               | Explore  |
-| `@hexguard/angular-route-memory`                                              | Angular     | Proposed  | 3        | 3          | 3               | Explore  |
-| `@hexguard/angular-submit-lock`                                               | Angular     | Planned   | 3        | 2          | 2               | Explore  |
-| `@hexguard/angular-recently-viewed`                                           | Angular     | Proposed  | 3        | 2          | 2               | Explore  |
-| `@hexguard/angular-timer`                                                     | Angular     | Proposed  | 3        | 2          | 2               | Explore  |
-| `@hexguard/angular-clipboard`                                                 | Angular     | Proposed  | 3        | 1          | 2               | Explore  |
-| `@hexguard/angular-webhooks`                                                  | Angular     | Proposed  | 2        | 3          | 3               | Explore  |
+| Package                                                                | Scope       | Status    | Adoption | Complexity | Differentiation | Priority |
+| ---------------------------------------------------------------------- | ----------- | --------- | -------- | ---------- | --------------- | -------- |
+| `@hexguard/angular-async-state`                                        | Angular     | Available | 5        | 3          | 4               | High     |
+| `@hexguard/angular-api-errors`                                         | Angular     | Planned   | 5        | 3          | 5               | High     |
+| `@hexguard/angular-permissions`                                        | Angular     | Proposed  | 5        | 3          | 4               | High     |
+| `@hexguard/angular-error-boundary`                                     | Angular     | Proposed  | 5        | 3          | 4               | High     |
+| `@hexguard/angular-debounce`                                           | Angular     | Proposed  | 5        | 2          | 3               | High     |
+| `HexGuard.Capabilities + @hexguard/angular-permissions`                | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
+| `HexGuard.ReferenceData + @hexguard/angular-lookups`                   | Cross-stack | Proposed  | 5        | 3          | 4               | High     |
+| `HexGuard.OperationStatus + @hexguard/angular-operation-status`        | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
+| `HexGuard.Idempotency + @hexguard/angular-idempotency`                 | Cross-stack | Proposed  | 5        | 4          | 5               | High     |
+| `HexGuard.ProblemDetails`                                              | .NET        | Planned   | 5        | 3          | 4               | High     |
+| `@hexguard/angular-notifications`                                      | Angular     | Proposed  | 5        | 2          | 4               | High     |
+| `@hexguard/angular-form-drafts`                                        | Angular     | Proposed  | 4        | 3          | 4               | High     |
+| `@hexguard/angular-selection-state`                                    | Angular     | Proposed  | 4        | 3          | 4               | High     |
+| `HexGuard.ValidationContracts + @hexguard/angular-api-errors`          | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
+| `HexGuard.QueryContracts + @hexguard/angular-query-contracts`          | Cross-stack | Proposed  | 4        | 4          | 4               | High     |
+| `HexGuard.FeatureFlags + @hexguard/angular-feature-flags`              | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
+| `HexGuard.NotificationDelivery + @hexguard/angular-notification-inbox` | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
+| `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`          | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
+| `@hexguard/angular-table-state`                                        | Angular     | Planned   | 4        | 4          | 4               | High     |
+| `@hexguard/angular-lookups`                                            | Angular     | Proposed  | 4        | 3          | 4               | High     |
+| `@hexguard/angular-optimistic-state`                                   | Angular     | Proposed  | 4        | 4          | 4               | High     |
+| `HexGuard.Outbox`                                                      | .NET        | Proposed  | 4        | 4          | 5               | High     |
+| `HexGuard.Concurrency`                                                 | .NET        | Proposed  | 4        | 4          | 4               | High     |
+| `@hexguard/angular-wizard-state`                                       | Angular     | Proposed  | 4        | 3          | 4               | High     |
+| `HexGuard.WorkflowTransitions + @hexguard/angular-workflow-actions`    | Cross-stack | Proposed  | 4        | 4          | 5               | High     |
+| `HexGuard.FeatureFlags`                                                | .NET        | Proposed  | 4        | 3          | 4               | High     |
+| `@hexguard/angular-network-status`                                     | Angular     | Proposed  | 4        | 2          | 4               | Medium   |
+| `@hexguard/angular-visibility`                                         | Angular     | Proposed  | 4        | 2          | 4               | Medium   |
+| `@hexguard/angular-form-utils`                                         | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-scroll-state`                                       | Angular     | Proposed  | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-storage`                                            | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-window-state`                                       | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-skeleton`                                           | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-empty-state`                                        | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-date-utils`                                         | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-focus-trap`                                         | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-activity-indicator`                                 | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-pagination`                                         | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-feature-flags`                                      | Angular     | Proposed  | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-live-data`                                          | Angular     | Proposed  | 4        | 4          | 4               | Medium   |
+| `@hexguard/angular-dirty-state`                                        | Angular     | Planned   | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-upload-state`                                       | Angular     | Proposed  | 4        | 4          | 4               | Medium   |
+| `@hexguard/angular-theme`                                              | Angular     | Proposed  | 4        | 2          | 2               | Medium   |
+| `HexGuard.Search + @hexguard/angular-search`                           | Cross-stack | Proposed  | 4        | 3          | 4               | Medium   |
+| `HexGuard.SoftDelete`                                                  | .NET        | Proposed  | 4        | 2          | 3               | Medium   |
+| `HexGuard.RateLimiting`                                                | .NET        | Proposed  | 4        | 3          | 3               | Medium   |
+| `HexGuard.DataSeeding`                                                 | .NET        | Proposed  | 4        | 2          | 3               | Medium   |
+| `HexGuard.Cors`                                                        | .NET        | Proposed  | 4        | 2          | 2               | Medium   |
+| `HexGuard.PreferenceSync + @hexguard/angular-preferences`              | Cross-stack | Proposed  | 4        | 4          | 4               | Medium   |
+| `HexGuard.EndpointConventions`                                         | .NET        | Proposed  | 4        | 3          | 3               | Medium   |
+| `@hexguard/angular-preferences`                                        | Angular     | Planned   | 3        | 2          | 3               | Medium   |
+| `@hexguard/angular-confirmation`                                       | Angular     | Proposed  | 4        | 2          | 2               | Medium   |
+| `@hexguard/angular-undo`                                               | Angular     | Proposed  | 4        | 2          | 3               | Medium   |
+| `@hexguard/angular-navigation-pending`                                 | Angular     | Proposed  | 3        | 3          | 3               | Medium   |
+| `HexGuard.TenantContext + @hexguard/angular-tenant-context`            | Cross-stack | Proposed  | 3        | 4          | 4               | Medium   |
+| `HexGuard.EditLocks + @hexguard/angular-edit-locks`                    | Cross-stack | Proposed  | 3        | 4          | 4               | Medium   |
+| `HexGuard.Uploads + @hexguard/angular-upload-state`                    | Cross-stack | Proposed  | 4        | 5          | 4               | Explore  |
+| `HexGuard.Exports + @hexguard/angular-exports`                         | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.ChangeTracking + @hexguard/angular-change-tracking`          | Cross-stack | Proposed  | 3        | 3          | 4               | Explore  |
+| `HexGuard.Imports + @hexguard/angular-imports`                         | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.Sse + @hexguard/angular-sse`                                 | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.Caching + @hexguard/angular-caching`                         | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.UserPresence + @hexguard/angular-user-presence`              | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.Scheduling + @hexguard/angular-scheduling`                   | Cross-stack | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.ApiVersioning + @hexguard/angular-api-versioning`            | Cross-stack | Proposed  | 3        | 3          | 4               | Explore  |
+| `HexGuard.Inbox`                                                       | .NET        | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.Filtering`                                                   | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
+| `HexGuard.AuditTrail`                                                  | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
+| `HexGuard.Notifications`                                               | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
+| `HexGuard.StateMachine`                                                | .NET        | Proposed  | 3        | 4          | 4               | Explore  |
+| `HexGuard.Caching`                                                     | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
+| `HexGuard.Search`                                                      | .NET        | Proposed  | 3        | 3          | 3               | Explore  |
+| `HexGuard.Downloads`                                                   | .NET        | Proposed  | 3        | 2          | 2               | Explore  |
+| `@hexguard/angular-page-context`                                       | Angular     | Proposed  | 3        | 2          | 3               | Explore  |
+| `@hexguard/angular-tour`                                               | Angular     | Proposed  | 3        | 3          | 4               | Explore  |
+| `@hexguard/angular-drag-state`                                         | Angular     | Proposed  | 3        | 4          | 3               | Explore  |
+| `@hexguard/angular-breakpoint-observer`                                | Angular     | Proposed  | 3        | 2          | 3               | Explore  |
+| `@hexguard/angular-command-palette`                                    | Angular     | Proposed  | 3        | 3          | 4               | Explore  |
+| `@hexguard/angular-query-signal-forms`                                 | Angular     | Proposed  | 3        | 4          | 3               | Explore  |
+| `@hexguard/angular-http-dedupe`                                        | Angular     | Planned   | 3        | 4          | 4               | Explore  |
+| `@hexguard/angular-http-resource-debug`                                | Angular     | Planned   | 2        | 4          | 5               | Explore  |
+| `@hexguard/angular-route-memory`                                       | Angular     | Proposed  | 3        | 3          | 3               | Explore  |
+| `@hexguard/angular-submit-lock`                                        | Angular     | Planned   | 3        | 2          | 2               | Explore  |
+| `@hexguard/angular-recently-viewed`                                    | Angular     | Proposed  | 3        | 2          | 2               | Explore  |
+| `@hexguard/angular-timer`                                              | Angular     | Proposed  | 3        | 2          | 2               | Explore  |
+| `@hexguard/angular-clipboard`                                          | Angular     | Proposed  | 3        | 1          | 2               | Explore  |
+| `@hexguard/angular-webhooks`                                           | Angular     | Proposed  | 2        | 3          | 3               | Explore  |
 
 ## Angular Candidate Prioritization Matrix
 
 Scores use `1-5`, where `5` means higher adoption, higher implementation/support complexity, or
 higher differentiation.
 
-| Rank | Package                                 | Status    | Adoption | Complexity | Differentiation | Notes                                                                                           |
-| ---- | --------------------------------------- | --------- | -------- | ---------- | --------------- | ----------------------------------------------------------------------------------------------- |
-| 1    | `@hexguard/angular-async-state`         | Available | 5        | 3          | 4               | Broad async read and action lifecycle need across most Angular apps                             |
-| 2    | `@hexguard/angular-api-errors`          | Planned   | 5        | 3          | 5               | Strong cross-stack value when paired with consistent backend error contracts                    |
-| 3    | `@hexguard/angular-permissions`         | Proposed  | 5        | 3          | 4               | Common enterprise pain point that gets stronger if backed by server-issued capability contracts |
-| 4    | `@hexguard/angular-error-boundary`      | Proposed  | 5        | 3          | 4               | Missing Angular primitive — every app builds ad hoc fallback for render crashes                 |
-| 5    | `@hexguard/angular-debounce`            | Proposed  | 5        | 2          | 3               | Search-as-you-type and auto-save debounce is repeated across nearly every screen                |
-| 6    | `@hexguard/angular-notifications`       | Proposed  | 5        | 2          | 4               | Universal toast/snackbar/dismiss queue that every business app needs                            |
-| 7    | `@hexguard/angular-lookups`             | Proposed  | 5        | 3          | 4               | Repeated forms, filters, and detail-screen lookup problem with broad business-app adoption      |
-| 8    | `@hexguard/angular-form-drafts`         | Proposed  | 4        | 3          | 4               | High value on edit-heavy apps without overlapping query or dirty state directly                 |
-| 9    | `@hexguard/angular-selection-state`     | Proposed  | 4        | 3          | 4               | Repeated list and table pattern with strong admin-app adoption potential                        |
-| 10   | `@hexguard/angular-optimistic-state`    | Proposed  | 4        | 4          | 4               | Repeated mutation UX problem with strong admin and internal-tool value                          |
-| 11   | `@hexguard/angular-table-state`         | Planned   | 4        | 4          | 4               | Valuable once URL/query patterns and selection patterns are clearer                             |
-| 12   | `@hexguard/angular-wizard-state`        | Proposed  | 4        | 3          | 4               | Strong fit for create, import, onboarding, and review flows that repeat across apps             |
-| 13   | `@hexguard/angular-network-status`      | Proposed  | 4        | 2          | 4               | Offline awareness is increasingly critical for data-heavy Angular apps                          |
-| 14   | `@hexguard/angular-visibility`          | Proposed  | 4        | 2          | 4               | Tab-hidden and element-visibility detection composes naturally with live-data and async-state   |
-| 15   | `@hexguard/angular-live-data`           | Proposed  | 4        | 4          | 4               | Strong dashboard and ops value, but more orchestration complexity                               |
-| 16   | `@hexguard/angular-scroll-state`        | Proposed  | 4        | 3          | 3               | Scroll position, infinite-scroll, and scroll-spy needed by most detail and list screens         |
+| Rank | Package                                 | Status    | Adoption | Complexity | Differentiation | Notes                                                                                            |
+| ---- | --------------------------------------- | --------- | -------- | ---------- | --------------- | ------------------------------------------------------------------------------------------------ |
+| 1    | `@hexguard/angular-async-state`         | Available | 5        | 3          | 4               | Broad async read and action lifecycle need across most Angular apps                              |
+| 2    | `@hexguard/angular-api-errors`          | Planned   | 5        | 3          | 5               | Strong cross-stack value when paired with consistent backend error contracts                     |
+| 3    | `@hexguard/angular-permissions`         | Proposed  | 5        | 3          | 4               | Common enterprise pain point that gets stronger if backed by server-issued capability contracts  |
+| 4    | `@hexguard/angular-error-boundary`      | Proposed  | 5        | 3          | 4               | Missing Angular primitive — every app builds ad hoc fallback for render crashes                  |
+| 5    | `@hexguard/angular-debounce`            | Proposed  | 5        | 2          | 3               | Search-as-you-type and auto-save debounce is repeated across nearly every screen                 |
+| 6    | `@hexguard/angular-notifications`       | Proposed  | 5        | 2          | 4               | Universal toast/snackbar/dismiss queue that every business app needs                             |
+| 7    | `@hexguard/angular-lookups`             | Proposed  | 5        | 3          | 4               | Repeated forms, filters, and detail-screen lookup problem with broad business-app adoption       |
+| 8    | `@hexguard/angular-form-drafts`         | Proposed  | 4        | 3          | 4               | High value on edit-heavy apps without overlapping query or dirty state directly                  |
+| 9    | `@hexguard/angular-selection-state`     | Proposed  | 4        | 3          | 4               | Repeated list and table pattern with strong admin-app adoption potential                         |
+| 10   | `@hexguard/angular-optimistic-state`    | Proposed  | 4        | 4          | 4               | Repeated mutation UX problem with strong admin and internal-tool value                           |
+| 11   | `@hexguard/angular-table-state`         | Planned   | 4        | 4          | 4               | Valuable once URL/query patterns and selection patterns are clearer                              |
+| 12   | `@hexguard/angular-wizard-state`        | Proposed  | 4        | 3          | 4               | Strong fit for create, import, onboarding, and review flows that repeat across apps              |
+| 13   | `@hexguard/angular-network-status`      | Proposed  | 4        | 2          | 4               | Offline awareness is increasingly critical for data-heavy Angular apps                           |
+| 14   | `@hexguard/angular-visibility`          | Proposed  | 4        | 2          | 4               | Tab-hidden and element-visibility detection composes naturally with live-data and async-state    |
+| 15   | `@hexguard/angular-live-data`           | Proposed  | 4        | 4          | 4               | Strong dashboard and ops value, but more orchestration complexity                                |
+| 16   | `@hexguard/angular-scroll-state`        | Proposed  | 4        | 3          | 3               | Scroll position, infinite-scroll, and scroll-spy needed by most detail and list screens          |
 | 17   | `@hexguard/angular-storage`             | Proposed  | 4        | 2          | 3               | Typed localStorage/sessionStorage with signals — simple but eliminates raw JSON.parse everywhere |
-| 18   | `@hexguard/angular-skeleton`            | Proposed  | 4        | 2          | 3               | Perceived-performance placeholder state pairs naturally with async-state outlets                |
-| 19   | `@hexguard/angular-empty-state`         | Proposed  | 4        | 2          | 3               | Zero-result and no-data screens are needed on every list page                                   |
-| 20   | `@hexguard/angular-date-utils`          | Proposed  | 4        | 2          | 3               | Date-range state and relative-time formatting needed by most business apps                      |
-| 21   | `@hexguard/angular-focus-trap`          | Proposed  | 4        | 2          | 3               | Accessibility requirement for modals and flyouts — always rebuilt                               |
-| 22   | `@hexguard/angular-form-utils`          | Proposed  | 4        | 2          | 3               | Cross-field validators and dirty-check helpers are small but repeatedly needed                  |
-| 23   | `@hexguard/angular-window-state`        | Proposed  | 4        | 2          | 3               | Signal-based resize and dimension tracking needed for responsive component logic                |
-| 24   | `@hexguard/angular-activity-indicator`  | Proposed  | 4        | 2          | 3               | Global busy-state stack for saves, auto-saves, and background sync                              |
-| 25   | `@hexguard/angular-pagination`          | Proposed  | 4        | 2          | 3               | Angular pagination state signals complement existing HexGuard.Pagination .NET package           |
-| 26   | `@hexguard/angular-feature-flags`       | Proposed  | 4        | 3          | 3               | Broadly useful but more crowded and less differentiated than permissions                        |
-| 27   | `@hexguard/angular-dirty-state`         | Planned   | 4        | 3          | 3               | Common need, but narrower than async-state or permissions                                       |
-| 28   | `@hexguard/angular-upload-state`        | Proposed  | 4        | 4          | 3               | High practical value where uploads matter, but less universal than async-state                  |
-| 29   | `@hexguard/angular-theme`               | Proposed  | 4        | 2          | 2               | Dark-mode toggle is common but simple to re-create locally                                      |
-| 30   | `@hexguard/angular-preferences`         | Planned   | 3        | 2          | 3               | Useful companion package with moderate adoption and low build cost                              |
-| 31   | `@hexguard/angular-undo`                | Proposed  | 4        | 2          | 3               | Highly visible UX value for reversible actions without much conceptual weight                   |
-| 32   | `@hexguard/angular-confirmation`        | Proposed  | 4        | 2          | 2               | Common pattern, but easier to re-create and less differentiated                                 |
-| 33   | `@hexguard/angular-route-memory`        | Proposed  | 3        | 3          | 3               | Valuable in list-detail-edit apps, but narrower than core state packages                        |
-| 34   | `@hexguard/angular-navigation-pending`  | Proposed  | 3        | 3          | 2               | Useful UX primitive, but can overlap with existing router and async-state patterns              |
-| 35   | `@hexguard/angular-tour`                | Proposed  | 3        | 3          | 4               | Product onboarding is a distinct UX pattern, but adoption is narrower than core state utilities |
-| 36   | `@hexguard/angular-drag-state`          | Proposed  | 3        | 4          | 3               | Drag interaction state is useful for kanban and reorder UIs but implement-heavy                 |
-| 37   | `@hexguard/angular-workflow-actions`    | Proposed  | 3        | 3          | 4               | Strong fit for approval-style products, but more domain-shaped than core state utilities        |
-| 38   | `@hexguard/angular-page-context`        | Proposed  | 3        | 2          | 3               | Helpful for larger apps, but less universal than state and policy packages                      |
-| 39   | `@hexguard/angular-command-palette`     | Proposed  | 3        | 3          | 4               | Good product differentiation, but narrower adoption profile                                     |
-| 40   | `@hexguard/angular-breakpoint-observer` | Proposed  | 3        | 2          | 3               | Useful responsive-state primitive but narrow compared to broader state packages                 |
-| 41   | `@hexguard/angular-http-dedupe`         | Planned   | 3        | 4          | 4               | Real performance value, but implementation and semantics are trickier                           |
-| 42   | `@hexguard/angular-query-signal-forms`  | Proposed  | 3        | 4          | 3               | Strategically relevant, but gated by Angular Signal Forms maturity                              |
-| 43   | `@hexguard/angular-http-resource-debug` | Planned   | 2        | 4          | 5               | Highly differentiated, but niche compared with core app-state packages                          |
-| 44   | `@hexguard/angular-submit-lock`         | Planned   | 3        | 2          | 2               | Likely narrows into thin ergonomics on top of async-action primitives                           |
-| 45   | `@hexguard/angular-recently-viewed`     | Proposed  | 3        | 2          | 2               | Route-memory and recently-viewed overlap; adoption is narrower than core state                  |
-| 46   | `@hexguard/angular-timer`               | Proposed  | 3        | 2          | 2               | Countdown timers are common but simple to implement per-use-case                                |
-| 47   | `@hexguard/angular-clipboard`           | Proposed  | 3        | 1          | 2               | Tiny wrapper with thin differentiation and low implementation cost                              |
-| 48   | `@hexguard/angular-edit-locks`          | Proposed  | 3        | 4          | 4               | Useful in collaborative admin screens, but narrower than broader concurrency primitives         |
-| 49   | `@hexguard/angular-tenant-context`      | Proposed  | 3        | 3          | 4               | Important for B2B SaaS, but narrower than more general-purpose Angular state packages           |
-| 50   | `@hexguard/angular-optimistic-actions`  | Proposed  | 2        | 3          | 2               | Likely overlaps too much with optimistic-state unless the action-only surface stays very narrow |
-| 51   | `@hexguard/angular-operation-status`    | Proposed  | 3        | 3          | 4               | Strong when paired with server-side operation contracts                                         |
-| 52   | `@hexguard/angular-idempotency`         | Proposed  | 3        | 3          | 4               | Most valuable when paired with server-side idempotent APIs                                      |
-| 53   | `@hexguard/angular-query-contracts`     | Proposed  | 3        | 3          | 3               | Useful contract layer, but strongest in cross-stack scenarios rather than standalone Angular    |
-| 54   | `@hexguard/angular-webhooks`            | Proposed  | 2        | 3          | 3               | Niche until the server-side webhooks package is established and adopted                         |
+| 18   | `@hexguard/angular-skeleton`            | Proposed  | 4        | 2          | 3               | Perceived-performance placeholder state pairs naturally with async-state outlets                 |
+| 19   | `@hexguard/angular-empty-state`         | Proposed  | 4        | 2          | 3               | Zero-result and no-data screens are needed on every list page                                    |
+| 20   | `@hexguard/angular-date-utils`          | Proposed  | 4        | 2          | 3               | Date-range state and relative-time formatting needed by most business apps                       |
+| 21   | `@hexguard/angular-focus-trap`          | Proposed  | 4        | 2          | 3               | Accessibility requirement for modals and flyouts — always rebuilt                                |
+| 22   | `@hexguard/angular-form-utils`          | Proposed  | 4        | 2          | 3               | Cross-field validators and dirty-check helpers are small but repeatedly needed                   |
+| 23   | `@hexguard/angular-window-state`        | Proposed  | 4        | 2          | 3               | Signal-based resize and dimension tracking needed for responsive component logic                 |
+| 24   | `@hexguard/angular-activity-indicator`  | Proposed  | 4        | 2          | 3               | Global busy-state stack for saves, auto-saves, and background sync                               |
+| 25   | `@hexguard/angular-pagination`          | Proposed  | 4        | 2          | 3               | Angular pagination state signals complement existing HexGuard.Pagination .NET package            |
+| 26   | `@hexguard/angular-feature-flags`       | Proposed  | 4        | 3          | 3               | Broadly useful but more crowded and less differentiated than permissions                         |
+| 27   | `@hexguard/angular-dirty-state`         | Planned   | 4        | 3          | 3               | Common need, but narrower than async-state or permissions                                        |
+| 28   | `@hexguard/angular-upload-state`        | Proposed  | 4        | 4          | 3               | High practical value where uploads matter, but less universal than async-state                   |
+| 29   | `@hexguard/angular-theme`               | Proposed  | 4        | 2          | 2               | Dark-mode toggle is common but simple to re-create locally                                       |
+| 30   | `@hexguard/angular-preferences`         | Planned   | 3        | 2          | 3               | Useful companion package with moderate adoption and low build cost                               |
+| 31   | `@hexguard/angular-undo`                | Proposed  | 4        | 2          | 3               | Highly visible UX value for reversible actions without much conceptual weight                    |
+| 32   | `@hexguard/angular-confirmation`        | Proposed  | 4        | 2          | 2               | Common pattern, but easier to re-create and less differentiated                                  |
+| 33   | `@hexguard/angular-route-memory`        | Proposed  | 3        | 3          | 3               | Valuable in list-detail-edit apps, but narrower than core state packages                         |
+| 34   | `@hexguard/angular-navigation-pending`  | Proposed  | 3        | 3          | 2               | Useful UX primitive, but can overlap with existing router and async-state patterns               |
+| 35   | `@hexguard/angular-tour`                | Proposed  | 3        | 3          | 4               | Product onboarding is a distinct UX pattern, but adoption is narrower than core state utilities  |
+| 36   | `@hexguard/angular-drag-state`          | Proposed  | 3        | 4          | 3               | Drag interaction state is useful for kanban and reorder UIs but implement-heavy                  |
+| 37   | `@hexguard/angular-workflow-actions`    | Proposed  | 3        | 3          | 4               | Strong fit for approval-style products, but more domain-shaped than core state utilities         |
+| 38   | `@hexguard/angular-page-context`        | Proposed  | 3        | 2          | 3               | Helpful for larger apps, but less universal than state and policy packages                       |
+| 39   | `@hexguard/angular-command-palette`     | Proposed  | 3        | 3          | 4               | Good product differentiation, but narrower adoption profile                                      |
+| 40   | `@hexguard/angular-breakpoint-observer` | Proposed  | 3        | 2          | 3               | Useful responsive-state primitive but narrow compared to broader state packages                  |
+| 41   | `@hexguard/angular-http-dedupe`         | Planned   | 3        | 4          | 4               | Real performance value, but implementation and semantics are trickier                            |
+| 42   | `@hexguard/angular-query-signal-forms`  | Proposed  | 3        | 4          | 3               | Strategically relevant, but gated by Angular Signal Forms maturity                               |
+| 43   | `@hexguard/angular-http-resource-debug` | Planned   | 2        | 4          | 5               | Highly differentiated, but niche compared with core app-state packages                           |
+| 44   | `@hexguard/angular-submit-lock`         | Planned   | 3        | 2          | 2               | Likely narrows into thin ergonomics on top of async-action primitives                            |
+| 45   | `@hexguard/angular-recently-viewed`     | Proposed  | 3        | 2          | 2               | Route-memory and recently-viewed overlap; adoption is narrower than core state                   |
+| 46   | `@hexguard/angular-timer`               | Proposed  | 3        | 2          | 2               | Countdown timers are common but simple to implement per-use-case                                 |
+| 47   | `@hexguard/angular-clipboard`           | Proposed  | 3        | 1          | 2               | Tiny wrapper with thin differentiation and low implementation cost                               |
+| 48   | `@hexguard/angular-edit-locks`          | Proposed  | 3        | 4          | 4               | Useful in collaborative admin screens, but narrower than broader concurrency primitives          |
+| 49   | `@hexguard/angular-tenant-context`      | Proposed  | 3        | 3          | 4               | Important for B2B SaaS, but narrower than more general-purpose Angular state packages            |
+| 50   | `@hexguard/angular-optimistic-actions`  | Proposed  | 2        | 3          | 2               | Likely overlaps too much with optimistic-state unless the action-only surface stays very narrow  |
+| 51   | `@hexguard/angular-operation-status`    | Proposed  | 3        | 3          | 4               | Strong when paired with server-side operation contracts                                          |
+| 52   | `@hexguard/angular-idempotency`         | Proposed  | 3        | 3          | 4               | Most valuable when paired with server-side idempotent APIs                                       |
+| 53   | `@hexguard/angular-query-contracts`     | Proposed  | 3        | 3          | 3               | Useful contract layer, but strongest in cross-stack scenarios rather than standalone Angular     |
+| 54   | `@hexguard/angular-webhooks`            | Proposed  | 2        | 3          | 3               | Niche until the server-side webhooks package is established and adopted                          |
 
 ## Cross-Stack Candidate Prioritization Matrix
 
 These proposals are strongest when Angular and .NET packages ship as complementary pairs.
 
-| Rank | Package Pair                                                                  | Adoption | Complexity | Differentiation | Notes                                                                                           |
-| ---- | ----------------------------------------------------------------------------- | -------- | ---------- | --------------- | ----------------------------------------------------------------------------------------------- |
-| 1    | `HexGuard.ValidationContracts` + `@hexguard/angular-api-errors`               | 5        | 3          | 5               | Clear cross-stack value for field paths, error codes, and form mapping                          |
-| 2    | `HexGuard.Capabilities` + `@hexguard/angular-permissions`                     | 5        | 4          | 5               | Solves real drift between backend authorization and Angular action or route gating              |
-| 3    | `HexGuard.ReferenceData` + `@hexguard/angular-lookups`                        | 5        | 3          | 4               | Repeated option-list and label-resolution problem with broad business-app adoption              |
-| 4    | `HexGuard.OperationStatus` + `@hexguard/angular-operation-status`             | 5        | 4          | 5               | Strong long-running operation story across export, import, rebuild, and sync flows              |
-| 5    | `HexGuard.Idempotency` + `@hexguard/angular-idempotency`                      | 4        | 4          | 5               | Strong correctness story for duplicate-submit and replay-safe commands                          |
-| 6    | `HexGuard.FeatureFlags` + `@hexguard/angular-feature-flags`                   | 4        | 4          | 5               | Server-managed flag evaluation + Angular client sync solves real flag-drift problems            |
-| 7    | `HexGuard.NotificationDelivery` + `@hexguard/angular-notification-inbox`       | 4        | 4          | 5               | Full-stack notification feed with read-state, deep-links, and real-time delivery                |
-| 8    | `HexGuard.BulkOperations` + `@hexguard/angular-bulk-operations`               | 4        | 4          | 5               | HTTP 207 partial-success reporting is a genuinely hard cross-stack problem often solved poorly  |
-| 9    | `HexGuard.QueryContracts` + `@hexguard/angular-query-contracts`               | 4        | 3          | 4               | Useful glue between query-form, table-state, and pageable APIs                                  |
-| 10   | `HexGuard.WorkflowTransitions` + `@hexguard/angular-workflow-actions`         | 4        | 4          | 5               | Strong fit for approvals, tickets, and order workflows with explicit transition rules           |
-| 11   | `HexGuard.Search` + `@hexguard/angular-search`                                | 4        | 3          | 4               | Search-as-you-type autocomplete with highlight tokens is a universal but always-custom feature  |
-| 12   | `HexGuard.PreferenceSync` + `@hexguard/angular-preferences`                   | 3        | 3          | 3               | Strong once saved views and user preferences become a larger product concern                    |
-| 13   | `HexGuard.Exports` + `@hexguard/angular-exports`                              | 3        | 4          | 4               | Export generation (CSV/Excel/PDF) is common but the generation + download flow is non-trivial   |
-| 14   | `HexGuard.Imports` + `@hexguard/angular-imports`                              | 3        | 4          | 4               | CSV/Excel import with preview and row-level errors is high-value but complex to standardize      |
-| 15   | `HexGuard.Sse` + `@hexguard/angular-sse`                                      | 3        | 4          | 4               | Typed SSE contracts + Angular reconnection is a strong real-time pair                           |
-| 16   | `HexGuard.Caching` + `@hexguard/angular-caching`                              | 3        | 4          | 4               | Cache-invalidation contracts that the client can observe would reduce stale-data bugs            |
-| 17   | `HexGuard.ChangeTracking` + `@hexguard/angular-change-tracking`               | 3        | 3          | 4               | Field-level change sets for PATCH responses and audit UIs — clear niche value                   |
-| 18   | `HexGuard.UserPresence` + `@hexguard/angular-user-presence`                   | 3        | 4          | 4               | Real-time multi-user presence is useful but requires SSE or SignalR infrastructure               |
-| 19   | `HexGuard.TenantContext` + `@hexguard/angular-tenant-context`                 | 3        | 4          | 4               | Useful for B2B SaaS route scoping and header propagation, but narrower than generic app tooling |
-| 20   | `HexGuard.EditLocks` + `@hexguard/angular-edit-locks`                         | 3        | 4          | 4               | Distinct collaborative-editing problem, but narrower than capabilities or validation contracts  |
-| 21   | `HexGuard.Scheduling` + `@hexguard/angular-scheduling`                        | 3        | 4          | 4               | Time-slot and booking contracts are domain-specific but common in service and healthcare apps   |
-| 22   | `HexGuard.ApiVersioning` + `@hexguard/angular-api-versioning`                 | 3        | 3          | 4               | Deprecation-header awareness is niche but valuable for long-lived API products                  |
-| 23   | `HexGuard.Uploads` + `@hexguard/angular-upload-state`                         | 3        | 4          | 4               | Valuable for upload-heavy apps, but narrower than operation status or validation contracts      |
+| Rank | Package Pair                                                             | Adoption | Complexity | Differentiation | Notes                                                                                           |
+| ---- | ------------------------------------------------------------------------ | -------- | ---------- | --------------- | ----------------------------------------------------------------------------------------------- |
+| 1    | `HexGuard.ValidationContracts` + `@hexguard/angular-api-errors`          | 5        | 3          | 5               | Clear cross-stack value for field paths, error codes, and form mapping                          |
+| 2    | `HexGuard.Capabilities` + `@hexguard/angular-permissions`                | 5        | 4          | 5               | Solves real drift between backend authorization and Angular action or route gating              |
+| 3    | `HexGuard.ReferenceData` + `@hexguard/angular-lookups`                   | 5        | 3          | 4               | Repeated option-list and label-resolution problem with broad business-app adoption              |
+| 4    | `HexGuard.OperationStatus` + `@hexguard/angular-operation-status`        | 5        | 4          | 5               | Strong long-running operation story across export, import, rebuild, and sync flows              |
+| 5    | `HexGuard.Idempotency` + `@hexguard/angular-idempotency`                 | 4        | 4          | 5               | Strong correctness story for duplicate-submit and replay-safe commands                          |
+| 6    | `HexGuard.FeatureFlags` + `@hexguard/angular-feature-flags`              | 4        | 4          | 5               | Server-managed flag evaluation + Angular client sync solves real flag-drift problems            |
+| 7    | `HexGuard.NotificationDelivery` + `@hexguard/angular-notification-inbox` | 4        | 4          | 5               | Full-stack notification feed with read-state, deep-links, and real-time delivery                |
+| 8    | `HexGuard.BulkOperations` + `@hexguard/angular-bulk-operations`          | 4        | 4          | 5               | HTTP 207 partial-success reporting is a genuinely hard cross-stack problem often solved poorly  |
+| 9    | `HexGuard.QueryContracts` + `@hexguard/angular-query-contracts`          | 4        | 3          | 4               | Useful glue between query-form, table-state, and pageable APIs                                  |
+| 10   | `HexGuard.WorkflowTransitions` + `@hexguard/angular-workflow-actions`    | 4        | 4          | 5               | Strong fit for approvals, tickets, and order workflows with explicit transition rules           |
+| 11   | `HexGuard.Search` + `@hexguard/angular-search`                           | 4        | 3          | 4               | Search-as-you-type autocomplete with highlight tokens is a universal but always-custom feature  |
+| 12   | `HexGuard.PreferenceSync` + `@hexguard/angular-preferences`              | 3        | 3          | 3               | Strong once saved views and user preferences become a larger product concern                    |
+| 13   | `HexGuard.Exports` + `@hexguard/angular-exports`                         | 3        | 4          | 4               | Export generation (CSV/Excel/PDF) is common but the generation + download flow is non-trivial   |
+| 14   | `HexGuard.Imports` + `@hexguard/angular-imports`                         | 3        | 4          | 4               | CSV/Excel import with preview and row-level errors is high-value but complex to standardize     |
+| 15   | `HexGuard.Sse` + `@hexguard/angular-sse`                                 | 3        | 4          | 4               | Typed SSE contracts + Angular reconnection is a strong real-time pair                           |
+| 16   | `HexGuard.Caching` + `@hexguard/angular-caching`                         | 3        | 4          | 4               | Cache-invalidation contracts that the client can observe would reduce stale-data bugs           |
+| 17   | `HexGuard.ChangeTracking` + `@hexguard/angular-change-tracking`          | 3        | 3          | 4               | Field-level change sets for PATCH responses and audit UIs — clear niche value                   |
+| 18   | `HexGuard.UserPresence` + `@hexguard/angular-user-presence`              | 3        | 4          | 4               | Real-time multi-user presence is useful but requires SSE or SignalR infrastructure              |
+| 19   | `HexGuard.TenantContext` + `@hexguard/angular-tenant-context`            | 3        | 4          | 4               | Useful for B2B SaaS route scoping and header propagation, but narrower than generic app tooling |
+| 20   | `HexGuard.EditLocks` + `@hexguard/angular-edit-locks`                    | 3        | 4          | 4               | Distinct collaborative-editing problem, but narrower than capabilities or validation contracts  |
+| 21   | `HexGuard.Scheduling` + `@hexguard/angular-scheduling`                   | 3        | 4          | 4               | Time-slot and booking contracts are domain-specific but common in service and healthcare apps   |
+| 22   | `HexGuard.ApiVersioning` + `@hexguard/angular-api-versioning`            | 3        | 3          | 4               | Deprecation-header awareness is niche but valuable for long-lived API products                  |
+| 23   | `HexGuard.Uploads` + `@hexguard/angular-upload-state`                    | 3        | 4          | 4               | Valuable for upload-heavy apps, but narrower than operation status or validation contracts      |
 
 ## .NET Candidate Prioritization Matrix
 

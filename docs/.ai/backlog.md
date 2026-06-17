@@ -31,36 +31,57 @@
 - [ ] **Implement `@hexguard/angular-scroll-state`** — scroll position, infinite-scroll, and scroll-spy primitives. [Detailed plan](angular/feature-angular-scroll-state.md)
 - [ ] **Implement `HexGuard.SoftDelete`** — .NET soft-delete query filters and restore helpers. [Detailed plan](dotnet/feature-dotnet-soft-delete.md)
 - [ ] **Implement `HexGuard.Concurrency`** — .NET ETag, version-based conflict detection, and If-Match middleware. [Detailed plan](dotnet/feature-dotnet-concurrency.md)
+- [ ] **Implement `@hexguard/angular-storage`** — typed signal-wrapper for localStorage/sessionStorage with cross-tab sync. [Detailed plan](angular/feature-angular-storage.md)
+- [ ] **Implement `@hexguard/angular-skeleton`** — skeleton loading state composable with async-state. [Detailed plan](angular/feature-angular-skeleton.md)
+- [ ] **Implement `@hexguard/angular-empty-state`** — headless empty-state display contracts for zero-result screens. [Detailed plan](angular/feature-angular-empty-state.md)
+- [ ] **Implement `@hexguard/angular-date-utils`** — pure date-utility functions and DateRange model. [Detailed plan](angular/feature-angular-date-utils.md)
+- [ ] **Implement `HexGuard.RateLimiting`** — .NET rate-limit policy conventions and standard response headers. [Detailed plan](dotnet/feature-dotnet-rate-limiting.md)
+- [ ] **Implement `@hexguard/angular-focus-trap`** — focus-trap state for modals and dialogs with tab-cycling and focus restoration. [Detailed plan](angular/feature-angular-focus-trap.md)
+- [ ] **Implement `@hexguard/angular-breakpoint-observer`** — reactive TypeScript breakpoint detection with signal-based above/below helpers. [Detailed plan](angular/feature-angular-breakpoint-observer.md)
+- [ ] **Implement `@hexguard/angular-pagination`** — pagination state signals with URL-sync adapter, paired with `HexGuard.Pagination`. [Detailed plan](angular/feature-angular-pagination.md)
+- [ ] **Implement `HexGuard.DataSeeding`** — .NET idempotent data seeding, environment-aware seed sets, and test-data factories. [Detailed plan](dotnet/feature-dotnet-data-seeding.md)
+- [ ] **Implement `HexGuard.Search + @hexguard/angular-search`** — cross-stack search-query and autocomplete contracts with debounced input and highlight tokens. [Detailed plan](cross-stack/feature-search-cross-stack.md)
+- [ ] **Implement `@hexguard/angular-tour`** — product tour / onboarding step state with persistence and feature-flag gating. [Detailed plan](angular/feature-angular-tour.md)
+- [ ] **Implement `@hexguard/angular-drag-state`** — drag-and-drop interaction state for kanban, sortable lists, and cross-zone reorder. [Detailed plan](angular/feature-angular-drag-state.md)
+- [ ] **Implement `HexGuard.StateMachine`** — .NET lightweight state machine for business workflow transitions. [Detailed plan](dotnet/feature-dotnet-state-machine.md)
+- [ ] **Implement `HexGuard.NotificationDelivery + @hexguard/angular-notification-inbox`** — cross-stack in-app notification feed with read/unread tracking and real-time delivery. [Detailed plan](cross-stack/feature-notification-delivery-cross-stack.md)
+- [ ] **Implement `HexGuard.ApiVersioning + @hexguard/angular-api-versioning`** — cross-stack API deprecation headers and client-side deprecation awareness. [Detailed plan](cross-stack/feature-api-versioning-cross-stack.md)
+- [ ] **Implement `@hexguard/angular-wizard-state`** — multi-step wizard flow state with validation gates and resume. [Detailed plan](angular/feature-angular-wizard-state.md)
+- [ ] **Implement `@hexguard/angular-undo`** — reversible action undo stack with auto-expiry. [Detailed plan](angular/feature-angular-undo.md)
+- [ ] **Implement `HexGuard.AuditTrail`** — .NET audit event capture and EF Core interceptor. [Detailed plan](dotnet/feature-dotnet-audit-trail.md)
+- [ ] **Implement `HexGuard.EndpointConventions`** — .NET typed-result helpers for validation, pagination, ETags. [Detailed plan](dotnet/feature-dotnet-endpoint-conventions.md)
+- [ ] **Implement `HexGuard.Filtering`** — .NET safe filter/sort/search query binding and expression builders. [Detailed plan](dotnet/feature-dotnet-filtering.md)
+- [ ] **Implement `HexGuard.Idempotency`** — .NET idempotency-key middleware and response replay. [Detailed plan](dotnet/feature-dotnet-idempotency.md)
+- [ ] **Implement `HexGuard.Scheduling + @hexguard/angular-scheduling`** — cross-stack time-slot availability and booking contracts. [Detailed plan](cross-stack/feature-scheduling-cross-stack.md)
+- [ ] **Implement `HexGuard.Idempotency + @hexguard/angular-idempotency`** — cross-stack idempotency-key pair with key generation, replay-safe responses, and retry-aware action flows. [Detailed plan](cross-stack/feature-idempotency-cross-stack.md)
+- [ ] **Implement `HexGuard.OperationStatus + @hexguard/angular-operation-status`** — cross-stack long-running operation status polling and progress tracking. [Detailed plan](cross-stack/feature-operation-status-cross-stack.md)
+- [ ] **Implement `HexGuard.PreferenceSync + @hexguard/angular-preferences`** — cross-stack user preference sync with local-first storage and server sync. [Detailed plan](cross-stack/feature-preference-sync-cross-stack.md)
+- [ ] **Implement `HexGuard.QueryContracts + @hexguard/angular-query-contracts`** — cross-stack query request/response contracts for search, filter, sort, and pagination. [Detailed plan](cross-stack/feature-query-contracts-cross-stack.md)
+- [ ] **Implement `HexGuard.Uploads + @hexguard/angular-upload-state`** — cross-stack upload session contracts with progress, retry, and completion tracking. [Detailed plan](cross-stack/feature-uploads-cross-stack.md)
+- [ ] **Implement `@hexguard/angular-selection-state`** — keyed selection state for tables, lists, and bulk actions. [Detailed plan](angular/feature-angular-selection-state.md)
+- [ ] **Implement `@hexguard/angular-route-memory`** — route-scoped context save/restore for list-detail-edit flows. [Detailed plan](angular/feature-angular-route-memory.md)
+- [ ] **Implement `@hexguard/angular-page-context`** — page titles, breadcrumbs, tabs, and contextual actions. [Detailed plan](angular/feature-angular-page-context.md)
+- [ ] **Implement `@hexguard/angular-navigation-pending`** — route transition pending state and slow-navigation indicators. [Detailed plan](angular/feature-angular-navigation-pending.md)
+- [ ] **Implement `@hexguard/angular-live-data`** — visibility-aware polling, stale indicators, and manual refresh controls. [Detailed plan](angular/feature-angular-live-data.md)
+- [ ] **Implement `@hexguard/angular-form-drafts`** — draft persistence, autosave, restore, and discard for edit forms. [Detailed plan](angular/feature-angular-form-drafts.md)
+- [ ] **Implement `@hexguard/angular-feature-flags`** — typed feature-flag evaluation with route guards and template helpers. [Detailed plan](angular/feature-angular-feature-flags.md)
+- [ ] **Implement `@hexguard/angular-confirmation`** — headless confirm/cancel and confirm-and-run async action flows. [Detailed plan](angular/feature-angular-confirmation.md)
+- [ ] **Implement `@hexguard/angular-command-palette`** — command registry, keyboard shortcuts, and searchable palette. [Detailed plan](angular/feature-angular-command-palette.md)
+- [ ] **Implement `@hexguard/angular-upload-state`** — file upload queue with progress, cancel, and retry. [Detailed plan](angular/feature-angular-upload-state.md)
+- [ ] **Implement `@hexguard/angular-query-signal-forms`** — Signal Forms adapter for URL state. [Detailed plan](angular/feature-angular-query-signal-forms.md)
 
 ## Sidenotes
 
-- [ ] Keep `HexGuard.OperationStatus + @hexguard/angular-operation-status` as a parked paired package family until the Angular and .NET spaces both need it.
-- [ ] Keep `HexGuard.Idempotency + @hexguard/angular-idempotency` as a parked paired package family until the Angular and .NET spaces both need it.
-- [ ] Keep `@hexguard/angular-breakpoint-observer` as a proposed reactive TypeScript breakpoint detection package.
-- [ ] Keep `@hexguard/angular-form-utils` as a proposed cross-field validators and dirty-check helpers package.
-- [ ] Keep `HexGuard.Exports + @hexguard/angular-exports` as a parked cross-stack pair for CSV/Excel/PDF export contracts and client-side download tracking.
-- [ ] Keep `HexGuard.ChangeTracking + @hexguard/angular-change-tracking` as a parked cross-stack pair for field-level change set contracts and audit UI helpers.
-- [ ] Keep `HexGuard.Imports + @hexguard/angular-imports` as a parked cross-stack pair for CSV/Excel import sessions with column mapping, preview, and row-level error display.
-- [ ] Keep `@hexguard/angular-scroll-state` as a proposed scroll-position management and infinite-scroll detection package.
-- [ ] Keep `@hexguard/angular-window-state` as a proposed signal-based resize and dimension tracking package.
-- [ ] Keep `@hexguard/angular-theme` as a proposed dark-mode and theme-state package with system-preference detection.
-- [ ] Keep `@hexguard/angular-timer` as a proposed countdown and elapsed-timer signals package.
-- [ ] Keep `@hexguard/angular-activity-indicator` as a proposed global busy-state indicator package.
-- [ ] Keep `HexGuard.Caching + @hexguard/angular-caching` as a parked cross-stack pair for cache-header helpers, invalidation contracts, and client-side cache-awareness signals.
-- [ ] Keep `HexGuard.Sse + @hexguard/angular-sse` as a parked cross-stack pair for Server-Sent Events message contracts and typed Angular real-time event consumers.
-- [ ] Keep `HexGuard.UserPresence + @hexguard/angular-user-presence` as a parked cross-stack pair for user online/away/last-seen state and collaborative awareness signals.
-- [ ] Keep `@hexguard/angular-skeleton` as a proposed skeleton/placeholder loading state package composable with async-state.
-- [ ] Keep `@hexguard/angular-empty-state` as a proposed empty-state display contracts package for zero-result and no-data screens.
-- [ ] Keep `@hexguard/angular-date-utils` as a proposed date-range, relative-time, and locale-aware formatting utilities package.
-- [ ] Keep `@hexguard/angular-focus-trap` as a proposed focus-trap and focus-restoration state package for modals and dialogs.
-- [ ] Keep `@hexguard/angular-tour` as a proposed product-tour and onboarding step state package.
-- [ ] Keep `@hexguard/angular-drag-state` as a proposed drag-and-drop interaction state package composable with CDK DragDrop.
-- [ ] Keep `HexGuard.NotificationDelivery + @hexguard/angular-notification-inbox` as a parked cross-stack pair for server-pushed notification feeds with read-state and deep-link routing.
-- [ ] Keep `HexGuard.Scheduling + @hexguard/angular-scheduling` as a parked cross-stack pair for time-slot availability and booking contracts.
-- [ ] Keep `HexGuard.ApiVersioning + @hexguard/angular-api-versioning` as a parked cross-stack pair for API version negotiation and deprecation-header conventions.
-- [ ] Keep `HexGuard.StateMachine` as a proposed .NET lightweight state-machine package for business workflow progression.
-- [ ] Keep `HexGuard.RateLimiting` as a proposed .NET rate-limit policy configuration and response header helpers package.
-- [ ] Keep `HexGuard.DataSeeding` as a proposed .NET idempotent data seeding and test-data factories package.
+- [ ] Keep `@hexguard/angular-file-picker` as a proposed file-selection state package with validation, preview, and drag-and-drop zone state.
+- [ ] Keep `@hexguard/angular-resizable` as a proposed resizable split-pane state package with min/max constraints and persistence.
+- [ ] Keep `HexGuard.BackgroundJobs` as a proposed .NET background job scheduling and retry policy contracts package.
+- [ ] Keep `HexGuard.Export` as a proposed .NET CSV/Excel/PDF export generation helpers package.
+- [ ] Keep `HexGuard.SignalR + @hexguard/angular-signalr` as a proposed cross-stack pair for typed SignalR hub contracts and Angular connection state.
+- [ ] Keep `@hexguard/angular-file-picker` as a proposed file-selection state package with validation, preview, and drag-and-drop zone state.
+- [ ] Keep `@hexguard/angular-resizable` as a proposed resizable split-pane state package with min/max constraints and persistence.
+- [ ] Keep `HexGuard.BackgroundJobs` as a proposed .NET background job scheduling and retry policy contracts package.
+- [ ] Keep `HexGuard.Export` as a proposed .NET CSV/Excel/PDF export generation helpers package.
+- [ ] Keep `HexGuard.SignalR + @hexguard/angular-signalr` as a proposed cross-stack pair for typed SignalR hub contracts and Angular connection state.
 
 ## Later
 
@@ -68,13 +89,3 @@
 - [ ] Add changelog generation tied to package-scoped releases.
 - [ ] Introduce smoke tests for published tarballs in a clean consumer fixture.
 - [ ] Add package ownership metadata once the roadmap turns into multiple maintainers.
-- [ ] Design the package brief for `@hexguard/angular-pagination` as an Angular pagination state signals package to pair with `HexGuard.Pagination`.
-- [ ] Design the package brief for `@hexguard/angular-scroll-state` as a headless scroll-position management package with save/restore, infinite-scroll threshold, and scroll-spy tracking.
-- [ ] Design the package brief for `@hexguard/angular-storage` as a typed signal-wrapper package for localStorage and sessionStorage with serialization and cross-tab sync.
-- [ ] Design the package brief for `@hexguard/angular-network-status` as a connectivity-state signals package for offline-aware Angular UI behavior.
-- [ ] Design the package brief for `HexGuard.Sse + @hexguard/angular-sse` as a cross-stack pair for Server-Sent Events contracts and typed Angular real-time consumers.
-- [ ] Design the package brief for `HexGuard.Search + @hexguard/angular-search` as a cross-stack pair for search-query contracts, autocomplete response models, and Angular debounced search-as-you-type helpers.
-- [ ] Design the package brief for `@hexguard/angular-skeleton` as a skeleton loading-state package with configurable shapes and async-state composition.
-- [ ] Design the package brief for `@hexguard/angular-empty-state` as an empty-state display contracts package for zero-result screens.
-- [ ] Design the package brief for `@hexguard/angular-date-utils` as a date-range state and formatting utilities package.
-- [ ] Design the package brief for `HexGuard.StateMachine` as a lightweight .NET state-machine package for business workflow transitions.

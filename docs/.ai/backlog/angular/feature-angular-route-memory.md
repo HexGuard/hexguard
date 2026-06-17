@@ -52,53 +52,72 @@ detail, edit, and modal routes, and teams rebuild their own back-link and restor
 ## Follow-Ups
 
 - Revisit scroll restoration only if it stays deterministic and framework-friendly.
-- Compare overlap with page-context once both proposals mature.---
-  id: feature-angular-route-memory
-  type: feature
-  status: proposed
-  created: 2026-06-13
-  package: '@hexguard/angular-route-memory'
+- Compare overlap with page-context once both proposals mature.
 
 ---
 
-# Angular Route Memory Package
+---
 
-## Summary
+## Expanded Implementation Plan
 
-Design `@hexguard/angular-route-memory` to standardize back-link intent, list-detail return flows,
-scroll restoration, and route-scoped view memory in Angular apps.
+### Proposed Public API
 
-Apps repeatedly need to preserve search results context, tabs, and scroll position when users move
-between list, detail, and edit views.
+```ts
+import { injectRouteMemory } from '@hexguard/angular-route-memory';
 
-## Goals
+const memory = injectRouteMemory();
 
-- Standardize route-scoped return context and memory.
-- Support remembered query state, scroll position, and navigation intent.
-- Compose with url-state and query-form rather than replacing them.
+// Save route-scoped context
+memory.save('orders-list', {
+  tab: 'active',
+  scrollY: 450,
+});
 
-## Non-Goals
+// Restore on return
+const ctx = memory.restore('orders-list');
+// → { tab: 'active', scrollY: 450 } | null
 
-- Replacing router history itself.
-- Owning every navigation transition in the app.
+// Clear
+memory.clear('orders-list');
+memory.clearAll();
 
-## Decisions
+// Auto-save on route leave
+memory.autoSave('orders-list', () => ({
+  tab: currentTab(),
+  scrollY: window.scrollY,
+}));
 
-- Prefer explicit route-memory scopes.
-- Keep restored state observable and debuggable.
+// Signals
+memory.hasMemory('orders-list');   // Signal<boolean>
+```
 
-## Implementation Plan
+### Phase 0: Foundation
 
-1. Define route-memory entries and identity rules.
-2. Support save, restore, clear, and expiration behavior.
-3. Add scroll and view-state restoration helpers.
-4. Add tests and demos for list-detail-edit flows.
+1. Scaffold `angular/packages/angular-route-memory/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Implement `injectRouteMemory()` with in-memory `Map<string, unknown>` store.
+4. Implement `save(key, context)`, `restore(key)`, `clear(key)`, `clearAll()`.
+5. Implement `autoSave(key, factory)` — uses Angular `OnDestroy` or router `NavigationEnd` to save.
+6. Implement `hasMemory(key)` signal.
+7. Implement optional `serialized` mode that JSON-serializes to sessionStorage for cross-tab survival.
+8. Add unit tests for: save/restore cycle, missing key, overwrite, clear, auto-save trigger, serialization round-trip, expiration.
+
+### Phase 2: Demo & Docs
+
+9. Add demo route showing list → detail → back with restored tab/scroll position.
+10. Add Playwright coverage.
+11. Write docs, update README.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
 
 ## Validation
 
-- Unit tests for route-memory save and restore behavior.
-- Demo coverage for list return and scroll restoration.
-
-## Follow-Ups
-
-- Revisit overlap with preferences if long-lived route memory becomes a user setting.
+- `pnpm test:lib:route-memory`.
+- `pnpm test:e2e`.
+- `pnpm build:lib`.

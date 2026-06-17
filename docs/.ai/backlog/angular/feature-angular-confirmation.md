@@ -35,13 +35,65 @@ and “are you sure?” action wrappers with inconsistent behavior and testing q
 - Keep UI adapters optional.
 - Treat destructive-action ergonomics as a narrow concern rather than a full workflow engine.
 
+## Proposed Public API
+
+```ts
+import { injectConfirmation } from '@hexguard/angular-confirmation';
+
+const confirm = injectConfirmation();
+
+// Simple confirm
+const ok: boolean = await confirm.ask({
+  title: 'Delete order?',
+  message: 'This action cannot be undone.',
+  confirmLabel: 'Delete',
+  cancelLabel: 'Cancel',
+  destructive: true,
+});
+
+// Confirm and run async action
+const result = await confirm.run(
+  { title: 'Archive?', message: 'Archive this record?' },
+  async () => archiveService.archive(recordId),
+);
+// → { confirmed: true, result: ... } | { confirmed: false }
+
+// Reactive state
+confirm.isOpen;          // Signal<boolean>
+confirm.currentRequest;  // Signal<ConfirmationRequest | null>
+```
+
 ## Implementation Plan
 
-1. Define the headless confirmation request and result contract.
-2. Implement a provider surface for app-specific dialog rendering.
-3. Add helpers for confirm-and-run async actions.
-4. Define cancellation and duplicate-open behavior.
-5. Add tests and demos for delete, reset, and archive flows.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-confirmation/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Define `ConfirmationRequest`, `ConfirmationResult` types.
+4. Implement `ConfirmationService` with `ask()` returning `Promise<boolean>`.
+5. Implement `run()` — composes `ask()` with async action execution.
+6. Implement provider surface for app-specific dialog rendering.
+7. Implement duplicate-open prevention — reject new request if one is open.
+8. Add unit tests for: confirm accept, confirm reject, async run success/failure, duplicate-open rejection, cancellation.
+
+### Phase 2: Demo & Docs
+
+9. Add demo route with delete, archive, and reset confirmation flows.
+10. Add Playwright coverage.
+11. Write docs.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:confirmation`.
+- `pnpm test:e2e`.
 
 ## Validation
 

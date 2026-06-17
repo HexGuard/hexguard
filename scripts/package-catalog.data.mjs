@@ -1014,4 +1014,54 @@ export const roadmapPackages = [
       'Would pair backend API version negotiation, Sunset and Deprecation header conventions with Angular endpoint-version awareness, deprecation warnings, and migration-path helpers.',
     showOnSiteHome: false,
   },
+  {
+    id: 'angular-file-picker',
+    anchorId: 'package-angular-file-picker',
+    packageName: '@hexguard/angular-file-picker',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize file-selection state with type/size validation, preview, drag-and-drop zone state, and multi-file queue management for Angular apps before upload.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-resizable',
+    anchorId: 'package-angular-resizable',
+    packageName: '@hexguard/angular-resizable',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize resizable split-pane and draggable-edge state with configurable min/max constraints, snap thresholds, and optional position persistence for dashboard and admin-panel layouts.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-background-jobs',
+    anchorId: 'package-dotnet-background-jobs',
+    packageName: 'HexGuard.BackgroundJobs',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide background job scheduling contracts, recurring job definitions, job-status tracking, and configurable retry policies with persistence abstraction for .NET applications.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-export',
+    anchorId: 'package-dotnet-export',
+    packageName: 'HexGuard.Export',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide standardized CSV, Excel, and PDF export-generation helpers with consistent file-result contracts, content-disposition conventions, and background-export status tracking for ASP.NET Core APIs.',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'signalr-cross-stack',
+    anchorId: 'package-signalr-cross-stack',
+    packageName: 'HexGuard.SignalR + @hexguard/angular-signalr',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend typed SignalR hub contracts with Angular SignalR connection state, reconnection strategy, channel lifecycle, and typed event-stream signals for real-time full-duplex communication.',
+    showOnSiteHome: false,
+  },
 ];

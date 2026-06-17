@@ -716,6 +716,10 @@ export const DOTNET_REFERENCE_DATA_HOME: DotnetDemoPageEntry = {
     'Demonstrates the ReferenceDataCatalog, ReferenceDataCollection, ReferenceDataItem types and the ReferenceDataCatalogValidator directly from the HexGuard.ReferenceData library via the shared SampleApi.',
   docsLinks: [
     {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.ReferenceData/README.md',
+    },
+    {
       label: 'Source code',
       href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ReferenceData',
     },

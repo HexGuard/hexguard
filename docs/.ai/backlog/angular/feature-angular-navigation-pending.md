@@ -35,13 +35,68 @@ pending markers, especially when resolvers, async page setup, or lazy route data
 - Keep pending and ready semantics explicit.
 - Avoid blending route transition state with data-fetching state too early.
 
+## Proposed Public API
+
+```ts
+import { injectNavigationPending } from '@hexguard/angular-navigation-pending';
+
+@Component({ ... })
+export class AppComponent {
+  private readonly nav = injectNavigationPending({
+    delayedIndicatorMs: 200,          // wait 200ms before showing spinner
+  });
+
+  readonly isNavigating = this.nav.isNavigating;       // Signal<boolean>
+  readonly isSlowNavigation = this.nav.isSlowNavigation; // Signal<boolean> — true only after delayedIndicatorMs
+}
+
+// Route-level usage
+@Component({ ... })
+export class MyPageComponent {
+  private readonly pageNav = injectNavigationPending({ routeScoped: true });
+
+  constructor() {
+    // Mark page as ready when data loads
+    effect(() => {
+      if (data.isLoaded()) {
+        this.pageNav.markReady();
+      }
+    });
+  }
+}
+```
+
 ## Implementation Plan
 
-1. Define the route transition lifecycle contract.
-2. Support app-level and route-level pending signals.
-3. Add helpers for delayed or non-flickering indicators.
-4. Define compatibility with async page setup and resolvers.
-5. Add tests and demos for pending and ready route transitions.
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-navigation-pending/`.
+2. Add build/test scripts.
+
+### Phase 1: Core Implementation
+
+3. Implement `injectNavigationPending()` using Angular Router `NavigationStart`/`NavigationEnd`/`NavigationCancel`/`NavigationError` events.
+4. Implement `isNavigating` signal bound to router events.
+5. Implement `isSlowNavigation` with configurable delay threshold.
+6. Implement route-scoped mode with `markReady()` for manual control.
+7. Implement `delayedIndicatorMs` to prevent flash-of-spinner on fast transitions.
+8. Add unit tests for: route start/end, delay threshold, route-scoped markReady, cancellation, error transitions, cleanup.
+
+### Phase 2: Demo & Docs
+
+9. Add demo showing global navigation bar with slow/fast route simulation.
+10. Add Playwright coverage.
+11. Write docs.
+
+### Phase 3: Release
+
+12. Add verify script, release workflow.
+13. Run validation gate.
+
+## Validation
+
+- `pnpm test:lib:navigation-pending`.
+- `pnpm test:e2e`.
 
 ## Validation
 

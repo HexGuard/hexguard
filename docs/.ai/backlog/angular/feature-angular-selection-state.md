@@ -53,5 +53,70 @@ pagination changes.
 
 ## Follow-Ups
 
-- Revisit server-backed “select all matching filter” semantics as a separate design spike.
+- Revisit server-backed "select all matching filter" semantics as a separate design spike.
 - Evaluate whether tree-selection behavior belongs in the same package or a separate one.
+
+---
+
+## Expanded Implementation Plan
+
+### Proposed Public API
+
+```ts
+import { injectSelectionState } from '@hexguard/angular-selection-state';
+
+const selection = injectSelectionState<string>({
+  multi: true,
+});
+
+selection.selected;        // Signal<Set<string>>
+selection.count;           // Signal<number>
+selection.isEmpty;         // Signal<boolean>
+selection.isAllSelected;   // Signal<boolean>
+selection.first;           // Signal<string | null>
+
+selection.toggle(key);
+selection.select(key);
+selection.deselect(key);
+selection.toggleAll(visibleKeys: string[]);
+selection.selectAll(visibleKeys: string[]);
+selection.clear();
+selection.replace(keys: string[]);
+
+selection.canAct;          // Signal<boolean>
+```
+
+### Phase 0: Foundation
+
+1. Scaffold `angular/packages/angular-selection-state/` following existing conventions (package.json, ng-package.json, tsconfig.lib.json, tsconfig.lib.prod.json, tsconfig.spec.json, `angular.json` project registration).
+2. Add scripts to `angular/package.json`: `build:lib:selection-state`, `test:lib:selection-state`.
+
+### Phase 1: Core Implementation
+
+3. Implement `injectSelectionState<TKey>()` with `WritableSignal<Set<TKey>>` as the backing store.
+4. Implement `toggle()`, `select()`, `deselect()`, `clear()`, `replace()` operations.
+5. Implement `toggleAll(visibleKeys)` — selects all visible if none/partial selected, clears if all selected.
+6. Implement `selectAll(visibleKeys)` — selects all visible keys unconditionally.
+7. Implement derived signals: `count`, `isEmpty`, `isAllSelected`, `first`, `canAct`.
+8. Implement optional `selectedItems(itemsMap)` helper for resolving selected keys to objects.
+9. Add unit tests for: all operations, toggleAll edge cases, clear on collection change, single-selection mode, empty array, rapid toggles.
+
+### Phase 2: Demo & Docs
+
+10. Add demo route at `/packages/angular-selection-state` with a mock table, checkbox column, select-all header, bulk action bar showing selected count, and clear button.
+11. Add Playwright coverage for checkbox toggle, select-all, pagination reset.
+12. Write `docs/packages/angular-selection-state.md`.
+13. Update npm-facing `README.md`.
+
+### Phase 3: Release
+
+14. Add `verify:package:selection-state` to `angular/package.json`.
+15. Add `.github/workflows/release-angular-selection-state.yml`.
+16. Run `pnpm test:ci` and `pnpm build` for the full validation gate.
+
+## Validation
+
+- `pnpm test:lib:selection-state` — unit tests.
+- `pnpm build:lib` — builds.
+- `pnpm test:e2e` — Playwright.
+- `pnpm verify:package:selection-state` — tarball smoke test.
