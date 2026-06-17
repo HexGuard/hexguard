@@ -7,9 +7,12 @@ import {
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
+  ANGULAR_DEBOUNCE_DEMO,
+  ANGULAR_ERROR_BOUNDARY_DEMO,
   ANGULAR_LOOKUPS_BACKEND_DEMO,
   ANGULAR_LOOKUPS_EDITOR_DEMO,
   ANGULAR_LOOKUPS_SUMMARY_DEMO,
+  ANGULAR_NOTIFICATIONS_DEMO,
   ANGULAR_OPTIMISTIC_STATE_BULK_DEMO,
   ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO,
   ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO,
@@ -62,7 +65,13 @@ import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orde
 import { AngularApiErrorsHomePageComponent } from './features/angular-api-errors/pages/angular-api-errors-home-page.component';
 import { ApiErrorsBackendDemoPageComponent } from './features/angular-api-errors/pages/api-errors-backend-demo-page/api-errors-backend-demo-page.component';
 import { FormValidationDemoPageComponent } from './features/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
+import { AngularDebounceHomePageComponent } from './features/angular-debounce/pages/angular-debounce-home-page.component';
+import { DebounceDemoPageComponent } from './features/angular-debounce/pages/debounce-demo-page/debounce-demo-page.component';
+import { AngularErrorBoundaryHomePageComponent } from './features/angular-error-boundary/pages/angular-error-boundary-home-page.component';
+import { ErrorBoundaryDemoPageComponent } from './features/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/angular-hub/pages/angular-hub-page.component';
+import { AngularNotificationsHomePageComponent } from './features/angular-notifications/pages/angular-notifications-home-page.component';
+import { NotificationsDemoPageComponent } from './features/angular-notifications/pages/notifications-demo-page/notifications-demo-page.component';
 import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cross-stack-hub-page.component';
 import { CrossStackApiErrorsHubPageComponent } from './features/cross-stack/pages/cross-stack-api-errors-hub/cross-stack-api-errors-hub-page.component';
 import { CrossStackLookupsHubPageComponent } from './features/cross-stack/pages/cross-stack-lookups-hub/cross-stack-lookups-hub-page.component';
@@ -261,6 +270,36 @@ export const routes: Routes = [
     path: 'packages/angular-api-errors/backend',
     component: ApiErrorsBackendDemoPageComponent,
     title: 'Backend Validation Demo',
+  },
+  {
+    path: 'packages/angular-debounce',
+    component: AngularDebounceHomePageComponent,
+    title: 'Angular Debounce Demos',
+  },
+  {
+    path: 'packages/angular-debounce/demo',
+    component: DebounceDemoPageComponent,
+    title: 'Debounce Demo',
+  },
+  {
+    path: 'packages/angular-notifications',
+    component: AngularNotificationsHomePageComponent,
+    title: 'Angular Notifications Demos',
+  },
+  {
+    path: 'packages/angular-notifications/demo',
+    component: NotificationsDemoPageComponent,
+    title: 'Notifications Demo',
+  },
+  {
+    path: 'packages/angular-error-boundary',
+    component: AngularErrorBoundaryHomePageComponent,
+    title: 'Angular Error Boundary Demos',
+  },
+  {
+    path: 'packages/angular-error-boundary/demo',
+    component: ErrorBoundaryDemoPageComponent,
+    title: 'Error Boundary Demo',
   },
   // ── .NET showcase routes ────────────────────────────────────────
   {

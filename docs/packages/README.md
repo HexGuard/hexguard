@@ -17,6 +17,9 @@ another.
 | `@hexguard/angular-api-errors`       | Available | Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state. | [Deep Dive](angular-api-errors.md), [npm-facing README](../../angular/packages/angular-api-errors/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
 | `HexGuard.ReferenceData`             | Available | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                  | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-debounce`         | Available | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                 |
+| `@hexguard/angular-notifications`    | Available | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)       |
+| `@hexguard/angular-error-boundary`   | Available | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)     |
 
 ## Package Status Notes
 
@@ -99,6 +102,36 @@ Status: Available
 This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.
 
 It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.
+
+<a id="package-angular-debounce"></a>
+
+### `@hexguard/angular-debounce`
+
+Status: Available
+
+This package is the simplest HexGuard Angular primitive: one factory function, two interfaces, zero dependencies beyond Angular and tslib.
+
+It focuses on predictable debounce semantics with explicit flush/cancel control and docs-grade demos showing all three edge modes.
+
+<a id="package-angular-notifications"></a>
+
+### `@hexguard/angular-notifications`
+
+Status: Available
+
+This package is available as a headless notification queue companion for Angular apps that need typed toast management without pulling in a UI kit.
+
+It focuses on explicit queue state, auto-dismiss with configurable durations, action support, and docs-grade demos showing all notification types.
+
+<a id="package-angular-error-boundary"></a>
+
+### `@hexguard/angular-error-boundary`
+
+Status: Available
+
+This package is available as a declarative error boundary for Angular apps that need per-component error isolation without global ErrorHandler gymnastics.
+
+It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.
 
 ## Planned and Proposed Package Briefs
 

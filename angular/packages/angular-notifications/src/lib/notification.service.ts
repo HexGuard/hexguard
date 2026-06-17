@@ -1,0 +1,203 @@
+import {
+  computed,
+  DestroyRef,
+  inject,
+  Injectable,
+  signal,
+} from '@angular/core';
+
+import type {
+  Notification,
+  NotificationHandle,
+  NotificationOptions,
+  NotificationType,
+} from './types';
+
+let nextNotificationId = 0;
+
+const DEFAULT_DURATION_MS = 5000;
+
+/**
+ * Injectable notification queue service.
+ *
+ * Manages a signal-based list of notifications with auto-dismiss,
+ * typed convenience methods, and imperative dismiss control.
+ *
+ * @example
+ * ```ts
+ * constructor(private readonly notifications: NotificationService) {}
+ *
+ * this.notifications.success('Order saved!');
+ * this.notifications.error('Failed to save order.', { duration: 0 });
+ * this.notifications.dismissAll();
+ * ```
+ */
+@Injectable({ providedIn: 'root' })
+export class NotificationService {
+  private readonly notificationsSignal = signal<readonly Notification[]>([]);
+  private readonly timerMap = new Map<string, ReturnType<typeof globalThis.setTimeout>>();
+
+  /** All active notifications, most recent first. */
+  readonly notifications = this.notificationsSignal.asReadonly();
+
+  /** The number of active notifications. */
+  readonly count = computed(() => this.notificationsSignal().length);
+
+  /** Automatic cleanup on destroy when created through Angular DI. */
+  constructor() {
+    try {
+      const destroyRef = inject(DestroyRef);
+      destroyRef.onDestroy(() => this.clearAllTimers());
+    } catch {
+      // Outside injection context — no auto-cleanup. Call dismissAll() manually if needed.
+    }
+  }
+
+  /**
+   * Show a notification of the given type.
+   *
+   * @param message - The notification message.
+   * @param type - The notification type.
+   * @param options - Optional duration, title, and action configuration.
+   * @returns A handle for imperative dismiss and update.
+   */
+  show(
+    message: string,
+    type: NotificationType = 'info',
+    options?: NotificationOptions,
+  ): NotificationHandle {
+    const id = this.generateId();
+    const duration = options?.duration ?? DEFAULT_DURATION_MS;
+
+    const notification: Notification = {
+      id,
+      type,
+      message,
+      duration,
+      timestamp: Date.now(),
+      ...(options?.title ? { title: options.title } : {}),
+      ...(options?.action ? { action: options.action } : {}),
+    };
+
+    this.notificationsSignal.update((list) => [notification, ...list]);
+
+    if (duration > 0 && Number.isFinite(duration)) {
+      this.scheduleDismiss(id, duration);
+    }
+
+    const handle: NotificationHandle = {
+      id,
+      dismiss: () => this.dismiss(id),
+      update: (updateOptions: Partial<NotificationOptions>) => {
+        this.updateNotification(id, updateOptions);
+      },
+    };
+
+    return handle;
+  }
+
+  /** Show a success notification. */
+  success(message: string, options?: NotificationOptions): NotificationHandle {
+    return this.show(message, 'success', options);
+  }
+
+  /** Show an error notification. */
+  error(message: string, options?: NotificationOptions): NotificationHandle {
+    return this.show(message, 'error', options);
+  }
+
+  /** Show an info notification. */
+  info(message: string, options?: NotificationOptions): NotificationHandle {
+    return this.show(message, 'info', options);
+  }
+
+  /** Show a warning notification. */
+  warning(message: string, options?: NotificationOptions): NotificationHandle {
+    return this.show(message, 'warning', options);
+  }
+
+  /**
+   * Dismiss a notification by ID.
+   * No-op if the notification has already been dismissed.
+   */
+  dismiss(id: string): void {
+    this.cancelTimer(id);
+    this.notificationsSignal.update((list) => list.filter((n) => n.id !== id));
+  }
+
+  /** Dismiss all active notifications. */
+  dismissAll(): void {
+    this.clearAllTimers();
+    this.notificationsSignal.set([]);
+  }
+
+  /** Dismiss all notifications of the given type. */
+  dismissByType(type: NotificationType): void {
+    const toRemove: string[] = [];
+    this.notificationsSignal.update((list) => {
+      const remaining = list.filter((n) => {
+        if (n.type === type) {
+          toRemove.push(n.id);
+          return false;
+        }
+        return true;
+      });
+      return remaining;
+    });
+    for (const id of toRemove) {
+      this.cancelTimer(id);
+    }
+  }
+
+  private generateId(): string {
+    return `notification-${++nextNotificationId}`;
+  }
+
+  private scheduleDismiss(id: string, durationMs: number): void {
+    const timer = globalThis.setTimeout(() => {
+      this.timerMap.delete(id);
+      this.dismiss(id);
+    }, durationMs);
+    this.timerMap.set(id, timer);
+  }
+
+  private cancelTimer(id: string): void {
+    const timer = this.timerMap.get(id);
+    if (timer !== undefined) {
+      globalThis.clearTimeout(timer);
+      this.timerMap.delete(id);
+    }
+  }
+
+  private clearAllTimers(): void {
+    for (const timer of this.timerMap.values()) {
+      globalThis.clearTimeout(timer);
+    }
+    this.timerMap.clear();
+  }
+
+  private updateNotification(id: string, options: Partial<NotificationOptions>): void {
+    this.notificationsSignal.update((list) =>
+      list.map((n) => {
+        if (n.id !== id) return n;
+
+        const updated = {
+          ...n,
+          ...(options.duration !== undefined ? { duration: options.duration } : {}),
+          ...(options.title !== undefined ? { title: options.title } : {}),
+          ...(options.action ? { action: options.action } : {}),
+        };
+
+        // Restart the auto-dismiss timer if duration changed
+        if (options.duration !== undefined) {
+          this.cancelTimer(id);
+          if (options.duration > 0 && Number.isFinite(options.duration)) {
+            this.scheduleDismiss(id, options.duration);
+          }
+        }
+
+        return updated;
+      }),
+    );
+  }
+}

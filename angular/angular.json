@@ -189,6 +189,84 @@
         }
       }
     },
+    "angular-debounce": {
+      "projectType": "library",
+      "root": "packages/angular-debounce",
+      "sourceRoot": "packages/angular-debounce/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-debounce/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-debounce/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-debounce/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-notifications": {
+      "projectType": "library",
+      "root": "packages/angular-notifications",
+      "sourceRoot": "packages/angular-notifications/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-notifications/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-notifications/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-notifications/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-error-boundary": {
+      "projectType": "library",
+      "root": "packages/angular-error-boundary",
+      "sourceRoot": "packages/angular-error-boundary/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-error-boundary/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-error-boundary/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-error-boundary/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

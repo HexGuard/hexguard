@@ -15,6 +15,12 @@ const optimisticStateInlineEditRoute = '/packages/angular-optimistic-state/inlin
 const optimisticStateBulkRoute = '/packages/angular-optimistic-state/bulk';
 const permissionsActionsRoute = '/packages/angular-permissions/actions';
 const permissionsRoutingRoute = '/packages/angular-permissions/routing';
+const debounceRoute = '/packages/angular-debounce';
+const debounceDemoRoute = '/packages/angular-debounce/demo';
+const notificationsRoute = '/packages/angular-notifications';
+const notificationsDemoRoute = '/packages/angular-notifications/demo';
+const errorBoundaryRoute = '/packages/angular-error-boundary';
+const errorBoundaryDemoRoute = '/packages/angular-error-boundary/demo';
 
 test.describe('demo-angular', () => {
   test('shows the HexGuard landing page', async ({ page }) => {
@@ -1268,5 +1274,90 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('form-validation-demo-page-errors')).not.toBeVisible();
     await expect(page.getByTestId('form-validation-demo-name-input')).toHaveValue('');
     await expect(page.getByTestId('form-validation-demo-price-input')).toHaveValue('0');
+  });
+
+  // ── angular-debounce demo tests ────────────────────────────────────
+
+  test('shows the Angular Debounce package overview', async ({ page }) => {
+    await page.goto(debounceRoute);
+
+    await expect(page.getByTestId('package-angular-debounce')).toBeVisible();
+    await expect(page.getByTestId('package-angular-debounce-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-debounce',
+    );
+    await expect(page.getByTestId('package-angular-debounce-best-fit')).toContainText(
+      'signal-based UI where rapid changes need controlled emission timing without RxJS',
+    );
+    await expect(page.getByTestId('package-angular-debounce-status-notes')).toContainText(
+      'simplest HexGuard Angular primitive',
+    );
+    await expect(page.getByTestId('package-debounce-demo-debounce')).toBeVisible();
+  });
+
+  // ── angular-notifications demo tests ───────────────────────────────
+
+  test('shows the Angular Notifications package overview', async ({ page }) => {
+    await page.goto(notificationsRoute);
+
+    await expect(page.getByTestId('package-angular-notifications')).toBeVisible();
+    await expect(page.getByTestId('package-angular-notifications-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-notifications',
+    );
+    await expect(page.getByTestId('package-angular-notifications-best-fit')).toContainText(
+      'lightweight notification queue without UI library coupling',
+    );
+    await expect(page.getByTestId('package-angular-notifications-status-notes')).toContainText(
+      'headless notification queue companion',
+    );
+    await expect(page.getByTestId('package-notifications-demo-notifications')).toBeVisible();
+  });
+
+  // ── angular-error-boundary demo tests ──────────────────────────────
+
+  test('shows the Angular Error Boundary package overview', async ({ page }) => {
+    await page.goto(errorBoundaryRoute);
+
+    await expect(page.getByTestId('package-angular-error-boundary')).toBeVisible();
+    await expect(page.getByTestId('package-angular-error-boundary-quick-start')).toContainText(
+      'pnpm add @hexguard/angular-error-boundary',
+    );
+    await expect(page.getByTestId('package-angular-error-boundary-best-fit')).toContainText(
+      'per-component error isolation without global ErrorHandler gymnastics',
+    );
+    await expect(page.getByTestId('package-angular-error-boundary-status-notes')).toContainText(
+      'declarative error boundary',
+    );
+    await expect(page.getByTestId('package-error-boundary-demo-error-boundary')).toBeVisible();
+  });
+
+  // ── Demo page tests ────────────────────────────────────────────────
+
+  test('renders the debounce interactive demo page', async ({ page }) => {
+    await page.goto(debounceDemoRoute);
+
+    await expect(page.getByTestId('debounce-demo-page')).toBeVisible();
+    await expect(page.getByTestId('debounce-input')).toBeVisible();
+    await expect(page.getByTestId('debounce-trailing-value')).toHaveText('hello');
+    await expect(page.getByTestId('debounce-leading-value')).toHaveText('hello');
+    await expect(page.getByTestId('debounce-both-value')).toHaveText('hello');
+  });
+
+  test('renders the notifications interactive demo page', async ({ page }) => {
+    await page.goto(notificationsDemoRoute);
+
+    await expect(page.getByTestId('notifications-demo-page')).toBeVisible();
+    await expect(page.getByTestId('notify-success')).toBeVisible();
+    await expect(page.getByTestId('notify-error')).toBeVisible();
+    await expect(page.getByTestId('notify-info')).toBeVisible();
+    await expect(page.getByTestId('notify-warning')).toBeVisible();
+    await expect(page.getByTestId('dismiss-all')).toBeVisible();
+  });
+
+  test('renders the error-boundary interactive demo page', async ({ page }) => {
+    await page.goto(errorBoundaryDemoRoute);
+
+    await expect(page.getByTestId('error-boundary-demo-page')).toBeVisible();
+    await expect(page.getByTestId('trigger-error')).toBeVisible();
+    await expect(page.getByTestId('trigger-custom-error')).toBeVisible();
   });
 });

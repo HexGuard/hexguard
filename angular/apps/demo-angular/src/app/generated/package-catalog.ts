@@ -358,6 +358,132 @@ export const GENERATED_CURRENT_PACKAGES = [
       },
     ],
   },
+  {
+    id: 'angular-debounce',
+    packageName: '@hexguard/angular-debounce',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.',
+    detail:
+      'Focused on form inputs, search-as-you-type, and any live-updating UI where rapid signal changes should be batched into quieter output without pulling in RxJS debounce.',
+    installCommand: 'pnpm add @hexguard/angular-debounce',
+    featureHighlights: [
+      'Configurable leading-only, trailing-only, and both-edge debounce modes.',
+      'isPending signal for tracking whether a trailing flush is scheduled.',
+      'flush() and cancel() methods for imperative control over pending emissions.',
+    ],
+    bestFitScenarios: [
+      'Search or autocomplete inputs where keystrokes should batch into one API call.',
+      'Form inputs that need immediate leading-edge feedback but delayed trailing updates.',
+      'Any signal-based UI where rapid changes need controlled emission timing without RxJS.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the simplest HexGuard Angular primitive: one factory function, two interfaces, zero dependencies beyond Angular and tslib.',
+      'It focuses on predictable debounce semantics with explicit flush/cancel control and docs-grade demos showing all three edge modes.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-debounce',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-debounce/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-debounce.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-notifications',
+    packageName: '@hexguard/angular-notifications',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.',
+    detail:
+      'Focused on a predictable notification queue contract where every toast has explicit lifecycle, dismiss control, and configurable duration — without coupling to a specific UI library.',
+    installCommand: 'pnpm add @hexguard/angular-notifications',
+    featureHighlights: [
+      'Typed notification model with success, error, info, and warning types.',
+      'Auto-dismiss with per-notification duration and persistent (no-dismiss) support.',
+      'Optional standalone outlet component for rendering the notification stack.',
+      'Convenience methods: success(), error(), info(), warning().',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need a lightweight notification queue without UI library coupling.',
+      'Screens that show transient success/error/info toasts with auto-dismiss.',
+      'Applications that want imperative notification control through one injected service.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless notification queue companion for Angular apps that need typed toast management without pulling in a UI kit.',
+      'It focuses on explicit queue state, auto-dismiss with configurable durations, action support, and docs-grade demos showing all notification types.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-notifications',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-notifications/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-notifications.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-error-boundary',
+    packageName: '@hexguard/angular-error-boundary',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.',
+    detail:
+      'Focused on graceful error containment where one component should not take down the whole page — with explicit fallback templates, error signals, and recovery control.',
+    installCommand: 'pnpm add @hexguard/angular-error-boundary',
+    featureHighlights: [
+      'Catches render-time errors from projected child components.',
+      'Catches async errors from child-component timers and promise callbacks.',
+      'Custom fallback template support with typed error context.',
+      'reset() method to clear error state and re-render content.',
+      'hasError() and caughtError() signals for programmatic access.',
+    ],
+    bestFitScenarios: [
+      'Dashboard tiles where one failing widget should not crash the entire page.',
+      'Third-party component wrappers that may throw during render.',
+      'Feature sections that should degrade gracefully with a retry option instead of a white screen.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a declarative error boundary for Angular apps that need per-component error isolation without global ErrorHandler gymnastics.',
+      'It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-error-boundary',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-error-boundary/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-error-boundary.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
 ] as const satisfies readonly GeneratedCurrentPackageCatalogEntry[];
 
 export const GENERATED_ROADMAP_PACKAGES = [

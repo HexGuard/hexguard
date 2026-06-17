@@ -654,6 +654,144 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
   demos: [FORM_VALIDATION_DEMO, ANGULAR_API_ERRORS_BACKEND_DEMO],
 };
 
+// ── angular-debounce demo entries ────────────────────────────────────
+
+const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
+const ANGULAR_DEBOUNCE_DOCS = ANGULAR_DEBOUNCE_CATALOG.docsLinks;
+
+export const ANGULAR_DEBOUNCE_DEMO: DemoPageEntry = {
+  id: 'debounce',
+  packageId: 'angular-debounce',
+  route: '/packages/angular-debounce/demo',
+  legacyRoute: '/debounce',
+  label: 'Debounced Signal',
+  title: 'Debounced signal primitive with configurable leading and trailing edge modes',
+  description:
+    'An input field demonstrates trailing-only, leading-only, and both-edge debounce with a live isPending indicator and flush/cancel controls.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-debounce/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-debounce.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-debounce/demo-state',
+    label: 'Debounce demo component source',
+    description:
+      'The full debounce demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_DEBOUNCE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-debounce',
+  route: '/packages/angular-debounce',
+  label: 'Angular Debounce',
+  title: ANGULAR_DEBOUNCE_CATALOG.packageName,
+  description: ANGULAR_DEBOUNCE_CATALOG.summary,
+  docsLinks: ANGULAR_DEBOUNCE_DOCS,
+  demos: [ANGULAR_DEBOUNCE_DEMO],
+};
+
+// ── angular-notifications demo entries ───────────────────────────────
+
+const ANGULAR_NOTIFICATIONS_CATALOG = getGeneratedCurrentPackage('angular-notifications');
+const ANGULAR_NOTIFICATIONS_DOCS = ANGULAR_NOTIFICATIONS_CATALOG.docsLinks;
+
+export const ANGULAR_NOTIFICATIONS_DEMO: DemoPageEntry = {
+  id: 'notifications',
+  packageId: 'angular-notifications',
+  route: '/packages/angular-notifications/demo',
+  legacyRoute: '/notifications',
+  label: 'Notification Queue',
+  title: 'Toast notification queue with typed types, auto-dismiss, and action support',
+  description:
+    'Buttons trigger success, error, info, and warning toasts. Each notification shows configurable duration, dismiss control, and optional action buttons.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-notifications/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-notifications.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-notifications/demo-state',
+    label: 'Notifications demo component source',
+    description:
+      'The full notifications demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_NOTIFICATIONS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-notifications',
+  route: '/packages/angular-notifications',
+  label: 'Angular Notifications',
+  title: ANGULAR_NOTIFICATIONS_CATALOG.packageName,
+  description: ANGULAR_NOTIFICATIONS_CATALOG.summary,
+  docsLinks: ANGULAR_NOTIFICATIONS_DOCS,
+  demos: [ANGULAR_NOTIFICATIONS_DEMO],
+};
+
+// ── angular-error-boundary demo entries ──────────────────────────────
+
+const ANGULAR_ERROR_BOUNDARY_CATALOG = getGeneratedCurrentPackage('angular-error-boundary');
+const ANGULAR_ERROR_BOUNDARY_DOCS = ANGULAR_ERROR_BOUNDARY_CATALOG.docsLinks;
+
+export const ANGULAR_ERROR_BOUNDARY_DEMO: DemoPageEntry = {
+  id: 'error-boundary',
+  packageId: 'angular-error-boundary',
+  route: '/packages/angular-error-boundary/demo',
+  legacyRoute: '/error-boundary',
+  label: 'Error Boundary',
+  title: 'Component error boundary with custom fallback and reset recovery',
+  description:
+    'A throwable content area demonstrates error capture, default and custom fallback templates, and programmatic reset to restore the original content.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-error-boundary/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-error-boundary.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-error-boundary/demo-state',
+    label: 'Error boundary demo component source',
+    description:
+      'The full error boundary demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_ERROR_BOUNDARY_PACKAGE: DemoPackageEntry = {
+  id: 'angular-error-boundary',
+  route: '/packages/angular-error-boundary',
+  label: 'Angular Error Boundary',
+  title: ANGULAR_ERROR_BOUNDARY_CATALOG.packageName,
+  description: ANGULAR_ERROR_BOUNDARY_CATALOG.summary,
+  docsLinks: ANGULAR_ERROR_BOUNDARY_DOCS,
+  demos: [ANGULAR_ERROR_BOUNDARY_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -662,6 +800,9 @@ export const DEMO_PACKAGES = [
   ANGULAR_OPTIMISTIC_STATE_PACKAGE,
   ANGULAR_PERMISSIONS_PACKAGE,
   ANGULAR_API_ERRORS_PACKAGE,
+  ANGULAR_DEBOUNCE_PACKAGE,
+  ANGULAR_NOTIFICATIONS_PACKAGE,
+  ANGULAR_ERROR_BOUNDARY_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

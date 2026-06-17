@@ -1,0 +1,35 @@
+{
+  "name": "@hexguard/angular-notifications",
+  "version": "0.1.0",
+  "description": "Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.",
+  "keywords": [
+    "angular",
+    "notifications",
+    "toast",
+    "notification-queue",
+    "snackbar",
+    "signals",
+    "headless",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-notifications",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-notifications"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
