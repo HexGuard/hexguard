@@ -29,142 +29,133 @@ const API_BASE = 'http://127.0.0.1:5074';
         demoNavigation
       />
 
-      <div demoIntro>
-        <div class="reference-data-demo" data-testid="reference-data-demo-page">
-          <article class="demo-card demo-card--stack">
+      <article
+        demoIntro
+        class="demo-card demo-card--stack"
+        data-testid="reference-data-demo-page"
+      >
+        <div class="demo-card__header">
+          <div>
             <p class="demo-eyebrow">HexGuard.ReferenceData</p>
             <h2>Typed reference-data catalog contracts and validation</h2>
-            <p class="demo-card__summary">
-              This page demonstrates the <code>HexGuard.ReferenceData</code> NuGet library through
-              the shared .NET SampleApi. The library provides typed catalog contracts, collection
-              and item types, and a built-in validator.
-            </p>
-          </article>
-
-          <div class="reference-data-demo__cross-stack">
-            <span class="demo-hint-pill">.NET: HexGuard.ReferenceData</span>
-            <span class="demo-hint-pill">&harr;</span>
-            <span class="demo-hint-pill">Angular: @hexguard/angular-lookups</span>
           </div>
-
-          <div class="reference-data-demo__toolbar">
-            <div class="reference-data-demo__actions">
-              <button
-                class="demo-button"
-                (click)="loadValidCatalog()"
-                data-testid="refdata-load-valid"
-                [disabled]="isBusy()"
-              >
-                Load valid catalog
-              </button>
-              <button
-                class="demo-button demo-button--secondary"
-                (click)="loadInvalidCatalog()"
-                data-testid="refdata-load-invalid"
-                [disabled]="isBusy()"
-              >
-                Load invalid catalog
-              </button>
-            </div>
-          </div>
-
-          @if (lastRequestUrl(); as url) {
-            <p class="reference-data-demo__req-url" data-testid="refdata-request-url">
-              {{ url }}
-            </p>
-          }
-
-          <demo-status-strip
-            testId="refdata-status-strip"
-            summaryTestId="refdata-summary"
-            urlTestId="refdata-current-url"
-            [summary]="statusText()"
-            [currentUrl]="currentUrl()"
-          />
-
-          @if (error()) {
-            <div class="demo-banner demo-banner--error" data-testid="refdata-error-banner">
-              {{ error() }}
-            </div>
-          }
+          <span class="demo-hint-pill">{{ collectionCount() }} collections</span>
         </div>
-      </div>
+
+        <p class="demo-card__summary">
+          This page demonstrates the <code>HexGuard.ReferenceData</code> NuGet library through
+          the shared .NET SampleApi. The library provides typed catalog contracts, collection
+          and item types, and a built-in validator.
+        </p>
+
+        <div class="refdata-cross-stack">
+          <span class="demo-hint-pill">.NET: HexGuard.ReferenceData</span>
+          <span class="demo-hint-pill">&harr;</span>
+          <span class="demo-hint-pill">Angular: @hexguard/angular-lookups</span>
+        </div>
+
+        <div class="refdata-toolbar">
+          <button
+            class="demo-button"
+            (click)="loadValidCatalog()"
+            data-testid="refdata-load-valid"
+            [disabled]="isBusy()"
+          >
+            Load valid catalog
+          </button>
+          <button
+            class="demo-button demo-button--secondary"
+            (click)="loadInvalidCatalog()"
+            data-testid="refdata-load-invalid"
+            [disabled]="isBusy()"
+          >
+            Load invalid catalog
+          </button>
+        </div>
+
+        @if (lastRequestUrl(); as url) {
+          <p class="refdata-req-url" data-testid="refdata-request-url">{{ url }}</p>
+        }
+
+        <demo-status-strip
+          testId="refdata-status-strip"
+          summaryTestId="refdata-summary"
+          urlTestId="refdata-current-url"
+          [summary]="statusText()"
+          [currentUrl]="currentUrl()"
+        />
+
+        @if (error()) {
+          <div class="demo-banner demo-banner--error" data-testid="refdata-error-banner">
+            {{ error() }}
+          </div>
+        }
+      </article>
 
       <div demoPrimary>
-        <div class="reference-data-demo__grid">
-          <div class="reference-data-demo__contract-panel">
-            <article class="demo-card demo-card--stack">
-              <div class="demo-card__header">
-                <div>
-                  <p class="demo-eyebrow">Library contracts</p>
-                  <h3>Public types</h3>
-                </div>
-                <span class="demo-hint-pill" data-testid="refdata-collection-count">
-                  {{ collectionCount() }} collections
-                </span>
+        <article class="demo-card demo-card--stack">
+          <div class="demo-card__header">
+            <div>
+              <p class="demo-eyebrow">Library contracts</p>
+              <h3>Public types</h3>
+            </div>
+          </div>
+          <p class="demo-card__summary">The library exports these core types:</p>
+          <ul class="refdata-type-list">
+            <li class="refdata-type-item">
+              <strong>ReferenceDataCatalog</strong> — versioned root with metadata + collections
+            </li>
+            <li class="refdata-type-item">
+              <strong>ReferenceDataCollection</strong> — named family with Key, Revision, Items
+            </li>
+            <li class="refdata-type-item">
+              <strong>ReferenceDataItem</strong> — lookup option with Key, Label, IsActive
+            </li>
+            <li class="refdata-type-item">
+              <strong>ReferenceDataCatalogValidator</strong> — validates contract shape
+            </li>
+            <li class="refdata-type-item">
+              <strong>IReferenceDataCatalogProvider</strong> — async provider interface
+            </li>
+          </ul>
+        </article>
+
+        @if (validationResult(); as result) {
+          <article class="demo-card demo-card--stack">
+            <div class="demo-card__header">
+              <div>
+                <p class="demo-eyebrow">Validation</p>
+                <h3>Results</h3>
               </div>
-              <p class="demo-card__summary">The library exports these core types:</p>
-              <ul class="reference-data-demo__type-list">
-                <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataCatalog</strong> — versioned root with metadata + collections
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataCollection</strong> — named family with Key, Revision, Items
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataItem</strong> — lookup option with Key, Label, IsActive
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>ReferenceDataCatalogValidator</strong> — validates contract shape
-                </li>
-                <li class="reference-data-demo__type-item">
-                  <strong>IReferenceDataCatalogProvider</strong> — async provider interface
-                </li>
-              </ul>
-            </article>
-
-            @if (validationResult(); as result) {
-              <article class="demo-card demo-card--stack">
-                <div class="demo-card__header">
-                  <div>
-                    <p class="demo-eyebrow">Validation</p>
-                    <h3>Results</h3>
-                  </div>
-                  <span
-                    class="reference-data-demo__valid-badge"
-                    [class.reference-data-demo__valid-badge--pass]="result.isValid"
-                    [class.reference-data-demo__valid-badge--fail]="!result.isValid"
-                  >
-                    {{ result.isValid ? '\u2713 Valid' : '\u2717 ' + result.errors.length + ' error(s)' }}
-                  </span>
-                </div>
-                @if (!result.isValid) {
-                  <div class="reference-data-demo__error-list">
-                    @for (err of result.errors; track err) {
-                      <div class="reference-data-demo__error-item" data-testid="refdata-error-item">
-                        {{ err }}
-                      </div>
-                    }
-                  </div>
+              <span
+                class="refdata-valid-badge"
+                [class.refdata-valid-badge--pass]="result.isValid"
+                [class.refdata-valid-badge--fail]="!result.isValid"
+              >
+                {{ result.isValid ? '\u2713 Valid' : '\u2717 ' + result.errors.length + ' error(s)' }}
+              </span>
+            </div>
+            @if (!result.isValid) {
+              <div class="refdata-error-list">
+                @for (err of result.errors; track err) {
+                  <div class="refdata-error-item" data-testid="refdata-error-item">{{ err }}</div>
                 }
-              </article>
+              </div>
             }
-          </div>
+          </article>
+        }
 
-          <div>
-            @if (responseJson(); as json) {
-              <article class="demo-card demo-card--stack">
-                <div class="demo-card__header">
-                  <div>
-                    <p class="demo-eyebrow">API response</p>
-                    <h3>Raw JSON</h3>
-                  </div>
-                </div>
-                <pre class="demo-code-block" data-testid="refdata-response-json">{{ json }}</pre>
-              </article>
-            }
-          </div>
-        </div>
+        @if (responseJson(); as json) {
+          <article class="demo-card demo-card--stack">
+            <div class="demo-card__header">
+              <div>
+                <p class="demo-eyebrow">API response</p>
+                <h3>Raw JSON</h3>
+              </div>
+            </div>
+            <pre class="demo-code-block" data-testid="refdata-response-json">{{ json }}</pre>
+          </article>
+        }
       </div>
 
       <div demoAside>

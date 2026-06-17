@@ -924,6 +924,390 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-imports',
     showOnSiteHome: false,
   },
+  {
+    id: 'angular-scroll-state',
+    anchorId: 'package-angular-scroll-state',
+    packageName: '@hexguard/angular-scroll-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize scroll position save and restore, scroll-to-top on navigation, infinite-scroll threshold detection, and scroll-spy active-section tracking through a signal-first Angular contract.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-scroll-state',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-storage',
+    anchorId: 'package-angular-storage',
+    packageName: '@hexguard/angular-storage',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide typed, signal-friendly wrappers around localStorage and sessionStorage with automatic serialization, versioning, cross-tab change detection, and optional expiry for Angular apps.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-storage',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-network-status',
+    anchorId: 'package-angular-network-status',
+    packageName: '@hexguard/angular-network-status',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize online/offline connectivity state, connection-type changes, and debounced reconnection signals for Angular apps that need offline-aware UI behavior.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-network-status',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-visibility',
+    anchorId: 'package-angular-visibility',
+    packageName: '@hexguard/angular-visibility',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize document and element visibility tracking, tab-hidden detection, idle-timeout, and user-activity signals through a headless Angular contract composable with live-data and async-state.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-visibility',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-window-state',
+    anchorId: 'package-angular-window-state',
+    packageName: '@hexguard/angular-window-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide signal-based window dimension and resize tracking, viewport measurement, and element dimension observation for responsive Angular component logic.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-window-state',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-theme',
+    anchorId: 'package-angular-theme',
+    packageName: '@hexguard/angular-theme',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize theme and dark-mode state with system-preference detection, explicit toggle, persistence, and CSS class management through a headless Angular contract.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-theme',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-timer',
+    anchorId: 'package-angular-timer',
+    packageName: '@hexguard/angular-timer',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide countdown and elapsed timer signals with start, pause, resume, reset, expiry callbacks, and configurable tick intervals for session timeouts, OTP expiry, and countdown UIs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-timer',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-activity-indicator',
+    anchorId: 'package-angular-activity-indicator',
+    packageName: '@hexguard/angular-activity-indicator',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize global and scoped busy-state indicators for navigation transitions, background saves, and async operations through a headless activity-stack contract with optional progress-bar adapters.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-activity-indicator',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-caching',
+    anchorId: 'package-dotnet-caching',
+    packageName: 'HexGuard.Caching',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide cache-header helpers, response-caching middleware configuration, ETag and Last-Modified conventions, and cache-tag stampede protection for ASP.NET Core APIs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-caching',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-search',
+    anchorId: 'package-dotnet-search',
+    packageName: 'HexGuard.Search',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide search-query parsing helpers, full-text search contract models, paginated search response envelopes, and result-highlighting conventions for .NET search endpoints.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-search',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-webhooks',
+    anchorId: 'package-angular-webhooks',
+    packageName: '@hexguard/angular-webhooks',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide webhook registration UI state, delivery-log viewing helpers, and event-history browsing state to pair with HexGuard.Webhooks on the .NET side.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-webhooks',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'search-cross-stack',
+    anchorId: 'package-search-cross-stack',
+    packageName: 'HexGuard.Search + @hexguard/angular-search',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend search-query contracts with Angular search-as-you-type debounce, result-highlight tokens, and typed autocomplete response models for consistent search and finder experiences.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-search-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'sse-cross-stack',
+    anchorId: 'package-sse-cross-stack',
+    packageName: 'HexGuard.Sse + @hexguard/angular-sse',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend Server-Sent Events message contracts with Angular SSE consumer helpers for typed event streams, automatic reconnection, and composable real-time data flows.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-sse-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'caching-cross-stack',
+    anchorId: 'package-caching-cross-stack',
+    packageName: 'HexGuard.Caching + @hexguard/angular-caching',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend cache-invalidation contracts (cache tags, invalidation headers) with Angular cache-awareness signals so the client can observe invalidation events and trigger safe refetches.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-caching-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'user-presence-cross-stack',
+    anchorId: 'package-user-presence-cross-stack',
+    packageName: 'HexGuard.UserPresence + @hexguard/angular-user-presence',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend user-presence contracts (online, away, last-seen) with Angular presence state, typing indicators, and collaborative awareness signals for real-time multi-user features.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-user-presence-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-error-boundary',
+    anchorId: 'package-angular-error-boundary',
+    packageName: '@hexguard/angular-error-boundary',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a declarative error boundary component that catches Angular component render errors, displays fallback UI, and exposes retry and recovery state through signals.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-error-boundary',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-skeleton',
+    anchorId: 'package-angular-skeleton',
+    packageName: '@hexguard/angular-skeleton',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize skeleton and placeholder loading state with configurable shapes, shimmer animation, and headless composition with async-state value and action lifecycle signals.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-skeleton',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-empty-state',
+    anchorId: 'package-angular-empty-state',
+    packageName: '@hexguard/angular-empty-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize empty-state display contracts for zero-result, no-data, and empty-collection screens with contextual messaging, action slots, and optional illustration integration.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-empty-state',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-date-utils',
+    anchorId: 'package-angular-date-utils',
+    packageName: '@hexguard/angular-date-utils',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide date-range state models, relative-time formatting, locale-aware compact notation, and date-comparison helpers that go beyond Angular built-in DatePipe for date-heavy business apps.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-date-utils',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-focus-trap',
+    anchorId: 'package-angular-focus-trap',
+    packageName: '@hexguard/angular-focus-trap',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize focus-trap and focus-restoration state for modals, dialogs, side panels, and flyout menus with configurable tab-order, escape handling, and return-focus semantics.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-focus-trap',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-tour',
+    anchorId: 'package-angular-tour',
+    packageName: '@hexguard/angular-tour',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize product tour and onboarding step state with configurable step progression, dismissal persistence, optional spotlight positioning, and composition with feature-flags for gated tours.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-tour',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-drag-state',
+    anchorId: 'package-angular-drag-state',
+    packageName: '@hexguard/angular-drag-state',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize drag-and-drop interaction state (dragging, hover target, reorder model, cancel) separate from DOM rendering, composable with CDK DragDrop for sortable lists, kanban boards, and file reordering.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-drag-state',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-feature-flags',
+    anchorId: 'package-dotnet-feature-flags',
+    packageName: 'HexGuard.FeatureFlags',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide server-side feature-flag evaluation, targeting-rule helpers, flag-configuration contracts, and optional sync-endpoint conventions to pair with @hexguard/angular-feature-flags.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-feature-flags',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-state-machine',
+    anchorId: 'package-dotnet-state-machine',
+    packageName: 'HexGuard.StateMachine',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide a lightweight state-machine contract for business workflows such as order status, document lifecycle, and approval-stage progression with explicit states, transitions, and guard clauses.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-state-machine',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-soft-delete',
+    anchorId: 'package-dotnet-soft-delete',
+    packageName: 'HexGuard.SoftDelete',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would standardize soft-delete query filters, restore helpers, deleted-at/deleted-by conventions, and cascade-aware deletion behavior for EF Core and other .NET data access patterns.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-soft-delete',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-rate-limiting',
+    anchorId: 'package-dotnet-rate-limiting',
+    packageName: 'HexGuard.RateLimiting',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide standard rate-limit policy configuration helpers, rate-limit response header conventions (Retry-After, RateLimit-*), and client-friendly error payloads on top of ASP.NET Core rate limiting.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-rate-limiting',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-data-seeding',
+    anchorId: 'package-dotnet-data-seeding',
+    packageName: 'HexGuard.DataSeeding',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would standardize idempotent data seeding, environment-aware seed sets, test-data factories, and seed-ordering conventions for .NET applications and integration test suites.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-data-seeding',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-notifications',
+    anchorId: 'package-dotnet-notifications',
+    packageName: 'HexGuard.Notifications',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide server-side notification-delivery contracts, delivery-channel abstraction (in-app, email), preference-filtering helpers, and templating conventions for .NET notification systems.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-notifications',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'feature-flags-cross-stack',
+    anchorId: 'package-feature-flags-cross-stack',
+    packageName: 'HexGuard.FeatureFlags + @hexguard/angular-feature-flags',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend feature-flag evaluation and targeting rules with Angular feature-flag client sync, cache, and fallback semantics for consistent flag behavior across the stack.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-feature-flags-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'notification-delivery-cross-stack',
+    anchorId: 'package-notification-delivery-cross-stack',
+    packageName: 'HexGuard.NotificationDelivery + @hexguard/angular-notification-inbox',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend notification-generation and delivery-preference contracts with Angular in-app notification feed state, read/unread tracking, deep-link routing, and real-time delivery signals.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-notification-delivery-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'scheduling-cross-stack',
+    anchorId: 'package-scheduling-cross-stack',
+    packageName: 'HexGuard.Scheduling + @hexguard/angular-scheduling',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend time-slot availability and booking contracts with Angular calendar state, slot-selection signals, and scheduling workflow helpers for appointment and reservation systems.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-scheduling-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'api-versioning-cross-stack',
+    anchorId: 'package-api-versioning-cross-stack',
+    packageName: 'HexGuard.ApiVersioning + @hexguard/angular-api-versioning',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend API version negotiation, Sunset and Deprecation header conventions with Angular endpoint-version awareness, deprecation warnings, and migration-path helpers.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-api-versioning-cross-stack',
+    showOnSiteHome: false,
+  },
 ] as const satisfies readonly GeneratedRoadmapPackageEntry[];
 
 export function getGeneratedCurrentPackage(packageId: string): GeneratedCurrentPackageCatalogEntry {
