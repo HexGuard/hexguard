@@ -484,6 +484,51 @@ export const GENERATED_CURRENT_PACKAGES = [
       },
     ],
   },
+  {
+    id: 'hexguard-problem-details',
+    packageName: 'HexGuard.ProblemDetails',
+    status: 'Available',
+    scope: '.NET',
+    summary:
+      'RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.',
+    detail:
+      'Provides the core ProblemDetails record, fluent builder, well-known problem type constants, catch-all middleware, and Minimal API result extensions. Pairs with @hexguard/angular-api-errors for end-to-end typed error pipelines across stacks.',
+    installCommand: 'dotnet add package HexGuard.ProblemDetails',
+    featureHighlights: [
+      'RFC 9457–compliant ProblemDetails record with extension member support.',
+      'Fluent ProblemDetailsBuilder for constructing responses.',
+      'ProblemDetailsException for throw-vs-return middleware patterns.',
+      'ASP.NET Core middleware for automatic error interception.',
+      'Minimal API IResult extension methods.',
+      'No external dependencies — pure net10.0.',
+    ],
+    bestFitScenarios: [
+      'Standardizing HTTP error responses across ASP.NET Core APIs.',
+      'End-to-end typed error pipelines with @hexguard/angular-api-errors.',
+      'Replacing ad hoc error shapes with RFC 9457–compliant payloads.',
+    ],
+    statusNoteParagraphs: [
+      'Initial release focuses on core types, builder, middleware, and Minimal API extensions.',
+      'Complements HexGuard.ValidationContracts which extends Problem Details with validation-specific types.',
+      'Angular @hexguard/angular-api-errors consumes the same RFC 9457 Problem Details contract.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.ProblemDetails',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.ProblemDetails/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-problem-details.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
 ] as const satisfies readonly GeneratedCurrentPackageCatalogEntry[];
 
 export const GENERATED_ROADMAP_PACKAGES = [
@@ -1456,6 +1501,186 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would pair backend typed SignalR hub contracts with Angular SignalR connection state, reconnection strategy, channel lifecycle, and typed event-stream signals for real-time full-duplex communication.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-signalr-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-seo',
+    anchorId: 'package-angular-seo',
+    packageName: '@hexguard/angular-seo',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize SSR-safe SEO metadata management with signal-based Open Graph, Twitter Card, and JSON-LD structured data helpers that initialize during server rendering and hydrate safely on the client.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-seo',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-hydration',
+    anchorId: 'package-angular-hydration',
+    packageName: '@hexguard/angular-hydration',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide hydration mismatch debugging utilities, hydration-state signals, and selective hydration directives (hydrate on interaction, hydrate on viewport) for Angular SSR applications.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-hydration',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-sitemap',
+    anchorId: 'package-angular-sitemap',
+    packageName: '@hexguard/angular-sitemap',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize dynamic XML sitemap generation for Angular SSR apps with route-based configuration, lastmod extraction, priority/frequency settings, and automated sitemap index support.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-sitemap',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-inline-edit',
+    anchorId: 'package-angular-inline-edit',
+    packageName: '@hexguard/angular-inline-edit',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize click-to-edit and inline-editing state management with edit/save/cancel transitions, keyboard navigation, validation hooks, and optimistic save composition for data grids and detail views.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-inline-edit',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'api-keys-cross-stack',
+    anchorId: 'package-api-keys-cross-stack',
+    packageName: 'HexGuard.ApiKeys + @hexguard/angular-api-keys',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend API key generation, hashing, masking, and permission scoping with Angular API key management UI state for create, list, revoke, and usage tracking in SaaS applications.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-api-keys-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-resource',
+    anchorId: 'package-angular-resource',
+    packageName: '@hexguard/angular-resource',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      "Would provide typed helpers, caching policies, and retry/refetch orchestration on top of Angular's built-in `resource()` and `httpResource()` APIs for consistent server-state fetching patterns.",
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-resource',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-defer',
+    anchorId: 'package-angular-defer',
+    packageName: '@hexguard/angular-defer',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize programmatic `@defer` block state management with signals for defer phase, loading/error/complete state, trigger management, and deferred-load orchestration beyond template-only control.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-defer',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-signal-utils',
+    anchorId: 'package-angular-signal-utils',
+    packageName: '@hexguard/angular-signal-utils',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      "Would provide a collection of reusable signal utility functions — computedFrom, memoized, cached, toggle, derived — that extend Angular's built-in signal primitives for common reactive data-flow patterns.",
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-signal-utils',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-ssr-config',
+    anchorId: 'package-angular-ssr-config',
+    packageName: '@hexguard/angular-ssr-config',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize SSR configuration management for Angular apps including pre-rendering route declarations, per-route hydration control, typed TransferState helpers, and sitemap integration.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-ssr-config',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-openapi',
+    anchorId: 'package-dotnet-openapi',
+    packageName: 'HexGuard.OpenApi',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide OpenAPI documentation conventions, operation-ID templates, response-type standardization, and schema-customization helpers on top of Microsoft.AspNetCore.OpenApi for consistent API documentation.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-openapi',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-effect-utils',
+    anchorId: 'package-angular-effect-utils',
+    packageName: '@hexguard/angular-effect-utils',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      "Would provide signal effect utilities such as debouncedEffect, batchEffects, effectWithCleanup, and effectOnIdle that extend Angular's built-in effect() for common reactive side-effect patterns.",
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-effect-utils',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-form-arrays',
+    anchorId: 'package-angular-form-arrays',
+    packageName: '@hexguard/angular-form-arrays',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize Reactive Forms FormArray operations with typed move, swap, insert-at, remove-at-range helpers, dirty-tracking signals, and min/max items validation for editable collections.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-form-arrays',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-router-signals',
+    anchorId: 'package-angular-router-signals',
+    packageName: '@hexguard/angular-router-signals',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide signal-based wrappers for ActivatedRoute params, query params, route data, and fragment for ergonomic reactive access to router state beyond template-only observables.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-router-signals',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-logging',
+    anchorId: 'package-dotnet-logging',
+    packageName: 'HexGuard.Logging',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide consistent structured logging conventions with standardized property names, enrichment helpers, ILogger extensions for common patterns, and integration with HexGuard.AuditTrail.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-logging',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-circuit-breaker',
+    anchorId: 'package-dotnet-circuit-breaker',
+    packageName: 'HexGuard.CircuitBreaker',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide circuit breaker pattern helpers for HttpClient resilience with standard break policies, half-open state handling, health-check integration, and consistent telemetry on top of Microsoft.Extensions.Http.Resilience.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-circuit-breaker',
     showOnSiteHome: false,
   },
 ] as const satisfies readonly GeneratedRoadmapPackageEntry[];

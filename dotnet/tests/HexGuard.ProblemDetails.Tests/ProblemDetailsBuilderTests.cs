@@ -53,6 +53,30 @@ public class ProblemDetailsBuilderTests
     }
 
     [Fact]
+    public void WithInstance_throws_on_null()
+    {
+        Assert.Throws<ArgumentNullException>(() => new ProblemDetailsBuilder().WithInstance(null!));
+    }
+
+    [Fact]
+    public void WithType_accepts_empty_string()
+    {
+        var pd = new ProblemDetailsBuilder().WithType("").Build();
+        Assert.Equal("", pd.TypeUri);
+    }
+
+    [Fact]
+    public void WithExtension_accepts_null_value()
+    {
+        var pd = new ProblemDetailsBuilder()
+            .WithExtension("key", null)
+            .Build();
+
+        Assert.NotNull(pd.Extensions);
+        Assert.Null(pd.Extensions["key"]);
+    }
+
+    [Fact]
     public void WithExtension_overwrites_same_key()
     {
         var pd = new ProblemDetailsBuilder()

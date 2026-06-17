@@ -20,6 +20,7 @@ another.
 | `@hexguard/angular-debounce`         | Available | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                 |
 | `@hexguard/angular-notifications`    | Available | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)       |
 | `@hexguard/angular-error-boundary`   | Available | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)     |
+| `HexGuard.ProblemDetails`            | Available | RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.                                                                        | [Deep Dive](hexguard-problem-details.md), [npm-facing README](../../dotnet/src/HexGuard.ProblemDetails/README.md), [Demo runbook](../demo/README.md)        |
 
 ## Package Status Notes
 
@@ -132,6 +133,18 @@ Status: Available
 This package is available as a declarative error boundary for Angular apps that need per-component error isolation without global ErrorHandler gymnastics.
 
 It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.
+
+<a id="package-hexguard-problem-details"></a>
+
+### `HexGuard.ProblemDetails`
+
+Status: Available
+
+Initial release focuses on core types, builder, middleware, and Minimal API extensions.
+
+Complements HexGuard.ValidationContracts which extends Problem Details with validation-specific types.
+
+Angular @hexguard/angular-api-errors consumes the same RFC 9457 Problem Details contract.
 
 ## Planned and Proposed Package Briefs
 
@@ -782,6 +795,126 @@ Would provide standardized CSV, Excel, and PDF export-generation helpers with co
 Status: Proposed
 
 Would pair backend typed SignalR hub contracts with Angular SignalR connection state, reconnection strategy, channel lifecycle, and typed event-stream signals for real-time full-duplex communication.
+
+<a id="package-angular-seo"></a>
+
+### `@hexguard/angular-seo`
+
+Status: Proposed
+
+Would standardize SSR-safe SEO metadata management with signal-based Open Graph, Twitter Card, and JSON-LD structured data helpers that initialize during server rendering and hydrate safely on the client.
+
+<a id="package-angular-hydration"></a>
+
+### `@hexguard/angular-hydration`
+
+Status: Proposed
+
+Would provide hydration mismatch debugging utilities, hydration-state signals, and selective hydration directives (hydrate on interaction, hydrate on viewport) for Angular SSR applications.
+
+<a id="package-angular-sitemap"></a>
+
+### `@hexguard/angular-sitemap`
+
+Status: Proposed
+
+Would standardize dynamic XML sitemap generation for Angular SSR apps with route-based configuration, lastmod extraction, priority/frequency settings, and automated sitemap index support.
+
+<a id="package-angular-inline-edit"></a>
+
+### `@hexguard/angular-inline-edit`
+
+Status: Proposed
+
+Would standardize click-to-edit and inline-editing state management with edit/save/cancel transitions, keyboard navigation, validation hooks, and optimistic save composition for data grids and detail views.
+
+<a id="package-api-keys-cross-stack"></a>
+
+### `HexGuard.ApiKeys + @hexguard/angular-api-keys`
+
+Status: Proposed
+
+Would pair backend API key generation, hashing, masking, and permission scoping with Angular API key management UI state for create, list, revoke, and usage tracking in SaaS applications.
+
+<a id="package-angular-resource"></a>
+
+### `@hexguard/angular-resource`
+
+Status: Proposed
+
+Would provide typed helpers, caching policies, and retry/refetch orchestration on top of Angular's built-in `resource()` and `httpResource()` APIs for consistent server-state fetching patterns.
+
+<a id="package-angular-defer"></a>
+
+### `@hexguard/angular-defer`
+
+Status: Proposed
+
+Would standardize programmatic `@defer` block state management with signals for defer phase, loading/error/complete state, trigger management, and deferred-load orchestration beyond template-only control.
+
+<a id="package-angular-signal-utils"></a>
+
+### `@hexguard/angular-signal-utils`
+
+Status: Proposed
+
+Would provide a collection of reusable signal utility functions — computedFrom, memoized, cached, toggle, derived — that extend Angular's built-in signal primitives for common reactive data-flow patterns.
+
+<a id="package-angular-ssr-config"></a>
+
+### `@hexguard/angular-ssr-config`
+
+Status: Proposed
+
+Would standardize SSR configuration management for Angular apps including pre-rendering route declarations, per-route hydration control, typed TransferState helpers, and sitemap integration.
+
+<a id="package-dotnet-openapi"></a>
+
+### `HexGuard.OpenApi`
+
+Status: Proposed
+
+Would provide OpenAPI documentation conventions, operation-ID templates, response-type standardization, and schema-customization helpers on top of Microsoft.AspNetCore.OpenApi for consistent API documentation.
+
+<a id="package-angular-effect-utils"></a>
+
+### `@hexguard/angular-effect-utils`
+
+Status: Proposed
+
+Would provide signal effect utilities such as debouncedEffect, batchEffects, effectWithCleanup, and effectOnIdle that extend Angular's built-in effect() for common reactive side-effect patterns.
+
+<a id="package-angular-form-arrays"></a>
+
+### `@hexguard/angular-form-arrays`
+
+Status: Proposed
+
+Would standardize Reactive Forms FormArray operations with typed move, swap, insert-at, remove-at-range helpers, dirty-tracking signals, and min/max items validation for editable collections.
+
+<a id="package-angular-router-signals"></a>
+
+### `@hexguard/angular-router-signals`
+
+Status: Proposed
+
+Would provide signal-based wrappers for ActivatedRoute params, query params, route data, and fragment for ergonomic reactive access to router state beyond template-only observables.
+
+<a id="package-dotnet-logging"></a>
+
+### `HexGuard.Logging`
+
+Status: Proposed
+
+Would provide consistent structured logging conventions with standardized property names, enrichment helpers, ILogger extensions for common patterns, and integration with HexGuard.AuditTrail.
+
+<a id="package-dotnet-circuit-breaker"></a>
+
+### `HexGuard.CircuitBreaker`
+
+Status: Proposed
+
+Would provide circuit breaker pattern helpers for HttpClient resilience with standard break policies, half-open state handling, health-check integration, and consistent telemetry on top of Microsoft.Extensions.Http.Resilience.
 
 ## Broader Prioritization Matrix
 

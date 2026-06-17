@@ -59,6 +59,7 @@ import { ReferenceDataDemoPageComponent } from './features/dotnet/pages/referenc
 import { SampleApiExplorerPageComponent } from './features/dotnet/pages/sample-api-explorer-page/sample-api-explorer-page.component';
 import { ValidationContractsDemoPageComponent } from './features/dotnet/pages/validation-contracts-demo-page/validation-contracts-demo-page.component';
 import { SiteHomePageComponent } from './features/site-home/pages/site-home-page.component';
+import { Rfc9457EcosystemPageComponent } from './features/ecosystems/pages/rfc-9457-ecosystem-page/rfc-9457-ecosystem-page.component';
 import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
 import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
 import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
@@ -77,6 +78,7 @@ import { CrossStackApiErrorsHubPageComponent } from './features/cross-stack/page
 import { CrossStackLookupsHubPageComponent } from './features/cross-stack/pages/cross-stack-lookups-hub/cross-stack-lookups-hub-page.component';
 import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
 import { DotnetProblemDetailsHubPageComponent } from './features/dotnet/pages/dotnet-problem-details-hub-page/dotnet-problem-details-hub-page.component';
+import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem-details-demo-page/problem-details-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
 
 export const routes: Routes = [
@@ -101,6 +103,11 @@ export const routes: Routes = [
     title: 'Lookups + ReferenceData Cross-Stack Hub',
   },
   {
+    path: 'ecosystems/rfc-9457-problem-details',
+    component: Rfc9457EcosystemPageComponent,
+    title: 'RFC 9457 Problem Details — Multi-Package Ecosystem',
+  },
+  {
     path: 'cross-stack/angular-api-errors',
     component: CrossStackApiErrorsHubPageComponent,
     title: 'API Errors + Validation Contracts Cross-Stack Hub',
@@ -109,6 +116,11 @@ export const routes: Routes = [
     path: 'dotnet/hexguard-problem-details',
     component: DotnetProblemDetailsHubPageComponent,
     title: 'HexGuard.ProblemDetails Package Hub',
+  },
+  {
+    path: 'dotnet/problem-details',
+    component: ProblemDetailsDemoPageComponent,
+    title: 'Problem Details Demo — RFC 9457 in Action',
   },
   {
     path: 'dotnet/hexguard-reference-data',

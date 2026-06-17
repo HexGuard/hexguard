@@ -922,7 +922,7 @@ export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
 export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   id: 'hexguard-problem-details',
   packageId: 'hexguard-problem-details',
-  route: '/dotnet/hexguard-problem-details',
+  route: '/dotnet/problem-details',
   label: 'Problem Details Library',
   title: 'HexGuard.ProblemDetails — RFC 9457 Problem Details for .NET',
   description:

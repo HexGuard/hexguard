@@ -101,21 +101,11 @@ app.MapGet("/api/error", () =>
 
 ---
 
-## Cross-Stack Coordination
+## Relationship
 
-```
-Angular                                  .NET
-─────────────────────────────────────────────────────────────
-@hexguard/angular-api-errors       ──►   HexGuard.ProblemDetails         (core RFC 9457 types)
-                                         HexGuard.ValidationContracts      (validates + extends)
-```
-
-- `@hexguard/angular-api-errors` consumes RFC 9457 Problem Details payloads
-- `HexGuard.ProblemDetails` produces them (this package)
-- `HexGuard.ValidationContracts` extends Problem Details with validation-specific types
-- Both .NET packages share the `HexGuard.SampleApi` for live demos
-
-The Angular `api-errors` package mirrors the same field-path convention (`items.0.name`) and error codes that both .NET packages share.
+- `HexGuard.ValidationContracts` extends Problem Details with validation-specific types (`ValidationResult`, `FieldPath`, etc.) and includes a `ValidationResultProblemDetails` adapter.
+- `@hexguard/angular-api-errors` (Angular) consumes RFC 9457 Problem Details payloads produced by both .NET packages.
+- All three packages share the `HexGuard.SampleApi` for live demos and coordinated releases.
 
 ---
 

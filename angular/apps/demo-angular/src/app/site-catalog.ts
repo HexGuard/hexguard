@@ -148,11 +148,73 @@ export const SITE_CROSS_STACK_PAIRS: readonly CrossStackPair[] = [
   {
     angularId: 'angular-api-errors',
     angularLabel: '@hexguard/angular-api-errors',
-    dotnetId: 'hexguard-problem-details',
-    dotnetLabel: 'HexGuard.ProblemDetails',
-    pairingLabel: 'Problem Details / RFC 9457',
+    dotnetId: 'hexguard-validation-contracts',
+    dotnetLabel: 'HexGuard.ValidationContracts',
+    pairingLabel: 'Validation / RFC 9457',
     description:
-      'Angular ApiErrors consumes RFC 9457 Problem Details payloads that HexGuard.ProblemDetails produces and HexGuard.ValidationContracts extends — creating a layered typed error pipeline from backend to form control.',
+      'Angular ApiErrors consumes RFC 9457 Problem Details payloads that the .NET ValidationContracts library produces, creating a typed error pipeline from backend to form control.',
+  },
+];
+
+// ── Package ecosystems ─────────────────────────────────────────────
+
+/**
+ * A package ecosystem groups multiple packages across stacks that solve
+ * a common problem together. Unlike a cross-stack pair (which is 1:1
+ * Angular↔.NET), an ecosystem can contain any number of packages from
+ * any stacks, each with a named role.
+ *
+ * Ecosystems drive the cross-stack hub pages and help consumers discover
+ * related packages that address different layers of the same concern.
+ */
+export interface PackageEcosystemMember {
+  readonly scope: UnifiedScope;
+  readonly packageId: string;
+  readonly label: string;
+  readonly role: string;
+  readonly route: string;
+}
+
+export interface PackageEcosystem {
+  readonly id: string;
+  readonly label: string;
+  readonly description: string;
+  readonly members: readonly PackageEcosystemMember[];
+}
+
+/**
+ * Ecosystems define multi-package relationships that cross stacks.
+ * Each ecosystem has a canonical hub route at `/ecosystems/{id}`.
+ */
+export const SITE_ECOSYSTEMS: readonly PackageEcosystem[] = [
+  {
+    id: 'rfc-9457-problem-details',
+    label: 'RFC 9457 Problem Details',
+    description:
+      'End-to-end typed error pipeline: HexGuard.ProblemDetails produces the RFC 9457 payload, HexGuard.ValidationContracts extends it with validation-specific types, and @hexguard/angular-api-errors consumes it on the Angular side.',
+    members: [
+      {
+        scope: 'Angular',
+        packageId: 'angular-api-errors',
+        label: '@hexguard/angular-api-errors',
+        role: 'Consumer',
+        route: '/packages/angular-api-errors',
+      },
+      {
+        scope: '.NET',
+        packageId: 'hexguard-problem-details',
+        label: 'HexGuard.ProblemDetails',
+        role: 'Foundation',
+        route: '/dotnet/hexguard-problem-details',
+      },
+      {
+        scope: '.NET',
+        packageId: 'hexguard-validation-contracts',
+        label: 'HexGuard.ValidationContracts',
+        role: 'Validation Extension',
+        route: '/dotnet/hexguard-validation-contracts',
+      },
+    ],
   },
 ];
 
@@ -172,14 +234,13 @@ export const SITE_SHARED_API_CONSUMERS: readonly {
 /** Map from Angular package id to .NET counterpart id. */
 const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string | null> = {
   'angular-lookups': 'hexguard-reference-data',
-  'angular-api-errors': 'hexguard-problem-details',
+  'angular-api-errors': 'hexguard-validation-contracts',
 };
 
 /** Map from .NET package id to Angular counterpart id. */
 const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
   'hexguard-reference-data': 'angular-lookups',
-  'hexguard-problem-details': 'angular-api-errors',
-  'hexguard-validation-contracts': null,
+  'hexguard-validation-contracts': 'angular-api-errors',
 };
 
 // ── Unified package adapters ───────────────────────────────────────

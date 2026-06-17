@@ -33,11 +33,11 @@ return pd.ToProblemResult(); // Minimal API
 app.UseMiddleware<ProblemDetailsMiddleware>();
 ```
 
-## Cross-Stack Pairing
+## Related Packages
 
-- **Angular counterpart**: `@hexguard/angular-api-errors` — consumes RFC 9457 Problem Details
-- **.NET sibling**: `HexGuard.ValidationContracts` — extends Problem Details with validation-specific types
-- **Sample API**: `HexGuard.SampleApi` provides live Problem Details endpoints
+- **`HexGuard.ValidationContracts`** — extends Problem Details with validation-specific types (`ValidationResult`, `FieldPath`)
+- **`@hexguard/angular-api-errors`** — Angular package that consumes RFC 9457 Problem Details payloads
+- **`HexGuard.SampleApi`** — shared demo API providing live Problem Details endpoints
 
 ## License
 

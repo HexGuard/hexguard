@@ -18,8 +18,9 @@ public class ProblemDetailsException : Exception
     /// <param name="details">The Problem Details payload.</param>
     /// <param name="innerException">An optional inner exception.</param>
     public ProblemDetailsException(ProblemDetails details, Exception? innerException = null)
-        : base(details.Title ?? details.Detail, innerException)
+        : base(details?.Title ?? details?.Detail, innerException)
     {
-        Details = details ?? throw new ArgumentNullException(nameof(details));
+        ArgumentNullException.ThrowIfNull(details);
+        Details = details;
     }
 }

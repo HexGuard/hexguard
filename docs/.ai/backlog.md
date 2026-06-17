@@ -24,6 +24,7 @@
 - [x] **Implement `@hexguard/angular-notifications`** — headless toast/notification queue. [Detailed plan](angular/feature-angular-notifications.md)
 - [x] **Implement `@hexguard/angular-error-boundary`** — declarative component error boundary. [Detailed plan](angular/feature-angular-error-boundary.md)
 - [x] **Implement `@hexguard/angular-debounce`** — debounced value signal primitive. [Detailed plan](angular/feature-angular-debounce.md)
+- [x] **Implement `HexGuard.ProblemDetails`** — RFC 9457 Problem Details types, builder, middleware, and Minimal API result extensions for .NET. Pairs with `@hexguard/angular-api-errors`.
 - [ ] **Implement `HexGuard.FeatureFlags + @hexguard/angular-feature-flags`** — cross-stack flag evaluation and sync pair. [Detailed plan](cross-stack/feature-feature-flags-cross-stack.md)
 - [ ] **Implement `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`** — cross-stack bulk action contracts with HTTP 207 partial-success. [Detailed plan](cross-stack/feature-bulk-operations-cross-stack.md)
 - [ ] **Implement `@hexguard/angular-network-status`** — connectivity-state and online/offline signals. [Detailed plan](angular/feature-angular-network-status.md)
@@ -77,11 +78,21 @@
 - [ ] Keep `HexGuard.BackgroundJobs` as a proposed .NET background job scheduling and retry policy contracts package.
 - [ ] Keep `HexGuard.Export` as a proposed .NET CSV/Excel/PDF export generation helpers package.
 - [ ] Keep `HexGuard.SignalR + @hexguard/angular-signalr` as a proposed cross-stack pair for typed SignalR hub contracts and Angular connection state.
-- [ ] Keep `@hexguard/angular-file-picker` as a proposed file-selection state package with validation, preview, and drag-and-drop zone state.
-- [ ] Keep `@hexguard/angular-resizable` as a proposed resizable split-pane state package with min/max constraints and persistence.
-- [ ] Keep `HexGuard.BackgroundJobs` as a proposed .NET background job scheduling and retry policy contracts package.
-- [ ] Keep `HexGuard.Export` as a proposed .NET CSV/Excel/PDF export generation helpers package.
-- [ ] Keep `HexGuard.SignalR + @hexguard/angular-signalr` as a proposed cross-stack pair for typed SignalR hub contracts and Angular connection state.
+- [ ] Keep `@hexguard/angular-seo` as a proposed SSR-safe SEO metadata package for Open Graph, Twitter Card, and JSON-LD structured data.
+- [ ] Keep `@hexguard/angular-hydration` as a proposed hydration debugging and selective hydration directives package for Angular SSR.
+- [ ] Keep `@hexguard/angular-sitemap` as a proposed dynamic XML sitemap generation package for Angular SSR apps.
+- [ ] Keep `@hexguard/angular-inline-edit` as a proposed click-to-edit and inline-editing state package for data grids and detail views.
+- [ ] Keep `HexGuard.ApiKeys + @hexguard/angular-api-keys` as a proposed cross-stack pair for API key generation, hashing, and permission scoping.
+- [ ] Keep `@hexguard/angular-resource` as a proposed typed resource API helper package for Angular's built-in `resource()` and `httpResource()` APIs with caching and retry.
+- [ ] Keep `@hexguard/angular-defer` as a proposed programmatic `@defer` block state management package with defer-phase signals and trigger control.
+- [ ] Keep `@hexguard/angular-signal-utils` as a proposed signal utility collection package (computedFrom, memoized, cached, toggle, derived) extending Angular's signal primitives.
+- [ ] Keep `@hexguard/angular-ssr-config` as a proposed SSR configuration management package with pre-rendering routes, hydration control, and typed TransferState helpers.
+- [ ] Keep `HexGuard.OpenApi` as a proposed .NET OpenAPI documentation conventions package on top of `Microsoft.AspNetCore.OpenApi`.
+- [ ] Keep `@hexguard/angular-effect-utils` as a proposed signal effect utilities package (debouncedEffect, batchEffects, effectWithCleanup, effectOnIdle).
+- [ ] Keep `@hexguard/angular-form-arrays` as a proposed FormArray operations package with typed move/swap/insert/remove helpers and dirty-tracking signals.
+- [ ] Keep `@hexguard/angular-router-signals` as a proposed signal-based router params, query params, and route data access package.
+- [ ] Keep `HexGuard.Logging` as a proposed .NET structured logging conventions and enrichment helpers package.
+- [ ] Keep `HexGuard.CircuitBreaker` as a proposed .NET circuit breaker pattern helpers for HttpClient resilience.
 
 ## Later
 
