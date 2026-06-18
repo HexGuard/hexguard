@@ -41,13 +41,26 @@ export interface DotnetSitePackageCatalogEntry {
   readonly angularCounterpartLabel: string | null;
 }
 
-export interface CrossStackPair {
-  readonly angularId: string;
-  readonly angularLabel: string;
-  readonly dotnetId: string;
-  readonly dotnetLabel: string;
+/**
+ * A package ecosystem groups multiple packages across stacks that solve
+ * a common problem together. An ecosystem can contain 2+ packages from
+ * any stacks, each with a named role.
+ *
+ * A 2-package Angular↔.NET ecosystem behaves like the former "cross-stack
+ * pair" — the `pairingLabel` is shown as the ecosystem eyebrow.
+ */
+export interface EcosystemMember {
+  readonly packageId: string;
+  readonly role: string;
+}
+
+export interface Ecosystem {
+  readonly id: string;
+  readonly label: string;
   readonly pairingLabel: string;
   readonly description: string;
+  readonly members: readonly EcosystemMember[];
+  readonly integrationNotes: readonly string[];
 }
 
 /** Scope identifier used by the unified package card system. */
@@ -130,90 +143,48 @@ export const SECTION_COLLAPSED_LIMIT = 6;
 /** Number of cross-stack pair cards to show before the expand toggle. */
 export const CROSS_STACK_COLLAPSED_LIMIT = 3;
 
-/**
- * Known cross-stack pairs between Angular packages and .NET packages.
- * These are packages that share domain concepts, a shared API, or
- * complementary contracts (e.g. lookups + reference data).
- */
-export const SITE_CROSS_STACK_PAIRS: readonly CrossStackPair[] = [
-  {
-    angularId: 'angular-lookups',
-    angularLabel: '@hexguard/angular-lookups',
-    dotnetId: 'hexguard-reference-data',
-    dotnetLabel: 'HexGuard.ReferenceData',
-    pairingLabel: 'Reference data / lookups',
-    description:
-      'The Angular lookup catalog resolves labels from the same typed reference-data payload that the .NET library validates. The shared SampleApi proves end-to-end integration.',
-  },
-  {
-    angularId: 'angular-api-errors',
-    angularLabel: '@hexguard/angular-api-errors',
-    dotnetId: 'hexguard-validation-contracts',
-    dotnetLabel: 'HexGuard.ValidationContracts',
-    pairingLabel: 'Validation / RFC 9457',
-    description:
-      'Angular ApiErrors consumes RFC 9457 Problem Details payloads that the .NET ValidationContracts library produces, creating a typed error pipeline from backend to form control.',
-  },
-];
-
 // ── Package ecosystems ─────────────────────────────────────────────
 
 /**
- * A package ecosystem groups multiple packages across stacks that solve
- * a common problem together. Unlike a cross-stack pair (which is 1:1
- * Angular↔.NET), an ecosystem can contain any number of packages from
- * any stacks, each with a named role.
+ * Ecosystems define multi-package relationships across stacks.
+ * Each ecosystem has 2+ members and a hub route at `/ecosystems/{id}`.
  *
- * Ecosystems drive the cross-stack hub pages and help consumers discover
- * related packages that address different layers of the same concern.
+ * A 2-package ecosystem (Angular↔.NET) replaces the former "cross-stack pair".
+ * A 3+-package ecosystem shows the layered relationship (e.g. Consumer,
+ * Foundation, Extension) across multiple packages.
  */
-export interface PackageEcosystemMember {
-  readonly scope: UnifiedScope;
-  readonly packageId: string;
-  readonly label: string;
-  readonly role: string;
-  readonly route: string;
-}
-
-export interface PackageEcosystem {
-  readonly id: string;
-  readonly label: string;
-  readonly description: string;
-  readonly members: readonly PackageEcosystemMember[];
-}
-
-/**
- * Ecosystems define multi-package relationships that cross stacks.
- * Each ecosystem has a canonical hub route at `/ecosystems/{id}`.
- */
-export const SITE_ECOSYSTEMS: readonly PackageEcosystem[] = [
+export const SITE_ECOSYSTEMS: readonly Ecosystem[] = [
+  {
+    id: 'reference-data-lookups',
+    label: 'Reference data / lookups',
+    pairingLabel: 'Reference data / lookups',
+    description:
+      'The Angular lookup catalog resolves labels from the same typed reference-data payload that the .NET library validates. The shared SampleApi proves end-to-end integration.',
+    members: [
+      { packageId: 'angular-lookups', role: 'Consumer' },
+      { packageId: 'hexguard-reference-data', role: 'Provider' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-lookups Angular package and HexGuard.ReferenceData .NET library work together through the shared HexGuard.SampleApi.',
+      'Angular code consumes typed lookup catalogs that the .NET library validates and serves. The SampleApi provides live endpoints for end-to-end integration.',
+      'To run the full cross-stack experience, start the API with `pnpm dotnet:start:demo-api` and navigate to the lookups backend demo route.',
+    ],
+  },
   {
     id: 'rfc-9457-problem-details',
     label: 'RFC 9457 Problem Details',
+    pairingLabel: 'Validation / RFC 9457',
     description:
       'End-to-end typed error pipeline: HexGuard.ProblemDetails produces the RFC 9457 payload, HexGuard.ValidationContracts extends it with validation-specific types, and @hexguard/angular-api-errors consumes it on the Angular side.',
     members: [
-      {
-        scope: 'Angular',
-        packageId: 'angular-api-errors',
-        label: '@hexguard/angular-api-errors',
-        role: 'Consumer',
-        route: '/packages/angular-api-errors',
-      },
-      {
-        scope: '.NET',
-        packageId: 'hexguard-problem-details',
-        label: 'HexGuard.ProblemDetails',
-        role: 'Foundation',
-        route: '/dotnet/hexguard-problem-details',
-      },
-      {
-        scope: '.NET',
-        packageId: 'hexguard-validation-contracts',
-        label: 'HexGuard.ValidationContracts',
-        role: 'Validation Extension',
-        route: '/dotnet/hexguard-validation-contracts',
-      },
+      { packageId: 'angular-api-errors', role: 'Consumer' },
+      { packageId: 'hexguard-problem-details', role: 'Foundation' },
+      { packageId: 'hexguard-validation-contracts', role: 'Validation Extension' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-api-errors Angular package consumes RFC 9457 Problem Details payloads that HexGuard.ProblemDetails produces and HexGuard.ValidationContracts extends.',
+      'HexGuard.ProblemDetails provides the core ProblemDetails record and middleware. HexGuard.ValidationContracts adds validation-specific types (ValidationError, FieldPath, ValidationResult) and a Problem Details adapter.',
+      'All three packages share the HexGuard.SampleApi for live demos. Start the API with `pnpm dotnet:start:demo-api` and navigate to any validation demo route.',
     ],
   },
 ];
@@ -299,102 +270,55 @@ export function toUnifiedDotnetEntry(
   };
 }
 
-/**
- * Adapt a CrossStackPair to the unified card interface.
- * Uses the Angular package name and route as the primary identity,
- * with the .NET package as the counterpart.
- */
-function toUnifiedCrossStackEntry(
-  pair: CrossStackPair,
-): UnifiedPackageEntry {
-  return {
-    id: pair.angularId,
-    packageName: pair.angularLabel,
-    scope: 'Cross-stack',
-    status: 'Available',
-    summary: pair.description,
-    detail: null,
-    featureHighlights: [],
-    route: `/cross-stack/${pair.angularId}`,
-    demoCount: 2, // one from each stack
-    counterpartLabel: pair.dotnetLabel,
-    counterpartRoute: `/dotnet/${pair.dotnetId}`,
-    repositoryHref:
-      'https://github.com/HexGuard/hexguard',
-    docsLinks: [],
-    installCommand: null,
-  };
-}
-
-// ── Cross-stack package hub entry ─────────────────────────────────
-
-export interface CrossStackPackageHubEntry {
-  readonly id: string;
-  readonly angularId: string;
-  readonly dotnetId: string;
-  readonly pairingLabel: string;
-  readonly description: string;
-  readonly angularPackage: SitePackageCatalogEntry;
-  readonly dotnetPackage: DotnetSitePackageCatalogEntry;
-  readonly integrationNotes: readonly string[];
-}
-
-let _crossStackHubEntries: readonly CrossStackPackageHubEntry[] | null = null;
-
-function buildCrossStackHubEntry(pair: CrossStackPair): CrossStackPackageHubEntry {
-  const angularPkg = getCurrentPackages().find((p) => p.id === pair.angularId);
-  const dotnetPkg = getDotnetPackages().find((p) => p.id === pair.dotnetId);
-
-  if (!angularPkg || !dotnetPkg) {
-    throw new Error(
-      `Cannot build cross-stack hub entry for pair ${pair.angularId} / ${pair.dotnetId}: missing package data.`,
-    );
-  }
-
-  return {
-    id: pair.angularId,
-    angularId: pair.angularId,
-    dotnetId: pair.dotnetId,
-    pairingLabel: pair.pairingLabel,
-    description: pair.description,
-    angularPackage: angularPkg,
-    dotnetPackage: dotnetPkg,
-    integrationNotes: [
-      `The ${angularPkg.packageName} Angular package and ${dotnetPkg.packageName} .NET library work together through the shared HexGuard.SampleApi.`,
-      `Angular code consumes typed contracts (${pair.pairingLabel}) that the .NET library validates and serves. ` +
-        `The SampleApi provides live endpoints that both stacks use for end-to-end integration testing and demo workflows.`,
-      `To run the full cross-stack experience, start the API with \`pnpm dotnet:start:demo-api\` and navigate to any demo route that supports live backend integration.`,
-    ],
-  };
-}
-
-export function getCrossStackHubEntries(): readonly CrossStackPackageHubEntry[] {
-  if (!_crossStackHubEntries) {
-    _crossStackHubEntries = SITE_CROSS_STACK_PAIRS.map(buildCrossStackHubEntry);
-  }
-  return _crossStackHubEntries;
-}
-
-export function getCrossStackHubEntry(pairId: string): CrossStackPackageHubEntry {
-  const entry = getCrossStackHubEntries().find((e) => e.id === pairId);
-  if (!entry) {
-    throw new Error(`Missing cross-stack hub entry for ${pairId}.`);
-  }
-  return entry;
-}
-
 let _unifiedPackages: readonly UnifiedPackageEntry[] | null = null;
 
 /**
- * Returns the combined list of all packages (Angular, .NET, cross-stack)
+ * Returns the combined list of all packages (Angular, .NET, ecosystem)
  * as unified entries for the site home showcase.
+ *
+ * Ecosystem entries use the ecosystem id prefixed with "eco-" as their
+ * package id to avoid collisions with individual package ids.
  */
 export function getUnifiedPackages(): readonly UnifiedPackageEntry[] {
   if (!_unifiedPackages) {
+    const ecosystems: UnifiedPackageEntry[] = SITE_ECOSYSTEMS.map((eco) => {
+      // Use the first Angular member as the primary identity, or fall back
+      // to the first .NET member.
+      const firstPkg =
+        getCurrentPackages().find((p) => p.id === eco.members[0]?.packageId) ??
+        getDotnetPackages().find((p) => p.id === eco.members[0]?.packageId);
+
+      const npmLabel = firstPkg?.packageName ?? eco.members[0]?.packageId ?? eco.id;
+      const route = `/ecosystems/${eco.id}`;
+      const totalDemos = eco.members.reduce((sum, m) => {
+        const pkg =
+          getCurrentPackages().find((p) => p.id === m.packageId) ??
+          getDotnetPackages().find((p) => p.id === m.packageId);
+        return sum + (pkg?.demoCount ?? 0);
+      }, 0);
+
+      return {
+        id: `eco-${eco.id}`,
+        packageName: npmLabel,
+        scope: 'Cross-stack' as UnifiedScope,
+        status: 'Available',
+        summary: eco.description,
+        detail: null,
+        featureHighlights: [],
+        route,
+        demoCount: totalDemos,
+        counterpartLabel: null,
+        counterpartRoute: null,
+        repositoryHref: 'https://github.com/HexGuard/hexguard',
+        docsLinks: [],
+        installCommand: null,
+      };
+    });
+
     _unifiedPackages = [
       ...getCurrentPackages().map(toUnifiedAngularEntry),
       ...getDotnetPackages().map(toUnifiedDotnetEntry),
-      ...SITE_CROSS_STACK_PAIRS.map(toUnifiedCrossStackEntry),
+      ...ecosystems,
     ];
   }
   return _unifiedPackages;
@@ -526,7 +450,7 @@ export const SITE_METRICS = [
   },
   {
     label: 'Cross-stack pairs',
-    value: String(SITE_CROSS_STACK_PAIRS.length),
+    value: String(SITE_ECOSYSTEMS.length),
   },
   {
     label: 'Stacks covered',

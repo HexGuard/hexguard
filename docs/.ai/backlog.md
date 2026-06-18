@@ -93,6 +93,26 @@
 - [ ] Keep `@hexguard/angular-router-signals` as a proposed signal-based router params, query params, and route data access package.
 - [ ] Keep `HexGuard.Logging` as a proposed .NET structured logging conventions and enrichment helpers package.
 - [ ] Keep `HexGuard.CircuitBreaker` as a proposed .NET circuit breaker pattern helpers for HttpClient resilience.
+- [ ] Keep `@hexguard/angular-crud` as a proposed headless CRUD controller package combining list/detail/edit patterns with async-state, pagination, and caching.
+- [ ] Keep `@hexguard/angular-testing` as a proposed signal testing utilities and component harness helpers package.
+- [ ] Keep `@hexguard/angular-api-client` as a proposed declarative typed API client factory package using fetch with interceptors and retry.
+- [ ] Keep `@hexguard/angular-initializer` as a proposed app initialization orchestration package with progress signals and dependency ordering.
+- [ ] Keep `HexGuard.ApiDefaults` as a proposed zero-config ASP.NET Core API setup package with one-call defaults.
+- [ ] Keep `@hexguard/angular-env` as a proposed typed runtime configuration package with environment-aware loading and signal-based access.
+- [ ] Keep `@hexguard/angular-mock-api` as a proposed declarative API mocking framework for frontend development without backend dependency.
+- [ ] Keep `@hexguard/angular-json-form` as a proposed dynamic form generation package from JSON schemas and data models.
+- [ ] Keep `@hexguard/angular-schematics` as a proposed Angular CLI schematics collection for scaffolding features and components.
+- [ ] Keep `HexGuard.ApiMocks` as a proposed configurable mock API host for .NET development and testing.
+- [ ] Keep `@hexguard/angular-i18n` as a proposed runtime internationalization package with locale switching signals and ICU formatting.
+- [ ] Keep `@hexguard/angular-offline-queue` as a proposed offline mutation queue package for queuing and replaying API actions when offline.
+- [ ] Keep `@hexguard/angular-geolocation` as a proposed geolocation state package with position signals and permission tracking.
+- [ ] Keep `@hexguard/angular-expiration` as a proposed session/state expiry management package with countdown signals and auto-logout.
+- [ ] Keep `HexGuard.PushNotifications + @hexguard/angular-push-notifications` as a proposed cross-stack pair for Web Push notification sending and subscription management.
+- [ ] Keep `@hexguard/angular-auth` as a proposed authentication state management package with token storage, refresh, and route guards.
+- [ ] Keep `@hexguard/angular-error-reporter` as a proposed client-side error capture and reporting package.
+- [ ] Keep `@hexguard/angular-audit-log-viewer` as a proposed audit log browsing UI state package paired with HexGuard.AuditTrail.
+- [ ] Keep `HexGuard.HealthChecks` as a proposed .NET health check conventions package with standard response contracts.
+- [ ] Keep `HexGuard.MultiTenancy` as a proposed .NET multi-tenancy data isolation package with tenant-aware query filters.
 
 ## Later
 

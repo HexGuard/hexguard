@@ -18,6 +18,7 @@ This folder holds the deeper documentation that would otherwise overload the roo
 ### .NET Packages
 
 - [HexGuard.ReferenceData Deep Dive](packages/hexguard-reference-data.md)
+- [HexGuard.ProblemDetails Deep Dive](packages/hexguard-problem-details.md)
 
 ### Workflow
 

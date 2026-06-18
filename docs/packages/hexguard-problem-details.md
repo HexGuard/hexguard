@@ -1,42 +1,90 @@
-# HexGuard.ProblemDetails
+# HexGuard.ProblemDetails Deep Dive
 
-RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses. Pairs with `@hexguard/angular-api-errors` for end-to-end typed error pipelines across stacks.
+This page complements the NuGet-facing README with repo-specific implementation notes, middleware
+configuration guidance, error-handling strategies, and cross-stack integration details.
 
----
+## Purpose
 
-## Feature Matrix
+`HexGuard.ProblemDetails` provides RFC 9457 Problem Details types, builders, and ASP.NET Core
+integration for producing standard, machine-readable HTTP error responses. Every error leaving your
+API can carry the same shape — a `type` URI, a `title`, an HTTP `status`, a human-readable `detail`,
+and typed extension members — whether it came from a validation check, a missing resource, or an
+unhandled exception.
 
-| Feature | Status |
-|---------|--------|
-| RFC 9457 `ProblemDetails` record | ✅ Available |
-| `ProblemDetailsBuilder` (fluent builder) | ✅ Available |
-| `WellKnownProblemTypes` constants | ✅ Available |
-| `ProblemDetailsException` (throw-vs-return) | ✅ Available |
-| `ProblemDetailsMiddleware` (catch-all) | ✅ Available |
-| `ProblemDetailsResultExtensions` (Minimal API) | ✅ Available |
-| `System.Text.Json` serialization (camelCase, null-ignoring) | ✅ Available |
-| FluentValidation integration | 📋 Planned |
+The package is intentionally narrow:
 
----
+- a sealed `ProblemDetails` record matching the RFC 9457 specification
+- a fluent `ProblemDetailsBuilder` for constructing instances without positional-parameter confusion
+- `WellKnownProblemTypes` constants so error types stay consistent across endpoints
+- `ProblemDetailsException` for throw-vs-return middleware patterns
+- `ProblemDetailsMiddleware` that catches exceptions and writes `application/problem+json` responses
+- `ProblemDetailsResultExtensions` for returning Problem Details from Minimal API endpoints
+- `System.Text.Json` serialization configured to camelCase keys and omit null members
+- no dependency beyond `Microsoft.AspNetCore.App` (the shared framework)
 
-## Public API
+## Cross-Stack Pairing
+
+| Layer   | Package                           | Role                                                                             |
+| ------- | --------------------------------- | -------------------------------------------------------------------------------- |
+| .NET    | `HexGuard.ProblemDetails`         | Produces RFC 9457 Problem Details from middleware, exceptions, and Minimal APIs  |
+| .NET    | `HexGuard.ValidationContracts`    | Extends Problem Details with `ValidationResult`, `ValidationError`, `FieldPath`  |
+| Angular | `@hexguard/angular-api-errors`    | Consumes RFC 9457 payloads and maps them to field-level and page-level errors    |
+| Shared  | `HexGuard.SampleApi`              | Exposes Problem Details endpoints at `/api/problem-details/` for live validation |
+
+The `angular-api-errors` Angular package and `HexGuard.ProblemDetails` share the same RFC 9457
+contract, so validation errors produced by middleware on the backend become typed, bindable errors
+in Angular form controls without manual mapping.
+
+## Public API Map
+
+| Type                                | Category     | Role                                                                |
+| ----------------------------------- | ------------ | ------------------------------------------------------------------- |
+| `ProblemDetails`                    | Core         | RFC 9457-compliant error response record                            |
+| `ProblemDetailsBuilder`             | Core         | Fluent builder for constructing `ProblemDetails` instances          |
+| `WellKnownProblemTypes`             | Core         | Standard type URI constants (`ValidationError`, `NotFound`, etc.)   |
+| `ProblemDetailsException`           | Exception    | Exception carrying a `ProblemDetails` payload for throw-vs-return   |
+| `ProblemDetailsMiddleware`          | Middleware   | ASP.NET Core middleware that catches exceptions                     |
+| `ProblemDetailsMiddlewareOptions`   | Middleware   | Options: `CatchAllExceptions`, `IncludeExceptionDetails`            |
+| `ProblemDetailsResultExtensions`    | Extension    | `ToProblemResult()` on `ProblemDetails` for Minimal API endpoints   |
+
+## Core Types
 
 ### `ProblemDetails` record
 
-The core RFC 9457 type:
+A sealed `record` with six optional properties that mirror the RFC 9457 specification:
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `TypeUri` | `string?` | A URI reference identifying the problem type |
-| `Title` | `string?` | Short human-readable summary |
-| `Status` | `int?` | HTTP status code |
-| `Detail` | `string?` | Human-readable explanation |
-| `Instance` | `string?` | URI identifying this occurrence |
-| `Extensions` | `IReadOnlyDictionary<string, object?>?` | Additional extension members |
+| Member       | Type                               | Required | Description                                                |
+| ------------ | ---------------------------------- | -------- | ---------------------------------------------------------- |
+| `TypeUri`    | `string?`                          | No       | URI reference identifying the problem type                 |
+| `Title`      | `string?`                          | No       | Short human-readable summary (stable per type)             |
+| `Status`     | `int?`                             | No       | HTTP status code generated by the origin server            |
+| `Detail`     | `string?`                          | No       | Human-readable explanation for this occurrence             |
+| `Instance`   | `string?`                          | No       | URI identifying this specific occurrence                   |
+| `Extensions` | `IReadOnlyDictionary<string, object?>?` | No   | Additional extension members (validation errors, trace IDs) |
+
+All properties are optional because the builder pattern is the recommended construction path. When
+no `Status` is set and the instance is passed to middleware or `ToProblemResult()`, the status
+defaults to `500`.
+
+The record uses value equality — two instances with the same property values are equal and produce
+the same hash code.
 
 ### `ProblemDetailsBuilder`
 
-Fluent builder for constructing `ProblemDetails`:
+Fluent builder that guards against `null` arguments on string setters and accumulates extension
+members in a mutable dictionary before producing an immutable snapshot via `Build()`.
+
+| Method                           | Throws on null | Notes                                                     |
+| -------------------------------- | -------------- | --------------------------------------------------------- |
+| `WithType(string)`               | `ArgumentNullException` | Accepts `""` (empty string is valid)             |
+| `WithTitle(string)`              | `ArgumentNullException` |                                                        |
+| `WithStatus(int)`                | No             |                                                           |
+| `WithDetail(string)`             | `ArgumentNullException` |                                                        |
+| `WithInstance(string)`           | `ArgumentNullException` |                                                        |
+| `WithExtension(string, object?)` | No (key)      | Overwrites previous value for same key; value may be null |
+
+The `Build()` method creates the `Extensions` dictionary as `ImmutableDictionary` with ordinal
+string comparison, preventing further mutation.
 
 ```csharp
 var pd = new ProblemDetailsBuilder()
@@ -45,80 +93,435 @@ var pd = new ProblemDetailsBuilder()
     .WithStatus(400)
     .WithDetail("The request contains invalid fields.")
     .WithInstance("/api/products")
-    .WithExtension("errors", validationErrors)
+    .WithExtension("traceId", Activity.Current?.Id)
     .Build();
 ```
 
 ### `WellKnownProblemTypes`
 
-Constants for standard type URIs:
-- `AboutBlank` — `about:blank`
-- `ValidationError` — `https://docs.hexguard.dev/problems/validation-error`
-- `NotFound` — `https://docs.hexguard.dev/problems/not-found`
-- `OutOfRange` — `https://docs.hexguard.dev/problems/out-of-range`
-- `BadRequest` — `https://docs.hexguard.dev/problems/bad-request`
-- `InternalServerError` — `https://docs.hexguard.dev/problems/internal-server-error`
+Constants for standard type URIs that keep error types consistent across endpoints:
 
-### `ProblemDetailsException`
+| Constant               | URI                                                                    |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `AboutBlank`           | `about:blank`                                                          |
+| `ValidationError`      | `https://docs.hexguard.dev/problems/validation-error`                  |
+| `NotFound`             | `https://docs.hexguard.dev/problems/not-found`                         |
+| `OutOfRange`           | `https://docs.hexguard.dev/problems/out-of-range`                      |
+| `BadRequest`           | `https://docs.hexguard.dev/problems/bad-request`                       |
+| `InternalServerError`  | `https://docs.hexguard.dev/problems/internal-server-error`             |
 
-An exception carrying a `ProblemDetails` payload, usable with the middleware for throw-vs-return patterns:
+Custom type URIs beyond these constants can use the builder's `WithType()` directly.
 
-```csharp
-throw new ProblemDetailsException(new ProblemDetailsBuilder()
-    .WithType(WellKnownProblemTypes.NotFound)
-    .WithTitle("Resource Not Found")
-    .WithStatus(404)
-    .Build());
-```
+## Error Handling Patterns
 
-### `ProblemDetailsMiddleware`
+The library supports three complementary patterns. Choosing one depends on whether you control the
+endpoint code and whether you prefer throw-vs-return semantics.
 
-ASP.NET Core middleware that catches exceptions and returns RFC 9457 JSON responses:
+### 1. Middleware — catch-all exception handling
+
+Register `ProblemDetailsMiddleware` early in the pipeline to catch unhandled exceptions.
 
 ```csharp
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
 app.UseMiddleware<ProblemDetailsMiddleware>(new ProblemDetailsMiddlewareOptions
 {
-    CatchAllExceptions = true,
-    IncludeExceptionDetails = false,  // set true in dev
+    CatchAllExceptions = true,        // catch every unhandled exception
+    IncludeExceptionDetails = false,   // set true in Development only
 });
+
+app.MapGet("/api/products/{id}", (int id) =>
+{
+    // If this throws, middleware catches it
+    var product = db.Products.Find(id)
+        ?? throw new ProblemDetailsException(new ProblemDetailsBuilder()
+            .WithType(WellKnownProblemTypes.NotFound)
+            .WithTitle("Resource Not Found")
+            .WithStatus(404)
+            .Build());
+
+    return Results.Ok(product);
+});
+
+app.Run();
 ```
 
-### `ProblemDetailsResultExtensions`
+**Middleware behavior by configuration:**
 
-Minimal API `IResult` extension:
+| `CatchAllExceptions` | `IncludeExceptionDetails` | Exception type                | Response                                  |
+| -------------------- | ------------------------- | ----------------------------- | ----------------------------------------- |
+| `true` (default)     | `false` (default)         | `ProblemDetailsException`     | Uses the exception's `Details` payload    |
+| `true`               | `false`                   | Any other `Exception`         | Generic 500 with `"Internal Server Error"` |
+| `true`               | `true`                    | Any other `Exception`         | 500 with exception type and message       |
+| `false`              | any                       | `ProblemDetailsException`     | Uses the exception's `Details` payload    |
+| `false`              | any                       | Any other `Exception`         | Falls through to ASP.NET Core handler     |
+
+> **Important**: Place the middleware **before** exception-generating middleware and endpoints in
+> the pipeline. Register `UseCors`, `UseAuthentication`, and similar infrastructure middleware
+> before `ProblemDetailsMiddleware` so those errors are also caught.
+
+### 2. `ToProblemResult()` — explicit return from Minimal APIs
+
+When you control the endpoint and want to return Problem Details without throwing, use the
+extension method directly:
 
 ```csharp
-app.MapGet("/api/error", () =>
+app.MapGet("/api/products/{id}", (int id) =>
 {
-    return new ProblemDetailsBuilder()
-        .WithType(WellKnownProblemTypes.BadRequest)
-        .WithTitle("Bad Request")
-        .WithStatus(400)
-        .Build()
-        .ToProblemResult();
+    var product = db.Products.Find(id);
+    if (product is null)
+    {
+        return new ProblemDetailsBuilder()
+            .WithType(WellKnownProblemTypes.NotFound)
+            .WithTitle("Resource Not Found")
+            .WithStatus(404)
+            .WithDetail($"Product with ID {id} was not found.")
+            .WithInstance($"/api/products/{id}")
+            .Build()
+            .ToProblemResult();
+    }
+
+    return Results.Ok(product);
 });
 ```
 
----
+This produces the same `application/problem+json` response shape as the middleware, with camelCase
+keys and null members omitted.
 
-## Relationship
+### 3. `ProblemDetailsException` — throw-vs-return from deeper code
 
-- `HexGuard.ValidationContracts` extends Problem Details with validation-specific types (`ValidationResult`, `FieldPath`, etc.) and includes a `ValidationResultProblemDetails` adapter.
-- `@hexguard/angular-api-errors` (Angular) consumes RFC 9457 Problem Details payloads produced by both .NET packages.
-- All three packages share the `HexGuard.SampleApi` for live demos and coordinated releases.
+When business logic or service-layer code needs to signal an error that the middleware should
+convert to a response:
 
----
+```csharp
+public class ProductService
+{
+    public async Task<Product> GetByIdAsync(int id)
+    {
+        var product = await db.Products.FindAsync(id);
 
-## Installation
+        if (product is null)
+        {
+            throw new ProblemDetailsException(new ProblemDetailsBuilder()
+                .WithType(WellKnownProblemTypes.NotFound)
+                .WithTitle("Resource Not Found")
+                .WithStatus(404)
+                .WithDetail($"Product {id} does not exist.")
+                .Build());
+        }
 
-```shell
-dotnet add package HexGuard.ProblemDetails
+        if (!product.IsActive)
+        {
+            throw new ProblemDetailsException(new ProblemDetailsBuilder()
+                .WithType(WellKnownProblemTypes.OutOfRange)
+                .WithTitle("Product Not Available")
+                .WithStatus(410)
+                .WithDetail($"Product {id} has been discontinued.")
+                .Build());
+        }
+
+        return product;
+    }
+}
 ```
 
-Or via the `dotnet` CLI inside the monorepo:
+The middleware catches `ProblemDetailsException` regardless of the `CatchAllExceptions` setting.
 
-```shell
-pnpm dotnet:restore
-pnpm dotnet:build
-pnpm dotnet:test
+## Serialization Behavior
+
+All Problem Details responses use `System.Text.Json` with these settings:
+
+| Setting                 | Value    | Effect                                                |
+| ----------------------- | -------- | ----------------------------------------------------- |
+| `PropertyNamingPolicy`  | `CamelCase` | `TypeUri` → `typeUri`, `StatusCode` → `statusCode` |
+| `DefaultIgnoreCondition` | `WhenWritingNull` | Null properties are omitted from the response   |
+
+```json
+{
+  "typeUri": "https://docs.hexguard.dev/problems/validation-error",
+  "title": "Validation Error",
+  "status": 400,
+  "detail": "The request contains invalid fields.",
+  "instance": "/api/products",
+  "errors": [
+    { "field": "name", "code": "required", "message": "Product name is required." }
+  ]
+}
 ```
+
+Extension members are serialized inline at the top level of the JSON object, following the RFC 9457
+specification. There is no wrapping `"extensions"` envelope.
+
+## Configuration
+
+### Middleware options
+
+```csharp
+// Environment-aware configuration
+app.UseMiddleware<ProblemDetailsMiddleware>(new ProblemDetailsMiddlewareOptions
+{
+    CatchAllExceptions = app.Environment.IsProduction(),
+    IncludeExceptionDetails = app.Environment.IsDevelopment(),
+});
+```
+
+| Option                   | Type   | Default | Description                                            |
+| ------------------------ | ------ | ------- | ------------------------------------------------------ |
+| `CatchAllExceptions`     | `bool` | `true`  | Catches all unhandled exceptions, not just `ProblemDetailsException` |
+| `IncludeExceptionDetails` | `bool` | `false` | Includes exception type and message in the response. Enable only in Development. |
+
+### Pipeline ordering
+
+Register middleware in this order for best results:
+
+```
+CORS / static files
+↓
+Authentication / Authorization
+↓
+ProblemDetailsMiddleware        ← catches errors from all downstream middleware
+↓
+Routing / Endpoints
+```
+
+```csharp
+app.UseCors("DemoFrontends");
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseMiddleware<ProblemDetailsMiddleware>();
+
+app.MapGet("/api/products", ...);
+```
+
+## Extension Members
+
+The `Extensions` dictionary is how RFC 9457 supports additional metadata beyond the standard five
+properties. Common uses:
+
+- **Validation errors**: include a per-field error array under the `"errors"` key
+- **Trace ID**: include the distributed tracing ID for correlation
+- **Request ID**: include a correlation header value
+- **Help links**: include documentation URLs specific to the error
+
+```csharp
+new ProblemDetailsBuilder()
+    .WithType(WellKnownProblemTypes.ValidationError)
+    .WithTitle("Validation Error")
+    .WithStatus(400)
+    .WithExtension("traceId", Activity.Current?.Id)
+    .WithExtension("errors", new[]
+    {
+        new { field = "email", code = "invalid_format", message = "Email is not valid." },
+        new { field = "age", code = "out_of_range", message = "Age must be between 0 and 150." },
+    })
+    .Build();
+```
+
+## Integration with HexGuard.ValidationContracts
+
+`HexGuard.ValidationContracts` provides the validation-specific types; `HexGuard.ProblemDetails`
+provides the RFC 9457 transport. The bridge between them is `ValidationResultProblemDetails`.
+
+### How the pieces fit
+
+```
+Request payload
+      ↓
+Validation logic (manual or FluentValidation)
+      ↓
+ValidationResultBuilder → ValidationResult
+      ↓
+ValidationResultProblemDetails.FromResult()
+      ↓
+Results.Problem() or ToProblemResult()
+      ↓
+application/problem+json response
+      ↓
+@hexguard/angular-api-errors (Angular client)
+```
+
+### Types involved
+
+| Type                                | Library                       | Role                                                              |
+| ----------------------------------- | ----------------------------- | ----------------------------------------------------------------- |
+| `ValidationError`                   | `HexGuard.ValidationContracts` | Single field error: `Field`, `Code`, `Message`                    |
+| `ValidationErrorCode`               | `HexGuard.ValidationContracts` | Constants: `Required`, `InvalidFormat`, `OutOfRange`, etc.        |
+| `ValidationResult`                  | `HexGuard.ValidationContracts` | Aggregated errors with `IsValid`, `FieldErrors`, `ModelErrors`    |
+| `ValidationResultBuilder`           | `HexGuard.ValidationContracts` | Fluent builder for `ValidationResult`                             |
+| `ValidationResultProblemDetails`    | `HexGuard.ValidationContracts` | Adapter that converts `ValidationResult` into Problem Details     |
+| `ProblemDetails` / `ProblemDetailsBuilder` | `HexGuard.ProblemDetails`   | RFC 9457 transport layer                                          |
+
+### End-to-end example
+
+The shared SampleApi demonstrates this pattern in `POST /api/validation-contracts/validate`.
+
+```csharp
+using HexGuard.ValidationContracts;
+
+app.MapPost("/api/products", (ProductPayload? payload) =>
+{
+    var builder = new ValidationResultBuilder();
+
+    if (payload is null)
+    {
+        builder.AddModelError(ValidationErrorCode.Required,
+            "Request body must contain a product payload.");
+    }
+    else
+    {
+        if (string.IsNullOrWhiteSpace(payload.Name))
+        {
+            builder.AddError("name", ValidationErrorCode.Required,
+                "Product name is required.");
+        }
+        else if (payload.Name.Length > 100)
+        {
+            builder.AddError("name", ValidationErrorCode.MaxLength,
+                "Product name must not exceed 100 characters.");
+        }
+
+        if (payload.Price <= 0)
+        {
+            builder.AddError("price", ValidationErrorCode.OutOfRange,
+                "Price must be greater than zero.");
+        }
+    }
+
+    var result = builder.Build();
+
+    if (result.IsValid)
+        return Results.Ok(new { isValid = true });
+
+    // ── Bridge to RFC 9457 ──────────────────────────────────────
+    var problemDetails = ValidationResultProblemDetails.FromResult(
+        result,
+        statusCode: 400,
+        detail: "The request payload failed validation. See the 'errors' extension for details.",
+        instance: "/api/products");
+
+    return Results.Problem(
+        statusCode: problemDetails.Status,
+        title: problemDetails.Title,
+        detail: problemDetails.Detail,
+        instance: problemDetails.Instance,
+        extensions: problemDetails.ToProblemDetailsExtensions());
+});
+```
+
+### What the client receives
+
+The response is a standard `application/problem+json` body with camelCase keys:
+
+```json
+{
+  "type": "about:blank",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "detail": "The request payload failed validation. See the 'errors' extension for details.",
+  "instance": "/api/products",
+  "traceId": "00-abc123...",
+  "errors": [
+    { "field": "name", "code": "Required", "message": "Product name is required." },
+    { "field": "price", "code": "OutOfRange", "message": "Price must be greater than zero." }
+  ]
+}
+```
+
+### How Angular consumes this
+
+The `@hexguard/angular-api-errors` package receives this JSON and maps it into two surfaces:
+
+- **Field-level errors**: `errors` entries with a non-empty `field` are bound to the matching
+  Angular form control by field path, so `{ field: "name", code: "Required", message: "..." }`
+  appears as a validation error on the `name` form control.
+- **Page-level errors**: `errors` entries with an empty `field` (model-level errors), plus the
+  `title`, `detail`, and `traceId`, are surfaced as a page-level error banner.
+
+No manual mapping is needed — the RFC 9457 contract is shared between the .NET and Angular packages.
+
+### FluentValidation integration (optional)
+
+`HexGuard.ValidationContracts` includes an optional `FluentValidationExtensions` class (behind the
+`HEXGUARD_HAS_FLUENTVALIDATION` compile-time flag) that converts FluentValidation results directly:
+
+```csharp
+// Requires: #define HEXGUARD_HAS_FLUENTVALIDATION
+// Requires: FluentValidation NuGet reference in the consuming project
+
+var fluentResult = await validator.ValidateAsync(payload);
+var result = fluentResult.AsValidationResult(traceId: Activity.Current?.Id);
+
+var problemDetails = ValidationResultProblemDetails.FromResult(result, statusCode: 400);
+```
+
+## Demo Endpoints
+
+The shared SampleApi exposes these Problem Details endpoints:
+
+| Endpoint                                    | Pattern          | Description                                                |
+| ------------------------------------------- | ---------------- | ---------------------------------------------------------- |
+| `GET /api/problem-details/validation`       | `ToProblemResult` | Returns a 400 validation error with per-field error list   |
+| `GET /api/problem-details/not-found`        | `ToProblemResult` | Returns a 404 resource-not-found error                     |
+| `GET /api/problem-details/server-error`     | `ProblemDetailsException` | Throws inside middleware, caught by ProblemDetailsMiddleware |
+
+Start the API from the repo root:
+
+```bash
+pnpm dotnet:start:demo-api
+```
+
+Then open `http://127.0.0.1:5074/api/problem-details/validation` to see a live Problem Details
+response.
+
+## SampleApi Source
+
+The shared SampleApi demonstrates the intended library usage pattern:
+
+```csharp
+// Minimal API — explicit return
+group.MapGet("/validation", () =>
+{
+    var pd = new ProblemDetailsBuilder()
+        .WithType(WellKnownProblemTypes.ValidationError)
+        .WithTitle("Validation Error")
+        .WithStatus(400)
+        .WithDetail("The request contains invalid fields.")
+        .WithInstance("/api/products")
+        .WithExtension("errors", new[]
+        {
+            new { field = "name", code = "required", message = "Product name is required." },
+            new { field = "price", code = "out_of_range", message = "Price must be between 0.01 and 100000." },
+        })
+        .Build();
+
+    return pd.ToProblemResult();
+});
+
+// Throw-vs-return with middleware
+group.MapGet("/server-error", () =>
+{
+    throw new ProblemDetailsException(
+        new ProblemDetailsBuilder()
+            .WithType(WellKnownProblemTypes.InternalServerError)
+            .WithTitle("Internal Server Error")
+            .WithStatus(500)
+            .WithDetail("An unexpected error occurred while processing the request.")
+            .Build()
+    );
+});
+```
+
+The full endpoint code lives in
+`dotnet/samples/HexGuard.SampleApi/Packages/HexGuardProblemDetails/`.
+
+## Release Contract
+
+- Version follows SemVer for the public API surface.
+- The `ProblemDetails` record shape, `ProblemDetailsBuilder`, `WellKnownProblemTypes`, and
+  `ProblemDetailsResultExtensions.ToProblemResult()` are stable in `0.x`.
+- `ProblemDetailsMiddlewareOptions` default values are stable across minor versions. New options
+  are additive.
+- `WellKnownProblemTypes` constants may be extended with new well-known types in minor versions.
+- The camelCase serialization policy and null-ignore behavior are stable.

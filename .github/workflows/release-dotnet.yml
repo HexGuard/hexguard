@@ -1,0 +1,187 @@
+name: Release .NET Packages
+
+on:
+  push:
+    tags:
+      - 'dotnet-problemdetails-v*'
+      - 'dotnet-referencedata-v*'
+      - 'dotnet-validationcontracts-v*'
+  workflow_dispatch:
+    inputs:
+      package_id:
+        description: 'NuGet package ID to publish'
+        required: true
+        type: choice
+        options:
+          - HexGuard.ProblemDetails
+          - HexGuard.ReferenceData
+          - HexGuard.ValidationContracts
+      release_tag:
+        description: 'Git tag to attach the GitHub release to when running manually'
+        required: false
+        default: ''
+      create_github_release:
+        description: 'Create a GitHub release for the current tag'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish NuGet package
+    runs-on: ubuntu-latest
+    environment: nuget
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve package identity
+        id: metadata
+        shell: bash
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            TAG_NAME="${GITHUB_REF_NAME}"
+            CREATE_RELEASE="true"
+
+            case "$TAG_NAME" in
+              dotnet-problemdetails-v*)
+                PACKAGE_ID="HexGuard.ProblemDetails"
+                PROJ_DIR="dotnet/src/HexGuard.ProblemDetails"
+                ;;
+              dotnet-referencedata-v*)
+                PACKAGE_ID="HexGuard.ReferenceData"
+                PROJ_DIR="dotnet/src/HexGuard.ReferenceData"
+                ;;
+              dotnet-validationcontracts-v*)
+                PACKAGE_ID="HexGuard.ValidationContracts"
+                PROJ_DIR="dotnet/src/HexGuard.ValidationContracts"
+                ;;
+              *)
+                echo "Unrecognised tag pattern: $TAG_NAME" >&2
+                exit 1
+                ;;
+            esac
+
+            PACKAGE_VERSION="${TAG_NAME#*-v}"
+            PROJECT_FILE="${PROJ_DIR}/${PACKAGE_ID}.csproj"
+
+            if [[ ! -f "$PROJECT_FILE" ]]; then
+              echo "Project file not found: $PROJECT_FILE" >&2
+              exit 1
+            fi
+          else
+            PACKAGE_ID="${{ inputs.package_id }}"
+            TAG_NAME="${{ inputs.release_tag }}"
+            CREATE_RELEASE="${{ inputs.create_github_release }}"
+
+            case "$PACKAGE_ID" in
+              HexGuard.ProblemDetails)
+                PROJ_DIR="dotnet/src/HexGuard.ProblemDetails"
+                ;;
+              HexGuard.ReferenceData)
+                PROJ_DIR="dotnet/src/HexGuard.ReferenceData"
+                ;;
+              HexGuard.ValidationContracts)
+                PROJ_DIR="dotnet/src/HexGuard.ValidationContracts"
+                ;;
+              *)
+                echo "Unknown package_id: $PACKAGE_ID" >&2
+                exit 1
+                ;;
+            esac
+
+            PROJECT_FILE="${PROJ_DIR}/${PACKAGE_ID}.csproj"
+
+            if [[ ! -f "$PROJECT_FILE" ]]; then
+              echo "Project file not found: $PROJECT_FILE" >&2
+              exit 1
+            fi
+
+            PACKAGE_VERSION=$(grep -oP '(?<=<Version>)[^<]+' "$PROJECT_FILE")
+
+            if [[ "$CREATE_RELEASE" == "true" ]]; then
+              if [[ -z "$TAG_NAME" ]]; then
+                echo 'workflow_dispatch releases require a release_tag input when create_github_release is true.' >&2
+                exit 1
+              fi
+
+              PACKAGE_LOWER=$(echo "$PACKAGE_ID" | tr '[:upper:]' '[:lower:]' | tr -d '.')
+              EXPECTED_TAG="dotnet-${PACKAGE_LOWER}-v${PACKAGE_VERSION}"
+              if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
+                echo "release_tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
+                exit 1
+              fi
+            fi
+          fi
+
+          echo "package_id=$PACKAGE_ID" >> "$GITHUB_OUTPUT"
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "create_release=$CREATE_RELEASE" >> "$GITHUB_OUTPUT"
+          echo "proj_dir=$PROJ_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: pnpm dotnet:restore
+
+      - name: Build
+        run: pnpm dotnet:build
+
+      - name: Run tests
+        run: pnpm dotnet:test
+
+      - name: Create artifacts directory
+        run: mkdir -p dotnet/.artifacts
+
+      - name: Pack NuGet package
+        run: |
+          dotnet pack "$PROJ_DIR" --configuration Release --no-build --output dotnet/.artifacts
+        env:
+          PROJ_DIR: ${{ steps.metadata.outputs.proj_dir }}
+
+      - name: Locate nupkg and publish to NuGet.org
+        shell: bash
+        run: |
+          NUPKG_PATH=$(find dotnet/.artifacts -maxdepth 1 -name '*.nupkg' -print -quit)
+          if [[ -z "$NUPKG_PATH" ]]; then
+            echo 'No .nupkg file was produced in dotnet/.artifacts.' >&2
+            exit 1
+          fi
+
+          dotnet nuget push "$NUPKG_PATH" \
+            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json
+
+          echo "nupkg_path=$NUPKG_PATH" >> "$GITHUB_OUTPUT"
+        id: push
+
+      - name: Create GitHub release
+        if: steps.metadata.outputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.metadata.outputs.tag_name }}
+          name: ${{ steps.metadata.outputs.package_id }}@${{ steps.metadata.outputs.package_version }}
+          generate_release_notes: true
+          files: ${{ steps.push.outputs.nupkg_path }}
+
+      - name: Summarize publish
+        shell: bash
+        run: |
+          echo "Published ${{ steps.metadata.outputs.package_id }}@${{ steps.metadata.outputs.package_version }} to NuGet.org." >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "${{ steps.metadata.outputs.create_release }}" == 'true' ]]; then
+            echo "GitHub release tag: ${{ steps.metadata.outputs.tag_name }}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'GitHub release not created by this run.' >> "$GITHUB_STEP_SUMMARY"
+          fi

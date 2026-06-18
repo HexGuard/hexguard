@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { CrossStackPackageHubComponent } from '../../../../shared/components/cross-stack-package-hub/cross-stack-package-hub.component';
-import { getCrossStackHubEntry } from '../../../../site-catalog';
+import { EcosystemHubComponent } from '../../../../shared/components/ecosystem-hub/ecosystem-hub.component';
+import { SITE_ECOSYSTEMS } from '../../../../site-catalog';
 
 @Component({
   standalone: true,
   selector: 'demo-cross-stack-lookups-hub-page',
-  imports: [CrossStackPackageHubComponent],
+  imports: [EcosystemHubComponent],
   template: `
-    <demo-cross-stack-package-hub
-      [entry]="entry"
-      testId="cs-hub-angular-lookups"
+    <demo-ecosystem-hub
+      [ecosystem]="ecosystem"
+      testId="ecosystem-reference-data-lookups"
     />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrossStackLookupsHubPageComponent {
-  readonly entry = getCrossStackHubEntry('angular-lookups');
+  readonly ecosystem = SITE_ECOSYSTEMS.find((e) => e.id === 'reference-data-lookups')!;
 }

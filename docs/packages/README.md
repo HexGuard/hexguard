@@ -916,6 +916,166 @@ Status: Proposed
 
 Would provide circuit breaker pattern helpers for HttpClient resilience with standard break policies, half-open state handling, health-check integration, and consistent telemetry on top of Microsoft.Extensions.Http.Resilience.
 
+<a id="package-angular-crud"></a>
+
+### `@hexguard/angular-crud`
+
+Status: Proposed
+
+Would provide headless CRUD controllers (injectCrudList, injectCrudDetail, injectCrudEdit) that combine async-state, pagination, caching, error handling, and dirty tracking into one cohesive pattern for standard list/detail/edit feature flows.
+
+<a id="package-angular-testing"></a>
+
+### `@hexguard/angular-testing`
+
+Status: Proposed
+
+Would provide signal testing utilities (fakeSignal, testEffect, advanceEffects, spyOnSignal), component harness helpers, and mock factories for testing signal-based Angular components and services.
+
+<a id="package-angular-api-client"></a>
+
+### `@hexguard/angular-api-client`
+
+Status: Proposed
+
+Would provide a declarative typed API client factory using fetch with configurable interceptors, retry, caching, error normalization, and response parsing — reducing Angular HTTP service boilerplate.
+
+<a id="package-angular-initializer"></a>
+
+### `@hexguard/angular-initializer`
+
+Status: Proposed
+
+Would standardize app initialization orchestration with signals for init progress, failure recovery, dependency ordering between initializers, and SSR-safe patterns as a typed replacement for APP_INITIALIZER.
+
+<a id="package-dotnet-api-defaults"></a>
+
+### `HexGuard.ApiDefaults`
+
+Status: Proposed
+
+Would provide zero-config ASP.NET Core API setup with one AddHexGuardApiDefaults() call that configures JSON serialization, CORS, Problem Details, OpenAPI defaults, rate limiting policies, and health check endpoints.
+
+<a id="package-angular-env"></a>
+
+### `@hexguard/angular-env`
+
+Status: Proposed
+
+Would standardize typed runtime configuration for Angular apps with environment-aware loading, config schema validation, secret injection markers, and signal-based access to runtime config values.
+
+<a id="package-angular-mock-api"></a>
+
+### `@hexguard/angular-mock-api`
+
+Status: Proposed
+
+Would provide a declarative API mocking framework for Angular development with per-endpoint mock handlers, configurable delays, error simulation, stateful CRUD backends, and scenario switching — no backend required to build UIs.
+
+<a id="package-angular-json-form"></a>
+
+### `@hexguard/angular-json-form`
+
+Status: Proposed
+
+Would generate typed Reactive Forms dynamically from JSON schemas or data models with automatic control creation, validation rule extraction, and nested object/array support for rapid CRUD form setup.
+
+<a id="package-angular-schematics"></a>
+
+### `@hexguard/angular-schematics`
+
+Status: Proposed
+
+Would provide Angular CLI schematics for scaffolding features, pages, components, services, and data-access layers following consistent HexGuard conventions — reducing setup time for new features.
+
+<a id="package-dotnet-api-mocks"></a>
+
+### `HexGuard.ApiMocks`
+
+Status: Proposed
+
+Would provide a configurable mock API host for .NET that serves predefined mock data sets with configurable delays, error injection, and stateful endpoints for integration testing and frontend development without real backends.
+
+<a id="package-angular-i18n"></a>
+
+### `@hexguard/angular-i18n`
+
+Status: Proposed
+
+Would provide runtime internationalization utilities with locale switching signals, ICU message formatting helpers, translation loading state, and locale-aware number/date/currency formatting for dynamic locale switching in Angular apps.
+
+<a id="package-angular-offline-queue"></a>
+
+### `@hexguard/angular-offline-queue`
+
+Status: Proposed
+
+Would standardize offline mutation queueing for Angular apps — queue POST/PUT/DELETE actions when offline, replay in order when connectivity returns, with conflict detection and retry composing with network-status and async-state.
+
+<a id="package-angular-geolocation"></a>
+
+### `@hexguard/angular-geolocation`
+
+Status: Proposed
+
+Would standardize geolocation state management with signal-based position tracking, permission state, watchPosition cleanup, and reverse geocoding helpers for location-aware Angular applications.
+
+<a id="package-angular-expiration"></a>
+
+### `@hexguard/angular-expiration`
+
+Status: Proposed
+
+Would standardize session and state expiry management with countdown signals, warning thresholds, auto-logout or auto-refresh callbacks, and configurable idle-warning UX for financial, healthcare, and admin applications.
+
+<a id="package-push-notifications-cross-stack"></a>
+
+### `HexGuard.PushNotifications + @hexguard/angular-push-notifications`
+
+Status: Proposed
+
+Would pair backend Web Push notification sending with VAPID key management and subscription storage, paired with Angular push notification permission state, registration, and click-handling signals for progressive web apps.
+
+<a id="package-angular-auth"></a>
+
+### `@hexguard/angular-auth`
+
+Status: Proposed
+
+Would standardize authentication state management with login/logout flows, token storage and refresh, user profile signals, route guards, and HTTP interceptor patterns for Angular apps.
+
+<a id="package-angular-error-reporter"></a>
+
+### `@hexguard/angular-error-reporter`
+
+Status: Proposed
+
+Would standardize client-side error capture and reporting with automatic unhandled-error, HTTP-error, and async-error collection, consistent formatting, and configurable delivery to a backend endpoint or logging service.
+
+<a id="package-angular-audit-log-viewer"></a>
+
+### `@hexguard/angular-audit-log-viewer`
+
+Status: Proposed
+
+Would provide audit log browsing UI state with searchable/filterable event list, entity drill-down, date-range and actor filtering, and event-detail expansion — pairing with HexGuard.AuditTrail on the .NET side.
+
+<a id="package-dotnet-health-checks"></a>
+
+### `HexGuard.HealthChecks`
+
+Status: Proposed
+
+Would provide standardized health check response contracts, health report JSON shapes, endpoint registration helpers, and integration conventions on top of ASP.NET Core built-in health checks.
+
+<a id="package-dotnet-multi-tenancy"></a>
+
+### `HexGuard.MultiTenancy`
+
+Status: Proposed
+
+Would standardize multi-tenancy data isolation with tenant ID resolution strategies, per-tenant connection strings, tenant-aware EF Core query filters, and tenant-context middleware for .NET APIs.
+
 ## Broader Prioritization Matrix
 
 Scores use `1-5` where higher adoption means broader repeated demand, higher complexity means a

@@ -1683,6 +1683,246 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-circuit-breaker',
     showOnSiteHome: false,
   },
+  {
+    id: 'angular-crud',
+    anchorId: 'package-angular-crud',
+    packageName: '@hexguard/angular-crud',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide headless CRUD controllers (injectCrudList, injectCrudDetail, injectCrudEdit) that combine async-state, pagination, caching, error handling, and dirty tracking into one cohesive pattern for standard list/detail/edit feature flows.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-crud',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-testing',
+    anchorId: 'package-angular-testing',
+    packageName: '@hexguard/angular-testing',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide signal testing utilities (fakeSignal, testEffect, advanceEffects, spyOnSignal), component harness helpers, and mock factories for testing signal-based Angular components and services.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-testing',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-api-client',
+    anchorId: 'package-angular-api-client',
+    packageName: '@hexguard/angular-api-client',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a declarative typed API client factory using fetch with configurable interceptors, retry, caching, error normalization, and response parsing — reducing Angular HTTP service boilerplate.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-api-client',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-initializer',
+    anchorId: 'package-angular-initializer',
+    packageName: '@hexguard/angular-initializer',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize app initialization orchestration with signals for init progress, failure recovery, dependency ordering between initializers, and SSR-safe patterns as a typed replacement for APP_INITIALIZER.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-initializer',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-api-defaults',
+    anchorId: 'package-dotnet-api-defaults',
+    packageName: 'HexGuard.ApiDefaults',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide zero-config ASP.NET Core API setup with one AddHexGuardApiDefaults() call that configures JSON serialization, CORS, Problem Details, OpenAPI defaults, rate limiting policies, and health check endpoints.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-api-defaults',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-env',
+    anchorId: 'package-angular-env',
+    packageName: '@hexguard/angular-env',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize typed runtime configuration for Angular apps with environment-aware loading, config schema validation, secret injection markers, and signal-based access to runtime config values.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-env',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-mock-api',
+    anchorId: 'package-angular-mock-api',
+    packageName: '@hexguard/angular-mock-api',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a declarative API mocking framework for Angular development with per-endpoint mock handlers, configurable delays, error simulation, stateful CRUD backends, and scenario switching — no backend required to build UIs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-mock-api',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-json-form',
+    anchorId: 'package-angular-json-form',
+    packageName: '@hexguard/angular-json-form',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would generate typed Reactive Forms dynamically from JSON schemas or data models with automatic control creation, validation rule extraction, and nested object/array support for rapid CRUD form setup.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-json-form',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-schematics',
+    anchorId: 'package-angular-schematics',
+    packageName: '@hexguard/angular-schematics',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide Angular CLI schematics for scaffolding features, pages, components, services, and data-access layers following consistent HexGuard conventions — reducing setup time for new features.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-schematics',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-api-mocks',
+    anchorId: 'package-dotnet-api-mocks',
+    packageName: 'HexGuard.ApiMocks',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide a configurable mock API host for .NET that serves predefined mock data sets with configurable delays, error injection, and stateful endpoints for integration testing and frontend development without real backends.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-api-mocks',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-i18n',
+    anchorId: 'package-angular-i18n',
+    packageName: '@hexguard/angular-i18n',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide runtime internationalization utilities with locale switching signals, ICU message formatting helpers, translation loading state, and locale-aware number/date/currency formatting for dynamic locale switching in Angular apps.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-i18n',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-offline-queue',
+    anchorId: 'package-angular-offline-queue',
+    packageName: '@hexguard/angular-offline-queue',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize offline mutation queueing for Angular apps — queue POST/PUT/DELETE actions when offline, replay in order when connectivity returns, with conflict detection and retry composing with network-status and async-state.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-offline-queue',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-geolocation',
+    anchorId: 'package-angular-geolocation',
+    packageName: '@hexguard/angular-geolocation',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize geolocation state management with signal-based position tracking, permission state, watchPosition cleanup, and reverse geocoding helpers for location-aware Angular applications.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-geolocation',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-expiration',
+    anchorId: 'package-angular-expiration',
+    packageName: '@hexguard/angular-expiration',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize session and state expiry management with countdown signals, warning thresholds, auto-logout or auto-refresh callbacks, and configurable idle-warning UX for financial, healthcare, and admin applications.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-expiration',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'push-notifications-cross-stack',
+    anchorId: 'package-push-notifications-cross-stack',
+    packageName: 'HexGuard.PushNotifications + @hexguard/angular-push-notifications',
+    scope: 'Cross-stack',
+    status: 'Proposed',
+    summary:
+      'Would pair backend Web Push notification sending with VAPID key management and subscription storage, paired with Angular push notification permission state, registration, and click-handling signals for progressive web apps.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-push-notifications-cross-stack',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-auth',
+    anchorId: 'package-angular-auth',
+    packageName: '@hexguard/angular-auth',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize authentication state management with login/logout flows, token storage and refresh, user profile signals, route guards, and HTTP interceptor patterns for Angular apps.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-auth',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-error-reporter',
+    anchorId: 'package-angular-error-reporter',
+    packageName: '@hexguard/angular-error-reporter',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would standardize client-side error capture and reporting with automatic unhandled-error, HTTP-error, and async-error collection, consistent formatting, and configurable delivery to a backend endpoint or logging service.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-error-reporter',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-audit-log-viewer',
+    anchorId: 'package-angular-audit-log-viewer',
+    packageName: '@hexguard/angular-audit-log-viewer',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide audit log browsing UI state with searchable/filterable event list, entity drill-down, date-range and actor filtering, and event-detail expansion — pairing with HexGuard.AuditTrail on the .NET side.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-audit-log-viewer',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-health-checks',
+    anchorId: 'package-dotnet-health-checks',
+    packageName: 'HexGuard.HealthChecks',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide standardized health check response contracts, health report JSON shapes, endpoint registration helpers, and integration conventions on top of ASP.NET Core built-in health checks.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-health-checks',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-multi-tenancy',
+    anchorId: 'package-dotnet-multi-tenancy',
+    packageName: 'HexGuard.MultiTenancy',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would standardize multi-tenancy data isolation with tenant ID resolution strategies, per-tenant connection strings, tenant-aware EF Core query filters, and tenant-context middleware for .NET APIs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-multi-tenancy',
+    showOnSiteHome: false,
+  },
 ] as const satisfies readonly GeneratedRoadmapPackageEntry[];
 
 export function getGeneratedCurrentPackage(packageId: string): GeneratedCurrentPackageCatalogEntry {

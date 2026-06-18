@@ -42,4 +42,17 @@ public sealed record ValidationResult(
             e.Field.StartsWith(fieldPrefix, StringComparison.Ordinal) &&
             e.Field[fieldPrefix.Length] == '.')
         .ToList();
+
+    /// <summary>
+    /// Converts this validation result into a <see cref="ValidationResultProblemDetails"/>
+    /// for use in RFC 9457 Problem Details responses.
+    /// </summary>
+    /// <param name="statusCode">HTTP status code. Defaults to <c>400</c>.</param>
+    /// <param name="detail">Human-readable explanation specific to this occurrence.</param>
+    /// <param name="instance">URI identifying the specific occurrence of the problem.</param>
+    public ValidationResultProblemDetails ToProblemDetails(
+        int statusCode = 400,
+        string? detail = null,
+        string? instance = null) =>
+        ValidationResultProblemDetails.FromResult(this, statusCode, detail, instance);
 }
