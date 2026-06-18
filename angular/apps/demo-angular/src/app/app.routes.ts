@@ -85,6 +85,7 @@ import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cro
 import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
 import { DotnetProblemDetailsHubPageComponent } from './features/dotnet/pages/dotnet-problem-details-hub-page/dotnet-problem-details-hub-page.component';
 import { DotnetFeatureFlagsHubPageComponent } from './features/dotnet/pages/dotnet-feature-flags-hub-page/dotnet-feature-flags-hub-page.component';
+import { DotnetBulkOperationsHubPageComponent } from './features/dotnet/pages/dotnet-bulk-operations-hub-page/dotnet-bulk-operations-hub-page.component';
 import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem-details-demo-page/problem-details-demo-page.component';
 import { FeatureFlagsDemoPageComponent } from './features/dotnet/pages/feature-flags-demo-page/feature-flags-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
@@ -119,6 +120,11 @@ export const routes: Routes = [
     path: 'dotnet/hexguard-feature-flags',
     component: DotnetFeatureFlagsHubPageComponent,
     title: 'HexGuard.FeatureFlags Package Hub',
+  },
+  {
+    path: 'dotnet/hexguard-bulk-operations',
+    component: DotnetBulkOperationsHubPageComponent,
+    title: 'HexGuard.BulkOperations Package Hub',
   },
   {
     path: 'dotnet/problem-details',

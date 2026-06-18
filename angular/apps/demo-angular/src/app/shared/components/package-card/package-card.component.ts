@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import type { UnifiedPackageEntry } from '../../../site-catalog';
+import { STACK_REGISTRY } from '../../../site-catalog';
 
 @Component({
   selector: 'demo-package-card',
@@ -19,6 +20,9 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
         </div>
         <span
           class="site-status-badge package-card__status"
+          [class.site-status-badge--released]="entry().status === 'Released'"
+          [class.site-status-badge--in-progress]="entry().status === 'In Progress'"
+          [class.site-status-badge--muted]="entry().status === 'Planned' || entry().status === 'Proposed'"
           [attr.data-testid]="'package-card-status-' + entry().id"
           >{{ entry().status }}</span
         >
@@ -38,15 +42,20 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
         </ul>
       }
 
-      @if (entry().counterpartLabel; as counterpart) {
-        <p class="package-card__counterpart">
-          <span class="demo-hint-pill package-card__counterpart-pill">
-            {{ counterpartScope() }} counterpart: {{ counterpart }}
-          </span>
-          @if (entry().counterpartRoute; as route) {
-            <a class="demo-link-chip" [routerLink]="route">Open {{ counterpartScope() }} hub</a>
+      @if (entry().dependencies.length > 0) {
+        <div class="package-card__dependencies">
+          @for (dep of entry().dependencies; track dep.packageId) {
+            <p class="package-card__dependency">
+              <span class="demo-hint-pill package-card__dep-pill">
+                {{ dep.relationship }}
+              </span>
+              <span class="package-card__dep-label">{{ dep.label }}</span>
+              @if (dep.route) {
+                <a class="demo-link-chip" [routerLink]="dep.route">Open hub</a>
+              }
+            </p>
           }
-        </p>
+        </div>
       }
 
       <div class="package-card__footer">
@@ -58,7 +67,7 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
 
         <div class="demo-link-row package-card__links">
           <a class="package-card__action" [routerLink]="entry().route"
-            >Open {{ entry().scope }} hub</a
+            >Open {{ scopeLabel() }} hub</a
           >
 
           @if (entry().repositoryHref) {
@@ -92,25 +101,6 @@ export class PackageCardComponent {
 
   protected readonly scopeLabel = () => {
     const scope = this.entry().scope;
-    switch (scope) {
-      case 'Angular':
-        return 'Angular';
-      case '.NET':
-        return 'NuGet';
-      case 'Cross-stack':
-        return 'Cross-stack';
-    }
-  };
-
-  protected readonly counterpartScope = () => {
-    const scope = this.entry().scope;
-    switch (scope) {
-      case 'Angular':
-        return '.NET';
-      case '.NET':
-        return 'Angular';
-      case 'Cross-stack':
-        return '.NET';
-    }
+    return STACK_REGISTRY[scope]?.packageLabel ?? scope;
   };
 }

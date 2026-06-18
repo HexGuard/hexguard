@@ -276,6 +276,58 @@ pre {
 }
 
 .demo-tab-bar,
+/* ── Status badges (global) ─────────────────── */
+
+.site-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  max-inline-size: 100%;
+  padding: 0.4rem 0.78rem;
+  border: 1px solid var(--color-accent-border-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(20, 101, 111, 0.12);
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.site-status-badge::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.site-status-badge--muted {
+  border-color: var(--color-border-strong);
+  background: rgba(23, 33, 43, 0.06);
+  color: var(--color-muted);
+}
+
+.site-status-badge--in-progress {
+  border-color: #d9774b;
+  background: rgba(217, 119, 75, 0.12);
+  color: #a35832;
+}
+
+.site-status-badge--released {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+}
+
 .demo-link-row {
   display: flex;
   gap: 0.7rem;
@@ -324,6 +376,7 @@ pre {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.35rem;
     min-height: 2rem;
     max-inline-size: 100%;
     padding: 0.4rem 0.78rem;
@@ -340,10 +393,33 @@ pre {
     text-transform: uppercase;
   }
 
+  .site-status-badge::before {
+    content: '';
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
   .site-status-badge--muted {
     border-color: var(--color-border-strong);
     background: rgba(23, 33, 43, 0.06);
     color: var(--color-muted);
+  }
+
+  .site-status-badge--in-progress {
+    border-color: #d9774b;
+    background: rgba(217, 119, 75, 0.12);
+    color: #a35832;
+  }
+
+  .site-status-badge--released {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+    color: #166534;
   }
 }
 

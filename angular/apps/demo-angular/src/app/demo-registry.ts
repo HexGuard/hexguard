@@ -931,6 +931,8 @@ export const DEMO_PACKAGES = [
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
   ANGULAR_FEATURE_FLAGS_PACKAGE,
+  ANGULAR_SELECTION_STATE_PACKAGE,
+  ANGULAR_BULK_OPERATIONS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 
@@ -1075,6 +1077,34 @@ export const DOTNET_FEATURE_FLAGS_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_BULK_OPERATIONS_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-bulk-operations',
+  packageId: 'hexguard-bulk-operations',
+  route: '/dotnet/bulk-operations',
+  label: 'BulkOperations Library',
+  title: 'HexGuard.BulkOperations — HTTP 207 Multi-Status bulk action contracts',
+  description:
+    'Demonstrates the BulkOperationResultBuilder and Results.Extensions.BulkOperation() via the shared SampleApi. Proves 207 Multi-Status responses for partial success and per-item error reporting.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.BulkOperations',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-bulk-operations.md',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-bulk-operations/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   id: 'hexguard-problem-details',
   packageId: 'hexguard-problem-details',
@@ -1157,6 +1187,33 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
       },
     ],
     demos: [DOTNET_FEATURE_FLAGS_HOME],
+  },
+  {
+    id: 'hexguard-bulk-operations',
+    route: '/dotnet/hexguard-bulk-operations',
+    label: 'HexGuard BulkOperations',
+    title: 'HexGuard.BulkOperations',
+    nugetId: 'HexGuard.BulkOperations',
+    description:
+      'Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for HTTP 207 Multi-Status partial-success scenarios. Pairs with @hexguard/angular-bulk-operations.',
+    summary:
+      'BulkOperationResultBuilder, Results.Extensions.BulkOperation(), and RFC 9457 Problem Details integration for bulk action endpoints.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.BulkOperations',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_BULK_OPERATIONS_HOME],
   },
   {
     id: 'hexguard-validation-contracts',

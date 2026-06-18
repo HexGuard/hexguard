@@ -8,7 +8,7 @@ export interface GeneratedCatalogLink {
 export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
-  readonly status: 'Available' | 'In Progress';
+  readonly status: 'Released' | 'In Progress';
   readonly scope: 'Angular' | '.NET';
   readonly summary: string;
   readonly detail: string;
@@ -35,7 +35,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-url-state',
     packageName: '@hexguard/angular-url-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary: 'Type-safe, signal-first synchronization between Angular state and URL query params.',
     detail:
@@ -75,7 +75,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-query-form',
     packageName: '@hexguard/angular-query-form',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.',
@@ -116,7 +116,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-async-state',
     packageName: '@hexguard/angular-async-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.',
@@ -157,7 +157,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-lookups',
     packageName: '@hexguard/angular-lookups',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.',
@@ -198,7 +198,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-optimistic-state',
     packageName: '@hexguard/angular-optimistic-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.',
@@ -239,7 +239,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-api-errors',
     packageName: '@hexguard/angular-api-errors',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state.',
@@ -280,7 +280,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-permissions',
     packageName: '@hexguard/angular-permissions',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless capability and role evaluation for Angular routes, templates, and feature code.',
@@ -319,9 +319,175 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-feature-flags',
+    packageName: '@hexguard/angular-feature-flags',
+    status: 'Released',
+    scope: 'Angular',
+    summary:
+      'Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.',
+    detail:
+      'Designed for Angular apps that need typed feature-flag evaluation with a pure evaluator, DI facade, *hexguardFeatureFlag directive, route guards, and optional backend sync via conditional 304.',
+    installCommand: 'pnpm add @hexguard/angular-feature-flags',
+    featureHighlights: [
+      'Pure evaluator with 8 targeting rule types (always, never, rollout, userIn/NotIn, groupIn/NotIn, attributeMatch/NotMatch).',
+      'Angular DI facade, structural directive, and route guards over the same evaluator.',
+      'Optional sync service for backend catalog fetching with context-hash-based 304 handling.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need typed feature-flag evaluation with route gating, template visibility, and imperative checks.',
+      'Screens that consume a backend feature-flag sync endpoint and want conditional 304 updates.',
+      'Teams that need feature-flag behavior to stay inspectable through docs-grade demos and a shared evaluator.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless feature-flag companion for Angular routes, templates, and feature code.',
+      'It focuses on one shared evaluator across directive, guards, and imperative API, with an optional sync service and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-feature-flags',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-feature-flags.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-selection-state',
+    packageName: '@hexguard/angular-selection-state',
+    status: 'Released',
+    scope: 'Angular',
+    summary: 'Headless keyed selection state for Angular tables, lists, and bulk-action flows.',
+    detail:
+      'Provides injectSelectionState() with multi/single-selection, toggle, select-all, clear, replace, and derived signals for count, isEmpty, isAllSelected, and canAct. Composes with @hexguard/angular-bulk-operations.',
+    installCommand: 'pnpm add @hexguard/angular-selection-state',
+    featureHighlights: [
+      'Signal-based injectSelectionState() with multi and single-selection modes.',
+      'toggleAll and selectAll helpers for visible-row selection patterns.',
+      'Derived signals: count, isEmpty, isAllSelected, first, canAct.',
+    ],
+    bestFitScenarios: [
+      'Tables and lists that need checkbox selection with select-all header behavior.',
+      'Bulk-action flows that compose selection state with operation execution.',
+      'Angular apps that want explicit selection state without pulling in a UI library.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides the foundation for keyed selection that @hexguard/angular-bulk-operations consumes directly.',
+      'It focuses on headless selection state with derived signals, explicit operations, and docs-grade demos showing table selection patterns.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-selection-state',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-selection-state/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-selection-state.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-bulk-operations',
+    packageName: '@hexguard/angular-bulk-operations',
+    status: 'Released',
+    scope: 'Angular',
+    summary:
+      'Bulk-action service and facade for Angular with HTTP 207 partial-success support, progress tracking, and selection-state composition.',
+    detail:
+      'Provides BulkOperationService with result/summary/inProgress signals, injectBulkOperation() facade with multi-operation token support, and selectedItemsToBulkRequest() composition with @hexguard/angular-selection-state. Designed for bulk delete, approve, and status-change flows with per-item error display and retry.',
+    installCommand: 'pnpm add @hexguard/angular-bulk-operations @hexguard/angular-selection-state',
+    featureHighlights: [
+      'Generic BulkOperationService with typed request/response contracts and in-flight deduplication.',
+      'Signals for results, summary (total/succeeded/failed), inProgress, and error.',
+      'selectedItemsToBulkRequest() helper for direct composition with selection-state.',
+      'retryFailed() for re-executing only failed items from the last operation.',
+      'Multi-operation support via unique InjectionToken per provideBulkOperation() call.',
+    ],
+    bestFitScenarios: [
+      'Admin panels with bulk delete, approve, or status-change actions.',
+      'Screens that need per-item error display and retry-failed-item flows.',
+      'Angular apps using @hexguard/angular-selection-state for table selection.',
+    ],
+    statusNoteParagraphs: [
+      'This package composes with @hexguard/angular-selection-state for the select → act → display-results flow.',
+      'It focuses on explicit execution lifecycle, partial-success (HTTP 207) handling, and docs-grade demos showing delete and approve scenarios.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-bulk-operations',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-bulk-operations/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-bulk-operations.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'hexguard-bulk-operations',
+    packageName: 'HexGuard.BulkOperations',
+    status: 'Released',
+    scope: '.NET',
+    summary:
+      'Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for HTTP 207 Multi-Status partial-success scenarios.',
+    detail:
+      'Provides BulkOperationRequest/Response/Result types, BulkOperationResultBuilder for aggregating per-item results, and IResult extensions for Minimal API endpoints. Pairs with @hexguard/angular-bulk-operations.',
+    installCommand: 'dotnet add package HexGuard.BulkOperations',
+    featureHighlights: [
+      'Typed bulk operation contracts with generic item and result types.',
+      'BulkOperationResultBuilder for automatic aggregate status and count computation.',
+      'Results.Extensions.BulkOperation() IResult factory with HTTP 207 Multi-Status support.',
+      'ToProblemDetails() extension for RFC 9457 error payloads on partial/full failure.',
+    ],
+    bestFitScenarios: [
+      'ASP.NET Core APIs that need to serve bulk operation endpoints.',
+      'Backend services that need partial-success reporting with per-item errors.',
+      'Cross-stack pairing with @hexguard/angular-bulk-operations for end-to-end typed bulk actions.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with @hexguard/angular-bulk-operations through a shared contract shape and HTTP 207 Multi-Status transport.',
+      'It focuses on deterministic result aggregation, Minimal API integration, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.BulkOperations',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.BulkOperations/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-bulk-operations.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary: 'Typed reference-data catalog contracts and validation helpers for .NET applications.',
     detail:
@@ -361,7 +527,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-debounce',
     packageName: '@hexguard/angular-debounce',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.',
@@ -402,7 +568,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.',
@@ -444,7 +610,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-error-boundary',
     packageName: '@hexguard/angular-error-boundary',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.',
@@ -487,7 +653,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-problem-details',
     packageName: 'HexGuard.ProblemDetails',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary:
       'RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.',
@@ -734,7 +900,7 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Targets lightweight user preferences such as dashboard defaults, hidden columns, and saved views.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-preferences',
-    showOnSiteHome: false,
+    showOnSiteHome: true,
   },
   {
     id: 'angular-tenant-context',
@@ -770,7 +936,7 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Designed to collapse duplicate HTTP work across concurrent consumers while keeping cancellation and cache semantics explicit.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-http-dedupe',
-    showOnSiteHome: false,
+    showOnSiteHome: true,
   },
   {
     id: 'angular-http-resource-debug',

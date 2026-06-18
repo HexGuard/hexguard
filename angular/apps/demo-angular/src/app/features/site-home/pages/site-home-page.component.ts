@@ -10,6 +10,8 @@ import {
   SITE_ROADMAP_PACKAGES,
   SITE_SHARED_API_CONSUMERS,
   SECTION_COLLAPSED_LIMIT,
+  STACK_REGISTRY,
+  STACK_ORDER,
   type UnifiedScope,
 } from '../../../site-catalog';
 
@@ -196,11 +198,13 @@ export class SiteHomePageComponent {
   readonly showAll = signal(false);
   readonly activeFilter = signal<UnifiedScope | 'All'>('All');
 
+  /** Filter options built from the stack registry. */
   readonly filterOptions: readonly { scope: UnifiedScope | 'All'; label: string }[] = [
     { scope: 'All', label: 'All' },
-    { scope: 'Angular', label: 'Angular' },
-    { scope: '.NET', label: '.NET' },
-    { scope: 'Cross-stack', label: 'Cross-stack' },
+    ...STACK_ORDER.map((id) => ({
+      scope: id as UnifiedScope,
+      label: STACK_REGISTRY[id].label,
+    })),
   ];
 
   /** Full filtered list without the collapsed limit applied. */

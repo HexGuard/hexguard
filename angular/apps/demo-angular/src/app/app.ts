@@ -3,8 +3,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import {
   getUnifiedPackages,
-  SITE_CURRENT_PACKAGES,
   SITE_HEADER_LINKS,
+  STACK_REGISTRY,
+  STACK_ORDER,
   type UnifiedPackageEntry,
   type UnifiedScope,
 } from './site-catalog';
@@ -28,6 +29,9 @@ export class App {
   readonly pageTitle = 'Open-source guardrails for Angular and .NET teams.';
   readonly packageMenuOpen = signal(false);
 
+  /** Stack definitions for header navigation links. */
+  readonly stackNav = STACK_ORDER.map((id) => STACK_REGISTRY[id]);
+
   /** Menu sections grouped by scope. */
   readonly menuSections: PackageMenuSection[] = buildMenuSections();
 
@@ -40,19 +44,15 @@ export class App {
   }
 }
 
-/** Build the three menu sections (Angular / .NET / Cross-stack). */
+/** Build menu sections from the stack registry. */
 function buildMenuSections(): PackageMenuSection[] {
   const all = getUnifiedPackages();
-  const scopes: { scope: UnifiedScope; label: string }[] = [
-    { scope: 'Angular', label: 'Angular packages' },
-    { scope: '.NET', label: '.NET packages' },
-    { scope: 'Cross-stack', label: 'Cross-stack pairs' },
-  ];
-  return scopes
-    .map(({ scope, label }) => ({
-      scope,
-      label,
-      packages: all.filter((p) => p.scope === scope),
-    }))
-    .filter((s) => s.packages.length > 0);
+  return STACK_ORDER.map((id) => {
+    const def = STACK_REGISTRY[id];
+    return {
+      scope: id,
+      label: `${def.label} packages`,
+      packages: all.filter((p) => p.scope === id),
+    };
+  }).filter((s) => s.packages.length > 0);
 }

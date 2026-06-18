@@ -12,18 +12,46 @@ import {
   type OrderItem,
 } from '../../data/bulk-operations-demo.data';
 
+import { ANGULAR_BULK_OPERATIONS_DEMO } from '../../../../demo-registry';
+import { DemoInspectorPanelComponent } from '../../../../shared/components/demo-inspector-panel.component';
+import { DemoPageLayoutComponent } from '../../../../shared/components/demo-page-layout.component';
+import { DemoStatusStripComponent } from '../../../../shared/components/demo-status-strip.component';
+import { formatSnapshot } from '../../../../shared/formatting';
+
 const DELETE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkDelete });
 const APPROVE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkApprove });
 
 @Component({
   selector: 'app-bulk-operations-demo-page',
   standalone: true,
+  imports: [DemoInspectorPanelComponent, DemoPageLayoutComponent, DemoStatusStripComponent],
   providers: [DELETE_OP.providers, APPROVE_OP.providers],
   template: `
-    <h1>Bulk Operations Demo</h1>
+    <demo-page-layout testId="bulk-operations-demo-page">
+      <article demoIntro class="demo-card demo-card--stack">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Angular Bulk Operations</p>
+            <h2>Bulk action lifecycle with partial-success handling.</h2>
+          </div>
+        </div>
+        <p class="demo-card__summary">
+          <code>injectBulkOperation()</code> provides progress tracking, per-item results, and retry
+          for bulk delete and approve flows. Select items and run an action to see the lifecycle.
+        </p>
 
-    <div class="toolbar">
-      <p data-testid="selection-count">Selected: {{ selection.count() }} item(s)</p>
+        <demo-status-strip
+          testId="bulk-operations-demo-status"
+          summary="Bulk operations with selection, execute, partial-failure display, and retry."
+          currentUrl="Bulk Operations Demo"
+          summaryTestId="bulk-operations-demo-summary"
+          urlTestId="bulk-operations-demo-url"
+        />
+      </article>
+
+      <article demoPrimary class="demo-card demo-card--stack">
+        <div class="toolbar">
+          <p data-testid="selection-count">Selected: <strong>{{ selection.count() }}</strong> item(s)</p>
       <div class="actions">
         <button
           [disabled]="!selection.canAct() || deleteOp.inProgress()"
@@ -130,8 +158,21 @@ const APPROVE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkAp
           </div>
         }
       </div>
-    }
-  `,
+    }      </article>
+
+      <demo-inspector-panel
+        demoAside
+        panelTestId="bulk-operations-inspector-panel"
+        eyebrow="Reference"
+        title="Bulk operations snapshot"
+        summary="Current operation state and results."
+        [snapshotJson]="snapshotJson()"
+        [snippetId]="demo.codeSample.snippetId"
+        [docsLinks]="demo.docsLinks"
+        snapshotTestId="bulk-operations-snapshot-json"
+        codeTestId="bulk-operations-code-sample"
+      />
+    </demo-page-layout>  `,
   styles: [
     `
       table {
@@ -171,6 +212,8 @@ const APPROVE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkAp
   ],
 })
 export class BulkOperationsDemoPageComponent {
+  readonly demo = ANGULAR_BULK_OPERATIONS_DEMO;
+
   readonly items = signal(getMockOrders());
   readonly visibleKeys = computed(() => this.items().map((item: OrderItem) => item.id));
   readonly itemsMap = computed<Record<string, OrderItem>>(() => {
@@ -187,6 +230,19 @@ export class BulkOperationsDemoPageComponent {
 
   readonly deleteOp = injectBulkOperation(DELETE_OP.token);
   readonly approveOp = injectBulkOperation(APPROVE_OP.token);
+
+  readonly deleteSummary = computed(() => this.deleteOp.summary());
+  readonly approveSummary = computed(() => this.approveOp.summary());
+
+  readonly snapshotJson = computed(() =>
+    formatSnapshot({
+      deleteInProgress: this.deleteOp.inProgress(),
+      approveInProgress: this.approveOp.inProgress(),
+      deleteSummary: this.deleteOp.summary(),
+      approveSummary: this.approveOp.summary(),
+      selectedCount: this.selection.count(),
+    }),
+  );
 
   clearAll(): void {
     this.selection.clear();

@@ -1,0 +1,69 @@
+<h1>Bulk Operations Demo</h1>
+
+<div class="toolbar">
+  <p data-testid="selection-count">Selected: {{ selection.count() }} item(s)</p>
+  <div class="actions">
+    <button [disabled]="!selection.canAct() || deleteOp.inProgress()" (click)="runDelete()" data-testid="bulk-delete-btn">
+      @if (deleteOp.inProgress()) { Deleting... } @else { Delete Selected }
+    </button>
+    <button [disabled]="!selection.canAct() || approveOp.inProgress()" (click)="runApprove()" data-testid="bulk-approve-btn">
+      @if (approveOp.inProgress()) { Approving... } @else { Approve Selected }
+    </button>
+    <button (click)="clearAll()" data-testid="clear-btn">Clear</button>
+  </div>
+</div>
+
+<table data-testid="orders-table">
+  <thead>
+    <tr>
+      <th><input type="checkbox" [checked]="allSelected()" (change)="selection.toggleAll(visibleKeys())" data-testid="select-all-checkbox" /></th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of items(); track item.id) {
+      <tr data-testid="order-row">
+        <td><input type="checkbox" [checked]="selection.selected().has(item.id)" (change)="selection.toggle(item.id)" [attr.data-testid]="'checkbox-' + item.id" /></td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.status }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (deleteOp.summary() || approveOp.summary()) {
+  <div class="results" data-testid="results-panel">
+    <h3>Last Operation Results</h3>
+    @if (deleteOp.summary(); as summary) {
+      <div>
+        <p>Delete: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
+        <ul>
+          @for (r of deleteOp.results(); track r.item.id) {
+            <li [attr.data-testid]="'result-' + r.item.id">
+              {{ r.item.id }}: {{ r.succeeded ? '\u2713' : '\u2717' }}
+              @if (r.error) { <span class="error">({{ r.error.code }}: {{ r.error.message }})</span> }
+            </li>
+          }
+        </ul>
+        @if (summary.failed > 0) { <button (click)="retryDelete()" data-testid="retry-delete-btn">Retry Failed</button> }
+      </div>
+    }
+    @if (approveOp.summary(); as summary) {
+      <div>
+        <p>Approve: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
+        <ul>
+          @for (r of approveOp.results(); track r.item.id) {
+            <li [attr.data-testid]="'approve-result-' + r.item.id">
+              {{ r.item.id }}: {{ r.succeeded ? '\u2713' : '\u2717' }}
+              @if (r.error) { <span class="error">({{ r.error.code }}: {{ r.error.message }})</span> }
+            </li>
+          }
+        </ul>
+        @if (summary.failed > 0) { <button (click)="retryApprove()" data-testid="retry-approve-btn">Retry Failed</button> }
+      </div>
+    }
+  </div>
+}

@@ -9,27 +9,15 @@
       </a>
 
       <nav class="site-links" aria-label="Repository links">
-        <a
-          class="site-links__link site-links__link--stack"
-          routerLink="/angular"
-          routerLinkActive="site-links__link--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Angular</a
-        >
-        <a
-          class="site-links__link site-links__link--stack"
-          routerLink="/dotnet"
-          routerLinkActive="site-links__link--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >.NET</a
-        >
-        <a
-          class="site-links__link site-links__link--stack"
-          routerLink="/cross-stack"
-          routerLinkActive="site-links__link--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Cross-stack</a
-        >
+        @for (stack of stackNav; track stack.id) {
+          <a
+            class="site-links__link site-links__link--stack"
+            [routerLink]="stack.hubRoute"
+            routerLinkActive="site-links__link--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ stack.label }}</a
+          >
+        }
         @for (link of headerLinks; track link.href) {
           <a class="site-links__link" [href]="link.href" target="_blank" rel="noreferrer">
             {{ link.label }}

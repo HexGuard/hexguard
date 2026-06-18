@@ -51,7 +51,12 @@
   font-size: 0.82rem;
 }
 
-.package-card__counterpart {
+.package-card__dependencies {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.package-card__dependency {
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -59,10 +64,16 @@
   margin: 0;
 }
 
-.package-card__counterpart-pill {
-  background: rgba(217, 119, 75, 0.1);
-  border-color: rgba(217, 119, 75, 0.3);
-  color: #a35832;
+.package-card__dep-pill {
+  background: rgba(13, 73, 82, 0.08);
+  border-color: rgba(13, 73, 82, 0.24);
+  color: var(--color-accent-strong);
+  font-size: 0.68rem;
+}
+
+.package-card__dep-label {
+  color: var(--color-muted);
+  font-size: 0.82rem;
 }
 
 .package-card__footer {

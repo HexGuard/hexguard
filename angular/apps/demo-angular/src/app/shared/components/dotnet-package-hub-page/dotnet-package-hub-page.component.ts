@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
@@ -25,15 +25,20 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
 
         <p class="demo-card__summary">{{ entry().summary }}</p>
 
-        @if (entry().angularCounterpartLabel; as counterpart) {
-          <p class="dotnet-pkg-hub__counterpart">
-            <span class="demo-hint-pill dotnet-pkg-hub__counterpart-pill">
-              Angular counterpart: {{ counterpart }}
-            </span>
-            @if (entry().angularCounterpartId; as route) {
-              <a class="demo-link-chip" [routerLink]="'/packages/' + route"> Open Angular hub </a>
+        @if (entry().dependencies.length > 0) {
+          <div class="dotnet-pkg-hub__dependencies">
+            @for (dep of entry().dependencies; track dep.packageId) {
+              <p class="dotnet-pkg-hub__dependency">
+                <span class="demo-hint-pill dotnet-pkg-hub__dep-pill">
+                  {{ dep.relationship }}
+                </span>
+                <span class="dotnet-pkg-hub__dep-label">{{ dep.label }}</span>
+                @if (dep.route) {
+                  <a class="demo-link-chip" [routerLink]="dep.route">Open hub</a>
+                }
+              </p>
             }
-          </p>
+          </div>
         }
 
         <div class="demo-link-row dotnet-pkg-hub__overview-links">
@@ -125,17 +130,26 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
         flex-wrap: wrap;
         min-width: 0;
       }
-      .dotnet-pkg-hub__counterpart {
+      .dotnet-pkg-hub__dependencies {
+        display: grid;
+        gap: 0.35rem;
+      }
+      .dotnet-pkg-hub__dependency {
         display: flex;
         gap: 0.6rem;
         align-items: center;
         flex-wrap: wrap;
         margin: 0;
       }
-      .dotnet-pkg-hub__counterpart-pill {
-        background: rgba(217, 119, 75, 0.1);
-        border-color: rgba(217, 119, 75, 0.3);
-        color: #a35832;
+      .dotnet-pkg-hub__dep-pill {
+        background: rgba(13, 73, 82, 0.08);
+        border-color: rgba(13, 73, 82, 0.24);
+        color: var(--color-accent-strong);
+        font-size: 0.68rem;
+      }
+      .dotnet-pkg-hub__dep-label {
+        color: var(--color-muted);
+        font-size: 0.82rem;
       }
       .dotnet-pkg-hub__demos {
         display: grid;

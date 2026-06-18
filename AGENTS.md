@@ -46,6 +46,7 @@ These invocable prompts and custom agents cover the HexGuard package lifecycle:
 ## References
 
 - see `.github/instructions/library-development.instructions.md` for publishable package development rules
+- see `.github/instructions/new-package-workflow.instructions.md` for the full 8-phase checklist when creating a new package (scaffold → release gate)
 - see `docs/packages/angular-url-state.md` for library behavior notes
 - see `docs/demo/README.md` for demo and Playwright workflow
 - see `docs/.ai/README.md` and `docs/.ai/backlog.md` for the AI operating model

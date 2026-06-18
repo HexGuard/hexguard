@@ -1,0 +1,44 @@
+<h1>Selection State Demo</h1>
+<p data-testid="selection-count">
+  Selected: {{ selection.count() }} item(s)
+  @if (selection.canAct()) {
+    <button (click)="selection.clear()" data-testid="clear-selection-btn">Clear</button>
+  }
+</p>
+
+<table data-testid="selection-table">
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" [checked]="allSelected()" (change)="selection.toggleAll(visibleKeys())" data-testid="select-all-checkbox" />
+      </th>
+      <th>ID</th>
+      <th>Label</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of items; track item.id) {
+      <tr data-testid="selection-row">
+        <td>
+          <input type="checkbox" [checked]="selection.selected().has(item.id)" (change)="selection.toggle(item.id)" [attr.data-testid]="'checkbox-' + item.id" />
+        </td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.label }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (selection.canAct()) {
+  <div class="bulk-bar" data-testid="bulk-action-bar">
+    <span data-testid="bulk-bar-count">{{ selection.count() }} selected</span>
+    <button (click)="performBulkAction()" data-testid="bulk-action-btn">Perform Action on {{ selection.count() }} item(s)</button>
+  </div>
+}
+
+@if (lastActionResult(); as actionResult) {
+  <div class="results" data-testid="selection-action-result">
+    <p>Applied to: <strong>{{ actionResult }}</strong></p>
+    <button (click)="clearActionResult()" data-testid="clear-result-btn">Dismiss</button>
+  </div>
+}

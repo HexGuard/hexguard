@@ -168,6 +168,26 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
   },
+  {
+    id: 'angular-selection-state/demo',
+    title: 'Selection state demo component source',
+    description:
+      'Generated from the real Selection State demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
+  },
+  {
+    id: 'angular-bulk-operations/demo',
+    title: 'Bulk operations demo component source',
+    description:
+      'Generated from the real Bulk Operations demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color, #ccc);
+  text-align: left;
+}
+
+.bulk-bar {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #eef;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.results {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+}

@@ -16,14 +16,91 @@ export interface SiteLink {
   readonly href: string;
 }
 
+// ── Stack registry ─────────────────────────────────────────────────
+
+/**
+ * Supported stack identifiers. Add new stacks here — the rest of the
+ * demo site adapts automatically via the registry below.
+ */
+export type StackId = 'angular' | 'dotnet' | 'cross-stack';
+
+/**
+ * Metadata for a supported stack. The registry is the single source of
+ * truth for display labels, route prefixes, and hub page content.
+ */
+export interface StackDefinition {
+  readonly id: StackId;
+  /** Human-readable label, e.g. "Angular", ".NET", "Cross-stack". */
+  readonly label: string;
+  /** Package-display label, e.g. "Angular", "NuGet", "Cross-stack". */
+  readonly packageLabel: string;
+  /** URL route prefix for individual package hubs, e.g. "/packages", "/dotnet". */
+  readonly routePrefix: string;
+  /** URL route for the stack overview hub page. */
+  readonly hubRoute: string;
+  /** Short hero description for the stack overview hub page. */
+  readonly description: string;
+}
+
+export const STACK_REGISTRY: Record<StackId, StackDefinition> = {
+  angular: {
+    id: 'angular',
+    label: 'Angular',
+    packageLabel: 'Angular',
+    routePrefix: '/packages',
+    hubRoute: '/angular',
+    description:
+      'Angular guardrail libraries with live demos and Playwright-backed coverage.',
+  },
+  dotnet: {
+    id: 'dotnet',
+    label: '.NET',
+    packageLabel: 'NuGet',
+    routePrefix: '/dotnet',
+    hubRoute: '/dotnet',
+    description:
+      '.NET guardrail libraries and a shared demo API, all demonstrated through the HexGuard.SampleApi.',
+  },
+  'cross-stack': {
+    id: 'cross-stack',
+    label: 'Cross-stack',
+    packageLabel: 'Cross-stack',
+    routePrefix: '/ecosystems',
+    hubRoute: '/cross-stack',
+    description:
+      'Packages that share domain concepts, a shared API, or complementary contracts across stacks.',
+  },
+};
+
+/**
+ * Ordered list of stacks for menu/navigation rendering.
+ * Excludes special stacks (like cross-stack) where appropriate at call-site.
+ */
+export const STACK_ORDER: readonly StackId[] = ['angular', 'dotnet', 'cross-stack'];
+
+/** Scope identifier used by the unified package card system. */
+export type UnifiedScope = StackId;
+
+// ── Dependencies ───────────────────────────────────────────────────
+
+/**
+ * A link from one package to another package it depends on or pairs with.
+ * Dependencies can span stacks (Angular↔.NET) or stay within one stack.
+ */
+export interface PackageDependency {
+  readonly packageId: string;
+  readonly label: string;
+  readonly stack: StackId;
+  readonly relationship: string;
+  readonly route: string;
+}
+
 export interface SitePackageCatalogEntry extends GeneratedCurrentPackageCatalogEntry {
   readonly route: string;
   readonly demoCount: number;
   readonly demoPackage: DemoPackageEntry;
-  /** ID of the .NET counterpart package, if any. */
-  readonly dotnetCounterpartId: string | null;
-  /** Display label for the .NET counterpart, if any. */
-  readonly dotnetCounterpartLabel: string | null;
+  /** Other packages this one depends on or pairs with. */
+  readonly dependencies: readonly PackageDependency[];
 }
 
 export interface DotnetSitePackageCatalogEntry {
@@ -35,10 +112,8 @@ export interface DotnetSitePackageCatalogEntry {
   readonly route: string;
   readonly demoCount: number;
   readonly dotnetPackage: DotnetPackageEntry;
-  /** ID of the Angular counterpart package, if any. */
-  readonly angularCounterpartId: string | null;
-  /** Display label for the Angular counterpart, if any. */
-  readonly angularCounterpartLabel: string | null;
+  /** Other packages this one depends on or pairs with. */
+  readonly dependencies: readonly PackageDependency[];
 }
 
 /**
@@ -63,9 +138,6 @@ export interface Ecosystem {
   readonly integrationNotes: readonly string[];
 }
 
-/** Scope identifier used by the unified package card system. */
-export type UnifiedScope = 'Angular' | '.NET' | 'Cross-stack';
-
 /**
  * Unified package entry for rendering any package (Angular, .NET, or
  * cross-stack) through a single card component.
@@ -82,10 +154,8 @@ export interface UnifiedPackageEntry {
   readonly featureHighlights: readonly string[];
   readonly route: string;
   readonly demoCount: number;
-  /** Display label for the counterpart package in the other stack, if any. */
-  readonly counterpartLabel: string | null;
-  /** Router link to the counterpart package hub, if any. */
-  readonly counterpartRoute: string | null;
+  /** Other packages this one depends on or pairs with. */
+  readonly dependencies: readonly PackageDependency[];
   readonly repositoryHref: string;
   readonly docsLinks: readonly { label: string; href: string }[];
   readonly installCommand: string | null;
@@ -139,9 +209,6 @@ export const SITE_PRIMARY_ACTIONS = [
 
 /** Number of cards to show in a collapsed section before the expand toggle. */
 export const SECTION_COLLAPSED_LIMIT = 6;
-
-/** Number of cross-stack pair cards to show before the expand toggle. */
-export const CROSS_STACK_COLLAPSED_LIMIT = 3;
 
 // ── Package ecosystems ─────────────────────────────────────────────
 
@@ -203,6 +270,22 @@ export const SITE_ECOSYSTEMS: readonly Ecosystem[] = [
       'To run the full cross-stack experience, start the API with `pnpm dotnet:start:demo-api` and navigate to the feature-flag demo routes.',
     ],
   },
+  {
+    id: 'bulk-operations',
+    label: 'Bulk operations',
+    pairingLabel: 'Bulk operations',
+    description:
+      'The Angular bulk-operations service and facade share the same contract shape as the .NET BulkOperations library. Both use HTTP 207 Multi-Status for partial-success reporting with per-item error details.',
+    members: [
+      { packageId: 'angular-bulk-operations', role: 'Consumer' },
+      { packageId: 'hexguard-bulk-operations', role: 'Provider' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-bulk-operations Angular package and HexGuard.BulkOperations .NET library share identical contract shapes (BulkOperationRequest, BulkOperationResponse, BulkOperationResult, BulkOperationError).',
+      'The .NET library provides the BulkOperationResultBuilder and IResult extensions. The Angular library consumes the same payloads through the BulkOperationService.',
+      'The shared SampleApi exposes demo endpoints at /api/bulk-operations/delete, /approve, and /update-status for end-to-end integration testing.',
+    ],
+  },
 ];
 
 /**
@@ -219,39 +302,135 @@ export const SITE_SHARED_API_CONSUMERS: readonly {
   { angularId: 'angular-feature-flags', angularLabel: '@hexguard/angular-feature-flags' },
 ];
 
-/** Map from Angular package id to .NET counterpart id. */
-const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string | null> = {
-  'angular-lookups': 'hexguard-reference-data',
-  'angular-api-errors': 'hexguard-validation-contracts',
-  'angular-feature-flags': 'hexguard-feature-flags',
-};
+// ── Package dependency map ─────────────────────────────────────────
 
-/** Map from .NET package id to Angular counterpart id. */
-const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
-  'hexguard-reference-data': 'angular-lookups',
-  'hexguard-validation-contracts': 'angular-api-errors',
-  'hexguard-feature-flags': 'angular-feature-flags',
+/**
+ * Cross-stack and intra-stack dependency pairings. Maps package IDs to
+ * their dependencies. Each dependency includes the target package info
+ * and a human-readable relationship label.
+ */
+const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
+  'angular-lookups': [
+    {
+      packageId: 'hexguard-reference-data',
+      label: 'HexGuard.ReferenceData',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-reference-data',
+    },
+  ],
+  'angular-api-errors': [
+    {
+      packageId: 'hexguard-validation-contracts',
+      label: 'HexGuard.ValidationContracts',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-validation-contracts',
+    },
+    {
+      packageId: 'hexguard-problem-details',
+      label: 'HexGuard.ProblemDetails',
+      stack: 'dotnet',
+      relationship: 'Foundation library',
+      route: '/dotnet/hexguard-problem-details',
+    },
+  ],
+  'angular-feature-flags': [
+    {
+      packageId: 'hexguard-feature-flags',
+      label: 'HexGuard.FeatureFlags',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-feature-flags',
+    },
+  ],
+  'angular-bulk-operations': [
+    {
+      packageId: 'hexguard-bulk-operations',
+      label: 'HexGuard.BulkOperations',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-bulk-operations',
+    },
+  ],
+  'hexguard-reference-data': [
+    {
+      packageId: 'angular-lookups',
+      label: '@hexguard/angular-lookups',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-lookups',
+    },
+  ],
+  'hexguard-validation-contracts': [
+    {
+      packageId: 'angular-api-errors',
+      label: '@hexguard/angular-api-errors',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-api-errors',
+    },
+    {
+      packageId: 'hexguard-problem-details',
+      label: 'HexGuard.ProblemDetails',
+      stack: 'dotnet',
+      relationship: 'Foundation library',
+      route: '/dotnet/hexguard-problem-details',
+    },
+  ],
+  'hexguard-feature-flags': [
+    {
+      packageId: 'angular-feature-flags',
+      label: '@hexguard/angular-feature-flags',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-feature-flags',
+    },
+  ],
+  'hexguard-bulk-operations': [
+    {
+      packageId: 'angular-bulk-operations',
+      label: '@hexguard/angular-bulk-operations',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-bulk-operations',
+    },
+  ],
+  'hexguard-problem-details': [
+    {
+      packageId: 'angular-api-errors',
+      label: '@hexguard/angular-api-errors',
+      stack: 'angular',
+      relationship: 'Consumer library',
+      route: '/packages/angular-api-errors',
+    },
+    {
+      packageId: 'hexguard-validation-contracts',
+      label: 'HexGuard.ValidationContracts',
+      stack: 'dotnet',
+      relationship: 'Validation extension',
+      route: '/dotnet/hexguard-validation-contracts',
+    },
+  ],
 };
 
 // ── Unified package adapters ───────────────────────────────────────
 
 /**
  * Adapt an Angular SitePackageCatalogEntry to the unified card interface.
- * Cross-stack counterpart info is baked into the entry's dotnet fields.
  */
 export function toUnifiedAngularEntry(entry: SitePackageCatalogEntry): UnifiedPackageEntry {
   return {
     id: entry.id,
     packageName: entry.packageName,
-    scope: 'Angular',
+    scope: 'angular',
     status: entry.status,
     summary: entry.summary,
     detail: entry.detail,
     featureHighlights: entry.featureHighlights,
     route: entry.route,
     demoCount: entry.demoCount,
-    counterpartLabel: entry.dotnetCounterpartLabel,
-    counterpartRoute: entry.dotnetCounterpartId ? `/dotnet/${entry.dotnetCounterpartId}` : null,
+    dependencies: entry.dependencies,
     repositoryHref: entry.repositoryHref,
     docsLinks: entry.docsLinks,
     installCommand: entry.installCommand,
@@ -266,15 +445,14 @@ export function toUnifiedDotnetEntry(entry: DotnetSitePackageCatalogEntry): Unif
   return {
     id: entry.id,
     packageName: entry.packageName,
-    scope: '.NET',
+    scope: 'dotnet',
     status: entry.status,
     summary: entry.summary,
     detail: null,
     featureHighlights: [],
     route: entry.route,
     demoCount: entry.demoCount,
-    counterpartLabel: entry.angularCounterpartLabel,
-    counterpartRoute: entry.angularCounterpartId ? `/packages/${entry.angularCounterpartId}` : null,
+    dependencies: entry.dependencies,
     repositoryHref: entry.dotnetPackage.docsLinks[0]?.href ?? '',
     docsLinks: entry.dotnetPackage.docsLinks,
     installCommand: `dotnet add package ${entry.nugetId}`,
@@ -311,15 +489,14 @@ export function getUnifiedPackages(): readonly UnifiedPackageEntry[] {
       return {
         id: `eco-${eco.id}`,
         packageName: npmLabel,
-        scope: 'Cross-stack' as UnifiedScope,
-        status: 'Available',
+        scope: 'cross-stack' as UnifiedScope,
+        status: 'Released',
         summary: eco.description,
         detail: null,
         featureHighlights: [],
         route,
         demoCount: totalDemos,
-        counterpartLabel: null,
-        counterpartRoute: null,
+        dependencies: [],
         repositoryHref: 'https://github.com/HexGuard/hexguard',
         docsLinks: [],
         installCommand: null,
@@ -362,18 +539,12 @@ function buildCurrentPackages(): readonly SitePackageCatalogEntry[] {
         throw new Error(`Missing demo package for site catalog entry ${packageEntry.id}.`);
       }
 
-      const dotnetCounterpartId = ANGULAR_TO_DOTNET_COUNTERPART[packageEntry.id] ?? null;
-      const dotnetCounterpart = dotnetCounterpartId
-        ? DOTNET_PACKAGES.find((p) => p.id === dotnetCounterpartId)
-        : null;
-
       return {
         ...packageEntry,
         route: demoPackage.route,
         demoCount: demoPackage.demos.length,
         demoPackage,
-        dotnetCounterpartId,
-        dotnetCounterpartLabel: dotnetCounterpart?.nugetId ?? null,
+        dependencies: PACKAGE_DEPENDENCIES[packageEntry.id] ?? [],
       };
     },
   );
@@ -410,11 +581,6 @@ export function getDotnetSitePackage(packageId: string): DotnetSitePackageCatalo
 
 function buildDotnetPackages(): readonly DotnetSitePackageCatalogEntry[] {
   return DOTNET_PACKAGES.map((dotnetPackage) => {
-    const angularCounterpartId = DOTNET_TO_ANGULAR_COUNTERPART[dotnetPackage.id] ?? null;
-    const angularCounterpart = angularCounterpartId
-      ? GENERATED_CURRENT_PACKAGES.find((p) => p.id === angularCounterpartId)
-      : null;
-
     return {
       id: dotnetPackage.id,
       packageName: dotnetPackage.nugetId,
@@ -424,8 +590,7 @@ function buildDotnetPackages(): readonly DotnetSitePackageCatalogEntry[] {
       route: dotnetPackage.route,
       demoCount: dotnetPackage.demos.length,
       dotnetPackage,
-      angularCounterpartId,
-      angularCounterpartLabel: angularCounterpart?.packageName ?? null,
+      dependencies: PACKAGE_DEPENDENCIES[dotnetPackage.id] ?? [],
     };
   });
 }
@@ -465,6 +630,6 @@ export const SITE_METRICS = [
   },
   {
     label: 'Stacks covered',
-    value: '3',
+    value: String(Object.keys(STACK_REGISTRY).length),
   },
 ] as const satisfies readonly SiteMetric[];
