@@ -1,0 +1,89 @@
+<demo-page-layout testId="feature-flag-toggles-page">
+  <demo-navigation-strip demoNavigation [demo]="demo" testId="feature-flags-toggles-nav" />
+
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-eyebrow">Feature flag evaluation</div>
+    <h2>Persona-driven flag toggles with per-flag override controls</h2>
+    <p class="demo-card__summary">
+      A persona selector drives the evaluation context for all flags.
+      Each flag card shows the resolved state, variant, targeting rules, and
+      provides a manual override toggle to bypass evaluation.
+    </p>
+
+    <div class="persona-selector">
+      <label for="persona-select">Evaluation persona:</label>
+      <select
+        id="persona-select"
+        data-testid="persona-selector"
+        [ngModel]="session.personaId()"
+        (ngModelChange)="updatePersona($event)">
+        @for (persona of personas; track persona.id) {
+          <option [value]="persona.id">{{ persona.label }}</option>
+        }
+      </select>
+      <span class="persona-summary">{{ session.persona().summary }}</span>
+    </div>
+
+    <demo-status-strip
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+      summaryTestId="feature-flags-toggles-summary"
+      urlTestId="feature-flags-toggles-url"
+      testId="feature-flags-toggles-status" />
+  </article>
+
+  <section demoPrimary data-testid="feature-flag-toggles-page">
+    <div class="flags-list">
+      @for (flagResult of flagResults(); track flagResult.key) {
+        <article
+          class="demo-card flag-card"
+          data-testid="flag-card"
+          [attr.data-flag-key]="flagResult.key"
+          [class.flag-disabled]="!flagResult.result.enabled">
+          <div class="flag-header">
+            <strong>{{ flagResult.key }}</strong>
+            <span class="flag-badge" [class.badge-enabled]="flagResult.result.enabled"
+                  [class.badge-disabled]="!flagResult.result.enabled">
+              {{ flagResult.result.enabled ? 'ON' : 'OFF' }}
+            </span>
+            @if (flagResult.override !== null) {
+              <span class="override-badge">Overridden</span>
+            }
+          </div>
+          <div class="flag-meta">
+            Variant: <code>{{ flagResult.result.variant }}</code>
+            &nbsp;|&nbsp; Rules: {{ flagResult.flag.targetingRules.length }}
+          </div>
+          @if (flagResult.flag.metadata?.['description']; as desc) {
+            <div class="flag-desc">{{ desc }}</div>
+          }
+          <button
+            class="override-btn"
+            data-testid="override-btn"
+            (click)="toggleOverride(flagResult.key)">
+            {{ flagResult.override === null ? 'Override ON' :
+               flagResult.override === true ? 'Override OFF' : 'Clear override' }}
+          </button>
+
+          @if (flagResult.result.enabled) {
+            <div class="directive-demo" data-testid="directive-demo">
+              <ng-container *hexguardFeatureFlag="flagResult.key; context: session.context(); variant: flagResult.flag.variant">
+                <span class="directive-indicator">✓ Rendered via *hexguardFeatureFlag</span>
+              </ng-container>
+            </div>
+          }
+        </article>
+      }
+    </div>
+  </section>
+
+  <aside demoAside>
+    <demo-inspector-panel
+      [title]="demo.title"
+      [snapshotJson]="snapshotJson()"
+      [snippetId]="demo.codeSample.snippetId"
+      panelTestId="feature-flags-toggles-inspector"
+      snapshotTestId="feature-flags-toggles-snapshot"
+      codeTestId="feature-flags-toggles-code" />
+  </aside>
+</demo-page-layout>

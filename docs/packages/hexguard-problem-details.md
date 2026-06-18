@@ -333,9 +333,7 @@ Validation logic (manual or FluentValidation)
       ↓
 ValidationResultBuilder → ValidationResult
       ↓
-ValidationResultProblemDetails.FromResult()
-      ↓
-Results.Problem() or ToProblemResult()
+ValidationResult.ToProblemResult()    ← one call, returns IResult
       ↓
 application/problem+json response
       ↓
@@ -351,6 +349,7 @@ application/problem+json response
 | `ValidationResult`                  | `HexGuard.ValidationContracts` | Aggregated errors with `IsValid`, `FieldErrors`, `ModelErrors`    |
 | `ValidationResultBuilder`           | `HexGuard.ValidationContracts` | Fluent builder for `ValidationResult`                             |
 | `ValidationResultProblemDetails`    | `HexGuard.ValidationContracts` | Adapter that converts `ValidationResult` into Problem Details     |
+| `ValidationResultExtensions`        | `HexGuard.ProblemDetails`     | `ToProblemResult()` extension — converts `ValidationResult` → `IResult` in one call |
 | `ProblemDetails` / `ProblemDetailsBuilder` | `HexGuard.ProblemDetails`   | RFC 9457 transport layer                                          |
 
 ### End-to-end example
@@ -394,19 +393,11 @@ app.MapPost("/api/products", (ProductPayload? payload) =>
     if (result.IsValid)
         return Results.Ok(new { isValid = true });
 
-    // ── Bridge to RFC 9457 ──────────────────────────────────────
-    var problemDetails = ValidationResultProblemDetails.FromResult(
-        result,
+    // ── One call produces a complete RFC 9457 response ──────────
+    return result.ToProblemResult(
         statusCode: 400,
         detail: "The request payload failed validation. See the 'errors' extension for details.",
         instance: "/api/products");
-
-    return Results.Problem(
-        statusCode: problemDetails.Status,
-        title: problemDetails.Title,
-        detail: problemDetails.Detail,
-        instance: problemDetails.Instance,
-        extensions: problemDetails.ToProblemDetailsExtensions());
 });
 ```
 

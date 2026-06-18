@@ -1,8 +1,15 @@
+import { inject } from '@angular/core';
 import type { Routes } from '@angular/router';
 
+import { canActivateFeatureFlag } from '@hexguard/angular-feature-flags';
 import { canActivatePermissions, canMatchPermissions } from '@hexguard/angular-permissions';
 
+import { FeatureFlagsDemoSessionService } from './features/angular-feature-flags/data/feature-flags-demo.data';
+
 import {
+  ANGULAR_FEATURE_FLAGS_PACKAGE,
+  ANGULAR_FEATURE_FLAGS_ROUTING_DEMO,
+  ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO,
   ANGULAR_API_ERRORS_BACKEND_DEMO,
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
@@ -42,6 +49,11 @@ import {
   AUDIT_ROUTE_REQUIREMENT,
   FINANCE_ROUTE_REQUIREMENT,
 } from './features/angular-permissions/data/permissions-demo.data';
+import { AngularFeatureFlagsHomePageComponent } from './features/angular-feature-flags/angular-feature-flags-home-page.component';
+import { FeatureFlagTogglesDemoPageComponent } from './features/angular-feature-flags/pages/feature-flag-toggles-demo-page/feature-flag-toggles-demo-page.component';
+import { FeatureFlagRoutingDemoPageComponent } from './features/angular-feature-flags/pages/feature-flag-routing-demo-page/feature-flag-routing-demo-page.component';
+import { PremiumContentPageComponent } from './features/angular-feature-flags/pages/premium-content-page/premium-content-page.component';
+import { UpgradePageComponent } from './features/angular-feature-flags/pages/upgrade-page/upgrade-page.component';
 import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
 import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
 import {
@@ -76,7 +88,9 @@ import { NotificationsDemoPageComponent } from './features/angular-notifications
 import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cross-stack-hub-page.component';
 import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
 import { DotnetProblemDetailsHubPageComponent } from './features/dotnet/pages/dotnet-problem-details-hub-page/dotnet-problem-details-hub-page.component';
+import { DotnetFeatureFlagsHubPageComponent } from './features/dotnet/pages/dotnet-feature-flags-hub-page/dotnet-feature-flags-hub-page.component';
 import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem-details-demo-page/problem-details-demo-page.component';
+import { FeatureFlagsDemoPageComponent } from './features/dotnet/pages/feature-flags-demo-page/feature-flags-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
 
 export const routes: Routes = [
@@ -104,6 +118,11 @@ export const routes: Routes = [
     path: 'dotnet/hexguard-problem-details',
     component: DotnetProblemDetailsHubPageComponent,
     title: 'HexGuard.ProblemDetails Package Hub',
+  },
+  {
+    path: 'dotnet/hexguard-feature-flags',
+    component: DotnetFeatureFlagsHubPageComponent,
+    title: 'HexGuard.FeatureFlags Package Hub',
   },
   {
     path: 'dotnet/problem-details',
@@ -298,6 +317,38 @@ export const routes: Routes = [
     title: 'Notifications Demo',
   },
   {
+    path: 'packages/angular-feature-flags',
+    component: AngularFeatureFlagsHomePageComponent,
+    title: 'Angular Feature Flags Demos',
+  },
+  {
+    path: 'packages/angular-feature-flags/toggles',
+    component: FeatureFlagTogglesDemoPageComponent,
+    title: 'Feature Flag Toggles Demo',
+  },
+  {
+    path: 'packages/angular-feature-flags/routing',
+    component: FeatureFlagRoutingDemoPageComponent,
+    title: 'Feature Flag Routing Demo',
+  },
+  {
+    path: 'packages/angular-feature-flags/premium',
+    component: PremiumContentPageComponent,
+    canActivate: [
+      canActivateFeatureFlag({
+        flagKey: 'premium-feature-x',
+        context: () => inject(FeatureFlagsDemoSessionService).context(),
+        redirectTo: '/packages/angular-feature-flags/upgrade',
+      }),
+    ],
+    title: 'Premium Content (Feature Flag Guarded)',
+  },
+  {
+    path: 'packages/angular-feature-flags/upgrade',
+    component: UpgradePageComponent,
+    title: 'Upgrade Required',
+  },
+  {
     path: 'packages/angular-error-boundary',
     component: AngularErrorBoundaryHomePageComponent,
     title: 'Angular Error Boundary Demos',
@@ -322,6 +373,11 @@ export const routes: Routes = [
     path: 'dotnet/validation-contracts',
     component: ValidationContractsDemoPageComponent,
     title: 'ValidationContracts Library Demo',
+  },
+  {
+    path: 'dotnet/feature-flags',
+    component: FeatureFlagsDemoPageComponent,
+    title: 'FeatureFlags Library Demo',
   },
   {
     path: 'dotnet/sample-api',

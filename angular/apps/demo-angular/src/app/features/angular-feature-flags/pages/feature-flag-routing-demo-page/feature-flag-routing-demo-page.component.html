@@ -1,0 +1,70 @@
+<demo-page-layout testId="feature-flag-routing-page">
+  <demo-navigation-strip demoNavigation [demo]="demo" testId="feature-flags-routing-nav" />
+
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-eyebrow">Route gating</div>
+    <h2>Route activation gated on a feature flag with redirect</h2>
+    <p class="demo-card__summary">
+      Select a persona to see how <code>canActivateFeatureFlag('premium-feature-x')</code>
+      gates route access. Premium User and Admin personas gain access; others are
+      redirected to the upgrade page.
+    </p>
+
+    <div class="persona-selector">
+      <label for="route-persona-select">Evaluation persona:</label>
+      <select
+        id="route-persona-select"
+        data-testid="route-persona-selector"
+        [ngModel]="session.personaId()"
+        (ngModelChange)="updatePersona($event)">
+        @for (persona of personas; track persona.id) {
+          <option [value]="persona.id">{{ persona.label }}</option>
+        }
+      </select>
+      <span class="persona-summary">{{ session.persona().summary }}</span>
+    </div>
+  </article>
+
+  <section demoPrimary>
+    <div class="route-demo">
+      <article class="demo-card route-card">
+        <div class="route-label">Premium Content Route</div>
+        <div class="route-status">
+          @if (statusSummary().includes('has premium')) {
+            <span class="route-allowed">✓ Access granted for this persona</span>
+          } @else {
+            <span class="route-denied">✗ Redirected to upgrade (guarded)</span>
+          }
+        </div>
+        <a
+          routerLink="/packages/angular-feature-flags/premium"
+          data-testid="premium-route-link"
+          class="route-link">
+          Try premium route →
+        </a>
+      </article>
+
+      <article class="demo-card route-card">
+        <div class="route-label">How it works</div>
+        <p class="demo-card__summary">
+          The premium route is configured with
+          <code>canActivateFeatureFlag({{ '{' }} flagKey: 'premium-feature-x',
+          context: () => inject(FeatureFlagsDemoSessionService).context(),
+          redirectTo: '/upgrade' {{ '}' }})</code>.
+          The guard evaluates <code>premium-feature-x</code> against the current
+          persona's context at navigation time, redirecting to upgrade when denied.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <aside demoAside>
+    <demo-inspector-panel
+      [title]="demo.title"
+      [snapshotJson]="snapshotJson()"
+      [snippetId]="demo.codeSample.snippetId"
+      panelTestId="feature-flags-routing-inspector"
+      snapshotTestId="feature-flags-routing-snapshot"
+      codeTestId="feature-flags-routing-code" />
+  </aside>
+</demo-page-layout>

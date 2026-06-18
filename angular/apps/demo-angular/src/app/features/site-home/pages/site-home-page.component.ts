@@ -85,7 +85,7 @@ import {
           }
         </div>
 
-        @if (filteredPackages().length > sectionCollapsedLimit) {
+        @if (totalFiltered().length > sectionCollapsedLimit) {
           <button
             class="site-home__expand-toggle"
             type="button"
@@ -95,7 +95,7 @@ import {
             {{
               showAll()
                 ? 'Show fewer packages'
-                : 'Show all ' + filteredPackages().length + ' packages'
+                : 'Show all ' + totalFiltered().length + ' packages'
             }}
           </button>
         }
@@ -208,13 +208,15 @@ export class SiteHomePageComponent {
     { scope: 'Cross-stack', label: 'Cross-stack' },
   ];
 
-  protected readonly filteredPackages = () => {
+  /** Full filtered list without the collapsed limit applied. */
+  protected readonly totalFiltered = () => {
     const filter = this.activeFilter();
     const all = this.allPackages;
+    return filter === 'All' ? all : all.filter((p) => p.scope === filter);
+  };
 
-    const filtered =
-      filter === 'All' ? all : all.filter((p) => p.scope === filter);
-
+  protected readonly filteredPackages = () => {
+    const filtered = this.totalFiltered();
     return this.showAll() ? filtered : filtered.slice(0, this.sectionCollapsedLimit);
   };
 }

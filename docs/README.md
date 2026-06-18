@@ -14,11 +14,13 @@ This folder holds the deeper documentation that would otherwise overload the roo
 - [Angular Lookups Deep Dive](packages/angular-lookups.md)
 - [Angular Optimistic State Deep Dive](packages/angular-optimistic-state.md)
 - [Angular Permissions Deep Dive](packages/angular-permissions.md)
+- [Angular Feature Flags Deep Dive](packages/angular-feature-flags.md)
 
 ### .NET Packages
 
 - [HexGuard.ReferenceData Deep Dive](packages/hexguard-reference-data.md)
 - [HexGuard.ProblemDetails Deep Dive](packages/hexguard-problem-details.md)
+- [HexGuard.FeatureFlags Deep Dive](packages/hexguard-feature-flags.md)
 
 ### Workflow
 

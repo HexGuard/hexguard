@@ -70,7 +70,19 @@
 .package-hub__demos-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 960px) {
+  .package-hub__demos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .package-hub__demos-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .package-hub__reference-grid,

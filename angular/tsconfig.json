@@ -15,7 +15,8 @@
       "@hexguard/angular-api-errors": ["./packages/angular-api-errors/src/public-api.ts"],
       "@hexguard/angular-debounce": ["./packages/angular-debounce/src/public-api.ts"],
       "@hexguard/angular-notifications": ["./packages/angular-notifications/src/public-api.ts"],
-      "@hexguard/angular-error-boundary": ["./packages/angular-error-boundary/src/public-api.ts"]
+      "@hexguard/angular-error-boundary": ["./packages/angular-error-boundary/src/public-api.ts"],
+      "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -70,6 +71,12 @@
     },
     {
       "path": "./packages/angular-permissions/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-feature-flags/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-feature-flags/tsconfig.spec.json"
     },
     {
       "path": "./apps/demo-angular/tsconfig.app.json"

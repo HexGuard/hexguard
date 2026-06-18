@@ -13,6 +13,7 @@
 //  ASP.NET Core integration
 //    ProblemDetailsMiddleware         — Catch-all error middleware
 //    ProblemDetailsMiddlewareOptions  — Middleware configuration
-//    ProblemDetailsResultExtensions   — IResult extension methods
+//    ProblemDetailsResultExtensions   — IResult extension methods (ProblemDetails → IResult)
+//    ValidationResultExtensions      — IResult extension methods (ValidationResult → IResult)
 //
 // ═══════════════════════════════════════════════════════════════════

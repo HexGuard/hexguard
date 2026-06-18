@@ -10,5 +10,6 @@
     <ProjectReference Include="../../src/HexGuard.ProblemDetails/HexGuard.ProblemDetails.csproj" />
     <ProjectReference Include="../../src/HexGuard.ReferenceData/HexGuard.ReferenceData.csproj" />
     <ProjectReference Include="../../src/HexGuard.ValidationContracts/HexGuard.ValidationContracts.csproj" />
+    <ProjectReference Include="../../src/HexGuard.FeatureFlags/HexGuard.FeatureFlags.csproj" />
   </ItemGroup>
 </Project>

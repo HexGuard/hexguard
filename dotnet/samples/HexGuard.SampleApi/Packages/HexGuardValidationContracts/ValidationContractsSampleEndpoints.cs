@@ -1,3 +1,4 @@
+using HexGuard.ProblemDetails;
 using HexGuard.ValidationContracts;
 
 namespace HexGuard.SampleApi.Packages.HexGuardValidationContracts;
@@ -104,21 +105,11 @@ internal static class ValidationContractsSampleEndpoints
         return endpoints;
     }
 
-    private static IResult ToProblem(ValidationResult result)
-    {
-        var problemDetails = ValidationResultProblemDetails.FromResult(
-            result,
+    private static IResult ToProblem(ValidationResult result) =>
+        result.ToProblemResult(
             statusCode: 400,
             detail: "The request payload failed validation. See the 'errors' extension for details.",
             instance: "/api/validation-contracts/validate");
-
-        return Results.Problem(
-            statusCode: problemDetails.Status,
-            title: problemDetails.Title,
-            detail: problemDetails.Detail,
-            instance: problemDetails.Instance,
-            extensions: problemDetails.ToProblemDetailsExtensions());
-    }
 
     private static bool IsValidCategory(string category) => category switch
     {

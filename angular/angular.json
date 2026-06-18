@@ -267,6 +267,32 @@
         }
       }
     },
+    "angular-feature-flags": {
+      "projectType": "library",
+      "root": "packages/angular-feature-flags",
+      "sourceRoot": "packages/angular-feature-flags/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-feature-flags/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-feature-flags/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-feature-flags/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

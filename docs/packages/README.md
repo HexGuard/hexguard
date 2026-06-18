@@ -16,7 +16,9 @@ another.
 | `@hexguard/angular-optimistic-state` | Available | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.                                                                                 | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
 | `@hexguard/angular-api-errors`       | Available | Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state. | [Deep Dive](angular-api-errors.md), [npm-facing README](../../angular/packages/angular-api-errors/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
+| `@hexguard/angular-feature-flags`    | Available | Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.                                                                                               | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)       |
 | `HexGuard.ReferenceData`             | Available | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                  | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)          |
+| `HexGuard.FeatureFlags`              | Available | Feature flag evaluation, targeting rules, and sync endpoints for ASP.NET Core APIs. Pairs with @hexguard/angular-feature-flags.                                                                       | [Deep Dive](hexguard-feature-flags.md), [npm-facing README](../../dotnet/src/HexGuard.FeatureFlags/README.md), [Demo runbook](../demo/README.md)            |
 | `@hexguard/angular-debounce`         | Available | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                 |
 | `@hexguard/angular-notifications`    | Available | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)       |
 | `@hexguard/angular-error-boundary`   | Available | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)     |
@@ -94,6 +96,16 @@ This package is available as a headless permissions companion for Angular routes
 
 It focuses on one provider-agnostic capability and role contract, a shared evaluator, thin Angular adapters, and a validated publish surface across docs, demos, and package artifacts.
 
+<a id="package-angular-feature-flags"></a>
+
+### `@hexguard/angular-feature-flags`
+
+Status: Available
+
+This package is available as a headless feature-flag companion for Angular routes, templates, and feature code.
+
+It focuses on one shared evaluator across directive, guards, and imperative API, with an optional sync service and a validated publish surface across docs, demos, and package artifacts.
+
 <a id="package-hexguard-reference-data"></a>
 
 ### `HexGuard.ReferenceData`
@@ -103,6 +115,16 @@ Status: Available
 This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.
 
 It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.
+
+<a id="package-hexguard-feature-flags"></a>
+
+### `HexGuard.FeatureFlags`
+
+Status: Available
+
+This package pairs with @hexguard/angular-feature-flags on the Angular side through a shared sync API contract.
+
+It focuses on deterministic evaluation, minimal dependencies, and a validated publish surface across docs, demos, and package artifacts.
 
 <a id="package-angular-debounce"></a>
 

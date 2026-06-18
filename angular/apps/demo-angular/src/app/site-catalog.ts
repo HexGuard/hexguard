@@ -187,6 +187,22 @@ export const SITE_ECOSYSTEMS: readonly Ecosystem[] = [
       'All three packages share the HexGuard.SampleApi for live demos. Start the API with `pnpm dotnet:start:demo-api` and navigate to any validation demo route.',
     ],
   },
+  {
+    id: 'feature-flags',
+    label: 'Feature flags',
+    pairingLabel: 'Feature flags',
+    description:
+      'The Angular feature-flag evaluator shares the same flag contract and sync protocol as the .NET FeatureFlags library. The shared SampleApi proves end-to-end integration with persona-based evaluation.',
+    members: [
+      { packageId: 'angular-feature-flags', role: 'Consumer' },
+      { packageId: 'hexguard-feature-flags', role: 'Provider' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-feature-flags Angular package and HexGuard.FeatureFlags .NET library work together through the shared sync API.',
+      'The .NET library defines flags via InMemoryFeatureFlagStore and serves them via the sync/evaluate endpoints. The Angular library consumes the same payloads through FeatureFlagSyncService.',
+      'To run the full cross-stack experience, start the API with `pnpm dotnet:start:demo-api` and navigate to the feature-flag demo routes.',
+    ],
+  },
 ];
 
 /**
@@ -200,18 +216,21 @@ export const SITE_SHARED_API_CONSUMERS: readonly {
   { angularId: 'angular-async-state', angularLabel: '@hexguard/angular-async-state' },
   { angularId: 'angular-optimistic-state', angularLabel: '@hexguard/angular-optimistic-state' },
   { angularId: 'angular-permissions', angularLabel: '@hexguard/angular-permissions' },
+  { angularId: 'angular-feature-flags', angularLabel: '@hexguard/angular-feature-flags' },
 ];
 
 /** Map from Angular package id to .NET counterpart id. */
 const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string | null> = {
   'angular-lookups': 'hexguard-reference-data',
   'angular-api-errors': 'hexguard-validation-contracts',
+  'angular-feature-flags': 'hexguard-feature-flags',
 };
 
 /** Map from .NET package id to Angular counterpart id. */
 const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
   'hexguard-reference-data': 'angular-lookups',
   'hexguard-validation-contracts': 'angular-api-errors',
+  'hexguard-feature-flags': 'angular-feature-flags',
 };
 
 // ── Unified package adapters ───────────────────────────────────────

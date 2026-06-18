@@ -4,9 +4,19 @@ using HexGuard.SampleApi.Packages.AngularOptimisticState;
 using HexGuard.SampleApi.Packages.AngularPermissions;
 using HexGuard.SampleApi.Packages.HexGuardProblemDetails;
 using HexGuard.SampleApi.Packages.HexGuardReferenceData;
+using HexGuard.FeatureFlags;
+using HexGuard.SampleApi.Packages.HexGuardFeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHexGuardFeatureFlags(options =>
+{
+    foreach (var flag in FeatureFlagsSampleData.CreateOptions().Flags)
+    {
+        options.Flags.Add(flag);
+    }
+});
 
 builder.Services.AddCors((options) =>
 {
@@ -81,6 +91,15 @@ app.MapGet("/", () => Results.Ok(new
             serverErrorEndpoint = "/api/problem-details/server-error",
             note = "RFC 9457 Problem Details — core types, builder, middleware",
         },
+        new
+        {
+            id = "hexguard-feature-flags",
+            route = "/api/feature-flags",
+            syncEndpoint = "/api/feature-flags/sync?contextHash=",
+            evaluateEndpoint = "/api/feature-flags/evaluate?key=beta-search&userId=user-42",
+            personasEndpoint = "/api/feature-flags/personas",
+            note = "Feature flags — evaluation, targeting rules, sync, paired with @hexguard/angular-feature-flags",
+        },
     },
 }));
 
@@ -91,6 +110,8 @@ app.MapPermissionsSampleEndpoints();
 app.MapProblemDetailsSampleEndpoints();
 app.MapReferenceDataSampleEndpoints();
 app.MapValidationContractsSampleEndpoints();
+app.MapFeatureFlagEndpoints();
+app.MapFeatureFlagsSampleEndpoints();
 
 app.Run();
 

@@ -40,6 +40,7 @@ const ANGULAR_LOOKUPS_CATALOG = getGeneratedCurrentPackage('angular-lookups');
 const ANGULAR_OPTIMISTIC_STATE_CATALOG = getGeneratedCurrentPackage('angular-optimistic-state');
 const ANGULAR_PERMISSIONS_CATALOG = getGeneratedCurrentPackage('angular-permissions');
 const ANGULAR_API_ERRORS_CATALOG = getGeneratedCurrentPackage('angular-api-errors');
+const ANGULAR_FEATURE_FLAGS_CATALOG = getGeneratedCurrentPackage('angular-feature-flags');
 
 const ANGULAR_URL_STATE_DOCS = ANGULAR_URL_STATE_CATALOG.docsLinks;
 const ANGULAR_QUERY_FORM_DOCS = ANGULAR_QUERY_FORM_CATALOG.docsLinks;
@@ -48,6 +49,7 @@ const ANGULAR_LOOKUPS_DOCS = ANGULAR_LOOKUPS_CATALOG.docsLinks;
 const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks;
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
+const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -582,6 +584,72 @@ export const ANGULAR_PERMISSIONS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_PERMISSIONS_ACTIONS_DEMO, ANGULAR_PERMISSIONS_ROUTING_DEMO],
 };
 
+// ── angular-feature-flags demo entries ───────────────────────────────
+
+export const ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO: DemoPageEntry = {
+  id: 'feature-flags-toggles',
+  packageId: 'angular-feature-flags',
+  route: '/packages/angular-feature-flags/toggles',
+  legacyRoute: '/feature-flags-toggles',
+  label: 'Flag Toggles',
+  title: 'Persona-driven feature flag toggles with per-flag override controls',
+  description:
+    'A persona selector drives evaluation context for all flags, proving the pure evaluator, directive, and imperative facade react consistently.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-feature-flags/toggles-demo-state',
+    label: 'Feature flag toggles demo source',
+    description:
+      'The full flag toggles demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_FEATURE_FLAGS_ROUTING_DEMO: DemoPageEntry = {
+  id: 'feature-flags-routing',
+  packageId: 'angular-feature-flags',
+  route: '/packages/angular-feature-flags/routing',
+  legacyRoute: '/feature-flags-routing',
+  label: 'Route Gating',
+  title: 'Route activation gated on a feature flag with redirect on denial',
+  description:
+    'A premium content route proves canActivateFeatureFlag() with redirectTo, using the same evaluator as the directive and facade.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-feature-flags/routing-demo-state',
+    label: 'Feature flag routing demo source',
+    description:
+      'The full route-gating demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_FEATURE_FLAGS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-feature-flags',
+  route: '/packages/angular-feature-flags',
+  label: 'Angular Feature Flags',
+  title: ANGULAR_FEATURE_FLAGS_CATALOG.packageName,
+  description: ANGULAR_FEATURE_FLAGS_CATALOG.summary,
+  docsLinks: ANGULAR_FEATURE_FLAGS_DOCS,
+  demos: [ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO, ANGULAR_FEATURE_FLAGS_ROUTING_DEMO],
+};
+
 export const FORM_VALIDATION_DEMO: DemoPageEntry = {
   id: 'form-validation',
   packageId: 'angular-api-errors',
@@ -803,6 +871,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
+  ANGULAR_FEATURE_FLAGS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 
@@ -919,6 +988,34 @@ export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_FEATURE_FLAGS_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-feature-flags',
+  packageId: 'hexguard-feature-flags',
+  route: '/dotnet/feature-flags',
+  label: 'FeatureFlags Library',
+  title: 'HexGuard.FeatureFlags — feature flag evaluation and sync API',
+  description:
+    'Evaluates feature flags via the shared SampleApi. Select a persona to see how targeting rules (groupIn, rollout, attributeMatch) resolve against the .NET FeatureFlagEvaluator.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.FeatureFlags',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-feature-flags.md',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   id: 'hexguard-problem-details',
   packageId: 'hexguard-problem-details',
@@ -974,6 +1071,33 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
       },
     ],
     demos: [DOTNET_PROBLEM_DETAILS_HOME],
+  },
+  {
+    id: 'hexguard-feature-flags',
+    route: '/dotnet/hexguard-feature-flags',
+    label: 'HexGuard FeatureFlags',
+    title: 'HexGuard.FeatureFlags',
+    nugetId: 'HexGuard.FeatureFlags',
+    description:
+      'Feature flag evaluation, targeting rules, and sync endpoints for ASP.NET Core APIs. Pairs with @hexguard/angular-feature-flags.',
+    summary:
+      'Pure evaluator with 8 targeting rule types, IFeatureFlagStore, InMemoryFeatureFlagStore, and Minimal API endpoints for sync and evaluation.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.FeatureFlags',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_FEATURE_FLAGS_HOME],
   },
   {
     id: 'hexguard-validation-contracts',

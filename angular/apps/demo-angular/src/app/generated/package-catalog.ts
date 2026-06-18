@@ -319,6 +319,47 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-feature-flags',
+    packageName: '@hexguard/angular-feature-flags',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.',
+    detail:
+      'Designed for Angular apps that need typed feature-flag evaluation with a pure evaluator, DI facade, *hexguardFeatureFlag directive, route guards, and optional backend sync via conditional 304.',
+    installCommand: 'pnpm add @hexguard/angular-feature-flags',
+    featureHighlights: [
+      'Pure evaluator with 8 targeting rule types (always, never, rollout, userIn/NotIn, groupIn/NotIn, attributeMatch/NotMatch).',
+      'Angular DI facade, structural directive, and route guards over the same evaluator.',
+      'Optional sync service for backend catalog fetching with context-hash-based 304 handling.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need typed feature-flag evaluation with route gating, template visibility, and imperatve checks.',
+      'Screens that consume a backend feature-flag sync endpoint and want conditional 304 updates.',
+      'Teams that need feature-flag behavior to stay inspectable through docs-grade demos and a shared evaluator.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless feature-flag companion for Angular routes, templates, and feature code.',
+      'It focuses on one shared evaluator across directive, guards, and imperative API, with an optional sync service and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-feature-flags',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-feature-flags.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
     status: 'Available',
@@ -351,6 +392,47 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-reference-data.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'hexguard-feature-flags',
+    packageName: 'HexGuard.FeatureFlags',
+    status: 'Available',
+    scope: '.NET',
+    summary:
+      'Feature flag evaluation, targeting rules, and sync endpoints for ASP.NET Core APIs. Pairs with @hexguard/angular-feature-flags.',
+    detail:
+      'Provides FeatureFlag records, FlagEvaluationContext, a pure evaluator with 8 targeting rule types (always, never, rollout, userIn/NotIn, groupIn/NotIn, attributeMatch/NotMatch), and Minimal API endpoints for sync and evaluation.',
+    installCommand: 'dotnet add package HexGuard.FeatureFlags',
+    featureHighlights: [
+      'Pure evaluator with first-match-wins targeting across 8 rule types.',
+      'IFeatureFlagStore abstraction with InMemoryFeatureFlagStore for config-backed flags.',
+      'Sync endpoint with conditional 304 via content-hash and evaluate endpoint for single-flag lookups.',
+    ],
+    bestFitScenarios: [
+      'ASP.NET Core APIs that need to serve feature flags to Angular or other frontend clients.',
+      'Backend services that evaluate flags server-side for gating endpoints or middleware behavior.',
+      'Teams deploying cross-stack feature flags with @hexguard/angular-feature-flags on the Angular side.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with @hexguard/angular-feature-flags on the Angular side through a shared sync API contract.',
+      'It focuses on deterministic evaluation, minimal dependencies, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.FeatureFlags',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.FeatureFlags/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-feature-flags.md',
       },
       {
         label: 'Demo runbook',

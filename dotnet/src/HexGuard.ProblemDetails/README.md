@@ -194,17 +194,49 @@ following the RFC 9457 specification.
 }
 ```
 
+### `ValidationResultExtensions` — simplified validation responses
+
+Extension method that converts a `HexGuard.ValidationContracts.ValidationResult` into a complete
+RFC 9457 response in one call. No manual `Results.Problem()` unpacking needed.
+
+```csharp
+using HexGuard.ProblemDetails;
+using HexGuard.ValidationContracts;
+
+app.MapPost("/api/products", (ProductPayload payload) =>
+{
+    var builder = new ValidationResultBuilder();
+
+    if (string.IsNullOrWhiteSpace(payload.Name))
+        builder.AddError("name", ValidationErrorCode.Required, "Product name is required.");
+
+    if (payload.Price <= 0)
+        builder.AddError("price", ValidationErrorCode.OutOfRange, "Price must be positive.");
+
+    var result = builder.Build();
+    if (result.IsValid)
+        return Results.Ok(new { saved = true });
+
+    // One call — returns application/problem+json with errors in the "errors" extension
+    return result.ToProblemResult(
+        statusCode: 400,
+        detail: "The request payload failed validation.",
+        instance: "/api/products");
+});
+```
+
 ## Error Handling Strategies
 
-| Pattern                     | When to use                                                   |
-| --------------------------- | ------------------------------------------------------------- |
-| Middleware only             | You want unhandled exceptions to produce Problem Details      |
-| `ToProblemResult()`         | You control the endpoint and want to return without throwing  |
-| `ProblemDetailsException`   | Business/service-layer code needs to signal an error upward   |
+| Pattern                          | When to use                                                   |
+| -------------------------------- | ------------------------------------------------------------- |
+| Middleware only                  | You want unhandled exceptions to produce Problem Details      |
+| `ToProblemResult()`              | You control the endpoint and want to return without throwing  |
+| `ProblemDetailsException`        | Business/service-layer code needs to signal an error upward   |
+| `ValidationResult.ToProblemResult()` | Validation endpoints — one call from `ValidationResult` to response |
 
-Using all three together is common — endpoints return explicit responses via `ToProblemResult()`,
-service code throws `ProblemDetailsException` for exceptional paths, and the middleware provides a
-safety net for anything that slips through.
+Using all four together is common — validation endpoints return via `ToProblemResult()`, other
+endpoints use `ProblemDetails.ToProblemResult()`, service code throws `ProblemDetailsException`
+for exceptional paths, and the middleware provides a safety net for anything that slips through.
 
 ## Related Packages
 
