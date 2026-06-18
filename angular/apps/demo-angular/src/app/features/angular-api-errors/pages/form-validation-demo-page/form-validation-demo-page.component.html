@@ -5,7 +5,7 @@
     [demo]="demoEntry"
   />
 
-  <article demoIntro>
+  <article demoIntro class="demo-card demo-card--stack" data-testid="form-validation-intro-card">
     <p class="demo-eyebrow">Form Validation</p>
     <h2>Backend validation errors bound to Angular form controls</h2>
     <p class="demo-card__summary">
@@ -15,7 +15,7 @@
     </p>
   </article>
 
-  <article demoPrimary>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="form-validation-primary-card">
     <div class="form-validation-demo">
       <form
         class="form-validation-demo__form"
@@ -25,11 +25,11 @@
       >
         <!-- Name -->
         <div class="form-validation-demo__field">
-          <label class="form-validation-demo__label" for="fv-name">Product Name *</label>
+          <label class="demo-field-label" for="fv-name">Product Name *</label>
           <input
             id="fv-name"
-            class="form-validation-demo__input"
-            [class.form-validation-demo__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('name')?.invalid && form.get('name')?.touched
             "
             formControlName="name"
@@ -48,12 +48,12 @@
 
         <!-- Price -->
         <div class="form-validation-demo__field">
-          <label class="form-validation-demo__label" for="fv-price">Price *</label>
+          <label class="demo-field-label" for="fv-price">Price *</label>
           <input
             id="fv-price"
             type="number"
-            class="form-validation-demo__input"
-            [class.form-validation-demo__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('price')?.invalid && form.get('price')?.touched
             "
             formControlName="price"
@@ -72,11 +72,11 @@
 
         <!-- Category -->
         <div class="form-validation-demo__field">
-          <label class="form-validation-demo__label" for="fv-category">Category *</label>
+          <label class="demo-field-label" for="fv-category">Category *</label>
           <select
             id="fv-category"
-            class="form-validation-demo__input"
-            [class.form-validation-demo__input--invalid]="
+            class="demo-select"
+            [class.demo-input--invalid]="
               form.get('category')?.invalid && form.get('category')?.touched
             "
             formControlName="category"
@@ -99,11 +99,11 @@
 
         <!-- SKU -->
         <div class="form-validation-demo__field">
-          <label class="form-validation-demo__label" for="fv-sku">SKU (XXX-999999)</label>
+          <label class="demo-field-label" for="fv-sku">SKU</label>
           <input
             id="fv-sku"
-            class="form-validation-demo__input"
-            [class.form-validation-demo__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('sku')?.invalid && form.get('sku')?.touched
             "
             formControlName="sku"
@@ -144,7 +144,8 @@
           <div class="form-validation-demo__add-tag">
             <input
               #tagInput
-              class="form-validation-demo__input"
+              class="demo-input demo-input--sm"
+              style="max-width:10rem"
               placeholder="Add tag"
               (keydown.enter)="addTag(tagInput.value); tagInput.value = ''"
               data-testid="form-validation-demo-tag-input"
@@ -152,17 +153,17 @@
           </div>
         </div>
 
-        <div class="form-validation-demo__actions">
+        <div class="demo-actions-row">
           <button
             type="submit"
-            class="form-validation-demo__submit-btn"
+            class="demo-button"
             data-testid="form-validation-demo-submit"
           >
             Submit
           </button>
           <button
             type="button"
-            class="form-validation-demo__clear-btn"
+            class="demo-button demo-button--ghost"
             (click)="resetForm()"
             data-testid="form-validation-demo-clear"
           >

@@ -609,6 +609,133 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-date-utils',
+    packageName: '@hexguard/angular-date-utils',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Locale-aware date formatting, ranges, business-day calculations, and duration helpers.',
+    detail:
+      'Provides relative time (Intl.RelativeTimeFormat), compact dates, DateRange with containment/overlap/presets, formatDuration, ageInYears, business-day math, and a tree-shakeable DI facade via injectDateUtils().',
+    installCommand: 'pnpm add @hexguard/angular-date-utils',
+    featureHighlights: [
+      'Relative-time, short-relative, and exact-relative formatting with Intl locale support.',
+      'Compact date formatting that omits year for current-year dates.',
+      'DateRange class with validation, containment, overlap detection, and preset factories.',
+      'Business-day helpers: isWeekend, addBusinessDays, businessDaysBetween.',
+      'Duration breakdown and compact formatting.',
+    ],
+    bestFitScenarios: [
+      'Apps needing human-readable relative timestamps ("2 days ago", "in 3 hours").',
+      'Date-range pickers with validation, overlap checking, and preset ranges.',
+      'Business-day calculations for scheduling and deadline tracking.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides pure functions plus an Angular DI facade that captures LOCALE_ID.',
+      'All formatting functions are tree-shakeable and usable outside Angular.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-date-utils',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-date-utils/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-date-utils.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-network-status',
+    packageName: '@hexguard/angular-network-status',
+    status: 'Available',
+    scope: 'Angular',
+    summary: 'Signal-based connectivity monitoring with debounced reconnection detection.',
+    detail:
+      'Injects reactive online/offline state, connection-type detection via the Network Information API, a configurable recently-back-online indicator, and a promise-based whenBackOnline() helper for offline-aware data submission flows.',
+    installCommand: 'pnpm add @hexguard/angular-network-status',
+    featureHighlights: [
+      'Online/offline signals with configurable debounce for the offline→online transition.',
+      'Connection type detection (4g, 3g, 2g, slow-2g) via navigator.connection.',
+      'Recently-back-online indicator with configurable duration.',
+      'whenBackOnline() promise for offline-aware async workflows.',
+      'Automatic cleanup via DestroyRef.',
+    ],
+    bestFitScenarios: [
+      'Apps that need to delay data submission until connectivity is restored.',
+      'UI indicators showing connection quality or offline mode.',
+      'Background sync triggers that react to reconnection events.',
+    ],
+    statusNoteParagraphs: [
+      'Leverages the Network Information API in Chromium-based browsers for connection type; degrades gracefully to "unknown" when unavailable.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-network-status',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-network-status/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-network-status.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-storage',
+    packageName: '@hexguard/angular-storage',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Typed, signal-backed local and session storage with versioning, TTL, and cross-tab sync.',
+    detail:
+      'Provides injectStorage(key, options) for typed read/write access to localStorage or sessionStorage with JSON envelope serialization, schema versioning, time-to-live expiry, cross-tab storage event synchronization, and graceful fallback when storage is unavailable.',
+    installCommand: 'pnpm add @hexguard/angular-storage',
+    featureHighlights: [
+      'Typed signal-based storage with type-safe value() and meta() signals.',
+      'Schema versioning for safe migration detection (versionMismatch meta).',
+      'TTL expiry for time-sensitive cached data (expired meta).',
+      'Cross-tab synchronization via window storage events.',
+      'Graceful fallback when localStorage is unavailable (private browsing, quota).',
+    ],
+    bestFitScenarios: [
+      'User preference panels that persist across sessions.',
+      'Client-side caching with TTL for stale-data detection.',
+      'Multi-tab apps where storage changes must stay in sync.',
+    ],
+    statusNoteParagraphs: [
+      'Uses a JSON envelope format { _value, _v, _ts } for schema versioning and TTL support.',
+      'Falls back to in-memory signals when storage throws (private browsing, full quota).',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-storage',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-storage/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-storage.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'hexguard-bulk-operations',
     packageName: 'HexGuard.BulkOperations',
     status: 'Released',
@@ -2243,6 +2370,66 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would provide headless CMS content contracts with content type definitions, content entry management, versioning, publishing workflow states, and content delivery API conventions for building headless CMS backends on ASP.NET Core.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-headless-cms',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-click-outside',
+    anchorId: 'package-angular-click-outside',
+    packageName: '@hexguard/angular-click-outside',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a lightweight click-outside detection directive and injectable state for closing dropdowns, popovers, modals, and context menus when the user clicks outside a target element.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-click-outside',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-auto-resize',
+    anchorId: 'package-angular-auto-resize',
+    packageName: '@hexguard/angular-auto-resize',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide an auto-resize textarea directive and state that grows the element height with content, with configurable min/max height, initial sizing, and scroll management for comment, chat, and note inputs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-auto-resize',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-text-highlight',
+    anchorId: 'package-angular-text-highlight',
+    packageName: '@hexguard/angular-text-highlight',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a text search-term highlighting utility and pipe that wraps matched substrings in configurable markup with case-insensitive, diacritic-insensitive, and multi-term support for search-result display.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-text-highlight',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-file-size',
+    anchorId: 'package-angular-file-size',
+    packageName: '@hexguard/angular-file-size',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a file size formatting pipe and utility that converts bytes to human-readable strings (KB, MB, GB, TB) with binary/decimal mode, locale-aware formatting, and configurable precision for file-management UIs.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-file-size',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-truncate',
+    anchorId: 'package-angular-truncate',
+    packageName: '@hexguard/angular-truncate',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a text truncation directive and state with multi-line clamp, show-more/show-less toggle, HTML-safe truncation, configurable max lines, and expand/collapse animation for cards, descriptions, and comment previews.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-truncate',
     showOnSiteHome: false,
   },
 ] as const satisfies readonly GeneratedRoadmapPackageEntry[];

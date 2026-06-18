@@ -19,8 +19,8 @@
     </div>
 
     <p class="demo-card__summary">
-      <code>injectBulkOperation()</code> provides progress tracking, per-item results, and retry
-      for bulk delete and approve flows. Select items and run an action to see the lifecycle.
+      <code>injectBulkOperation()</code> provides progress tracking, per-item results, and retry for
+      bulk delete and approve flows. Select items and run an action to see the lifecycle.
     </p>
 
     <div class="bulk-controls-grid">
@@ -121,7 +121,9 @@
                   [attr.data-testid]="'bulk-checkbox-' + item.id"
                 />
               </td>
-              <td><code>{{ item.id }}</code></td>
+              <td>
+                <code>{{ item.id }}</code>
+              </td>
               <td>{{ item.name }}</td>
               <td>
                 <span
@@ -165,7 +167,9 @@
                     [class.bulk-result-item--fail]="!r.succeeded"
                     [attr.data-testid]="'bulk-delete-result-' + r.item.id"
                   >
-                    <span class="bulk-result-item__icon">{{ r.succeeded ? '\u2713' : '\u2717' }}</span>
+                    <span class="bulk-result-item__icon">{{
+                      r.succeeded ? '\u2713' : '\u2717'
+                    }}</span>
                     <code>{{ r.item.id }}</code>
                     @if (r.error) {
                       <span class="bulk-result-item__error"
@@ -203,7 +207,9 @@
                     [class.bulk-result-item--fail]="!r.succeeded"
                     [attr.data-testid]="'bulk-approve-result-' + r.item.id"
                   >
-                    <span class="bulk-result-item__icon">{{ r.succeeded ? '\u2713' : '\u2717' }}</span>
+                    <span class="bulk-result-item__icon">{{
+                      r.succeeded ? '\u2713' : '\u2717'
+                    }}</span>
                     <code>{{ r.item.id }}</code>
                     @if (r.error) {
                       <span class="bulk-result-item__error"

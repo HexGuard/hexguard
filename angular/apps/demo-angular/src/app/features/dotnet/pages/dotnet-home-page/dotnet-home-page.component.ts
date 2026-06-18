@@ -3,7 +3,11 @@ import { RouterLink } from '@angular/router';
 
 import { PackageCardComponent } from '../../../../shared/components/package-card/package-card.component';
 import { StackHubLayoutComponent } from '../../../../shared/components/stack-hub-layout/stack-hub-layout.component';
-import { SITE_DOTNET_PACKAGES, STACK_REGISTRY, toUnifiedDotnetEntry } from '../../../../site-catalog';
+import {
+  SITE_DOTNET_PACKAGES,
+  STACK_REGISTRY,
+  toUnifiedDotnetEntry,
+} from '../../../../site-catalog';
 
 @Component({
   standalone: true,

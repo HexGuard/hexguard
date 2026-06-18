@@ -16,23 +16,15 @@
   gap: 0.25rem;
 }
 
-.form-validation-demo__label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-secondary, #555);
-}
-
-.form-validation-demo__input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-border, #ccc);
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-family: inherit;
-}
-
-.form-validation-demo__input--invalid {
+/* Error state for shared demo-input */
+.demo-input--invalid,
+.demo-select--invalid {
   border-color: var(--color-error, #d32f2f);
-  background-color: var(--color-error-bg, #fff5f5);
+}
+
+.demo-input--invalid:focus,
+.demo-select--invalid:focus {
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.12);
 }
 
 .form-validation-demo__error-text {
@@ -41,38 +33,12 @@
   margin: 0;
 }
 
-.form-validation-demo__actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.form-validation-demo__submit-btn {
-  padding: 0.5rem 1.5rem;
-  background: var(--color-primary, #1976d2);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-}
-
-.form-validation-demo__clear-btn {
-  padding: 0.5rem 1.5rem;
-  background: transparent;
-  color: var(--color-text-secondary, #555);
-  border: 1px solid var(--color-border, #ccc);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-}
-
 .form-validation-demo__page-errors {
   margin-top: 0.75rem;
   padding: 0.75rem;
-  background: var(--color-error-bg, #fff5f5);
   border: 1px solid var(--color-error, #d32f2f);
-  border-radius: 4px;
+  border-radius: 0.65rem;
+  background: rgba(211, 47, 47, 0.06);
 }
 
 .form-validation-demo__page-error {
@@ -92,9 +58,10 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.125rem 0.5rem;
-  background: var(--color-tag-bg, #e3f2fd);
   border-radius: 12px;
   font-size: 0.75rem;
+  border: 1px solid var(--color-accent-border);
+  color: var(--color-accent-strong);
 }
 
 .form-validation-demo__tag-remove {
@@ -104,6 +71,7 @@
   font-size: 0.875rem;
   padding: 0;
   line-height: 1;
+  color: inherit;
 }
 
 .form-validation-demo__add-tag {

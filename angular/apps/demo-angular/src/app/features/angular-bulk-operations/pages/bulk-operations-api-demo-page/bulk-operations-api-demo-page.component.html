@@ -5,27 +5,20 @@
     [demo]="demo"
   />
 
-  <article
-    demoIntro
-    class="demo-card demo-card--stack"
-    data-testid="bulk-api-controls-card"
-  >
+  <article demoIntro class="demo-card demo-card--stack" data-testid="bulk-api-controls-card">
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Angular Bulk Operations</p>
         <h2>Live API interaction with the Angular library.</h2>
       </div>
 
-      <span class="demo-hint-pill" data-testid="bulk-api-status-pill"
-        >API: {{ apiStatus() }}</span
-      >
+      <span class="demo-hint-pill" data-testid="bulk-api-status-pill">API: {{ apiStatus() }}</span>
     </div>
 
     <p class="demo-card__summary">
-      Uses <code>provideBulkOperation()</code> +
-      <code>injectBulkOperation()</code> to call the .NET SampleApi
-      endpoints. Select an action to send a typed bulk request and see the
-      207 Multi-Status response.
+      Uses <code>provideBulkOperation()</code> + <code>injectBulkOperation()</code> to call the .NET
+      SampleApi endpoints. Select an action to send a typed bulk request and see the 207
+      Multi-Status response.
     </p>
 
     <div class="bulk-api__grid">
@@ -79,10 +72,9 @@
     </div>
 
     <p class="demo-card__summary">
-      The library's <code>executeFn</code> wraps each fetch call. The service
-      tracks <code>inProgress</code>, <code>results</code>, and
-      <code>summary</code> signals automatically. Start the .NET SampleApi
-      with <code>pnpm dotnet:start:demo-api</code>.
+      The library's <code>executeFn</code> wraps each fetch call. The service tracks
+      <code>inProgress</code>, <code>results</code>, and <code>summary</code> signals automatically.
+      Start the .NET SampleApi with <code>pnpm dotnet:start:demo-api</code>.
     </p>
 
     <demo-status-strip
@@ -94,11 +86,7 @@
     />
   </article>
 
-  <article
-    demoPrimary
-    class="demo-card demo-card--stack"
-    data-testid="bulk-api-results-card"
-  >
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="bulk-api-results-card">
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Request items</p>
@@ -107,8 +95,8 @@
     </div>
 
     <p class="demo-card__summary">
-      All 8 orders are sent with each request. Shipped and cancelled orders
-      trigger per-item errors in the 207 response.
+      All 8 orders are sent with each request. Shipped and cancelled orders trigger per-item errors
+      in the 207 response.
     </p>
 
     <div class="bulk-api__orders">
@@ -137,9 +125,7 @@
           >
         </div>
 
-        <pre class="demo-code-block" data-testid="bulk-api-response-json">{{
-          responseJson()
-        }}</pre>
+        <pre class="demo-code-block" data-testid="bulk-api-response-json">{{ responseJson() }}</pre>
       </section>
     }
 

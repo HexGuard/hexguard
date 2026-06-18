@@ -50,11 +50,17 @@ const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
+const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
+const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-network-status');
+const ANGULAR_STORAGE_CATALOG = getGeneratedCurrentPackage('angular-storage');
 const ANGULAR_SELECTION_STATE_CATALOG = getGeneratedCurrentPackage('angular-selection-state');
 const ANGULAR_BULK_OPERATIONS_CATALOG = getGeneratedCurrentPackage('angular-bulk-operations');
 
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
+const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
+const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
+const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -768,7 +774,11 @@ export const ANGULAR_BULK_OPERATIONS_PACKAGE: DemoPackageEntry = {
   title: ANGULAR_BULK_OPERATIONS_CATALOG.packageName,
   description: ANGULAR_BULK_OPERATIONS_CATALOG.summary,
   docsLinks: ANGULAR_BULK_OPERATIONS_DOCS,
-  demos: [ANGULAR_BULK_OPERATIONS_DEMO, ANGULAR_BULK_OPERATIONS_API_DEMO, ANGULAR_BULK_OPERATIONS_LIBRARY_DEMO],
+  demos: [
+    ANGULAR_BULK_OPERATIONS_DEMO,
+    ANGULAR_BULK_OPERATIONS_API_DEMO,
+    ANGULAR_BULK_OPERATIONS_LIBRARY_DEMO,
+  ],
 };
 
 export const FORM_VALIDATION_DEMO: DemoPageEntry = {
@@ -981,6 +991,135 @@ export const ANGULAR_ERROR_BOUNDARY_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_ERROR_BOUNDARY_DEMO],
 };
 
+// ── angular-date-utils demo entries ──────────────────────────────────
+
+export const ANGULAR_DATE_UTILS_DEMO: DemoPageEntry = {
+  id: 'date-utils',
+  packageId: 'angular-date-utils',
+  route: '/packages/angular-date-utils/demo',
+  legacyRoute: '/date-utils',
+  label: 'Date Utilities',
+  title: 'Locale-aware date formatting, ranges, and business-day calculations',
+  description:
+    'Relative time, compact dates, duration formatting, DateRange presets, and business-day helpers with Intl locale support.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-date-utils/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-date-utils.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-date-utils/demo-state',
+    label: 'Date utils demo component source',
+    description:
+      'The full date utilities demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_DATE_UTILS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-date-utils',
+  route: '/packages/angular-date-utils',
+  label: 'Angular Date Utils',
+  title: ANGULAR_DATE_UTILS_CATALOG.packageName,
+  description: ANGULAR_DATE_UTILS_CATALOG.summary,
+  docsLinks: ANGULAR_DATE_UTILS_DOCS,
+  demos: [ANGULAR_DATE_UTILS_DEMO],
+};
+
+// ── angular-network-status demo entries ─────────────────────────────
+
+export const ANGULAR_NETWORK_STATUS_DEMO: DemoPageEntry = {
+  id: 'network-status',
+  packageId: 'angular-network-status',
+  route: '/packages/angular-network-status/demo',
+  legacyRoute: '/network-status',
+  label: 'Network Status',
+  title: 'Signal-based connectivity monitoring with debounced reconnection',
+  description:
+    'Online/offline state, connection type detection, recently-back-online indicator, and whenBackOnline() promise helper.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-network-status/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-network-status.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-network-status/demo-state',
+    label: 'Network status demo component source',
+    description:
+      'The full network status demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_NETWORK_STATUS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-network-status',
+  route: '/packages/angular-network-status',
+  label: 'Angular Network Status',
+  title: ANGULAR_NETWORK_STATUS_CATALOG.packageName,
+  description: ANGULAR_NETWORK_STATUS_CATALOG.summary,
+  docsLinks: ANGULAR_NETWORK_STATUS_DOCS,
+  demos: [ANGULAR_NETWORK_STATUS_DEMO],
+};
+
+// ── angular-storage demo entries ─────────────────────────────────────
+
+export const ANGULAR_STORAGE_DEMO: DemoPageEntry = {
+  id: 'storage',
+  packageId: 'angular-storage',
+  route: '/packages/angular-storage/demo',
+  legacyRoute: '/storage',
+  label: 'Storage',
+  title: 'Typed, signal-backed local and session storage with cross-tab sync',
+  description:
+    'Persistent preference panel demonstrating typed storage with versioning, TTL expiry, cross-tab synchronization, and graceful fallback.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-storage/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-storage.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-storage/demo-state',
+    label: 'Storage demo component source',
+    description:
+      'The full storage demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_STORAGE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-storage',
+  route: '/packages/angular-storage',
+  label: 'Angular Storage',
+  title: ANGULAR_STORAGE_CATALOG.packageName,
+  description: ANGULAR_STORAGE_CATALOG.summary,
+  docsLinks: ANGULAR_STORAGE_DOCS,
+  demos: [ANGULAR_STORAGE_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -995,6 +1134,9 @@ export const DEMO_PACKAGES = [
   ANGULAR_FEATURE_FLAGS_PACKAGE,
   ANGULAR_SELECTION_STATE_PACKAGE,
   ANGULAR_BULK_OPERATIONS_PACKAGE,
+  ANGULAR_DATE_UTILS_PACKAGE,
+  ANGULAR_NETWORK_STATUS_PACKAGE,
+  ANGULAR_STORAGE_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

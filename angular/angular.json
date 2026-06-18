@@ -189,6 +189,32 @@
         }
       }
     },
+    "angular-date-utils": {
+      "projectType": "library",
+      "root": "packages/angular-date-utils",
+      "sourceRoot": "packages/angular-date-utils/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-date-utils/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-date-utils/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-date-utils/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-debounce": {
       "projectType": "library",
       "root": "packages/angular-debounce",
@@ -237,6 +263,32 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "packages/angular-notifications/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-network-status": {
+      "projectType": "library",
+      "root": "packages/angular-network-status",
+      "sourceRoot": "packages/angular-network-status/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-network-status/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-network-status/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-network-status/tsconfig.spec.json"
           }
         }
       }
@@ -315,6 +367,32 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "packages/angular-selection-state/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-storage": {
+      "projectType": "library",
+      "root": "packages/angular-storage",
+      "sourceRoot": "packages/angular-storage/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-storage/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-storage/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-storage/tsconfig.spec.json"
           }
         }
       }

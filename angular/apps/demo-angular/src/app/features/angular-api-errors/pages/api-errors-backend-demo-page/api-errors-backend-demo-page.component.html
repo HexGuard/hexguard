@@ -5,7 +5,7 @@
     [demo]="demoEntry"
   />
 
-  <article demoIntro>
+  <article demoIntro class="demo-card demo-card--stack" data-testid="api-errors-backend-intro-card">
     <p class="demo-eyebrow">Cross-Stack Validation</p>
     <h2>Backend validation via the shared .NET SampleApi</h2>
     <p class="demo-card__summary">
@@ -58,7 +58,7 @@
     }
   </article>
 
-  <article demoPrimary>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="api-errors-backend-primary-card">
     <div class="api-errors-backend">
       <form
         class="api-errors-backend__form"
@@ -68,11 +68,11 @@
       >
         <!-- Name -->
         <div class="api-errors-backend__field">
-          <label class="api-errors-backend__label" for="be-name">Product Name *</label>
+          <label class="demo-field-label" for="be-name">Product Name *</label>
           <input
             id="be-name"
-            class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('name')?.invalid && form.get('name')?.touched
             "
             formControlName="name"
@@ -88,12 +88,12 @@
 
         <!-- Price -->
         <div class="api-errors-backend__field">
-          <label class="api-errors-backend__label" for="be-price">Price *</label>
+          <label class="demo-field-label" for="be-price">Price *</label>
           <input
             id="be-price"
             type="number"
-            class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('price')?.invalid && form.get('price')?.touched
             "
             formControlName="price"
@@ -109,11 +109,11 @@
 
         <!-- Category -->
         <div class="api-errors-backend__field">
-          <label class="api-errors-backend__label" for="be-category">Category *</label>
+          <label class="demo-field-label" for="be-category">Category *</label>
           <select
             id="be-category"
-            class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="
+            class="demo-select"
+            [class.demo-input--invalid]="
               form.get('category')?.invalid && form.get('category')?.touched
             "
             formControlName="category"
@@ -136,11 +136,11 @@
 
         <!-- SKU -->
         <div class="api-errors-backend__field">
-          <label class="api-errors-backend__label" for="be-sku">SKU (XXX-999999)</label>
+          <label class="demo-field-label" for="be-sku">SKU (XXX-999999)</label>
           <input
             id="be-sku"
-            class="api-errors-backend__input"
-            [class.api-errors-backend__input--invalid]="
+            class="demo-input"
+            [class.demo-input--invalid]="
               form.get('sku')?.invalid && form.get('sku')?.touched
             "
             formControlName="sku"
@@ -178,7 +178,8 @@
           <div class="api-errors-backend__add-tag">
             <input
               #tagInput
-              class="api-errors-backend__input"
+              class="demo-input demo-input--sm"
+              style="max-width:10rem"
               placeholder="Add tag"
               (keydown.enter)="addTag(tagInput.value); tagInput.value = ''"
               data-testid="api-errors-backend-tag-input"
@@ -186,7 +187,7 @@
           </div>
         </div>
 
-        <div class="api-errors-backend__form-actions">
+        <div class="demo-actions-row">
           <button
             type="submit"
             class="demo-button"

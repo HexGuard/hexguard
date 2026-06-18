@@ -1,0 +1,35 @@
+{
+  "name": "@hexguard/angular-storage",
+  "version": "0.1.0",
+  "description": "Typed signal-wrapper for localStorage/sessionStorage with JSON serialization, versioning, cross-tab sync, and TTL expiry.",
+  "keywords": [
+    "angular",
+    "storage",
+    "localStorage",
+    "sessionStorage",
+    "signals",
+    "cross-tab",
+    "persistence",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-storage",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-storage"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

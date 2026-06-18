@@ -36,7 +36,8 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:5074';
 
           <div class="explorer__toolbar">
             <input
-              class="explorer__api-input"
+              class="demo-input"
+              style="max-width:22rem"
               [value]="apiBase()"
               (input)="updateApiBase($event)"
               placeholder="API base URL"

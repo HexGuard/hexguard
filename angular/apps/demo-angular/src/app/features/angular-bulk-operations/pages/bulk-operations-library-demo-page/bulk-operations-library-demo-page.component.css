@@ -12,11 +12,7 @@
   padding: var(--space-card-pad);
   border: 1px solid rgba(154, 31, 31, 0.18);
   border-radius: 0.85rem;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 232, 232, 0.94),
-    rgba(255, 214, 214, 0.8)
-  );
+  background: linear-gradient(180deg, rgba(255, 232, 232, 0.94), rgba(255, 214, 214, 0.8));
 }
 
 .bulk-lib__api-error p:first-child {
@@ -24,59 +20,7 @@
   color: #a35832;
 }
 
-/* ── Table ────────────────────────────────── */
-
-.bulk-lib__table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: var(--color-surface-strong);
-}
-
-.bulk-lib__table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.87rem;
-}
-
-.bulk-lib__table th {
-  padding: 0.65rem 0.75rem;
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  border-bottom: 1px solid var(--color-border);
-  background: rgba(255, 252, 248, 0.6);
-}
-
-.bulk-lib__table td {
-  padding: 0.55rem 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-ink);
-}
-
-.bulk-lib__table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.bulk-lib__table tbody tr:hover {
-  background: rgba(20, 101, 111, 0.04);
-}
-
-.bulk-lib__check {
-  width: 2.5rem;
-  text-align: center;
-}
-
-.bulk-lib__check input {
-  width: 1rem;
-  height: 1rem;
-  cursor: pointer;
-  accent-color: var(--color-accent);
-}
+/* ── Status badges for order rows ──────────── */
 
 .bulk-lib__status {
   display: inline-block;
@@ -111,11 +55,7 @@
   margin-top: var(--space-grid);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.88),
-    rgba(250, 244, 236, 0.72)
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(250, 244, 236, 0.72));
 }
 
 .bulk-lib__results-grid {

@@ -76,7 +76,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
               </div>
               <button
                 type="button"
-                class="boundary-trigger"
+                class="demo-button demo-button--sm"
                 (click)="throwRenderError()"
                 data-testid="trigger-error"
               >
@@ -117,7 +117,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
               </div>
               <button
                 type="button"
-                class="boundary-trigger"
+                class="demo-button demo-button--sm"
                 (click)="throwCustomError()"
                 data-testid="trigger-custom-error"
               >
@@ -190,24 +190,6 @@ import { formatSnapshot } from '../../../../shared/formatting';
       .boundary-icon--warn {
         background: #f8d7da;
         color: #721c24;
-      }
-      .boundary-trigger {
-        padding: 0.45rem 0.85rem;
-        border: 1px solid #dc3545;
-        border-radius: 2rem;
-        background: white;
-        color: #dc3545;
-        cursor: pointer;
-        font-size: 0.82rem;
-        font-weight: 600;
-        box-shadow: var(--shadow-soft);
-        transition:
-          background 150ms ease,
-          color 150ms ease;
-      }
-      .boundary-trigger:hover {
-        background: #dc3545;
-        color: #fff;
       }
       .boundary-error {
         padding: 1rem;

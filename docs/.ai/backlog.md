@@ -128,6 +128,11 @@
 - [ ] Keep `@hexguard/angular-bookmarks` as a proposed bookmark and favorites state package with collections and folders.
 - [ ] Keep `@hexguard/angular-report-builder` as a proposed report and dashboard builder state package with column/filter/sort config and preview.
 - [ ] Keep `HexGuard.HeadlessCms` as a proposed .NET headless CMS content contracts package with content types, versioning, and publishing workflows.
+- [ ] Keep `@hexguard/angular-click-outside` as a proposed click-outside detection directive for closing overlays and dropdowns.
+- [ ] Keep `@hexguard/angular-auto-resize` as a proposed auto-resize textarea directive that grows with content.
+- [ ] Keep `@hexguard/angular-text-highlight` as a proposed text search-term highlighting utility with case-insensitive matching.
+- [ ] Keep `@hexguard/angular-file-size` as a proposed file size formatting pipe for human-readable byte display.
+- [ ] Keep `@hexguard/angular-truncate` as a proposed text truncation directive with show-more/show-less toggle.
 
 ## Later
 

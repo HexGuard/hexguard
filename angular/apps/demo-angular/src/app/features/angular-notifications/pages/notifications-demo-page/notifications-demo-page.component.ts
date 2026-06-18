@@ -69,7 +69,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
               @for (action of typeActions; track action.type) {
                 <button
                   type="button"
-                  class="notify-chip notify-chip--{{ action.type }}"
+                  class="demo-button demo-button--sm"
                   (click)="notify(action.type)"
                   [attr.data-testid]="'notify-' + action.type"
                 >
@@ -87,7 +87,8 @@ import { formatSnapshot } from '../../../../shared/formatting';
                   (ngModelChange)="durationMs.set($event)"
                   min="0"
                   step="500"
-                  class="notify-duration-input"
+                  class="demo-input"
+                  style="max-width:7rem"
                   data-testid="notifications-duration"
                 />
                 <span class="notify-hint">ms (0 = persistent)</span>
@@ -160,39 +161,6 @@ import { formatSnapshot } from '../../../../shared/formatting';
         flex-wrap: wrap;
         margin-bottom: 1rem;
       }
-      .notify-chip {
-        padding: 0.5rem 0.9rem;
-        border: 1px solid var(--color-border);
-        border-radius: 2rem;
-        background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
-        cursor: pointer;
-        font-size: 0.8rem;
-        font-weight: 600;
-        box-shadow: var(--shadow-soft);
-        transition:
-          transform 120ms ease,
-          box-shadow 120ms ease;
-      }
-      .notify-chip:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-medium);
-      }
-      .notify-chip--success {
-        border-color: #28a745;
-        color: #155724;
-      }
-      .notify-chip--error {
-        border-color: #dc3545;
-        color: #721c24;
-      }
-      .notify-chip--info {
-        border-color: #17a2b8;
-        color: #0c5460;
-      }
-      .notify-chip--warning {
-        border-color: #ffc107;
-        color: #856404;
-      }
       .notify-config {
         margin-bottom: 1rem;
       }
@@ -205,18 +173,6 @@ import { formatSnapshot } from '../../../../shared/formatting';
       .notify-config-label {
         font-size: 0.85rem;
         color: var(--color-muted);
-      }
-      .notify-duration-input {
-        width: 5rem;
-        padding: 0.35rem 0.5rem;
-        border: 1px solid var(--color-border);
-        border-radius: 0.5rem;
-        font-size: 0.85rem;
-        background: white;
-      }
-      .notify-duration-input:focus {
-        border-color: var(--color-accent-strong);
-        outline: none;
       }
       .notify-hint {
         color: var(--color-muted);

@@ -47,4 +47,3 @@ export function provideBulkOperation<TItem, TResult, TPayload = void>(
     ],
   };
 }
-

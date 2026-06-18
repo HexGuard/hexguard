@@ -49,8 +49,7 @@ export const STACK_REGISTRY: Record<StackId, StackDefinition> = {
     packageLabel: 'Angular',
     routePrefix: '/packages',
     hubRoute: '/angular',
-    description:
-      'Angular guardrail libraries with live demos and Playwright-backed coverage.',
+    description: 'Angular guardrail libraries with live demos and Playwright-backed coverage.',
   },
   dotnet: {
     id: 'dotnet',

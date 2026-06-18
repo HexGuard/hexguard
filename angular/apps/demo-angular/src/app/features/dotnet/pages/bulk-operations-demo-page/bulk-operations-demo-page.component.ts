@@ -18,8 +18,8 @@ import { DOTNET_BULK_OPERATIONS_HOME } from '../../../../demo-registry';
           </div>
         </div>
         <p class="demo-card__summary">
-          The <code>HexGuard.BulkOperations</code> library provides typed request/response contracts,
-          a <code>BulkOperationResultBuilder</code> for aggregating per-item results, and
+          The <code>HexGuard.BulkOperations</code> library provides typed request/response
+          contracts, a <code>BulkOperationResultBuilder</code> for aggregating per-item results, and
           <code>Results.Extensions.BulkOperation()</code> for Minimal API integration.
         </p>
 
@@ -39,8 +39,8 @@ import { DOTNET_BULK_OPERATIONS_HOME } from '../../../../demo-registry';
         </div>
 
         <p class="demo-card__summary">
-          Start the shared SampleApi with <code>pnpm dotnet:start:demo-api</code>,
-          then test these endpoints:
+          Start the shared SampleApi with <code>pnpm dotnet:start:demo-api</code>, then test these
+          endpoints:
         </p>
 
         <pre class="demo-code-block"><code>POST /api/bulk-operations/delete
@@ -80,7 +80,9 @@ POST /api/bulk-operations/update-status</code></pre>
   `,
   styles: [
     `
-      pre { white-space: pre-wrap; }
+      pre {
+        white-space: pre-wrap;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

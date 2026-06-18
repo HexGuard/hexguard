@@ -21,8 +21,8 @@ import { getDotnetSitePackage, SITE_ECOSYSTEMS } from '../../../../site-catalog'
         <h3>{{ ecosystem.label }}</h3>
         <p class="demo-card__summary">
           This package pairs with
-          <strong>@hexguard/angular-bulk-operations</strong> as the Provider layer. View
-          how both packages work together.
+          <strong>@hexguard/angular-bulk-operations</strong> as the Provider layer. View how both
+          packages work together.
         </p>
         <a
           class="site-cta"

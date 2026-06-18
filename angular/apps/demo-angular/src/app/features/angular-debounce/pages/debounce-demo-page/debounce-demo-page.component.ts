@@ -164,31 +164,6 @@ import { formatSnapshot } from '../../../../shared/formatting';
   `,
   styles: [
     `
-      .demo-field-group {
-        margin-bottom: 1.25rem;
-      }
-      .demo-field-label {
-        display: block;
-        margin-bottom: 0.35rem;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--color-muted);
-      }
-      .demo-input {
-        width: 100%;
-        max-width: 22rem;
-        padding: 0.6rem 0.75rem;
-        border: 1px solid var(--color-border);
-        border-radius: 0.6rem;
-        font-size: 1rem;
-        background: white;
-        transition: border-color 150ms ease;
-      }
-      .demo-input:focus {
-        border-color: var(--color-accent-strong);
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(13, 73, 82, 0.12);
-      }
       .debounce-modes {
         display: grid;
         gap: 0.75rem;

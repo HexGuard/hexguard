@@ -31,13 +31,13 @@
   --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 
   /* ── Spacing design tokens ──────────────────── */
-  --space-section: 1.35rem;   /* gap between major page sections */
-  --space-card-pad: 1.25rem;  /* padding inside stack cards */
-  --space-card-gap: 0.85rem;  /* grid gap inside stack cards */
-  --space-grid: 0.85rem;      /* gap between grid items */
-  --space-block: 0.7rem;      /* gap between content blocks */
-  --space-inner: 0.5rem;      /* tight inner gaps */
-  --space-xs: 0.35rem;        /* extra tight gaps */
+  --space-section: 1.35rem; /* gap between major page sections */
+  --space-card-pad: 1.25rem; /* padding inside stack cards */
+  --space-card-gap: 0.85rem; /* grid gap inside stack cards */
+  --space-grid: 0.85rem; /* gap between grid items */
+  --space-block: 0.7rem; /* gap between content blocks */
+  --space-inner: 0.5rem; /* tight inner gaps */
+  --space-xs: 0.35rem; /* extra tight gaps */
 }
 
 * {
@@ -165,9 +165,241 @@ pre {
   text-transform: uppercase;
 }
 
-.demo-button,
+/* ── Form field design system ──────────────── */
+
+.demo-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.demo-field-label {
+  display: block;
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-muted);
+}
+
+.demo-field-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+/* Shared input/select/textarea base */
 .demo-input,
 .demo-select,
+.demo-textarea {
+  min-width: 0;
+  width: 100%;
+  max-width: 24rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--color-accent-border);
+  border-radius: 0.65rem;
+  background: var(--color-surface-strong);
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.demo-input:focus,
+.demo-select:focus,
+.demo-textarea:focus {
+  border-color: var(--color-accent-strong);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.demo-input--invalid,
+.demo-select--invalid {
+  border-color: #d32f2f;
+}
+
+.demo-input--invalid:focus,
+.demo-select--invalid:focus {
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.12);
+}
+
+.demo-input::placeholder,
+.demo-textarea::placeholder {
+  color: var(--color-muted);
+  opacity: 0.6;
+}
+
+.demo-input--sm,
+.demo-select--sm {
+  padding: 0.4rem 0.65rem;
+  font-size: 0.8rem;
+  max-width: 14rem;
+}
+
+/* Select arrow */
+.demo-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235d6878' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.9rem;
+  padding-right: 2.2rem;
+  cursor: pointer;
+}
+
+.demo-select:hover {
+  border-color: var(--color-accent-border-strong);
+}
+
+/* Checkbox / Radio */
+.demo-checkbox,
+.demo-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.demo-checkbox input[type="checkbox"],
+.demo-radio input[type="radio"] {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+  border: 1.5px solid var(--color-accent-border);
+  border-radius: 0.3rem;
+  background: var(--color-surface-strong);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.demo-radio input[type="radio"] {
+  border-radius: 50%;
+}
+
+.demo-checkbox input[type="checkbox"]:checked {
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.75rem;
+}
+
+.demo-radio input[type="radio"]:checked {
+  border-color: var(--color-accent-strong);
+  background: var(--color-accent-strong);
+  box-shadow: inset 0 0 0 3px var(--color-surface-strong);
+}
+
+.demo-checkbox input:focus-visible,
+.demo-radio input:focus-visible {
+  outline: 2px solid var(--color-accent-border);
+  outline-offset: 2px;
+}
+
+/* ── Button design system ──────────────────── */
+
+.demo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--color-accent-strong);
+  border-radius: 0.65rem;
+  background: var(--color-accent-strong);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
+}
+
+.demo-button:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.demo-button:active {
+  transform: scale(0.97);
+}
+
+.demo-button:focus-visible {
+  outline: 2px solid var(--color-accent-border);
+  outline-offset: 2px;
+}
+
+.demo-button--secondary {
+  background: transparent;
+  border-color: var(--color-accent-border);
+  color: var(--color-ink);
+}
+
+.demo-button--secondary:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-border-strong);
+}
+
+.demo-button--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-muted);
+}
+
+.demo-button--ghost:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
+
+.demo-button--sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.76rem;
+  border-radius: 0.5rem;
+}
+
+.demo-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Legacy alias — remove once migrated ──── */
+.demo-button--ghost,
+.demo-input,
+.demo-select {
+  border-radius: 0.65rem;
+}
+
+/* ── Field inline helper ───────────────────── */
+
+.demo-input-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-input-inline label {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+/* ── Chips, tabs, link chips ───────────────── */
+
 .demo-hint-pill,
 .demo-tab-button,
 .demo-link-chip {
@@ -175,38 +407,59 @@ pre {
   border: 1px solid var(--color-accent-border);
   background: var(--color-surface-strong);
   color: var(--color-ink);
+  border-radius: var(--radius-pill);
 }
 
-.demo-button,
-.demo-input,
-.demo-select,
-.demo-tab-button {
-  padding: 0.85rem 1rem;
-}
-
-.demo-button,
 .demo-tab-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
-  max-width: 100%;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.8rem;
   letter-spacing: -0.01em;
+  line-height: 1.3;
+  white-space: nowrap;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
-.demo-button--ghost,
-.demo-input,
-.demo-select {
-  border-radius: 1rem;
+.demo-tab-button:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-border-strong);
 }
 
-.demo-hint-pill,
-.demo-tab-button,
-.demo-link-chip {
-  border-radius: var(--radius-pill);
+.demo-tab-button--active {
+  background: var(--color-accent-strong);
+  border-color: transparent;
+  color: white;
 }
+
+.demo-tab-button--active:hover {
+  background: var(--color-accent);
+}
+
+.demo-tab-button:focus-visible {
+  outline: 2px solid var(--color-accent-border);
+  outline-offset: 2px;
+}
+
+.demo-tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.demo-tab-bar > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ── Hint pills & link chips ───────────────── */
 
 .demo-hint-pill,
 .demo-link-chip {
@@ -214,8 +467,8 @@ pre {
   align-items: center;
   justify-content: center;
   max-inline-size: 100%;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.82rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
   line-height: 1.3;
   overflow-wrap: anywhere;
   text-align: center;
@@ -234,109 +487,256 @@ pre {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
 }
 
-.demo-tab-button--active {
-  background: var(--color-accent-strong);
-  border-color: transparent;
-  color: white;
-}
-
-.demo-button:focus-visible,
-.demo-input:focus,
-.demo-select:focus,
-.demo-tab-button:focus-visible,
 .demo-link-chip:focus-visible {
   outline: 2px solid var(--color-accent-border);
   outline-offset: 2px;
 }
 
-.demo-field {
-  display: grid;
-  gap: 0.5rem;
+/* ── Table design system ───────────────────── */
+
+.demo-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface-strong);
 }
 
-.demo-field span {
-  color: var(--color-ink);
-  font-size: 0.92rem;
-  font-weight: 600;
+.demo-table {
+  width: 100%;
+  min-width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
-.demo-status-strip {
-  display: flex;
-  gap: 0.9rem 1.15rem;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  border-top: 1px solid rgba(23, 33, 43, 0.08);
-  padding-top: 1.1rem;
-}
-
-.demo-status-strip p {
-  margin: 0;
+.demo-table thead th {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1.5px solid var(--color-border-strong);
+  background: rgba(23, 33, 43, 0.03);
   color: var(--color-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.demo-status-strip > * {
+.demo-table tbody td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.demo-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.demo-table tbody tr:hover {
+  background: rgba(20, 101, 111, 0.04);
+}
+
+.demo-table tbody tr:focus-within {
+  background: rgba(20, 101, 111, 0.06);
+}
+
+.demo-table tbody tr {
+  transition: background 120ms ease;
+}
+
+.demo-table--compact thead th,
+.demo-table--compact tbody td {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.78rem;
+}
+
+/* ── Section / block layout ────────────────── */
+
+.demo-section {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.demo-section + .demo-section {
+  margin-top: 0.5rem;
+}
+
+.demo-section__title {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  letter-spacing: -0.01em;
+}
+
+.demo-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.demo-actions-row > * {
   min-width: 0;
 }
 
-.demo-status-strip code {
-  max-width: 100%;
-  overflow-wrap: anywhere;
-  color: var(--color-accent-strong);
+/* ── Heading hierarchy ─────────────────────── */
+
+.demo-heading-xl {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
 }
 
-.demo-tab-bar,
-/* ── Status badges (global) ─────────────────── */
+.demo-heading-lg {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
 
+.demo-heading-md {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.demo-heading-sm {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+/* ── Badge design system ───────────────────── */
+
+.demo-badge,
 .site-status-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  min-height: 2rem;
-  max-inline-size: 100%;
-  padding: 0.4rem 0.78rem;
+  gap: 0.3rem;
+  min-height: 1.6rem;
+  padding: 0.2rem 0.65rem;
   border: 1px solid var(--color-accent-border-strong);
   border-radius: var(--radius-pill);
-  background: rgba(20, 101, 111, 0.12);
+  background: rgba(20, 101, 111, 0.1);
   color: var(--color-accent-strong);
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   line-height: 1.35;
-  overflow-wrap: anywhere;
-  text-align: center;
   text-transform: uppercase;
-}
-
-.site-status-badge::before {
-  content: '';
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.7;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
+/* Dot indicator */
+.demo-badge::before,
+.site-status-badge::before {
+  content: '';
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+/* ── Badge variants ────────────────────────── */
+
+.demo-badge--released,
+.site-status-badge--released {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  color: #166534;
+}
+
+.demo-badge--in-progress,
+.site-status-badge--in-progress {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  color: #92400e;
+}
+
+.demo-badge--muted,
 .site-status-badge--muted {
   border-color: var(--color-border-strong);
-  background: rgba(23, 33, 43, 0.06);
+  background: rgba(23, 33, 43, 0.05);
   color: var(--color-muted);
 }
 
-.site-status-badge--in-progress {
-  border-color: #d9774b;
-  background: rgba(217, 119, 75, 0.12);
-  color: #a35832;
+.demo-badge--neutral,
+.demo-badge--info {
+  border-color: var(--color-accent-border);
+  background: rgba(20, 101, 111, 0.06);
+  color: var(--color-accent-strong);
 }
 
-.site-status-badge--released {
-  border-color: #22c55e;
-  background: rgba(34, 197, 94, 0.12);
-  color: #166534;
+.demo-badge--neutral::before,
+.demo-badge--info::before {
+  display: none;
 }
+
+.demo-badge--warn {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  color: #92400e;
+}
+
+.demo-badge--error {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+}
+
+.demo-badge--dotless::before {
+  display: none;
+}
+
+/* ── Badge size variants ───────────────────── */
+
+.demo-badge--sm {
+  min-height: 1.3rem;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.6rem;
+  gap: 0.2rem;
+}
+
+.demo-badge--sm::before {
+  width: 0.35rem;
+  height: 0.35rem;
+}
+
+/* ── Hint pill (counts, metadata chips) ────── */
+
+.demo-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-inline-size: 100%;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-strong);
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+}
+
+/* ── Link row (legacy layout helper) ───────── */
 
 .demo-link-row {
   display: flex;
@@ -381,57 +781,9 @@ pre {
 .demo-tab-bar > * {
   min-width: 0;
   max-width: 100%;
-
-  .site-status-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    min-height: 2rem;
-    max-inline-size: 100%;
-    padding: 0.4rem 0.78rem;
-    border: 1px solid var(--color-accent-border-strong);
-    border-radius: var(--radius-pill);
-    background: rgba(20, 101, 111, 0.12);
-    color: var(--color-accent-strong);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    line-height: 1.35;
-    overflow-wrap: anywhere;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .site-status-badge::before {
-    content: '';
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: currentColor;
-    opacity: 0.7;
-    flex-shrink: 0;
-  }
-
-  .site-status-badge--muted {
-    border-color: var(--color-border-strong);
-    background: rgba(23, 33, 43, 0.06);
-    color: var(--color-muted);
-  }
-
-  .site-status-badge--in-progress {
-    border-color: #d9774b;
-    background: rgba(217, 119, 75, 0.12);
-    color: #a35832;
-  }
-
-  .site-status-badge--released {
-    border-color: #22c55e;
-    background: rgba(34, 197, 94, 0.12);
-    color: #166534;
-  }
 }
+
+/* ── Source code blocks ────────────────────── */
 
 .demo-source-meta {
   display: grid;

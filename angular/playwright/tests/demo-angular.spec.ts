@@ -34,32 +34,24 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('package-card-angular-query-form')).toBeVisible();
     await expect(page.getByTestId('package-card-angular-async-state')).toBeVisible();
     await expect(page.getByTestId('package-card-angular-lookups')).toBeVisible();
-    await expect(
-      page.getByTestId('package-card-angular-optimistic-state'),
-    ).toBeVisible();
+    await expect(page.getByTestId('package-card-angular-optimistic-state')).toBeVisible();
     // Filter to Angular to see all Angular packages, then expand
     await page.getByTestId('showcase-filter-angular').click();
     await page.getByTestId('showcase-expand-toggle').click();
 
     await expect(page.getByTestId('package-card-angular-permissions')).toBeVisible();
-    await expect(
-      page.getByTestId('package-card-status-angular-url-state'),
-    ).toHaveText('Released');
-    await expect(
-      page.getByTestId('package-card-status-angular-query-form'),
-    ).toHaveText('Released');
-    await expect(
-      page.getByTestId('package-card-status-angular-async-state'),
-    ).toHaveText('Released');
-    await expect(page.getByTestId('package-card-status-angular-lookups')).toHaveText(
+    await expect(page.getByTestId('package-card-status-angular-url-state')).toHaveText('Released');
+    await expect(page.getByTestId('package-card-status-angular-query-form')).toHaveText('Released');
+    await expect(page.getByTestId('package-card-status-angular-async-state')).toHaveText(
       'Released',
     );
-    await expect(
-      page.getByTestId('package-card-status-angular-optimistic-state'),
-    ).toHaveText('Released');
-    await expect(
-      page.getByTestId('package-card-status-angular-permissions'),
-    ).toHaveText('Released');
+    await expect(page.getByTestId('package-card-status-angular-lookups')).toHaveText('Released');
+    await expect(page.getByTestId('package-card-status-angular-optimistic-state')).toHaveText(
+      'Released',
+    );
+    await expect(page.getByTestId('package-card-status-angular-permissions')).toHaveText(
+      'Released',
+    );
     await expect(page.getByTestId('nav-link-package-angular-url-state')).toContainText('Available');
     await expect(page.getByTestId('nav-link-package-angular-query-form')).toContainText(
       'Available',
@@ -86,14 +78,10 @@ test.describe('demo-angular', () => {
 
       const layout = await page.evaluate(() => {
         const packageCards = Array.from(
-          document.querySelectorAll<HTMLElement>(
-            'article[data-testid^="package-card-"]',
-          ),
+          document.querySelectorAll<HTMLElement>('article[data-testid^="package-card-"]'),
         );
         const packageBadges = Array.from(
-          document.querySelectorAll<HTMLElement>(
-            '[data-testid^="package-card-status-"]',
-          ),
+          document.querySelectorAll<HTMLElement>('[data-testid^="package-card-status-"]'),
         );
         const navCards = Array.from(
           document.querySelectorAll<HTMLElement>('a[data-testid^="nav-link-package-"]'),

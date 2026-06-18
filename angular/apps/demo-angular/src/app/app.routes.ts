@@ -48,6 +48,12 @@ import { PremiumContentPageComponent } from './features/angular-feature-flags/pa
 import { UpgradePageComponent } from './features/angular-feature-flags/pages/upgrade-page/upgrade-page.component';
 import { AngularSelectionStateHomePageComponent } from './features/angular-selection-state/angular-selection-state-home-page.component';
 import { SelectionStateDemoPageComponent } from './features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component';
+import { AngularDateUtilsHomePageComponent } from './features/angular-date-utils/angular-date-utils-home-page.component';
+import { DateUtilsDemoPageComponent } from './features/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component';
+import { AngularNetworkStatusHomePageComponent } from './features/angular-network-status/angular-network-status-home-page.component';
+import { NetworkStatusDemoPageComponent } from './features/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component';
+import { AngularStorageHomePageComponent } from './features/angular-storage/angular-storage-home-page.component';
+import { StorageDemoPageComponent } from './features/angular-storage/pages/storage-demo-page/storage-demo-page.component';
 import { AngularBulkOperationsHomePageComponent } from './features/angular-bulk-operations/angular-bulk-operations-home-page.component';
 import { BulkOperationsDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { BulkOperationsApiDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
@@ -394,6 +400,39 @@ export const routes: Routes = [
     path: 'packages/angular-bulk-operations/library-demo',
     component: BulkOperationsLibraryDemoPageComponent,
     title: 'Bulk Operations Library API Workflow',
+  },
+  // ── Date Utils ──────────────────────────────────────────────────
+  {
+    path: 'packages/angular-date-utils',
+    component: AngularDateUtilsHomePageComponent,
+    title: 'Angular Date Utils Demos',
+  },
+  {
+    path: 'packages/angular-date-utils/demo',
+    component: DateUtilsDemoPageComponent,
+    title: 'Date Utils Demo',
+  },
+  // ── Network Status ──────────────────────────────────────────────
+  {
+    path: 'packages/angular-network-status',
+    component: AngularNetworkStatusHomePageComponent,
+    title: 'Angular Network Status Demos',
+  },
+  {
+    path: 'packages/angular-network-status/demo',
+    component: NetworkStatusDemoPageComponent,
+    title: 'Network Status Demo',
+  },
+  // ── Storage ─────────────────────────────────────────────────────
+  {
+    path: 'packages/angular-storage',
+    component: AngularStorageHomePageComponent,
+    title: 'Angular Storage Demos',
+  },
+  {
+    path: 'packages/angular-storage/demo',
+    component: StorageDemoPageComponent,
+    title: 'Storage Demo',
   },
   // ── .NET showcase routes ────────────────────────────────────────
   {

@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import {
-  provideBulkOperation,
-  injectBulkOperation,
-} from '@hexguard/angular-bulk-operations';
+import { provideBulkOperation, injectBulkOperation } from '@hexguard/angular-bulk-operations';
 import type {
   BulkOperationRequest,
   BulkOperationResponse,
@@ -108,10 +105,7 @@ export class BulkOperationsApiDemoPageComponent {
   readonly updateOp = injectBulkOperation(UPDATE_OP.token);
 
   readonly isBusy = computed(
-    () =>
-      this.deleteOp.inProgress() ||
-      this.approveOp.inProgress() ||
-      this.updateOp.inProgress(),
+    () => this.deleteOp.inProgress() || this.approveOp.inProgress() || this.updateOp.inProgress(),
   );
 
   readonly apiStatus = computed(() => {
@@ -182,15 +176,11 @@ export class BulkOperationsApiDemoPageComponent {
   }
 
   async runDelete(): Promise<void> {
-    await this.doAction('delete', () =>
-      this.deleteOp.execute({ items: this.orders }),
-    );
+    await this.doAction('delete', () => this.deleteOp.execute({ items: this.orders }));
   }
 
   async runApprove(): Promise<void> {
-    await this.doAction('approve', () =>
-      this.approveOp.execute({ items: this.orders }),
-    );
+    await this.doAction('approve', () => this.approveOp.execute({ items: this.orders }));
   }
 
   async runUpdateStatus(): Promise<void> {

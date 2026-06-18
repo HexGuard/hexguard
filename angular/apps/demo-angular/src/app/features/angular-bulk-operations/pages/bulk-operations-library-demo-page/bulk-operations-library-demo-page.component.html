@@ -11,18 +11,14 @@
         <p class="demo-eyebrow">Angular Bulk Operations</p>
         <h2>Angular library working with the .NET API.</h2>
       </div>
-      <span class="demo-hint-pill" data-testid="bulk-lib-source-pill"
-        >Source: .NET SampleApi</span
-      >
+      <span class="demo-hint-pill" data-testid="bulk-lib-source-pill">Source: .NET SampleApi</span>
     </div>
 
     <p class="demo-card__summary">
-      This demo uses <code>&#64;hexguard/angular-bulk-operations</code> to call the
-      live .NET SampleApi endpoints. Select orders and run a bulk action to see
-      the library's <code>provideBulkOperation()</code>,
-      <code>injectBulkOperation()</code>, and
-      <code>selectedItemsToBulkRequest()</code> in action with real HTTP 207
-      Multi-Status responses.
+      This demo uses <code>&#64;hexguard/angular-bulk-operations</code> to call the live .NET
+      SampleApi endpoints. Select orders and run a bulk action to see the library's
+      <code>provideBulkOperation()</code>, <code>injectBulkOperation()</code>, and
+      <code>selectedItemsToBulkRequest()</code> in action with real HTTP 207 Multi-Status responses.
     </p>
 
     <div class="bulk-lib__controls">
@@ -91,11 +87,11 @@
       >
     </div>
 
-    <div class="bulk-lib__table-wrap">
-      <table class="bulk-lib__table" data-testid="bulk-lib-orders-table">
+    <div class="demo-table-wrap">
+      <table class="demo-table" data-testid="bulk-lib-orders-table">
         <thead>
           <tr>
-            <th class="bulk-lib__check">
+            <th style="width:2.5rem;text-align:center;">
               <input
                 type="checkbox"
                 [checked]="allSelected()"
@@ -111,7 +107,7 @@
         <tbody>
           @for (item of items(); track item.id) {
             <tr class="bulk-lib__row" data-testid="bulk-lib-order-row">
-              <td class="bulk-lib__check">
+              <td style="width:2.5rem;text-align:center;">
                 <input
                   type="checkbox"
                   [checked]="selection.selected().has(item.id)"
@@ -119,7 +115,9 @@
                   [attr.data-testid]="'bulk-lib-checkbox-' + item.id"
                 />
               </td>
-              <td><code>{{ item.id }}</code></td>
+              <td>
+                <code>{{ item.id }}</code>
+              </td>
               <td>{{ item.name }}</td>
               <td>
                 <span

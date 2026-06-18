@@ -22,7 +22,9 @@ import { STACK_REGISTRY } from '../../../site-catalog';
           class="site-status-badge package-card__status"
           [class.site-status-badge--released]="entry().status === 'Released'"
           [class.site-status-badge--in-progress]="entry().status === 'In Progress'"
-          [class.site-status-badge--muted]="entry().status === 'Planned' || entry().status === 'Proposed'"
+          [class.site-status-badge--muted]="
+            entry().status === 'Planned' || entry().status === 'Proposed'
+          "
           [attr.data-testid]="'package-card-status-' + entry().id"
           >{{ entry().status }}</span
         >
@@ -37,9 +39,9 @@ import { STACK_REGISTRY } from '../../../site-catalog';
               <li>{{ highlight }}</li>
             }
             @if (entry().featureHighlights.length > 3) {
-              <li class="package-card__highlights-more"
-                >+{{ entry().featureHighlights.length - 3 }} more</li
-              >
+              <li class="package-card__highlights-more">
+                +{{ entry().featureHighlights.length - 3 }} more
+              </li>
             }
           </ul>
         }
@@ -94,13 +96,7 @@ import { STACK_REGISTRY } from '../../../site-catalog';
             [routerLink]="entry().route"
             [attr.title]="'Open ' + scopeLabel() + ' hub'"
           >
-            <svg
-              viewBox="0 0 16 16"
-              fill="none"
-              width="13"
-              height="13"
-              aria-hidden="true"
-            >
+            <svg viewBox="0 0 16 16" fill="none" width="13" height="13" aria-hidden="true">
               <path
                 d="M6 3L11 8L6 13"
                 stroke="currentColor"
@@ -120,13 +116,7 @@ import { STACK_REGISTRY } from '../../../site-catalog';
               rel="noreferrer"
               title="View source"
             >
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                width="13"
-                height="13"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 16 16" fill="none" width="13" height="13" aria-hidden="true">
                 <path
                   d="M5.5 5.5L9 8L5.5 10.5"
                   stroke="currentColor"
@@ -153,30 +143,14 @@ import { STACK_REGISTRY } from '../../../site-catalog';
               rel="noreferrer"
               title="Package docs"
             >
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                width="13"
-                height="13"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 16 16" fill="none" width="13" height="13" aria-hidden="true">
                 <path
                   d="M2 4C2 3.44772 2.44772 3 3 3H13C13.5523 3 14 3.44772 14 4V12C14 12.5523 13.5523 13 13 13H3C2.44772 13 2 12.5523 2 12V4Z"
                   stroke="currentColor"
                   stroke-width="1.5"
                 />
-                <path
-                  d="M5 7H11"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M5 10H9"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                />
+                <path d="M5 7H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M5 10H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
               </svg>
               <span>Docs</span>
             </a>

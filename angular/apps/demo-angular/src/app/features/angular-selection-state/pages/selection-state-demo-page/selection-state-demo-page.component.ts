@@ -26,8 +26,9 @@ interface DemoItem {
           </div>
         </div>
         <p class="demo-card__summary">
-          <code>injectSelectionState()</code> provides multi/single-selection with toggle, select-all,
-          clear, and derived signals. Use the checkboxes below to see each operation in action.
+          <code>injectSelectionState()</code> provides multi/single-selection with toggle,
+          select-all, clear, and derived signals. Use the checkboxes below to see each operation in
+          action.
         </p>
 
         <demo-status-strip
@@ -43,13 +44,18 @@ interface DemoItem {
         <p data-testid="selection-count">
           Selected: <strong>{{ selection.count() }}</strong> item(s)
           @if (selection.canAct()) {
-            <button class="demo-button demo-button--sm" (click)="selection.clear()" data-testid="clear-selection-btn">
+            <button
+              class="demo-button demo-button--sm"
+              (click)="selection.clear()"
+              data-testid="clear-selection-btn"
+            >
               Clear all
             </button>
           }
         </p>
 
-        <table data-testid="selection-table">
+        <div class="demo-table-wrap">
+        <table class="demo-table" data-testid="selection-table">
           <thead>
             <tr>
               <th>
@@ -81,20 +87,37 @@ interface DemoItem {
             }
           </tbody>
         </table>
+        </div>
 
         @if (selection.canAct()) {
           <div class="demo-actions-row" style="margin-top: 0.75rem;" data-testid="bulk-action-bar">
             <span data-testid="bulk-bar-count">{{ selection.count() }} selected</span>
-            <button class="demo-button demo-button--sm" (click)="performBulkAction()" data-testid="bulk-action-btn">
+            <button
+              class="demo-button demo-button--sm"
+              (click)="performBulkAction()"
+              data-testid="bulk-action-btn"
+            >
               Perform Action
             </button>
           </div>
         }
 
         @if (lastActionResult(); as actionResult) {
-          <div class="demo-card demo-card--stack" style="margin-top: 1rem;" data-testid="selection-action-result">
-            <p>Applied to: <strong>{{ actionResult }}</strong></p>
-            <button class="demo-button demo-button--ghost demo-button--sm" (click)="clearActionResult()" data-testid="clear-result-btn">Dismiss</button>
+          <div
+            class="demo-card demo-card--stack"
+            style="margin-top: 1rem;"
+            data-testid="selection-action-result"
+          >
+            <p>
+              Applied to: <strong>{{ actionResult }}</strong>
+            </p>
+            <button
+              class="demo-button demo-button--ghost demo-button--sm"
+              (click)="clearActionResult()"
+              data-testid="clear-result-btn"
+            >
+              Dismiss
+            </button>
           </div>
         }
       </article>
@@ -115,8 +138,17 @@ interface DemoItem {
   `,
   styles: [
     `
-      table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
-      th, td { padding: 0.5rem; border: 1px solid var(--border-color, #ccc); text-align: left; }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 0.75rem;
+      }
+      th,
+      td {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color, #ccc);
+        text-align: left;
+      }
     `,
   ],
 })

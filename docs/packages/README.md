@@ -23,6 +23,9 @@ another.
 | `@hexguard/angular-feature-flags`    | Released  | Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.                                                                                               | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)       |
 | `@hexguard/angular-selection-state`  | Released  | Headless keyed selection state for Angular tables, lists, and bulk-action flows.                                                                                                                      | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)   |
 | `@hexguard/angular-bulk-operations`  | Released  | Bulk-action service and facade for Angular with HTTP 207 partial-success support, progress tracking, and selection-state composition.                                                                 | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-date-utils`       | Available | Locale-aware date formatting, ranges, business-day calculations, and duration helpers.                                                                                                                | [Deep Dive](angular-date-utils.md), [npm-facing README](../../angular/packages/angular-date-utils/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-network-status`   | Available | Signal-based connectivity monitoring with debounced reconnection detection.                                                                                                                           | [Deep Dive](angular-network-status.md), [npm-facing README](../../angular/packages/angular-network-status/README.md), [Demo runbook](../demo/README.md)     |
+| `@hexguard/angular-storage`          | Available | Typed, signal-backed local and session storage with versioning, TTL, and cross-tab sync.                                                                                                              | [Deep Dive](angular-storage.md), [npm-facing README](../../angular/packages/angular-storage/README.md), [Demo runbook](../demo/README.md)                   |
 | `HexGuard.BulkOperations`            | Released  | Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for HTTP 207 Multi-Status partial-success scenarios.                                                                       | [Deep Dive](hexguard-bulk-operations.md), [npm-facing README](../../dotnet/src/HexGuard.BulkOperations/README.md), [Demo runbook](../demo/README.md)        |
 | `HexGuard.ProblemDetails`            | Available | RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.                                                                        | [Deep Dive](hexguard-problem-details.md), [npm-facing README](../../dotnet/src/HexGuard.ProblemDetails/README.md), [Demo runbook](../demo/README.md)        |
 
@@ -167,6 +170,34 @@ Status: Released
 This package composes with @hexguard/angular-selection-state for the select → act → display-results flow.
 
 It focuses on explicit execution lifecycle, partial-success (HTTP 207) handling, and docs-grade demos showing delete and approve scenarios.
+
+<a id="package-angular-date-utils"></a>
+
+### `@hexguard/angular-date-utils`
+
+Status: Available
+
+This package provides pure functions plus an Angular DI facade that captures LOCALE_ID.
+
+All formatting functions are tree-shakeable and usable outside Angular.
+
+<a id="package-angular-network-status"></a>
+
+### `@hexguard/angular-network-status`
+
+Status: Available
+
+Leverages the Network Information API in Chromium-based browsers for connection type; degrades gracefully to "unknown" when unavailable.
+
+<a id="package-angular-storage"></a>
+
+### `@hexguard/angular-storage`
+
+Status: Available
+
+Uses a JSON envelope format { \_value, \_v, \_ts } for schema versioning and TTL support.
+
+Falls back to in-memory signals when storage throws (private browsing, full quota).
 
 <a id="package-hexguard-bulk-operations"></a>
 
@@ -1223,6 +1254,46 @@ Would standardize report and dashboard builder state with column/filter/sort/gro
 Status: Proposed
 
 Would provide headless CMS content contracts with content type definitions, content entry management, versioning, publishing workflow states, and content delivery API conventions for building headless CMS backends on ASP.NET Core.
+
+<a id="package-angular-click-outside"></a>
+
+### `@hexguard/angular-click-outside`
+
+Status: Proposed
+
+Would provide a lightweight click-outside detection directive and injectable state for closing dropdowns, popovers, modals, and context menus when the user clicks outside a target element.
+
+<a id="package-angular-auto-resize"></a>
+
+### `@hexguard/angular-auto-resize`
+
+Status: Proposed
+
+Would provide an auto-resize textarea directive and state that grows the element height with content, with configurable min/max height, initial sizing, and scroll management for comment, chat, and note inputs.
+
+<a id="package-angular-text-highlight"></a>
+
+### `@hexguard/angular-text-highlight`
+
+Status: Proposed
+
+Would provide a text search-term highlighting utility and pipe that wraps matched substrings in configurable markup with case-insensitive, diacritic-insensitive, and multi-term support for search-result display.
+
+<a id="package-angular-file-size"></a>
+
+### `@hexguard/angular-file-size`
+
+Status: Proposed
+
+Would provide a file size formatting pipe and utility that converts bytes to human-readable strings (KB, MB, GB, TB) with binary/decimal mode, locale-aware formatting, and configurable precision for file-management UIs.
+
+<a id="package-angular-truncate"></a>
+
+### `@hexguard/angular-truncate`
+
+Status: Proposed
+
+Would provide a text truncation directive and state with multi-line clamp, show-more/show-less toggle, HTML-safe truncation, configurable max lines, and expand/collapse animation for cards, descriptions, and comment previews.
 
 ## Broader Prioritization Matrix
 
