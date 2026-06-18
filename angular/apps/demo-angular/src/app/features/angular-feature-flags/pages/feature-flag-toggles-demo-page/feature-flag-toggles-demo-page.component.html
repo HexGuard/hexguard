@@ -36,7 +36,7 @@
     <div class="flags-list">
       @for (flagResult of flagResults(); track flagResult.key) {
         <article
-          class="demo-card flag-card"
+          class="flag-card"
           data-testid="flag-card"
           [attr.data-flag-key]="flagResult.key"
           [class.flag-disabled]="!flagResult.result.enabled">
