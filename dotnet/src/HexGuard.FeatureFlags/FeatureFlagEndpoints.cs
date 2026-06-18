@@ -11,21 +11,33 @@ namespace HexGuard.FeatureFlags;
 public static class FeatureFlagEndpoints
 {
     /// <summary>
-    /// Maps feature flag endpoints under <c>/api/feature-flags</c>.
+    /// Maps feature flag endpoints under the specified path prefix.
     ///
     /// <list type="bullet">
-    ///   <item><c>GET /api/feature-flags/sync?contextHash={hash}</c> —
+    ///   <item><c>GET {prefix}/sync?contextHash={hash}</c> —
     ///   Returns full flag catalog with new hash when hash differs,
     ///   or 304 Not Modified when unchanged.</item>
-    ///   <item><c>GET /api/feature-flags/evaluate?key={key}&amp;userId={userId}&amp;tenantId={tenantId}</c> —
+    ///   <item><c>GET {prefix}/evaluate?key={key}&amp;userId={userId}&amp;tenantId={tenantId}</c> —
     ///   Evaluates a single flag for the given context and returns
     ///   the evaluation result.</item>
     /// </list>
     /// </summary>
+    /// <param name="endpoints">The <see cref="IEndpointRouteBuilder"/>.</param>
+    /// <param name="pathPrefix">
+    /// Optional route prefix. Defaults to <c>/api/feature-flags</c>.
+    /// Leading slash is added automatically if omitted.
+    /// </param>
     public static IEndpointRouteBuilder MapFeatureFlagEndpoints(
-        this IEndpointRouteBuilder endpoints)
+        this IEndpointRouteBuilder endpoints,
+        string? pathPrefix = null)
     {
-        var group = endpoints.MapGroup("/api/feature-flags");
+        var prefix = string.IsNullOrWhiteSpace(pathPrefix)
+            ? "/api/feature-flags"
+            : pathPrefix.StartsWith('/')
+                ? pathPrefix
+                : $"/{pathPrefix}";
+
+        var group = endpoints.MapGroup(prefix);
 
         group.MapGet("/sync", async (
             string? contextHash,

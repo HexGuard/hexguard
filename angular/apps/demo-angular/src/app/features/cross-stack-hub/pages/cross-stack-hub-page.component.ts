@@ -3,10 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { PackageCardComponent } from '../../../shared/components/package-card/package-card.component';
 import { StackHubLayoutComponent } from '../../../shared/components/stack-hub-layout/stack-hub-layout.component';
-import {
-  getUnifiedPackages,
-  SITE_SHARED_API_CONSUMERS,
-} from '../../../site-catalog';
+import { getUnifiedPackages, SITE_SHARED_API_CONSUMERS } from '../../../site-catalog';
 
 @Component({
   standalone: true,
@@ -72,40 +69,70 @@ import {
       </div>
     </demo-stack-hub-layout>
   `,
-  styles: [`
-    :host { display: block; }
-    .stack-hub__lede { max-width: 52rem; }
-    .stack-hub__action {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 3rem; padding: 0.95rem 1.15rem;
-      border: 1px solid rgba(13, 73, 82, 0.24); border-radius: 1.05rem;
-      background: linear-gradient(180deg, #155e68, #0d4952);
-      color: white; font-weight: 700; text-decoration: none;
-      box-shadow: var(--shadow-soft);
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-    }
-    .stack-hub__action:hover, .stack-hub__action:focus-visible {
-      transform: translateY(-1px); box-shadow: var(--shadow-medium);
-      background: linear-gradient(180deg, #176d76, #0f525a);
-    }
-    .stack-hub__section { display: grid; gap: 1.15rem; }
-    .stack-hub__section-heading {
-      display: flex; gap: 1rem; align-items: end; justify-content: space-between; flex-wrap: wrap;
-    }
-    .stack-hub__section-heading h2 {
-      margin: 0; color: var(--color-ink);
-      font-size: clamp(1.45rem, 2.2vw, 2rem); line-height: 1.05; letter-spacing: -0.04em;
-    }
-    .stack-hub__section-heading p { max-width: 42rem; }
-    .stack-hub__grid {
-      display: grid; gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-    }
-    .stack-hub__consumers-card {
-      background: rgba(248, 252, 251, 0.72);
-      border-color: rgba(13, 73, 82, 0.14);
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .stack-hub__lede {
+        max-width: 52rem;
+      }
+      .stack-hub__action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.95rem 1.15rem;
+        border: 1px solid rgba(13, 73, 82, 0.24);
+        border-radius: 1.05rem;
+        background: linear-gradient(180deg, #155e68, #0d4952);
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: var(--shadow-soft);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease;
+      }
+      .stack-hub__action:hover,
+      .stack-hub__action:focus-visible {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-medium);
+        background: linear-gradient(180deg, #176d76, #0f525a);
+      }
+      .stack-hub__section {
+        display: grid;
+        gap: 1.15rem;
+      }
+      .stack-hub__section-heading {
+        display: flex;
+        gap: 1rem;
+        align-items: end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .stack-hub__section-heading h2 {
+        margin: 0;
+        color: var(--color-ink);
+        font-size: clamp(1.45rem, 2.2vw, 2rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      .stack-hub__section-heading p {
+        max-width: 42rem;
+      }
+      .stack-hub__grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+      }
+      .stack-hub__consumers-card {
+        background: rgba(248, 252, 251, 0.72);
+        border-color: rgba(13, 73, 82, 0.14);
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrossStackHubPageComponent {

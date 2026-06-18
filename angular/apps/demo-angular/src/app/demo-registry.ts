@@ -50,6 +50,11 @@ const ANGULAR_OPTIMISTIC_STATE_DOCS = ANGULAR_OPTIMISTIC_STATE_CATALOG.docsLinks
 const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
+const ANGULAR_SELECTION_STATE_CATALOG = getGeneratedCurrentPackage('angular-selection-state');
+const ANGULAR_BULK_OPERATIONS_CATALOG = getGeneratedCurrentPackage('angular-bulk-operations');
+
+const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
+const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -648,6 +653,60 @@ export const ANGULAR_FEATURE_FLAGS_PACKAGE: DemoPackageEntry = {
   description: ANGULAR_FEATURE_FLAGS_CATALOG.summary,
   docsLinks: ANGULAR_FEATURE_FLAGS_DOCS,
   demos: [ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO, ANGULAR_FEATURE_FLAGS_ROUTING_DEMO],
+};
+
+export const ANGULAR_SELECTION_STATE_DEMO: DemoPageEntry = {
+  id: 'selection-state-demo',
+  packageId: 'angular-selection-state',
+  route: '/packages/angular-selection-state/demo',
+  legacyRoute: '/selection-state-demo',
+  label: 'Table Selection Demo',
+  title: 'Mock data table with checkbox column and select-all',
+  description:
+    'Proves injectSelectionState() with toggle, select-all, clear, and bulk action enablement.',
+  docsLinks: [],
+  codeSample: {
+    snippetId: 'angular-selection-state/demo',
+    label: 'Selection state demo source',
+    description: 'The full selection state demo component source.',
+  },
+};
+
+export const ANGULAR_SELECTION_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-selection-state',
+  route: '/packages/angular-selection-state',
+  label: 'Angular Selection State',
+  title: ANGULAR_SELECTION_STATE_CATALOG.packageName,
+  description: ANGULAR_SELECTION_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_SELECTION_STATE_DOCS,
+  demos: [ANGULAR_SELECTION_STATE_DEMO],
+};
+
+export const ANGULAR_BULK_OPERATIONS_DEMO: DemoPageEntry = {
+  id: 'bulk-operations-demo',
+  packageId: 'angular-bulk-operations',
+  route: '/packages/angular-bulk-operations/demo',
+  legacyRoute: '/bulk-operations-demo',
+  label: 'Bulk Delete & Approve Demo',
+  title: 'Bulk operations with selection, partial-failure display, and retry',
+  description:
+    'Proves injectBulkOperation() with selectedItemsToBulkRequest() for delete and approve flows.',
+  docsLinks: [],
+  codeSample: {
+    snippetId: 'angular-bulk-operations/demo',
+    label: 'Bulk operations demo source',
+    description: 'The full bulk operations demo component source.',
+  },
+};
+
+export const ANGULAR_BULK_OPERATIONS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-bulk-operations',
+  route: '/packages/angular-bulk-operations',
+  label: 'Angular Bulk Operations',
+  title: ANGULAR_BULK_OPERATIONS_CATALOG.packageName,
+  description: ANGULAR_BULK_OPERATIONS_CATALOG.summary,
+  docsLinks: ANGULAR_BULK_OPERATIONS_DOCS,
+  demos: [ANGULAR_BULK_OPERATIONS_DEMO],
 };
 
 export const FORM_VALIDATION_DEMO: DemoPageEntry = {

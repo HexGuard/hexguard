@@ -58,7 +58,10 @@ export const FEATURE_FLAG_DEMO_PERSONAS: readonly FeatureFlagDemoPersona[] = [
 ];
 
 /** Demo flag definitions matching the .NET SampleApi. */
-export const FEATURE_FLAG_DEMO_CATALOG: { flags: Record<string, FeatureFlag>; contextHash: string } = {
+export const FEATURE_FLAG_DEMO_CATALOG: {
+  flags: Record<string, FeatureFlag>;
+  contextHash: string;
+} = {
   flags: {
     'beta-search': {
       key: 'beta-search',
@@ -97,9 +100,7 @@ export const FEATURE_FLAG_DEMO_CATALOG: { flags: Record<string, FeatureFlag>; co
       enabled: true,
       variant: 'premium',
       rolloutPercentage: 100,
-      targetingRules: [
-        { type: 'groupIn' as const, groups: ['premium-users'] },
-      ],
+      targetingRules: [{ type: 'groupIn' as const, groups: ['premium-users'] }],
       metadata: { description: 'Exclusive premium feature' },
     },
     'deprecated-ui': {

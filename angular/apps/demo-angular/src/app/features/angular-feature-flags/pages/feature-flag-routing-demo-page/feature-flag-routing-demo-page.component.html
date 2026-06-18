@@ -6,8 +6,8 @@
     <h2>Route activation gated on a feature flag with redirect</h2>
     <p class="demo-card__summary">
       Select a persona to see how <code>canActivateFeatureFlag('premium-feature-x')</code>
-      gates route access. Premium User and Admin personas gain access; others are
-      redirected to the upgrade page.
+      gates route access. Premium User and Admin personas gain access; others are redirected to the
+      upgrade page.
     </p>
 
     <div class="persona-selector">
@@ -16,7 +16,8 @@
         id="route-persona-select"
         data-testid="route-persona-selector"
         [ngModel]="session.personaId()"
-        (ngModelChange)="updatePersona($event)">
+        (ngModelChange)="updatePersona($event)"
+      >
         @for (persona of personas; track persona.id) {
           <option [value]="persona.id">{{ persona.label }}</option>
         }
@@ -39,7 +40,8 @@
         <a
           routerLink="/packages/angular-feature-flags/premium"
           data-testid="premium-route-link"
-          class="route-link">
+          class="route-link"
+        >
           Try premium route →
         </a>
       </article>
@@ -48,11 +50,12 @@
         <div class="route-label">How it works</div>
         <p class="demo-card__summary">
           The premium route is configured with
-          <code>canActivateFeatureFlag({{ '{' }} flagKey: 'premium-feature-x',
-          context: () => inject(FeatureFlagsDemoSessionService).context(),
-          redirectTo: '/upgrade' {{ '}' }})</code>.
-          The guard evaluates <code>premium-feature-x</code> against the current
-          persona's context at navigation time, redirecting to upgrade when denied.
+          <code
+            >canActivateFeatureFlag({{ '{' }} flagKey: 'premium-feature-x', context: () =>
+            inject(FeatureFlagsDemoSessionService).context(), redirectTo: '/upgrade'
+            {{ '}' }})</code
+          >. The guard evaluates <code>premium-feature-x</code> against the current persona's
+          context at navigation time, redirecting to upgrade when denied.
         </p>
       </article>
     </div>
@@ -65,6 +68,7 @@
       [snippetId]="demo.codeSample.snippetId"
       panelTestId="feature-flags-routing-inspector"
       snapshotTestId="feature-flags-routing-snapshot"
-      codeTestId="feature-flags-routing-code" />
+      codeTestId="feature-flags-routing-code"
+    />
   </aside>
 </demo-page-layout>

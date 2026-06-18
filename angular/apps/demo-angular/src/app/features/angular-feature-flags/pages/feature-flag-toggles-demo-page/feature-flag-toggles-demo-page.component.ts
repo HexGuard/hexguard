@@ -20,9 +20,7 @@ import {
 @Component({
   standalone: true,
   selector: 'demo-feature-flag-toggles-demo-page',
-  providers: [
-    provideHexGuardFeatureFlags(FEATURE_FLAG_DEMO_CATALOG),
-  ],
+  providers: [provideHexGuardFeatureFlags(FEATURE_FLAG_DEMO_CATALOG)],
   imports: [
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,
@@ -40,7 +38,9 @@ export class FeatureFlagTogglesDemoPageComponent {
   readonly personas = FEATURE_FLAG_DEMO_PERSONAS;
   readonly session = inject(FeatureFlagsDemoSessionService);
   readonly flags = FEATURE_FLAG_DEMO_CATALOG.flags;
-  readonly flagKeys = Object.keys(FEATURE_FLAG_DEMO_CATALOG.flags) as Array<keyof typeof FEATURE_FLAG_DEMO_CATALOG.flags>;
+  readonly flagKeys = Object.keys(FEATURE_FLAG_DEMO_CATALOG.flags) as Array<
+    keyof typeof FEATURE_FLAG_DEMO_CATALOG.flags
+  >;
   readonly currentUrl = createTrackedCurrentUrl(this.demo.route);
 
   readonly flagResults = computed(() =>

@@ -1,4 +1,12 @@
-import { DestroyRef, Directive, effect, inject, input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  effect,
+  inject,
+  input,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 
 import { evaluateFeatureFlag } from './feature-flag-evaluator';
 import type { FlagEvaluationContext } from './feature-flag-evaluator';
@@ -60,8 +68,7 @@ export class HexguardFeatureFlagDirective {
       if (flag) {
         const result = evaluateFeatureFlag(flag, context);
         show =
-          result.enabled &&
-          (requiredVariant === undefined || result.variant === requiredVariant);
+          result.enabled && (requiredVariant === undefined || result.variant === requiredVariant);
       }
 
       this.viewContainer.clear();

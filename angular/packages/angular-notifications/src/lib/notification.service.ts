@@ -1,11 +1,7 @@
-import {
-  computed,
-  DestroyRef,
-  inject,
-  Injectable,
-  signal,
-} from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal, type Optional } from '@angular/core';
 
+import { HEXGUARD_NOTIFICATION_OPTIONS } from './notification-options';
+import type { HexGuardNotificationsOptions } from './notification-options';
 import type {
   Notification,
   NotificationHandle,
@@ -15,13 +11,16 @@ import type {
 
 let nextNotificationId = 0;
 
-const DEFAULT_DURATION_MS = 5000;
+const BUILTIN_DEFAULT_DURATION_MS = 5000;
 
 /**
  * Injectable notification queue service.
  *
  * Manages a signal-based list of notifications with auto-dismiss,
  * typed convenience methods, and imperative dismiss control.
+ *
+ * Global defaults can be configured via `provideHexGuardNotifications()`
+ * at the bootstrap or route level.
  *
  * @example
  * ```ts
@@ -36,6 +35,7 @@ const DEFAULT_DURATION_MS = 5000;
 export class NotificationService {
   private readonly notificationsSignal = signal<readonly Notification[]>([]);
   private readonly timerMap = new Map<string, ReturnType<typeof globalThis.setTimeout>>();
+  private readonly globalOptions: HexGuardNotificationsOptions;
 
   /** All active notifications, most recent first. */
   readonly notifications = this.notificationsSignal.asReadonly();
@@ -45,6 +45,8 @@ export class NotificationService {
 
   /** Automatic cleanup on destroy when created through Angular DI. */
   constructor() {
+    this.globalOptions = inject(HEXGUARD_NOTIFICATION_OPTIONS, { optional: true }) ?? {};
+
     try {
       const destroyRef = inject(DestroyRef);
       destroyRef.onDestroy(() => this.clearAllTimers());
@@ -67,7 +69,8 @@ export class NotificationService {
     options?: NotificationOptions,
   ): NotificationHandle {
     const id = this.generateId();
-    const duration = options?.duration ?? DEFAULT_DURATION_MS;
+    const duration =
+      options?.duration ?? this.globalOptions.defaultDuration ?? BUILTIN_DEFAULT_DURATION_MS;
 
     const notification: Notification = {
       id,
@@ -79,7 +82,19 @@ export class NotificationService {
       ...(options?.action ? { action: options.action } : {}),
     };
 
-    this.notificationsSignal.update((list) => [notification, ...list]);
+    this.notificationsSignal.update((list) => {
+      const updated = [notification, ...list];
+      const maxVisible = this.globalOptions.maxVisible;
+      if (maxVisible !== undefined && maxVisible > 0 && updated.length > maxVisible) {
+        // Dismiss the oldest (last) notifications that exceed the limit
+        const toRemove = updated.slice(maxVisible);
+        for (const n of toRemove) {
+          this.cancelTimer(n.id);
+        }
+        return updated.slice(0, maxVisible);
+      }
+      return updated;
+    });
 
     if (duration > 0 && Number.isFinite(duration)) {
       this.scheduleDismiss(id, duration);

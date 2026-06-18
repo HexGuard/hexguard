@@ -6,6 +6,7 @@ on:
       - 'dotnet-problemdetails-v*'
       - 'dotnet-referencedata-v*'
       - 'dotnet-validationcontracts-v*'
+      - 'dotnet-bulkoperations-v*'
   workflow_dispatch:
     inputs:
       package_id:
@@ -16,6 +17,7 @@ on:
           - HexGuard.ProblemDetails
           - HexGuard.ReferenceData
           - HexGuard.ValidationContracts
+          - HexGuard.BulkOperations
       release_tag:
         description: 'Git tag to attach the GitHub release to when running manually'
         required: false
@@ -63,6 +65,10 @@ jobs:
                 PACKAGE_ID="HexGuard.ValidationContracts"
                 PROJ_DIR="dotnet/src/HexGuard.ValidationContracts"
                 ;;
+              dotnet-bulkoperations-v*)
+                PACKAGE_ID="HexGuard.BulkOperations"
+                PROJ_DIR="dotnet/src/HexGuard.BulkOperations"
+                ;;
               *)
                 echo "Unrecognised tag pattern: $TAG_NAME" >&2
                 exit 1
@@ -90,6 +96,9 @@ jobs:
                 ;;
               HexGuard.ValidationContracts)
                 PROJ_DIR="dotnet/src/HexGuard.ValidationContracts"
+                ;;
+              HexGuard.BulkOperations)
+                PROJ_DIR="dotnet/src/HexGuard.BulkOperations"
                 ;;
               *)
                 echo "Unknown package_id: $PACKAGE_ID" >&2

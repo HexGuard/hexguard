@@ -1360,4 +1360,85 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('trigger-error')).toBeVisible();
     await expect(page.getByTestId('trigger-custom-error')).toBeVisible();
   });
+
+  // ── angular-selection-state demo tests ────────────────────────────
+
+  const selectionStateDemoRoute = '/packages/angular-selection-state/demo';
+
+  test('shows the Angular Selection State package overview', async ({ page }) => {
+    await page.goto('/packages/angular-selection-state');
+
+    await expect(page.getByTestId('selection-state-demo-link')).toBeVisible();
+  });
+
+  test('renders selection state demo with checkboxes and select-all', async ({ page }) => {
+    await page.goto(selectionStateDemoRoute);
+
+    await expect(page.getByTestId('selection-table')).toBeVisible();
+    await expect(page.getByTestId('select-all-checkbox')).toBeVisible();
+    await expect(page.getByTestId('selection-count')).toContainText('Selected: 0');
+
+    // Click first row checkbox
+    await page.getByTestId('checkbox-item-1').click();
+    await expect(page.getByTestId('selection-count')).toContainText('Selected: 1');
+    await expect(page.getByTestId('bulk-action-bar')).toBeVisible();
+    await expect(page.getByTestId('bulk-action-btn')).toBeVisible();
+
+    // Click select-all
+    await page.getByTestId('select-all-checkbox').click();
+    await expect(page.getByTestId('selection-count')).toContainText('Selected: 5');
+
+    // Click clear
+    await page.getByTestId('clear-selection-btn').click();
+    await expect(page.getByTestId('selection-count')).toContainText('Selected: 0');
+  });
+
+  // ── angular-bulk-operations demo tests ────────────────────────────
+
+  const bulkOperationsDemoRoute = '/packages/angular-bulk-operations/demo';
+
+  test('shows the Angular Bulk Operations package overview', async ({ page }) => {
+    await page.goto('/packages/angular-bulk-operations');
+
+    await expect(page.getByTestId('bulk-operations-demo-link')).toBeVisible();
+  });
+
+  test('renders bulk operations demo with selection and action buttons', async ({ page }) => {
+    await page.goto(bulkOperationsDemoRoute);
+
+    await expect(page.getByTestId('orders-table')).toBeVisible();
+    await expect(page.getByTestId('bulk-delete-btn')).toBeDisabled();
+    await expect(page.getByTestId('bulk-approve-btn')).toBeDisabled();
+
+    // Select two items
+    await page.getByTestId('checkbox-ord-001').click();
+    await page.getByTestId('checkbox-ord-002').click();
+    await expect(page.getByTestId('selection-count')).toContainText('Selected: 2');
+
+    // Buttons should now be enabled
+    await expect(page.getByTestId('bulk-delete-btn')).toBeEnabled();
+    await expect(page.getByTestId('bulk-approve-btn')).toBeEnabled();
+
+    // Run delete
+    await page.getByTestId('bulk-delete-btn').click();
+    await expect(page.getByTestId('results-panel')).toBeVisible();
+    await expect(page.getByTestId('result-ord-001')).toContainText('✓');
+    await expect(page.getByTestId('result-ord-002')).toContainText('✓');
+  });
+
+  test('bulk operations shows partial failure results', async ({ page }) => {
+    await page.goto(bulkOperationsDemoRoute);
+
+    // Select items including one that fails (ord-003 is "shipped" — cannot delete)
+    await page.getByTestId('select-all-checkbox').click();
+    await page.getByTestId('bulk-delete-btn').click();
+
+    await expect(page.getByTestId('results-panel')).toBeVisible();
+    // ord-003 is shipped, should fail
+    await expect(page.getByTestId('result-ord-003')).toContainText('✗');
+    await expect(page.getByTestId('result-ord-003')).toContainText('CANNOT_DELETE');
+
+    // Retry button should appear
+    await expect(page.getByTestId('retry-delete-btn')).toBeVisible();
+  });
 });

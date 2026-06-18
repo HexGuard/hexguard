@@ -30,9 +30,13 @@ import { getDotnetSitePackage, SITE_ECOSYSTEMS } from '../../../../site-catalog'
       </div>
     </article>
   `,
-  styles: [`
-    .ecosystem-link-card { margin-top: 1.6rem; }
-  `],
+  styles: [
+    `
+      .ecosystem-link-card {
+        margin-top: 1.6rem;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DotnetProblemDetailsHubPageComponent {

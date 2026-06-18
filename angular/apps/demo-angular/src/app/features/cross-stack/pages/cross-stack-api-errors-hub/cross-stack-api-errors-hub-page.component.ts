@@ -7,12 +7,7 @@ import { SITE_ECOSYSTEMS } from '../../../../site-catalog';
   standalone: true,
   selector: 'demo-cross-stack-api-errors-hub-page',
   imports: [EcosystemHubComponent],
-  template: `
-    <demo-ecosystem-hub
-      [ecosystem]="ecosystem"
-      testId="ecosystem-rfc-9457"
-    />
-  `,
+  template: ` <demo-ecosystem-hub [ecosystem]="ecosystem" testId="ecosystem-rfc-9457" /> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrossStackApiErrorsHubPageComponent {

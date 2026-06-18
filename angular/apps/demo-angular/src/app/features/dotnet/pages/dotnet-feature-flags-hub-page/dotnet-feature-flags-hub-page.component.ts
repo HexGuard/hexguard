@@ -12,7 +12,8 @@ import { getDotnetSitePackage, SITE_ECOSYSTEMS } from '../../../../site-catalog'
     <demo-dotnet-package-hub-page
       [entry]="packageEntry"
       overviewTestId="dotnet-pkg-hexguard-feature-flags"
-      demoTestIdPrefix="dotnet-demo-" />
+      demoTestIdPrefix="dotnet-demo-"
+    />
 
     <article class="demo-card demo-card--stack ecosystem-link-card">
       <p class="demo-eyebrow">Package ecosystem</p>
@@ -25,19 +26,22 @@ import { getDotnetSitePackage, SITE_ECOSYSTEMS } from '../../../../site-catalog'
       <a
         class="site-cta"
         routerLink="/ecosystems/{{ ecosystem.id }}"
-        [attr.data-testid]="'ecosystem-link-' + ecosystem.id">
+        [attr.data-testid]="'ecosystem-link-' + ecosystem.id"
+      >
         View ecosystem &rarr;
       </a>
     </article>
   `,
-  styles: [`
-    .ecosystem-link-card {
-      display: grid;
-      gap: 0.5rem;
-      background: rgba(248,252,251,0.7);
-      border-color: rgba(13,73,82,0.12);
-    }
-  `],
+  styles: [
+    `
+      .ecosystem-link-card {
+        display: grid;
+        gap: 0.5rem;
+        background: rgba(248, 252, 251, 0.7);
+        border-color: rgba(13, 73, 82, 0.12);
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DotnetFeatureFlagsHubPageComponent {

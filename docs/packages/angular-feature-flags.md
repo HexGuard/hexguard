@@ -43,6 +43,20 @@ The `FlagEvaluationContext` carries `userId`, optional `tenantId`, `groups`, and
 
 `FeatureFlagSyncService` syncs on demand via `sync()`. Polling is opt-in via `startPolling(intervalMs)`. The service uses the `contextHash` from the catalog for conditional 304 requests.
 
+### Configurable sync endpoint path
+
+The sync endpoint path defaults to `/api/feature-flags/sync` but can be customized
+via `FeatureFlagSyncOptions.syncEndpointPath`. This lets consumers deploy the
+Angular client against backends that expose the sync endpoint at a non-default
+route (e.g. `/api/v2/feature-flags/sync` or `/flags/sync`).
+
+### Custom HTTP fetch options
+
+`FeatureFlagSyncOptions.fetchInit` accepts additional `RequestInit` properties
+(headers, signal, credentials) that are merged into every sync HTTP request.
+This enables authentication headers, CSRF tokens, and `AbortSignal` integration
+without requiring a custom HTTP client wrapper.
+
 ### Demo persona + override model
 
 The demo app provides a persona selector that changes the evaluation context (userId, groups, attributes). Additionally, per-flag override toggles bypass evaluation entirely, allowing manual flag on/off without a backend.

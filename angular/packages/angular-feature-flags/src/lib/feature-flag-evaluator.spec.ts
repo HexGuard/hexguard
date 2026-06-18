@@ -165,10 +165,7 @@ describe('evaluateFeatureFlag', () => {
   it('first-match-wins: userIn before never', () => {
     const flag: FeatureFlag = {
       ...defaultFlag,
-      targetingRules: [
-        { type: 'userIn', users: ['user-42'] },
-        { type: 'never' },
-      ],
+      targetingRules: [{ type: 'userIn', users: ['user-42'] }, { type: 'never' }],
     };
     const result = evaluateFeatureFlag(flag, defaultContext);
     expect(result.enabled).toBe(true);

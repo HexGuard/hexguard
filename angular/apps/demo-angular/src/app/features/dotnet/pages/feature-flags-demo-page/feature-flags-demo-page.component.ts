@@ -60,13 +60,31 @@ export class FeatureFlagsDemoPageComponent {
 
   readonly personas = [
     { id: 'guest', label: 'Guest', userId: 'guest-1', groups: '', attrs: '' },
-    { id: 'beta-tester', label: 'Beta Tester', userId: 'beta-user-1', groups: 'beta-testers', attrs: '' },
-    { id: 'premium', label: 'Premium User', userId: 'premium-user-1', groups: 'premium-users', attrs: '' },
-    { id: 'admin', label: 'Admin', userId: 'admin-1', groups: 'beta-testers,premium-users', attrs: 'preferences=dark-mode' },
+    {
+      id: 'beta-tester',
+      label: 'Beta Tester',
+      userId: 'beta-user-1',
+      groups: 'beta-testers',
+      attrs: '',
+    },
+    {
+      id: 'premium',
+      label: 'Premium User',
+      userId: 'premium-user-1',
+      groups: 'premium-users',
+      attrs: '',
+    },
+    {
+      id: 'admin',
+      label: 'Admin',
+      userId: 'admin-1',
+      groups: 'beta-testers,premium-users',
+      attrs: 'preferences=dark-mode',
+    },
   ];
 
-  readonly selectedPersona = computed(() =>
-    this.personas.find((p) => p.id === this.personaId()) ?? this.personas[0],
+  readonly selectedPersona = computed(
+    () => this.personas.find((p) => p.id === this.personaId()) ?? this.personas[0],
   );
 
   readonly statusText = computed(() => {

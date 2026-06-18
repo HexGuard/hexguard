@@ -18,9 +18,7 @@ describe(HexguardNotificationOutletComponent.name, () => {
   });
 
   it('renders the outlet container', () => {
-    const outletEl = fixture.nativeElement.querySelector(
-      '[data-testid="notification-outlet"]',
-    );
+    const outletEl = fixture.nativeElement.querySelector('[data-testid="notification-outlet"]');
     expect(outletEl).toBeTruthy();
   });
 
@@ -29,9 +27,7 @@ describe(HexguardNotificationOutletComponent.name, () => {
     service.success('Second');
     fixture.detectChanges();
 
-    const notificationEls = fixture.nativeElement.querySelectorAll(
-      '.notification',
-    );
+    const notificationEls = fixture.nativeElement.querySelectorAll('.notification');
     expect(notificationEls.length).toBe(2);
   });
 

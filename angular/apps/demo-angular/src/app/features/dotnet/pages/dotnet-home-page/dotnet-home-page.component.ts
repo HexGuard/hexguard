@@ -2,10 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PackageCardComponent } from '../../../../shared/components/package-card/package-card.component';
-import {
-  SITE_DOTNET_PACKAGES,
-  toUnifiedDotnetEntry,
-} from '../../../../site-catalog';
+import { SITE_DOTNET_PACKAGES, toUnifiedDotnetEntry } from '../../../../site-catalog';
 
 @Component({
   standalone: true,

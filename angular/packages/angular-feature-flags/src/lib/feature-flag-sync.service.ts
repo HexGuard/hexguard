@@ -10,6 +10,24 @@ export interface FeatureFlagSyncOptions {
   /** Optional polling interval in milliseconds.
    *  When set, the service polls automatically. */
   pollingIntervalMs?: number;
+
+  /**
+   * Optional custom sync endpoint path.
+   *
+   * Defaults to `/api/feature-flags/sync`. Change this when your backend
+   * routes the sync endpoint at a different path under `baseUrl`.
+   */
+  readonly syncEndpointPath?: string;
+
+  /**
+   * Optional custom fetch request init that is merged into every sync
+   * HTTP request. Use this to attach authorization headers, CSRF tokens,
+   * AbortSignal, or other fetch-level configuration.
+   *
+   * Headers are merged with any library-internal headers (none currently).
+   * Duplicate keys in `headers` override library defaults.
+   */
+  readonly fetchInit?: RequestInit;
 }
 
 /** Injection token for {@link FeatureFlagSyncOptions}. */
@@ -30,17 +48,20 @@ export class FeatureFlagSyncService {
   private _currentHash: string | null = null;
   private _pollingTimerId: ReturnType<typeof setInterval> | null = null;
   private _baseUrl: string;
+  private _syncEndpointPath: string;
+  private _fetchInit: RequestInit | undefined;
 
   /** Signal emitting the latest synced catalog, or null before the
    *  first successful sync. */
-  readonly catalog: Signal<FeatureFlagCatalog | null> =
-    this._catalog.asReadonly();
+  readonly catalog: Signal<FeatureFlagCatalog | null> = this._catalog.asReadonly();
 
   constructor(
     @Inject(FEATURE_FLAG_SYNC_OPTIONS) options: FeatureFlagSyncOptions,
     @Inject(DestroyRef) private readonly destroyRef: DestroyRef,
   ) {
     this._baseUrl = options.baseUrl.replace(/\/+$/, '');
+    this._syncEndpointPath = options.syncEndpointPath ?? '/api/feature-flags/sync';
+    this._fetchInit = options.fetchInit;
 
     if (options.pollingIntervalMs && options.pollingIntervalMs > 0) {
       this.startPolling(options.pollingIntervalMs);
@@ -55,18 +76,19 @@ export class FeatureFlagSyncService {
    * or null if the server returned 304 (no change).
    */
   async sync(): Promise<FeatureFlagCatalog | null> {
+    const normalizedPath = this._syncEndpointPath.startsWith('/')
+      ? this._syncEndpointPath
+      : `/${this._syncEndpointPath}`;
+
     const url = this._currentHash
-      ? `${this._baseUrl}/api/feature-flags/sync?contextHash=${encodeURIComponent(this._currentHash)}`
-      : `${this._baseUrl}/api/feature-flags/sync`;
+      ? `${this._baseUrl}${normalizedPath}?contextHash=${encodeURIComponent(this._currentHash)}`
+      : `${this._baseUrl}${normalizedPath}`;
 
     let response: Response;
     try {
-      response = await fetch(url);
+      response = await fetch(url, this._fetchInit);
     } catch (cause) {
-      throw new Error(
-        `Feature flag sync failed at ${url}: network error`,
-        { cause },
-      );
+      throw new Error(`Feature flag sync failed at ${url}: network error`, { cause });
     }
 
     if (response.status === 304) {
@@ -82,9 +104,7 @@ export class FeatureFlagSyncService {
     const body: unknown = await response.json();
 
     if (!isValidSyncResponse(body)) {
-      throw new Error(
-        `Feature flag sync returned invalid payload from ${url}`,
-      );
+      throw new Error(`Feature flag sync returned invalid payload from ${url}`);
     }
 
     const catalog: FeatureFlagCatalog = {
@@ -139,9 +159,6 @@ function isValidSyncResponse(
   const flags = (value as { flags: unknown }).flags;
   const hash = (value as { contextHash: unknown }).contextHash;
   return (
-    typeof flags === 'object' &&
-    flags !== null &&
-    !Array.isArray(flags) &&
-    typeof hash === 'string'
+    typeof flags === 'object' && flags !== null && !Array.isArray(flags) && typeof hash === 'string'
   );
 }

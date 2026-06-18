@@ -76,10 +76,7 @@ class ErrorBoundaryController {
   imports: [NgTemplateOutlet],
   template: `
     @if (hasError()) {
-      <div
-        class="error-boundary__fallback"
-        data-testid="error-boundary-fallback"
-      >
+      <div class="error-boundary__fallback" data-testid="error-boundary-fallback">
         @if (fallback; as fallbackRef) {
           <ng-template
             [ngTemplateOutlet]="fallbackRef"
@@ -87,9 +84,7 @@ class ErrorBoundaryController {
           />
         } @else {
           <div class="error-boundary__default-fallback">
-            <p class="error-boundary__message">
-              An error occurred in this section.
-            </p>
+            <p class="error-boundary__message">An error occurred in this section.</p>
             <button
               type="button"
               class="error-boundary__retry-btn"
@@ -105,32 +100,32 @@ class ErrorBoundaryController {
   `,
   styles: [
     `
-    .error-boundary__fallback {
-      padding: 1rem;
-      border: 1px solid #f5c6cb;
-      border-radius: 0.375rem;
-      background: #f8d7da;
-      color: #721c24;
-    }
-    .error-boundary__default-fallback {
-      text-align: center;
-    }
-    .error-boundary__message {
-      margin: 0 0 0.5rem;
-      font-size: 0.875rem;
-    }
-    .error-boundary__retry-btn {
-      border: 1px solid currentColor;
-      border-radius: 0.25rem;
-      background: none;
-      cursor: pointer;
-      font-size: 0.8125rem;
-      padding: 0.375rem 0.75rem;
-    }
-    .error-boundary__retry-btn:hover {
-      background: rgba(0,0,0,0.05);
-    }
-  `,
+      .error-boundary__fallback {
+        padding: 1rem;
+        border: 1px solid #f5c6cb;
+        border-radius: 0.375rem;
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .error-boundary__default-fallback {
+        text-align: center;
+      }
+      .error-boundary__message {
+        margin: 0 0 0.5rem;
+        font-size: 0.875rem;
+      }
+      .error-boundary__retry-btn {
+        border: 1px solid currentColor;
+        border-radius: 0.25rem;
+        background: none;
+        cursor: pointer;
+        font-size: 0.8125rem;
+        padding: 0.375rem 0.75rem;
+      }
+      .error-boundary__retry-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    `,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

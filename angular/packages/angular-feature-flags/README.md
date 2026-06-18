@@ -40,7 +40,9 @@ bootstrapApplication(AppComponent, {
 });
 
 // 2. Use in a component
-@Component({ /* ... */ })
+@Component({
+  /* ... */
+})
 class MyComponent {
   private featureFlags = injectFeatureFlags();
 
@@ -48,10 +50,7 @@ class MyComponent {
   canSearch = this.featureFlags.isEnabled('beta-search', { userId: 'user-42' });
 
   // Reactive signal
-  canSearch$ = this.featureFlags.isEnabledSignal(
-    'beta-search',
-    signal({ userId: 'user-42' }),
-  );
+  canSearch$ = this.featureFlags.isEnabledSignal('beta-search', signal({ userId: 'user-42' }));
 }
 ```
 
@@ -88,11 +87,13 @@ const routes = [
   {
     path: 'beta',
     component: BetaComponent,
-    canActivate: [canActivateFeatureFlag({
-      flagKey: 'beta-search',
-      context: { userId: 'user-42' },
-      redirectTo: '/upgrade',
-    })],
+    canActivate: [
+      canActivateFeatureFlag({
+        flagKey: 'beta-search',
+        context: { userId: 'user-42' },
+        redirectTo: '/upgrade',
+      }),
+    ],
   },
 ];
 ```
@@ -105,25 +106,40 @@ import { FeatureFlagSyncService, FEATURE_FLAG_SYNC_OPTIONS } from '@hexguard/ang
 providers: [
   {
     provide: FEATURE_FLAG_SYNC_OPTIONS,
-    useValue: { baseUrl: 'https://api.example.com' },
+    useValue: {
+      baseUrl: 'https://api.example.com',
+      // Optional: custom endpoint path (default: '/api/feature-flags/sync')
+      syncEndpointPath: '/api/v2/feature-flags/sync',
+      // Optional: custom fetch headers (e.g. auth tokens)
+      fetchInit: {
+        headers: { Authorization: 'Bearer ' + token },
+      },
+    },
   },
   FeatureFlagSyncService,
 ],
 ```
 
+The `syncEndpointPath` option lets you customize the API route when your
+backend exposes the sync endpoint at a non-default path under `baseUrl`.
+
+The `fetchInit` option lets you pass additional `RequestInit` properties
+(headers, signal, credentials, etc.) that are merged into every sync HTTP
+request — useful for authentication tokens or AbortSignal integration.
+
 ## Targeting Rules
 
-| Rule | Description |
-|---|---|
-| `always` | Enabled for all users |
-| `never` | Disabled for all users |
-| `rollout` | Enabled for a percentage of users (deterministic FNV-1a hash) |
-| `userIn` | Enabled for specific user IDs |
-| `userNotIn` | Disabled for specific user IDs |
-| `groupIn` | Enabled for users in specific groups |
-| `groupNotIn` | Disabled for users in specific groups |
-| `attributeMatch` | Enabled when a context attribute matches |
-| `attributeNotMatch` | Disabled when a context attribute matches |
+| Rule                | Description                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| `always`            | Enabled for all users                                         |
+| `never`             | Disabled for all users                                        |
+| `rollout`           | Enabled for a percentage of users (deterministic FNV-1a hash) |
+| `userIn`            | Enabled for specific user IDs                                 |
+| `userNotIn`         | Disabled for specific user IDs                                |
+| `groupIn`           | Enabled for users in specific groups                          |
+| `groupNotIn`        | Disabled for users in specific groups                         |
+| `attributeMatch`    | Enabled when a context attribute matches                      |
+| `attributeNotMatch` | Disabled when a context attribute matches                     |
 
 Rules are evaluated **first-match-wins** in the order they appear.
 

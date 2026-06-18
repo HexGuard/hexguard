@@ -5,10 +5,7 @@ import {
   type FlagEvaluationContext,
   type FlagEvaluationResult,
 } from './feature-flag-evaluator';
-import {
-  HEXGUARD_FEATURE_FLAG_CATALOG,
-  type FeatureFlagCatalog,
-} from './feature-flag-providers';
+import { HEXGUARD_FEATURE_FLAG_CATALOG, type FeatureFlagCatalog } from './feature-flag-providers';
 import type { FlagKey } from './types';
 
 /** Imperative and signal-based facade for feature flag evaluation. */
@@ -16,14 +13,8 @@ export interface HexGuardFeatureFlags {
   readonly catalog: Signal<FeatureFlagCatalog>;
   isEnabled(flagKey: FlagKey, context: FlagEvaluationContext): boolean;
   getVariant(flagKey: FlagKey, context: FlagEvaluationContext): string | null;
-  evaluate(
-    flagKey: FlagKey,
-    context: FlagEvaluationContext,
-  ): FlagEvaluationResult | null;
-  isEnabledSignal(
-    flagKey: FlagKey,
-    context: Signal<FlagEvaluationContext>,
-  ): Signal<boolean>;
+  evaluate(flagKey: FlagKey, context: FlagEvaluationContext): FlagEvaluationResult | null;
+  isEnabledSignal(flagKey: FlagKey, context: Signal<FlagEvaluationContext>): Signal<boolean>;
 }
 
 /**

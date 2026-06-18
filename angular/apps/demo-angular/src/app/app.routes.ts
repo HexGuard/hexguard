@@ -7,19 +7,13 @@ import { canActivatePermissions, canMatchPermissions } from '@hexguard/angular-p
 import { FeatureFlagsDemoSessionService } from './features/angular-feature-flags/data/feature-flags-demo.data';
 
 import {
-  ANGULAR_FEATURE_FLAGS_PACKAGE,
-  ANGULAR_FEATURE_FLAGS_ROUTING_DEMO,
-  ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO,
   ANGULAR_API_ERRORS_BACKEND_DEMO,
   ANGULAR_ASYNC_STATE_ACTION_DEMO,
   ANGULAR_ASYNC_STATE_OBSERVABLE_DEMO,
   ANGULAR_ASYNC_STATE_VALUE_DEMO,
-  ANGULAR_DEBOUNCE_DEMO,
-  ANGULAR_ERROR_BOUNDARY_DEMO,
   ANGULAR_LOOKUPS_BACKEND_DEMO,
   ANGULAR_LOOKUPS_EDITOR_DEMO,
   ANGULAR_LOOKUPS_SUMMARY_DEMO,
-  ANGULAR_NOTIFICATIONS_DEMO,
   ANGULAR_OPTIMISTIC_STATE_BULK_DEMO,
   ANGULAR_OPTIMISTIC_STATE_INLINE_EDIT_DEMO,
   ANGULAR_OPTIMISTIC_STATE_TOGGLE_DEMO,
@@ -29,8 +23,6 @@ import {
   ANGULAR_QUERY_FORM_RECOVERY_DEMO,
   ANGULAR_URL_STATE_DASHBOARD_DEMO,
   ANGULAR_URL_STATE_ORDERS_DEMO,
-  DOTNET_REFERENCE_DATA_HOME,
-  DOTNET_SAMPLE_API_EXPLORER,
   FORM_VALIDATION_DEMO,
 } from './demo-registry';
 import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
@@ -54,6 +46,10 @@ import { FeatureFlagTogglesDemoPageComponent } from './features/angular-feature-
 import { FeatureFlagRoutingDemoPageComponent } from './features/angular-feature-flags/pages/feature-flag-routing-demo-page/feature-flag-routing-demo-page.component';
 import { PremiumContentPageComponent } from './features/angular-feature-flags/pages/premium-content-page/premium-content-page.component';
 import { UpgradePageComponent } from './features/angular-feature-flags/pages/upgrade-page/upgrade-page.component';
+import { AngularSelectionStateHomePageComponent } from './features/angular-selection-state/angular-selection-state-home-page.component';
+import { SelectionStateDemoPageComponent } from './features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component';
+import { AngularBulkOperationsHomePageComponent } from './features/angular-bulk-operations/angular-bulk-operations-home-page.component';
+import { BulkOperationsDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
 import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
 import {
@@ -357,6 +353,28 @@ export const routes: Routes = [
     path: 'packages/angular-error-boundary/demo',
     component: ErrorBoundaryDemoPageComponent,
     title: 'Error Boundary Demo',
+  },
+  // ── Selection state ────────────────────────────────────────────
+  {
+    path: 'packages/angular-selection-state',
+    component: AngularSelectionStateHomePageComponent,
+    title: 'Angular Selection State Demos',
+  },
+  {
+    path: 'packages/angular-selection-state/demo',
+    component: SelectionStateDemoPageComponent,
+    title: 'Selection State Demo',
+  },
+  // ── Bulk operations ────────────────────────────────────────────
+  {
+    path: 'packages/angular-bulk-operations',
+    component: AngularBulkOperationsHomePageComponent,
+    title: 'Angular Bulk Operations Demos',
+  },
+  {
+    path: 'packages/angular-bulk-operations/demo',
+    component: BulkOperationsDemoPageComponent,
+    title: 'Bulk Operations Demo',
   },
   // ── .NET showcase routes ────────────────────────────────────────
   {

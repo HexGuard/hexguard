@@ -8,10 +8,7 @@ import { SITE_ECOSYSTEMS } from '../../../../site-catalog';
   selector: 'demo-cross-stack-lookups-hub-page',
   imports: [EcosystemHubComponent],
   template: `
-    <demo-ecosystem-hub
-      [ecosystem]="ecosystem"
-      testId="ecosystem-reference-data-lookups"
-    />
+    <demo-ecosystem-hub [ecosystem]="ecosystem" testId="ecosystem-reference-data-lookups" />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

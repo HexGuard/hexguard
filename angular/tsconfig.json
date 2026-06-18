@@ -16,7 +16,9 @@
       "@hexguard/angular-debounce": ["./packages/angular-debounce/src/public-api.ts"],
       "@hexguard/angular-notifications": ["./packages/angular-notifications/src/public-api.ts"],
       "@hexguard/angular-error-boundary": ["./packages/angular-error-boundary/src/public-api.ts"],
-      "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"]
+      "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"],
+      "@hexguard/angular-selection-state": ["./packages/angular-selection-state/src/public-api.ts"],
+      "@hexguard/angular-bulk-operations": ["./packages/angular-bulk-operations/src/public-api.ts"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

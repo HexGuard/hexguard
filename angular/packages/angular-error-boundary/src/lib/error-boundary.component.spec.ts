@@ -72,9 +72,7 @@ describe(HexguardErrorBoundaryComponent.name, () => {
     });
 
     it('renders the projected template content', () => {
-      const content = fixture.nativeElement.querySelector(
-        '[data-testid="normal-content"]',
-      );
+      const content = fixture.nativeElement.querySelector('[data-testid="normal-content"]');
       expect(content).toBeTruthy();
       expect(content.textContent).toContain('I am safe');
     });

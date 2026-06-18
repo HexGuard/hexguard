@@ -293,6 +293,58 @@
         }
       }
     },
+    "angular-selection-state": {
+      "projectType": "library",
+      "root": "packages/angular-selection-state",
+      "sourceRoot": "packages/angular-selection-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-selection-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-selection-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-selection-state/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-bulk-operations": {
+      "projectType": "library",
+      "root": "packages/angular-bulk-operations",
+      "sourceRoot": "packages/angular-bulk-operations/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-bulk-operations/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-bulk-operations/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-bulk-operations/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

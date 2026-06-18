@@ -72,8 +72,19 @@ When you call `app.MapFeatureFlagEndpoints()`, two endpoints are registered:
 
 | Endpoint | Description |
 |---|---|
-| `GET /api/feature-flags/sync?contextHash={hash}` | Returns full flag catalog with new hash, or 304 if unchanged |
-| `GET /api/feature-flags/evaluate?key={key}&userId={userId}&tenantId={tenantId}` | Evaluates a single flag |
+| `GET {prefix}/sync?contextHash={hash}` | Returns full flag catalog with new hash, or 304 if unchanged |
+| `GET {prefix}/evaluate?key={key}&userId={userId}&tenantId={tenantId}` | Evaluates a single flag |
+
+The default prefix is `/api/feature-flags`. Customize it by passing a
+`pathPrefix` argument:
+
+```csharp
+// Map under a custom prefix
+app.MapFeatureFlagEndpoints(pathPrefix: "/api/v2/feature-flags");
+
+// Or without a leading slash (it's added automatically)
+app.MapFeatureFlagEndpoints(pathPrefix: "feature-flags");
+```
 
 ### DI Registration
 

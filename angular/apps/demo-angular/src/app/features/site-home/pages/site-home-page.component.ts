@@ -77,10 +77,7 @@ import {
         </div>
 
         <div class="site-home__package-grid">
-          @for (
-            entry of filteredPackages();
-            track entry.id
-          ) {
+          @for (entry of filteredPackages(); track entry.id) {
             <demo-package-card [entry]="entry" />
           }
         </div>
@@ -93,9 +90,7 @@ import {
             [attr.data-testid]="'showcase-expand-toggle'"
           >
             {{
-              showAll()
-                ? 'Show fewer packages'
-                : 'Show all ' + totalFiltered().length + ' packages'
+              showAll() ? 'Show fewer packages' : 'Show all ' + totalFiltered().length + ' packages'
             }}
           </button>
         }

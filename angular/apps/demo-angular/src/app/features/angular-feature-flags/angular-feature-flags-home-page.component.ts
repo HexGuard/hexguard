@@ -11,7 +11,8 @@ import { PackageHubPageComponent } from '../../shared/components/package-hub-pag
     <demo-package-hub-page
       [packageEntry]="packageEntry"
       overviewTestId="package-angular-feature-flags"
-      demoTestIdPrefix="package-feature-flags-demo-" />
+      demoTestIdPrefix="package-feature-flags-demo-"
+    />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

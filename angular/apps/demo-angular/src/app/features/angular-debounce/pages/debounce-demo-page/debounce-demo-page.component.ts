@@ -21,11 +21,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
   ],
   template: `
     <demo-page-layout testId="debounce-demo-page">
-      <demo-navigation-strip
-        demoNavigation
-        testId="debounce-demo-navigation"
-        [demo]="demo"
-      />
+      <demo-navigation-strip demoNavigation testId="debounce-demo-navigation" [demo]="demo" />
 
       <article demoIntro class="demo-card demo-card--stack">
         <div class="demo-card__header">
@@ -49,7 +45,11 @@ import { formatSnapshot } from '../../../../shared/formatting';
       </article>
 
       <!-- demo-snippet:start angular-debounce/demo-state -->
-      <article demoPrimary class="demo-card demo-card--stack" data-testid="debounce-demo-playground">
+      <article
+        demoPrimary
+        class="demo-card demo-card--stack"
+        data-testid="debounce-demo-playground"
+      >
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">Debounce</p>
@@ -82,10 +82,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
           </div>
 
           <!-- Trailing -->
-          <div
-            class="debounce-mode"
-            [class.debounce-mode--pending]="trailing.isPending()"
-          >
+          <div class="debounce-mode" [class.debounce-mode--pending]="trailing.isPending()">
             <div class="debounce-mode__head">
               <span>Trailing</span>
               <span class="demo-hint-pill">300ms after last change</span>
@@ -113,10 +110,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
           </div>
 
           <!-- Both edges -->
-          <div
-            class="debounce-mode"
-            [class.debounce-mode--pending]="both.isPending()"
-          >
+          <div class="debounce-mode" [class.debounce-mode--pending]="both.isPending()">
             <div class="debounce-mode__head">
               <span>Both edges</span>
               <span class="demo-hint-pill">immediate + trailing</span>
@@ -134,10 +128,20 @@ import { formatSnapshot } from '../../../../shared/formatting';
         </div>
 
         <div class="demo-actions-row">
-          <button type="button" class="demo-button" (click)="trailing.flush()" data-testid="debounce-flush">
+          <button
+            type="button"
+            class="demo-button"
+            (click)="trailing.flush()"
+            data-testid="debounce-flush"
+          >
             Flush trailing
           </button>
-          <button type="button" class="demo-button demo-button--ghost" (click)="trailing.cancel()" data-testid="debounce-cancel">
+          <button
+            type="button"
+            class="demo-button demo-button--ghost"
+            (click)="trailing.cancel()"
+            data-testid="debounce-cancel"
+          >
             Cancel trailing
           </button>
         </div>
@@ -160,45 +164,107 @@ import { formatSnapshot } from '../../../../shared/formatting';
   `,
   styles: [
     `
-    .demo-field-group { margin-bottom: 1.25rem; }
-    .demo-field-label {
-      display: block; margin-bottom: 0.35rem; font-size: 0.82rem; font-weight: 600; color: var(--color-muted);
-    }
-    .demo-input {
-      width: 100%; max-width: 22rem; padding: 0.6rem 0.75rem;
-      border: 1px solid var(--color-border); border-radius: 0.6rem;
-      font-size: 1rem; background: white; transition: border-color 150ms ease;
-    }
-    .demo-input:focus { border-color: var(--color-accent-strong); outline: none; box-shadow: 0 0 0 2px rgba(13,73,82,0.12); }
-    .debounce-modes { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); margin-bottom: 1rem; }
-    .debounce-mode {
-      display: grid; gap: 0.4rem; padding: 0.85rem 1rem;
-      border: 1px solid var(--color-border); border-radius: 1rem;
-      background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
-      box-shadow: var(--shadow-soft); transition: border-color 200ms ease;
-    }
-    .debounce-mode--live { background: linear-gradient(180deg, rgba(91,192,222,0.08), rgba(91,192,222,0.04)); }
-    .debounce-mode--leading { background: linear-gradient(180deg, rgba(92,184,92,0.08), rgba(92,184,92,0.04)); }
-    .debounce-mode--pending { border-color: rgba(240,173,78,0.5); box-shadow: 0 0 0 1px rgba(240,173,78,0.2), var(--shadow-soft); }
-    .debounce-mode__head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-weight: 600; font-size: 0.82rem; }
-    .debounce-mode__value {
-      display: block; font-size: 1.15rem; font-weight: 700; color: var(--color-ink);
-      letter-spacing: -0.02em; word-break: break-all;
-    }
-    .debounce-mode__timer {
-      display: flex; align-items: center; gap: 0.35rem;
-      font-size: 0.72rem; color: #b8860b; font-style: italic;
-    }
-    .debounce-pulse {
-      display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 50%;
-      background: #f0ad4e; animation: debouncePulse 1s ease-in-out infinite;
-    }
-    @keyframes debouncePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-    .demo-actions-row { display: flex; gap: 0.5rem; }
-  `,
+      .demo-field-group {
+        margin-bottom: 1.25rem;
+      }
+      .demo-field-label {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--color-muted);
+      }
+      .demo-input {
+        width: 100%;
+        max-width: 22rem;
+        padding: 0.6rem 0.75rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.6rem;
+        font-size: 1rem;
+        background: white;
+        transition: border-color 150ms ease;
+      }
+      .demo-input:focus {
+        border-color: var(--color-accent-strong);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(13, 73, 82, 0.12);
+      }
+      .debounce-modes {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+        margin-bottom: 1rem;
+      }
+      .debounce-mode {
+        display: grid;
+        gap: 0.4rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 1rem;
+        background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+        box-shadow: var(--shadow-soft);
+        transition: border-color 200ms ease;
+      }
+      .debounce-mode--live {
+        background: linear-gradient(180deg, rgba(91, 192, 222, 0.08), rgba(91, 192, 222, 0.04));
+      }
+      .debounce-mode--leading {
+        background: linear-gradient(180deg, rgba(92, 184, 92, 0.08), rgba(92, 184, 92, 0.04));
+      }
+      .debounce-mode--pending {
+        border-color: rgba(240, 173, 78, 0.5);
+        box-shadow:
+          0 0 0 1px rgba(240, 173, 78, 0.2),
+          var(--shadow-soft);
+      }
+      .debounce-mode__head {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        font-weight: 600;
+        font-size: 0.82rem;
+      }
+      .debounce-mode__value {
+        display: block;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--color-ink);
+        letter-spacing: -0.02em;
+        word-break: break-all;
+      }
+      .debounce-mode__timer {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.72rem;
+        color: #b8860b;
+        font-style: italic;
+      }
+      .debounce-pulse {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #f0ad4e;
+        animation: debouncePulse 1s ease-in-out infinite;
+      }
+      @keyframes debouncePulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+      .demo-actions-row {
+        display: flex;
+        gap: 0.5rem;
+      }
+    `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

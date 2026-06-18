@@ -20,9 +20,7 @@ import {
 @Component({
   standalone: true,
   selector: 'demo-feature-flag-routing-demo-page',
-  providers: [
-    provideHexGuardFeatureFlags(FEATURE_FLAG_DEMO_CATALOG),
-  ],
+  providers: [provideHexGuardFeatureFlags(FEATURE_FLAG_DEMO_CATALOG)],
   imports: [
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,

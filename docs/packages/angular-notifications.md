@@ -29,6 +29,8 @@ The package is intentionally narrow:
 | `NotificationHandle.update()`       | Available | Update duration, title, or action after creation            |
 | Outlet component                    | Available | `HexguardNotificationOutletComponent` for rendering         |
 | Notification title                  | Available | Optional title field via `NotificationOptions.title`        |
+| Global defaults configuration       | Available | `provideHexGuardNotifications()` for default duration and max visible |
+| Max visible limit                   | Available | Auto-dismiss oldest when queue exceeds configured limit     |
 | Zero dependencies                   | ✅        | Only `@angular/core` + `tslib`                              |
 
 ## Public API Map
@@ -86,19 +88,55 @@ service.error('Failed to save.', 'error', {
 });
 ```
 
+## Global Defaults Configuration
+
+Pass app-wide defaults via `provideHexGuardNotifications()`:
+
+```typescript
+import { provideHexGuardNotifications } from '@hexguard/angular-notifications';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHexGuardNotifications({
+      defaultDuration: 7000,
+      maxVisible: 5,
+    }),
+  ],
+});
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `defaultDuration` | `number` | `5000` | Default auto-dismiss delay (ms). Per-notification `NotificationOptions.duration` overrides this |
+| `maxVisible` | `number` | — | When the queue exceeds this count, the oldest notifications are auto-dismissed (most-recent-first order preserved). `undefined` or `0` means no limit |
+
 ## Option Resolution and Defaults
 
 ```ts
-const duration = options?.duration ?? 5000;
+const duration = options?.duration ?? globalOptions.defaultDuration ?? 5000;
 ```
+
+1. Per-notification `NotificationOptions.duration` takes highest priority
+2. If unset, falls back to `HexGuardNotificationsOptions.defaultDuration` from `provideHexGuardNotifications()`
+3. If no global default is configured, the built-in default of 5000ms is used
 
 If `duration > 0 && Number.isFinite(duration)`, auto-dismiss is scheduled.
 
-Default duration: 5000ms.
+### Max Visible Behavior
+
+When `maxVisible` is set and the queue exceeds that count after adding a new notification, the oldest notifications (at the end of the array) are automatically dismissed and their timers cancelled. This keeps the rendered stack within the configured limit without manual queue management.
 
 ## Cleanup
 
 When `NotificationService` is created through Angular DI (the normal case with `providedIn: 'root'`), `DestroyRef` is available and all timers are cleaned up on service destruction. If the service is manually instantiated outside DI (e.g., in tests), timers are not auto-cleaned — call `dismissAll()` or let JavaScript garbage collection handle them.
+
+## Public API Map Addition
+
+| Export                           | Role                                                  |
+| -------------------------------- | ----------------------------------------------------- |
+| `provideHexGuardNotifications`   | Registers global notification defaults at bootstrap or route level |
+| `HexGuardNotificationsOptions`   | Shape of the global defaults object                   |
+| `HEXGUARD_NOTIFICATION_OPTIONS`  | Injection token (exported for advanced use)           |
 
 ## Configuration Reference
 

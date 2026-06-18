@@ -63,8 +63,7 @@ export function canActivateFeatureFlag(options: FeatureFlagGuardOptions): CanAct
     }
 
     const result = evaluateFeatureFlag(flag, context);
-    const variantOk =
-      options.variant === undefined || result.variant === options.variant;
+    const variantOk = options.variant === undefined || result.variant === options.variant;
 
     if (result.enabled && variantOk) {
       return true;
@@ -92,8 +91,7 @@ export function canMatchFeatureFlag(options: FeatureFlagGuardOptions): CanMatchF
     }
 
     const result = evaluateFeatureFlag(flag, context);
-    const variantOk =
-      options.variant === undefined || result.variant === options.variant;
+    const variantOk = options.variant === undefined || result.variant === options.variant;
 
     if (result.enabled && variantOk) {
       return true;
@@ -107,10 +105,7 @@ export function canMatchFeatureFlag(options: FeatureFlagGuardOptions): CanMatchF
  * Returns `false` to deny route access, or a `UrlTree` to redirect.
  * Only allows relative URLs for redirect targets to prevent open redirects.
  */
-function handleDenied(
-  options: FeatureFlagGuardOptions,
-  router: Router,
-): boolean | UrlTree {
+function handleDenied(options: FeatureFlagGuardOptions, router: Router): boolean | UrlTree {
   if (options.redirectTo) {
     const redirect = options.redirectTo;
     // Only relative URLs are allowed to prevent open redirect vulnerabilities

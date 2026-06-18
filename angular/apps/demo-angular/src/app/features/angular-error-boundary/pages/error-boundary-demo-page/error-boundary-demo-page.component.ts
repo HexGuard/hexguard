@@ -21,11 +21,7 @@ import { formatSnapshot } from '../../../../shared/formatting';
   ],
   template: `
     <demo-page-layout testId="error-boundary-demo-page">
-      <demo-navigation-strip
-        demoNavigation
-        testId="error-boundary-demo-navigation"
-        [demo]="demo"
-      />
+      <demo-navigation-strip demoNavigation testId="error-boundary-demo-navigation" [demo]="demo" />
 
       <article demoIntro class="demo-card demo-card--stack">
         <div class="demo-card__header">
@@ -35,8 +31,8 @@ import { formatSnapshot } from '../../../../shared/formatting';
           </div>
         </div>
         <p class="demo-card__summary">
-          <code>HexguardErrorBoundaryComponent</code> catches errors from projected content. Try
-          the default fallback and the custom fallback below.
+          <code>HexguardErrorBoundaryComponent</code> catches errors from projected content. Try the
+          default fallback and the custom fallback below.
         </p>
 
         <demo-status-strip
@@ -49,7 +45,11 @@ import { formatSnapshot } from '../../../../shared/formatting';
       </article>
 
       <!-- demo-snippet:start angular-error-boundary/demo-state -->
-      <article demoPrimary class="demo-card demo-card--stack" data-testid="error-boundary-demo-playground">
+      <article
+        demoPrimary
+        class="demo-card demo-card--stack"
+        data-testid="error-boundary-demo-playground"
+      >
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">Error boundary</p>
@@ -63,16 +63,23 @@ import { formatSnapshot } from '../../../../shared/formatting';
 
         <hexguard-error-boundary>
           <ng-template>
-            @if (checkRenderError()) { }
+            @if (checkRenderError()) {}
             <div class="boundary-safe" data-testid="error-boundary-safe-content">
               <div class="boundary-safe__inner">
                 <span class="boundary-icon">✓</span>
                 <div>
                   <strong>Safe content</strong>
-                  <p class="boundary-safe__desc">This content renders normally until an error is thrown.</p>
+                  <p class="boundary-safe__desc">
+                    This content renders normally until an error is thrown.
+                  </p>
                 </div>
               </div>
-              <button type="button" class="boundary-trigger" (click)="throwRenderError()" data-testid="trigger-error">
+              <button
+                type="button"
+                class="boundary-trigger"
+                (click)="throwRenderError()"
+                data-testid="trigger-error"
+              >
                 Throw error
               </button>
             </div>
@@ -80,7 +87,11 @@ import { formatSnapshot } from '../../../../shared/formatting';
         </hexguard-error-boundary>
       </article>
 
-      <article demoPrimary class="demo-card demo-card--stack" data-testid="error-boundary-demo-custom">
+      <article
+        demoPrimary
+        class="demo-card demo-card--stack"
+        data-testid="error-boundary-demo-custom"
+      >
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">Error boundary</p>
@@ -93,16 +104,23 @@ import { formatSnapshot } from '../../../../shared/formatting';
 
         <hexguard-error-boundary [fallback]="customFallback">
           <ng-template>
-            @if (checkCustomError()) { }
+            @if (checkCustomError()) {}
             <div class="boundary-safe">
               <div class="boundary-safe__inner">
                 <span class="boundary-icon">✓</span>
                 <div>
                   <strong>Safe content (custom)</strong>
-                  <p class="boundary-safe__desc">This content also throws and triggers a custom fallback.</p>
+                  <p class="boundary-safe__desc">
+                    This content also throws and triggers a custom fallback.
+                  </p>
                 </div>
               </div>
-              <button type="button" class="boundary-trigger" (click)="throwCustomError()" data-testid="trigger-custom-error">
+              <button
+                type="button"
+                class="boundary-trigger"
+                (click)="throwCustomError()"
+                data-testid="trigger-custom-error"
+              >
                 Throw error
               </button>
             </div>
@@ -139,38 +157,78 @@ import { formatSnapshot } from '../../../../shared/formatting';
   `,
   styles: [
     `
-    .boundary-safe {
-      padding: 1rem; border: 1px solid var(--color-border);
-      border-radius: 1rem; background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
-      box-shadow: var(--shadow-soft);
-    }
-    .boundary-safe__inner {
-      display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;
-    }
-    .boundary-safe__desc { margin: 0.15rem 0 0; font-size: 0.85rem; color: var(--color-muted); }
-    .boundary-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 2rem; height: 2rem; border-radius: 50%; flex-shrink: 0;
-      background: #d4edda; color: #155724; font-size: 1.1rem;
-    }
-    .boundary-icon--warn { background: #f8d7da; color: #721c24; }
-    .boundary-trigger {
-      padding: 0.45rem 0.85rem; border: 1px solid #dc3545; border-radius: 2rem;
-      background: white; color: #dc3545; cursor: pointer; font-size: 0.82rem;
-      font-weight: 600; box-shadow: var(--shadow-soft);
-      transition: background 150ms ease, color 150ms ease;
-    }
-    .boundary-trigger:hover { background: #dc3545; color: #fff; }
-    .boundary-error {
-      padding: 1rem; border: 1px solid rgba(217,119,75,0.3);
-      border-radius: 1rem; background: linear-gradient(180deg, rgba(255,243,205,0.84), rgba(253,232,197,0.76));
-      box-shadow: var(--shadow-soft);
-    }
-    .boundary-error__head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-    .boundary-error__msg {
-      margin: 0 0 0.75rem; font-size: 0.85rem; font-family: var(--font-mono); word-break: break-word;
-    }
-  `,
+      .boundary-safe {
+        padding: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 1rem;
+        background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+        box-shadow: var(--shadow-soft);
+      }
+      .boundary-safe__inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      .boundary-safe__desc {
+        margin: 0.15rem 0 0;
+        font-size: 0.85rem;
+        color: var(--color-muted);
+      }
+      .boundary-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: #d4edda;
+        color: #155724;
+        font-size: 1.1rem;
+      }
+      .boundary-icon--warn {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .boundary-trigger {
+        padding: 0.45rem 0.85rem;
+        border: 1px solid #dc3545;
+        border-radius: 2rem;
+        background: white;
+        color: #dc3545;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-soft);
+        transition:
+          background 150ms ease,
+          color 150ms ease;
+      }
+      .boundary-trigger:hover {
+        background: #dc3545;
+        color: #fff;
+      }
+      .boundary-error {
+        padding: 1rem;
+        border: 1px solid rgba(217, 119, 75, 0.3);
+        border-radius: 1rem;
+        background: linear-gradient(180deg, rgba(255, 243, 205, 0.84), rgba(253, 232, 197, 0.76));
+        box-shadow: var(--shadow-soft);
+      }
+      .boundary-error__head {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .boundary-error__msg {
+        margin: 0 0 0.75rem;
+        font-size: 0.85rem;
+        font-family: var(--font-mono);
+        word-break: break-word;
+      }
+    `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

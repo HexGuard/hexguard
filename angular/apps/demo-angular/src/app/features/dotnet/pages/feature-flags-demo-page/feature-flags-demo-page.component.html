@@ -1,13 +1,19 @@
 <demo-page-layout testId="dotnet-feature-flags-page">
-  <demo-navigation-strip demoNavigation [demo]="dummyDemoEntry" [dotnetDemo]="demo" [dotnetPackage]="DOTNET_FEATURE_FLAGS_PACKAGE" testId="dotnet-feature-flags-nav" />
+  <demo-navigation-strip
+    demoNavigation
+    [demo]="dummyDemoEntry"
+    [dotnetDemo]="demo"
+    [dotnetPackage]="DOTNET_FEATURE_FLAGS_PACKAGE"
+    testId="dotnet-feature-flags-nav"
+  />
 
   <article demoIntro class="demo-card demo-card--stack">
     <div class="demo-eyebrow">HexGuard.FeatureFlags</div>
     <h2>Feature flag evaluation via the shared .NET SampleApi</h2>
     <p class="demo-card__summary">
       Select a persona and sync flags from the <strong>HexGuard.FeatureFlags</strong>
-      library running in the shared SampleApi. The evaluate-all endpoint returns
-      the resolved state for every flag based on the persona's context.
+      library running in the shared SampleApi. The evaluate-all endpoint returns the resolved state
+      for every flag based on the persona's context.
     </p>
 
     <div class="ff-cross-stack">
@@ -22,22 +28,27 @@
         id="ff-persona-select"
         data-testid="ff-persona-selector"
         [ngModel]="personaId()"
-        (ngModelChange)="updatePersona($event)">
+        (ngModelChange)="updatePersona($event)"
+      >
         @for (p of personas; track p.id) {
           <option [value]="p.id">{{ p.label }}</option>
         }
       </select>
 
-      <button
-        data-testid="ff-load-btn"
-        (click)="loadFlags()"
-        [disabled]="isBusy()">
+      <button data-testid="ff-load-btn" (click)="loadFlags()" [disabled]="isBusy()">
         {{ isBusy() ? 'Loading…' : 'Evaluate flags via API' }}
       </button>
     </div>
 
     @if (lastRequestUrl(); as url) {
-      <p style="font-size:0.75rem;font-family:var(--font-mono);color:var(--color-text-secondary);margin-top:0.5rem">
+      <p
+        style="
+          font-size: 0.75rem;
+          font-family: var(--font-mono);
+          color: var(--color-text-secondary);
+          margin-top: 0.5rem;
+        "
+      >
         GET {{ url }}
       </p>
     }
@@ -46,7 +57,7 @@
   <section demoPrimary>
     @if (error(); as err) {
       <div class="demo-banner demo-banner--error" data-testid="ff-error-banner">
-        <strong>API Error:</strong> {{ err }}<br>
+        <strong>API Error:</strong> {{ err }}<br />
         Make sure the SampleApi is running (<code>pnpm dotnet:start:demo-api</code>).
       </div>
     }
@@ -62,15 +73,15 @@
               </span>
             </div>
             <div class="ff-meta">
-              Variant: <code>{{ flag.variant }}</code>
-              &nbsp;|&nbsp; Matched: <code>{{ flag.matchedRule ?? '(fallthrough)' }}</code>
+              Variant: <code>{{ flag.variant }}</code> &nbsp;|&nbsp; Matched:
+              <code>{{ flag.matchedRule ?? '(fallthrough)' }}</code>
             </div>
           </article>
         }
       </div>
 
       @if (responseJson(); as json) {
-        <article class="demo-card demo-card--stack" style="margin-top:1rem">
+        <article class="demo-card demo-card--stack" style="margin-top: 1rem">
           <p class="demo-eyebrow">Raw API response</p>
           <pre class="ff-code-block">{{ json }}</pre>
         </article>
@@ -85,6 +96,7 @@
       snippetId=""
       panelTestId="ff-inspector"
       snapshotTestId="ff-snapshot"
-      codeTestId="ff-code" />
+      codeTestId="ff-code"
+    />
   </aside>
 </demo-page-layout>

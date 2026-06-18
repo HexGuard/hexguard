@@ -1,0 +1,38 @@
+{
+  "name": "@hexguard/angular-bulk-operations",
+  "version": "0.1.0",
+  "description": "Bulk-action service and facade for Angular with HTTP 207 partial-success support, progress tracking, and selection-state composition.",
+  "keywords": [
+    "angular",
+    "bulk-operations",
+    "bulk-actions",
+    "http-207",
+    "multi-status",
+    "partial-success",
+    "selection",
+    "signals",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-bulk-operations",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-bulk-operations"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@hexguard/angular-selection-state": "^0.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

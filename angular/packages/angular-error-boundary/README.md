@@ -54,21 +54,21 @@ export class MyComponent {}
 
 ## Features
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Catches render-time errors | ✅ | Errors from projected child component templates |
-| Catches async errors | ✅ | Errors from child-component timers and promise callbacks |
-| Custom fallback template | ✅ | Receives `ErrorBoundaryContext` with error and reset |
-| Default fallback | ✅ | Error message + Retry button |
-| `reset()` recovery | ✅ | Clears error state and re-renders content |
-| `hasError()` / `caughtError()` | ✅ | Programmatic access to error state |
-| Nested boundaries | ✅ | Innermost boundary catches first |
-| Zero dependencies | ✅ | Only `@angular/core` + `tslib` |
+| Feature                        | Status | Notes                                                    |
+| ------------------------------ | ------ | -------------------------------------------------------- |
+| Catches render-time errors     | ✅     | Errors from projected child component templates          |
+| Catches async errors           | ✅     | Errors from child-component timers and promise callbacks |
+| Custom fallback template       | ✅     | Receives `ErrorBoundaryContext` with error and reset     |
+| Default fallback               | ✅     | Error message + Retry button                             |
+| `reset()` recovery             | ✅     | Clears error state and re-renders content                |
+| `hasError()` / `caughtError()` | ✅     | Programmatic access to error state                       |
+| Nested boundaries              | ✅     | Innermost boundary catches first                         |
+| Zero dependencies              | ✅     | Only `@angular/core` + `tslib`                           |
 
 ## Demo routes
 
-| Route | Description |
-|-------|-------------|
+| Route                              | Description                                          |
+| ---------------------------------- | ---------------------------------------------------- |
 | `/packages/angular-error-boundary` | Error boundary demo with default and custom fallback |
 
 ## What It Owns
@@ -90,7 +90,11 @@ export class MyComponent {}
 ```ts
 @Component({
   selector: 'hexguard-error-boundary',
-  template: `@if (hasError()) { ... fallback ... } @else { <ng-content /> }`,
+  template: `@if (hasError()) {
+      ... fallback ...
+    } @else {
+      <ng-content />
+    }`,
 })
 class HexguardErrorBoundaryComponent {
   @Input() fallback: TemplateRef<ErrorBoundaryContext> | undefined;

@@ -1,7 +1,4 @@
-import type {
-  FeatureFlag,
-  TargetingRule,
-} from './types';
+import type { FeatureFlag, TargetingRule } from './types';
 import type { FlagKey } from './types';
 
 // ── Public types ───────────────────────────────────────────────────
@@ -202,9 +199,7 @@ function matchRule(
     }
 
     case 'groupIn': {
-      if (
-        context.groups?.some((g) => rule.groups.includes(g))
-      ) {
+      if (context.groups?.some((g) => rule.groups.includes(g))) {
         return {
           key: flag.key,
           enabled: true,

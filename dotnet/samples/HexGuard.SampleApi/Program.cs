@@ -7,6 +7,7 @@ using HexGuard.SampleApi.Packages.HexGuardReferenceData;
 using HexGuard.FeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardFeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
+using HexGuard.SampleApi.Packages.HexGuardBulkOperations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,6 +101,14 @@ app.MapGet("/", () => Results.Ok(new
             personasEndpoint = "/api/feature-flags/personas",
             note = "Feature flags — evaluation, targeting rules, sync, paired with @hexguard/angular-feature-flags",
         },
+        new
+        {
+            id = "hexguard-bulk-operations",
+            route = "/api/bulk-operations",
+            deleteEndpoint = "/api/bulk-operations/delete (POST)",
+            approveEndpoint = "/api/bulk-operations/approve (POST)",
+            note = "Bulk operations — HTTP 207 Multi-Status, partial-success, paired with @hexguard/angular-bulk-operations",
+        },
     },
 }));
 
@@ -112,6 +121,7 @@ app.MapReferenceDataSampleEndpoints();
 app.MapValidationContractsSampleEndpoints();
 app.MapFeatureFlagEndpoints();
 app.MapFeatureFlagsSampleEndpoints();
+app.MapBulkOperationsSampleEndpoints();
 
 app.Run();
 

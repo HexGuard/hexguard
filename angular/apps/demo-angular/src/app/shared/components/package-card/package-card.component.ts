@@ -20,7 +20,8 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
         <span
           class="site-status-badge package-card__status"
           [attr.data-testid]="'package-card-status-' + entry().id"
-        >{{ entry().status }}</span>
+          >{{ entry().status }}</span
+        >
       </div>
 
       <p class="demo-card__summary">{{ entry().summary }}</p>
@@ -50,14 +51,15 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
 
       <div class="package-card__footer">
         <div class="package-card__meta">
-          <span class="demo-hint-pill">{{ entry().demoCount }} live demo{{ entry().demoCount !== 1 ? 's' : '' }}</span>
+          <span class="demo-hint-pill"
+            >{{ entry().demoCount }} live demo{{ entry().demoCount !== 1 ? 's' : '' }}</span
+          >
         </div>
 
         <div class="demo-link-row package-card__links">
-          <a
-            class="package-card__action"
-            [routerLink]="entry().route"
-          >Open {{ entry().scope }} hub</a>
+          <a class="package-card__action" [routerLink]="entry().route"
+            >Open {{ entry().scope }} hub</a
+          >
 
           @if (entry().repositoryHref) {
             <a
@@ -65,7 +67,8 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
               [href]="entry().repositoryHref"
               target="_blank"
               rel="noreferrer"
-            >View source</a>
+              >View source</a
+            >
           }
 
           @if (entry().docsLinks.length > 0) {
@@ -74,7 +77,8 @@ import type { UnifiedPackageEntry } from '../../../site-catalog';
               [href]="entry().docsLinks[0].href"
               target="_blank"
               rel="noreferrer"
-            >Package docs</a>
+              >Package docs</a
+            >
           }
         </div>
       </div>

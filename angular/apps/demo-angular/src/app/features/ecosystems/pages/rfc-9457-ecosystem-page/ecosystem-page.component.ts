@@ -18,7 +18,7 @@ import { SITE_ECOSYSTEMS } from '../../../../site-catalog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EcosystemPageComponent {
-  readonly ecosystem: typeof SITE_ECOSYSTEMS[number] | null;
+  readonly ecosystem: (typeof SITE_ECOSYSTEMS)[number] | null;
 
   constructor(route: ActivatedRoute) {
     const id = route.snapshot.paramMap.get('id');

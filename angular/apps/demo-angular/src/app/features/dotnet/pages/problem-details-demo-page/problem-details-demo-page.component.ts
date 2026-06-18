@@ -43,9 +43,9 @@ interface ProblemDetailsEndpoint {
           </div>
         </div>
         <p class="demo-card__summary">
-          The <code>HexGuard.ProblemDetails</code> package produces RFC 9457 JSON responses through the
-          shared <code>HexGuard.SampleApi</code>. Click an endpoint below to fetch and inspect the
-          response.
+          The <code>HexGuard.ProblemDetails</code> package produces RFC 9457 JSON responses through
+          the shared <code>HexGuard.SampleApi</code>. Click an endpoint below to fetch and inspect
+          the response.
         </p>
 
         <demo-status-strip
@@ -91,7 +91,10 @@ interface ProblemDetailsEndpoint {
           <div class="pd-response">
             <div class="pd-response__head">
               <span class="demo-eyebrow">Response</span>
-              <span class="pd-response__status" [class.pd-response__status--ok]="lastStatus() < 400">
+              <span
+                class="pd-response__status"
+                [class.pd-response__status--ok]="lastStatus() < 400"
+              >
                 {{ lastStatus() }}
               </span>
             </div>
@@ -120,62 +123,97 @@ interface ProblemDetailsEndpoint {
       />
     </demo-page-layout>
   `,
-  styles: [`
-    :host { display: block; }
-    .pd-endpoint {
-      padding: 0.85rem 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 0.85rem;
-      background: rgba(255,255,255,0.82);
-      display: grid;
-      gap: 0.5rem;
-    }
-    .pd-endpoint + .pd-endpoint { margin-top: 0.7rem; }
-    .pd-endpoint__head {
-      display: flex; gap: 0.5rem; align-items: center;
-    }
-    .pd-endpoint__method {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 0.15rem 0.45rem; border-radius: 0.35rem;
-      background: #155e68; color: white;
-      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
-    }
-    .pd-endpoint__path {
-      font-size: 0.85rem; word-break: break-word;
-    }
-    .pd-endpoint__button {
-      justify-self: start; padding: 0.4rem 1rem;
-      border: 1px solid var(--color-accent-border); border-radius: 0.5rem;
-      background: white; color: var(--color-accent-strong);
-      font-family: var(--font-mono); font-size: 0.82rem; cursor: pointer;
-    }
-    .pd-endpoint__button:hover {
-      background: var(--color-accent-strong); color: white;
-    }
-    .pd-response {
-      margin-top: 1rem; padding: 0.85rem 1rem;
-      border: 1px solid var(--color-border); border-radius: 0.85rem;
-      background: rgba(255,255,255,0.82);
-    }
-    .pd-response--error {
-      border-color: #f5c6cb; background: #fdf0f2;
-    }
-    .pd-response__head {
-      display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem;
-    }
-    .pd-response__status {
-      font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
-      padding: 0.1rem 0.4rem; border-radius: 0.3rem;
-      background: #f8d7da; color: #721c24;
-    }
-    .pd-response__status--ok {
-      background: #d4edda; color: #155724;
-    }
-    .pd-response__json {
-      margin: 0; font-size: 0.82rem; line-height: 1.55;
-      white-space: pre-wrap; word-break: break-word;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .pd-endpoint {
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.85rem;
+        background: rgba(255, 255, 255, 0.82);
+        display: grid;
+        gap: 0.5rem;
+      }
+      .pd-endpoint + .pd-endpoint {
+        margin-top: 0.7rem;
+      }
+      .pd-endpoint__head {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .pd-endpoint__method {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.15rem 0.45rem;
+        border-radius: 0.35rem;
+        background: #155e68;
+        color: white;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+      .pd-endpoint__path {
+        font-size: 0.85rem;
+        word-break: break-word;
+      }
+      .pd-endpoint__button {
+        justify-self: start;
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--color-accent-border);
+        border-radius: 0.5rem;
+        background: white;
+        color: var(--color-accent-strong);
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        cursor: pointer;
+      }
+      .pd-endpoint__button:hover {
+        background: var(--color-accent-strong);
+        color: white;
+      }
+      .pd-response {
+        margin-top: 1rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.85rem;
+        background: rgba(255, 255, 255, 0.82);
+      }
+      .pd-response--error {
+        border-color: #f5c6cb;
+        background: #fdf0f2;
+      }
+      .pd-response__head {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+      .pd-response__status {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.3rem;
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .pd-response__status--ok {
+        background: #d4edda;
+        color: #155724;
+      }
+      .pd-response__json {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.55;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProblemDetailsDemoPageComponent {

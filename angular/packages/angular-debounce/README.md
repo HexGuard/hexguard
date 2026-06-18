@@ -25,26 +25,26 @@ const search = debouncedSignal('', 300);
 search.set('search term');
 
 // In a component template or effect:
-console.log(search.value());   // debounced output
+console.log(search.value()); // debounced output
 console.log(search.isPending()); // true while timer is active
 ```
 
 ## Features
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Trailing-only debounce | ✅ | Default mode — emits after `dueTime` of inactivity |
-| Leading-only debounce | ✅ | Emits immediately on each change, no trailing |
-| Both edges (leading + trailing) | ✅ | Emits on change and again after settling |
-| `isPending` signal | ✅ | Tracks whether a trailing flush is scheduled |
-| `flush()` | ✅ | Immediately emits the current pending value |
-| `cancel()` | ✅ | Cancels pending timeout without emitting |
-| Zero dependencies | ✅ | Only `@angular/core` + `tslib` |
+| Feature                         | Status | Notes                                              |
+| ------------------------------- | ------ | -------------------------------------------------- |
+| Trailing-only debounce          | ✅     | Default mode — emits after `dueTime` of inactivity |
+| Leading-only debounce           | ✅     | Emits immediately on each change, no trailing      |
+| Both edges (leading + trailing) | ✅     | Emits on change and again after settling           |
+| `isPending` signal              | ✅     | Tracks whether a trailing flush is scheduled       |
+| `flush()`                       | ✅     | Immediately emits the current pending value        |
+| `cancel()`                      | ✅     | Cancels pending timeout without emitting           |
+| Zero dependencies               | ✅     | Only `@angular/core` + `tslib`                     |
 
 ## Demo routes
 
-| Route | Description |
-|-------|-------------|
+| Route                        | Description                                                    |
+| ---------------------------- | -------------------------------------------------------------- |
 | `/packages/angular-debounce` | Debounce demo with trailing, leading, and both-edge comparison |
 
 ## What It Owns
@@ -66,6 +66,7 @@ console.log(search.isPending()); // true while timer is active
 Creates a debounced signal handle.
 
 **Parameters:**
+
 - `initialValue: T` — The initial value.
 - `dueTime: number` — Debounce delay in milliseconds.
 - `options?: DebounceOptions` — `{ leading?: boolean, trailing?: boolean }`. Defaults to `{ leading: false, trailing: true }`.

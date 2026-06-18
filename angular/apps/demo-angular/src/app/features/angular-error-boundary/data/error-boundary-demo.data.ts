@@ -15,7 +15,9 @@ export const THROW_SCENARIOS: readonly ThrowScenario[] = [
     label: 'Throw async error',
     errorFactory: () => {
       const error = new Error('Async operation failed.');
-      setTimeout(() => { throw error; }, 100);
+      setTimeout(() => {
+        throw error;
+      }, 100);
       return error;
     },
   },

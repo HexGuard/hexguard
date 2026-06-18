@@ -319,47 +319,6 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
-    id: 'angular-feature-flags',
-    packageName: '@hexguard/angular-feature-flags',
-    status: 'Available',
-    scope: 'Angular',
-    summary:
-      'Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.',
-    detail:
-      'Designed for Angular apps that need typed feature-flag evaluation with a pure evaluator, DI facade, *hexguardFeatureFlag directive, route guards, and optional backend sync via conditional 304.',
-    installCommand: 'pnpm add @hexguard/angular-feature-flags',
-    featureHighlights: [
-      'Pure evaluator with 8 targeting rule types (always, never, rollout, userIn/NotIn, groupIn/NotIn, attributeMatch/NotMatch).',
-      'Angular DI facade, structural directive, and route guards over the same evaluator.',
-      'Optional sync service for backend catalog fetching with context-hash-based 304 handling.',
-    ],
-    bestFitScenarios: [
-      'Angular apps that need typed feature-flag evaluation with route gating, template visibility, and imperatve checks.',
-      'Screens that consume a backend feature-flag sync endpoint and want conditional 304 updates.',
-      'Teams that need feature-flag behavior to stay inspectable through docs-grade demos and a shared evaluator.',
-    ],
-    statusNoteParagraphs: [
-      'This package is available as a headless feature-flag companion for Angular routes, templates, and feature code.',
-      'It focuses on one shared evaluator across directive, guards, and imperative API, with an optional sync service and a validated publish surface across docs, demos, and package artifacts.',
-    ],
-    repositoryHref:
-      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-feature-flags',
-    docsLinks: [
-      {
-        label: 'Package README',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-feature-flags/README.md',
-      },
-      {
-        label: 'Deep package notes',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-feature-flags.md',
-      },
-      {
-        label: 'Demo runbook',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
-      },
-    ],
-  },
-  {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
     status: 'Available',
@@ -392,47 +351,6 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-reference-data.md',
-      },
-      {
-        label: 'Demo runbook',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
-      },
-    ],
-  },
-  {
-    id: 'hexguard-feature-flags',
-    packageName: 'HexGuard.FeatureFlags',
-    status: 'Available',
-    scope: '.NET',
-    summary:
-      'Feature flag evaluation, targeting rules, and sync endpoints for ASP.NET Core APIs. Pairs with @hexguard/angular-feature-flags.',
-    detail:
-      'Provides FeatureFlag records, FlagEvaluationContext, a pure evaluator with 8 targeting rule types (always, never, rollout, userIn/NotIn, groupIn/NotIn, attributeMatch/NotMatch), and Minimal API endpoints for sync and evaluation.',
-    installCommand: 'dotnet add package HexGuard.FeatureFlags',
-    featureHighlights: [
-      'Pure evaluator with first-match-wins targeting across 8 rule types.',
-      'IFeatureFlagStore abstraction with InMemoryFeatureFlagStore for config-backed flags.',
-      'Sync endpoint with conditional 304 via content-hash and evaluate endpoint for single-flag lookups.',
-    ],
-    bestFitScenarios: [
-      'ASP.NET Core APIs that need to serve feature flags to Angular or other frontend clients.',
-      'Backend services that evaluate flags server-side for gating endpoints or middleware behavior.',
-      'Teams deploying cross-stack feature flags with @hexguard/angular-feature-flags on the Angular side.',
-    ],
-    statusNoteParagraphs: [
-      'This package pairs with @hexguard/angular-feature-flags on the Angular side through a shared sync API contract.',
-      'It focuses on deterministic evaluation, minimal dependencies, and a validated publish surface across docs, demos, and package artifacts.',
-    ],
-    repositoryHref:
-      'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.FeatureFlags',
-    docsLinks: [
-      {
-        label: 'Package README',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.FeatureFlags/README.md',
-      },
-      {
-        label: 'Deep package notes',
-        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-feature-flags.md',
       },
       {
         label: 'Demo runbook',
@@ -2003,6 +1921,66 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would standardize multi-tenancy data isolation with tenant ID resolution strategies, per-tenant connection strings, tenant-aware EF Core query filters, and tenant-context middleware for .NET APIs.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-multi-tenancy',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-cloud-auth',
+    anchorId: 'package-angular-cloud-auth',
+    packageName: '@hexguard/angular-cloud-auth',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide a provider-agnostic authentication state abstraction with adapter interfaces for Firebase Auth, Auth0, Azure AD, and custom JWT backends — unified user signals, token management, and route guards regardless of auth provider.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-cloud-auth',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'angular-firebase-auth',
+    anchorId: 'package-angular-firebase-auth',
+    packageName: '@hexguard/angular-firebase-auth',
+    scope: 'Angular',
+    status: 'Proposed',
+    summary:
+      'Would provide Firebase Authentication state management with signal-based user profile, auth state changes, multi-provider login methods, token refresh, and route guard helpers wrapping @angular/fire/auth.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-firebase-auth',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-cloud-functions',
+    anchorId: 'package-dotnet-cloud-functions',
+    packageName: 'HexGuard.CloudFunctions',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide serverless function conventions for .NET with HTTP trigger helpers, function middleware (auth, logging, validation), response contracts, and provider-agnostic abstractions with Azure Functions and AWS Lambda adapters.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-cloud-functions',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-cloud-jobs',
+    anchorId: 'package-dotnet-cloud-jobs',
+    packageName: 'HexGuard.CloudJobs',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide cloud job scheduling conventions for .NET with recurring and one-shot job definitions, cron schedules, status tracking, retry policies, and provider-agnostic adapters for Azure, AWS, and Google Cloud.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-cloud-jobs',
+    showOnSiteHome: false,
+  },
+  {
+    id: 'dotnet-object-storage',
+    anchorId: 'package-dotnet-object-storage',
+    packageName: 'HexGuard.ObjectStorage',
+    scope: '.NET',
+    status: 'Proposed',
+    summary:
+      'Would provide cloud object storage abstractions with upload/download helpers, signed URL generation, container/bucket management, and provider-agnostic adapters for Azure Blob, AWS S3, Google Cloud Storage, and Firebase Storage.',
+    docsHref:
+      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-dotnet-object-storage',
     showOnSiteHome: false,
   },
 ] as const satisfies readonly GeneratedRoadmapPackageEntry[];

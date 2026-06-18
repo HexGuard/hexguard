@@ -239,9 +239,7 @@ const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string | null> = {
  * Adapt an Angular SitePackageCatalogEntry to the unified card interface.
  * Cross-stack counterpart info is baked into the entry's dotnet fields.
  */
-export function toUnifiedAngularEntry(
-  entry: SitePackageCatalogEntry,
-): UnifiedPackageEntry {
+export function toUnifiedAngularEntry(entry: SitePackageCatalogEntry): UnifiedPackageEntry {
   return {
     id: entry.id,
     packageName: entry.packageName,
@@ -253,9 +251,7 @@ export function toUnifiedAngularEntry(
     route: entry.route,
     demoCount: entry.demoCount,
     counterpartLabel: entry.dotnetCounterpartLabel,
-    counterpartRoute: entry.dotnetCounterpartId
-      ? `/dotnet/${entry.dotnetCounterpartId}`
-      : null,
+    counterpartRoute: entry.dotnetCounterpartId ? `/dotnet/${entry.dotnetCounterpartId}` : null,
     repositoryHref: entry.repositoryHref,
     docsLinks: entry.docsLinks,
     installCommand: entry.installCommand,
@@ -266,9 +262,7 @@ export function toUnifiedAngularEntry(
  * Adapt a .NET DotnetSitePackageCatalogEntry to the unified card interface.
  * Uses dotnetPackage fields for docs and source links.
  */
-export function toUnifiedDotnetEntry(
-  entry: DotnetSitePackageCatalogEntry,
-): UnifiedPackageEntry {
+export function toUnifiedDotnetEntry(entry: DotnetSitePackageCatalogEntry): UnifiedPackageEntry {
   return {
     id: entry.id,
     packageName: entry.packageName,
@@ -280,9 +274,7 @@ export function toUnifiedDotnetEntry(
     route: entry.route,
     demoCount: entry.demoCount,
     counterpartLabel: entry.angularCounterpartLabel,
-    counterpartRoute: entry.angularCounterpartId
-      ? `/packages/${entry.angularCounterpartId}`
-      : null,
+    counterpartRoute: entry.angularCounterpartId ? `/packages/${entry.angularCounterpartId}` : null,
     repositoryHref: entry.dotnetPackage.docsLinks[0]?.href ?? '',
     docsLinks: entry.dotnetPackage.docsLinks,
     installCommand: `dotnet add package ${entry.nugetId}`,
