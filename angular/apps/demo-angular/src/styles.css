@@ -80,6 +80,10 @@ body::before {
   pointer-events: none;
 }
 
+p, ul, ol, dl, pre, blockquote, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 button,
 input,
 select {
@@ -89,6 +93,11 @@ select {
 code,
 pre {
   font-family: var(--font-mono);
+}
+
+.section-stack {
+  display: grid;
+  gap: var(--space-section);
 }
 
 .demo-card {

@@ -29,7 +29,7 @@ import {
         </div>
       </div>
 
-      <div sections>
+      <div sections class="section-stack">
         <section class="stack-overview__section" aria-labelledby="packages-heading">
           <div class="stack-overview__section-heading">
             <div>

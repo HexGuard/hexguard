@@ -23,7 +23,7 @@ import {
         </p>
       </div>
 
-      <div sections>
+      <div sections class="section-stack">
         <!-- Package cards with inline demo links -->
         <section class="stack-overview__section" aria-labelledby="dotnet-packages-heading">
           <div class="stack-overview__section-heading">
