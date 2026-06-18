@@ -12,3 +12,8 @@
   gap: var(--space-card-gap);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
 }
+
+.stack-hub > :last-child {
+  display: grid;
+  gap: var(--space-section);
+}
