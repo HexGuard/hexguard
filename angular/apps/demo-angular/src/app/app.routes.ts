@@ -51,6 +51,7 @@ import { SelectionStateDemoPageComponent } from './features/angular-selection-st
 import { AngularBulkOperationsHomePageComponent } from './features/angular-bulk-operations/angular-bulk-operations-home-page.component';
 import { BulkOperationsDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { BulkOperationsApiDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
+import { BulkOperationsLibraryDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component';
 import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
 import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
 import {
@@ -388,6 +389,11 @@ export const routes: Routes = [
     path: 'packages/angular-bulk-operations/api-demo',
     component: BulkOperationsApiDemoPageComponent,
     title: 'Bulk Operations Live API Demo',
+  },
+  {
+    path: 'packages/angular-bulk-operations/library-demo',
+    component: BulkOperationsLibraryDemoPageComponent,
+    title: 'Bulk Operations Library API Workflow',
   },
   // ── .NET showcase routes ────────────────────────────────────────
   {

@@ -198,6 +198,16 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
   },
+  {
+    id: 'angular-bulk-operations/library-demo',
+    title: 'Bulk operations library API workflow demo component source',
+    description:
+      'Generated from the real Bulk Operations Library API workflow demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

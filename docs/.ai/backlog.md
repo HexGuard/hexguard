@@ -25,8 +25,8 @@
 - [x] **Implement `@hexguard/angular-error-boundary`** — declarative component error boundary. [Detailed plan](angular/feature-angular-error-boundary.md)
 - [x] **Implement `@hexguard/angular-debounce`** — debounced value signal primitive. [Detailed plan](angular/feature-angular-debounce.md)
 - [x] **Implement `HexGuard.ProblemDetails`** — RFC 9457 Problem Details types, builder, middleware, and Minimal API result extensions for .NET. Pairs with `@hexguard/angular-api-errors`.
-- [ ] **Implement `HexGuard.FeatureFlags + @hexguard/angular-feature-flags`** — cross-stack flag evaluation and sync pair. [Detailed plan](cross-stack/feature-feature-flags-cross-stack.md)
-- [ ] **Implement `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`** — cross-stack bulk action contracts with HTTP 207 partial-success. [Detailed plan](cross-stack/feature-bulk-operations-cross-stack.md)
+- [x] **Implement `HexGuard.FeatureFlags + @hexguard/angular-feature-flags`** — cross-stack flag evaluation and sync pair. [Detailed plan](cross-stack/feature-feature-flags-cross-stack.md)
+- [x] **Implement `HexGuard.BulkOperations + @hexguard/angular-bulk-operations`** — cross-stack bulk action contracts with HTTP 207 partial-success. [Detailed plan](cross-stack/feature-bulk-operations-cross-stack.md)
 - [ ] **Implement `@hexguard/angular-network-status`** — connectivity-state and online/offline signals. [Detailed plan](angular/feature-angular-network-status.md)
 - [ ] **Implement `@hexguard/angular-visibility`** — tab visibility, idle detection, and element-visibility signals. [Detailed plan](angular/feature-angular-visibility.md)
 - [ ] **Implement `@hexguard/angular-scroll-state`** — scroll position, infinite-scroll, and scroll-spy primitives. [Detailed plan](angular/feature-angular-scroll-state.md)
@@ -118,6 +118,16 @@
 - [ ] Keep `HexGuard.CloudFunctions` as a proposed .NET serverless function conventions package with provider-agnostic adapters.
 - [ ] Keep `HexGuard.CloudJobs` as a proposed .NET cloud job scheduling package with recurring jobs, cron, and retry policies.
 - [ ] Keep `HexGuard.ObjectStorage` as a proposed .NET cloud object storage abstraction package with Azure Blob, AWS S3, and GCS adapters.
+- [ ] Keep `@hexguard/angular-analytics` as a proposed analytics event tracking package with typed contracts and adapter interfaces.
+- [ ] Keep `@hexguard/angular-webauthn` as a proposed WebAuthn/passkey authentication state package for passwordless login.
+- [ ] Keep `@hexguard/angular-payment` as a proposed payment processing state package with Stripe Elements and checkout lifecycle signals.
+- [ ] Keep `HexGuard.Email` as a proposed .NET transactional email package with template rendering and send adapters.
+- [ ] Keep `HexGuard.Analytics` as a proposed .NET server-side analytics event tracking package with event batching and sink adapters.
+- [ ] Keep `@hexguard/angular-form-engine` as a proposed declarative dynamic form engine rendering forms from typed JSON config.
+- [ ] Keep `@hexguard/angular-comments` as a proposed threaded comment state package with mentions, reactions, and attachments.
+- [ ] Keep `@hexguard/angular-bookmarks` as a proposed bookmark and favorites state package with collections and folders.
+- [ ] Keep `@hexguard/angular-report-builder` as a proposed report and dashboard builder state package with column/filter/sort config and preview.
+- [ ] Keep `HexGuard.HeadlessCms` as a proposed .NET headless CMS content contracts package with content types, versioning, and publishing workflows.
 
 ## Later
 

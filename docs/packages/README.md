@@ -7,24 +7,24 @@ another.
 
 ## Current Packages
 
-| Package                              | Status   | Description                                                                                                                                                                                           | Primary Docs                                                                                                                                                |
-| ------------------------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@hexguard/angular-url-state`        | Released | Type-safe, signal-first synchronization between Angular state and URL query params.                                                                                                                   | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
-| `@hexguard/angular-query-form`       | Released | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                                                                                                    | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
-| `@hexguard/angular-async-state`      | Released | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.                                                                                | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
-| `@hexguard/angular-lookups`          | Released | Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.                                                                                                   | [Deep Dive](angular-lookups.md), [npm-facing README](../../angular/packages/angular-lookups/README.md), [Demo runbook](../demo/README.md)                   |
-| `@hexguard/angular-optimistic-state` | Released | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.                                                                                 | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
-| `@hexguard/angular-api-errors`       | Released | Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state. | [Deep Dive](angular-api-errors.md), [npm-facing README](../../angular/packages/angular-api-errors/README.md), [Demo runbook](../demo/README.md)             |
-| `@hexguard/angular-permissions`      | Released | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
-| `@hexguard/angular-feature-flags`    | Released | Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.                                                                                               | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)       |
-| `@hexguard/angular-selection-state`  | Released | Headless keyed selection state for Angular tables, lists, and bulk-action flows.                                                                                                                      | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)   |
-| `@hexguard/angular-bulk-operations`  | Released | Bulk-action service and facade for Angular with HTTP 207 partial-success support, progress tracking, and selection-state composition.                                                                 | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)   |
-| `HexGuard.BulkOperations`            | Released | Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for HTTP 207 Multi-Status partial-success scenarios.                                                                       | [Deep Dive](hexguard-bulk-operations.md), [npm-facing README](../../dotnet/src/HexGuard.BulkOperations/README.md), [Demo runbook](../demo/README.md)        |
-| `HexGuard.ReferenceData`             | Released | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                  | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)          |
-| `@hexguard/angular-debounce`         | Released | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                 |
-| `@hexguard/angular-notifications`    | Released | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)       |
-| `@hexguard/angular-error-boundary`   | Released | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)     |
-| `HexGuard.ProblemDetails`            | Released | RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.                                                                        | [Deep Dive](hexguard-problem-details.md), [npm-facing README](../../dotnet/src/HexGuard.ProblemDetails/README.md), [Demo runbook](../demo/README.md)        |
+| Package                              | Status    | Description                                                                                                                                                                                           | Primary Docs                                                                                                                                                |
+| ------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@hexguard/angular-url-state`        | Available | Type-safe, signal-first synchronization between Angular state and URL query params.                                                                                                                   | [Deep Dive](angular-url-state.md), [npm-facing README](../../angular/packages/angular-url-state/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-query-form`       | Available | Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.                                                                                                    | [Deep Dive](angular-query-form.md), [npm-facing README](../../angular/packages/angular-query-form/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-async-state`      | Available | Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.                                                                                | [Deep Dive](angular-async-state.md), [npm-facing README](../../angular/packages/angular-async-state/README.md), [Demo runbook](../demo/README.md)           |
+| `@hexguard/angular-lookups`          | Available | Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.                                                                                                   | [Deep Dive](angular-lookups.md), [npm-facing README](../../angular/packages/angular-lookups/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-optimistic-state` | Available | Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.                                                                                 | [Deep Dive](angular-optimistic-state.md), [npm-facing README](../../angular/packages/angular-optimistic-state/README.md), [Demo runbook](../demo/README.md) |
+| `@hexguard/angular-api-errors`       | Available | Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state. | [Deep Dive](angular-api-errors.md), [npm-facing README](../../angular/packages/angular-api-errors/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-permissions`      | Available | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)           |
+| `HexGuard.ReferenceData`             | Available | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                  | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-debounce`         | Available | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                 |
+| `@hexguard/angular-notifications`    | Available | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)       |
+| `@hexguard/angular-error-boundary`   | Available | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)     |
+| `@hexguard/angular-feature-flags`    | Released  | Typed feature-flag evaluation for Angular with DI-backed service, route guards, and template directive.                                                                                               | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)       |
+| `@hexguard/angular-selection-state`  | Released  | Headless keyed selection state for Angular tables, lists, and bulk-action flows.                                                                                                                      | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-bulk-operations`  | Released  | Bulk-action service and facade for Angular with HTTP 207 partial-success support, progress tracking, and selection-state composition.                                                                 | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)   |
+| `HexGuard.BulkOperations`            | Released  | Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for HTTP 207 Multi-Status partial-success scenarios.                                                                       | [Deep Dive](hexguard-bulk-operations.md), [npm-facing README](../../dotnet/src/HexGuard.BulkOperations/README.md), [Demo runbook](../demo/README.md)        |
+| `HexGuard.ProblemDetails`            | Available | RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.                                                                        | [Deep Dive](hexguard-problem-details.md), [npm-facing README](../../dotnet/src/HexGuard.ProblemDetails/README.md), [Demo runbook](../demo/README.md)        |
 
 ## Package Status Notes
 
@@ -32,7 +32,7 @@ another.
 
 ### `@hexguard/angular-url-state`
 
-Status: Released
+Status: Available
 
 This package is the most mature current HexGuard Angular surface and anchors the demo site around typed, deterministic URL state.
 
@@ -42,7 +42,7 @@ It focuses on explicit query-param schemas, stable serialization, compact shared
 
 ### `@hexguard/angular-query-form`
 
-Status: Released
+Status: Available
 
 This package is available as a Reactive Forms companion to `@hexguard/angular-url-state` for filter-heavy Angular screens.
 
@@ -52,7 +52,7 @@ It focuses on typed top-level form binding, dependent reset rules such as `searc
 
 ### `@hexguard/angular-async-state`
 
-Status: Released
+Status: Available
 
 This package is available as a signal-first async lifecycle companion for Angular value loads, live observable streams, and submit-style actions.
 
@@ -62,7 +62,7 @@ It focuses on explicit value and action state, duplicate-run control, explicit s
 
 ### `@hexguard/angular-lookups`
 
-Status: Released
+Status: Available
 
 This package is available as the lookup-catalog companion for Angular screens that consume backend reference data.
 
@@ -72,7 +72,7 @@ It focuses on one versioned catalog contract, explicit cache lifecycle, label re
 
 ### `@hexguard/angular-optimistic-state`
 
-Status: Released
+Status: Available
 
 This package is available as the optimistic-mutation companion for Angular screens that should feel immediate without turning rollback and overlap behavior into hidden cache magic.
 
@@ -82,7 +82,7 @@ It focuses on explicit committed value versus optimistic overlay state, configur
 
 ### `@hexguard/angular-api-errors`
 
-Status: Released
+Status: Available
 
 This package is currently in development and paired with HexGuard.ValidationContracts on the .NET side.
 
@@ -92,11 +92,51 @@ It focuses on typed validation error contracts, field-level form binding, signal
 
 ### `@hexguard/angular-permissions`
 
-Status: Released
+Status: Available
 
 This package is available as a headless permissions companion for Angular routes, templates, and feature code.
 
 It focuses on one provider-agnostic capability and role contract, a shared evaluator, thin Angular adapters, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-hexguard-reference-data"></a>
+
+### `HexGuard.ReferenceData`
+
+Status: Available
+
+This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.
+
+It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.
+
+<a id="package-angular-debounce"></a>
+
+### `@hexguard/angular-debounce`
+
+Status: Available
+
+This package is the simplest HexGuard Angular primitive: one factory function, two interfaces, zero dependencies beyond Angular and tslib.
+
+It focuses on predictable debounce semantics with explicit flush/cancel control and docs-grade demos showing all three edge modes.
+
+<a id="package-angular-notifications"></a>
+
+### `@hexguard/angular-notifications`
+
+Status: Available
+
+This package is available as a headless notification queue companion for Angular apps that need typed toast management without pulling in a UI kit.
+
+It focuses on explicit queue state, auto-dismiss with configurable durations, action support, and docs-grade demos showing all notification types.
+
+<a id="package-angular-error-boundary"></a>
+
+### `@hexguard/angular-error-boundary`
+
+Status: Available
+
+This package is available as a declarative error boundary for Angular apps that need per-component error isolation without global ErrorHandler gymnastics.
+
+It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.
 
 <a id="package-angular-feature-flags"></a>
 
@@ -138,51 +178,11 @@ This package pairs with @hexguard/angular-bulk-operations through a shared contr
 
 It focuses on deterministic result aggregation, Minimal API integration, and a validated publish surface.
 
-<a id="package-hexguard-reference-data"></a>
-
-### `HexGuard.ReferenceData`
-
-Status: Released
-
-This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.
-
-It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.
-
-<a id="package-angular-debounce"></a>
-
-### `@hexguard/angular-debounce`
-
-Status: Released
-
-This package is the simplest HexGuard Angular primitive: one factory function, two interfaces, zero dependencies beyond Angular and tslib.
-
-It focuses on predictable debounce semantics with explicit flush/cancel control and docs-grade demos showing all three edge modes.
-
-<a id="package-angular-notifications"></a>
-
-### `@hexguard/angular-notifications`
-
-Status: Released
-
-This package is available as a headless notification queue companion for Angular apps that need typed toast management without pulling in a UI kit.
-
-It focuses on explicit queue state, auto-dismiss with configurable durations, action support, and docs-grade demos showing all notification types.
-
-<a id="package-angular-error-boundary"></a>
-
-### `@hexguard/angular-error-boundary`
-
-Status: Released
-
-This package is available as a declarative error boundary for Angular apps that need per-component error isolation without global ErrorHandler gymnastics.
-
-It focuses on explicit fallback/recover semantics, dual render-time and async error capture, and docs-grade demos showing both default and custom fallback flows.
-
 <a id="package-hexguard-problem-details"></a>
 
 ### `HexGuard.ProblemDetails`
 
-Status: Released
+Status: Available
 
 Initial release focuses on core types, builder, middleware, and Minimal API extensions.
 
@@ -247,22 +247,6 @@ Would standardize reversible action flows with undo windows, expiry, and commit-
 Status: Proposed
 
 Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.
-
-<a id="package-angular-selection-state"></a>
-
-### `@hexguard/angular-selection-state`
-
-Status: Proposed
-
-Would standardize keyed selection, bulk-action enablement, and select-visible behavior for lists and tables through a headless state model.
-
-<a id="package-angular-feature-flags"></a>
-
-### `@hexguard/angular-feature-flags`
-
-Status: Proposed
-
-Would standardize typed feature-flag checks across routes, templates, and service logic while remaining provider-agnostic.
 
 <a id="package-angular-confirmation"></a>
 
@@ -1159,6 +1143,86 @@ Would provide cloud job scheduling conventions for .NET with recurring and one-s
 Status: Proposed
 
 Would provide cloud object storage abstractions with upload/download helpers, signed URL generation, container/bucket management, and provider-agnostic adapters for Azure Blob, AWS S3, Google Cloud Storage, and Firebase Storage.
+
+<a id="package-angular-analytics"></a>
+
+### `@hexguard/angular-analytics`
+
+Status: Proposed
+
+Would standardize privacy-respecting analytics event tracking with typed event contracts, page view auto-tracking, user action tracking, and adapter interfaces for Google Analytics 4, PostHog, Mixpanel, and custom backends.
+
+<a id="package-angular-webauthn"></a>
+
+### `@hexguard/angular-webauthn`
+
+Status: Proposed
+
+Would standardize WebAuthn and passkey authentication state with signal-based registration, authentication, conditional mediation, and credential management flows for passwordless login in Angular apps.
+
+<a id="package-angular-payment"></a>
+
+### `@hexguard/angular-payment`
+
+Status: Proposed
+
+Would standardize payment processing state with Stripe Elements integration signals, checkout session lifecycle, payment intent tracking, receipt display, and subscription management for Angular e-commerce and SaaS apps.
+
+<a id="package-dotnet-email"></a>
+
+### `HexGuard.Email`
+
+Status: Proposed
+
+Would provide transactional email conventions with IEmailSender interface, Razor-based email template rendering, send abstractions, and adapter interfaces for SendGrid, SMTP, and Azure Communication Services.
+
+<a id="package-dotnet-analytics"></a>
+
+### `HexGuard.Analytics`
+
+Status: Proposed
+
+Would provide server-side analytics event tracking with typed event contracts, event batching, and adapter interfaces for Application Insights, PostHog, and custom analytics sinks — pairing with @hexguard/angular-analytics.
+
+<a id="package-angular-form-engine"></a>
+
+### `@hexguard/angular-form-engine`
+
+Status: Proposed
+
+Would provide a declarative dynamic form engine that renders Reactive Forms from typed JSON configurations — fields, validation rules, conditional visibility, calculated values, and section layouts — enabling form building without template code.
+
+<a id="package-angular-comments"></a>
+
+### `@hexguard/angular-comments`
+
+Status: Proposed
+
+Would standardize threaded comment state with reply threading, @mention autocomplete, emoji reactions, file attachments, edit/delete history, and real-time updates for collaborative business applications.
+
+<a id="package-angular-bookmarks"></a>
+
+### `@hexguard/angular-bookmarks`
+
+Status: Proposed
+
+Would standardize bookmark and favorite state with signal-based toggle, collections and folders, import/export, and route integration for saving and organizing frequently accessed entities in business apps.
+
+<a id="package-angular-report-builder"></a>
+
+### `@hexguard/angular-report-builder`
+
+Status: Proposed
+
+Would standardize report and dashboard builder state with column/filter/sort/grouping configuration signals, live preview state, export-to-XLSX/PDF integration, and saved report management for business intelligence features.
+
+<a id="package-dotnet-headless-cms"></a>
+
+### `HexGuard.HeadlessCms`
+
+Status: Proposed
+
+Would provide headless CMS content contracts with content type definitions, content entry management, versioning, publishing workflow states, and content delivery API conventions for building headless CMS backends on ASP.NET Core.
 
 ## Broader Prioritization Matrix
 

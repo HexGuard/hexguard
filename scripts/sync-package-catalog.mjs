@@ -109,7 +109,7 @@ export interface GeneratedCatalogLink {
 export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
-  readonly status: 'Released' | 'In Progress';
+  readonly status: 'Released' | 'In Progress' | 'Available';
   readonly scope: 'Angular' | '.NET';
   readonly summary: string;
   readonly detail: string;

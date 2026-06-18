@@ -1,0 +1,253 @@
+<demo-page-layout testId="bulk-operations-library-demo-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="bulk-operations-library-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="bulk-lib-intro-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Bulk Operations</p>
+        <h2>Angular library working with the .NET API.</h2>
+      </div>
+      <span class="demo-hint-pill" data-testid="bulk-lib-source-pill"
+        >Source: .NET SampleApi</span
+      >
+    </div>
+
+    <p class="demo-card__summary">
+      This demo uses <code>&#64;hexguard/angular-bulk-operations</code> to call the
+      live .NET SampleApi endpoints. Select orders and run a bulk action to see
+      the library's <code>provideBulkOperation()</code>,
+      <code>injectBulkOperation()</code>, and
+      <code>selectedItemsToBulkRequest()</code> in action with real HTTP 207
+      Multi-Status responses.
+    </p>
+
+    <div class="bulk-lib__controls">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-lib-delete-btn"
+        [disabled]="!selection.canAct() || isBusy()"
+        (click)="runDelete()"
+      >
+        @if (deleteOp.inProgress()) {
+          Deleting...
+        } @else {
+          Delete Selected (API)
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-lib-approve-btn"
+        [disabled]="!selection.canAct() || isBusy()"
+        (click)="runApprove()"
+      >
+        @if (approveOp.inProgress()) {
+          Approving...
+        } @else {
+          Approve Selected (API)
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="bulk-lib-clear-btn"
+        (click)="clearAll()"
+      >
+        Clear all
+      </button>
+    </div>
+
+    @if (apiError()) {
+      <div class="bulk-lib__api-error" data-testid="bulk-lib-api-error">
+        <p>{{ apiError() }}</p>
+        <p class="demo-card__summary">
+          Start the .NET SampleApi with <code>pnpm dotnet:start:demo-api</code>.
+        </p>
+      </div>
+    }
+
+    <demo-status-strip
+      testId="bulk-operations-library-demo-status"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+      summaryTestId="bulk-operations-library-demo-summary"
+      urlTestId="bulk-operations-library-demo-url"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="bulk-lib-table-card">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Order table</p>
+        <h3>Select orders and send them to the API</h3>
+      </div>
+      <span class="demo-hint-pill" data-testid="bulk-lib-selection-count"
+        >Selected: {{ selection.count() }}</span
+      >
+    </div>
+
+    <div class="bulk-lib__table-wrap">
+      <table class="bulk-lib__table" data-testid="bulk-lib-orders-table">
+        <thead>
+          <tr>
+            <th class="bulk-lib__check">
+              <input
+                type="checkbox"
+                [checked]="allSelected()"
+                (change)="selection.toggleAll(visibleKeys())"
+                data-testid="bulk-lib-select-all"
+              />
+            </th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items(); track item.id) {
+            <tr class="bulk-lib__row" data-testid="bulk-lib-order-row">
+              <td class="bulk-lib__check">
+                <input
+                  type="checkbox"
+                  [checked]="selection.selected().has(item.id)"
+                  (change)="selection.toggle(item.id)"
+                  [attr.data-testid]="'bulk-lib-checkbox-' + item.id"
+                />
+              </td>
+              <td><code>{{ item.id }}</code></td>
+              <td>{{ item.name }}</td>
+              <td>
+                <span
+                  class="bulk-lib__status"
+                  [class.bulk-lib__status--pending]="item.status === 'pending'"
+                  [class.bulk-lib__status--shipped]="item.status === 'shipped'"
+                  [class.bulk-lib__status--cancelled]="item.status === 'cancelled'"
+                >
+                  {{ item.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Results -->
+    @if (deleteOp.summary() || approveOp.summary()) {
+      <section class="bulk-lib__results" data-testid="bulk-lib-results-panel">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">API Results</p>
+            <h3>207 Multi-Status response from the server</h3>
+          </div>
+        </div>
+
+        <div class="bulk-lib__results-grid">
+          @if (deleteOp.summary(); as summary) {
+            <div class="bulk-lib__result-block" data-testid="bulk-lib-delete-results">
+              <div class="bulk-lib__result-header">
+                <strong>POST /api/bulk-operations/delete</strong>
+                <span class="demo-hint-pill"
+                  >{{ summary.succeeded }} ok / {{ summary.failed }} fail</span
+                >
+              </div>
+              <ul class="bulk-lib__result-list">
+                @for (r of deleteOp.results(); track r.item.id) {
+                  <li
+                    class="bulk-lib__result-item"
+                    [class.bulk-lib__result-item--fail]="!r.succeeded"
+                    [attr.data-testid]="'bulk-lib-delete-result-' + r.item.id"
+                  >
+                    <span class="bulk-lib__result-icon">{{
+                      r.succeeded ? '\u2713' : '\u2717'
+                    }}</span>
+                    <code>{{ r.item.id }}</code>
+                    <span class="bulk-lib__result-name">{{ r.item.name }}</span>
+                    @if (r.error) {
+                      <span class="bulk-lib__result-error"
+                        >{{ r.error.code }}: {{ r.error.message }}</span
+                      >
+                    }
+                  </li>
+                }
+              </ul>
+              @if (summary.failed > 0) {
+                <button
+                  type="button"
+                  class="demo-button demo-button--ghost"
+                  data-testid="bulk-lib-retry-delete"
+                  (click)="retryDelete()"
+                >
+                  Retry failed delete
+                </button>
+              }
+            </div>
+          }
+
+          @if (approveOp.summary(); as summary) {
+            <div class="bulk-lib__result-block" data-testid="bulk-lib-approve-results">
+              <div class="bulk-lib__result-header">
+                <strong>POST /api/bulk-operations/approve</strong>
+                <span class="demo-hint-pill"
+                  >{{ summary.succeeded }} ok / {{ summary.failed }} fail</span
+                >
+              </div>
+              <ul class="bulk-lib__result-list">
+                @for (r of approveOp.results(); track r.item.id) {
+                  <li
+                    class="bulk-lib__result-item"
+                    [class.bulk-lib__result-item--fail]="!r.succeeded"
+                    [attr.data-testid]="'bulk-lib-approve-result-' + r.item.id"
+                  >
+                    <span class="bulk-lib__result-icon">{{
+                      r.succeeded ? '\u2713' : '\u2717'
+                    }}</span>
+                    <code>{{ r.item.id }}</code>
+                    <span class="bulk-lib__result-name">{{ r.item.name }}</span>
+                    @if (r.error) {
+                      <span class="bulk-lib__result-error"
+                        >{{ r.error.code }}: {{ r.error.message }}</span
+                      >
+                    }
+                  </li>
+                }
+              </ul>
+              @if (summary.failed > 0) {
+                <button
+                  type="button"
+                  class="demo-button demo-button--ghost"
+                  data-testid="bulk-lib-retry-approve"
+                  (click)="retryApprove()"
+                >
+                  Retry failed approve
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <pre class="demo-code-block bulk-lib__response-json" data-testid="bulk-lib-response-json">{{
+          snapshotJson()
+        }}</pre>
+      </section>
+    }
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="bulk-operations-library-inspector-panel"
+    eyebrow="Reference"
+    title="Library signals snapshot"
+    summary="Live state from injectBulkOperation() signals."
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="bulk-operations-library-snapshot-json"
+    codeTestId="bulk-operations-library-code-sample"
+  />
+</demo-page-layout>
