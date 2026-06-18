@@ -188,6 +188,16 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
   },
+  {
+    id: 'angular-bulk-operations/api-demo',
+    title: 'Bulk operations live API demo component source',
+    description:
+      'Generated from the real Bulk Operations API demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

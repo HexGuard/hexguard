@@ -30,32 +30,36 @@ test.describe('demo-angular', () => {
     await expect(page.getByTestId('demo-title')).toContainText(
       'Open-source guardrails for Angular and .NET teams.',
     );
-    await expect(page.getByTestId('site-home-featured-package-angular-url-state')).toBeVisible();
-    await expect(page.getByTestId('site-home-featured-package-angular-query-form')).toBeVisible();
-    await expect(page.getByTestId('site-home-featured-package-angular-async-state')).toBeVisible();
-    await expect(page.getByTestId('site-home-featured-package-angular-lookups')).toBeVisible();
+    await expect(page.getByTestId('package-card-angular-url-state')).toBeVisible();
+    await expect(page.getByTestId('package-card-angular-query-form')).toBeVisible();
+    await expect(page.getByTestId('package-card-angular-async-state')).toBeVisible();
+    await expect(page.getByTestId('package-card-angular-lookups')).toBeVisible();
     await expect(
-      page.getByTestId('site-home-featured-package-angular-optimistic-state'),
+      page.getByTestId('package-card-angular-optimistic-state'),
     ).toBeVisible();
-    await expect(page.getByTestId('site-home-featured-package-angular-permissions')).toBeVisible();
+    // Filter to Angular to see all Angular packages, then expand
+    await page.getByTestId('showcase-filter-angular').click();
+    await page.getByTestId('showcase-expand-toggle').click();
+
+    await expect(page.getByTestId('package-card-angular-permissions')).toBeVisible();
     await expect(
-      page.getByTestId('site-home-featured-package-status-angular-url-state'),
-    ).toHaveText('Available');
+      page.getByTestId('package-card-status-angular-url-state'),
+    ).toHaveText('Released');
     await expect(
-      page.getByTestId('site-home-featured-package-status-angular-query-form'),
-    ).toHaveText('Available');
+      page.getByTestId('package-card-status-angular-query-form'),
+    ).toHaveText('Released');
     await expect(
-      page.getByTestId('site-home-featured-package-status-angular-async-state'),
-    ).toHaveText('Available');
-    await expect(page.getByTestId('site-home-featured-package-status-angular-lookups')).toHaveText(
-      'Available',
+      page.getByTestId('package-card-status-angular-async-state'),
+    ).toHaveText('Released');
+    await expect(page.getByTestId('package-card-status-angular-lookups')).toHaveText(
+      'Released',
     );
     await expect(
-      page.getByTestId('site-home-featured-package-status-angular-optimistic-state'),
-    ).toHaveText('Available');
+      page.getByTestId('package-card-status-angular-optimistic-state'),
+    ).toHaveText('Released');
     await expect(
-      page.getByTestId('site-home-featured-package-status-angular-permissions'),
-    ).toHaveText('Available');
+      page.getByTestId('package-card-status-angular-permissions'),
+    ).toHaveText('Released');
     await expect(page.getByTestId('nav-link-package-angular-url-state')).toContainText('Available');
     await expect(page.getByTestId('nav-link-package-angular-query-form')).toContainText(
       'Available',
@@ -83,12 +87,12 @@ test.describe('demo-angular', () => {
       const layout = await page.evaluate(() => {
         const packageCards = Array.from(
           document.querySelectorAll<HTMLElement>(
-            'article[data-testid^="site-home-featured-package-"]',
+            'article[data-testid^="package-card-"]',
           ),
         );
         const packageBadges = Array.from(
           document.querySelectorAll<HTMLElement>(
-            '[data-testid^="site-home-featured-package-status-"]',
+            '[data-testid^="package-card-status-"]',
           ),
         );
         const navCards = Array.from(

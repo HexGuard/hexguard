@@ -1,10 +1,16 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { injectSelectionState } from '@hexguard/angular-selection-state';
 import {
   provideBulkOperation,
   injectBulkOperation,
   selectedItemsToBulkRequest,
 } from '@hexguard/angular-bulk-operations';
+import type {
+  BulkOperationRequest,
+  BulkOperationResponse,
+  BulkOperationResult,
+} from '@hexguard/angular-bulk-operations';
+
 import {
   getMockOrders,
   mockBulkDelete,
@@ -14,208 +20,75 @@ import {
 
 import { ANGULAR_BULK_OPERATIONS_DEMO } from '../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../shared/components/demo-inspector-panel.component';
+import { DemoNavigationStripComponent } from '../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../shared/components/demo-page-layout.component';
 import { DemoStatusStripComponent } from '../../../../shared/components/demo-status-strip.component';
+import { createTrackedCurrentUrl } from '../../../../shared/current-url.signal';
 import { formatSnapshot } from '../../../../shared/formatting';
 
-const DELETE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkDelete });
-const APPROVE_OP = provideBulkOperation<OrderItem, void>({ executeFn: mockBulkApprove });
+const API_BASE = 'http://127.0.0.1:5074';
+
+// Module-level flag toggled by the component for mock vs live API
+let _useLiveApiRef = false;
+
+async function apiBulkDelete(
+  request: BulkOperationRequest<OrderItem>,
+): Promise<BulkOperationResponse<OrderItem>> {
+  const response = await fetch(`${API_BASE}/api/bulk-operations/delete`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: request.items }),
+  });
+  if (!response.ok) throw new Error(`API returned ${response.status}`);
+  return response.json() as Promise<BulkOperationResponse<OrderItem>>;
+}
+
+async function apiBulkApprove(
+  request: BulkOperationRequest<OrderItem>,
+): Promise<BulkOperationResponse<OrderItem>> {
+  const response = await fetch(`${API_BASE}/api/bulk-operations/approve`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: request.items }),
+  });
+  if (!response.ok) throw new Error(`API returned ${response.status}`);
+  return response.json() as Promise<BulkOperationResponse<OrderItem>>;
+}
+
+async function executeDelete(
+  request: BulkOperationRequest<OrderItem>,
+): Promise<BulkOperationResponse<OrderItem>> {
+  return _useLiveApiRef ? apiBulkDelete(request) : mockBulkDelete(request);
+}
+
+async function executeApprove(
+  request: BulkOperationRequest<OrderItem>,
+): Promise<BulkOperationResponse<OrderItem>> {
+  return _useLiveApiRef ? apiBulkApprove(request) : mockBulkApprove(request);
+}
+
+const DELETE_OP = provideBulkOperation<OrderItem, void>({ executeFn: executeDelete });
+const APPROVE_OP = provideBulkOperation<OrderItem, void>({ executeFn: executeApprove });
 
 @Component({
   selector: 'app-bulk-operations-demo-page',
   standalone: true,
-  imports: [DemoInspectorPanelComponent, DemoPageLayoutComponent, DemoStatusStripComponent],
-  providers: [DELETE_OP.providers, APPROVE_OP.providers],
-  template: `
-    <demo-page-layout testId="bulk-operations-demo-page">
-      <article demoIntro class="demo-card demo-card--stack">
-        <div class="demo-card__header">
-          <div>
-            <p class="demo-eyebrow">Angular Bulk Operations</p>
-            <h2>Bulk action lifecycle with partial-success handling.</h2>
-          </div>
-        </div>
-        <p class="demo-card__summary">
-          <code>injectBulkOperation()</code> provides progress tracking, per-item results, and retry
-          for bulk delete and approve flows. Select items and run an action to see the lifecycle.
-        </p>
-
-        <demo-status-strip
-          testId="bulk-operations-demo-status"
-          summary="Bulk operations with selection, execute, partial-failure display, and retry."
-          currentUrl="Bulk Operations Demo"
-          summaryTestId="bulk-operations-demo-summary"
-          urlTestId="bulk-operations-demo-url"
-        />
-      </article>
-
-      <article demoPrimary class="demo-card demo-card--stack">
-        <div class="toolbar">
-          <p data-testid="selection-count">Selected: <strong>{{ selection.count() }}</strong> item(s)</p>
-      <div class="actions">
-        <button
-          [disabled]="!selection.canAct() || deleteOp.inProgress()"
-          (click)="runDelete()"
-          data-testid="bulk-delete-btn"
-        >
-          @if (deleteOp.inProgress()) {
-            Deleting...
-          } @else {
-            Delete Selected
-          }
-        </button>
-        <button
-          [disabled]="!selection.canAct() || approveOp.inProgress()"
-          (click)="runApprove()"
-          data-testid="bulk-approve-btn"
-        >
-          @if (approveOp.inProgress()) {
-            Approving...
-          } @else {
-            Approve Selected
-          }
-        </button>
-        <button (click)="clearAll()" data-testid="clear-btn">Clear</button>
-      </div>
-    </div>
-
-    <!-- Data table -->
-    <table data-testid="orders-table">
-      <thead>
-        <tr>
-          <th>
-            <input
-              type="checkbox"
-              [checked]="allSelected()"
-              (change)="selection.toggleAll(visibleKeys())"
-              data-testid="select-all-checkbox"
-            />
-          </th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of items(); track item.id) {
-          <tr data-testid="order-row">
-            <td>
-              <input
-                type="checkbox"
-                [checked]="selection.selected().has(item.id)"
-                (change)="selection.toggle(item.id)"
-                [attr.data-testid]="'checkbox-' + item.id"
-              />
-            </td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.status }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-
-    <!-- Results summary -->
-    @if (deleteOp.summary() || approveOp.summary()) {
-      <div class="results" data-testid="results-panel">
-        <h3>Last Operation Results</h3>
-
-        @if (deleteOp.summary(); as summary) {
-          <div>
-            <p>Delete: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
-            <ul>
-              @for (r of deleteOp.results(); track r.item.id) {
-                <li [attr.data-testid]="'result-' + r.item.id">
-                  {{ r.item.id }}: {{ r.succeeded ? '✓' : '✗' }}
-                  @if (r.error) {
-                    <span class="error">({{ r.error.code }}: {{ r.error.message }})</span>
-                  }
-                </li>
-              }
-            </ul>
-            @if (summary.failed > 0) {
-              <button (click)="retryDelete()" data-testid="retry-delete-btn">Retry Failed</button>
-            }
-          </div>
-        }
-
-        @if (approveOp.summary(); as summary) {
-          <div>
-            <p>Approve: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
-            <ul>
-              @for (r of approveOp.results(); track r.item.id) {
-                <li [attr.data-testid]="'approve-result-' + r.item.id">
-                  {{ r.item.id }}: {{ r.succeeded ? '✓' : '✗' }}
-                  @if (r.error) {
-                    <span class="error">({{ r.error.code }}: {{ r.error.message }})</span>
-                  }
-                </li>
-              }
-            </ul>
-            @if (summary.failed > 0) {
-              <button (click)="retryApprove()" data-testid="retry-approve-btn">Retry Failed</button>
-            }
-          </div>
-        }
-      </div>
-    }      </article>
-
-      <demo-inspector-panel
-        demoAside
-        panelTestId="bulk-operations-inspector-panel"
-        eyebrow="Reference"
-        title="Bulk operations snapshot"
-        summary="Current operation state and results."
-        [snapshotJson]="snapshotJson()"
-        [snippetId]="demo.codeSample.snippetId"
-        [docsLinks]="demo.docsLinks"
-        snapshotTestId="bulk-operations-snapshot-json"
-        codeTestId="bulk-operations-code-sample"
-      />
-    </demo-page-layout>  `,
-  styles: [
-    `
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-      }
-      th,
-      td {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        text-align: left;
-      }
-      .toolbar {
-        margin-bottom: 0.5rem;
-      }
-      .actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-      }
-      .results {
-        margin-top: 1rem;
-        padding: 1rem;
-        background: #f9f9f9;
-        border-radius: 0.5rem;
-      }
-      .error {
-        color: #c00;
-        font-size: 0.9em;
-      }
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    `,
+  imports: [
+    DemoInspectorPanelComponent,
+    DemoNavigationStripComponent,
+    DemoPageLayoutComponent,
+    DemoStatusStripComponent,
   ],
+  providers: [DELETE_OP.providers, APPROVE_OP.providers],
+  templateUrl: './bulk-operations-demo-page.component.html',
+  styleUrl: './bulk-operations-demo-page.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BulkOperationsDemoPageComponent {
   readonly demo = ANGULAR_BULK_OPERATIONS_DEMO;
-
+  readonly useLiveApi = signal(false);
   readonly items = signal(getMockOrders());
-  readonly visibleKeys = computed(() => this.items().map((item: OrderItem) => item.id));
+  readonly visibleKeys = computed(() => this.items().map((item) => item.id));
   readonly itemsMap = computed<Record<string, OrderItem>>(() => {
     const map: Record<string, OrderItem> = {};
     for (const item of this.items()) {
@@ -225,22 +98,37 @@ export class BulkOperationsDemoPageComponent {
   });
 
   readonly selection = injectSelectionState<string>();
-
   readonly allSelected = computed(() => this.selection.isAllSelected()(this.visibleKeys()));
 
   readonly deleteOp = injectBulkOperation(DELETE_OP.token);
   readonly approveOp = injectBulkOperation(APPROVE_OP.token);
 
-  readonly deleteSummary = computed(() => this.deleteOp.summary());
-  readonly approveSummary = computed(() => this.approveOp.summary());
+  readonly isLoading = computed(() => this.deleteOp.inProgress() || this.approveOp.inProgress());
+  readonly currentUrl = createTrackedCurrentUrl(this.demo.route);
+
+  readonly statusSummary = computed(() => {
+    if (this.useLiveApi()) {
+      if (this.deleteOp.summary() || this.approveOp.summary()) {
+        return 'Live API results shown below. Switch to mock to test offline.';
+      }
+      return 'Waiting for action. Live API mode connects to the .NET SampleApi.';
+    }
+    if (this.deleteOp.summary() || this.approveOp.summary()) {
+      return 'Mock results shown below. Toggle to live API when the .NET backend is running.';
+    }
+    return 'Select items and run an action. Toggle to live API for backend interaction.';
+  });
 
   readonly snapshotJson = computed(() =>
     formatSnapshot({
+      useLiveApi: this.useLiveApi(),
+      selectedCount: this.selection.count(),
       deleteInProgress: this.deleteOp.inProgress(),
       approveInProgress: this.approveOp.inProgress(),
       deleteSummary: this.deleteOp.summary(),
       approveSummary: this.approveOp.summary(),
-      selectedCount: this.selection.count(),
+      deleteResults: this.deleteOp.results(),
+      approveResults: this.approveOp.results(),
     }),
   );
 
@@ -248,6 +136,14 @@ export class BulkOperationsDemoPageComponent {
     this.selection.clear();
     this.deleteOp.clearResults();
     this.approveOp.clearResults();
+  }
+
+  toggleApi(): void {
+    _useLiveApiRef = !_useLiveApiRef;
+    this.useLiveApi.set(_useLiveApiRef);
+    this.deleteOp.clearResults();
+    this.approveOp.clearResults();
+    this.selection.clear();
   }
 
   async runDelete(): Promise<void> {
@@ -272,3 +168,4 @@ export class BulkOperationsDemoPageComponent {
     }));
   }
 }
+

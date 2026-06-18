@@ -1,0 +1,169 @@
+<demo-page-layout testId="bulk-operations-api-demo-page">
+  <demo-navigation-strip
+    demoNavigation
+    testId="bulk-operations-api-demo-navigation"
+    [demo]="demo"
+  />
+
+  <article
+    demoIntro
+    class="demo-card demo-card--stack"
+    data-testid="bulk-api-controls-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Bulk Operations</p>
+        <h2>Live API interaction with the Angular library.</h2>
+      </div>
+
+      <span class="demo-hint-pill" data-testid="bulk-api-status-pill"
+        >API: {{ apiStatus() }}</span
+      >
+    </div>
+
+    <p class="demo-card__summary">
+      Uses <code>provideBulkOperation()</code> +
+      <code>injectBulkOperation()</code> to call the .NET SampleApi
+      endpoints. Select an action to send a typed bulk request and see the
+      207 Multi-Status response.
+    </p>
+
+    <div class="bulk-api__grid">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-api-delete"
+        [disabled]="isBusy()"
+        (click)="runDelete()"
+      >
+        @if (deleteOp.inProgress()) {
+          Deleting...
+        } @else {
+          POST /api/bulk-operations/delete
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-api-approve"
+        [disabled]="isBusy()"
+        (click)="runApprove()"
+      >
+        @if (approveOp.inProgress()) {
+          Approving...
+        } @else {
+          POST /api/bulk-operations/approve
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-api-update-status"
+        [disabled]="isBusy()"
+        (click)="runUpdateStatus()"
+      >
+        @if (updateOp.inProgress()) {
+          Updating...
+        } @else {
+          POST /api/bulk-operations/update-status
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="bulk-api-clear"
+        (click)="clearAll()"
+      >
+        Clear results
+      </button>
+    </div>
+
+    <p class="demo-card__summary">
+      The library's <code>executeFn</code> wraps each fetch call. The service
+      tracks <code>inProgress</code>, <code>results</code>, and
+      <code>summary</code> signals automatically. Start the .NET SampleApi
+      with <code>pnpm dotnet:start:demo-api</code>.
+    </p>
+
+    <demo-status-strip
+      testId="bulk-operations-api-demo-status"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+      summaryTestId="bulk-operations-api-demo-summary"
+      urlTestId="bulk-operations-api-demo-url"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="bulk-api-results-card"
+  >
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Request items</p>
+        <h3>Orders sent with each API call</h3>
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      All 8 orders are sent with each request. Shipped and cancelled orders
+      trigger per-item errors in the 207 response.
+    </p>
+
+    <div class="bulk-api__orders">
+      @for (order of orders; track order.id) {
+        <span
+          class="bulk-api__order-tag"
+          [class.bulk-api__order-tag--pending]="order.status === 'pending'"
+          [class.bulk-api__order-tag--shipped]="order.status === 'shipped'"
+          [class.bulk-api__order-tag--cancelled]="order.status === 'cancelled'"
+        >
+          <code>{{ order.id }}</code>
+          <span>{{ order.status }}</span>
+        </span>
+      }
+    </div>
+
+    @if (lastResponse(); as response) {
+      <section class="bulk-api__response" data-testid="bulk-api-response">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Response</p>
+            <h3>207 Multi-Status — {{ lastAction() }}</h3>
+          </div>
+          <span class="demo-hint-pill"
+            >{{ response.successCount }}/{{ response.totalCount }} ok</span
+          >
+        </div>
+
+        <pre class="demo-code-block" data-testid="bulk-api-response-json">{{
+          responseJson()
+        }}</pre>
+      </section>
+    }
+
+    @if (apiError()) {
+      <div class="bulk-api__error" data-testid="bulk-api-error">
+        <p>API Error: {{ apiError() }}</p>
+        <p class="demo-card__summary">
+          Make sure the .NET SampleApi is running with
+          <code>pnpm dotnet:start:demo-api</code>.
+        </p>
+      </div>
+    }
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="bulk-operations-api-inspector-panel"
+    eyebrow="Reference"
+    title="Library state snapshot"
+    summary="Current bulk operation signals from injectBulkOperation()."
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="bulk-operations-api-snapshot-json"
+    codeTestId="bulk-operations-api-code-sample"
+  />
+</demo-page-layout>

@@ -699,6 +699,37 @@ export const ANGULAR_BULK_OPERATIONS_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_BULK_OPERATIONS_API_DEMO: DemoPageEntry = {
+  id: 'bulk-operations-api-demo',
+  packageId: 'angular-bulk-operations',
+  route: '/packages/angular-bulk-operations/api-demo',
+  legacyRoute: '/bulk-operations-api-demo',
+  label: 'Live API Demo',
+  title: 'Call the .NET SampleApi bulk endpoints from the Angular library',
+  description:
+    'Proves provideBulkOperation() + injectBulkOperation() with live HTTP requests to the .NET backend.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-bulk-operations/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-bulk-operations.md',
+    },
+    {
+      label: 'Bulk Contracts (.NET)',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-bulk-operations.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-bulk-operations/api-demo',
+    label: 'Live API demo component source',
+    description:
+      'The full bulk operations API demo component source, including TypeScript, template, and styles.',
+  },
+};
+
 export const ANGULAR_BULK_OPERATIONS_PACKAGE: DemoPackageEntry = {
   id: 'angular-bulk-operations',
   route: '/packages/angular-bulk-operations',
@@ -706,7 +737,7 @@ export const ANGULAR_BULK_OPERATIONS_PACKAGE: DemoPackageEntry = {
   title: ANGULAR_BULK_OPERATIONS_CATALOG.packageName,
   description: ANGULAR_BULK_OPERATIONS_CATALOG.summary,
   docsLinks: ANGULAR_BULK_OPERATIONS_DOCS,
-  demos: [ANGULAR_BULK_OPERATIONS_DEMO],
+  demos: [ANGULAR_BULK_OPERATIONS_DEMO, ANGULAR_BULK_OPERATIONS_API_DEMO],
 };
 
 export const FORM_VALIDATION_DEMO: DemoPageEntry = {

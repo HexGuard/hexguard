@@ -1,69 +1,245 @@
-<h1>Bulk Operations Demo</h1>
+<demo-page-layout testId="bulk-operations-demo-page">
+  <demo-navigation-strip demoNavigation testId="bulk-operations-demo-navigation" [demo]="demo" />
 
-<div class="toolbar">
-  <p data-testid="selection-count">Selected: {{ selection.count() }} item(s)</p>
-  <div class="actions">
-    <button [disabled]="!selection.canAct() || deleteOp.inProgress()" (click)="runDelete()" data-testid="bulk-delete-btn">
-      @if (deleteOp.inProgress()) { Deleting... } @else { Delete Selected }
-    </button>
-    <button [disabled]="!selection.canAct() || approveOp.inProgress()" (click)="runApprove()" data-testid="bulk-approve-btn">
-      @if (approveOp.inProgress()) { Approving... } @else { Approve Selected }
-    </button>
-    <button (click)="clearAll()" data-testid="clear-btn">Clear</button>
-  </div>
-</div>
-
-<table data-testid="orders-table">
-  <thead>
-    <tr>
-      <th><input type="checkbox" [checked]="allSelected()" (change)="selection.toggleAll(visibleKeys())" data-testid="select-all-checkbox" /></th>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of items(); track item.id) {
-      <tr data-testid="order-row">
-        <td><input type="checkbox" [checked]="selection.selected().has(item.id)" (change)="selection.toggle(item.id)" [attr.data-testid]="'checkbox-' + item.id" /></td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.status }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
-
-@if (deleteOp.summary() || approveOp.summary()) {
-  <div class="results" data-testid="results-panel">
-    <h3>Last Operation Results</h3>
-    @if (deleteOp.summary(); as summary) {
+  <article demoIntro class="demo-card demo-card--stack" data-testid="bulk-operations-controls-card">
+    <div class="demo-card__header">
       <div>
-        <p>Delete: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
-        <ul>
-          @for (r of deleteOp.results(); track r.item.id) {
-            <li [attr.data-testid]="'result-' + r.item.id">
-              {{ r.item.id }}: {{ r.succeeded ? '\u2713' : '\u2717' }}
-              @if (r.error) { <span class="error">({{ r.error.code }}: {{ r.error.message }})</span> }
-            </li>
-          }
-        </ul>
-        @if (summary.failed > 0) { <button (click)="retryDelete()" data-testid="retry-delete-btn">Retry Failed</button> }
+        <p class="demo-eyebrow">Angular Bulk Operations</p>
+        <h2>Bulk action lifecycle with partial-success handling.</h2>
       </div>
-    }
-    @if (approveOp.summary(); as summary) {
+
+      <div class="bulk-toolbar">
+        <span class="demo-hint-pill" data-testid="bulk-selection-count"
+          >Selected: <strong>{{ selection.count() }}</strong></span
+        >
+        <span class="demo-hint-pill" data-testid="bulk-data-source"
+          >Source: {{ useLiveApi() ? 'Live API' : 'Mock data' }}</span
+        >
+      </div>
+    </div>
+
+    <p class="demo-card__summary">
+      <code>injectBulkOperation()</code> provides progress tracking, per-item results, and retry
+      for bulk delete and approve flows. Select items and run an action to see the lifecycle.
+    </p>
+
+    <div class="bulk-controls-grid">
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-delete-btn"
+        [disabled]="!selection.canAct() || isLoading()"
+        (click)="runDelete()"
+      >
+        @if (deleteOp.inProgress()) {
+          Deleting...
+        } @else {
+          Delete Selected
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button"
+        data-testid="bulk-approve-btn"
+        [disabled]="!selection.canAct() || isLoading()"
+        (click)="runApprove()"
+      >
+        @if (approveOp.inProgress()) {
+          Approving...
+        } @else {
+          Approve Selected
+        }
+      </button>
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="bulk-clear-btn"
+        (click)="clearAll()"
+      >
+        Clear all
+      </button>
+    </div>
+
+    <div class="bulk-toolbar">
+      <button
+        type="button"
+        class="demo-button demo-button--ghost"
+        data-testid="bulk-toggle-api"
+        (click)="toggleApi()"
+      >
+        {{ useLiveApi() ? 'Switch to mock data' : 'Call live API' }}
+      </button>
+      @if (useLiveApi()) {
+        <span class="demo-hint-pill" data-testid="bulk-api-hint"
+          >Connect to http://127.0.0.1:5074</span
+        >
+      }
+    </div>
+
+    <demo-status-strip
+      testId="bulk-operations-demo-status"
+      [summary]="statusSummary()"
+      [currentUrl]="currentUrl()"
+      summaryTestId="bulk-operations-demo-summary"
+      urlTestId="bulk-operations-demo-url"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="bulk-operations-table-card">
+    <div class="demo-card__header">
       <div>
-        <p>Approve: {{ summary.succeeded }} succeeded, {{ summary.failed }} failed</p>
-        <ul>
-          @for (r of approveOp.results(); track r.item.id) {
-            <li [attr.data-testid]="'approve-result-' + r.item.id">
-              {{ r.item.id }}: {{ r.succeeded ? '\u2713' : '\u2717' }}
-              @if (r.error) { <span class="error">({{ r.error.code }}: {{ r.error.message }})</span> }
-            </li>
-          }
-        </ul>
-        @if (summary.failed > 0) { <button (click)="retryApprove()" data-testid="retry-approve-btn">Retry Failed</button> }
+        <p class="demo-eyebrow">Order table</p>
+        <h3>Select orders for bulk operations</h3>
       </div>
+    </div>
+
+    <div class="bulk-table-wrap">
+      <table class="bulk-table" data-testid="bulk-orders-table">
+        <thead>
+          <tr>
+            <th class="bulk-table__check">
+              <input
+                type="checkbox"
+                [checked]="allSelected()"
+                (change)="selection.toggleAll(visibleKeys())"
+                data-testid="bulk-select-all"
+              />
+            </th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items(); track item.id) {
+            <tr class="bulk-table__row" data-testid="bulk-order-row">
+              <td class="bulk-table__check">
+                <input
+                  type="checkbox"
+                  [checked]="selection.selected().has(item.id)"
+                  (change)="selection.toggle(item.id)"
+                  [attr.data-testid]="'bulk-checkbox-' + item.id"
+                />
+              </td>
+              <td><code>{{ item.id }}</code></td>
+              <td>{{ item.name }}</td>
+              <td>
+                <span
+                  class="bulk-status"
+                  [class.bulk-status--pending]="item.status === 'pending'"
+                  [class.bulk-status--shipped]="item.status === 'shipped'"
+                  [class.bulk-status--cancelled]="item.status === 'cancelled'"
+                >
+                  {{ item.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Results -->
+    @if (deleteOp.summary() || approveOp.summary()) {
+      <section class="bulk-results" data-testid="bulk-results-panel">
+        <div class="demo-card__header">
+          <div>
+            <p class="demo-eyebrow">Results</p>
+            <h3>Last operation results</h3>
+          </div>
+        </div>
+
+        <div class="bulk-results__grid">
+          @if (deleteOp.summary(); as summary) {
+            <div class="bulk-result-block" data-testid="bulk-delete-results">
+              <div class="bulk-result-block__header">
+                <strong>Delete</strong>
+                <span class="demo-hint-pill"
+                  >{{ summary.succeeded }} ok, {{ summary.failed }} failed</span
+                >
+              </div>
+              <ul class="bulk-result-list">
+                @for (r of deleteOp.results(); track r.item.id) {
+                  <li
+                    class="bulk-result-item"
+                    [class.bulk-result-item--fail]="!r.succeeded"
+                    [attr.data-testid]="'bulk-delete-result-' + r.item.id"
+                  >
+                    <span class="bulk-result-item__icon">{{ r.succeeded ? '\u2713' : '\u2717' }}</span>
+                    <code>{{ r.item.id }}</code>
+                    @if (r.error) {
+                      <span class="bulk-result-item__error"
+                        >({{ r.error.code }}: {{ r.error.message }})</span
+                      >
+                    }
+                  </li>
+                }
+              </ul>
+              @if (summary.failed > 0) {
+                <button
+                  type="button"
+                  class="demo-button demo-button--ghost"
+                  data-testid="bulk-retry-delete"
+                  (click)="retryDelete()"
+                >
+                  Retry failed delete
+                </button>
+              }
+            </div>
+          }
+
+          @if (approveOp.summary(); as summary) {
+            <div class="bulk-result-block" data-testid="bulk-approve-results">
+              <div class="bulk-result-block__header">
+                <strong>Approve</strong>
+                <span class="demo-hint-pill"
+                  >{{ summary.succeeded }} ok, {{ summary.failed }} failed</span
+                >
+              </div>
+              <ul class="bulk-result-list">
+                @for (r of approveOp.results(); track r.item.id) {
+                  <li
+                    class="bulk-result-item"
+                    [class.bulk-result-item--fail]="!r.succeeded"
+                    [attr.data-testid]="'bulk-approve-result-' + r.item.id"
+                  >
+                    <span class="bulk-result-item__icon">{{ r.succeeded ? '\u2713' : '\u2717' }}</span>
+                    <code>{{ r.item.id }}</code>
+                    @if (r.error) {
+                      <span class="bulk-result-item__error"
+                        >({{ r.error.code }}: {{ r.error.message }})</span
+                      >
+                    }
+                  </li>
+                }
+              </ul>
+              @if (summary.failed > 0) {
+                <button
+                  type="button"
+                  class="demo-button demo-button--ghost"
+                  data-testid="bulk-retry-approve"
+                  (click)="retryApprove()"
+                >
+                  Retry failed approve
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </section>
     }
-  </div>
-}
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="bulk-operations-inspector-panel"
+    eyebrow="Reference"
+    title="Bulk operations snapshot"
+    summary="Current operation state and results."
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="bulk-operations-snapshot-json"
+    codeTestId="bulk-operations-code-sample"
+  />
+</demo-page-layout>

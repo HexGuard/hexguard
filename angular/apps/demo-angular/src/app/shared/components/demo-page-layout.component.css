@@ -4,7 +4,7 @@
 
 .demo-page-layout {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-section);
   align-items: start;
   grid-template-areas:
     'nav'

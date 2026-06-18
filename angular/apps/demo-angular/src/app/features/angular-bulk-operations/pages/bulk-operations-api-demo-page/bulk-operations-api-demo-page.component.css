@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+.bulk-api__grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.bulk-api__orders {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.bulk-api__order-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-strong);
+  font-size: 0.8rem;
+}
+.bulk-api__order-tag code {
+  font-size: 0.75rem;
+}
+.bulk-api__order-tag span {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.bulk-api__order-tag--pending span {
+  color: var(--color-accent-strong);
+}
+.bulk-api__order-tag--shipped span {
+  color: #166534;
+}
+.bulk-api__order-tag--cancelled span {
+  color: #a35832;
+}
+.bulk-api__response {
+  display: grid;
+  gap: var(--space-card-gap);
+  margin-top: var(--space-grid);
+}
+.bulk-api__response pre {
+  max-height: 24rem;
+  overflow: auto;
+}
+.bulk-api__error {
+  margin-top: var(--space-grid);
+  padding: var(--space-card-pad);
+  border: 1px solid rgba(154, 31, 31, 0.18);
+  border-radius: 0.85rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 232, 232, 0.94),
+    rgba(255, 214, 214, 0.8)
+  );
+}
+.bulk-api__error p:first-child {
+  font-weight: 600;
+  color: #a35832;
+}
+@media (max-width: 720px) {
+  .bulk-api__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -91,7 +91,7 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       }
       .eco-hub {
         display: grid;
-        gap: 1.6rem;
+        gap: var(--space-section);
       }
       .eco-hub__overview {
         background:
@@ -101,14 +101,14 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       }
       .eco-hub__header {
         display: flex;
-        gap: 1rem 1.25rem;
+        gap: 0.75rem 1rem;
         align-items: start;
         justify-content: space-between;
         flex-wrap: wrap;
       }
       .eco-hub__header-copy {
         display: grid;
-        gap: 0.35rem;
+        gap: 0.2rem;
         min-width: 0;
         flex: 1 1 18rem;
       }
@@ -118,28 +118,28 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       }
       .eco-hub__header-meta {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
         align-items: start;
         flex-wrap: wrap;
         min-width: 0;
       }
       .eco-hub__packages {
         display: grid;
-        gap: 1rem;
+        gap: var(--space-grid);
         grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
       }
       .eco-hub__member-card {
         display: grid;
-        gap: 0.4rem;
+        gap: 0.35rem;
       }
       .eco-hub__role-pill {
         justify-self: start;
-        padding: 0.2rem 0.55rem;
-        border-radius: 0.4rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.35rem;
         background: rgba(13, 73, 82, 0.08);
         color: var(--color-accent-strong);
         font-family: var(--font-mono);
-        font-size: 0.72rem;
+        font-size: 0.68rem;
         font-weight: 600;
       }
       .eco-hub__narrative {
@@ -151,11 +151,11 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       }
       .eco-hub__demos {
         display: grid;
-        gap: 1rem;
+        gap: var(--space-grid);
       }
       .eco-hub__demos-heading {
         display: flex;
-        gap: 1rem;
+        gap: 0.75rem;
         align-items: end;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -166,7 +166,7 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       }
       .eco-hub__demos-grid {
         display: grid;
-        gap: 1rem;
+        gap: var(--space-grid);
         grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
       }
       .eco-hub__demo-card {
@@ -177,7 +177,7 @@ import { PackageCardComponent } from '../package-card/package-card.component';
       .eco-hub__demo-desc {
         margin: 0;
         color: var(--color-muted);
-        line-height: 1.55;
+        line-height: 1.5;
       }
     `,
   ],

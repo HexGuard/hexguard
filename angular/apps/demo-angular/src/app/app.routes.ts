@@ -50,6 +50,7 @@ import { AngularSelectionStateHomePageComponent } from './features/angular-selec
 import { SelectionStateDemoPageComponent } from './features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component';
 import { AngularBulkOperationsHomePageComponent } from './features/angular-bulk-operations/angular-bulk-operations-home-page.component';
 import { BulkOperationsDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
+import { BulkOperationsApiDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
 import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
 import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
 import {
@@ -88,6 +89,7 @@ import { DotnetFeatureFlagsHubPageComponent } from './features/dotnet/pages/dotn
 import { DotnetBulkOperationsHubPageComponent } from './features/dotnet/pages/dotnet-bulk-operations-hub-page/dotnet-bulk-operations-hub-page.component';
 import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem-details-demo-page/problem-details-demo-page.component';
 import { FeatureFlagsDemoPageComponent } from './features/dotnet/pages/feature-flags-demo-page/feature-flags-demo-page.component';
+import { DotnetBulkOperationsDemoPageComponent } from './features/dotnet/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
 
 export const routes: Routes = [
@@ -382,6 +384,11 @@ export const routes: Routes = [
     component: BulkOperationsDemoPageComponent,
     title: 'Bulk Operations Demo',
   },
+  {
+    path: 'packages/angular-bulk-operations/api-demo',
+    component: BulkOperationsApiDemoPageComponent,
+    title: 'Bulk Operations Live API Demo',
+  },
   // ── .NET showcase routes ────────────────────────────────────────
   {
     path: 'dotnet',
@@ -402,6 +409,11 @@ export const routes: Routes = [
     path: 'dotnet/feature-flags',
     component: FeatureFlagsDemoPageComponent,
     title: 'FeatureFlags Library Demo',
+  },
+  {
+    path: 'dotnet/bulk-operations',
+    component: DotnetBulkOperationsDemoPageComponent,
+    title: 'Bulk Operations Library Demo',
   },
   {
     path: 'dotnet/sample-api',

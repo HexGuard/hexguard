@@ -87,7 +87,7 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
       }
       .dotnet-pkg-hub {
         display: grid;
-        gap: 1.6rem;
+        gap: var(--space-section);
       }
       .dotnet-pkg-hub__overview {
         background:
@@ -98,7 +98,7 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
       .dotnet-pkg-hub__header,
       .dotnet-pkg-hub__demos-heading {
         display: flex;
-        gap: 1rem 1.25rem;
+        gap: 0.75rem 1rem;
         align-items: end;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -108,7 +108,7 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
       }
       .dotnet-pkg-hub__header-copy {
         display: grid;
-        gap: 0.35rem;
+        gap: 0.2rem;
         min-width: 0;
         flex: 1 1 18rem;
       }
@@ -125,18 +125,18 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
       }
       .dotnet-pkg-hub__header-meta {
         display: flex;
-        gap: 0.8rem;
+        gap: 0.6rem;
         align-items: start;
         flex-wrap: wrap;
         min-width: 0;
       }
       .dotnet-pkg-hub__dependencies {
         display: grid;
-        gap: 0.35rem;
+        gap: 0.3rem;
       }
       .dotnet-pkg-hub__dependency {
         display: flex;
-        gap: 0.6rem;
+        gap: 0.5rem;
         align-items: center;
         flex-wrap: wrap;
         margin: 0;
@@ -145,19 +145,19 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
         background: rgba(13, 73, 82, 0.08);
         border-color: rgba(13, 73, 82, 0.24);
         color: var(--color-accent-strong);
-        font-size: 0.68rem;
+        font-size: 0.65rem;
       }
       .dotnet-pkg-hub__dep-label {
         color: var(--color-muted);
-        font-size: 0.82rem;
+        font-size: 0.8rem;
       }
       .dotnet-pkg-hub__demos {
         display: grid;
-        gap: 1rem;
+        gap: var(--space-grid);
       }
       .dotnet-pkg-hub__demos-grid {
         display: grid;
-        gap: 1rem;
+        gap: var(--space-grid);
         grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
       }
       .dotnet-pkg-hub__demo-card {
@@ -168,7 +168,7 @@ import type { DotnetSitePackageCatalogEntry } from '../../../site-catalog';
       .dotnet-pkg-hub__demo-description {
         margin: 0;
         color: var(--color-muted);
-        line-height: 1.55;
+        line-height: 1.5;
       }
       .dotnet-pkg-hub__overview-links {
         width: 100%;

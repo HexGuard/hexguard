@@ -29,6 +29,15 @@
   --surface-glow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
   --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  /* ── Spacing design tokens ──────────────────── */
+  --space-section: 1.35rem;   /* gap between major page sections */
+  --space-card-pad: 1.25rem;  /* padding inside stack cards */
+  --space-card-gap: 0.85rem;  /* grid gap inside stack cards */
+  --space-grid: 0.85rem;      /* gap between grid items */
+  --space-block: 0.7rem;      /* gap between content blocks */
+  --space-inner: 0.5rem;      /* tight inner gaps */
+  --space-xs: 0.35rem;        /* extra tight gaps */
 }
 
 * {
@@ -97,14 +106,14 @@ pre {
 
 .demo-card--stack {
   display: grid;
-  gap: 1.15rem;
-  padding: 1.5rem;
+  gap: var(--space-card-gap);
+  padding: var(--space-card-pad);
 }
 
 .demo-card--nav {
   display: grid;
-  gap: 0.55rem;
-  padding: 1.2rem;
+  gap: 0.5rem;
+  padding: 1rem 1.15rem;
   text-decoration: none;
   transition:
     transform 180ms ease,
@@ -143,15 +152,16 @@ pre {
 .demo-card__summary {
   margin: 0;
   color: var(--color-muted);
-  line-height: 1.55;
+  line-height: 1.5;
+  font-size: 0.87rem;
 }
 
 .demo-eyebrow {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.25rem;
   color: var(--color-accent-strong);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.16em;
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -204,9 +214,9 @@ pre {
   align-items: center;
   justify-content: center;
   max-inline-size: 100%;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.9rem;
-  line-height: 1.35;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.3;
   overflow-wrap: anywhere;
   text-align: center;
   white-space: normal;
