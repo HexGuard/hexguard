@@ -35,7 +35,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-url-state',
     packageName: '@hexguard/angular-url-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary: 'Type-safe, signal-first synchronization between Angular state and URL query params.',
     detail:
@@ -75,7 +75,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-query-form',
     packageName: '@hexguard/angular-query-form',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Reactive Forms binding for typed query params, reset-on-change rules, and malformed-link recovery.',
@@ -116,7 +116,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-async-state',
     packageName: '@hexguard/angular-async-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-first async value, live observable, and async action lifecycle state with thin optional Angular outlet helpers.',
@@ -157,7 +157,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-lookups',
     packageName: '@hexguard/angular-lookups',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Typed lookup catalog caching and label resolution for Angular forms, filters, and display surfaces.',
@@ -198,7 +198,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-optimistic-state',
     packageName: '@hexguard/angular-optimistic-state',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-first optimistic mutation, rollback, and reconciliation state with configurable same-target conflict policies.',
@@ -239,7 +239,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-api-errors',
     packageName: '@hexguard/angular-api-errors',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state.',
@@ -280,7 +280,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-permissions',
     packageName: '@hexguard/angular-permissions',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless capability and role evaluation for Angular routes, templates, and feature code.',
@@ -321,7 +321,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary: 'Typed reference-data catalog contracts and validation helpers for .NET applications.',
     detail:
@@ -361,7 +361,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-debounce',
     packageName: '@hexguard/angular-debounce',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.',
@@ -402,7 +402,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.',
@@ -444,7 +444,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-error-boundary',
     packageName: '@hexguard/angular-error-boundary',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.',
@@ -487,7 +487,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-feature-flags',
     packageName: '@hexguard/angular-feature-flags',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Feature flag evaluation for Angular — typed flag checks across routes, templates, and service logic with sync support for .NET backends.',
@@ -529,7 +529,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-problem-details',
     packageName: 'HexGuard.ProblemDetails',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary:
       'RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.',
@@ -574,7 +574,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-validation-contracts',
     packageName: 'HexGuard.ValidationContracts',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary:
       'Standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
@@ -615,7 +615,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-feature-flags',
     packageName: 'HexGuard.FeatureFlags',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary:
       'Server-side feature-flag evaluation with targeting rules, typed flag contracts, and a sync endpoint that pairs with @hexguard/angular-feature-flags.',
@@ -656,7 +656,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-capabilities',
     packageName: 'HexGuard.Capabilities',
-    status: 'Available',
+    status: 'Released',
     scope: '.NET',
     summary:
       'Server-side capability and role contracts with persona-based evaluation that pairs with @hexguard/angular-permissions.',
@@ -687,6 +687,129 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-capabilities.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-network-status',
+    packageName: '@hexguard/angular-network-status',
+    status: 'In Progress',
+    scope: 'Angular',
+    summary:
+      'Standardizes online/offline connectivity state, connection-type changes, and debounced reconnection signals for Angular apps that need offline-aware UI behavior.',
+    detail:
+      'Provides a signal-based network status service with connectivity detection, connection-type tracking, and configurable online/offline event handling.',
+    installCommand: 'pnpm add @hexguard/angular-network-status',
+    featureHighlights: [
+      'Signal-based online/offline state with reactive connectivity tracking.',
+      'Connection-type change detection for adaptive UI behavior.',
+      'Debounced reconnection signals to avoid rapid state toggling.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need offline-aware UI behavior and connectivity state.',
+      'Screens that should degrade gracefully when the network is unavailable.',
+      'Applications that need to react to connection-type changes.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in development and provides the foundation for network-status-aware Angular components.',
+      'It focuses on signal-first connectivity state, debounced reconnection, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-network-status',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-network-status/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-network-status.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-storage',
+    packageName: '@hexguard/angular-storage',
+    status: 'In Progress',
+    scope: 'Angular',
+    summary:
+      'Typed, signal-friendly wrappers around localStorage and sessionStorage with automatic serialization, versioning, cross-tab change detection, and optional expiry for Angular apps.',
+    detail:
+      'Provides StorageService and StorageSignal wrappers for typed storage access with schema versioning, cross-tab synchronization, and configurable expiry.',
+    installCommand: 'pnpm add @hexguard/angular-storage',
+    featureHighlights: [
+      'Typed storage access with automatic JSON serialization and schema versioning.',
+      'Cross-tab change detection for synchronized state across windows.',
+      'Optional expiry and TTL support for cached storage entries.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need typed, reactive storage access instead of raw localStorage calls.',
+      'Multi-tab applications that should synchronize state changes across windows.',
+      'Caching layers that need automatic expiry and versioned schema migrations.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in development and provides typed storage primitives for Angular.',
+      'It focuses on signal-first wrappers, cross-tab sync, schema versioning, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-storage',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-storage/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-storage.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-date-utils',
+    packageName: '@hexguard/angular-date-utils',
+    status: 'In Progress',
+    scope: 'Angular',
+    summary:
+      'Date-range state models, relative-time formatting, locale-aware compact notation, and date-comparison helpers that go beyond Angular built-in DatePipe for date-heavy business apps.',
+    detail:
+      'Provides DateRange, RelativeTime, and DateComparison utilities with locale-aware formatting, configurable compact notation, and signal-based date state management.',
+    installCommand: 'pnpm add @hexguard/angular-date-utils',
+    featureHighlights: [
+      'Date-range state model with configurable presets and signal-based management.',
+      'Relative-time formatting with locale-aware compact and full notation.',
+      'Date-comparison helpers for business-date logic and range validation.',
+    ],
+    bestFitScenarios: [
+      'Date-heavy business apps that need date-range pickers and relative-time displays.',
+      'Screens that should format dates relative to now with locale-aware output.',
+      'Applications that need date-comparison logic beyond simple JavaScript Date operations.',
+    ],
+    statusNoteParagraphs: [
+      'This package is currently in development and provides date utility primitives for Angular.',
+      'It focuses on date-range state, locale-aware formatting, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-date-utils',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-date-utils/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-date-utils.md',
       },
       {
         label: 'Demo runbook',
