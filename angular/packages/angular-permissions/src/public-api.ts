@@ -15,6 +15,17 @@ export {
 export { evaluatePermission } from './lib/permission-evaluator';
 export { canActivatePermissions, canMatchPermissions } from './lib/permission-guards';
 export { injectPermissions } from './lib/permissions';
+export {
+  provideCapabilitySync,
+  toPermissionContext,
+  updateCapabilityContext,
+  CAPABILITY_SYNC_CONTEXT,
+} from './lib/capability-sync';
+export type {
+  CapabilitySet,
+  CapabilityFetcher,
+  CapabilitySyncConfig,
+} from './lib/capability-sync';
 export type {
   HexGuardPermissions,
   PermissionCollection,

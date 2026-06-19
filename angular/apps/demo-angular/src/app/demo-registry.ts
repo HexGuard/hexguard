@@ -1309,6 +1309,30 @@ export const DOTNET_BULK_OPERATIONS_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_CAPABILITIES_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-capabilities',
+  packageId: 'hexguard-capabilities',
+  route: '/dotnet/capabilities',
+  label: 'Capabilities Library',
+  title: 'HexGuard.Capabilities — persona-based capability sets',
+  description:
+    'Demonstrates ICapabilityService, InMemoryCapabilityStore, and the persona-based capability evaluation via the shared SampleApi. Proves role/permission contract gating across stacks.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Capabilities',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-permissions/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   id: 'hexguard-problem-details',
   packageId: 'hexguard-problem-details',
@@ -1364,6 +1388,33 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
       },
     ],
     demos: [DOTNET_PROBLEM_DETAILS_HOME],
+  },
+  {
+    id: 'hexguard-capabilities',
+    route: '/dotnet/hexguard-capabilities',
+    label: 'HexGuard Capabilities',
+    title: 'HexGuard.Capabilities',
+    nugetId: 'HexGuard.Capabilities',
+    description:
+      'Capability and role contracts for ASP.NET Core APIs with persona-based evaluation. Pairs with @hexguard/angular-permissions.',
+    summary:
+      'ICapabilityService, InMemoryCapabilityStore, and Minimal API endpoints for persona-based role/permission gating.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Capabilities',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
+    ],
+    demos: [DOTNET_CAPABILITIES_HOME],
   },
   {
     id: 'hexguard-feature-flags',

@@ -69,6 +69,7 @@
 - [ ] **Implement `@hexguard/angular-confirmation`** — headless confirm/cancel and confirm-and-run async action flows. [Detailed plan](angular/feature-angular-confirmation.md)
 - [ ] **Implement `@hexguard/angular-command-palette`** — command registry, keyboard shortcuts, and searchable palette. [Detailed plan](angular/feature-angular-command-palette.md)
 - [ ] **Implement `@hexguard/angular-upload-state`** — file upload queue with progress, cancel, and retry. [Detailed plan](angular/feature-angular-upload-state.md)
+- [ ] **Implement `HexGuard.Capabilities + @hexguard/angular-permissions`** — cross-stack capability contract pair with .NET capability service, Angular sync adapter, live API demo, and ecosystem hub page. [Detailed plan](cross-stack/feature-capabilities-cross-stack.md)
 - [ ] **Implement `@hexguard/angular-query-signal-forms`** — Signal Forms adapter for URL state. [Detailed plan](angular/feature-angular-query-signal-forms.md)
 
 ## Sidenotes

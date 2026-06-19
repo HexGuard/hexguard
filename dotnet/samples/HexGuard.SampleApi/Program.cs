@@ -8,6 +8,8 @@ using HexGuard.FeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardFeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 using HexGuard.SampleApi.Packages.HexGuardBulkOperations;
+using HexGuard.SampleApi.Packages.HexGuardCapabilities;
+using HexGuard.Capabilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,14 @@ builder.Services.AddHexGuardFeatureFlags(options =>
     foreach (var flag in FeatureFlagsSampleData.CreateOptions().Flags)
     {
         options.Flags.Add(flag);
+    }
+});
+
+builder.Services.AddHexGuardCapabilities(options =>
+{
+    foreach (var (userId, caps) in CapabilitiesSampleData.CreatePersonas())
+    {
+        options.AddCapabilities(userId, caps);
     }
 });
 
@@ -109,6 +119,14 @@ app.MapGet("/", () => Results.Ok(new
             approveEndpoint = "/api/bulk-operations/approve (POST)",
             note = "Bulk operations — HTTP 207 Multi-Status, partial-success, paired with @hexguard/angular-bulk-operations",
         },
+        new
+        {
+            id = "hexguard-capabilities",
+            route = "/api/capabilities",
+            personasEndpoint = "/api/capabilities/personas",
+            userEndpoint = "/api/capabilities/user?persona=admin",
+            note = "Capabilities — server-side permission contracts, paired with @hexguard/angular-permissions",
+        },
     },
 }));
 
@@ -122,6 +140,7 @@ app.MapValidationContractsSampleEndpoints();
 app.MapFeatureFlagEndpoints();
 app.MapFeatureFlagsSampleEndpoints();
 app.MapBulkOperationsSampleEndpoints();
+app.MapCapabilitiesSampleEndpoints();
 
 app.Run();
 

@@ -285,6 +285,22 @@ export const SITE_ECOSYSTEMS: readonly Ecosystem[] = [
       'The shared SampleApi exposes demo endpoints at /api/bulk-operations/delete, /approve, and /update-status for end-to-end integration testing.',
     ],
   },
+  {
+    id: 'capabilities',
+    label: 'Capabilities / permissions',
+    pairingLabel: 'Capabilities / permissions',
+    description:
+      'The Angular permission evaluator gates UI actions and routes against the same capability contracts that HexGuard.Capabilities serves on the backend. The shared SampleApi provides persona-based capability sets for end-to-end testing.',
+    members: [
+      { packageId: 'angular-permissions', role: 'Consumer/Evaluator' },
+      { packageId: 'hexguard-capabilities', role: 'Provider' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-permissions Angular package and HexGuard.Capabilities .NET library share the same role/permission contracts via CapabilitySyncService.',
+      'The .NET library defines CapabilitySet (roles + per-resource permissions) through ICapabilityService and ICapabilityStore. The Angular side maps these to PermissionContext via provideCapabilitySync().',
+      'To run the full cross-stack experience, start the API with `pnpm dotnet:start:demo-api` and navigate to the capabilities demo routes.',
+    ],
+  },
 ];
 
 /**
@@ -343,6 +359,15 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       route: '/dotnet/hexguard-feature-flags',
     },
   ],
+  'angular-permissions': [
+    {
+      packageId: 'hexguard-capabilities',
+      label: 'HexGuard.Capabilities',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-capabilities',
+    },
+  ],
   'angular-bulk-operations': [
     {
       packageId: 'hexguard-bulk-operations',
@@ -376,8 +401,15 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       relationship: 'Foundation library',
       route: '/dotnet/hexguard-problem-details',
     },
-  ],
-  'hexguard-feature-flags': [
+  ],  'hexguard-capabilities': [
+    {
+      packageId: 'angular-permissions',
+      label: '@hexguard/angular-permissions',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-permissions',
+    },
+  ],  'hexguard-feature-flags': [
     {
       packageId: 'angular-feature-flags',
       label: '@hexguard/angular-feature-flags',

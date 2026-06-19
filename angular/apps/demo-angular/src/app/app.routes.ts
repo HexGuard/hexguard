@@ -98,6 +98,7 @@ import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem
 import { FeatureFlagsDemoPageComponent } from './features/dotnet/pages/feature-flags-demo-page/feature-flags-demo-page.component';
 import { DotnetBulkOperationsDemoPageComponent } from './features/dotnet/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
+import { DotnetCapabilitiesHubPageComponent } from './features/dotnet/pages/dotnet-capabilities-hub-page/dotnet-capabilities-hub-page.component';
 
 export const routes: Routes = [
   {
@@ -134,6 +135,11 @@ export const routes: Routes = [
     path: 'dotnet/hexguard-bulk-operations',
     component: DotnetBulkOperationsHubPageComponent,
     title: 'HexGuard.BulkOperations Package Hub',
+  },
+  {
+    path: 'dotnet/hexguard-capabilities',
+    component: DotnetCapabilitiesHubPageComponent,
+    title: 'HexGuard.Capabilities Package Hub',
   },
   {
     path: 'dotnet/problem-details',

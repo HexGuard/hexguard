@@ -8,6 +8,7 @@
     <Project Path="src/HexGuard.ValidationContracts/HexGuard.ValidationContracts.csproj" />
     <Project Path="src/HexGuard.FeatureFlags/HexGuard.FeatureFlags.csproj" />
     <Project Path="src/HexGuard.BulkOperations/HexGuard.BulkOperations.csproj" />
+    <Project Path="src/HexGuard.Capabilities/HexGuard.Capabilities.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/HexGuard.ProblemDetails.Tests/HexGuard.ProblemDetails.Tests.csproj" />
@@ -15,5 +16,6 @@
     <Project Path="tests/HexGuard.ValidationContracts.Tests/HexGuard.ValidationContracts.Tests.csproj" />
     <Project Path="tests/HexGuard.FeatureFlags.Tests/HexGuard.FeatureFlags.Tests.csproj" />
     <Project Path="tests/HexGuard.BulkOperations.Tests/HexGuard.BulkOperations.Tests.csproj" />
+    <Project Path="tests/HexGuard.Capabilities.Tests/HexGuard.Capabilities.Tests.csproj" />
   </Folder>
 </Solution>

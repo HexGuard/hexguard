@@ -11,16 +11,28 @@ and is generated from the same source metadata that drives the Angular demo webs
 
 ### Compatibility Matrix
 
-| Package                              | Version | Angular | Peer dependencies                                                                                      | Status    |
-| ------------------------------------ | ------- | ------- | ------------------------------------------------------------------------------------------------------ | --------- |
-| `@hexguard/angular-url-state`        | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                  | Available |
-| `@hexguard/angular-async-state`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                             | Available |
-| `@hexguard/angular-query-form`       | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`, `@angular/router`, `@hexguard/angular-url-state` | Available |
-| `@hexguard/angular-optimistic-state` | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                             | Available |
-| `@hexguard/angular-permissions`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                  | Available |
-| `@hexguard/angular-lookups`          | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state`                                    | Available |
+| Package                              | Version | Angular | Peer dependencies                                                                                                                                                     | Status    |
+| ------------------------------------ | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `@hexguard/angular-url-state`        | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                                                                                 | Available |
+| `@hexguard/angular-async-state`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                                                                                            | Available |
+| `@hexguard/angular-query-form`       | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`, `@angular/router`, `@hexguard/angular-url-state`                                                                | Available |
+| `@hexguard/angular-optimistic-state` | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `rxjs`                                                                                                                            | Available |
+| `@hexguard/angular-permissions`      | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                                                                                 | Available |
+| `@hexguard/angular-lookups`          | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state`                                                                                                   | Available |
+| `@hexguard/angular-api-errors`       | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/forms`                                                                                                                  | Available |
+| `@hexguard/angular-debounce`         | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-notifications`    | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-error-boundary`   | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-date-utils`       | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-network-status`   | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-storage`          | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-feature-flags`    | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@angular/router`                                                                                                                 | Available |
+| `@hexguard/angular-selection-state`  | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`                                                                                                                                    | Available |
+| `@hexguard/angular-bulk-operations`  | 0.1.0   | ^22.0.0 | `@angular/common`, `@angular/core`, `@hexguard/angular-async-state`, `@hexguard/angular-selection-state`                                                               | Available |
 
 All packages are licensed under MIT and published with `publishConfig: { access: "public" }`.
+
+### Angular Packages
 
 Current public Angular package entry points with README and changelog:
 
@@ -30,24 +42,50 @@ Current public Angular package entry points with README and changelog:
 - [@hexguard/angular-optimistic-state](angular/packages/angular-optimistic-state/README.md) — [changelog](angular/packages/angular-optimistic-state/CHANGELOG.md)
 - [@hexguard/angular-query-form](angular/packages/angular-query-form/README.md) — [changelog](angular/packages/angular-query-form/CHANGELOG.md)
 - [@hexguard/angular-permissions](angular/packages/angular-permissions/README.md) — [changelog](angular/packages/angular-permissions/CHANGELOG.md)
+- [@hexguard/angular-api-errors](angular/packages/angular-api-errors/README.md) — [changelog](angular/packages/angular-api-errors/CHANGELOG.md)
+- [@hexguard/angular-debounce](angular/packages/angular-debounce/README.md) — [changelog](angular/packages/angular-debounce/CHANGELOG.md)
+- [@hexguard/angular-notifications](angular/packages/angular-notifications/README.md) — [changelog](angular/packages/angular-notifications/CHANGELOG.md)
+- [@hexguard/angular-error-boundary](angular/packages/angular-error-boundary/README.md) — [changelog](angular/packages/angular-error-boundary/CHANGELOG.md)
+- [@hexguard/angular-date-utils](angular/packages/angular-date-utils/README.md) — [changelog](angular/packages/angular-date-utils/CHANGELOG.md)
+- [@hexguard/angular-network-status](angular/packages/angular-network-status/README.md) — [changelog](angular/packages/angular-network-status/CHANGELOG.md)
+- [@hexguard/angular-storage](angular/packages/angular-storage/README.md) — [changelog](angular/packages/angular-storage/CHANGELOG.md)
+- [@hexguard/angular-feature-flags](angular/packages/angular-feature-flags/README.md) — [changelog](angular/packages/angular-feature-flags/CHANGELOG.md)
+- [@hexguard/angular-selection-state](angular/packages/angular-selection-state/README.md) — [changelog](angular/packages/angular-selection-state/CHANGELOG.md)
+- [@hexguard/angular-bulk-operations](angular/packages/angular-bulk-operations/README.md) — [changelog](angular/packages/angular-bulk-operations/CHANGELOG.md)
 
-## Documentation
+### .NET Packages
 
-- [Docs Index](docs/README.md)
-- [Package Catalog](docs/packages/README.md)
+- [HexGuard.ReferenceData](dotnet/src/HexGuard.ReferenceData/README.md)
+- [HexGuard.ProblemDetails](dotnet/src/HexGuard.ProblemDetails/README.md)
+- [HexGuard.ValidationContracts](dotnet/src/HexGuard.ValidationContracts/README.md)
+- [HexGuard.FeatureFlags](dotnet/src/HexGuard.FeatureFlags/README.md)
+- [HexGuard.BulkOperations](dotnet/src/HexGuard.BulkOperations/README.md)
+- [HexGuard.Capabilities](dotnet/src/HexGuard.Capabilities/README.md)
 
-### Angular Packages
+### Deep Dive Documentation
 
+- [Full Package Catalog](docs/packages/README.md)
 - [`@hexguard/angular-url-state` Deep Dive](docs/packages/angular-url-state.md)
 - [`@hexguard/angular-query-form` Deep Dive](docs/packages/angular-query-form.md)
 - [`@hexguard/angular-async-state` Deep Dive](docs/packages/angular-async-state.md)
 - [`@hexguard/angular-lookups` Deep Dive](docs/packages/angular-lookups.md)
 - [`@hexguard/angular-optimistic-state` Deep Dive](docs/packages/angular-optimistic-state.md)
 - [`@hexguard/angular-permissions` Deep Dive](docs/packages/angular-permissions.md)
-
-### .NET Packages
-
+- [`@hexguard/angular-api-errors` Deep Dive](docs/packages/angular-api-errors.md)
+- [`@hexguard/angular-debounce` Deep Dive](docs/packages/angular-debounce.md)
+- [`@hexguard/angular-notifications` Deep Dive](docs/packages/angular-notifications.md)
+- [`@hexguard/angular-error-boundary` Deep Dive](docs/packages/angular-error-boundary.md)
+- [`@hexguard/angular-date-utils` Deep Dive](docs/packages/angular-date-utils.md)
+- [`@hexguard/angular-network-status` Deep Dive](docs/packages/angular-network-status.md)
+- [`@hexguard/angular-storage` Deep Dive](docs/packages/angular-storage.md)
+- [`@hexguard/angular-feature-flags` Deep Dive](docs/packages/angular-feature-flags.md)
+- [`@hexguard/angular-selection-state` Deep Dive](docs/packages/angular-selection-state.md)
+- [`@hexguard/angular-bulk-operations` Deep Dive](docs/packages/angular-bulk-operations.md)
+- [`HexGuard.Capabilities` Deep Dive](docs/packages/hexguard-capabilities.md)
 - [`HexGuard.ReferenceData` Deep Dive](docs/packages/hexguard-reference-data.md)
+- [`HexGuard.ProblemDetails` Deep Dive](docs/packages/hexguard-problem-details.md)
+- [`HexGuard.ValidationContracts` Deep Dive](docs/packages/validation-contracts.md)
+- [`HexGuard.FeatureFlags` Deep Dive](docs/packages/hexguard-feature-flags.md)
 
 ### Workspace & Workflow
 

@@ -85,6 +85,63 @@ Excluded from the current package:
 Feature flags remain a separate package concern until both packages are mature enough to define a
 clean integration boundary.
 
+## Capability Sync (Cross-Stack Bridge)
+
+The package provides a cross-stack bridge to `HexGuard.Capabilities` via `provideCapabilitySync()`.
+
+### Configuration
+
+```typescript
+import { provideCapabilitySync } from '@hexguard/angular-permissions';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideCapabilitySync({
+      // A fetch function that returns a CapabilitySet from a .NET backend:
+      fetch: () => fetch('/api/capabilities/user').then(r => r.json()),
+      // Optional: periodic refresh every 60 seconds:
+      refreshIntervalMs: 60_000,
+    }),
+  ],
+};
+```
+
+### How it works
+
+1. On bootstrap, `provideCapabilitySync()` fires the `fetch` function and maps the returned `CapabilitySet` to a `PermissionContext`.
+2. `CapabilitySet.Roles` → `PermissionContext.roles` (e.g. `["admin", "analyst"]`).
+3. `CapabilitySet.Permissions` (resource → action list) → flattened `PermissionContext.capabilities` using `"resource.action"` format (e.g. `"orders.read"`, `"orders.create"`).
+4. The context is signal-backed, so route guards, `*hexguardCan`, and `injectPermissions()` all reactively update when capabilities change.
+
+### Manual updates
+
+For persona switching or on-demand refresh, use `updateCapabilityContext()`:
+
+```typescript
+import { updateCapabilityContext } from '@hexguard/angular-permissions';
+
+const data = await fetch(`/api/capabilities/user?persona=${persona}`).then(r => r.json());
+updateCapabilityContext(data);
+```
+
+> Note: the `/api/capabilities/user` endpoint is registered by calling
+> `MapCapabilityEndpoints()` on the .NET side, which uses `ICapabilityService`
+> internally. The SampleApi extends it with persona switching support.
+
+### Pure mapper
+
+The `toPermissionContext()` function is a pure mapper that converts `CapabilitySet` → `PermissionContext` without side effects, suitable for testing:
+
+```typescript
+import { toPermissionContext } from '@hexguard/angular-permissions';
+
+const ctx = toPermissionContext({
+  roles: ['admin'],
+  permissions: { orders: ['read', 'write'] },
+});
+// → { roles: ['admin'], capabilities: ['orders.read', 'orders.write'] }
+```
+
 ## Validation Surface
 
 The current implementation is validated through:

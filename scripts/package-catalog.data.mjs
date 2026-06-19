@@ -309,6 +309,33 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-feature-flags',
+    packageName: '@hexguard/angular-feature-flags',
+    status: 'Available',
+    scope: 'Angular',
+    readmePath: 'angular/packages/angular-feature-flags/README.md',
+    deepDivePath: 'docs/packages/angular-feature-flags.md',
+    repositoryPath: 'angular/packages/angular-feature-flags',
+    summary: 'Feature flag evaluation for Angular — typed flag checks across routes, templates, and service logic with sync support for .NET backends.',
+    detail: 'Designed for Angular apps that need to gate routes, content, and features behind typed feature flags with optional remote sync. Pairs with HexGuard.FeatureFlags on the .NET side through a shared flag contract and sync protocol.',
+    installCommand: 'pnpm add @hexguard/angular-feature-flags',
+    featureHighlights: [
+      'FeatureFlagService with canAccess and canAccessSignal for imperative and reactive checks.',
+      'canActivateFeatureFlag and canMatchFeatureFlag route guards.',
+      'Optional FeatureFlagSyncService for syncing flags from a .NET backend.',
+      '*hexguardFeatureFlag structural directive.',
+    ],
+    bestFitScenarios: [
+      'Gating premium routes behind feature flags with automatic redirect to an upgrade page.',
+      'Showing or hiding UI elements based on flag state with reactive signal updates.',
+      'Syncing feature flags from a backend API for consistent server/client behavior.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with HexGuard.FeatureFlags on the .NET side through a shared flag sync contract.',
+      'It focuses on typed flag evaluation, route gating, reactive UI gating, and remote sync via FeatureFlagSyncService.',
+    ],
+  },
+  {
     id: 'hexguard-problem-details',
     packageName: 'HexGuard.ProblemDetails',
     status: 'Available',
@@ -336,6 +363,84 @@ export const currentPackages = [
       'Initial release focuses on core types, builder, middleware, and Minimal API extensions.',
       'Paired with @hexguard/angular-api-errors which consumes the same RFC 9457 Problem Details contract.',
       'HexGuard.ValidationContracts can depend on this package for its Problem Details adapter in a future release.',
+    ],
+  },
+  {
+    id: 'hexguard-validation-contracts',
+    packageName: 'HexGuard.ValidationContracts',
+    status: 'Available',
+    scope: '.NET',
+    readmePath: 'dotnet/src/HexGuard.ValidationContracts/README.md',
+    deepDivePath: 'docs/packages/validation-contracts.md',
+    repositoryPath: 'dotnet/src/HexGuard.ValidationContracts',
+    summary: 'Standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
+    detail: 'Provides ValidationError, ValidationResult, FieldPath, ValidationErrorCode types plus a fluent builder, FluentValidation integration, and RFC 9457 Problem Details adapter for consistent validation error responses across .NET APIs.',
+    installCommand: 'dotnet add package HexGuard.ValidationContracts',
+    featureHighlights: [
+      'Core types: ValidationError, ValidationResult, FieldPath, ValidationErrorCode.',
+      'FluentValidation integration via AsValidationResult() extension (conditional).',
+      'RFC 9457 Problem Details adapter for consistent error responses.',
+    ],
+    bestFitScenarios: [
+      'Standardizing validation error shapes across .NET APIs.',
+      'Pairing with @hexguard/angular-api-errors for end-to-end typed error pipelines.',
+      'Replacing ad hoc validation result models with one shared contract.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the .NET side of the cross-stack validation contracts pair.',
+      'It focuses on explicit field-path semantics, error codes, and RFC 9457 Problem Details integration.',
+    ],
+  },
+  {
+    id: 'hexguard-feature-flags',
+    packageName: 'HexGuard.FeatureFlags',
+    status: 'Available',
+    scope: '.NET',
+    readmePath: 'dotnet/src/HexGuard.FeatureFlags/README.md',
+    deepDivePath: 'docs/packages/hexguard-feature-flags.md',
+    repositoryPath: 'dotnet/src/HexGuard.FeatureFlags',
+    summary: 'Server-side feature-flag evaluation with targeting rules, typed flag contracts, and a sync endpoint that pairs with @hexguard/angular-feature-flags.',
+    detail: 'Provides FeatureFlag, FlagEvaluationContext, TargetingRule types plus an IFeatureFlagStore interface, InMemoryFeatureFlagStore, and minimal-API sync endpoint for consistent server-side feature flag evaluation.',
+    installCommand: 'dotnet add package HexGuard.FeatureFlags',
+    featureHighlights: [
+      'Typed flag evaluation with targeting rules.',
+      'Sync endpoint for Angular client consumption (304 Not Modified support).',
+      'IFeatureFlagStore abstraction with in-memory store.',
+    ],
+    bestFitScenarios: [
+      'Server-side feature flag evaluation complementing Angular client-side checks.',
+      'Consistent flag behavior across backend and frontend via sync contract.',
+      'APIs that need to gate behavior or endpoints behind feature flags.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with @hexguard/angular-feature-flags through a shared flag sync contract.',
+      'It focuses on explicit targeting rules, typed flag definitions, and a minimal sync endpoint.',
+    ],
+  },
+  {
+    id: 'hexguard-capabilities',
+    packageName: 'HexGuard.Capabilities',
+    status: 'Available',
+    scope: '.NET',
+    readmePath: 'dotnet/src/HexGuard.Capabilities/README.md',
+    deepDivePath: 'docs/packages/hexguard-capabilities.md',
+    repositoryPath: 'dotnet/src/HexGuard.Capabilities',
+    summary: 'Server-side capability and role contracts with persona-based evaluation that pairs with @hexguard/angular-permissions.',
+    detail: 'Provides CapabilitySet, ICapabilityService, ICapabilityStore, InMemoryCapabilityStore, and Minimal API endpoints for persona-based role/permission gating.',
+    installCommand: 'dotnet add package HexGuard.Capabilities',
+    featureHighlights: [
+      'ICapabilityService with HasCapabilityAsync for granular permission checks.',
+      'InMemoryCapabilityStore with CapabilitiesOptions for easy setup.',
+      'Minimal API endpoints for persona-based capability evaluation.',
+    ],
+    bestFitScenarios: [
+      'Server-side capability gating complementing Angular permission checks.',
+      'Persona-based authorization for demo and staging environments.',
+      'APIs that need to expose user capability sets to Angular clients.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with @hexguard/angular-permissions through a shared capability contract.',
+      'The Angular side uses provideCapabilitySync() to fetch and map capability sets into the permission evaluator.',
     ],
   },
 ];
@@ -422,16 +527,6 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-feature-flags',
-    anchorId: 'package-angular-feature-flags',
-    packageName: '@hexguard/angular-feature-flags',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize typed feature-flag checks across routes, templates, and service logic while remaining provider-agnostic.',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-confirmation',
     anchorId: 'package-angular-confirmation',
     packageName: '@hexguard/angular-confirmation',
@@ -480,16 +575,6 @@ export const roadmapPackages = [
     summary:
       "Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form surface continues to evolve.",
     showOnSiteHome: false,
-  },
-  {
-    id: 'validation-contracts',
-    anchorId: 'package-validation-contracts',
-    packageName: 'HexGuard.ValidationContracts',
-    scope: '.NET',
-    status: 'Planned',
-    summary:
-      'Provides standardized validation error contracts (field path, error code, message) and RFC 9457 Problem Details helpers for .NET APIs, paired with @hexguard/angular-api-errors.',
-    showOnSiteHome: true,
   },
   {
     id: 'angular-table-state',
@@ -629,16 +714,6 @@ export const roadmapPackages = [
     summary:
       'Would pair backend operation contracts with Angular lifecycle surfaces for long-running workflows such as exports, imports, and admin jobs.',
     showOnSiteHome: true,
-  },
-  {
-    id: 'capabilities',
-    anchorId: 'package-capabilities',
-    packageName: 'HexGuard.Capabilities + @hexguard/angular-permissions',
-    scope: 'Cross-stack',
-    status: 'Proposed',
-    summary:
-      'Would pair backend-issued capability contracts with Angular permission checks so action gating and authorization drift less across the stack.',
-    showOnSiteHome: false,
   },
   {
     id: 'reference-data',
@@ -999,16 +1074,6 @@ export const roadmapPackages = [
     status: 'Proposed',
     summary:
       'Would standardize drag-and-drop interaction state (dragging, hover target, reorder model, cancel) separate from DOM rendering, composable with CDK DragDrop for sortable lists, kanban boards, and file reordering.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'dotnet-feature-flags',
-    anchorId: 'package-dotnet-feature-flags',
-    packageName: 'HexGuard.FeatureFlags',
-    scope: '.NET',
-    status: 'Proposed',
-    summary:
-      'Would provide server-side feature-flag evaluation, targeting-rule helpers, flag-configuration contracts, and optional sync-endpoint conventions to pair with @hexguard/angular-feature-flags.',
     showOnSiteHome: false,
   },
   {
