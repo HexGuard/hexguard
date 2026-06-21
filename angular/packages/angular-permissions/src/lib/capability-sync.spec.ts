@@ -1,9 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  CAPABILITY_SYNC_CONTEXT,
-  toPermissionContext,
-  type CapabilitySet,
-} from '../public-api';
+import { CAPABILITY_SYNC_CONTEXT, toPermissionContext, type CapabilitySet } from '../public-api';
 import { HEXGUARD_PERMISSION_CONTEXT } from './permission-context';
 
 describe('toPermissionContext', () => {

@@ -60,6 +60,7 @@ var response = BulkOperationResultBuilder.Build(results);
 ```
 
 Automatically computes:
+
 - `Status`: Completed (all success), PartialFailure (mixed), Failed (all failure)
 - `TotalCount`, `SuccessCount`, `FailureCount`
 
@@ -79,9 +80,9 @@ var problemDetails = response.ToProblemDetails();
 
 ## Cross-Stack Pairing
 
-| Side | Package |
-|---|---|
-| .NET | `HexGuard.BulkOperations` |
+| Side    | Package                             |
+| ------- | ----------------------------------- |
+| .NET    | `HexGuard.BulkOperations`           |
 | Angular | `@hexguard/angular-bulk-operations` |
 
 Both packages share identical contract shapes for end-to-end typed bulk actions.

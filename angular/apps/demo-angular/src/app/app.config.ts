@@ -6,8 +6,8 @@ import { HEXGUARD_PERMISSION_CONTEXT } from '@hexguard/angular-permissions';
 import { provideHexGuardFeatureFlags } from '@hexguard/angular-feature-flags';
 import { provideHexGuardUrlState } from '@hexguard/angular-url-state';
 
-import { FEATURE_FLAG_DEMO_CATALOG } from './features/angular-feature-flags/data/feature-flags-demo.data';
-import { PermissionsDemoSessionService } from './features/angular-permissions/data/permissions-demo.data';
+import { FEATURE_FLAG_DEMO_CATALOG } from './features/packages/angular/angular-feature-flags/data/feature-flags-demo.data';
+import { PermissionsDemoSessionService } from './features/packages/angular/angular-permissions/data/permissions-demo.data';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

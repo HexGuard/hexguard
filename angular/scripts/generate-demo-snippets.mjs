@@ -24,9 +24,9 @@ const snippets = [
     description:
       'Generated from the real Orders demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-url-state/pages/orders-demo-page/orders-demo-page.component.ts',
   },
   {
     id: 'angular-url-state/dashboard-demo-state',
@@ -34,9 +34,9 @@ const snippets = [
     description:
       'Generated from the real Dashboard demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component.ts',
   },
   {
     id: 'angular-query-form/orders-demo-state',
@@ -44,9 +44,9 @@ const snippets = [
     description:
       'Generated from the real Orders Query Form component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component.ts',
   },
   {
     id: 'angular-query-form/recovery-demo-state',
@@ -54,9 +54,9 @@ const snippets = [
     description:
       'Generated from the real Recovery Query Form component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component.ts',
   },
   {
     id: 'angular-async-state/value-demo-state',
@@ -64,9 +64,9 @@ const snippets = [
     description:
       'Generated from the real asyncState value demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component.ts',
   },
   {
     id: 'angular-async-state/observable-demo-state',
@@ -74,9 +74,9 @@ const snippets = [
     description:
       'Generated from the real observableState demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component.ts',
   },
   {
     id: 'angular-async-state/action-demo-state',
@@ -84,9 +84,9 @@ const snippets = [
     description:
       'Generated from the real asyncAction demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component.ts',
   },
   {
     id: 'angular-lookups/editor-demo-state',
@@ -94,9 +94,9 @@ const snippets = [
     description:
       'Generated from the real lookup editor demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component.ts',
   },
   {
     id: 'angular-lookups/backend-demo-state',
@@ -104,9 +104,9 @@ const snippets = [
     description:
       'Generated from the real lookup backend demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component.ts',
   },
   {
     id: 'angular-lookups/summary-demo-state',
@@ -114,9 +114,9 @@ const snippets = [
     description:
       'Generated from the real lookup summary demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component.ts',
   },
   {
     id: 'angular-optimistic-state/toggle-demo-state',
@@ -124,9 +124,9 @@ const snippets = [
     description:
       'Generated from the real optimistic toggle demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component.ts',
   },
   {
     id: 'angular-optimistic-state/inline-edit-demo-state',
@@ -134,9 +134,9 @@ const snippets = [
     description:
       'Generated from the real optimistic inline-edit demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component.ts',
   },
   {
     id: 'angular-optimistic-state/bulk-demo-state',
@@ -144,9 +144,9 @@ const snippets = [
     description:
       'Generated from the real optimistic bulk demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component.ts',
   },
   {
     id: 'angular-permissions/actions-demo-state',
@@ -154,9 +154,9 @@ const snippets = [
     description:
       'Generated from the real permissions action demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component.ts',
   },
   {
     id: 'angular-permissions/routing-demo-state',
@@ -164,9 +164,9 @@ const snippets = [
     description:
       'Generated from the real permissions routing demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component.ts',
   },
   {
     id: 'angular-selection-state/demo',
@@ -174,9 +174,9 @@ const snippets = [
     description:
       'Generated from the real Selection State demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component.ts',
   },
   {
     id: 'angular-date-utils/demo-state',
@@ -184,9 +184,9 @@ const snippets = [
     description:
       'Generated from the real Date Utils demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component.ts',
   },
   {
     id: 'angular-network-status/demo-state',
@@ -194,9 +194,9 @@ const snippets = [
     description:
       'Generated from the real Network Status demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component.ts',
   },
   {
     id: 'angular-storage/demo-state',
@@ -204,9 +204,9 @@ const snippets = [
     description:
       'Generated from the real Storage demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-storage/pages/storage-demo-page/storage-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-storage/pages/storage-demo-page/storage-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-storage/pages/storage-demo-page/storage-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-storage/pages/storage-demo-page/storage-demo-page.component.ts',
   },
   {
     id: 'angular-bulk-operations/demo',
@@ -214,9 +214,9 @@ const snippets = [
     description:
       'Generated from the real Bulk Operations demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component.ts',
   },
   {
     id: 'angular-bulk-operations/api-demo',
@@ -224,9 +224,9 @@ const snippets = [
     description:
       'Generated from the real Bulk Operations API demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component.ts',
   },
   {
     id: 'angular-bulk-operations/library-demo',
@@ -234,9 +234,19 @@ const snippets = [
     description:
       'Generated from the real Bulk Operations Library API workflow demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component.ts',
+  },
+  {
+    id: 'angular-breakpoint-observer/demo-state',
+    title: 'Breakpoint observer demo component source',
+    description:
+      'Generated from the real Breakpoint Observer demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
   },
 ];
 
@@ -319,3 +329,4 @@ writeFileSync(
   generatedSnippetsPath,
   await formatWithResolvedConfig(generated, generatedSnippetsPath),
 );
+

@@ -1,0 +1,281 @@
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { PackageCardComponent } from '../../shared/components/package-card/package-card.component';
+import {
+  getUnifiedPackages,
+  SITE_METRICS,
+  SITE_PILLARS,
+  SITE_PRIMARY_ACTIONS,
+  SITE_ROADMAP_PACKAGES,
+  SITE_SHARED_API_CONSUMERS,
+  SECTION_COLLAPSED_LIMIT,
+  STACK_REGISTRY,
+  STACK_ORDER,
+  type UnifiedScope,
+} from '../../site-catalog';
+import { PACKAGE_CATEGORIES, getCategoryLabel } from '../../shared/package-categories';
+
+@Component({
+  standalone: true,
+  selector: 'demo-site-home-page',
+  imports: [PackageCardComponent, RouterLink],
+  template: `
+    <section class="site-home" data-testid="site-home-page">
+      <!-- Hero -->
+      <article class="site-home__hero demo-card demo-card--stack">
+        <div class="site-home__hero-copy">
+          <p class="demo-eyebrow">Open-source guardrails</p>
+          <h2>Angular and .NET guardrails with live demos and a shared sample API.</h2>
+          <p class="demo-card__summary site-home__lede">
+            Small, explicit Angular packages and .NET libraries with live demos and a shared
+            cross-stack API. Browse packages below or visit the monorepo on GitHub.
+          </p>
+
+          <div class="site-home__actions">
+            @for (action of actions; track action.href) {
+              <a class="site-home__action" [href]="action.href" target="_blank" rel="noreferrer">
+                {{ action.label }}
+              </a>
+            }
+          </div>
+        </div>
+      </article>
+
+      <!-- Metrics bar -->
+      <dl class="site-home__metrics-bar" aria-label="Repository metrics">
+        @for (metric of metrics; track metric.label) {
+          <div class="site-home__metric">
+            <dt>{{ metric.label }}</dt>
+            <dd>{{ metric.value }}</dd>
+          </div>
+        }
+      </dl>
+
+      <!-- Unified package showcase -->
+      <section class="site-home__section" aria-labelledby="showcase-heading">
+        <div class="site-home__section-heading">
+          <div>
+            <p class="demo-eyebrow">Package showcase</p>
+            <h2 id="showcase-heading">All packages across stacks</h2>
+          </div>
+          <p class="demo-card__summary">
+            Angular packages, .NET libraries, and cross-stack pairs in one unified view.
+          </p>
+        </div>
+
+        <!-- Filter chips (stack scope) -->
+        <div class="site-home__filter-bar">
+          @for (filter of filterOptions; track filter.scope) {
+            <button
+              type="button"
+              class="site-home__filter-chip"
+              [class.site-home__filter-chip--active]="activeFilter() === filter.scope"
+              (click)="onScopeFilterClick(filter.scope)"
+              [attr.data-testid]="'showcase-filter-' + filter.scope"
+            >
+              {{ filter.label }}
+            </button>
+          }
+        </div>
+
+        <!-- Category filter chips (shown when a single scope is active) -->
+        @if (activeFilter() !== 'All' && filteredCategories().length > 0) {
+          <div class="site-home__filter-bar" role="group" aria-label="Filter by category">
+            <button
+              type="button"
+              class="site-home__filter-chip"
+              [class.site-home__filter-chip--active]="activeCategory() === null"
+              (click)="activeCategory.set(null)"
+              [attr.data-testid]="'showcase-category-all'"
+            >
+              All {{ filterLabel() }}
+            </button>
+            @for (cat of filteredCategories(); track cat) {
+              <button
+                type="button"
+                class="site-home__filter-chip"
+                [class.site-home__filter-chip--active]="activeCategory() === cat"
+                (click)="activeCategory.set(cat)"
+                [attr.data-testid]="'showcase-category-' + cat.replace(/s+/g, '-').toLowerCase()"
+              >
+                {{ getCategoryLabel(cat) }}
+              </button>
+            }
+          </div>
+        }
+
+        <div class="site-home__package-grid">
+          @for (entry of filteredPackages(); track entry.id) {
+            <demo-package-card [entry]="entry" />
+          }
+        </div>
+
+        @if (totalFiltered().length > sectionCollapsedLimit) {
+          <button
+            class="site-home__expand-toggle"
+            type="button"
+            (click)="showAll.set(!showAll())"
+            [attr.data-testid]="'showcase-expand-toggle'"
+          >
+            {{
+              showAll() ? 'Show fewer packages' : 'Show all ' + totalFiltered().length + ' packages'
+            }}
+          </button>
+        }
+
+        <!-- Shared API consumers -->
+        @if (sharedApiConsumers.length > 0) {
+          <div class="demo-card demo-card--stack site-home__shared-api-card">
+            <p class="demo-eyebrow">Shared API consumers</p>
+            <p class="demo-card__summary">
+              These Angular packages connect to the .NET SampleApi for live HTTP demos. Start the
+              API with <code>pnpm dotnet:start:demo-api</code> to enable backend integration.
+            </p>
+            <div class="demo-link-row">
+              @for (consumer of sharedApiConsumers; track consumer.angularId) {
+                <a class="demo-link-chip" [routerLink]="'/packages/' + consumer.angularId">{{
+                  consumer.angularLabel
+                }}</a>
+              }
+              <a class="demo-link-chip" routerLink="/dotnet/sample-api">SampleApi Explorer</a>
+            </div>
+          </div>
+        }
+      </section>
+
+      <!-- Design goals -->
+      <section class="site-home__section" aria-labelledby="pillars-heading">
+        <div class="site-home__section-heading">
+          <div>
+            <p class="demo-eyebrow">Design goals</p>
+            <h2 id="pillars-heading">How the public site should feel</h2>
+          </div>
+        </div>
+
+        <div class="site-home__pillar-grid">
+          @for (pillar of pillars; track pillar.title) {
+            <article class="demo-card demo-card--stack site-home__pillar-card">
+              <h3>{{ pillar.title }}</h3>
+              <p class="demo-card__summary">{{ pillar.description }}</p>
+            </article>
+          }
+        </div>
+      </section>
+
+      <!-- Roadmap -->
+      <section class="site-home__section" aria-labelledby="roadmap-heading">
+        <div class="site-home__section-heading">
+          <div>
+            <p class="demo-eyebrow">Roadmap</p>
+            <h2 id="roadmap-heading">Planned and proposed packages</h2>
+          </div>
+          <p class="demo-card__summary">
+            The landing page shows a curated roadmap slice and links back to the deeper package
+            catalog in the repo docs.
+          </p>
+        </div>
+
+        <div class="site-home__roadmap-grid">
+          @for (packageEntry of roadmapPackages; track packageEntry.id) {
+            <article
+              class="demo-card demo-card--stack site-home__roadmap-card"
+              [attr.data-testid]="'site-home-roadmap-' + packageEntry.id"
+            >
+              <div class="site-home__package-header">
+                <div class="site-home__package-title">
+                  <p class="demo-eyebrow">{{ packageEntry.scope }}</p>
+                  <h3>{{ packageEntry.packageName }}</h3>
+                </div>
+                <span class="site-status-badge site-status-badge--muted">{{
+                  packageEntry.status
+                }}</span>
+              </div>
+
+              <p class="demo-card__summary">{{ packageEntry.summary }}</p>
+
+              <div class="demo-link-row">
+                <a
+                  class="demo-link-chip"
+                  [href]="packageEntry.docsHref"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open roadmap brief
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    </section>
+  `,
+  styleUrl: './site-home-page.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SiteHomePageComponent {
+  readonly actions = SITE_PRIMARY_ACTIONS;
+  readonly metrics = SITE_METRICS;
+  readonly allPackages = getUnifiedPackages();
+  readonly pillars = SITE_PILLARS;
+  readonly roadmapPackages = SITE_ROADMAP_PACKAGES;
+  readonly sharedApiConsumers = SITE_SHARED_API_CONSUMERS;
+
+  readonly sectionCollapsedLimit = SECTION_COLLAPSED_LIMIT;
+  readonly showAll = signal(false);
+  readonly activeFilter = signal<UnifiedScope | 'All'>('All');
+  readonly activeCategory = signal<string | null>(null);
+
+  protected readonly getCategoryLabel = getCategoryLabel;
+
+  /** Filter options built from the stack registry. */
+  readonly filterOptions: readonly { scope: UnifiedScope | 'All'; label: string }[] = [
+    { scope: 'All', label: 'All' },
+    ...STACK_ORDER.map((id) => ({
+      scope: id as UnifiedScope,
+      label: STACK_REGISTRY[id].label,
+    })),
+  ];
+
+  /** Label for the active scope filter. */
+  protected readonly filterLabel = () => {
+    const filter = this.activeFilter();
+    if (filter === 'All') return '';
+    return STACK_REGISTRY[filter]?.label ?? '';
+  };
+
+  /** Unique category IDs available in the currently filtered scope. */
+  protected readonly filteredCategories = computed(() => {
+    const filter = this.activeFilter();
+    const pkgs =
+      filter === 'All' ? this.allPackages : this.allPackages.filter((p) => p.scope === filter);
+    const cats = new Set<string>();
+    for (const p of pkgs) {
+      if (p.category) cats.add(p.category);
+    }
+    return PACKAGE_CATEGORIES.map((c) => c.id).filter((id) => cats.has(id));
+  });
+
+  /** Reset category when scope changes. */
+  protected onScopeFilterClick(scope: UnifiedScope | 'All'): void {
+    this.activeFilter.set(scope);
+    this.activeCategory.set(null);
+  }
+
+  /** Full filtered list without the collapsed limit applied. */
+  protected readonly totalFiltered = () => {
+    const filter = this.activeFilter();
+    const category = this.activeCategory();
+    let pkgs =
+      filter === 'All' ? this.allPackages : this.allPackages.filter((p) => p.scope === filter);
+    if (category !== null) {
+      pkgs = pkgs.filter((p) => p.category === category);
+    }
+    return pkgs;
+  };
+
+  protected readonly filteredPackages = () => {
+    const filtered = this.totalFiltered();
+    return this.showAll() ? filtered : filtered.slice(0, this.sectionCollapsedLimit);
+  };
+}

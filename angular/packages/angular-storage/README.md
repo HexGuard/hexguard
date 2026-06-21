@@ -43,32 +43,32 @@ class SettingsComponent {
 
 ## Features
 
-| Feature                              | Status | Notes                                                |
-| ------------------------------------ | ------ | ---------------------------------------------------- |
-| Typed signal-backed storage          | ✅     | Type-safe `value()` and `meta()` signals             |
-| Schema versioning                    | ✅     | `versionMismatch` meta when stored version differs   |
-| TTL expiry                           | ✅     | `expired` meta for time-sensitive data               |
-| Cross-tab sync                       | ✅     | Listens to `window` storage events                   |
-| `patch()` shallow merge              | ✅     | For object types — merge partial values              |
-| `clear()` reset                      | ✅     | Removes key and resets to default                    |
-| Graceful fallback                    | ✅     | In-memory fallback when storage unavailable          |
-| Zero runtime dependencies            | ✅     | Only `@angular/core` + `tslib`                       |
+| Feature                     | Status | Notes                                              |
+| --------------------------- | ------ | -------------------------------------------------- |
+| Typed signal-backed storage | ✅     | Type-safe `value()` and `meta()` signals           |
+| Schema versioning           | ✅     | `versionMismatch` meta when stored version differs |
+| TTL expiry                  | ✅     | `expired` meta for time-sensitive data             |
+| Cross-tab sync              | ✅     | Listens to `window` storage events                 |
+| `patch()` shallow merge     | ✅     | For object types — merge partial values            |
+| `clear()` reset             | ✅     | Removes key and resets to default                  |
+| Graceful fallback           | ✅     | In-memory fallback when storage unavailable        |
+| Zero runtime dependencies   | ✅     | Only `@angular/core` + `tslib`                     |
 
 ## Demo routes
 
-| Route                          | Description                                        |
-| ------------------------------ | -------------------------------------------------- |
-| `/packages/angular-storage`    | Package hub page with catalog overview             |
+| Route                            | Description                                      |
+| -------------------------------- | ------------------------------------------------ |
+| `/packages/angular-storage`      | Package hub page with catalog overview           |
 | `/packages/angular-storage/demo` | Persistent preference panel with inspector panel |
 
 ## Public API
 
-| Export            | Kind     | Description                                              |
-| ----------------- | -------- | -------------------------------------------------------- |
-| `injectStorage()` | Function | DI factory returning `TypedStorage<T>`                   |
-| `StorageOptions`  | Type     | `{ defaultValue, version?, ttlMs?, storage? }`           |
+| Export            | Kind     | Description                                                |
+| ----------------- | -------- | ---------------------------------------------------------- |
+| `injectStorage()` | Function | DI factory returning `TypedStorage<T>`                     |
+| `StorageOptions`  | Type     | `{ defaultValue, version?, ttlMs?, storage? }`             |
 | `TypedStorage`    | Type     | Return shape with `value`, `meta`, `set`, `patch`, `clear` |
-| `StorageMeta`     | Type     | `'stored' \| 'expired' \| 'missing' \| 'versionMismatch'` |
+| `StorageMeta`     | Type     | `'stored' \| 'expired' \| 'missing' \| 'versionMismatch'`  |
 
 ## Storage Envelope Format
 
@@ -82,11 +82,11 @@ Values are stored as a JSON envelope for versioning and TTL support:
 }
 ```
 
-| Field     | Purpose                             |
-| --------- | ----------------------------------- |
-| `_value`  | The serialized value                |
-| `_v`      | Schema version (matches `version`)  |
-| `_ts`     | Write timestamp (present when TTL set) |
+| Field    | Purpose                                |
+| -------- | -------------------------------------- |
+| `_value` | The serialized value                   |
+| `_v`     | Schema version (matches `version`)     |
+| `_ts`    | Write timestamp (present when TTL set) |
 
 ## What It Owns
 

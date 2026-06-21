@@ -28,6 +28,8 @@ another.
 | `@hexguard/angular-network-status`   | In Progress | Standardizes online/offline connectivity state, connection-type changes, and debounced reconnection signals for Angular apps that need offline-aware UI behavior.                                     | [Deep Dive](angular-network-status.md), [npm-facing README](../../angular/packages/angular-network-status/README.md), [Demo runbook](../demo/README.md)     |
 | `@hexguard/angular-storage`          | In Progress | Typed, signal-friendly wrappers around localStorage and sessionStorage with automatic serialization, versioning, cross-tab change detection, and optional expiry for Angular apps.                    | [Deep Dive](angular-storage.md), [npm-facing README](../../angular/packages/angular-storage/README.md), [Demo runbook](../demo/README.md)                   |
 | `@hexguard/angular-date-utils`       | In Progress | Date-range state models, relative-time formatting, locale-aware compact notation, and date-comparison helpers that go beyond Angular built-in DatePipe for date-heavy business apps.                  | [Deep Dive](angular-date-utils.md), [npm-facing README](../../angular/packages/angular-date-utils/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-selection-state`  | Released    | Keyed selection state model for lists and tables: toggle, select-all, clear, and bulk-action enablement through a headless signal-based contract.                                                     | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-bulk-operations`  | Released    | Angular bulk-operation service for HTTP 207 Multi-Status workflows: typed request/response contracts, per-item result tracking, and partial-failure display.                                          | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)   |
 
 ## Package Status Notes
 
@@ -223,6 +225,26 @@ This package is currently in development and provides date utility primitives fo
 
 It focuses on date-range state, locale-aware formatting, and a validated publish surface.
 
+<a id="package-angular-selection-state"></a>
+
+### `@hexguard/angular-selection-state`
+
+Status: Released
+
+This package is available as a headless selection state companion for Angular lists and tables.
+
+It focuses on keyed selection, explicit toggle/clear semantics, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-bulk-operations"></a>
+
+### `@hexguard/angular-bulk-operations`
+
+Status: Released
+
+This package pairs with HexGuard.BulkOperations on the .NET side through shared contract shapes.
+
+It focuses on selection-to-request mapping, response parsing, partial-failure display, and a validated publish surface across docs, demos, and package artifacts.
+
 ## Planned and Proposed Package Briefs
 
 <a id="package-angular-submit-lock"></a>
@@ -280,14 +302,6 @@ Would standardize reversible action flows with undo windows, expiry, and commit-
 Status: Proposed
 
 Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.
-
-<a id="package-angular-selection-state"></a>
-
-### `@hexguard/angular-selection-state`
-
-Status: Proposed
-
-Would standardize keyed selection, bulk-action enablement, and select-visible behavior for lists and tables through a headless state model.
 
 <a id="package-angular-confirmation"></a>
 

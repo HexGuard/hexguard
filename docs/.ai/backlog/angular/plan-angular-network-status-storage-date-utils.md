@@ -25,11 +25,11 @@ For each package, repeat these steps:
 
 Add a project entry under `"projects"` with `projectType: "library"`, `@angular/build:ng-packagr` build, `@angular/build:unit-test` test, `prefix: "hexguard"`. Place alphabetically.
 
-| Package | Angular project name | Alpha position |
-|---------|---------------------|----------------|
-| date-utils | `angular-date-utils` | Between `angular-debounce` and `angular-error-boundary` |
+| Package        | Angular project name     | Alpha position                                                 |
+| -------------- | ------------------------ | -------------------------------------------------------------- |
+| date-utils     | `angular-date-utils`     | Between `angular-debounce` and `angular-error-boundary`        |
 | network-status | `angular-network-status` | Between `angular-notifications` and `angular-optimistic-state` |
-| storage | `angular-storage` | Between `angular-selection-state` and `angular-url-state` |
+| storage        | `angular-storage`        | Between `angular-selection-state` and `angular-url-state`      |
 
 ### 0.B — Package Files
 
@@ -49,6 +49,7 @@ Create each under `angular/packages/angular-{name}/`:
 ### 0.C — tsconfig.json Path Mapping
 
 Add to `angular/tsconfig.json`:
+
 ```json
 "@hexguard/angular-{name}": ["./packages/angular-{name}/src/public-api.ts"],
 ```
@@ -61,17 +62,18 @@ Add to `angular/tsconfig.json`:
 
 **Files to create**:
 
-| File | Content |
-|------|---------|
-| `src/lib/date-range.ts` | `DateRange` class — immutable model with start/end, isValid, durationDays, contains(), overlaps(), preset factories (last7Days, last30Days, thisMonth, lastMonth, next30Days, custom) |
-| `src/lib/relative-time.ts` | Pure functions: `relativeTime(date, locale?)`, `shortRelativeTime(date, locale?)`, `exactRelativeTime(date, locale?)` using `Intl.RelativeTimeFormat` |
-| `src/lib/compact-format.ts` | Pure functions: `compactDate(date, locale?)` (shows year only when diff year), `compactDateTime(date, locale?)` |
-| `src/lib/business-days.ts` | Pure functions: `isWeekend(date)`, `addBusinessDays(date, days)`, `businessDaysBetween(start, end)` |
-| `src/lib/duration.ts` | Pure functions: `durationBetween(start, end)` returns `Duration`, `formatDuration(duration)`, `ageInYears(birthDate)` |
-| `src/lib/date-utils.ts` | `injectDateUtils()` — wires `LOCALE_ID`, returns object with all functions |
-| `src/lib/types.ts` | `Duration` interface: `{ days, hours, minutes, seconds? }` |
+| File                        | Content                                                                                                                                                                               |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/date-range.ts`     | `DateRange` class — immutable model with start/end, isValid, durationDays, contains(), overlaps(), preset factories (last7Days, last30Days, thisMonth, lastMonth, next30Days, custom) |
+| `src/lib/relative-time.ts`  | Pure functions: `relativeTime(date, locale?)`, `shortRelativeTime(date, locale?)`, `exactRelativeTime(date, locale?)` using `Intl.RelativeTimeFormat`                                 |
+| `src/lib/compact-format.ts` | Pure functions: `compactDate(date, locale?)` (shows year only when diff year), `compactDateTime(date, locale?)`                                                                       |
+| `src/lib/business-days.ts`  | Pure functions: `isWeekend(date)`, `addBusinessDays(date, days)`, `businessDaysBetween(start, end)`                                                                                   |
+| `src/lib/duration.ts`       | Pure functions: `durationBetween(start, end)` returns `Duration`, `formatDuration(duration)`, `ageInYears(birthDate)`                                                                 |
+| `src/lib/date-utils.ts`     | `injectDateUtils()` — wires `LOCALE_ID`, returns object with all functions                                                                                                            |
+| `src/lib/types.ts`          | `Duration` interface: `{ days, hours, minutes, seconds? }`                                                                                                                            |
 
 **Key design decisions**:
+
 - All formatting functions are pure (input → output) for tree-shaking and testability.
 - `injectDateUtils()` is a thin DI wrapper that captures `LOCALE_ID` and delegates to pure functions.
 - `DateRange` is a plain TypeScript class (not a service) — no DI needed, can be used anywhere.
@@ -82,12 +84,13 @@ Add to `angular/tsconfig.json`:
 
 **Files to create**:
 
-| File | Content |
-|------|---------|
-| `src/lib/network-status.ts` | `injectNetworkStatus(options?)` — factory function using `DestroyRef` for cleanup |
-| `src/lib/types.ts` | `NetworkStatusOptions` (onlineDebounceMs, backOnlineSignalDurationMs), `NetworkStatus` return type, `EffectiveConnectionType` type |
+| File                        | Content                                                                                                                            |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/network-status.ts` | `injectNetworkStatus(options?)` — factory function using `DestroyRef` for cleanup                                                  |
+| `src/lib/types.ts`          | `NetworkStatusOptions` (onlineDebounceMs, backOnlineSignalDurationMs), `NetworkStatus` return type, `EffectiveConnectionType` type |
 
 **Implementation details**:
+
 ```typescript
 function injectNetworkStatus(options?: NetworkStatusOptions): NetworkStatus {
   const opts = { onlineDebounceMs: 1000, backOnlineSignalDurationMs: 3000, ...options };
@@ -107,7 +110,10 @@ function injectNetworkStatus(options?: NetworkStatusOptions): NetworkStatus {
     onlineTimer = setTimeout(() => {
       online.set(true);
       recentlyBackOnline.set(true);
-      backOnlineTimer = setTimeout(() => recentlyBackOnline.set(false), opts.backOnlineSignalDurationMs);
+      backOnlineTimer = setTimeout(
+        () => recentlyBackOnline.set(false),
+        opts.backOnlineSignalDurationMs,
+      );
       pendingResolve?.();
       pendingResolve = null;
     }, opts.onlineDebounceMs);
@@ -141,12 +147,18 @@ function injectNetworkStatus(options?: NetworkStatusOptions): NetworkStatus {
     online: online.asReadonly(),
     connectionType: connectionType.asReadonly(),
     recentlyBackOnline: recentlyBackOnline.asReadonly(),
-    whenBackOnline: () => online() ? Promise.resolve() : new Promise(r => { pendingResolve = r; }),
+    whenBackOnline: () =>
+      online()
+        ? Promise.resolve()
+        : new Promise((r) => {
+            pendingResolve = r;
+          }),
   };
 }
 ```
 
 **Key design decisions**:
+
 - Function-based (not class-based) — follows `injectSelectionState()` pattern.
 - Uses `DestroyRef` for cleanup (Angular 16+).
 - `whenBackOnline()` returns a promise that resolves on the next online transition.
@@ -156,20 +168,16 @@ function injectNetworkStatus(options?: NetworkStatusOptions): NetworkStatus {
 
 **Files to create**:
 
-| File | Content |
-|------|---------|
+| File                 | Content                                                                   |
+| -------------------- | ------------------------------------------------------------------------- |
 | `src/lib/storage.ts` | `injectStorage<T>(key, options)` — factory using `DestroyRef` for cleanup |
-| `src/lib/types.ts` | `StorageOptions<T>`, `TypedStorage<T>`, `StorageMeta` type |
+| `src/lib/types.ts`   | `StorageOptions<T>`, `TypedStorage<T>`, `StorageMeta` type                |
 
 **Implementation details**:
+
 ```typescript
 function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage<T> {
-  const {
-    defaultValue,
-    version = 1,
-    ttlMs,
-    storage: storageType = 'local',
-  } = options;
+  const { defaultValue, version = 1, ttlMs, storage: storageType = 'local' } = options;
 
   const destroyRef = inject(DestroyRef);
   const storageApi = storageType === 'local' ? localStorage : sessionStorage;
@@ -190,7 +198,9 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
         initialMeta = 'stored';
       }
     }
-  } catch { /* ignore — use default */ }
+  } catch {
+    /* ignore — use default */
+  }
 
   const value = signal<T>(initialValue);
   const meta = signal<StorageMeta>(initialMeta);
@@ -203,7 +213,8 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
       storageApi.setItem(key, JSON.stringify(envelope));
       value.set(newValue);
       meta.set('stored');
-    } catch { /* storage full or unavailable */
+    } catch {
+      /* storage full or unavailable */
       value.set(newValue);
       meta.set('missing');
     }
@@ -220,7 +231,9 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
         const parsed = JSON.parse(e.newValue);
         value.set(parsed._value ?? defaultValue);
         meta.set('stored');
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
     }
   };
   window.addEventListener('storage', onStorage);
@@ -232,7 +245,11 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
     set: persist,
     patch: (partial) => persist({ ...value(), ...partial }),
     clear: () => {
-      try { storageApi.removeItem(key); } catch { /* ignore */ }
+      try {
+        storageApi.removeItem(key);
+      } catch {
+        /* ignore */
+      }
       value.set(defaultValue);
       meta.set('missing');
     },
@@ -241,6 +258,7 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
 ```
 
 **Key design decisions**:
+
 - Function-based (not class-based).
 - Uses JSON envelope with `_value`, `_v` (version), `_ts` (timestamp) metadata.
 - Cross-tab sync via `window.addEventListener('storage', ...)`.
@@ -253,11 +271,11 @@ function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage
 
 ### Unit Tests
 
-| Package | Test scenarios | Est. count |
-|---------|---------------|------------|
-| `angular-date-utils` | relativeTime edge cases (past/future/now/same-day), short/exact variants, compactDate year-aware, compactDateTime, isWeekend, addBusinessDays (weekend skip, no-op), businessDaysBetween, durationBetween, formatDuration, ageInYears, DateRange validation/containment/overlap/presets, injectDateUtils locale wiring, invalid date handling | ~35 |
-| `angular-network-status` | online→offline→online transitions, debounce window, flapping prevention, connectionType changes, recentlyBackOnline timing, whenBackOnline resolve, cleanup on destroy, browser API unavailability | ~15 |
-| `angular-storage` | set/get/clear round-trip, JSON envelope parsing, TTL expiry, version mismatch, cross-tab storage event handling, localStorage unavailable fallback, patch shallow merge, concurrent mutations, cleanup on destroy, malformed JSON recovery | ~18 |
+| Package                  | Test scenarios                                                                                                                                                                                                                                                                                                                                | Est. count |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `angular-date-utils`     | relativeTime edge cases (past/future/now/same-day), short/exact variants, compactDate year-aware, compactDateTime, isWeekend, addBusinessDays (weekend skip, no-op), businessDaysBetween, durationBetween, formatDuration, ageInYears, DateRange validation/containment/overlap/presets, injectDateUtils locale wiring, invalid date handling | ~35        |
+| `angular-network-status` | online→offline→online transitions, debounce window, flapping prevention, connectionType changes, recentlyBackOnline timing, whenBackOnline resolve, cleanup on destroy, browser API unavailability                                                                                                                                            | ~15        |
+| `angular-storage`        | set/get/clear round-trip, JSON envelope parsing, TTL expiry, version mismatch, cross-tab storage event handling, localStorage unavailable fallback, patch shallow merge, concurrent mutations, cleanup on destroy, malformed JSON recovery                                                                                                    | ~18        |
 
 Run: `pnpm test:lib:{name}`
 
@@ -276,6 +294,7 @@ For each package, add:
 ```
 
 Then integrate into chains:
+
 - `build:lib` — append `&& ng build angular-{name}`
 - `test:lib` — append `&& pnpm test:lib:{name}`
 - `test:ci` — append `&& ng test angular-{name} --watch=false`
@@ -370,6 +389,7 @@ The date-utils package is pure functions — the demo should showcase all functi
 ## Phase 7: Assessment Gate
 
 For each package, run:
+
 ```bash
 pnpm format:check && pnpm lint && pnpm test:ci && pnpm test:e2e && pnpm build && pnpm verify:package
 ```
@@ -380,10 +400,10 @@ Save audit reports to `docs/.ai/audits/angular-{name}-readiness-{YYYY-MM-DD}.md`
 
 ## Summary Table
 
-| Package | Type | Dependencies | Complexity | Est. tests | Release order |
-|---------|------|-------------|------------|------------|---------------|
-| `angular-date-utils` | Pure functions + DI wrapper | `@angular/core` | Low | ~35 | 1st |
-| `angular-network-status` | Browser API + DestroyRef | `@angular/core` | Medium | ~15 | 2nd |
-| `angular-storage` | localStorage + cross-tab + TTL | `@angular/core` | High | ~18 | 3rd |
+| Package                  | Type                           | Dependencies    | Complexity | Est. tests | Release order |
+| ------------------------ | ------------------------------ | --------------- | ---------- | ---------- | ------------- |
+| `angular-date-utils`     | Pure functions + DI wrapper    | `@angular/core` | Low        | ~35        | 1st           |
+| `angular-network-status` | Browser API + DestroyRef       | `@angular/core` | Medium     | ~15        | 2nd           |
+| `angular-storage`        | localStorage + cross-tab + TTL | `@angular/core` | High       | ~18        | 3rd           |
 
 All three are Angular-only (no .NET counterpart). Total estimated work: ~68 unit tests, 3 demo pages, 3 release workflows.

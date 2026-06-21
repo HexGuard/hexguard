@@ -8,14 +8,14 @@ This page complements the npm-facing README with repo-specific implementation no
 
 ## Public API Map
 
-| Export | Role |
-|--------|------|
-| `BulkOperationService` | Generic injectable service with signals + execution methods |
-| `BulkOperationConfig` | Configuration for the service (execute function) |
-| `provideBulkOperation()` | Provider factory for the service |
-| `injectBulkOperation()` | Facade returning typed signals + methods |
-| `selectedItemsToBulkRequest()` | Maps selection-state signal + items map to a request |
-| Types | `BulkOperationStatus`, `BulkOperationError`, `BulkOperationResult`, `BulkOperationResponse`, `BulkOperationRequest` |
+| Export                         | Role                                                                                                                |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `BulkOperationService`         | Generic injectable service with signals + execution methods                                                         |
+| `BulkOperationConfig`          | Configuration for the service (execute function)                                                                    |
+| `provideBulkOperation()`       | Provider factory for the service                                                                                    |
+| `injectBulkOperation()`        | Facade returning typed signals + methods                                                                            |
+| `selectedItemsToBulkRequest()` | Maps selection-state signal + items map to a request                                                                |
+| Types                          | `BulkOperationStatus`, `BulkOperationError`, `BulkOperationResult`, `BulkOperationResponse`, `BulkOperationRequest` |
 
 ## Behavior Details
 
@@ -44,10 +44,10 @@ The `summary` signal returns `null` when no results exist, otherwise:
 
 ## Cross-Stack Pairing
 
-| Side | Package |
-|------|---------|
+| Side    | Package                             |
+| ------- | ----------------------------------- |
 | Angular | `@hexguard/angular-bulk-operations` |
-| .NET | `HexGuard.BulkOperations` |
+| .NET    | `HexGuard.BulkOperations`           |
 
 Both packages share identical contract shapes (BulkOperationRequest, BulkOperationResponse, BulkOperationResult, BulkOperationError).
 

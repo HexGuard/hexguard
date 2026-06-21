@@ -6,13 +6,13 @@ Bulk action contracts, response builder, and ASP.NET Core endpoint helpers for H
 
 ### Core Types
 
-| Type | Description |
-|---|---|
-| `BulkOperationStatus` | Enum: Completed, PartialFailure, Failed |
-| `BulkOperationError` | Record: Code, Message, Field? |
-| `BulkOperationResult<TItem, TResult>` | Record: Item, Succeeded, Result?, Error? |
+| Type                                    | Description                                                     |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `BulkOperationStatus`                   | Enum: Completed, PartialFailure, Failed                         |
+| `BulkOperationError`                    | Record: Code, Message, Field?                                   |
+| `BulkOperationResult<TItem, TResult>`   | Record: Item, Succeeded, Result?, Error?                        |
 | `BulkOperationResponse<TItem, TResult>` | Record: Status, TotalCount, SuccessCount, FailureCount, Results |
-| `BulkOperationRequest<TItem, TPayload>` | Record: Items, SharedPayload?, PerItemPayloads? |
+| `BulkOperationRequest<TItem, TPayload>` | Record: Items, SharedPayload?, PerItemPayloads?                 |
 
 ### Result Builder
 
@@ -37,6 +37,7 @@ app.MapPost("/api/bulk-operations/delete", (
 ```
 
 The `Results.Extensions.BulkOperation()` factory:
+
 - Returns `200 OK` with JSON body when all items succeed
 - Returns `207 Multi-Status` with JSON body when partial or all items fail
 
@@ -52,20 +53,21 @@ var problemDetails = response.ToProblemDetails();
 
 The shared `HexGuard.SampleApi` exposes:
 
-| Endpoint | Description |
-|---|---|
-| `POST /api/bulk-operations/delete` | Bulk delete with per-item CANNOT_DELETE errors for shipped orders |
-| `POST /api/bulk-operations/approve` | Bulk approve with per-item INVALID_STATUS errors for shipped/cancelled orders |
+| Endpoint                                  | Description                                                                             |
+| ----------------------------------------- | --------------------------------------------------------------------------------------- |
+| `POST /api/bulk-operations/delete`        | Bulk delete with per-item CANNOT_DELETE errors for shipped orders                       |
+| `POST /api/bulk-operations/approve`       | Bulk approve with per-item INVALID_STATUS errors for shipped/cancelled orders           |
 | `POST /api/bulk-operations/update-status` | Bulk status change with per-item payload and INVALID_STATUS errors for cancelled orders |
 
 ## Cross-Stack Pairing
 
-| Side | Package |
-|---|---|
-| .NET | `HexGuard.BulkOperations` |
+| Side    | Package                             |
+| ------- | ----------------------------------- |
+| .NET    | `HexGuard.BulkOperations`           |
 | Angular | `@hexguard/angular-bulk-operations` |
 
 Both packages share:
+
 - Identical contract shapes (Request, Response, Result, Error)
 - HTTP 207 Multi-Status transport
 - RFC 9457 Problem Details error integration on the .NET side

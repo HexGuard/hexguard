@@ -1,0 +1,200 @@
+<demo-page-layout testId="form-validation-demo">
+  <demo-navigation-strip
+    demoNavigation
+    testId="form-validation-demo-navigation"
+    [demo]="demoEntry"
+  />
+
+  <article demoIntro class="demo-card demo-card--stack" data-testid="form-validation-intro-card">
+    <p class="demo-eyebrow">Form Validation</p>
+    <h2>Backend validation errors bound to Angular form controls</h2>
+    <p class="demo-card__summary">
+      Fill in the product form and submit to see how <code>apiFormErrors</code> maps dot-separated
+      field paths from the validation contract onto <code>FormControl.setErrors()</code>.
+      Model-level errors appear as page-level messages below the form.
+    </p>
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="form-validation-primary-card"
+  >
+    <div class="form-validation-demo">
+      <form
+        class="form-validation-demo__form"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        data-testid="form-validation-demo-form"
+      >
+        <!-- Name -->
+        <div class="form-validation-demo__field">
+          <label class="demo-field-label" for="fv-name">Product Name *</label>
+          <input
+            id="fv-name"
+            class="demo-input"
+            [class.demo-input--invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+            formControlName="name"
+            placeholder="Enter product name"
+            data-testid="form-validation-demo-name-input"
+          />
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <p
+              class="form-validation-demo__error-text"
+              data-testid="form-validation-demo-name-error"
+            >
+              {{ getFieldError('name') }}
+            </p>
+          }
+        </div>
+
+        <!-- Price -->
+        <div class="form-validation-demo__field">
+          <label class="demo-field-label" for="fv-price">Price *</label>
+          <input
+            id="fv-price"
+            type="number"
+            class="demo-input"
+            [class.demo-input--invalid]="form.get('price')?.invalid && form.get('price')?.touched"
+            formControlName="price"
+            placeholder="0.00"
+            data-testid="form-validation-demo-price-input"
+          />
+          @if (form.get('price')?.invalid && form.get('price')?.touched) {
+            <p
+              class="form-validation-demo__error-text"
+              data-testid="form-validation-demo-price-error"
+            >
+              {{ getFieldError('price') }}
+            </p>
+          }
+        </div>
+
+        <!-- Category -->
+        <div class="form-validation-demo__field">
+          <label class="demo-field-label" for="fv-category">Category *</label>
+          <select
+            id="fv-category"
+            class="demo-select"
+            [class.demo-input--invalid]="
+              form.get('category')?.invalid && form.get('category')?.touched
+            "
+            formControlName="category"
+            data-testid="form-validation-demo-category-input"
+          >
+            <option value="">-- Select --</option>
+            @for (cat of validCategories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+          @if (form.get('category')?.invalid && form.get('category')?.touched) {
+            <p
+              class="form-validation-demo__error-text"
+              data-testid="form-validation-demo-category-error"
+            >
+              {{ getFieldError('category') }}
+            </p>
+          }
+        </div>
+
+        <!-- SKU -->
+        <div class="form-validation-demo__field">
+          <label class="demo-field-label" for="fv-sku">SKU</label>
+          <input
+            id="fv-sku"
+            class="demo-input"
+            [class.demo-input--invalid]="form.get('sku')?.invalid && form.get('sku')?.touched"
+            formControlName="sku"
+            placeholder="ELE-123456"
+            data-testid="form-validation-demo-sku-input"
+          />
+          @if (form.get('sku')?.invalid && form.get('sku')?.touched) {
+            <p
+              class="form-validation-demo__error-text"
+              data-testid="form-validation-demo-sku-error"
+            >
+              {{ getFieldError('sku') }}
+            </p>
+          }
+        </div>
+
+        <!-- Tags -->
+        <div class="form-validation-demo__field">
+          <label class="form-validation-demo__label">Tags (max 5)</label>
+          <div class="form-validation-demo__tags-row">
+            @for (tag of tags(); track tag; let i = $index) {
+              <span
+                class="form-validation-demo__tag"
+                [attr.data-testid]="'form-validation-demo-tag-' + i"
+              >
+                {{ tag }}
+                <button
+                  type="button"
+                  class="form-validation-demo__tag-remove"
+                  (click)="removeTag(i)"
+                  [attr.data-testid]="'form-validation-demo-tag-remove-' + i"
+                >
+                  &times;
+                </button>
+              </span>
+            }
+          </div>
+          <div class="form-validation-demo__add-tag">
+            <input
+              #tagInput
+              class="demo-input demo-input--sm"
+              style="max-width: 10rem"
+              placeholder="Add tag"
+              (keydown.enter)="addTag(tagInput.value); tagInput.value = ''"
+              data-testid="form-validation-demo-tag-input"
+            />
+          </div>
+        </div>
+
+        <div class="demo-actions-row">
+          <button type="submit" class="demo-button" data-testid="form-validation-demo-submit">
+            Submit
+          </button>
+          <button
+            type="button"
+            class="demo-button demo-button--ghost"
+            (click)="resetForm()"
+            data-testid="form-validation-demo-clear"
+          >
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <!-- Page-level errors -->
+      @if (apiErrorState().length > 0) {
+        <div
+          class="form-validation-demo__page-errors"
+          data-testid="form-validation-demo-page-errors"
+        >
+          <p class="demo-eyebrow">Page-level errors</p>
+          @for (error of apiErrorState(); track error) {
+            <p
+              class="form-validation-demo__page-error"
+              data-testid="form-validation-demo-page-error"
+            >
+              {{ error.message }}
+            </p>
+          }
+        </div>
+      }
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="form-validation-demo-inspector-panel"
+    snapshotTestId="form-validation-demo-snapshot-json"
+    codeTestId="form-validation-demo-code-sample"
+    title="Live form and error state"
+    summary="The form state, tags, and validation errors update live as you interact with the demo."
+    [snapshotJson]="snapshotJson()"
+    [docsLinks]="demoEntry.docsLinks"
+    [snippetId]="demoEntry.codeSample.snippetId"
+  />
+</demo-page-layout>

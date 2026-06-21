@@ -69,6 +69,7 @@ function createGeneratedCurrentPackages() {
   return currentPackages.map((pkg) => ({
     id: pkg.id,
     packageName: pkg.packageName,
+    category: pkg.category,
     status: pkg.status,
     scope: pkg.scope,
     summary: pkg.summary,
@@ -109,6 +110,7 @@ export interface GeneratedCatalogLink {
 export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
+  readonly category: string | null;
   readonly status: 'Released' | 'In Progress' | 'Available';
   readonly scope: 'Angular' | '.NET';
   readonly summary: string;

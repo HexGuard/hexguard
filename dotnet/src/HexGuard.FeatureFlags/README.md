@@ -52,17 +52,17 @@ app.Run();
 
 ### Targeting Rules
 
-| Rule | Description |
-|---|---|
-| `AlwaysRule` | Enabled for all users |
-| `NeverRule` | Disabled for all users |
-| `RolloutRule` | Enabled for a percentage of users (deterministic FNV-1a hash) |
-| `UserInRule` | Enabled for specific user IDs |
-| `UserNotInRule` | Disabled for specific user IDs |
-| `GroupInRule` | Enabled for users in specific groups |
-| `GroupNotInRule` | Disabled for users in specific groups |
-| `AttributeMatchRule` | Enabled when a context attribute matches |
-| `AttributeNotMatchRule` | Disabled when a context attribute matches |
+| Rule                    | Description                                                   |
+| ----------------------- | ------------------------------------------------------------- |
+| `AlwaysRule`            | Enabled for all users                                         |
+| `NeverRule`             | Disabled for all users                                        |
+| `RolloutRule`           | Enabled for a percentage of users (deterministic FNV-1a hash) |
+| `UserInRule`            | Enabled for specific user IDs                                 |
+| `UserNotInRule`         | Disabled for specific user IDs                                |
+| `GroupInRule`           | Enabled for users in specific groups                          |
+| `GroupNotInRule`        | Disabled for users in specific groups                         |
+| `AttributeMatchRule`    | Enabled when a context attribute matches                      |
+| `AttributeNotMatchRule` | Disabled when a context attribute matches                     |
 
 Rules are evaluated **first-match-wins** in the order they appear.
 
@@ -70,10 +70,10 @@ Rules are evaluated **first-match-wins** in the order they appear.
 
 When you call `app.MapFeatureFlagEndpoints()`, two endpoints are registered:
 
-| Endpoint | Description |
-|---|---|
-| `GET {prefix}/sync?contextHash={hash}` | Returns full flag catalog with new hash, or 304 if unchanged |
-| `GET {prefix}/evaluate?key={key}&userId={userId}&tenantId={tenantId}` | Evaluates a single flag |
+| Endpoint                                                              | Description                                                  |
+| --------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `GET {prefix}/sync?contextHash={hash}`                                | Returns full flag catalog with new hash, or 304 if unchanged |
+| `GET {prefix}/evaluate?key={key}&userId={userId}&tenantId={tenantId}` | Evaluates a single flag                                      |
 
 The default prefix is `/api/feature-flags`. Customize it by passing a
 `pathPrefix` argument:

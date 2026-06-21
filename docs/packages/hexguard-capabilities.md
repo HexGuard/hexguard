@@ -6,12 +6,12 @@ Persona-based capability and role evaluation for ASP.NET Core APIs. The .NET cou
 
 ### Core Types
 
-| Type | Description |
-|---|---|
-| `CapabilitySet` | Sealed record with `Roles` (`IReadOnlyList<string>`) and `Permissions` (`IReadOnlyDictionary<string, IReadOnlyList<string>>`) |
-| `CapabilityCheckRequest` | Request model with `Resource` and `Action` |
-| `CapabilityCheckResponse` | Response model with `Allowed` boolean |
-| `CapabilitiesOptions` | Options class for configuring in-memory capability data per user |
+| Type                      | Description                                                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `CapabilitySet`           | Sealed record with `Roles` (`IReadOnlyList<string>`) and `Permissions` (`IReadOnlyDictionary<string, IReadOnlyList<string>>`) |
+| `CapabilityCheckRequest`  | Request model with `Resource` and `Action`                                                                                    |
+| `CapabilityCheckResponse` | Response model with `Allowed` boolean                                                                                         |
+| `CapabilitiesOptions`     | Options class for configuring in-memory capability data per user                                                              |
 
 ### Service Interface
 
@@ -71,30 +71,31 @@ app.MapGroup("/api/capabilities").MapCapabilityEndpoints();
 
 The shared `HexGuard.SampleApi` extends the library endpoints with persona support:
 
-| Endpoint | Description |
-|---|---|
-| `GET /api/capabilities/personas` | Returns available demo personas |
+| Endpoint                                       | Description                              |
+| ---------------------------------------------- | ---------------------------------------- |
+| `GET /api/capabilities/personas`               | Returns available demo personas          |
 | `GET /api/capabilities/user?persona={persona}` | Returns the capability set for a persona |
 
 ## Personas
 
 Four demo personas are available:
 
-| Persona | Roles | Capabilities |
-|---|---|---|
-| `guest` | `["guest"]` | `orders: [read]` |
-| `analyst` | `["analyst"]` | `orders: [read], reports: [read]` |
-| `approver` | `["approver"]` | `orders: [read, update]` |
-| `admin` | `["admin", "analyst", "approver"]` | `orders: [create, read, update, delete], reports: [read, create], users: [read, create, update, delete]` |
+| Persona    | Roles                              | Capabilities                                                                                             |
+| ---------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `guest`    | `["guest"]`                        | `orders: [read]`                                                                                         |
+| `analyst`  | `["analyst"]`                      | `orders: [read], reports: [read]`                                                                        |
+| `approver` | `["approver"]`                     | `orders: [read, update]`                                                                                 |
+| `admin`    | `["admin", "analyst", "approver"]` | `orders: [create, read, update, delete], reports: [read, create], users: [read, create, update, delete]` |
 
 ## Cross-Stack Pairing
 
-| Side | Package |
-|---|---|
-| .NET | `HexGuard.Capabilities` |
+| Side    | Package                         |
+| ------- | ------------------------------- |
+| .NET    | `HexGuard.Capabilities`         |
 | Angular | `@hexguard/angular-permissions` |
 
 Both packages share:
+
 - Same role/permission contract shape (`CapabilitySet` ↔ `PermissionContext`)
 - Persona-based evaluation semantics
 - Same SampleApi endpoints for end-to-end integration
@@ -109,7 +110,7 @@ import { provideCapabilitySync } from '@hexguard/angular-permissions';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideCapabilitySync({
-      fetch: () => fetch('/api/capabilities/user').then(r => r.json()),
+      fetch: () => fetch('/api/capabilities/user').then((r) => r.json()),
       refreshIntervalMs: 60_000,
     }),
     // ... other providers

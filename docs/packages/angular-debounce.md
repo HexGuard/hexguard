@@ -16,15 +16,15 @@ The package is intentionally narrow:
 
 ## Feature Matrix
 
-| Capability                       | Status    | Notes                                                         |
-| -------------------------------- | --------- | ------------------------------------------------------------- |
-| Trailing-only debounce (default) | Available | Emits `dueTime` ms after the last `set()` call                |
-| Leading-only debounce            | Available | Emits immediately on every `set()`, no trailing emission      |
-| Both edges                       | Available | Emits immediately on `set()` and again after settling         |
-| `isPending` signal               | Available | Tracks whether a trailing flush is scheduled                  |
-| `flush()`                        | Available | Immediately emits the current pending value                   |
-| `cancel()`                       | Available | Cancels pending timeout without emitting                      |
-| Zero dependencies                | ✅        | Only `@angular/core` + `tslib`                                |
+| Capability                       | Status    | Notes                                                    |
+| -------------------------------- | --------- | -------------------------------------------------------- |
+| Trailing-only debounce (default) | Available | Emits `dueTime` ms after the last `set()` call           |
+| Leading-only debounce            | Available | Emits immediately on every `set()`, no trailing emission |
+| Both edges                       | Available | Emits immediately on `set()` and again after settling    |
+| `isPending` signal               | Available | Tracks whether a trailing flush is scheduled             |
+| `flush()`                        | Available | Immediately emits the current pending value              |
+| `cancel()`                       | Available | Cancels pending timeout without emitting                 |
+| Zero dependencies                | ✅        | Only `@angular/core` + `tslib`                           |
 
 ## Public API Map
 
@@ -38,11 +38,11 @@ The package is intentionally narrow:
 
 ### Edge Modes
 
-| Mode | `leading` | `trailing` | Behavior |
-|------|-----------|------------|----------|
-| Trailing (default) | `false` | `true` | Every `set()` restarts a `dueTime` timer. The value emits when the timer expires without further changes. This is the standard debounce used for search-as-you-type. |
-| Leading only | `true` | `false` | Every `set()` immediately updates the output signal. No timer is started. Good for immediate feedback where you still want to batch a downstream effect separately. |
-| Both edges | `true` | `true` | Each `set()` immediately emits (leading) and also restarts the timer for a trailing emission. Good for form inputs that should feel responsive while still debouncing validation or sync. |
+| Mode               | `leading` | `trailing` | Behavior                                                                                                                                                                                  |
+| ------------------ | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Trailing (default) | `false`   | `true`     | Every `set()` restarts a `dueTime` timer. The value emits when the timer expires without further changes. This is the standard debounce used for search-as-you-type.                      |
+| Leading only       | `true`    | `false`    | Every `set()` immediately updates the output signal. No timer is started. Good for immediate feedback where you still want to batch a downstream effect separately.                       |
+| Both edges         | `true`    | `true`     | Each `set()` immediately emits (leading) and also restarts the timer for a trailing emission. Good for form inputs that should feel responsive while still debouncing validation or sync. |
 
 ### Leading-Only vs Both Edges
 
@@ -79,20 +79,20 @@ Invalid option combinations (e.g. both `leading: false` and `trailing: false`) a
 
 ### `debouncedSignal<T>(initialValue, dueTime, options?)`
 
-| Parameter     | Required | Description                                           |
-| ------------- | -------- | ----------------------------------------------------- |
-| `initialValue` | yes     | The initial value exposed by `value()` until `set()`  |
-| `dueTime`     | yes      | Debounce delay in milliseconds                        |
-| `options`     | no       | Optional leading/trailing edge configuration          |
+| Parameter      | Required | Description                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `initialValue` | yes      | The initial value exposed by `value()` until `set()` |
+| `dueTime`      | yes      | Debounce delay in milliseconds                       |
+| `options`      | no       | Optional leading/trailing edge configuration         |
 
 Returns `DebouncedValue<T>`.
 
 ### `DebounceOptions`
 
-| Field      | Type      | Default | Description                                      |
-| ---------- | --------- | ------- | ------------------------------------------------ |
-| `leading`  | `boolean` | `false` | Emit immediately on `set()`                      |
-| `trailing` | `boolean` | `true`  | Emit after `dueTime` ms of inactivity            |
+| Field      | Type      | Default | Description                           |
+| ---------- | --------- | ------- | ------------------------------------- |
+| `leading`  | `boolean` | `false` | Emit immediately on `set()`           |
+| `trailing` | `boolean` | `true`  | Emit after `dueTime` ms of inactivity |
 
 ### `DebouncedValue<T>`
 
@@ -109,6 +109,7 @@ interface DebouncedValue<T> {
 ### Usage Examples
 
 **Basic trailing debounce (search input):**
+
 ```ts
 const search = debouncedSignal('', 300);
 
@@ -122,6 +123,7 @@ effect(() => {
 ```
 
 **Leading-edge for immediate feedback:**
+
 ```ts
 const counter = debouncedSignal(0, 1000, { leading: true, trailing: false });
 
@@ -129,6 +131,7 @@ counter.set(counter.value() + 1); // updates immediately on every click
 ```
 
 **Both edges for responsive forms:**
+
 ```ts
 const formValue = debouncedSignal(initialData, 500, { leading: true, trailing: true });
 
@@ -137,12 +140,12 @@ formValue.set(newData); // renders immediately, also debounces save
 
 ## Comparison with RxJS debounce
 
-| Aspect | `@hexguard/angular-debounce` | RxJS `debounceTime` |
-|--------|------------------------------|---------------------|
-| Dependency | `@angular/core` only | `rxjs` + `rxjs` operators |
-| Injection context | Not needed | Needs subscription management |
-| Imperative control | `flush()`, `cancel()` built-in | Manual `Subject` + subscription |
-| Signal output | Native `Signal<T>` | `toSignal()` conversion needed |
-| Edge modes | Leading, trailing, both | `debounceTime` (trailing only) or `throttleTime` |
+| Aspect             | `@hexguard/angular-debounce`   | RxJS `debounceTime`                              |
+| ------------------ | ------------------------------ | ------------------------------------------------ |
+| Dependency         | `@angular/core` only           | `rxjs` + `rxjs` operators                        |
+| Injection context  | Not needed                     | Needs subscription management                    |
+| Imperative control | `flush()`, `cancel()` built-in | Manual `Subject` + subscription                  |
+| Signal output      | Native `Signal<T>`             | `toSignal()` conversion needed                   |
+| Edge modes         | Leading, trailing, both        | `debounceTime` (trailing only) or `throttleTime` |
 
 Choose this package when you want a native signal debounce without RxJS. Choose RxJS when you're already using observables in the same pipeline.

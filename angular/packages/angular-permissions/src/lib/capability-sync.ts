@@ -9,10 +9,7 @@ import {
   type WritableSignal,
   DestroyRef,
 } from '@angular/core';
-import {
-  EMPTY_PERMISSION_CONTEXT,
-  provideHexGuardPermissions,
-} from './permission-context';
+import { EMPTY_PERMISSION_CONTEXT, provideHexGuardPermissions } from './permission-context';
 import type { PermissionContext, PermissionKey } from './types';
 
 // ──────────────────────────────────────────────────────────────
@@ -69,10 +66,9 @@ export interface CapabilitySyncConfig {
 // helper can push updates into the permission context.
 // ──────────────────────────────────────────────────────────────
 
-export const CAPABILITY_SYNC_CONTEXT =
-  new InjectionToken<WritableSignal<PermissionContext>>(
-    'CAPABILITY_SYNC_CONTEXT',
-  );
+export const CAPABILITY_SYNC_CONTEXT = new InjectionToken<WritableSignal<PermissionContext>>(
+  'CAPABILITY_SYNC_CONTEXT',
+);
 
 // ──────────────────────────────────────────────────────────────
 // Pure mapper
@@ -86,10 +82,7 @@ export const CAPABILITY_SYNC_CONTEXT =
  * @param separator - Separator between resource and action.
  * @returns A permission context ready for evaluation.
  */
-export function toPermissionContext(
-  source: CapabilitySet,
-  separator = '.',
-): PermissionContext {
+export function toPermissionContext(source: CapabilitySet, separator = '.'): PermissionContext {
   const capabilities: PermissionKey[] = [];
 
   for (const [resource, actions] of Object.entries(source.permissions)) {
@@ -133,15 +126,11 @@ export function toPermissionContext(
  * };
  * ```
  */
-export function provideCapabilitySync(
-  config: CapabilitySyncConfig = {},
-): EnvironmentProviders {
+export function provideCapabilitySync(config: CapabilitySyncConfig = {}): EnvironmentProviders {
   const ctx = signal<PermissionContext>(EMPTY_PERMISSION_CONTEXT);
   const separator = config.separator ?? '.';
 
-  const providers: Provider[] = [
-    { provide: CAPABILITY_SYNC_CONTEXT, useValue: ctx },
-  ];
+  const providers: Provider[] = [{ provide: CAPABILITY_SYNC_CONTEXT, useValue: ctx }];
 
   if (config.fetch) {
     const doFetch = async (): Promise<void> => {
@@ -158,20 +147,21 @@ export function provideCapabilitySync(
       multi: true,
       useValue: () => {
         const destroyRef = inject(DestroyRef);
-        setTimeout(() => { void doFetch(); });
+        setTimeout(() => {
+          void doFetch();
+        });
 
         if (config.refreshIntervalMs != null && config.refreshIntervalMs > 0) {
-          const id = setInterval(() => { void doFetch(); }, config.refreshIntervalMs);
+          const id = setInterval(() => {
+            void doFetch();
+          }, config.refreshIntervalMs);
           destroyRef.onDestroy(() => clearInterval(id));
         }
       },
     });
   }
 
-  return makeEnvironmentProviders([
-    ...providers,
-    provideHexGuardPermissions(ctx),
-  ]);
+  return makeEnvironmentProviders([...providers, provideHexGuardPermissions(ctx)]);
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -193,10 +183,7 @@ export function provideCapabilitySync(
  * updateCapabilityContext(data);
  * ```
  */
-export function updateCapabilityContext(
-  source: CapabilitySet,
-  separator = '.',
-): void {
+export function updateCapabilityContext(source: CapabilitySet, separator = '.'): void {
   const ctx = inject(CAPABILITY_SYNC_CONTEXT, { optional: true });
   if (ctx) {
     ctx.set(toPermissionContext(source, separator));

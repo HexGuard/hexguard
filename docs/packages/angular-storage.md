@@ -8,25 +8,25 @@ This page complements the npm-facing README with repo-specific implementation no
 
 ## Feature Matrix
 
-| Capability                     | Status    | Notes                                                       |
-| ------------------------------ | --------- | ----------------------------------------------------------- |
-| Typed signal-backed storage    | Available | `value()` and `meta()` signals for type-safe access         |
-| JSON serialization             | Available | Automatic `JSON.parse`/`JSON.stringify` via envelope         |
-| Schema versioning              | Available | `versionMismatch` meta when stored schema version differs   |
-| TTL expiry                     | Available | `expired` meta for time-sensitive cached data               |
-| Cross-tab sync                 | Available | Listens to `window` `storage` events                         |
-| `patch()` shallow merge        | Available | For object types — merges partial values                    |
-| `clear()` reset                | Available | Removes key from storage and resets signal to default       |
-| Graceful fallback              | Available | In-memory signals when storage throws                       |
-| Zero runtime dependencies      | ✅        | Only `@angular/core` + `tslib`                              |
+| Capability                  | Status    | Notes                                                     |
+| --------------------------- | --------- | --------------------------------------------------------- |
+| Typed signal-backed storage | Available | `value()` and `meta()` signals for type-safe access       |
+| JSON serialization          | Available | Automatic `JSON.parse`/`JSON.stringify` via envelope      |
+| Schema versioning           | Available | `versionMismatch` meta when stored schema version differs |
+| TTL expiry                  | Available | `expired` meta for time-sensitive cached data             |
+| Cross-tab sync              | Available | Listens to `window` `storage` events                      |
+| `patch()` shallow merge     | Available | For object types — merges partial values                  |
+| `clear()` reset             | Available | Removes key from storage and resets signal to default     |
+| Graceful fallback           | Available | In-memory signals when storage throws                     |
+| Zero runtime dependencies   | ✅        | Only `@angular/core` + `tslib`                            |
 
 ## Public API Map
 
-| Export            | Kind     | Role                                                 |
-| ----------------- | -------- | ---------------------------------------------------- |
-| `injectStorage()` | Function | Creates typed storage signals and persistence helpers |
-| `StorageOptions`  | Type     | `{ defaultValue, version?, ttlMs?, storage? }`       |
-| `TypedStorage`    | Type     | Return shape: `value`, `meta`, `set`, `patch`, `clear` |
+| Export            | Kind     | Role                                                      |
+| ----------------- | -------- | --------------------------------------------------------- |
+| `injectStorage()` | Function | Creates typed storage signals and persistence helpers     |
+| `StorageOptions`  | Type     | `{ defaultValue, version?, ttlMs?, storage? }`            |
+| `TypedStorage`    | Type     | Return shape: `value`, `meta`, `set`, `patch`, `clear`    |
 | `StorageMeta`     | Type     | `'stored' \| 'expired' \| 'missing' \| 'versionMismatch'` |
 
 ## Behavior Details
@@ -56,11 +56,11 @@ When `injectStorage(key, options)` is called:
 }
 ```
 
-| Field   | Purpose                           | Present when                    |
-| ------- | --------------------------------- | ------------------------------- |
-| `_value` | The serialized value              | Always                          |
-| `_v`    | Schema version                    | Always (defaults to `1`)        |
-| `_ts`   | Write timestamp (epoch ms)        | Only when `ttlMs` is configured |
+| Field    | Purpose                    | Present when                    |
+| -------- | -------------------------- | ------------------------------- |
+| `_value` | The serialized value       | Always                          |
+| `_v`     | Schema version             | Always (defaults to `1`)        |
+| `_ts`    | Write timestamp (epoch ms) | Only when `ttlMs` is configured |
 
 ### Cross-Tab Synchronization
 
@@ -73,6 +73,7 @@ When another tab modifies storage for the same key, a `StorageEvent` fires on th
 ### Graceful Fallback
 
 Storage access can fail in:
+
 - **Private browsing** (some browsers throw on `setItem`)
 - **Full quota** (storage is full)
 - **Disabled cookies** (some browsers restrict storage)
@@ -82,17 +83,17 @@ When any of these occur, the package keeps the `value` signal updated in memory 
 
 ## Edge Cases
 
-| Scenario                              | Behavior                                                           |
-| ------------------------------------- | ------------------------------------------------------------------ |
-| Key doesn't exist                     | Returns `defaultValue`, meta = `'missing'`                         |
-| Malformed JSON in storage             | Returns `defaultValue`, meta = `'missing'`                         |
-| Wrong schema version                  | Returns `defaultValue`, meta = `'versionMismatch'`                  |
-| TTL expired                           | Returns `defaultValue`, meta = `'expired'`                          |
-| Storage full on write                 | Keeps in-memory value, meta = `'missing'`                           |
-| Key removed in another tab            | Resets to `defaultValue`, meta = `'missing'`                        |
-| Cross-tab update with malformed JSON  | Ignores the event, keeps current value                              |
-| `patch()` on non-object type          | Results in runtime behavior — designed for object types only        |
-| SSR (no window)                       | In-memory signals, no cross-tab sync, no persistence                |
+| Scenario                             | Behavior                                                     |
+| ------------------------------------ | ------------------------------------------------------------ |
+| Key doesn't exist                    | Returns `defaultValue`, meta = `'missing'`                   |
+| Malformed JSON in storage            | Returns `defaultValue`, meta = `'missing'`                   |
+| Wrong schema version                 | Returns `defaultValue`, meta = `'versionMismatch'`           |
+| TTL expired                          | Returns `defaultValue`, meta = `'expired'`                   |
+| Storage full on write                | Keeps in-memory value, meta = `'missing'`                    |
+| Key removed in another tab           | Resets to `defaultValue`, meta = `'missing'`                 |
+| Cross-tab update with malformed JSON | Ignores the event, keeps current value                       |
+| `patch()` on non-object type         | Results in runtime behavior — designed for object types only |
+| SSR (no window)                      | In-memory signals, no cross-tab sync, no persistence         |
 
 ## Envelope Evolution
 

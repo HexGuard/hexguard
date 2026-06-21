@@ -4,7 +4,7 @@ import type { Routes } from '@angular/router';
 import { canActivateFeatureFlag } from '@hexguard/angular-feature-flags';
 import { canActivatePermissions, canMatchPermissions } from '@hexguard/angular-permissions';
 
-import { FeatureFlagsDemoSessionService } from './features/angular-feature-flags/data/feature-flags-demo.data';
+import { FeatureFlagsDemoSessionService } from './features/packages/angular/angular-feature-flags/data/feature-flags-demo.data';
 
 import {
   ANGULAR_API_ERRORS_BACKEND_DEMO,
@@ -25,80 +25,82 @@ import {
   ANGULAR_URL_STATE_ORDERS_DEMO,
   FORM_VALIDATION_DEMO,
 } from './demo-registry';
-import { AngularAsyncStateHomePageComponent } from './features/angular-async-state/pages/angular-async-state-home-page.component';
-import { AsyncStateActionDemoPageComponent } from './features/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
-import { AsyncStateObservableDemoPageComponent } from './features/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component';
-import { AsyncStateValueDemoPageComponent } from './features/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
-import { LookupsBackendDemoPageComponent } from './features/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component';
-import { AngularLookupsHomePageComponent } from './features/angular-lookups/pages/angular-lookups-home-page.component';
-import { LookupsEditorDemoPageComponent } from './features/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component';
-import { LookupsSummaryDemoPageComponent } from './features/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component';
-import { AngularOptimisticStateHomePageComponent } from './features/angular-optimistic-state/pages/angular-optimistic-state-home-page.component';
-import { OptimisticStateBulkDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component';
-import { OptimisticStateInlineEditDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component';
-import { OptimisticStateToggleDemoPageComponent } from './features/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component';
+import { AngularAsyncStateHomePageComponent } from './features/packages/angular/angular-async-state/angular-async-state-home-page.component';
+import { AsyncStateActionDemoPageComponent } from './features/packages/angular/angular-async-state/pages/async-state-action-demo-page/async-state-action-demo-page.component';
+import { AsyncStateObservableDemoPageComponent } from './features/packages/angular/angular-async-state/pages/async-state-observable-demo-page/async-state-observable-demo-page.component';
+import { AsyncStateValueDemoPageComponent } from './features/packages/angular/angular-async-state/pages/async-state-value-demo-page/async-state-value-demo-page.component';
+import { LookupsBackendDemoPageComponent } from './features/packages/angular/angular-lookups/pages/lookups-backend-demo-page/lookups-backend-demo-page.component';
+import { AngularLookupsHomePageComponent } from './features/packages/angular/angular-lookups/angular-lookups-home-page.component';
+import { LookupsEditorDemoPageComponent } from './features/packages/angular/angular-lookups/pages/lookups-editor-demo-page/lookups-editor-demo-page.component';
+import { LookupsSummaryDemoPageComponent } from './features/packages/angular/angular-lookups/pages/lookups-summary-demo-page/lookups-summary-demo-page.component';
+import { AngularOptimisticStateHomePageComponent } from './features/packages/angular/angular-optimistic-state/angular-optimistic-state-home-page.component';
+import { OptimisticStateBulkDemoPageComponent } from './features/packages/angular/angular-optimistic-state/pages/optimistic-state-bulk-demo-page/optimistic-state-bulk-demo-page.component';
+import { OptimisticStateInlineEditDemoPageComponent } from './features/packages/angular/angular-optimistic-state/pages/optimistic-state-inline-edit-demo-page/optimistic-state-inline-edit-demo-page.component';
+import { OptimisticStateToggleDemoPageComponent } from './features/packages/angular/angular-optimistic-state/pages/optimistic-state-toggle-demo-page/optimistic-state-toggle-demo-page.component';
 import {
   AUDIT_ROUTE_REQUIREMENT,
   FINANCE_ROUTE_REQUIREMENT,
-} from './features/angular-permissions/data/permissions-demo.data';
-import { AngularFeatureFlagsHomePageComponent } from './features/angular-feature-flags/angular-feature-flags-home-page.component';
-import { FeatureFlagTogglesDemoPageComponent } from './features/angular-feature-flags/pages/feature-flag-toggles-demo-page/feature-flag-toggles-demo-page.component';
-import { FeatureFlagRoutingDemoPageComponent } from './features/angular-feature-flags/pages/feature-flag-routing-demo-page/feature-flag-routing-demo-page.component';
-import { PremiumContentPageComponent } from './features/angular-feature-flags/pages/premium-content-page/premium-content-page.component';
-import { UpgradePageComponent } from './features/angular-feature-flags/pages/upgrade-page/upgrade-page.component';
-import { AngularSelectionStateHomePageComponent } from './features/angular-selection-state/angular-selection-state-home-page.component';
-import { SelectionStateDemoPageComponent } from './features/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component';
-import { AngularDateUtilsHomePageComponent } from './features/angular-date-utils/angular-date-utils-home-page.component';
-import { DateUtilsDemoPageComponent } from './features/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component';
-import { AngularNetworkStatusHomePageComponent } from './features/angular-network-status/angular-network-status-home-page.component';
-import { NetworkStatusDemoPageComponent } from './features/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component';
-import { AngularStorageHomePageComponent } from './features/angular-storage/angular-storage-home-page.component';
-import { StorageDemoPageComponent } from './features/angular-storage/pages/storage-demo-page/storage-demo-page.component';
-import { AngularBulkOperationsHomePageComponent } from './features/angular-bulk-operations/angular-bulk-operations-home-page.component';
-import { BulkOperationsDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
-import { BulkOperationsApiDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
-import { BulkOperationsLibraryDemoPageComponent } from './features/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component';
-import { AngularPermissionsHomePageComponent } from './features/angular-permissions/pages/angular-permissions-home-page.component';
-import { PermissionActionsDemoPageComponent } from './features/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
+} from './features/packages/angular/angular-permissions/data/permissions-demo.data';
+import { AngularFeatureFlagsHomePageComponent } from './features/packages/angular/angular-feature-flags/angular-feature-flags-home-page.component';
+import { FeatureFlagTogglesDemoPageComponent } from './features/packages/angular/angular-feature-flags/pages/feature-flag-toggles-demo-page/feature-flag-toggles-demo-page.component';
+import { FeatureFlagRoutingDemoPageComponent } from './features/packages/angular/angular-feature-flags/pages/feature-flag-routing-demo-page/feature-flag-routing-demo-page.component';
+import { PremiumContentPageComponent } from './features/packages/angular/angular-feature-flags/pages/premium-content-page/premium-content-page.component';
+import { UpgradePageComponent } from './features/packages/angular/angular-feature-flags/pages/upgrade-page/upgrade-page.component';
+import { AngularSelectionStateHomePageComponent } from './features/packages/angular/angular-selection-state/angular-selection-state-home-page.component';
+import { SelectionStateDemoPageComponent } from './features/packages/angular/angular-selection-state/pages/selection-state-demo-page/selection-state-demo-page.component';
+import { AngularDateUtilsHomePageComponent } from './features/packages/angular/angular-date-utils/angular-date-utils-home-page.component';
+import { DateUtilsDemoPageComponent } from './features/packages/angular/angular-date-utils/pages/date-utils-demo-page/date-utils-demo-page.component';
+import { AngularNetworkStatusHomePageComponent } from './features/packages/angular/angular-network-status/angular-network-status-home-page.component';
+import { NetworkStatusDemoPageComponent } from './features/packages/angular/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component';
+import { AngularStorageHomePageComponent } from './features/packages/angular/angular-storage/angular-storage-home-page.component';
+import { StorageDemoPageComponent } from './features/packages/angular/angular-storage/pages/storage-demo-page/storage-demo-page.component';
+import { AngularBulkOperationsHomePageComponent } from './features/packages/angular/angular-bulk-operations/angular-bulk-operations-home-page.component';
+import { BulkOperationsDemoPageComponent } from './features/packages/angular/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
+import { BulkOperationsApiDemoPageComponent } from './features/packages/angular/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
+import { BulkOperationsLibraryDemoPageComponent } from './features/packages/angular/angular-bulk-operations/pages/bulk-operations-library-demo-page/bulk-operations-library-demo-page.component';
+import { AngularPermissionsHomePageComponent } from './features/packages/angular/angular-permissions/angular-permissions-home-page.component';
+import { PermissionActionsDemoPageComponent } from './features/packages/angular/angular-permissions/pages/permission-actions-demo-page/permission-actions-demo-page.component';
 import {
   PermissionRoutingAuditPanelComponent,
   PermissionRoutingDeniedPanelComponent,
   PermissionRoutingDemoPageComponent,
   PermissionRoutingFinancePanelComponent,
   PermissionRoutingOverviewPanelComponent,
-} from './features/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component';
-import { AngularQueryFormHomePageComponent } from './features/angular-query-form/pages/angular-query-form-home-page.component';
-import { OrdersQueryFormDemoPageComponent } from './features/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
-import { RecoveryQueryFormDemoPageComponent } from './features/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
-import { DotnetHomePageComponent } from './features/dotnet/pages/dotnet-home-page/dotnet-home-page.component';
-import { ReferenceDataDemoPageComponent } from './features/dotnet/pages/reference-data-demo-page/reference-data-demo-page.component';
-import { SampleApiExplorerPageComponent } from './features/dotnet/pages/sample-api-explorer-page/sample-api-explorer-page.component';
-import { ValidationContractsDemoPageComponent } from './features/dotnet/pages/validation-contracts-demo-page/validation-contracts-demo-page.component';
-import { SiteHomePageComponent } from './features/site-home/pages/site-home-page.component';
-import { EcosystemPageComponent } from './features/ecosystems/pages/rfc-9457-ecosystem-page/ecosystem-page.component';
-import { AngularUrlStateHomePageComponent } from './features/angular-url-state/pages/angular-url-state-home-page.component';
-import { DashboardDemoPageComponent } from './features/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
-import { OrdersDemoPageComponent } from './features/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
-import { AngularApiErrorsHomePageComponent } from './features/angular-api-errors/pages/angular-api-errors-home-page.component';
-import { ApiErrorsBackendDemoPageComponent } from './features/angular-api-errors/pages/api-errors-backend-demo-page/api-errors-backend-demo-page.component';
-import { FormValidationDemoPageComponent } from './features/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
-import { AngularDebounceHomePageComponent } from './features/angular-debounce/pages/angular-debounce-home-page.component';
-import { DebounceDemoPageComponent } from './features/angular-debounce/pages/debounce-demo-page/debounce-demo-page.component';
-import { AngularErrorBoundaryHomePageComponent } from './features/angular-error-boundary/pages/angular-error-boundary-home-page.component';
-import { ErrorBoundaryDemoPageComponent } from './features/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
-import { AngularHubPageComponent } from './features/angular-hub/pages/angular-hub-page.component';
-import { AngularNotificationsHomePageComponent } from './features/angular-notifications/pages/angular-notifications-home-page.component';
-import { NotificationsDemoPageComponent } from './features/angular-notifications/pages/notifications-demo-page/notifications-demo-page.component';
-import { CrossStackHubPageComponent } from './features/cross-stack-hub/pages/cross-stack-hub-page.component';
-import { DotnetReferenceDataHubPageComponent } from './features/dotnet/pages/dotnet-reference-data-hub-page/dotnet-reference-data-hub-page.component';
-import { DotnetProblemDetailsHubPageComponent } from './features/dotnet/pages/dotnet-problem-details-hub-page/dotnet-problem-details-hub-page.component';
-import { DotnetFeatureFlagsHubPageComponent } from './features/dotnet/pages/dotnet-feature-flags-hub-page/dotnet-feature-flags-hub-page.component';
-import { DotnetBulkOperationsHubPageComponent } from './features/dotnet/pages/dotnet-bulk-operations-hub-page/dotnet-bulk-operations-hub-page.component';
-import { ProblemDetailsDemoPageComponent } from './features/dotnet/pages/problem-details-demo-page/problem-details-demo-page.component';
-import { FeatureFlagsDemoPageComponent } from './features/dotnet/pages/feature-flags-demo-page/feature-flags-demo-page.component';
-import { DotnetBulkOperationsDemoPageComponent } from './features/dotnet/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
-import { DotnetValidationContractsHubPageComponent } from './features/dotnet/pages/dotnet-validation-contracts-hub-page/dotnet-validation-contracts-hub-page.component';
-import { DotnetCapabilitiesHubPageComponent } from './features/dotnet/pages/dotnet-capabilities-hub-page/dotnet-capabilities-hub-page.component';
+} from './features/packages/angular/angular-permissions/pages/permission-routing-demo-page/permission-routing-demo-page.component';
+import { AngularQueryFormHomePageComponent } from './features/packages/angular/angular-query-form/angular-query-form-home-page.component';
+import { OrdersQueryFormDemoPageComponent } from './features/packages/angular/angular-query-form/pages/orders-query-form-demo-page/orders-query-form-demo-page.component';
+import { RecoveryQueryFormDemoPageComponent } from './features/packages/angular/angular-query-form/pages/recovery-query-form-demo-page/recovery-query-form-demo-page.component';
+import { DotnetHomePageComponent } from './features/packages/dotnet/dotnet-home/dotnet-home-page.component';
+import { ReferenceDataDemoPageComponent } from './features/packages/dotnet/hexguard-reference-data/pages/reference-data-demo-page.component';
+import { SampleApiExplorerPageComponent } from './features/packages/dotnet/hexguard-sample-api/pages/sample-api-explorer-page.component';
+import { ValidationContractsDemoPageComponent } from './features/packages/dotnet/hexguard-validation-contracts/pages/validation-contracts-demo-page.component';
+import { SiteHomePageComponent } from './features/site-home/site-home-page.component';
+import { EcosystemPageComponent } from './features/packages/cross-stack/ecosystems/ecosystem-page.component';
+import { AngularUrlStateHomePageComponent } from './features/packages/angular/angular-url-state/angular-url-state-home-page.component';
+import { DashboardDemoPageComponent } from './features/packages/angular/angular-url-state/pages/dashboard-demo-page/dashboard-demo-page.component';
+import { OrdersDemoPageComponent } from './features/packages/angular/angular-url-state/pages/orders-demo-page/orders-demo-page.component';
+import { AngularApiErrorsHomePageComponent } from './features/packages/angular/angular-api-errors/angular-api-errors-home-page.component';
+import { ApiErrorsBackendDemoPageComponent } from './features/packages/angular/angular-api-errors/pages/api-errors-backend-demo-page/api-errors-backend-demo-page.component';
+import { FormValidationDemoPageComponent } from './features/packages/angular/angular-api-errors/pages/form-validation-demo-page/form-validation-demo-page.component';
+import { AngularDebounceHomePageComponent } from './features/packages/angular/angular-debounce/angular-debounce-home-page.component';
+import { DebounceDemoPageComponent } from './features/packages/angular/angular-debounce/pages/debounce-demo-page/debounce-demo-page.component';
+import { AngularBreakpointObserverHomePageComponent } from './features/packages/angular/angular-breakpoint-observer/angular-breakpoint-observer-home-page.component';
+import { BreakpointObserverDemoPageComponent } from './features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component';
+import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
+import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
+import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
+import { AngularNotificationsHomePageComponent } from './features/packages/angular/angular-notifications/angular-notifications-home-page.component';
+import { NotificationsDemoPageComponent } from './features/packages/angular/angular-notifications/pages/notifications-demo-page/notifications-demo-page.component';
+import { CrossStackHubPageComponent } from './features/packages/cross-stack/cross-stack-hub/cross-stack-hub-page.component';
+import { DotnetReferenceDataHubPageComponent } from './features/packages/dotnet/hexguard-reference-data/dotnet-reference-data-hub-page.component';
+import { DotnetProblemDetailsHubPageComponent } from './features/packages/dotnet/hexguard-problem-details/dotnet-problem-details-hub-page.component';
+import { DotnetFeatureFlagsHubPageComponent } from './features/packages/dotnet/hexguard-feature-flags/dotnet-feature-flags-hub-page.component';
+import { DotnetBulkOperationsHubPageComponent } from './features/packages/dotnet/hexguard-bulk-operations/dotnet-bulk-operations-hub-page.component';
+import { ProblemDetailsDemoPageComponent } from './features/packages/dotnet/hexguard-problem-details/pages/problem-details-demo-page.component';
+import { FeatureFlagsDemoPageComponent } from './features/packages/dotnet/hexguard-feature-flags/pages/feature-flags-demo-page.component';
+import { DotnetBulkOperationsDemoPageComponent } from './features/packages/dotnet/hexguard-bulk-operations/pages/bulk-operations-demo-page.component';
+import { DotnetValidationContractsHubPageComponent } from './features/packages/dotnet/hexguard-validation-contracts/dotnet-validation-contracts-hub-page.component';
+import { DotnetCapabilitiesHubPageComponent } from './features/packages/dotnet/hexguard-capabilities/dotnet-capabilities-hub-page.component';
 
 export const routes: Routes = [
   {
@@ -322,6 +324,16 @@ export const routes: Routes = [
     path: 'packages/angular-debounce/demo',
     component: DebounceDemoPageComponent,
     title: 'Debounce Demo',
+  },
+  {
+    path: 'packages/angular-breakpoint-observer',
+    component: AngularBreakpointObserverHomePageComponent,
+    title: 'Angular Breakpoint Observer Demos',
+  },
+  {
+    path: 'packages/angular-breakpoint-observer/demo',
+    component: BreakpointObserverDemoPageComponent,
+    title: 'Breakpoint Observer Demo',
   },
   {
     path: 'packages/angular-notifications',

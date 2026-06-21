@@ -8,24 +8,24 @@ This page complements the npm-facing README with repo-specific implementation no
 
 ## Feature Matrix
 
-| Capability                       | Status    | Notes                                                         |
-| -------------------------------- | --------- | ------------------------------------------------------------- |
-| Online/offline signals           | Available | Reacts to browser `online`/`offline` events                   |
-| Debounced offline→online transition | Available | Configurable debounce window (default 1000ms)               |
-| Connection type detection        | Available | `navigator.connection.effectiveType` (Chromium only)          |
-| `recentlyBackOnline` indicator   | Available | Configurable duration (default 3000ms)                        |
-| `whenBackOnline()` promise       | Available | Resolves on next online transition; resolves immediately if already online |
-| Automatic cleanup                | ✅        | Via `DestroyRef`                                              |
-| Zero runtime dependencies        | ✅        | Only `@angular/core` + `tslib`                                |
+| Capability                          | Status    | Notes                                                                      |
+| ----------------------------------- | --------- | -------------------------------------------------------------------------- |
+| Online/offline signals              | Available | Reacts to browser `online`/`offline` events                                |
+| Debounced offline→online transition | Available | Configurable debounce window (default 1000ms)                              |
+| Connection type detection           | Available | `navigator.connection.effectiveType` (Chromium only)                       |
+| `recentlyBackOnline` indicator      | Available | Configurable duration (default 3000ms)                                     |
+| `whenBackOnline()` promise          | Available | Resolves on next online transition; resolves immediately if already online |
+| Automatic cleanup                   | ✅        | Via `DestroyRef`                                                           |
+| Zero runtime dependencies           | ✅        | Only `@angular/core` + `tslib`                                             |
 
 ## Public API Map
 
-| Export                  | Kind     | Role                                                  |
-| ----------------------- | -------- | ----------------------------------------------------- |
-| `injectNetworkStatus()` | Function | Creates the network status signals and event listeners |
-| `NetworkStatus`         | Type     | Return shape with signals and `whenBackOnline()`       |
-| `NetworkStatusOptions`  | Type     | `{ onlineDebounceMs?, backOnlineSignalDurationMs? }`  |
-| `EffectiveConnectionType` | Type   | `'slow-2g' \| '2g' \| '3g' \| '4g' \| 'unknown'`    |
+| Export                    | Kind     | Role                                                   |
+| ------------------------- | -------- | ------------------------------------------------------ |
+| `injectNetworkStatus()`   | Function | Creates the network status signals and event listeners |
+| `NetworkStatus`           | Type     | Return shape with signals and `whenBackOnline()`       |
+| `NetworkStatusOptions`    | Type     | `{ onlineDebounceMs?, backOnlineSignalDurationMs? }`   |
+| `EffectiveConnectionType` | Type     | `'slow-2g' \| '2g' \| '3g' \| '4g' \| 'unknown'`       |
 
 ## Behavior Details
 
@@ -55,17 +55,18 @@ Uses the [Network Information API](https://developer.mozilla.org/en-US/docs/Web/
 
 ## Edge Cases
 
-| Scenario                          | Behavior                                                        |
-| --------------------------------- | --------------------------------------------------------------- |
-| Browser doesn't support `online`/`offline` events | `online` signal stays at its initial value (`navigator.onLine`) |
-| Private browsing without localStorage | Not applicable — this package does not use storage           |
-| Rapid online/offline toggling     | Debounce prevents flickering; trailing offline always wins      |
-| Multiple `whenBackOnline()` calls | Only the most recent promise is tracked; earlier promises never resolve |
-| DestroyRef cleanup                | All event listeners and pending timers are cleaned up           |
+| Scenario                                          | Behavior                                                                |
+| ------------------------------------------------- | ----------------------------------------------------------------------- |
+| Browser doesn't support `online`/`offline` events | `online` signal stays at its initial value (`navigator.onLine`)         |
+| Private browsing without localStorage             | Not applicable — this package does not use storage                      |
+| Rapid online/offline toggling                     | Debounce prevents flickering; trailing offline always wins              |
+| Multiple `whenBackOnline()` calls                 | Only the most recent promise is tracked; earlier promises never resolve |
+| DestroyRef cleanup                                | All event listeners and pending timers are cleaned up                   |
 
 ## DOM Dependency
 
 This package requires the `window` and `navigator` globals. In SSR environments where these are not available, the package degrades gracefully:
+
 - `online` signal initializes to `true`
 - `connectionType` signal initializes to `'unknown'`
 - No event listeners are registered

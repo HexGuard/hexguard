@@ -19,6 +19,8 @@
       "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"],
       "@hexguard/angular-selection-state": ["./packages/angular-selection-state/src/public-api.ts"],
       "@hexguard/angular-bulk-operations": ["./packages/angular-bulk-operations/src/public-api.ts"],
+      "@hexguard/angular-breakpoint-observer": ["./packages/angular-breakpoint-observer/src/public-api.ts"],
+      "@hexguard/angular-visibility": ["./packages/angular-visibility/src/public-api.ts"],
       "@hexguard/angular-date-utils": ["./packages/angular-date-utils/src/public-api.ts"],
       "@hexguard/angular-network-status": ["./packages/angular-network-status/src/public-api.ts"],
       "@hexguard/angular-storage": ["./packages/angular-storage/src/public-api.ts"]

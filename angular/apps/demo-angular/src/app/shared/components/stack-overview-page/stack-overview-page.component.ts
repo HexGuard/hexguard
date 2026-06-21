@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PackageCardComponent } from '../package-card/package-card.component';
@@ -10,7 +10,15 @@ import {
   SITE_SHARED_API_CONSUMERS,
   SECTION_COLLAPSED_LIMIT,
   type StackId,
+  type UnifiedPackageEntry,
 } from '../../../site-catalog';
+import {
+  PACKAGE_CATEGORIES,
+  groupPackagesByCategory,
+  getCategoryLabel,
+  getCategoryDescription,
+  sortCategoryEntries,
+} from '../../package-categories';
 
 @Component({
   selector: 'demo-stack-overview-page',
@@ -45,25 +53,73 @@ import {
             </p>
           </div>
 
-          <div class="stack-overview__grid">
-            @for (entry of displayed(); track entry.id) {
-              <demo-package-card [entry]="entry" />
-            }
-          </div>
+          <!-- Category filter chips (Angular stack only) -->
+          @if (stackId() === 'angular' && categories().length > 0) {
+            <div class="stack-category-filter" role="group" aria-label="Filter by category">
+              <button
+                type="button"
+                class="stack-category-chip"
+                [class.stack-category-chip--active]="activeCategory() === null"
+                (click)="activeCategory.set(null)"
+                [attr.data-testid]="testId() + '-category-all'"
+              >
+                All
+              </button>
+              @for (cat of categories(); track cat) {
+                <button
+                  type="button"
+                  class="stack-category-chip"
+                  [class.stack-category-chip--active]="activeCategory() === cat"
+                  (click)="activeCategory.set(cat)"
+                  [attr.data-testid]="
+                    testId() + '-category-' + cat.replace(/\\s+/g, '-').toLowerCase()
+                  "
+                >
+                  {{ getCategoryLabel(cat) }}
+                </button>
+              }
+            </div>
+          }
 
-          @if (packages().length > sectionCollapsedLimit) {
-            <button
-              class="stack-overview__expand-toggle"
-              type="button"
-              (click)="showAll.set(!showAll())"
-              [attr.data-testid]="testId() + '-expand-toggle'"
-            >
-              {{
-                showAll()
-                  ? 'Show fewer packages'
-                  : 'Show all ' + packages().length + ' ' + stackDef().label + ' packages'
-              }}
-            </button>
+          <!-- Category-grouped sections when showing all -->
+          @if (activeCategory() === null && stackId() === 'angular') {
+            @for (entry of categoryGroups(); track entry[0]) {
+              <div class="stack-category-section">
+                <div class="stack-category-header">
+                  <p class="demo-eyebrow">{{ getCategoryLabel(entry[0]) }}</p>
+                  @if (getCategoryDescription(entry[0]); as desc) {
+                    <p class="demo-card__summary">{{ desc }}</p>
+                  }
+                </div>
+                <div class="stack-overview__grid">
+                  @for (pkg of entry[1]; track pkg.id) {
+                    <demo-package-card [entry]="pkg" />
+                  }
+                </div>
+              </div>
+            }
+          } @else {
+            <!-- Flat grid when filtered by category or non-Angular stack -->
+            <div class="stack-overview__grid">
+              @for (entry of displayed(); track entry.id) {
+                <demo-package-card [entry]="entry" />
+              }
+            </div>
+
+            @if (packages().length > sectionCollapsedLimit) {
+              <button
+                class="stack-overview__expand-toggle"
+                type="button"
+                (click)="showAll.set(!showAll())"
+                [attr.data-testid]="testId() + '-expand-toggle'"
+              >
+                {{
+                  showAll()
+                    ? 'Show fewer packages'
+                    : 'Show all ' + packages().length + ' ' + stackDef().label + ' packages'
+                }}
+              </button>
+            }
           }
         </section>
 
@@ -183,10 +239,81 @@ import {
         background: rgba(248, 252, 251, 0.72);
         border-color: rgba(13, 73, 82, 0.14);
       }
+
+      /* Category filter bar */
+      .stack-category-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.75rem 0;
+      }
+      .stack-category-chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        padding: 0.3rem 0.75rem;
+        border: 1px solid var(--color-accent-border);
+        border-radius: var(--radius-pill);
+        background: var(--color-surface);
+        color: var(--color-accent-strong);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition:
+          transform 150ms ease,
+          border-color 150ms ease,
+          background 150ms ease,
+          box-shadow 150ms ease;
+      }
+      .stack-category-chip:hover,
+      .stack-category-chip:focus-visible {
+        transform: translateY(-1px);
+        border-color: var(--color-accent-border-strong);
+        background: var(--color-surface-strong);
+        box-shadow: var(--shadow-soft);
+      }
+      .stack-category-chip--active {
+        background: var(--color-accent-strong);
+        color: white;
+        border-color: var(--color-accent-strong);
+      }
+      .stack-category-chip--active:hover {
+        background: var(--color-accent-strong);
+        border-color: var(--color-accent-strong);
+      }
+
+      /* Category section groups */
+      .stack-category-section {
+        display: grid;
+        gap: 0.75rem;
+        padding-top: 0.5rem;
+      }
+      .stack-category-header {
+        display: grid;
+        gap: 0.25rem;
+      }
+      .stack-category-header .demo-eyebrow {
+        margin: 0;
+        font-size: 1rem;
+      }
+      .stack-category-header .demo-card__summary {
+        margin: 0;
+        max-width: 42rem;
+      }
+
       @media (max-width: 720px) {
         .stack-overview__expand-toggle {
           width: 100%;
           justify-self: stretch;
+        }
+        .stack-category-filter {
+          gap: 0.4rem;
+        }
+        .stack-category-chip {
+          font-size: 0.72rem;
+          padding: 0.25rem 0.6rem;
         }
       }
     `,
@@ -198,8 +325,12 @@ export class StackOverviewPageComponent {
   readonly testId = input.required<string>();
   readonly sectionCollapsedLimit = SECTION_COLLAPSED_LIMIT;
   readonly showAll = signal(false);
+  readonly activeCategory = signal<string | null>(null);
   readonly sharedApiConsumers = SITE_SHARED_API_CONSUMERS;
   readonly allPackages = getUnifiedPackages();
+
+  protected readonly getCategoryLabel = getCategoryLabel;
+  protected readonly getCategoryDescription = getCategoryDescription;
 
   protected readonly stackDef = () => STACK_REGISTRY[this.stackId()];
 
@@ -215,6 +346,24 @@ export class StackOverviewPageComponent {
 
   protected readonly packages = () => this.allPackages.filter((p) => p.scope === this.stackId());
 
+  /** Unique category IDs present in the current stack's packages. */
+  protected readonly categories = computed(() => {
+    const pkgs = this.packages();
+    const cats = new Set<string>();
+    for (const p of pkgs) {
+      if (p.category) cats.add(p.category);
+    }
+    // Return in canonical order
+    return PACKAGE_CATEGORIES.map((c) => c.id).filter((id) => cats.has(id));
+  });
+
+  /** Packages grouped by category (only used when activeCategory is null). */
+  protected readonly categoryGroups = computed(() => {
+    const filtered = this.packages();
+    const groups = groupPackagesByCategory(filtered);
+    return sortCategoryEntries([...groups.entries()]);
+  });
+
   /** Links to all OTHER stacks for cross-navigation. */
   protected readonly siblingLinks = () =>
     STACK_ORDER.filter((id) => id !== this.stackId() && id !== 'cross-stack').map((id) => ({
@@ -222,8 +371,14 @@ export class StackOverviewPageComponent {
       label: `Explore ${STACK_REGISTRY[id].label} packages`,
     }));
 
-  protected readonly displayed = () => {
-    const filtered = this.packages();
+  /** Filtered packages (by active category if set, or all). */
+  protected readonly displayed = (): readonly UnifiedPackageEntry[] => {
+    let filtered = this.packages();
+
+    if (this.activeCategory() !== null) {
+      filtered = filtered.filter((p) => p.category === this.activeCategory());
+    }
+
     return this.showAll() ? filtered : filtered.slice(0, this.sectionCollapsedLimit);
   };
 }

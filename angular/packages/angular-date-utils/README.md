@@ -36,48 +36,48 @@ class MyComponent {
 
 ## Features
 
-| Feature                                | Status | Notes                                               |
-| -------------------------------------- | ------ | --------------------------------------------------- |
-| Relative time (`"2 days ago"`)         | ✅     | Intl.RelativeTimeFormat, auto unit selection         |
-| Short relative time (`"5m ago"`)       | ✅     | Narrow style for compact UIs                        |
-| Exact relative time (`"2d 4h ago"`)    | ✅     | Two-unit precision                                  |
-| Compact date (`"Jun 17"`)              | ✅     | Omits year for current-year dates                   |
-| Compact date+time (`"Jun 17, 3:45 PM"`)| ✅     | With time, year-omission logic                      |
-| Duration formatting (`"5d 3h"`)        | ✅     | Up to two most-significant units                    |
-| `ageInYears()`                         | ✅     | Full-year age calculation from birth date           |
-| `isWeekend() / addBusinessDays()`      | ✅     | Business-day (weekday) math                         |
-| `businessDaysBetween()`                | ✅     | Counts weekdays between dates                       |
-| `DateRange` model                      | ✅     | Validation, containment, overlap, preset factories  |
-| `injectDateUtils()` DI facade          | ✅     | Captures LOCALE_ID from Angular DI                  |
-| Zero runtime dependencies              | ✅     | Only `@angular/core` + `tslib` (for DI facade)      |
+| Feature                                 | Status | Notes                                              |
+| --------------------------------------- | ------ | -------------------------------------------------- |
+| Relative time (`"2 days ago"`)          | ✅     | Intl.RelativeTimeFormat, auto unit selection       |
+| Short relative time (`"5m ago"`)        | ✅     | Narrow style for compact UIs                       |
+| Exact relative time (`"2d 4h ago"`)     | ✅     | Two-unit precision                                 |
+| Compact date (`"Jun 17"`)               | ✅     | Omits year for current-year dates                  |
+| Compact date+time (`"Jun 17, 3:45 PM"`) | ✅     | With time, year-omission logic                     |
+| Duration formatting (`"5d 3h"`)         | ✅     | Up to two most-significant units                   |
+| `ageInYears()`                          | ✅     | Full-year age calculation from birth date          |
+| `isWeekend() / addBusinessDays()`       | ✅     | Business-day (weekday) math                        |
+| `businessDaysBetween()`                 | ✅     | Counts weekdays between dates                      |
+| `DateRange` model                       | ✅     | Validation, containment, overlap, preset factories |
+| `injectDateUtils()` DI facade           | ✅     | Captures LOCALE_ID from Angular DI                 |
+| Zero runtime dependencies               | ✅     | Only `@angular/core` + `tslib` (for DI facade)     |
 
 ## Demo routes
 
-| Route                             | Description                                              |
-| --------------------------------- | -------------------------------------------------------- |
-| `/packages/angular-date-utils`    | Package hub page with catalog overview                   |
-| `/packages/angular-date-utils/demo` | Live formatting playground with inspector panel        |
+| Route                               | Description                                     |
+| ----------------------------------- | ----------------------------------------------- |
+| `/packages/angular-date-utils`      | Package hub page with catalog overview          |
+| `/packages/angular-date-utils/demo` | Live formatting playground with inspector panel |
 
 ## Public API
 
-| Export                 | Kind     | Description                                      |
-| ---------------------- | -------- | ------------------------------------------------ |
-| `injectDateUtils()`    | Function | DI facade returning `DateUtilsFacade`            |
-| `relativeTime()`       | Function | Human-readable relative time                     |
-| `shortRelativeTime()`  | Function | Compact relative time (narrow style)             |
-| `exactRelativeTime()`  | Function | Two-unit precision relative time                 |
-| `compactDate()`        | Function | Compact date string                              |
-| `compactDateTime()`    | Function | Compact date + time string                       |
-| `formatDuration()`     | Function | Compact duration string                          |
-| `ageInYears()`         | Function | Age in full years                                |
-| `isWeekend()`          | Function | Weekend check                                    |
-| `addBusinessDays()`    | Function | Add/subtract business days                       |
-| `businessDaysBetween()`| Function | Count business days between dates                |
-| `durationBetween()`    | Function | Duration breakdown between two dates             |
-| `DateRange`            | Class    | Immutable date range model                       |
-| `Duration`             | Type     | `{ days, hours, minutes, seconds }`              |
-| `DateUtilsOptions`     | Type     | Optional `{ locale }` config                     |
-| `DateUtilsFacade`      | Type     | Return type of `injectDateUtils()`               |
+| Export                  | Kind     | Description                           |
+| ----------------------- | -------- | ------------------------------------- |
+| `injectDateUtils()`     | Function | DI facade returning `DateUtilsFacade` |
+| `relativeTime()`        | Function | Human-readable relative time          |
+| `shortRelativeTime()`   | Function | Compact relative time (narrow style)  |
+| `exactRelativeTime()`   | Function | Two-unit precision relative time      |
+| `compactDate()`         | Function | Compact date string                   |
+| `compactDateTime()`     | Function | Compact date + time string            |
+| `formatDuration()`      | Function | Compact duration string               |
+| `ageInYears()`          | Function | Age in full years                     |
+| `isWeekend()`           | Function | Weekend check                         |
+| `addBusinessDays()`     | Function | Add/subtract business days            |
+| `businessDaysBetween()` | Function | Count business days between dates     |
+| `durationBetween()`     | Function | Duration breakdown between two dates  |
+| `DateRange`             | Class    | Immutable date range model            |
+| `Duration`              | Type     | `{ days, hours, minutes, seconds }`   |
+| `DateUtilsOptions`      | Type     | Optional `{ locale }` config          |
+| `DateUtilsFacade`       | Type     | Return type of `injectDateUtils()`    |
 
 ## What It Owns
 

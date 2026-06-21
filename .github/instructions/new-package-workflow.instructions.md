@@ -132,6 +132,7 @@ Add scripts following the existing pattern:
 ```
 
 Then integrate into the chain scripts:
+
 - `build:lib` — append `&& ng build angular-{name}`.
 - `test:lib` — append `&& pnpm test:lib:{name}`.
 - `test:ci` — append `&& ng test angular-{name} --watch=false`.
@@ -155,7 +156,7 @@ Add proxy scripts wrapping the angular scripts:
 ### Angular Package Demo
 
 1. **Create feature folder** at `angular/apps/demo-angular/src/app/features/angular-{name}/`:
-   - `angular-{name}-home-page.component.ts` — use the shared `PackageHubPageComponent`.
+   - `angular-{name}-home-page.component.ts` at the **feature root** (not inside `pages/`) — use the shared `PackageHubPageComponent`.
    - `pages/{name}-demo-page/` — use `DemoPageLayoutComponent`, `DemoStatusStripComponent`, `DemoInspectorPanelComponent`.
    - `data/` — mock data and mock API functions.
    - External `.html` and `.css` files alongside the component (needed by snippet generation).
@@ -196,7 +197,7 @@ Add proxy scripts wrapping the angular scripts:
 
 1. **Update `scripts/package-catalog.data.mjs`**:
    - Add the package to `currentPackages` with status `"Available"`.
-   - Include all fields: `id`, `packageName`, `status`, `scope`, `readmePath`, `deepDivePath`, `repositoryPath`, `summary`, `detail`, `installCommand`, `featureHighlights`, `bestFitScenarios`, `statusNoteParagraphs`.
+   - Include all fields: `id`, `packageName`, `status`, `scope`, `category` (one of `'URL & Forms'`, `'Async State'`, `'Data & Reference'`, `'Permissions & Access'`, `'Validation & Errors'`, `'Utilities'`, `'UI Infrastructure'`, or `null` for .NET packages), `readmePath`, `deepDivePath`, `repositoryPath`, `summary`, `detail`, `installCommand`, `featureHighlights`, `bestFitScenarios`, `statusNoteParagraphs`.
 
 2. **Add ecosystem** in `angular/apps/demo-angular/src/app/site-catalog.ts`:
    - For cross-stack pairs: add to `SITE_ECOSYSTEMS`.
@@ -222,17 +223,17 @@ Add proxy scripts wrapping the angular scripts:
 
 Run the `/assess-package-readiness` prompt or manually verify all 9 criteria:
 
-| Category | What to Check |
-|----------|---------------|
-| API Design | narrow `public-api.ts`, JSDoc on all exports, clear names |
-| Implementation Quality | signal-first, no browser globals, deterministic, lifecycle cleanup |
-| Tests | pure helpers covered, integration tests, edge cases, CI passes |
-| Documentation | README, deep-dive doc in `docs/packages/`, JSDoc examples |
-| Demo Integration | routes render, `data-testid` attributes, Playwright tests, snippet generation |
-| Package Metadata | name, version, description, keywords, license, publishConfig |
-| Build Output | `build:lib` succeeds, `verify:package` produces valid tarball |
-| Release Workflow | workflow file exists, tag pattern matches convention |
-| Performance | no unnecessary allocations, in-flight deduplication, stable derived signals |
+| Category               | What to Check                                                                 |
+| ---------------------- | ----------------------------------------------------------------------------- |
+| API Design             | narrow `public-api.ts`, JSDoc on all exports, clear names                     |
+| Implementation Quality | signal-first, no browser globals, deterministic, lifecycle cleanup            |
+| Tests                  | pure helpers covered, integration tests, edge cases, CI passes                |
+| Documentation          | README, deep-dive doc in `docs/packages/`, JSDoc examples                     |
+| Demo Integration       | routes render, `data-testid` attributes, Playwright tests, snippet generation |
+| Package Metadata       | name, version, description, keywords, license, publishConfig                  |
+| Build Output           | `build:lib` succeeds, `verify:package` produces valid tarball                 |
+| Release Workflow       | workflow file exists, tag pattern matches convention                          |
+| Performance            | no unnecessary allocations, in-flight deduplication, stable derived signals   |
 
 ### Validation Command
 
@@ -272,7 +273,9 @@ export function provideMyService<T>(config: MyConfig<T>): {
 // inject.ts
 export function injectMyService<T>(token?: InjectionToken<MyService<T>>): MyServiceFacade<T> {
   const service = token ? inject(token) : inject(MyService);
-  return { /* facade wrapping service */ };
+  return {
+    /* facade wrapping service */
+  };
 }
 
 // consumer.ts

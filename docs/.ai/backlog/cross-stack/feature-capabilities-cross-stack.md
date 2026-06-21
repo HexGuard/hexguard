@@ -12,7 +12,7 @@ package: 'HexGuard.Capabilities + @hexguard/angular-permissions'
 
 Design a coordinated `.NET + Angular` package pair (`HexGuard.Capabilities` + `@hexguard/angular-permissions`) that standardizes backend-issued capability contracts and wires them into Angular's existing permission-evaluation pipeline so action gating and authorization drift less across the stack.
 
-The repeated problem is that Angular permission checks (`*hexguardCan`, `canActivatePermissions`) work with whatever permission data the app provides, but there's no standard contract for how the backend *issues* those permissions. Every API invents its own `{ roles: [], permissions: {} }` response shape, and the mapping layer between backend claims and frontend permission checks is rewritten in every project. `HexGuard.Capabilities` would close that gap by defining the server-side contract that feeds directly into `@hexguard/angular-permissions`.
+The repeated problem is that Angular permission checks (`*hexguardCan`, `canActivatePermissions`) work with whatever permission data the app provides, but there's no standard contract for how the backend _issues_ those permissions. Every API invents its own `{ roles: [], permissions: {} }` response shape, and the mapping layer between backend claims and frontend permission checks is rewritten in every project. `HexGuard.Capabilities` would close that gap by defining the server-side contract that feeds directly into `@hexguard/angular-permissions`.
 
 ## Goals
 
@@ -26,7 +26,7 @@ The repeated problem is that Angular permission checks (`*hexguardCan`, `canActi
 ## Non-Goals
 
 - Replacing ASP.NET Core authorization policies or `[Authorize]` attributes — this is for frontend-facing capability contracts, not backend security enforcement.
-- A full identity or authentication system — capabilities describe *what a user can do*, not *who they are*.
+- A full identity or authentication system — capabilities describe _what a user can do_, not _who they are_.
 - Real-time permission push — polling or fetch-on-load is sufficient for the first version.
 
 ## Decisions
@@ -83,8 +83,8 @@ export const appProviders = [
   provideHexGuardPermissions(initialContext),
   provideCapabilitySync({
     url: '/api/capabilities/current',
-    intervalMs: 300_000,                    // optional polling (default: 0 = no polling)
-    onError: (err) => console.error(err),   // optional error handler
+    intervalMs: 300_000, // optional polling (default: 0 = no polling)
+    onError: (err) => console.error(err), // optional error handler
   }),
 ];
 

@@ -17,33 +17,33 @@ The package is intentionally narrow:
 
 ## Feature Matrix
 
-| Capability                          | Status    | Notes                                                      |
-| ----------------------------------- | --------- | ---------------------------------------------------------- |
-| Typed notification types            | Available | `success`, `error`, `info`, `warning`                      |
-| Auto-dismiss                        | Available | Default 5000ms, configurable per notification               |
-| Persistent notifications            | Available | `duration: 0` or `Infinity` = no auto-dismiss              |
-| Convenience methods                 | Available | `success()`, `error()`, `info()`, `warning()`              |
-| `dismiss()` / `dismissAll()`        | Available | Imperative dismiss by ID or bulk                            |
-| `dismissByType()`                   | Available | Dismiss all notifications of a specific type                |
-| Action buttons                      | Available | Optional `NotificationAction` with label and callback       |
-| `NotificationHandle.update()`       | Available | Update duration, title, or action after creation            |
-| Outlet component                    | Available | `HexguardNotificationOutletComponent` for rendering         |
-| Notification title                  | Available | Optional title field via `NotificationOptions.title`        |
-| Global defaults configuration       | Available | `provideHexGuardNotifications()` for default duration and max visible |
-| Max visible limit                   | Available | Auto-dismiss oldest when queue exceeds configured limit     |
-| Zero dependencies                   | ✅        | Only `@angular/core` + `tslib`                              |
+| Capability                    | Status    | Notes                                                                 |
+| ----------------------------- | --------- | --------------------------------------------------------------------- |
+| Typed notification types      | Available | `success`, `error`, `info`, `warning`                                 |
+| Auto-dismiss                  | Available | Default 5000ms, configurable per notification                         |
+| Persistent notifications      | Available | `duration: 0` or `Infinity` = no auto-dismiss                         |
+| Convenience methods           | Available | `success()`, `error()`, `info()`, `warning()`                         |
+| `dismiss()` / `dismissAll()`  | Available | Imperative dismiss by ID or bulk                                      |
+| `dismissByType()`             | Available | Dismiss all notifications of a specific type                          |
+| Action buttons                | Available | Optional `NotificationAction` with label and callback                 |
+| `NotificationHandle.update()` | Available | Update duration, title, or action after creation                      |
+| Outlet component              | Available | `HexguardNotificationOutletComponent` for rendering                   |
+| Notification title            | Available | Optional title field via `NotificationOptions.title`                  |
+| Global defaults configuration | Available | `provideHexGuardNotifications()` for default duration and max visible |
+| Max visible limit             | Available | Auto-dismiss oldest when queue exceeds configured limit               |
+| Zero dependencies             | ✅        | Only `@angular/core` + `tslib`                                        |
 
 ## Public API Map
 
-| Export                               | Role                                           |
-| ------------------------------------ | ---------------------------------------------- |
-| `NotificationService`                | Injectable queue service (providedIn: root)    |
-| `HexguardNotificationOutletComponent` | Standalone outlet for rendering the queue      |
-| `Notification`                       | Single notification item shape                 |
-| `NotificationType`                   | Union: `'success' \| 'error' \| 'info' \| 'warning'` |
-| `NotificationOptions`                | Configuration for `show()` and `update()`      |
-| `NotificationHandle`                 | Imperative handle returned by `show()`         |
-| `NotificationAction`                 | Action button model                            |
+| Export                                | Role                                                 |
+| ------------------------------------- | ---------------------------------------------------- |
+| `NotificationService`                 | Injectable queue service (providedIn: root)          |
+| `HexguardNotificationOutletComponent` | Standalone outlet for rendering the queue            |
+| `Notification`                        | Single notification item shape                       |
+| `NotificationType`                    | Union: `'success' \| 'error' \| 'info' \| 'warning'` |
+| `NotificationOptions`                 | Configuration for `show()` and `update()`            |
+| `NotificationHandle`                  | Imperative handle returned by `show()`               |
+| `NotificationAction`                  | Action button model                                  |
 
 ## Behavior Details
 
@@ -105,10 +105,10 @@ bootstrapApplication(AppComponent, {
 });
 ```
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `defaultDuration` | `number` | `5000` | Default auto-dismiss delay (ms). Per-notification `NotificationOptions.duration` overrides this |
-| `maxVisible` | `number` | — | When the queue exceeds this count, the oldest notifications are auto-dismissed (most-recent-first order preserved). `undefined` or `0` means no limit |
+| Option            | Type     | Default | Description                                                                                                                                           |
+| ----------------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `defaultDuration` | `number` | `5000`  | Default auto-dismiss delay (ms). Per-notification `NotificationOptions.duration` overrides this                                                       |
+| `maxVisible`      | `number` | —       | When the queue exceeds this count, the oldest notifications are auto-dismissed (most-recent-first order preserved). `undefined` or `0` means no limit |
 
 ## Option Resolution and Defaults
 
@@ -132,11 +132,11 @@ When `NotificationService` is created through Angular DI (the normal case with `
 
 ## Public API Map Addition
 
-| Export                           | Role                                                  |
-| -------------------------------- | ----------------------------------------------------- |
-| `provideHexGuardNotifications`   | Registers global notification defaults at bootstrap or route level |
-| `HexGuardNotificationsOptions`   | Shape of the global defaults object                   |
-| `HEXGUARD_NOTIFICATION_OPTIONS`  | Injection token (exported for advanced use)           |
+| Export                          | Role                                                               |
+| ------------------------------- | ------------------------------------------------------------------ |
+| `provideHexGuardNotifications`  | Registers global notification defaults at bootstrap or route level |
+| `HexGuardNotificationsOptions`  | Shape of the global defaults object                                |
+| `HEXGUARD_NOTIFICATION_OPTIONS` | Injection token (exported for advanced use)                        |
 
 ## Configuration Reference
 
@@ -161,11 +161,11 @@ class NotificationService {
 
 ### `NotificationOptions`
 
-| Field      | Type                  | Default | Description                                        |
-| ---------- | --------------------- | ------- | -------------------------------------------------- |
-| `duration` | `number`              | `5000`  | Auto-dismiss delay. `0` or `Infinity` = persistent |
-| `title`    | `string`              | —       | Optional bold heading above the message             |
-| `action`   | `NotificationAction`  | —       | Optional action button                             |
+| Field      | Type                 | Default | Description                                        |
+| ---------- | -------------------- | ------- | -------------------------------------------------- |
+| `duration` | `number`             | `5000`  | Auto-dismiss delay. `0` or `Infinity` = persistent |
+| `title`    | `string`             | —       | Optional bold heading above the message            |
+| `action`   | `NotificationAction` | —       | Optional action button                             |
 
 ### `Notification`
 

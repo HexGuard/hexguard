@@ -21,11 +21,7 @@ export {
   updateCapabilityContext,
   CAPABILITY_SYNC_CONTEXT,
 } from './lib/capability-sync';
-export type {
-  CapabilitySet,
-  CapabilityFetcher,
-  CapabilitySyncConfig,
-} from './lib/capability-sync';
+export type { CapabilitySet, CapabilityFetcher, CapabilitySyncConfig } from './lib/capability-sync';
 export type {
   HexGuardPermissions,
   PermissionCollection,

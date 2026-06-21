@@ -51,6 +51,7 @@ const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
+const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
 const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-network-status');
 const ANGULAR_STORAGE_CATALOG = getGeneratedCurrentPackage('angular-storage');
 const ANGULAR_SELECTION_STATE_CATALOG = getGeneratedCurrentPackage('angular-selection-state');
@@ -59,6 +60,7 @@ const ANGULAR_BULK_OPERATIONS_CATALOG = getGeneratedCurrentPackage('angular-bulk
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
+const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 
@@ -1110,6 +1112,49 @@ export const ANGULAR_STORAGE_DEMO: DemoPageEntry = {
   },
 };
 
+// ── angular-breakpoint-observer demo entries ────────────────────────
+
+export const ANGULAR_BREAKPOINT_OBSERVER_DEMO: DemoPageEntry = {
+  id: 'breakpoint-observer',
+  packageId: 'angular-breakpoint-observer',
+  route: '/packages/angular-breakpoint-observer/demo',
+  legacyRoute: '/breakpoint-observer',
+  label: 'Breakpoint Observer',
+  title: 'Signal-based reactive breakpoint detection with above/below/active/matches helpers',
+  description:
+    'A live breakpoint monitor demonstrates active breakpoint, per-breakpoint booleans, above/below comparisons, and arbitrary media query matching.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-breakpoint-observer/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-breakpoint-observer.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-breakpoint-observer/demo-state',
+    label: 'Breakpoint observer demo component source',
+    description:
+      'The full breakpoint observer demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_BREAKPOINT_OBSERVER_PACKAGE: DemoPackageEntry = {
+  id: 'angular-breakpoint-observer',
+  route: '/packages/angular-breakpoint-observer',
+  label: 'Angular Breakpoint Observer',
+  title: ANGULAR_BREAKPOINT_OBSERVER_CATALOG.packageName,
+  description: ANGULAR_BREAKPOINT_OBSERVER_CATALOG.summary,
+  docsLinks: ANGULAR_BREAKPOINT_OBSERVER_DOCS,
+  demos: [ANGULAR_BREAKPOINT_OBSERVER_DEMO],
+};
+
 export const ANGULAR_STORAGE_PACKAGE: DemoPackageEntry = {
   id: 'angular-storage',
   route: '/packages/angular-storage',
@@ -1128,6 +1173,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_OPTIMISTIC_STATE_PACKAGE,
   ANGULAR_PERMISSIONS_PACKAGE,
   ANGULAR_API_ERRORS_PACKAGE,
+  ANGULAR_BREAKPOINT_OBSERVER_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

@@ -8,6 +8,7 @@ export interface GeneratedCatalogLink {
 export interface GeneratedCurrentPackageCatalogEntry {
   readonly id: string;
   readonly packageName: string;
+  readonly category: string | null;
   readonly status: 'Released' | 'In Progress' | 'Available';
   readonly scope: 'Angular' | '.NET';
   readonly summary: string;
@@ -35,6 +36,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-url-state',
     packageName: '@hexguard/angular-url-state',
+    category: 'URL & Forms',
     status: 'Released',
     scope: 'Angular',
     summary: 'Type-safe, signal-first synchronization between Angular state and URL query params.',
@@ -75,6 +77,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-query-form',
     packageName: '@hexguard/angular-query-form',
+    category: 'URL & Forms',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -116,6 +119,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-async-state',
     packageName: '@hexguard/angular-async-state',
+    category: 'Async State',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -157,6 +161,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-lookups',
     packageName: '@hexguard/angular-lookups',
+    category: 'Data & Reference',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -198,6 +203,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-optimistic-state',
     packageName: '@hexguard/angular-optimistic-state',
+    category: 'Async State',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -239,6 +245,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-api-errors',
     packageName: '@hexguard/angular-api-errors',
+    category: 'Validation & Errors',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -280,6 +287,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-permissions',
     packageName: '@hexguard/angular-permissions',
+    category: 'Permissions & Access',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -321,6 +329,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
+    category: null,
     status: 'Released',
     scope: '.NET',
     summary: 'Typed reference-data catalog contracts and validation helpers for .NET applications.',
@@ -361,6 +370,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-debounce',
     packageName: '@hexguard/angular-debounce',
+    category: 'Utilities',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -402,6 +412,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
+    category: 'UI Infrastructure',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -444,6 +455,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-error-boundary',
     packageName: '@hexguard/angular-error-boundary',
+    category: 'UI Infrastructure',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -487,6 +499,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-feature-flags',
     packageName: '@hexguard/angular-feature-flags',
+    category: 'Permissions & Access',
     status: 'Released',
     scope: 'Angular',
     summary:
@@ -529,6 +542,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-problem-details',
     packageName: 'HexGuard.ProblemDetails',
+    category: null,
     status: 'Released',
     scope: '.NET',
     summary:
@@ -574,6 +588,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-validation-contracts',
     packageName: 'HexGuard.ValidationContracts',
+    category: null,
     status: 'Released',
     scope: '.NET',
     summary:
@@ -615,6 +630,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-feature-flags',
     packageName: 'HexGuard.FeatureFlags',
+    category: null,
     status: 'Released',
     scope: '.NET',
     summary:
@@ -656,6 +672,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'hexguard-capabilities',
     packageName: 'HexGuard.Capabilities',
+    category: null,
     status: 'Released',
     scope: '.NET',
     summary:
@@ -697,6 +714,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-network-status',
     packageName: '@hexguard/angular-network-status',
+    category: 'Utilities',
     status: 'In Progress',
     scope: 'Angular',
     summary:
@@ -738,6 +756,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-storage',
     packageName: '@hexguard/angular-storage',
+    category: 'Utilities',
     status: 'In Progress',
     scope: 'Angular',
     summary:
@@ -779,6 +798,7 @@ export const GENERATED_CURRENT_PACKAGES = [
   {
     id: 'angular-date-utils',
     packageName: '@hexguard/angular-date-utils',
+    category: 'Utilities',
     status: 'In Progress',
     scope: 'Angular',
     summary:
@@ -810,6 +830,91 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-date-utils.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-selection-state',
+    packageName: '@hexguard/angular-selection-state',
+    category: 'UI Infrastructure',
+    status: 'Released',
+    scope: 'Angular',
+    summary:
+      'Keyed selection state model for lists and tables: toggle, select-all, clear, and bulk-action enablement through a headless signal-based contract.',
+    detail:
+      'Provides injectSelectionState() with typed item support, toggle and select-all semantics, and signal-based selection counts for bulk-action UI enablement.',
+    installCommand: 'pnpm add @hexguard/angular-selection-state',
+    featureHighlights: [
+      'injectSelectionState() with typed key and item support.',
+      'Toggle, select-all, clear, isSelected, and selectedCount signals.',
+      'Bulk-action enablement via computed derived from selection state.',
+    ],
+    bestFitScenarios: [
+      'Data tables with checkbox column and select-all header behavior.',
+      'List views that need keyed selection state for bulk operations.',
+      'Angular apps that want signal-first selection without a UI library dependency.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless selection state companion for Angular lists and tables.',
+      'It focuses on keyed selection, explicit toggle/clear semantics, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-selection-state',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-selection-state/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-selection-state.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-bulk-operations',
+    packageName: '@hexguard/angular-bulk-operations',
+    category: 'UI Infrastructure',
+    status: 'Released',
+    scope: 'Angular',
+    summary:
+      'Angular bulk-operation service for HTTP 207 Multi-Status workflows: typed request/response contracts, per-item result tracking, and partial-failure display.',
+    detail:
+      'Provides injectBulkOperation() with selectedItemsToBulkRequest() helpers, BulkOperationResponse and BulkOperationResult types, and per-item error tracking for delete, approve, update-status, and similar batch actions.',
+    installCommand: 'pnpm add @hexguard/angular-bulk-operations',
+    featureHighlights: [
+      'injectBulkOperation() with typed request/response contracts.',
+      'selectedItemsToBulkRequest() helper for selection-state integration.',
+      'BulkOperationResponse parsing with per-item success/error tracking.',
+      'Live .NET SampleApi demo for end-to-end HTTP 207 Multi-Status workflows.',
+    ],
+    bestFitScenarios: [
+      'Delete, archive, approve, or update-status actions on multiple selected items.',
+      'Screens that display partial-success results with per-item error details.',
+      'Angular apps consuming HTTP 207 Multi-Status responses from backend APIs.',
+    ],
+    statusNoteParagraphs: [
+      'This package pairs with HexGuard.BulkOperations on the .NET side through shared contract shapes.',
+      'It focuses on selection-to-request mapping, response parsing, partial-failure display, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-bulk-operations',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-bulk-operations/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-bulk-operations.md',
       },
       {
         label: 'Demo runbook',
@@ -902,18 +1007,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-form-drafts',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-selection-state',
-    anchorId: 'package-angular-selection-state',
-    packageName: '@hexguard/angular-selection-state',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize keyed selection, bulk-action enablement, and select-visible behavior for lists and tables through a headless state model.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-selection-state',
     showOnSiteHome: false,
   },
   {

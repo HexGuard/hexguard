@@ -98,7 +98,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideCapabilitySync({
       // A fetch function that returns a CapabilitySet from a .NET backend:
-      fetch: () => fetch('/api/capabilities/user').then(r => r.json()),
+      fetch: () => fetch('/api/capabilities/user').then((r) => r.json()),
       // Optional: periodic refresh every 60 seconds:
       refreshIntervalMs: 60_000,
     }),
@@ -120,7 +120,7 @@ For persona switching or on-demand refresh, use `updateCapabilityContext()`:
 ```typescript
 import { updateCapabilityContext } from '@hexguard/angular-permissions';
 
-const data = await fetch(`/api/capabilities/user?persona=${persona}`).then(r => r.json());
+const data = await fetch(`/api/capabilities/user?persona=${persona}`).then((r) => r.json());
 updateCapabilityContext(data);
 ```
 

@@ -18,23 +18,23 @@ The package is intentionally narrow:
 
 ## Feature Matrix
 
-| Capability                        | Status    | Notes                                                     |
-| --------------------------------- | --------- | --------------------------------------------------------- |
-| Render-time error capture         | Available | Catches errors from projected child template evaluation    |
-| Async error capture               | Available | Catches errors from `setTimeout`, promise callbacks, etc.  |
-| Default fallback                  | Available | Error message panel with retry button                      |
-| Custom fallback template          | Available | Via `@Input() fallback: TemplateRef<ErrorBoundaryContext>`  |
-| Programmatic reset                | Available | `reset()` clears error state and re-renders content        |
-| `hasError()` / `caughtError()`    | Available | Signals for programmatic error state access                |
-| Nested boundary support           | Available | Innermost active boundary catches first                    |
-| Zero dependencies                 | ✅        | Only `@angular/core` + `tslib`                             |
+| Capability                     | Status    | Notes                                                      |
+| ------------------------------ | --------- | ---------------------------------------------------------- |
+| Render-time error capture      | Available | Catches errors from projected child template evaluation    |
+| Async error capture            | Available | Catches errors from `setTimeout`, promise callbacks, etc.  |
+| Default fallback               | Available | Error message panel with retry button                      |
+| Custom fallback template       | Available | Via `@Input() fallback: TemplateRef<ErrorBoundaryContext>` |
+| Programmatic reset             | Available | `reset()` clears error state and re-renders content        |
+| `hasError()` / `caughtError()` | Available | Signals for programmatic error state access                |
+| Nested boundary support        | Available | Innermost active boundary catches first                    |
+| Zero dependencies              | ✅        | Only `@angular/core` + `tslib`                             |
 
 ## Public API Map
 
-| Export                              | Role                                              |
-| ----------------------------------- | ------------------------------------------------- |
-| `HexguardErrorBoundaryComponent`    | Declarative error boundary component              |
-| `ErrorBoundaryContext`              | Template context passed to the fallback template  |
+| Export                           | Role                                             |
+| -------------------------------- | ------------------------------------------------ |
+| `HexguardErrorBoundaryComponent` | Declarative error boundary component             |
+| `ErrorBoundaryContext`           | Template context passed to the fallback template |
 
 ## How It Works
 
@@ -63,11 +63,13 @@ If no boundary captures the error, it falls through to the true original handler
 ## Error Capture Scope
 
 ### Captured errors:
+
 - Template evaluation errors in projected content (e.g., accessing a null property)
 - Errors thrown during Angular change detection of projected views
 - Async callbacks (`setTimeout`, promise chains) originating from child components
 
 ### Not captured:
+
 - Errors from sibling or parent components outside the boundary's content projection
 - HTTP request errors (use `@hexguard/angular-async-state` or `@hexguard/angular-api-errors`)
 - Errors from `@defer` blocks (those are handled by Angular's built-in defer error handling)
@@ -77,9 +79,7 @@ If no boundary captures the error, it falls through to the true original handler
 ```html
 <hexguard-error-boundary>
   Widget A is protected
-  <hexguard-error-boundary>
-    Widget B has its own boundary
-  </hexguard-error-boundary>
+  <hexguard-error-boundary> Widget B has its own boundary </hexguard-error-boundary>
 </hexguard-error-boundary>
 ```
 
@@ -88,6 +88,7 @@ When errors occur in Widget B, the inner boundary catches first. If Widget B's b
 ## Default Fallback
 
 The default fallback renders:
+
 - An error message: "An error occurred in this section."
 - A "Retry" button styled with red tones
 
@@ -97,11 +98,11 @@ The fallback has `data-testid="error-boundary-fallback"` and the retry button ha
 
 The `@Input() fallback` accepts a `TemplateRef<ErrorBoundaryContext>`. The context provides:
 
-| Property    | Type                  | Description                    |
-| ----------- | --------------------- | ------------------------------ |
-| `$implicit` | `unknown`             | The caught error (for `let-ctx` binding) |
-| `error`     | `unknown`             | The caught error               |
-| `reset`     | `() => void`          | Clears error and re-renders    |
+| Property    | Type         | Description                              |
+| ----------- | ------------ | ---------------------------------------- |
+| `$implicit` | `unknown`    | The caught error (for `let-ctx` binding) |
+| `error`     | `unknown`    | The caught error                         |
+| `reset`     | `() => void` | Clears error and re-renders              |
 
 Example:
 
@@ -122,18 +123,18 @@ Example:
 
 ### `HexguardErrorBoundaryComponent`
 
-| Input      | Type                                  | Default | Description                               |
-| ---------- | ------------------------------------- | ------- | ----------------------------------------- |
-| `fallback` | `TemplateRef<ErrorBoundaryContext>`   | —       | Custom fallback template. Omit for default |
+| Input      | Type                                | Default | Description                                |
+| ---------- | ----------------------------------- | ------- | ------------------------------------------ |
+| `fallback` | `TemplateRef<ErrorBoundaryContext>` | —       | Custom fallback template. Omit for default |
 
-| Signal            | Type      | Description                        |
-| ----------------- | --------- | ---------------------------------- |
-| `hasError`        | `boolean` | Whether an error is currently caught |
-| `caughtError`     | `unknown` | The caught error, or `null`        |
+| Signal        | Type      | Description                          |
+| ------------- | --------- | ------------------------------------ |
+| `hasError`    | `boolean` | Whether an error is currently caught |
+| `caughtError` | `unknown` | The caught error, or `null`          |
 
-| Method    | Description                                      |
-| --------- | ------------------------------------------------ |
-| `reset()` | Clears the error state and re-renders content     |
+| Method    | Description                                   |
+| --------- | --------------------------------------------- |
+| `reset()` | Clears the error state and re-renders content |
 
 ### `ErrorBoundaryContext`
 
@@ -168,3 +169,4 @@ Error signal cleared (hasError = false)
        ↓
 Content re-renders on next change detection
 
+```

@@ -146,6 +146,7 @@ export interface Ecosystem {
 export interface UnifiedPackageEntry {
   readonly id: string;
   readonly packageName: string;
+  readonly category: string | null;
   readonly scope: UnifiedScope;
   readonly status: string;
   readonly summary: string;
@@ -401,7 +402,8 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       relationship: 'Foundation library',
       route: '/dotnet/hexguard-problem-details',
     },
-  ],  'hexguard-capabilities': [
+  ],
+  'hexguard-capabilities': [
     {
       packageId: 'angular-permissions',
       label: '@hexguard/angular-permissions',
@@ -409,7 +411,8 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       relationship: 'Cross-stack counterpart',
       route: '/packages/angular-permissions',
     },
-  ],  'hexguard-feature-flags': [
+  ],
+  'hexguard-feature-flags': [
     {
       packageId: 'angular-feature-flags',
       label: '@hexguard/angular-feature-flags',
@@ -450,10 +453,24 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
 /**
  * Adapt an Angular SitePackageCatalogEntry to the unified card interface.
  */
+/** Maps .NET package IDs to their Angular counterpart package IDs for category derivation. */
+export const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string> = {
+  'hexguard-reference-data': 'angular-lookups',
+  'hexguard-problem-details': 'angular-api-errors',
+  'hexguard-validation-contracts': 'angular-api-errors',
+  'hexguard-feature-flags': 'angular-feature-flags',
+  'hexguard-capabilities': 'angular-permissions',
+  'hexguard-bulk-operations': 'angular-bulk-operations',
+};
+
+/**
+ * Adapt an Angular SitePackageCatalogEntry to the unified card interface.
+ */
 export function toUnifiedAngularEntry(entry: SitePackageCatalogEntry): UnifiedPackageEntry {
   return {
     id: entry.id,
     packageName: entry.packageName,
+    category: entry.category,
     scope: 'angular',
     status: entry.status,
     summary: entry.summary,
@@ -473,9 +490,13 @@ export function toUnifiedAngularEntry(entry: SitePackageCatalogEntry): UnifiedPa
  * Uses dotnetPackage fields for docs and source links.
  */
 export function toUnifiedDotnetEntry(entry: DotnetSitePackageCatalogEntry): UnifiedPackageEntry {
+  const angularId = DOTNET_TO_ANGULAR_COUNTERPART[entry.id];
+  const angularPkg = angularId ? getCurrentPackages().find((p) => p.id === angularId) : undefined;
+
   return {
     id: entry.id,
     packageName: entry.packageName,
+    category: angularPkg?.category ?? null,
     scope: 'dotnet',
     status: entry.status,
     summary: entry.summary,
@@ -520,6 +541,7 @@ export function getUnifiedPackages(): readonly UnifiedPackageEntry[] {
       return {
         id: `eco-${eco.id}`,
         packageName: npmLabel,
+        category: null,
         scope: 'cross-stack' as UnifiedScope,
         status: 'Released',
         summary: eco.description,

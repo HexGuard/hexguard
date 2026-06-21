@@ -16,11 +16,11 @@ The package is intentionally focused:
 
 ## Public API Map
 
-| Export | Role |
-|--------|------|
-| `injectSelectionState()` | Creates selection state with signals + operations |
-| `SelectionStateOptions` | Configures `multi` mode and `onCollectionChange` callback |
-| `SelectionStateReturn` | The return type with signals and mutators |
+| Export                   | Role                                                      |
+| ------------------------ | --------------------------------------------------------- |
+| `injectSelectionState()` | Creates selection state with signals + operations         |
+| `SelectionStateOptions`  | Configures `multi` mode and `onCollectionChange` callback |
+| `SelectionStateReturn`   | The return type with signals and mutators                 |
 
 ## Behavior Details
 
@@ -32,6 +32,7 @@ The package is intentionally focused:
 ### toggleAll Semantics
 
 `toggleAll(visibleKeys)` follows standard checkbox header behavior:
+
 - If none selected → selects all visible keys
 - If all selected → clears all visible keys
 - If partial → selects all visible keys
@@ -43,14 +44,14 @@ The package is intentionally focused:
 
 ### Derived Signals
 
-| Signal | Description |
-|--------|-------------|
-| `selected` | The current `Set<TKey>` of selected keys |
-| `count` | Number of selected keys |
-| `isEmpty` | `true` when nothing is selected |
-| `isAllSelected` | Function that checks if all provided keys are selected |
-| `first` | The first selected key, or `null` |
-| `canAct` | `true` when at least one key is selected (for bulk action enablement) |
+| Signal          | Description                                                           |
+| --------------- | --------------------------------------------------------------------- |
+| `selected`      | The current `Set<TKey>` of selected keys                              |
+| `count`         | Number of selected keys                                               |
+| `isEmpty`       | `true` when nothing is selected                                       |
+| `isAllSelected` | Function that checks if all provided keys are selected                |
+| `first`         | The first selected key, or `null`                                     |
+| `canAct`        | `true` when at least one key is selected (for bulk action enablement) |
 
 ### Collection Change Handling
 

@@ -38,31 +38,31 @@ class MyComponent {
 
 ## Features
 
-| Feature                              | Status | Notes                                                |
-| ------------------------------------ | ------ | ---------------------------------------------------- |
-| Online/offline signals               | ✅     | Reacts to browser `online`/`offline` events          |
-| Debounced offline→online transition  | ✅     | Configurable debounce window (default 1000ms)        |
-| Connection type detection            | ✅     | `navigator.connection.effectiveType` (Chromium only)  |
-| `recentlyBackOnline` indicator       | ✅     | Configurable duration (default 3000ms)               |
-| `whenBackOnline()` promise           | ✅     | Resolves on next online transition                   |
-| Automatic cleanup                    | ✅     | Via `DestroyRef`                                     |
-| Zero runtime dependencies            | ✅     | Only `@angular/core` + `tslib`                       |
+| Feature                             | Status | Notes                                                |
+| ----------------------------------- | ------ | ---------------------------------------------------- |
+| Online/offline signals              | ✅     | Reacts to browser `online`/`offline` events          |
+| Debounced offline→online transition | ✅     | Configurable debounce window (default 1000ms)        |
+| Connection type detection           | ✅     | `navigator.connection.effectiveType` (Chromium only) |
+| `recentlyBackOnline` indicator      | ✅     | Configurable duration (default 3000ms)               |
+| `whenBackOnline()` promise          | ✅     | Resolves on next online transition                   |
+| Automatic cleanup                   | ✅     | Via `DestroyRef`                                     |
+| Zero runtime dependencies           | ✅     | Only `@angular/core` + `tslib`                       |
 
 ## Demo routes
 
-| Route                                 | Description                                        |
-| ------------------------------------- | -------------------------------------------------- |
-| `/packages/angular-network-status`    | Package hub page with catalog overview             |
-| `/packages/angular-network-status/demo` | Live connectivity monitor with inspector panel   |
+| Route                                   | Description                                    |
+| --------------------------------------- | ---------------------------------------------- |
+| `/packages/angular-network-status`      | Package hub page with catalog overview         |
+| `/packages/angular-network-status/demo` | Live connectivity monitor with inspector panel |
 
 ## Public API
 
-| Export                  | Kind     | Description                                          |
-| ----------------------- | -------- | ---------------------------------------------------- |
-| `injectNetworkStatus()` | Function | DI facade returning `NetworkStatus`                  |
-| `NetworkStatus`         | Type     | Return shape with signals and `whenBackOnline()`     |
-| `NetworkStatusOptions`  | Type     | `{ onlineDebounceMs?, backOnlineSignalDurationMs? }` |
-| `EffectiveConnectionType` | Type   | Union type for connection speed                      |
+| Export                    | Kind     | Description                                          |
+| ------------------------- | -------- | ---------------------------------------------------- |
+| `injectNetworkStatus()`   | Function | DI facade returning `NetworkStatus`                  |
+| `NetworkStatus`           | Type     | Return shape with signals and `whenBackOnline()`     |
+| `NetworkStatusOptions`    | Type     | `{ onlineDebounceMs?, backOnlineSignalDurationMs? }` |
+| `EffectiveConnectionType` | Type     | Union type for connection speed                      |
 
 ## What It Owns
 
