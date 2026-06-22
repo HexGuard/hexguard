@@ -53,6 +53,7 @@ const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
 const ANGULAR_UNDO_CATALOG = getGeneratedCurrentPackage('angular-undo');
+const ANGULAR_CONFIRMATION_CATALOG = getGeneratedCurrentPackage('angular-confirmation');
 const ANGULAR_PAGINATION_CATALOG = getGeneratedCurrentPackage('angular-pagination');
 const ANGULAR_CLICK_OUTSIDE_CATALOG = getGeneratedCurrentPackage('angular-click-outside');
 const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
@@ -67,6 +68,7 @@ const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
 const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
 const ANGULAR_UNDO_DOCS = ANGULAR_UNDO_CATALOG.docsLinks;
+const ANGULAR_CONFIRMATION_DOCS = ANGULAR_CONFIRMATION_CATALOG.docsLinks;
 const ANGULAR_PAGINATION_DOCS = ANGULAR_PAGINATION_CATALOG.docsLinks;
 const ANGULAR_CLICK_OUTSIDE_DOCS = ANGULAR_CLICK_OUTSIDE_CATALOG.docsLinks;
 const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
@@ -1308,6 +1310,30 @@ export const ANGULAR_PAGINATION_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_CONFIRMATION_DEMO: DemoPageEntry = {
+  id: 'confirmation',
+  packageId: 'angular-confirmation',
+  route: '/packages/angular-confirmation/demo',
+  legacyRoute: '/confirmation',
+  label: 'Confirmation',
+  title: 'Headless confirmation dialog state with promise-based ask/run flows',
+  description: 'A live demo shows delete and archive confirmation flows with confirm/cancel dialog and reactive isOpen/currentRequest signals.',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-confirmation/README.md' },
+    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-confirmation.md' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: { snippetId: 'angular-confirmation/demo-state', label: 'Confirmation demo component source', description: 'The full confirmation demo component source.' },
+};
+export const ANGULAR_CONFIRMATION_PACKAGE: DemoPackageEntry = {
+  id: 'angular-confirmation',
+  route: '/packages/angular-confirmation',
+  label: 'Angular Confirmation',
+  title: ANGULAR_CONFIRMATION_CATALOG.packageName,
+  description: ANGULAR_CONFIRMATION_CATALOG.summary,
+  docsLinks: ANGULAR_CONFIRMATION_DOCS,
+  demos: [ANGULAR_CONFIRMATION_DEMO],
+};
 export const ANGULAR_PAGINATION_PACKAGE: DemoPackageEntry = {
   id: 'angular-pagination',
   route: '/packages/angular-pagination',
@@ -1392,6 +1418,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_CLICK_OUTSIDE_PACKAGE,
   ANGULAR_UNDO_PACKAGE,
   ANGULAR_PAGINATION_PACKAGE,
+  ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

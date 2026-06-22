@@ -269,6 +269,13 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-confirmation/demo-state',
+    title: 'Confirmation demo component source',
+    description: 'Generated from the real Confirmation demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-confirmation/pages/confirmation-demo-page/confirmation-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-confirmation/pages/confirmation-demo-page/confirmation-demo-page.component.ts',
+  },
+  {
     id: 'angular-pagination/demo-state',
     title: 'Pagination demo component source',
     description:

@@ -97,6 +97,8 @@ import { AngularUndoHomePageComponent } from './features/packages/angular/angula
 import { UndoDemoPageComponent } from './features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component';
 import { AngularPaginationHomePageComponent } from './features/packages/angular/angular-pagination/angular-pagination-home-page.component';
 import { PaginationDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component';
+import { AngularConfirmationHomePageComponent } from './features/packages/angular/angular-confirmation/angular-confirmation-home-page.component';
+import { ConfirmationDemoPageComponent } from './features/packages/angular/angular-confirmation/pages/confirmation-demo-page/confirmation-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
 import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
@@ -396,6 +398,16 @@ export const routes: Routes = [
     path: 'packages/angular-pagination/demo',
     component: PaginationDemoPageComponent,
     title: 'Pagination Demo',
+  },
+  {
+    path: 'packages/angular-confirmation',
+    component: AngularConfirmationHomePageComponent,
+    title: 'Angular Confirmation Demos',
+  },
+  {
+    path: 'packages/angular-confirmation/demo',
+    component: ConfirmationDemoPageComponent,
+    title: 'Confirmation Demo',
   },
   {
     path: 'packages/angular-notifications',

@@ -501,6 +501,26 @@
         }
       }
     },
+    "angular-confirmation": {
+      "projectType": "library",
+      "root": "packages/angular-confirmation",
+      "sourceRoot": "packages/angular-confirmation/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-confirmation/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-confirmation/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-confirmation/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-click-outside": {
       "projectType": "library",
       "root": "packages/angular-click-outside",
