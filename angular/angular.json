@@ -449,6 +449,32 @@
         }
       }
     },
+    "angular-navigation-pending": {
+      "projectType": "library",
+      "root": "packages/angular-navigation-pending",
+      "sourceRoot": "packages/angular-navigation-pending/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-navigation-pending/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-navigation-pending/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-navigation-pending/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-visibility": {
       "projectType": "library",
       "root": "packages/angular-visibility",

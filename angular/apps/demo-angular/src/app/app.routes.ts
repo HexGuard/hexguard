@@ -88,6 +88,8 @@ import { AngularBreakpointObserverHomePageComponent } from './features/packages/
 import { BreakpointObserverDemoPageComponent } from './features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component';
 import { AngularVisibilityHomePageComponent } from './features/packages/angular/angular-visibility/angular-visibility-home-page.component';
 import { VisibilityDemoPageComponent } from './features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component';
+import { AngularNavigationPendingHomePageComponent } from './features/packages/angular/angular-navigation-pending/angular-navigation-pending-home-page.component';
+import { NavigationPendingDemoPageComponent } from './features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
 import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
@@ -346,6 +348,16 @@ export const routes: Routes = [
     path: 'packages/angular-visibility/demo',
     component: VisibilityDemoPageComponent,
     title: 'Visibility Demo',
+  },
+  {
+    path: 'packages/angular-navigation-pending',
+    component: AngularNavigationPendingHomePageComponent,
+    title: 'Angular Navigation Pending Demos',
+  },
+  {
+    path: 'packages/angular-navigation-pending/demo',
+    component: NavigationPendingDemoPageComponent,
+    title: 'Navigation Pending Demo',
   },
   {
     path: 'packages/angular-notifications',

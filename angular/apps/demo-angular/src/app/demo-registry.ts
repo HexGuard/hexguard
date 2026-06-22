@@ -52,6 +52,7 @@ const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
+const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
 const ANGULAR_VISIBILITY_CATALOG = getGeneratedCurrentPackage('angular-visibility');
 const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-network-status');
 const ANGULAR_STORAGE_CATALOG = getGeneratedCurrentPackage('angular-storage');
@@ -62,6 +63,7 @@ const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
 const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
+const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
@@ -1180,6 +1182,49 @@ export const ANGULAR_VISIBILITY_DEMO: DemoPageEntry = {
   },
 };
 
+// ── angular-navigation-pending demo entries ────────────────────
+
+export const ANGULAR_NAVIGATION_PENDING_DEMO: DemoPageEntry = {
+  id: 'navigation-pending',
+  packageId: 'angular-navigation-pending',
+  route: '/packages/angular-navigation-pending/demo',
+  legacyRoute: '/navigation-pending',
+  label: 'Navigation Pending',
+  title: 'Route transition pending state with slow-navigation detection',
+  description:
+    'A live monitor demonstrates isNavigating and isSlowNavigation signals using Angular Router events with a configurable delay threshold.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-navigation-pending/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-navigation-pending.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-navigation-pending/demo-state',
+    label: 'Navigation pending demo component source',
+    description:
+      'The full navigation pending demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_NAVIGATION_PENDING_PACKAGE: DemoPackageEntry = {
+  id: 'angular-navigation-pending',
+  route: '/packages/angular-navigation-pending',
+  label: 'Angular Navigation Pending',
+  title: ANGULAR_NAVIGATION_PENDING_CATALOG.packageName,
+  description: ANGULAR_NAVIGATION_PENDING_CATALOG.summary,
+  docsLinks: ANGULAR_NAVIGATION_PENDING_DOCS,
+  demos: [ANGULAR_NAVIGATION_PENDING_DEMO],
+};
+
 export const ANGULAR_VISIBILITY_PACKAGE: DemoPackageEntry = {
   id: 'angular-visibility',
   route: '/packages/angular-visibility',
@@ -1220,6 +1265,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_API_ERRORS_PACKAGE,
   ANGULAR_BREAKPOINT_OBSERVER_PACKAGE,
   ANGULAR_VISIBILITY_PACKAGE,
+  ANGULAR_NAVIGATION_PENDING_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-navigation-pending",
+  "version": "0.1.0",
+  "description": "Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.",
+  "keywords": [
+    "angular",
+    "signals",
+    "navigation",
+    "router",
+    "loading",
+    "pending",
+    "slow-navigation",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-navigation-pending",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-navigation-pending"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/router": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

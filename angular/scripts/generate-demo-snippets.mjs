@@ -249,6 +249,16 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
   },
   {
+    id: 'angular-navigation-pending/demo-state',
+    title: 'Navigation pending demo component source',
+    description:
+      'Generated from the real Navigation Pending demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
+  },
+  {
     id: 'angular-visibility/demo-state',
     title: 'Visibility demo component source',
     description:

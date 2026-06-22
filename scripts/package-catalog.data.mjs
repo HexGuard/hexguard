@@ -319,6 +319,36 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-navigation-pending',
+    packageName: '@hexguard/angular-navigation-pending',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-navigation-pending/README.md',
+    deepDivePath: 'docs/packages/angular-navigation-pending.md',
+    repositoryPath: 'angular/packages/angular-navigation-pending',
+    summary:
+      'Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.',
+    detail:
+      'Focused on Angular apps that need consistent navigation pending indicators — global loaders, route readiness spinners, and page-level pending markers — without rebuilding Router event subscriptions and flash-of-spinner prevention from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-navigation-pending',
+    featureHighlights: [
+      'isNavigating signal bound to Angular Router NavigationStart/End/Cancel/Error events.',
+      'isSlowNavigation signal with configurable delay threshold to prevent flash-of-spinner.',
+      'Route-scoped mode with manual markReady() for page-level readiness control.',
+      'Automatic DestroyRef cleanup for Router subscription and delay timers.',
+    ],
+    bestFitScenarios: [
+      'Global loading indicators that should show only during slow navigations.',
+      'Route-level spinners that need to wait for async page data before hiding.',
+      'Angular apps that want one consistent navigation-pending contract instead of ad hoc router event subscriptions.',
+    ],
+    statusNoteParagraphs: [
+      'This package is a focused Angular primitive for route transition state tracking.',
+      'It provides one injectable factory with two signals and an optional route-scoped mode, with zero runtime dependencies beyond Angular core, Angular router, and tslib.',
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     status: 'Released',
