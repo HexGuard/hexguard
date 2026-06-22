@@ -289,6 +289,36 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-visibility',
+    packageName: '@hexguard/angular-visibility',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-visibility/README.md',
+    deepDivePath: 'docs/packages/angular-visibility.md',
+    repositoryPath: 'angular/packages/angular-visibility',
+    summary:
+      'Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.',
+    detail:
+      'Focused on Angular apps that need to pause polling when the tab is hidden, show "are you still there?" prompts after inactivity, pause animations when elements scroll out of view, and resume when the user returns — without rebuilding visibilitychange listeners and IntersectionObserver setups from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-visibility',
+    featureHighlights: [
+      'Tab visibility tracking via document.visibilityState with reactive signal.',
+      'Configurable idle detection with activity events and periodic idle duration updates.',
+      'IntersectionObserver-based element visibility as a standalone signal function.',
+      'Automatic DestroyRef cleanup for all event listeners and observers.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need to pause background polling or WebSocket connections when the tab is hidden.',
+      'Idle-timeout prompts, session lock screens, or "are you still there?" detection.',
+      'Components that should pause animations or lazy-load when elements scroll out of view.',
+    ],
+    statusNoteParagraphs: [
+      'This package is a focused Angular primitive covering document-level visibility, idle detection, and element-level IntersectionObserver tracking.',
+      'It provides two exports — one injectable factory and one standalone function — with zero runtime dependencies beyond Angular core and tslib.',
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     status: 'Released',

@@ -248,6 +248,23 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
   },
+  {
+    id: 'angular-visibility/demo-state',
+    title: 'Visibility demo component source',
+    description:
+      'Generated from the real Visibility demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component.ts',
+  },
+    description:
+      'Generated from the real Breakpoint Observer demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

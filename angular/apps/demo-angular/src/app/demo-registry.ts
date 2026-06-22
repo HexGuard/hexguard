@@ -52,6 +52,7 @@ const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
+const ANGULAR_VISIBILITY_CATALOG = getGeneratedCurrentPackage('angular-visibility');
 const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-network-status');
 const ANGULAR_STORAGE_CATALOG = getGeneratedCurrentPackage('angular-storage');
 const ANGULAR_SELECTION_STATE_CATALOG = getGeneratedCurrentPackage('angular-selection-state');
@@ -61,6 +62,7 @@ const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
 const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
+const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 
@@ -1145,6 +1147,49 @@ export const ANGULAR_BREAKPOINT_OBSERVER_DEMO: DemoPageEntry = {
   },
 };
 
+// ── angular-visibility demo entries ────────────────────────────
+
+export const ANGULAR_VISIBILITY_DEMO: DemoPageEntry = {
+  id: 'visibility',
+  packageId: 'angular-visibility',
+  route: '/packages/angular-visibility/demo',
+  legacyRoute: '/visibility',
+  label: 'Visibility',
+  title: 'Tab visibility, idle detection, and element visibility signals',
+  description:
+    'A live monitor demonstrates tab visibility tracking, configurable idle timeout with activity reset, and IntersectionObserver-based element visibility.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-visibility/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-visibility.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-visibility/demo-state',
+    label: 'Visibility demo component source',
+    description:
+      'The full visibility demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_VISIBILITY_PACKAGE: DemoPackageEntry = {
+  id: 'angular-visibility',
+  route: '/packages/angular-visibility',
+  label: 'Angular Visibility',
+  title: ANGULAR_VISIBILITY_CATALOG.packageName,
+  description: ANGULAR_VISIBILITY_CATALOG.summary,
+  docsLinks: ANGULAR_VISIBILITY_DOCS,
+  demos: [ANGULAR_VISIBILITY_DEMO],
+};
+
 export const ANGULAR_BREAKPOINT_OBSERVER_PACKAGE: DemoPackageEntry = {
   id: 'angular-breakpoint-observer',
   route: '/packages/angular-breakpoint-observer',
@@ -1174,6 +1219,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_PERMISSIONS_PACKAGE,
   ANGULAR_API_ERRORS_PACKAGE,
   ANGULAR_BREAKPOINT_OBSERVER_PACKAGE,
+  ANGULAR_VISIBILITY_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

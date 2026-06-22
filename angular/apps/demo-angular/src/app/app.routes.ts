@@ -86,6 +86,8 @@ import { AngularDebounceHomePageComponent } from './features/packages/angular/an
 import { DebounceDemoPageComponent } from './features/packages/angular/angular-debounce/pages/debounce-demo-page/debounce-demo-page.component';
 import { AngularBreakpointObserverHomePageComponent } from './features/packages/angular/angular-breakpoint-observer/angular-breakpoint-observer-home-page.component';
 import { BreakpointObserverDemoPageComponent } from './features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component';
+import { AngularVisibilityHomePageComponent } from './features/packages/angular/angular-visibility/angular-visibility-home-page.component';
+import { VisibilityDemoPageComponent } from './features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
 import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
@@ -334,6 +336,16 @@ export const routes: Routes = [
     path: 'packages/angular-breakpoint-observer/demo',
     component: BreakpointObserverDemoPageComponent,
     title: 'Breakpoint Observer Demo',
+  },
+  {
+    path: 'packages/angular-visibility',
+    component: AngularVisibilityHomePageComponent,
+    title: 'Angular Visibility Demos',
+  },
+  {
+    path: 'packages/angular-visibility/demo',
+    component: VisibilityDemoPageComponent,
+    title: 'Visibility Demo',
   },
   {
     path: 'packages/angular-notifications',
