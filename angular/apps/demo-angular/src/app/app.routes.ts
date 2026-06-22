@@ -527,6 +527,11 @@ export const routes: Routes = [
     title: 'Bulk Operations Library Demo',
   },
   {
+    path: 'dotnet/capabilities',
+    component: DotnetCapabilitiesHubPageComponent,
+    title: 'HexGuard.Capabilities Demo',
+  },
+  {
     path: 'dotnet/sample-api',
     component: SampleApiExplorerPageComponent,
     title: 'SampleApi Explorer',
