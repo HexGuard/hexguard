@@ -23,6 +23,9 @@ another.
 | `@hexguard/angular-navigation-pending`  | Available   | Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.                                                                 | [Deep Dive](angular-navigation-pending.md), [npm-facing README](../../angular/packages/angular-navigation-pending/README.md), [Demo runbook](../demo/README.md)   |
 | `@hexguard/angular-click-outside`       | Available   | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-undo`                | Available   | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                               |
+| `@hexguard/angular-pagination`          | Available   | Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.                                                                                              | [Deep Dive](angular-pagination.md), [npm-facing README](../../angular/packages/angular-pagination/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-confirmation`        | Available   | Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.                                                                                   | [Deep Dive](angular-confirmation.md), [npm-facing README](../../angular/packages/angular-confirmation/README.md), [Demo runbook](../demo/README.md)               |
+| `HexGuard.Pagination`                   | Available   | Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.                                                                                | [Deep Dive](angular-pagination.md), [npm-facing README](../../dotnet/src/HexGuard.Pagination/README.md), [Demo runbook](../demo/README.md)                        |
 | `@hexguard/angular-notifications`       | Released    | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-error-boundary`      | Released    | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)           |
 | `@hexguard/angular-feature-flags`       | Released    | Feature flag evaluation for Angular — typed flag checks across routes, templates, and service logic with sync support for .NET backends.                                                              | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)             |
@@ -177,6 +180,36 @@ Status: Available
 This package provides one injectable for managing a stack of reversible actions with full timer management.
 
 It is headless by design — compose with @hexguard/angular-notifications for the "Undo?" toast UI.
+
+<a id="package-angular-pagination"></a>
+
+### `@hexguard/angular-pagination`
+
+Status: Available
+
+This package provides one injectable factory with signal-based state, navigation helpers, and an optional URL-sync adapter.
+
+Pairs with HexGuard.Pagination on the .NET side for consistent QueryRequest/QueryResponse contracts across the stack.
+
+<a id="package-angular-confirmation"></a>
+
+### `@hexguard/angular-confirmation`
+
+Status: Available
+
+This package provides one injectable factory for headless confirmation dialog state.
+
+It is rendering-agnostic — compose with your own modal/dialog component for the actual UI.
+
+<a id="package-hexguard-pagination"></a>
+
+### `HexGuard.Pagination`
+
+Status: Available
+
+This package provides the .NET side of the pagination cross-stack pair, with request and response contracts.
+
+Pairs with @hexguard/angular-pagination for consistent pagination contracts across the stack.
 
 <a id="package-angular-notifications"></a>
 

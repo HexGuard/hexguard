@@ -624,6 +624,135 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-pagination',
+    packageName: '@hexguard/angular-pagination',
+    category: 'URL & Forms',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.',
+    detail:
+      'Focused on every list, table, and search-results page that needs pagination state — current page, page size, total count, total pages, next/previous enabled, page-range display — without rebuilding page-number math, boundary handling, and reset semantics on every screen.',
+    installCommand: 'pnpm add @hexguard/angular-pagination',
+    featureHighlights: [
+      'Signal-based pagination state: page, pageSize, total, totalPages, hasNext, hasPrevious, rangeStart, rangeEnd.',
+      'Navigation helpers: goToPage, nextPage, previousPage, firstPage, lastPage, setPageSize.',
+      'Optional URL-sync adapter via withPaginationUrlSync() for @hexguard/angular-url-state.',
+      'Auto-reset to page 1 on external signal change, for composition with search/filter state.',
+    ],
+    bestFitScenarios: [
+      'Data tables with server-side pagination where page state needs to drive API calls.',
+      'Search result pages where page and page size reset when filters change.',
+      'Angular apps that want pagination state synced to URL query params for shareable links.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable factory with signal-based state, navigation helpers, and an optional URL-sync adapter.',
+      'Pairs with HexGuard.Pagination on the .NET side for consistent QueryRequest/QueryResponse contracts across the stack.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-pagination',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-confirmation',
+    packageName: '@hexguard/angular-confirmation',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.',
+    detail:
+      'Focused on every app that needs "Are you sure?" confirmation dialogs for delete, archive, and destructive actions — without rebuilding promise-based dialog state and duplicate-open prevention on every screen.',
+    installCommand: 'pnpm add @hexguard/angular-confirmation',
+    featureHighlights: [
+      'ask() — returns Promise<boolean> for simple confirm/cancel flows.',
+      'run() — composes ask with async action execution, returns ConfirmationResult.',
+      'confirm()/cancel() imperative methods for UI binding.',
+      'isOpen and currentRequest reactive signals for rendering.',
+      'Duplicate-open prevention — rejects new requests while a dialog is open.',
+    ],
+    bestFitScenarios: [
+      'Delete flows that need an "Are you sure?" confirmation before proceeding.',
+      'Archive or destructive actions where the app should confirm before executing.',
+      'Any dialog-based confirmation that needs reactive state binding.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable factory for headless confirmation dialog state.',
+      'It is rendering-agnostic — compose with your own modal/dialog component for the actual UI.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-confirmation',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-confirmation/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-confirmation.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'hexguard-pagination',
+    packageName: 'HexGuard.Pagination',
+    category: null,
+    status: 'Available',
+    scope: '.NET',
+    summary:
+      'Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.',
+    detail:
+      'Provides QueryRequest (Page, PageSize, Search, Sort, Filters), QueryResponse&lt;T&gt; (Items, TotalCount, Page, PageSize, TotalPages, HasNext, HasPrevious, RangeStart, RangeEnd), and SortSpec records for consistent paginated API responses across .NET services.',
+    installCommand: 'dotnet add package HexGuard.Pagination',
+    featureHighlights: [
+      'QueryRequest record with page, page size, search, sort, and filter support.',
+      'QueryResponse&lt;T&gt; with computed HasNext, HasPrevious, RangeStart, RangeEnd helpers.',
+      'QueryResponse.Create() factory method for convenient response construction.',
+      'SortSpec record for typed sort specifications.',
+    ],
+    bestFitScenarios: [
+      'ASP.NET Core APIs that need standardized paginated list endpoints.',
+      'Backend services that pair with @hexguard/angular-pagination for end-to-end typed query contracts.',
+      'Any .NET API where consistent request/response shapes reduce mapping boilerplate.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides the .NET side of the pagination cross-stack pair, with request and response contracts.',
+      'Pairs with @hexguard/angular-pagination for consistent pagination contracts across the stack.',
+    ],
+    repositoryHref: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Pagination',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.Pagination/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     category: 'UI Infrastructure',

@@ -474,7 +474,7 @@ export const currentPackages = [
     scope: '.NET',
     category: null,
     readmePath: 'dotnet/src/HexGuard.Pagination/README.md',
-    deepDivePath: null,
+    deepDivePath: 'docs/packages/angular-pagination.md',
     repositoryPath: 'dotnet/src/HexGuard.Pagination',
     summary:
       'Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.',
