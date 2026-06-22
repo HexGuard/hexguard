@@ -63,17 +63,23 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
           </div>
         </div>
 
+        @if (nav.isNavigating()) {
+          <div class="nav-bar" data-testid="nav-bar">
+            <div class="nav-bar__fill" [class.nav-bar__fill--slow]="nav.isSlowNavigation()"></div>
+          </div>
+        }
+
         <div class="nav-links">
           <a class="demo-button" routerLink="/packages/angular-navigation-pending/demo" data-testid="nav-self">
             Navigate to self (fast)
           </a>
-          <a class="demo-button demo-button--ghost" routerLink="/" data-testid="nav-home">
-            Navigate to home
+          <a class="demo-button demo-button--accent" routerLink="/" data-testid="nav-home-slow">
+            Navigate to home (slow — 2.5s deactivate guard)
           </a>
         </div>
 
         <div class="nav-status-grid">
-          <div class="nav-status">
+          <div class="nav-status" [class.nav-status--active]="nav.isNavigating()">
             <span class="nav-status__label">isNavigating</span>
             <span
               class="nav-status__value"
@@ -83,7 +89,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
               {{ nav.isNavigating() ? 'true' : 'false' }}
             </span>
           </div>
-          <div class="nav-status">
+          <div class="nav-status" [class.nav-status--active]="nav.isSlowNavigation()">
             <span class="nav-status__label">isSlowNavigation</span>
             <span
               class="nav-status__value"
@@ -97,9 +103,11 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 
         <div class="demo-card__note">
           <p>
-            <code>isSlowNavigation</code> becomes <code>true</code> only after 200ms of
-            navigation, preventing a flash-of-spinner during fast transitions. Click a link
-            above to trigger a transition.
+            Click <strong>"Navigate to home (slow)"</strong> to trigger a navigation with a
+            2.5-second <code>canDeactivate</code> guard delay. You'll see
+            <code>isNavigating → true</code> immediately, then
+            <code>isSlowNavigation → true</code> after 200ms, and finally both reset to
+            <code>false</code> when the guard resolves and the page transitions away.
           </p>
         </div>
       </article>
@@ -121,6 +129,33 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   `,
   styles: [
     `
+      .nav-bar {
+        width: 100%;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--color-border);
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+      .nav-bar__fill {
+        height: 100%;
+        width: 0%;
+        background: #5bc0de;
+        border-radius: 2px;
+        animation: nav-fill 200ms ease-out forwards;
+      }
+      .nav-bar__fill--slow {
+        background: #f0ad4e;
+        animation: nav-fill-slow 2.3s ease-in forwards;
+      }
+      @keyframes nav-fill {
+        to { width: 30%; }
+      }
+      @keyframes nav-fill-slow {
+        0% { width: 30%; }
+        70% { width: 85%; }
+        100% { width: 100%; }
+      }
       .nav-links {
         display: flex;
         gap: 0.75rem;
@@ -140,6 +175,13 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         border-radius: 0.75rem;
         border: 1px solid var(--color-border);
         background: color-mix(in srgb, var(--color-surface-strong) 82%, white);
+        transition:
+          border-color 200ms ease,
+          box-shadow 200ms ease;
+      }
+      .nav-status--active {
+        border-color: rgba(91, 192, 222, 0.5);
+        box-shadow: 0 0 0 1px rgba(91, 192, 222, 0.2);
       }
       .nav-status__label {
         font-family: monospace;
@@ -160,6 +202,12 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 })
 export class NavigationPendingDemoPageComponent {
   protected readonly demo = ANGULAR_NAVIGATION_PENDING_DEMO;
+  /**
+   * Uses immediate mode (delayedIndicatorMs: 0) so the user sees isNavigating
+   * become true immediately when they click a link. The route's canDeactivate
+   * guard keeps this component alive for ~2.5s while the guard resolves,
+   * making the isNavigating → isSlowNavigation → completed lifecycle visible.
+   */
   protected readonly nav = injectNavigationPending({ delayedIndicatorMs: 200 });
 
   protected readonly snapshotJson = computed(() =>

@@ -90,6 +90,7 @@ import { AngularVisibilityHomePageComponent } from './features/packages/angular/
 import { VisibilityDemoPageComponent } from './features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component';
 import { AngularNavigationPendingHomePageComponent } from './features/packages/angular/angular-navigation-pending/angular-navigation-pending-home-page.component';
 import { NavigationPendingDemoPageComponent } from './features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component';
+import { slowDeactivateGuard } from './features/packages/angular/angular-navigation-pending/data/navigation-pending-demo.resolver';
 import { AngularClickOutsideHomePageComponent } from './features/packages/angular/angular-click-outside/angular-click-outside-home-page.component';
 import { ClickOutsideDemoPageComponent } from './features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component';
 import { AngularUndoHomePageComponent } from './features/packages/angular/angular-undo/angular-undo-home-page.component';
@@ -362,6 +363,7 @@ export const routes: Routes = [
     path: 'packages/angular-navigation-pending/demo',
     component: NavigationPendingDemoPageComponent,
     title: 'Navigation Pending Demo',
+    canDeactivate: [slowDeactivateGuard(2500)],
   },
   {
     path: 'packages/angular-click-outside',
