@@ -667,6 +667,50 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-form-drafts',
+    packageName: '@hexguard/angular-form-drafts',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.',
+    detail:
+      'Every multi-step or long-form input benefits from draft persistence. Unlike building raw localStorage save/restore on every screen, injectFormDraft() provides debounced auto-save, configurable TTL, signal-based draft status, and clean clear() — all without dictating form UI.',
+    installCommand: 'pnpm add @hexguard/angular-form-drafts',
+    featureHighlights: [
+      'Debounced auto-save to localStorage — configurable debounce window.',
+      'Configurable TTL — drafts expire after a set time.',
+      'Signal-based hasDraft and metadata — react to draft state in templates.',
+      'restore() returns typed draft data with metadata.',
+      'clear() cancels pending saves and removes the draft.',
+    ],
+    bestFitScenarios: [
+      'Multi-step or long forms where users may navigate away.',
+      'Post/ article editors with auto-save draft recovery.',
+      'Any form where accidental data loss should be minimized.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable factory for form draft persistence.',
+      'It is rendering-agnostic — compose with any form UI library.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-form-drafts',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-drafts/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-drafts.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-file-picker',
     packageName: '@hexguard/angular-file-picker',
     category: 'Utilities',

@@ -24,6 +24,7 @@ another.
 | `@hexguard/angular-click-outside`       | Available   | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-undo`                | Available   | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                               |
 | `@hexguard/angular-pagination`          | Available   | Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.                                                                                              | [Deep Dive](angular-pagination.md), [npm-facing README](../../angular/packages/angular-pagination/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-form-drafts`         | Available   | Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.                                                                                  | [Deep Dive](angular-form-drafts.md), [npm-facing README](../../angular/packages/angular-form-drafts/README.md), [Demo runbook](../demo/README.md)                 |
 | `@hexguard/angular-file-picker`         | Available   | Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.                                                                    | [Deep Dive](angular-file-picker.md), [npm-facing README](../../angular/packages/angular-file-picker/README.md), [Demo runbook](../demo/README.md)                 |
 | `@hexguard/angular-confirmation`        | Available   | Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.                                                                                   | [Deep Dive](angular-confirmation.md), [npm-facing README](../../angular/packages/angular-confirmation/README.md), [Demo runbook](../demo/README.md)               |
 | `@hexguard/angular-live-data`           | Available   | Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.                                                                 | [Deep Dive](angular-live-data.md), [npm-facing README](../../angular/packages/angular-live-data/README.md), [Demo runbook](../demo/README.md)                     |
@@ -192,6 +193,16 @@ Status: Available
 This package provides one injectable factory with signal-based state, navigation helpers, and an optional URL-sync adapter.
 
 Pairs with HexGuard.Pagination on the .NET side for consistent QueryRequest/QueryResponse contracts across the stack.
+
+<a id="package-angular-form-drafts"></a>
+
+### `@hexguard/angular-form-drafts`
+
+Status: Available
+
+This package provides one injectable factory for form draft persistence.
+
+It is rendering-agnostic — compose with any form UI library.
 
 <a id="package-angular-file-picker"></a>
 

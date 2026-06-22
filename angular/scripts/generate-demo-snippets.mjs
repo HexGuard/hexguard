@@ -269,6 +269,13 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-form-drafts/demo-state',
+    title: 'Form Drafts demo component source',
+    description: 'Generated from the real Form Drafts demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-form-drafts/pages/form-drafts-demo-page/form-drafts-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-form-drafts/pages/form-drafts-demo-page/form-drafts-demo-page.component.ts',
+  },
+  {
     id: 'angular-file-picker/demo-state',
     title: 'File Picker demo component source',
     description: 'Generated from the real File Picker demo component files, including TypeScript, template, and styles.',

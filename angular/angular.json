@@ -541,6 +541,26 @@
         }
       }
     },
+    "angular-form-drafts": {
+      "projectType": "library",
+      "root": "packages/angular-form-drafts",
+      "sourceRoot": "packages/angular-form-drafts/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-form-drafts/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-form-drafts/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-form-drafts/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-confirmation": {
       "projectType": "library",
       "root": "packages/angular-confirmation",

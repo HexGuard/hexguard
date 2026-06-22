@@ -56,6 +56,7 @@ const ANGULAR_UNDO_CATALOG = getGeneratedCurrentPackage('angular-undo');
 const ANGULAR_CONFIRMATION_CATALOG = getGeneratedCurrentPackage('angular-confirmation');
 const ANGULAR_LIVE_DATA_CATALOG = getGeneratedCurrentPackage('angular-live-data');
 const ANGULAR_FILE_PICKER_CATALOG = getGeneratedCurrentPackage('angular-file-picker');
+const ANGULAR_FORM_DRAFTS_CATALOG = getGeneratedCurrentPackage('angular-form-drafts');
 const ANGULAR_PAGINATION_CATALOG = getGeneratedCurrentPackage('angular-pagination');
 const ANGULAR_CLICK_OUTSIDE_CATALOG = getGeneratedCurrentPackage('angular-click-outside');
 const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
@@ -76,6 +77,7 @@ const ANGULAR_CLICK_OUTSIDE_DOCS = ANGULAR_CLICK_OUTSIDE_CATALOG.docsLinks;
 const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
 const ANGULAR_LIVE_DATA_DOCS = ANGULAR_LIVE_DATA_CATALOG.docsLinks;
 const ANGULAR_FILE_PICKER_DOCS = ANGULAR_FILE_PICKER_CATALOG.docsLinks;
+const ANGULAR_FORM_DRAFTS_DOCS = ANGULAR_FORM_DRAFTS_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
@@ -1314,6 +1316,31 @@ export const ANGULAR_PAGINATION_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_FORM_DRAFTS_DEMO: DemoPageEntry = {
+  id: 'form-drafts',
+  packageId: 'angular-form-drafts',
+  route: '/packages/angular-form-drafts/demo',
+  legacyRoute: '/form-drafts',
+  label: 'Form Drafts',
+  title: 'Debounced localStorage draft persistence with TTL expiry',
+  description: 'A live demo shows a form that auto-saves to localStorage with debounce, with restore, clear, and TTL-based expiry.',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-drafts/README.md' },
+    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-drafts.md' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: { snippetId: 'angular-form-drafts/demo-state', label: 'Form Drafts demo component source', description: 'The full form drafts demo component source.' },
+};
+export const ANGULAR_FORM_DRAFTS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-form-drafts',
+  route: '/packages/angular-form-drafts',
+  label: 'Angular Form Drafts',
+  title: ANGULAR_FORM_DRAFTS_CATALOG.packageName,
+  description: ANGULAR_FORM_DRAFTS_CATALOG.summary,
+  docsLinks: ANGULAR_FORM_DRAFTS_DOCS,
+  demos: [ANGULAR_FORM_DRAFTS_DEMO],
+};
+
 export const ANGULAR_FILE_PICKER_DEMO: DemoPageEntry = {
   id: 'file-picker',
   packageId: 'angular-file-picker',
@@ -1496,6 +1523,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_LIVE_DATA_PACKAGE,
   ANGULAR_FILE_PICKER_PACKAGE,
+  ANGULAR_FORM_DRAFTS_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

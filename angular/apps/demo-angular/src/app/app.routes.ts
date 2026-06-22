@@ -99,6 +99,8 @@ import { AngularPaginationHomePageComponent } from './features/packages/angular/
 import { PaginationDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component';
 import { AngularFilePickerHomePageComponent } from './features/packages/angular/angular-file-picker/angular-file-picker-home-page.component';
 import { FilePickerDemoPageComponent } from './features/packages/angular/angular-file-picker/pages/file-picker-demo-page/file-picker-demo-page.component';
+import { AngularFormDraftsHomePageComponent } from './features/packages/angular/angular-form-drafts/angular-form-drafts-home-page.component';
+import { FormDraftsDemoPageComponent } from './features/packages/angular/angular-form-drafts/pages/form-drafts-demo-page/form-drafts-demo-page.component';
 import { PaginationCrossStackDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-cross-stack-demo-page/pagination-cross-stack-demo-page.component';
 import { AngularLiveDataHomePageComponent } from './features/packages/angular/angular-live-data/angular-live-data-home-page.component';
 import { LiveDataDemoPageComponent } from './features/packages/angular/angular-live-data/pages/live-data-demo-page/live-data-demo-page.component';
@@ -420,6 +422,16 @@ export const routes: Routes = [
     path: 'packages/angular-file-picker/demo',
     component: FilePickerDemoPageComponent,
     title: 'File Picker Demo',
+  },
+  {
+    path: 'packages/angular-form-drafts',
+    component: AngularFormDraftsHomePageComponent,
+    title: 'Angular Form Drafts Demos',
+  },
+  {
+    path: 'packages/angular-form-drafts/demo',
+    component: FormDraftsDemoPageComponent,
+    title: 'Form Drafts Demo',
   },
   {
     path: 'packages/angular-live-data',
