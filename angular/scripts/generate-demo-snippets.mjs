@@ -268,29 +268,15 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
-    description:
-      'Generated from the real Navigation Pending demo component files, including TypeScript, template, and styles.',
-    workspacePath:
-      'apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
-    sourcePath:
-      'angular/apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
-  },
   {
-    id: 'angular-visibility/demo-state',
-    title: 'Visibility demo component source',
+    id: 'angular-undo/demo-state',
+    title: 'Undo demo component source',
     description:
-      'Generated from the real Visibility demo component files, including TypeScript, template, and styles.',
+      'Generated from the real Undo demo component files, including TypeScript, template, and styles.',
     workspacePath:
-      'apps/demo-angular/src/app/features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component.ts',
+      'apps/demo-angular/src/app/features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component.ts',
     sourcePath:
-      'angular/apps/demo-angular/src/app/features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component.ts',
-  },
-    description:
-      'Generated from the real Breakpoint Observer demo component files, including TypeScript, template, and styles.',
-    workspacePath:
-      'apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
-    sourcePath:
-      'angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/pages/breakpoint-observer-demo-page/breakpoint-observer-demo-page.component.ts',
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component.ts',
   },
 ];
 

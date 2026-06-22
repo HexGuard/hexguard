@@ -449,6 +449,32 @@
         }
       }
     },
+    "angular-undo": {
+      "projectType": "library",
+      "root": "packages/angular-undo",
+      "sourceRoot": "packages/angular-undo/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-undo/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-undo/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-undo/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-click-outside": {
       "projectType": "library",
       "root": "packages/angular-click-outside",

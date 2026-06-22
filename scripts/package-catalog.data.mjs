@@ -379,6 +379,36 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-undo',
+    packageName: '@hexguard/angular-undo',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-undo/README.md',
+    deepDivePath: 'docs/packages/angular-undo.md',
+    repositoryPath: 'angular/packages/angular-undo',
+    summary:
+      'Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.',
+    detail:
+      'Focused on destructive actions like delete, archive, move, or status-change where an undo window — "Item deleted. Undo?" — provides a safety net before the action is finalized. Every team rebuilds the same timer-based undo stack, expiry handling, and commit-or-revert state management.',
+    installCommand: 'pnpm add @hexguard/angular-undo',
+    featureHighlights: [
+      'Timer-based undo stack with configurable TTL windows and per-action override.',
+      'Auto-commit on TTL expiry via configurable onCommit callback.',
+      'Manual undo, commit, group undo, and clear-all imperative control.',
+      'pendingUndos, hasPending, undosForType() reactive signals.',
+    ],
+    bestFitScenarios: [
+      'Delete flows where "Item deleted. Undo?" appears for a configurable window.',
+      'Archive or move actions with a brief undo window before the operation finalizes.',
+      'Batch operations where multiple related actions should be undone together as a group.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable for managing a stack of reversible actions with full timer management.',
+      'It is headless by design — compose with @hexguard/angular-notifications for the "Undo?" toast UI.',
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     status: 'Released',
