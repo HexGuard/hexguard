@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, ElementRef, viewChild } from '@angular/core';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { injectVisibility, inElementVisibility } from '@hexguard/angular-visibility';
 
 import { ANGULAR_VISIBILITY_DEMO } from '../../../../../../demo-registry';
@@ -16,6 +17,8 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
     DemoNavigationStripComponent,
     DemoPageLayoutComponent,
     DemoStatusStripComponent,
+    DatePipe,
+    DecimalPipe,
   ],
   template: `
     <demo-page-layout testId="visibility-demo-page">

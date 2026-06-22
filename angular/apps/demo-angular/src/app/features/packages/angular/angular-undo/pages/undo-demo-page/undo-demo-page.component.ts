@@ -101,7 +101,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
                       type="button"
                       class="demo-button demo-button--small"
                       (click)="undo.undo(action.id)"
-                      data-testid="undo-btn-{{ action.id }}"
+                      [attr.data-testid]="'undo-btn-' + action.id"
                     >
                       Undo
                     </button>
@@ -109,7 +109,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
                       type="button"
                       class="demo-button demo-button--small demo-button--ghost"
                       (click)="undo.commit(action.id)"
-                      data-testid="commit-btn-{{ action.id }}"
+                      [attr.data-testid]="'commit-btn-' + action.id"
                     >
                       Commit
                     </button>

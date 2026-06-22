@@ -539,6 +539,91 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-click-outside',
+    packageName: '@hexguard/angular-click-outside',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.',
+    detail:
+      'Focused on Angular apps that need to dismiss dropdowns, modals, and popovers when the user clicks outside — without rebuilding pointer event listeners with manual exclusion logic and cleanup from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-click-outside',
+    featureHighlights: [
+      'Injectable injectClickOutside() for programmatic click-outside detection.',
+      'HexguardClickOutsideDirective for template-based (hexguardClickOutside) output.',
+      'Configurable enabled signal to toggle detection on and off.',
+      'CSS selector exclusions for ignoring clicks on nested elements.',
+    ],
+    bestFitScenarios: [
+      'Dropdown menus that should close when clicking outside.',
+      'Modal dialogs that dismiss on backdrop click.',
+      'Popovers, tooltips, and flyout panels that need click-outside dismissal.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides two surfaces — one injectable and one directive — for click-outside detection.',
+      'It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-click-outside',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-click-outside/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-click-outside.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-undo',
+    packageName: '@hexguard/angular-undo',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.',
+    detail:
+      'Focused on destructive actions like delete, archive, move, or status-change where an undo window — "Item deleted. Undo?" — provides a safety net before the action is finalized. Every team rebuilds the same timer-based undo stack, expiry handling, and commit-or-revert state management.',
+    installCommand: 'pnpm add @hexguard/angular-undo',
+    featureHighlights: [
+      'Timer-based undo stack with configurable TTL windows and per-action override.',
+      'Auto-commit on TTL expiry via configurable onCommit callback.',
+      'Manual undo, commit, group undo, and clear-all imperative control.',
+      'pendingUndos, hasPending, undosForType() reactive signals.',
+    ],
+    bestFitScenarios: [
+      'Delete flows where "Item deleted. Undo?" appears for a configurable window.',
+      'Archive or move actions with a brief undo window before the operation finalizes.',
+      'Batch operations where multiple related actions should be undone together as a group.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable for managing a stack of reversible actions with full timer management.',
+      'It is headless by design — compose with @hexguard/angular-notifications for the "Undo?" toast UI.',
+    ],
+    repositoryHref: 'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-undo',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-undo/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-undo.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     category: 'UI Infrastructure',

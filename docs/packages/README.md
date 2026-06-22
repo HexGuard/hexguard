@@ -21,6 +21,8 @@ another.
 | `@hexguard/angular-breakpoint-observer` | Available   | Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.                                                | [Deep Dive](angular-breakpoint-observer.md), [npm-facing README](../../angular/packages/angular-breakpoint-observer/README.md), [Demo runbook](../demo/README.md) |
 | `@hexguard/angular-visibility`          | Available   | Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.                                   | [Deep Dive](angular-visibility.md), [npm-facing README](../../angular/packages/angular-visibility/README.md), [Demo runbook](../demo/README.md)                   |
 | `@hexguard/angular-navigation-pending`  | Available   | Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.                                                                 | [Deep Dive](angular-navigation-pending.md), [npm-facing README](../../angular/packages/angular-navigation-pending/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-click-outside`       | Available   | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-undo`                | Available   | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                               |
 | `@hexguard/angular-notifications`       | Released    | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-error-boundary`      | Released    | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)           |
 | `@hexguard/angular-feature-flags`       | Released    | Feature flag evaluation for Angular — typed flag checks across routes, templates, and service logic with sync support for .NET backends.                                                              | [Deep Dive](angular-feature-flags.md), [npm-facing README](../../angular/packages/angular-feature-flags/README.md), [Demo runbook](../demo/README.md)             |
@@ -155,6 +157,26 @@ Status: Available
 This package is a focused Angular primitive for route transition state tracking.
 
 It provides one injectable factory with two signals and an optional route-scoped mode, with zero runtime dependencies beyond Angular core, Angular router, and tslib.
+
+<a id="package-angular-click-outside"></a>
+
+### `@hexguard/angular-click-outside`
+
+Status: Available
+
+This package provides two surfaces — one injectable and one directive — for click-outside detection.
+
+It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.
+
+<a id="package-angular-undo"></a>
+
+### `@hexguard/angular-undo`
+
+Status: Available
+
+This package provides one injectable for managing a stack of reversible actions with full timer management.
+
+It is headless by design — compose with @hexguard/angular-notifications for the "Undo?" toast UI.
 
 <a id="package-angular-notifications"></a>
 
