@@ -90,6 +90,8 @@ import { AngularVisibilityHomePageComponent } from './features/packages/angular/
 import { VisibilityDemoPageComponent } from './features/packages/angular/angular-visibility/pages/visibility-demo-page/visibility-demo-page.component';
 import { AngularNavigationPendingHomePageComponent } from './features/packages/angular/angular-navigation-pending/angular-navigation-pending-home-page.component';
 import { NavigationPendingDemoPageComponent } from './features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component';
+import { AngularClickOutsideHomePageComponent } from './features/packages/angular/angular-click-outside/angular-click-outside-home-page.component';
+import { ClickOutsideDemoPageComponent } from './features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
 import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
@@ -358,6 +360,16 @@ export const routes: Routes = [
     path: 'packages/angular-navigation-pending/demo',
     component: NavigationPendingDemoPageComponent,
     title: 'Navigation Pending Demo',
+  },
+  {
+    path: 'packages/angular-click-outside',
+    component: AngularClickOutsideHomePageComponent,
+    title: 'Angular Click Outside Demos',
+  },
+  {
+    path: 'packages/angular-click-outside/demo',
+    component: ClickOutsideDemoPageComponent,
+    title: 'Click Outside Demo',
   },
   {
     path: 'packages/angular-notifications',

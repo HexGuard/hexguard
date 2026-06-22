@@ -410,6 +410,135 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-breakpoint-observer',
+    packageName: '@hexguard/angular-breakpoint-observer',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.',
+    detail:
+      'Focused on responsive TypeScript logic where component code needs to react to viewport size — show/hide columns, switch layout, adapt pagination — without rebuilding matchMedia listeners with manual cleanup and inconsistent breakpoint naming.',
+    installCommand: 'pnpm add @hexguard/angular-breakpoint-observer',
+    featureHighlights: [
+      'Active breakpoint signal that resolves to the largest matching breakpoint name.',
+      'Per-breakpoint boolean signals and above/below comparison helpers.',
+      'Arbitrary media query matching via matches(query) signal.',
+      'Tailwind-compatible default breakpoints (640/768/1024/1280/1536) with fully custom override support.',
+    ],
+    bestFitScenarios: [
+      'Responsive components that need to show or hide columns, switch layouts, or adapt data-display mode based on viewport width.',
+      'Angular apps that want one typed breakpoint contract instead of ad hoc matchMedia calls across components.',
+      'Any signal-driven Angular UI where breakpoint state needs to drive computed logic or template branches.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the simplest HexGuard viewport primitive: one injectable factory function, one options interface, one return type, zero dependencies beyond Angular and tslib.',
+      'It focuses on deterministic breakpoint matching with Tailwind-compatible defaults and docs-grade demos showing active breakpoint, comparisons, and matches query.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-breakpoint-observer',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-breakpoint-observer/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-breakpoint-observer.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-visibility',
+    packageName: '@hexguard/angular-visibility',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.',
+    detail:
+      'Focused on Angular apps that need to pause polling when the tab is hidden, show "are you still there?" prompts after inactivity, pause animations when elements scroll out of view, and resume when the user returns — without rebuilding visibilitychange listeners and IntersectionObserver setups from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-visibility',
+    featureHighlights: [
+      'Tab visibility tracking via document.visibilityState with reactive signal.',
+      'Configurable idle detection with activity events and periodic idle duration updates.',
+      'IntersectionObserver-based element visibility as a standalone signal function.',
+      'Automatic DestroyRef cleanup for all event listeners and observers.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need to pause background polling or WebSocket connections when the tab is hidden.',
+      'Idle-timeout prompts, session lock screens, or "are you still there?" detection.',
+      'Components that should pause animations or lazy-load when elements scroll out of view.',
+    ],
+    statusNoteParagraphs: [
+      'This package is a focused Angular primitive covering document-level visibility, idle detection, and element-level IntersectionObserver tracking.',
+      'It provides two exports — one injectable factory and one standalone function — with zero runtime dependencies beyond Angular core and tslib.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-visibility',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-visibility/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-visibility.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-navigation-pending',
+    packageName: '@hexguard/angular-navigation-pending',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.',
+    detail:
+      'Focused on Angular apps that need consistent navigation pending indicators — global loaders, route readiness spinners, and page-level pending markers — without rebuilding Router event subscriptions and flash-of-spinner prevention from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-navigation-pending',
+    featureHighlights: [
+      'isNavigating signal bound to Angular Router NavigationStart/End/Cancel/Error events.',
+      'isSlowNavigation signal with configurable delay threshold to prevent flash-of-spinner.',
+      'Route-scoped mode with manual markReady() for page-level readiness control.',
+      'Automatic DestroyRef cleanup for Router subscription and delay timers.',
+    ],
+    bestFitScenarios: [
+      'Global loading indicators that should show only during slow navigations.',
+      'Route-level spinners that need to wait for async page data before hiding.',
+      'Angular apps that want one consistent navigation-pending contract instead of ad hoc router event subscriptions.',
+    ],
+    statusNoteParagraphs: [
+      'This package is a focused Angular primitive for route transition state tracking.',
+      'It provides one injectable factory with two signals and an optional route-scoped mode, with zero runtime dependencies beyond Angular core, Angular router, and tslib.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-navigation-pending',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-navigation-pending/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-navigation-pending.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     category: 'UI Infrastructure',

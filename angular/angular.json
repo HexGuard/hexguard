@@ -449,6 +449,32 @@
         }
       }
     },
+    "angular-click-outside": {
+      "projectType": "library",
+      "root": "packages/angular-click-outside",
+      "sourceRoot": "packages/angular-click-outside/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-click-outside/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-click-outside/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-click-outside/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-navigation-pending": {
       "projectType": "library",
       "root": "packages/angular-navigation-pending",

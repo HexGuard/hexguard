@@ -349,6 +349,36 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-click-outside',
+    packageName: '@hexguard/angular-click-outside',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-click-outside/README.md',
+    deepDivePath: 'docs/packages/angular-click-outside.md',
+    repositoryPath: 'angular/packages/angular-click-outside',
+    summary:
+      'Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.',
+    detail:
+      'Focused on Angular apps that need to dismiss dropdowns, modals, and popovers when the user clicks outside — without rebuilding pointer event listeners with manual exclusion logic and cleanup from scratch.',
+    installCommand: 'pnpm add @hexguard/angular-click-outside',
+    featureHighlights: [
+      'Injectable injectClickOutside() for programmatic click-outside detection.',
+      'HexguardClickOutsideDirective for template-based (hexguardClickOutside) output.',
+      'Configurable enabled signal to toggle detection on and off.',
+      'CSS selector exclusions for ignoring clicks on nested elements.',
+    ],
+    bestFitScenarios: [
+      'Dropdown menus that should close when clicking outside.',
+      'Modal dialogs that dismiss on backdrop click.',
+      'Popovers, tooltips, and flyout panels that need click-outside dismissal.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides two surfaces — one injectable and one directive — for click-outside detection.',
+      'It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.',
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     status: 'Released',

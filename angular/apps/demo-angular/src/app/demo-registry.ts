@@ -52,6 +52,7 @@ const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
+const ANGULAR_CLICK_OUTSIDE_CATALOG = getGeneratedCurrentPackage('angular-click-outside');
 const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
 const ANGULAR_VISIBILITY_CATALOG = getGeneratedCurrentPackage('angular-visibility');
 const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-network-status');
@@ -63,6 +64,7 @@ const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
 const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
+const ANGULAR_CLICK_OUTSIDE_DOCS = ANGULAR_CLICK_OUTSIDE_CATALOG.docsLinks;
 const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
@@ -1215,6 +1217,49 @@ export const ANGULAR_NAVIGATION_PENDING_DEMO: DemoPageEntry = {
   },
 };
 
+// ── angular-click-outside demo entries ───────────────────────────
+
+export const ANGULAR_CLICK_OUTSIDE_DEMO: DemoPageEntry = {
+  id: 'click-outside',
+  packageId: 'angular-click-outside',
+  route: '/packages/angular-click-outside/demo',
+  legacyRoute: '/click-outside',
+  label: 'Click Outside',
+  title: 'Click-outside detection with injectable and directive',
+  description:
+    'A live demo demonstrates directive-based click-outside detection on a box element and injectable-based dropdown dismissal.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-click-outside/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-click-outside.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-click-outside/demo-state',
+    label: 'Click outside demo component source',
+    description:
+      'The full click outside demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_CLICK_OUTSIDE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-click-outside',
+  route: '/packages/angular-click-outside',
+  label: 'Angular Click Outside',
+  title: ANGULAR_CLICK_OUTSIDE_CATALOG.packageName,
+  description: ANGULAR_CLICK_OUTSIDE_CATALOG.summary,
+  docsLinks: ANGULAR_CLICK_OUTSIDE_DOCS,
+  demos: [ANGULAR_CLICK_OUTSIDE_DEMO],
+};
+
 export const ANGULAR_NAVIGATION_PENDING_PACKAGE: DemoPackageEntry = {
   id: 'angular-navigation-pending',
   route: '/packages/angular-navigation-pending',
@@ -1266,6 +1311,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_BREAKPOINT_OBSERVER_PACKAGE,
   ANGULAR_VISIBILITY_PACKAGE,
   ANGULAR_NAVIGATION_PENDING_PACKAGE,
+  ANGULAR_CLICK_OUTSIDE_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,

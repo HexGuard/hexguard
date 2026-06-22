@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-click-outside",
+  "version": "0.1.0",
+  "description": "Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.",
+  "keywords": [
+    "angular",
+    "signals",
+    "click-outside",
+    "clickoutside",
+    "overlay",
+    "dropdown",
+    "modal",
+    "dismiss",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-click-outside",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-click-outside"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

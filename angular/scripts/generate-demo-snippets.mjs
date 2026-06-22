@@ -259,6 +259,23 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
   },
   {
+    id: 'angular-click-outside/demo-state',
+    title: 'Click outside demo component source',
+    description:
+      'Generated from the real Click Outside demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
+  },
+    description:
+      'Generated from the real Navigation Pending demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/pages/navigation-pending-demo-page/navigation-pending-demo-page.component.ts',
+  },
+  {
     id: 'angular-visibility/demo-state',
     title: 'Visibility demo component source',
     description:
