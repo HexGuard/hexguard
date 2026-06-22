@@ -1,1 +1,34 @@
-{ "name": "@hexguard/angular-live-data", "version": "0.1.0", "description": "Visibility-aware polling for Angular: configurable refresh cadence, stale indicators, pause-on-hidden, and retry with backoff.", "keywords": ["angular","signals","live-data","polling","refresh","stale","hexguard"], "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-live-data", "bugs": { "url": "https://github.com/hexguard/hexguard/issues" }, "repository": { "type": "git", "url": "https://github.com/hexguard/hexguard.git", "directory": "angular/packages/angular-live-data" }, "license": "MIT", "peerDependencies": { "@angular/core": "^22.0.0" }, "dependencies": { "tslib": "^2.3.0" }, "publishConfig": { "access": "public" }, "sideEffects": false }
+{
+  "name": "@hexguard/angular-live-data",
+  "version": "0.1.0",
+  "description": "Visibility-aware polling for Angular: configurable refresh cadence, stale indicators, pause-on-hidden, and retry with backoff.",
+  "keywords": [
+    "angular",
+    "signals",
+    "live-data",
+    "polling",
+    "refresh",
+    "stale",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-live-data",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-live-data"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

@@ -37,6 +37,7 @@ class DashboardComponent {
 ## Use Cases
 
 ### Pause background work on tab switch
+
 ```typescript
 effect(() => {
   if (!this.v.isVisible()) this.liveData.pause();
@@ -45,6 +46,7 @@ effect(() => {
 ```
 
 ### Session timeout / UI dimming
+
 ```typescript
 effect(() => {
   if (this.v.isIdle()) this.showIdleOverlay();
@@ -53,6 +55,7 @@ effect(() => {
 ```
 
 ### Lazy-load on scroll
+
 ```typescript
 readonly loaded = signal(false);
 effect(() => {
@@ -67,38 +70,37 @@ effect(() => {
 
 ### `injectVisibility(options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `idleTimeoutMs` | `number` | `60000` | Inactivity threshold (ms). `0` = disable idle detection |
-| `activityEvents` | `string[]` | `['mousemove','keydown','mousedown','touchstart','scroll','wheel']` | Events that reset the idle timer |
+| Option           | Type       | Default                                                             | Description                                             |
+| ---------------- | ---------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
+| `idleTimeoutMs`  | `number`   | `60000`                                                             | Inactivity threshold (ms). `0` = disable idle detection |
+| `activityEvents` | `string[]` | `['mousemove','keydown','mousedown','touchstart','scroll','wheel']` | Events that reset the idle timer                        |
 
 ### `VisibilityState`
 
-| Signal | Type | Description |
-|--------|------|-------------|
-| `isVisible` | `Signal<boolean>` | Whether the document tab is currently visible |
-| `isIdle` | `Signal<boolean>` | Whether the user has been inactive beyond the timeout |
-| `idleDuration` | `Signal<number>` | Milliseconds since last user activity |
-| `lastActivity` | `Signal<number>` | Timestamp of the last detected activity event |
+| Signal         | Type              | Description                                           |
+| -------------- | ----------------- | ----------------------------------------------------- |
+| `isVisible`    | `Signal<boolean>` | Whether the document tab is currently visible         |
+| `isIdle`       | `Signal<boolean>` | Whether the user has been inactive beyond the timeout |
+| `idleDuration` | `Signal<number>`  | Milliseconds since last user activity                 |
+| `lastActivity` | `Signal<number>`  | Timestamp of the last detected activity event         |
 
 ### `inElementVisibility(elementRef)`
 
-| Param | Type | Description |
-|-------|------|-------------|
-| `elementRef` | `Signal<ElementRef \| undefined>` | A signal returning the target element ref |
-| Returns | `Signal<boolean>` | True when the element is intersecting the viewport |
+| Param        | Type                              | Description                                        |
+| ------------ | --------------------------------- | -------------------------------------------------- |
+| `elementRef` | `Signal<ElementRef \| undefined>` | A signal returning the target element ref          |
+| Returns      | `Signal<boolean>`                 | True when the element is intersecting the viewport |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| Tab visibility tracking (`visibilitychange`) | ✅ |
-| User idle detection (configurable timeout + events) | ✅ |
-| Element viewport intersection (`IntersectionObserver`) | ✅ |
-| User engagement analytics or session tracking | ❌ |
-| Virtual scrolling viewport visibility | ❌ (use `@angular/cdk`) |
+| Concern                                                | Status                  |
+| ------------------------------------------------------ | ----------------------- |
+| Tab visibility tracking (`visibilitychange`)           | ✅                      |
+| User idle detection (configurable timeout + events)    | ✅                      |
+| Element viewport intersection (`IntersectionObserver`) | ✅                      |
+| User engagement analytics or session tracking          | ❌                      |
+| Virtual scrolling viewport visibility                  | ❌ (use `@angular/cdk`) |
 
 ## Demo
 
 Visit `/packages/angular-visibility/demo` for tab visibility, idle detection, and element visibility demos.
-

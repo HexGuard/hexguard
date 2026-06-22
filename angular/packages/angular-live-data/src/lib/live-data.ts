@@ -54,6 +54,7 @@ export function injectLiveData<T>(options: LiveDataOptions<T>): LiveDataHandle<T
   let isDestroyed = false;
   let consecutiveFailures = 0;
   let retryTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  let pendingExecution: Promise<void> | null = null;
 
   const destroyRef = inject(DestroyRef);
 
@@ -64,33 +65,39 @@ export function injectLiveData<T>(options: LiveDataOptions<T>): LiveDataHandle<T
 
   async function executeFetch(): Promise<void> {
     if (isDestroyed || isPaused()) return;
+    if (pendingExecution) return pendingExecution;
     loading.set(true);
-    try {
-      const result = await fetcher();
-      if (!isDestroyed) {
-        data.set(result);
-        staleCheckMsAccumulator = 0;
-        stale.set(false);
-        error.set(null);
-        consecutiveFailures = 0;
-      }
-    } catch (err) {
-      if (!isDestroyed) {
-        error.set(err);
-        consecutiveFailures++;
-        if (consecutiveFailures < retryConfig.maxRetries) {
-          const delay = calculateRetryDelay();
-          retryTimeoutId = setTimeout(() => {
-            retryTimeoutId = null;
-            void executeFetch();
-          }, delay);
+    const execution = (async () => {
+      try {
+        const result = await fetcher();
+        if (!isDestroyed) {
+          data.set(result);
+          staleCheckMsAccumulator = 0;
+          stale.set(false);
+          error.set(null);
+          consecutiveFailures = 0;
         }
+      } catch (err) {
+        if (!isDestroyed) {
+          error.set(err);
+          consecutiveFailures++;
+          if (consecutiveFailures < retryConfig.maxRetries) {
+            const delay = calculateRetryDelay();
+            retryTimeoutId = setTimeout(() => {
+              retryTimeoutId = null;
+              void executeFetch();
+            }, delay);
+          }
+        }
+      } finally {
+        if (!isDestroyed) {
+          loading.set(false);
+        }
+        pendingExecution = null;
       }
-    } finally {
-      if (!isDestroyed) {
-        loading.set(false);
-      }
-    }
+    })();
+    pendingExecution = execution;
+    return execution;
   }
 
   function startPolling(): void {

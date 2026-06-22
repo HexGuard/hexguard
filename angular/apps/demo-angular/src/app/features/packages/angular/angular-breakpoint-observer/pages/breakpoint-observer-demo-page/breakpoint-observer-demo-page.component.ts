@@ -138,11 +138,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         padding: 1.5rem;
         margin-bottom: 1rem;
         border-radius: 1rem;
-        background: linear-gradient(
-          180deg,
-          rgba(91, 192, 222, 0.08),
-          rgba(91, 192, 222, 0.04)
-        );
+        background: linear-gradient(180deg, rgba(91, 192, 222, 0.08), rgba(91, 192, 222, 0.04));
         border: 1px solid var(--color-border);
       }
       .bp-viewport-label {

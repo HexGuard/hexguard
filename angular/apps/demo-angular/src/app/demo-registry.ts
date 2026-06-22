@@ -51,7 +51,9 @@ const ANGULAR_PERMISSIONS_DOCS = ANGULAR_PERMISSIONS_CATALOG.docsLinks;
 const ANGULAR_API_ERRORS_DOCS = ANGULAR_API_ERRORS_CATALOG.docsLinks;
 const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
-const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
+const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage(
+  'angular-breakpoint-observer',
+);
 const ANGULAR_UNDO_CATALOG = getGeneratedCurrentPackage('angular-undo');
 const ANGULAR_CONFIRMATION_CATALOG = getGeneratedCurrentPackage('angular-confirmation');
 const ANGULAR_LIVE_DATA_CATALOG = getGeneratedCurrentPackage('angular-live-data');
@@ -1290,8 +1292,7 @@ export const ANGULAR_UNDO_DEMO: DemoPageEntry = {
   codeSample: {
     snippetId: 'angular-undo/demo-state',
     label: 'Undo demo component source',
-    description:
-      'The full undo demo component source, including TypeScript, template, and styles.',
+    description: 'The full undo demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -1305,14 +1306,24 @@ export const ANGULAR_PAGINATION_DEMO: DemoPageEntry = {
   description:
     'A live pagination playground demonstrates page, pageSize, total, totalPages, hasNext, hasPrevious, range display, and page number navigation.',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md' },
-    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
   codeSample: {
     snippetId: 'angular-pagination/demo-state',
     label: 'Pagination demo component source',
-    description: 'The full pagination demo component source, including TypeScript, template, and styles.',
+    description:
+      'The full pagination demo component source, including TypeScript, template, and styles.',
   },
 };
 
@@ -1323,13 +1334,27 @@ export const ANGULAR_FORM_DRAFTS_DEMO: DemoPageEntry = {
   legacyRoute: '/form-drafts',
   label: 'Form Drafts',
   title: 'Debounced localStorage draft persistence with TTL expiry',
-  description: 'A live demo shows a form that auto-saves to localStorage with debounce, with restore, clear, and TTL-based expiry.',
+  description:
+    'A live demo shows a form that auto-saves to localStorage with debounce, with restore, clear, and TTL-based expiry.',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-drafts/README.md' },
-    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-drafts.md' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-drafts/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-drafts.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
-  codeSample: { snippetId: 'angular-form-drafts/demo-state', label: 'Form Drafts demo component source', description: 'The full form drafts demo component source.' },
+  codeSample: {
+    snippetId: 'angular-form-drafts/demo-state',
+    label: 'Form Drafts demo component source',
+    description: 'The full form drafts demo component source.',
+  },
 };
 export const ANGULAR_FORM_DRAFTS_PACKAGE: DemoPackageEntry = {
   id: 'angular-form-drafts',
@@ -1348,13 +1373,27 @@ export const ANGULAR_FILE_PICKER_DEMO: DemoPageEntry = {
   legacyRoute: '/file-picker',
   label: 'File Picker',
   title: 'Headless file selection with signal-based state and drag-and-drop',
-  description: 'A live demo shows file selection via dialog or drag-drop, type/size validation, and configurable content reading (text, data URL, or metadata only).',
+  description:
+    'A live demo shows file selection via dialog or drag-drop, type/size validation, and configurable content reading (text, data URL, or metadata only).',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-file-picker/README.md' },
-    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-file-picker.md' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-file-picker/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-file-picker.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
-  codeSample: { snippetId: 'angular-file-picker/demo-state', label: 'File Picker demo component source', description: 'The full file picker demo component source.' },
+  codeSample: {
+    snippetId: 'angular-file-picker/demo-state',
+    label: 'File Picker demo component source',
+    description: 'The full file picker demo component source.',
+  },
 };
 export const ANGULAR_FILE_PICKER_PACKAGE: DemoPackageEntry = {
   id: 'angular-file-picker',
@@ -1373,12 +1412,25 @@ export const ANGULAR_PAGINATION_CROSS_STACK_DEMO: DemoPageEntry = {
   legacyRoute: '/pagination/dotnet',
   label: 'Cross-stack Demo',
   title: 'Angular Pagination + HexGuard.Pagination cross-stack integration',
-  description: 'A live demo shows angular-pagination calling the HexGuard.Pagination .NET library via the shared SampleApi. Page navigation fetches products from the backend with typed QueryRequest/QueryResponse contracts.',
+  description:
+    'A live demo shows angular-pagination calling the HexGuard.Pagination .NET library via the shared SampleApi. Page navigation fetches products from the backend with typed QueryRequest/QueryResponse contracts.',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md' },
-    { label: '.NET Pagination README', href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.Pagination/README.md' },
-    { label: 'Sample API', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md',
+    },
+    {
+      label: '.NET Pagination README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.Pagination/README.md',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
   codeSample: {
     snippetId: 'angular-pagination/cross-stack-demo-state',
@@ -1394,13 +1446,27 @@ export const ANGULAR_LIVE_DATA_DEMO: DemoPageEntry = {
   legacyRoute: '/live-data',
   label: 'Live Data',
   title: 'Reactive polling with visibility-aware pause/resume and stale detection',
-  description: 'A live demo shows KPI dashboard metrics polling every 5 seconds, with pause/resume controls, stale badge, and error recovery demonstration.',
+  description:
+    'A live demo shows KPI dashboard metrics polling every 5 seconds, with pause/resume controls, stale badge, and error recovery demonstration.',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-live-data/README.md' },
-    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-live-data.md' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-live-data/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-live-data.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
-  codeSample: { snippetId: 'angular-live-data/demo-state', label: 'Live Data demo component source', description: 'The full live data demo component source.' },
+  codeSample: {
+    snippetId: 'angular-live-data/demo-state',
+    label: 'Live Data demo component source',
+    description: 'The full live data demo component source.',
+  },
 };
 export const ANGULAR_LIVE_DATA_PACKAGE: DemoPackageEntry = {
   id: 'angular-live-data',
@@ -1419,13 +1485,27 @@ export const ANGULAR_CONFIRMATION_DEMO: DemoPageEntry = {
   legacyRoute: '/confirmation',
   label: 'Confirmation',
   title: 'Headless confirmation dialog state with promise-based ask/run flows',
-  description: 'A live demo shows delete and archive confirmation flows with confirm/cancel dialog and reactive isOpen/currentRequest signals.',
+  description:
+    'A live demo shows delete and archive confirmation flows with confirm/cancel dialog and reactive isOpen/currentRequest signals.',
   docsLinks: [
-    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-confirmation/README.md' },
-    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-confirmation.md' },
-    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-confirmation/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-confirmation.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
   ],
-  codeSample: { snippetId: 'angular-confirmation/demo-state', label: 'Confirmation demo component source', description: 'The full confirmation demo component source.' },
+  codeSample: {
+    snippetId: 'angular-confirmation/demo-state',
+    label: 'Confirmation demo component source',
+    description: 'The full confirmation demo component source.',
+  },
 };
 export const ANGULAR_CONFIRMATION_PACKAGE: DemoPackageEntry = {
   id: 'angular-confirmation',
@@ -1794,9 +1874,18 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
       'QueryRequest, QueryResponse<T>, SortSpec records for standardized paginated list endpoints. Computed helpers: HasNext, HasPrevious, RangeStart, RangeEnd.',
     status: 'Available',
     docsLinks: [
-      { label: 'Source code', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Pagination' },
-      { label: 'Sample API', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi' },
-      { label: '.NET workspace docs', href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md' },
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Pagination',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: '.NET workspace docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md',
+      },
     ],
     demos: [DOTNET_PAGINATION_HOME],
   },

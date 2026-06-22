@@ -180,3 +180,47 @@ pnpm verify:package
 - bump `angular/packages/angular-query-form/package.json`
 - tag `angular-query-form-v<version>`
 - let `.github/workflows/release-angular-query-form.yml` validate, publish, and create the release
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational — no code has been changed.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                                                        | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| Public API Design         | Narrow surface — 3 package-specific exports + ergonomic re-exports from `@hexguard/angular-url-state`. No internal helpers leaked.                                                                                                                                             | praise   |
+| Public API Design         | `queryForm()` has JSDoc `@example`, but `QueryFormOptions`, `QueryForm`, and error classes lack `@example` tags showing TypeScript and template usage.                                                                                                                         | moderate |
+| Public API Design         | `dateIsoParam` and `nullableParam` are re-exported from `@hexguard/angular-url-state` but never demonstrated in any demo page or spec — dead re-exports from a consumer perspective.                                                                                           | minor    |
+| Public API Design         | Multiple overloads for `queryForm()` with/without `managedKeys` provide excellent type inference.                                                                                                                                                                              | praise   |
+| Implementation Quality    | Signals + `effect()` for URL-state sync, `form.valueChanges.subscribe()` properly unsubscribed in `destroyRef.onDestroy()`. `emitEvent: false` prevents feedback loops.                                                                                                        | praise   |
+| Implementation Quality    | Three dedicated error classes (`QueryFormControlMissingError`, `QueryFormManagedKeyError`, `QueryFormResetKeyError`) with descriptive messages.                                                                                                                                | praise   |
+| Implementation Quality    | Delegates all URL behavior (history, debounce, invalid params) to underlying `urlState()` — clean separation of concerns.                                                                                                                                                      | praise   |
+| Implementation Quality    | `snapshotsEqual()`, `diffSnapshots()`, `valuesEqual()` helpers use codec `equals()` when available — handles non-primitive value comparison correctly.                                                                                                                         | praise   |
+| Documentation             | README covers feature matrix, 13+ behavioral notes, option resolution, managed subset scope. Excellent depth for a composition-layer package.                                                                                                                                  | praise   |
+| Documentation             | Deep-dive doc duplicates feature matrix from README (intentional for standalone reference) and adds internal behavior notes. No mention of `queryKey` remapping feature.                                                                                                       | minor    |
+| Documentation             | No explicit documentation of `arrayParam` codec equality behavior for `resetKeysOnChange` with tag arrays.                                                                                                                                                                     | minor    |
+| Test Coverage             | 18 test cases covering: initial hydration, form-to-URL sync, remapped query keys, managedKeys subset, resetKeysOnChange, patch/reset, debounce, manual sync + commit/revert, external URL overwrites, history push, invalid param cleanup, all error classes, destroy cleanup. | praise   |
+| Test Coverage             | Not tested: `booleanParam`/`dateIsoParam`/`nullableParam` through `queryForm()`, `syncMode` default (`'live'`), `removeDefaultsFromUrl`, `fallbackToDefault` invalid param behavior, `throwInDev`, empty `FormGroup` edge case, `emitEvent: false` performance regression.     | moderate |
+| Demo Integration          | Two distinct demos (orders with manual sync + recovery with malformed-link cleanup). Comprehensive Playwright tests covering hydration, filter+reset, discard draft, demo navigation, malformed link recovery.                                                                 | praise   |
+| Demo Integration          | Stable `data-testid` attributes on ALL interactive elements. Inspector panels with snapshot JSON and code samples on both demo pages.                                                                                                                                          | praise   |
+| Demo Integration          | Recovery demo Playwright test covers malformed param cleanup with history back behavior — excellent edge case coverage.                                                                                                                                                        | praise   |
+| Cross-package Consistency | Build scripts correctly build dependency first (`pnpm build:lib:url-state && ng build angular-query-form`). Release workflow exists. Catalog entry complete.                                                                                                                   | praise   |
+| Cross-package Consistency | `provideHexGuardUrlState()` re-exported for ergonomic single-package imports — matches workflow instructions for composition-layer packages.                                                                                                                                   | praise   |
+| Cross-package Consistency | No ecosystem pairing needed (Angular-only package, no .NET counterpart).                                                                                                                                                                                                       | praise   |
+
+### Improvement & Extension Opportunities
+
+| Area          | Suggestion                                                                                                                      | Type        | Difficulty |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ---------- |
+| API           | Add `@example` JSDoc tags to `QueryFormOptions`, `QueryForm`, and all error classes.                                            | improvement | easy       |
+| API           | Consider removing dead re-exports of `dateIsoParam` and `nullableParam` from public API, or add a demo page demonstrating them. | improvement | easy       |
+| Documentation | Document `queryKey` remapping feature (`{ codec: ..., queryKey: 'q' }`) in both README and deep-dive doc.                       | improvement | easy       |
+| Documentation | Document `arrayParam` codec equality behavior for `resetKeysOnChange` with tag arrays.                                          | improvement | easy       |
+| Tests         | Add tests for `booleanParam`/`dateIsoParam`/`nullableParam` through `queryForm()`.                                              | improvement | easy       |
+| Tests         | Add `removeDefaultsFromUrl`, `fallbackToDefault`, and `throwInDev` tests.                                                       | improvement | medium     |
+| Tests         | Add empty `FormGroup` edge case test.                                                                                           | improvement | easy       |
+| Extension     | Nested control path mapping (currently Proposed) — support for paths like `filters.search`.                                     | extension   | medium     |
+| Extension     | Composable child bindings or slices (currently Proposed) — multiple query-form bindings on disjoint schema slices.              | extension   | hard       |

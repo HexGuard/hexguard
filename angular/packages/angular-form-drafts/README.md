@@ -44,6 +44,7 @@ if (saved) form.patchValue(saved.data);
 ## Use Cases
 
 ### Article editor with auto-save
+
 ```typescript
 @Component({...})
 class PostEditorComponent {
@@ -65,6 +66,7 @@ class PostEditorComponent {
 ```
 
 ### Multi-step wizard
+
 ```typescript
 // Auto-save each step
 step1Form.valueChanges.subscribe(() => draft.save({ step: 1, ...step1Form.value }));
@@ -75,31 +77,31 @@ step2Form.valueChanges.subscribe(() => draft.save({ step: 2, ...step2Form.value 
 
 ### `injectFormDraft<T>(key, options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `key` | `string` | required | Unique draft key (stored as `hexguard:draft:{key}`) |
-| `debounceMs` | `number` | `500` | Auto-save debounce window |
-| `ttlMs` | `number` | `86_400_000` (24h) | Draft TTL (expired drafts return `null` on restore) |
-| `storage` | `Storage` | `localStorage` | Custom storage backend |
-| `serialize` / `deserialize` | `(v) => string` | `JSON.stringify/parse` | Custom serde |
+| Option                      | Type            | Default                | Description                                         |
+| --------------------------- | --------------- | ---------------------- | --------------------------------------------------- |
+| `key`                       | `string`        | required               | Unique draft key (stored as `hexguard:draft:{key}`) |
+| `debounceMs`                | `number`        | `500`                  | Auto-save debounce window                           |
+| `ttlMs`                     | `number`        | `86_400_000` (24h)     | Draft TTL (expired drafts return `null` on restore) |
+| `storage`                   | `Storage`       | `localStorage`         | Custom storage backend                              |
+| `serialize` / `deserialize` | `(v) => string` | `JSON.stringify/parse` | Custom serde                                        |
 
 ### `FormDraftHandle<T>`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `hasDraft` | `Signal<boolean>` | Whether a valid (non-expired) draft exists |
-| `metadata` | `Signal<DraftMetadata \| null>` | Save timestamp and expiry |
-| `save(data)` | `(d: T) => void` | Save form data (debounced) |
-| `restore()` | `() => FormDraft<T> \| null` | Read saved draft (null if expired/missing) |
-| `clear()` | `() => void` | Delete draft and cancel pending save |
+| Member       | Type                            | Description                                |
+| ------------ | ------------------------------- | ------------------------------------------ |
+| `hasDraft`   | `Signal<boolean>`               | Whether a valid (non-expired) draft exists |
+| `metadata`   | `Signal<DraftMetadata \| null>` | Save timestamp and expiry                  |
+| `save(data)` | `(d: T) => void`                | Save form data (debounced)                 |
+| `restore()`  | `() => FormDraft<T> \| null`    | Read saved draft (null if expired/missing) |
+| `clear()`    | `() => void`                    | Delete draft and cancel pending save       |
 
 ### `FormDraft<T>`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `data` | `T` | The saved form data |
-| `meta.savedAt` | `string` | ISO timestamp of last save |
-| `meta.expiresAt` | `string` | ISO timestamp of expiry |
+| Field            | Type     | Description                |
+| ---------------- | -------- | -------------------------- |
+| `data`           | `T`      | The saved form data        |
+| `meta.savedAt`   | `string` | ISO timestamp of last save |
+| `meta.expiresAt` | `string` | ISO timestamp of expiry    |
 
 ## Important Notes
 
@@ -109,16 +111,15 @@ step2Form.valueChanges.subscribe(() => draft.save({ step: 2, ...step2Form.value 
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| Debounced auto-save to localStorage | ✅ |
-| Configurable TTL with auto-expiry | ✅ |
-| Signal-based draft status and metadata | ✅ |
-| Restore and clear API | ✅ |
-| Custom storage backend | ✅ |
-| Offline sync or conflict resolution | ❌ |
+| Concern                                | Status |
+| -------------------------------------- | ------ |
+| Debounced auto-save to localStorage    | ✅     |
+| Configurable TTL with auto-expiry      | ✅     |
+| Signal-based draft status and metadata | ✅     |
+| Restore and clear API                  | ✅     |
+| Custom storage backend                 | ✅     |
+| Offline sync or conflict resolution    | ❌     |
 
 ## Demo
 
 Visit `/packages/angular-form-drafts/demo` for a live form with auto-save, restore, and clear controls.
-

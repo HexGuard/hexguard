@@ -16,11 +16,11 @@ The package is intentionally focused:
 
 ## Public API Map
 
-| Export                   | Role                                                      |
-| ------------------------ | --------------------------------------------------------- |
-| `injectSelectionState()` | Creates selection state with signals + operations         |
-| `SelectionStateOptions`  | Configures `multi` mode and `onCollectionChange` callback |
-| `SelectionStateReturn`   | The return type with signals and mutators                 |
+| Export                   | Role                                              |
+| ------------------------ | ------------------------------------------------- |
+| `injectSelectionState()` | Creates selection state with signals + operations |
+| `SelectionStateOptions`  | Configures `multi` mode                           |
+| `SelectionStateReturn`   | The return type with signals and mutators         |
 
 ## Behavior Details
 
@@ -53,16 +53,11 @@ The package is intentionally focused:
 | `first`         | The first selected key, or `null`                                     |
 | `canAct`        | `true` when at least one key is selected (for bulk action enablement) |
 
-### Collection Change Handling
-
-The `onCollectionChange` callback fires when the consumer detects a collection identity change (e.g., after filtering or pagination). The callback receives the previous selected keys so the consumer can reconcile — for example, by clearing or re-mapping selection after a filter change.
-
 ## Option Resolution
 
 ```ts
 const defaults: Required<SelectionStateOptions> = {
   multi: true,
-  onCollectionChange: undefined,
 };
 ```
 
@@ -75,3 +70,22 @@ This package is an Angular-only standalone package. It composes with `@hexguard/
 **Included** — keyed selection state with multi/single modes, toggle/select/deselect/clear/replace/toggleAll/selectAll operations, derived signals for counts and enablement.
 
 **Excluded** — server-backed "select all matching filter" semantics, tree-selection behavior, data table rendering, URL persistence of selection state.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                    | Severity |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Simplest package in the workspace — 1 function (`injectSelectionState`), 2 types. Textbook narrow public API.                                              | praise   |
+| Public API Design         | JSDoc on `injectSelectionState()` with `@example`. Types have field-level JSDoc.                                                                           | praise   |
+| Implementation Quality    | Signal-first, immutable updates (never mutates the internal `Set`). Comprehensive derived signals: `count`, `isEmpty`, `isAllSelected`, `first`, `canAct`. | praise   |
+| Implementation Quality    | Zero external deps beyond `@angular/core` + `tslib`. Minimal reference implementation for all sibling packages.                                            | praise   |
+| Test Coverage             | 19 tests covering all operations in both multi and single modes.                                                                                           | praise   |
+| Documentation             | Deep-dive doc references `onCollectionChange` callback which does not exist in the implementation — stale doc.                                             | minor    |
+| Cross-package Consistency | Consumed by `angular-bulk-operations` via `selection.selected` signal — minimal, well-defined integration point.                                           | praise   |
+| Cross-package Consistency | Build scripts, release workflow, catalog entry all present.                                                                                                | praise   |

@@ -100,3 +100,18 @@ The full endpoint code lives in
 - The `ReferenceDataCatalog` record shape, `IReferenceDataCatalogProvider`, and
   `ReferenceDataCatalogValidator` public methods are stable in `0.x`.
 - New validation rules or collection constraints are additive in minor versions.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                      | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------ | -------- |
+| Public API Design         | Clean typed catalog contract with comprehensive validation (duplicate keys, nulls, empty labels).            | praise   |
+| Implementation Quality    | `IReferenceDataCatalogProvider` interface with `StaticReferenceDataCatalogProvider` for dev/test.            | praise   |
+| Cross-package Consistency | Release workflow included in `release-dotnet.yml`. Deep-dive doc exists. No Angular counterpart (pure .NET). | praise   |
+| Implementation Quality    | No `InternalsVisibleTo` for test project — unlike Pagination, FeatureFlags, BulkOperations.                  | minor    |

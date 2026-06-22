@@ -24,7 +24,9 @@ const outside = injectClickOutside(panelRef, {
   enabled: isOpen,
   exclude: ['.toggle-button'],
 });
-effect(() => { if (outside.clickOutside()) close(); });
+effect(() => {
+  if (outside.clickOutside()) close();
+});
 ```
 
 **`[hexguardClickOutside]` directive** — For template use:
@@ -78,13 +80,13 @@ const outside = injectClickOutside(panelRef, {
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider adding a `(hexguardClickOutsideEnabled)` output for parent notification of enable state changes | Low |
-| API | Consider supporting `ElementRef` directly (not wrapped in `Signal`) for simpler directive usage | Low |
-| Edge Cases | No test for `enabled` signal toggling during an active open state | Low |
-| Edge Cases | No test for multiple excluded selectors | Low |
-| Performance | Capture-phase listener fires on every pointer event — consider a passive approach using focus/blur where applicable | Low |
+| Area        | Suggestion                                                                                                          | Priority |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- | -------- |
+| API         | Consider adding a `(hexguardClickOutsideEnabled)` output for parent notification of enable state changes            | Low      |
+| API         | Consider supporting `ElementRef` directly (not wrapped in `Signal`) for simpler directive usage                     | Low      |
+| Edge Cases  | No test for `enabled` signal toggling during an active open state                                                   | Low      |
+| Edge Cases  | No test for multiple excluded selectors                                                                             | Low      |
+| Performance | Capture-phase listener fires on every pointer event — consider a passive approach using focus/blur where applicable | Low      |
 
 ## API Surface
 
@@ -100,10 +102,10 @@ const outside = injectClickOutside(panelRef, {
 
 ### `HexguardClickOutsideDirective`
 
-| Selector | Type | Description |
-|----------|------|-------------|
-| `[hexguardClickOutside]` | Output | Emits `PointerEvent` when click occurs outside |
-| `[hexguardClickOutsideEnabled]` | Input | Boolean signal/primitive to enable/disable |
+| Selector                        | Type   | Description                                    |
+| ------------------------------- | ------ | ---------------------------------------------- |
+| `[hexguardClickOutside]`        | Output | Emits `PointerEvent` when click occurs outside |
+| `[hexguardClickOutsideEnabled]` | Input  | Boolean signal/primitive to enable/disable     |
 
 ## Behavior Notes
 
@@ -112,3 +114,20 @@ const outside = injectClickOutside(panelRef, {
 - Excluded selectors are checked via `Element.closest()` so deeply nested exclusions work.
 - When `enabled` is `false`, all pointer events are ignored regardless of target.
 - When the `elementRef` signal produces `undefined`, detection is paused until a valid element is provided.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension              | Finding                                                                                                                             | Severity |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design      | Dual surface: `injectClickOutside()` (programmatic) + `HexguardClickOutsideDirective` (template). Covers both use cases.            | praise   |
+| Public API Design      | Directive naming: `[hexguardClickOutside]` output + `[hexguardClickOutsideEnabled]` input — consistent `Hexguard` prefix.           | praise   |
+| Implementation Quality | Capture-phase `pointerdown` listener for reliable detection before event reaches target. `Element.closest()` for exclude selectors. | praise   |
+| Test Coverage          | Inside/outside, disabled state, exclude selectors, undefined element — well tested.                                                 | praise   |
+| Test Coverage          | Directive test only verifies existence (`toBeTruthy()`) — does not test that clicking outside fires the output event.               | moderate |
+| Documentation          | JSDoc `@example` in `injectClickOutside()` references `outside.clickOutside()` but the handle returns `{ clickOutside: Signal }`.   | minor    |

@@ -15,6 +15,7 @@ pnpm add @hexguard/angular-click-outside
 ## Quickstart
 
 ### Directive (template)
+
 ```typescript
 import { HexguardClickOutsideDirective } from '@hexguard/angular-click-outside';
 
@@ -29,11 +30,14 @@ import { HexguardClickOutsideDirective } from '@hexguard/angular-click-outside';
 })
 class DropdownComponent {
   readonly isOpen = signal(true);
-  close() { this.isOpen.set(false); }
+  close() {
+    this.isOpen.set(false);
+  }
 }
 ```
 
 ### Injectable (programmatic)
+
 ```typescript
 import { injectClickOutside } from '@hexguard/angular-click-outside';
 
@@ -54,14 +58,18 @@ class PanelComponent {
 ## Use Cases
 
 ### Dropdown auto-close
+
 ```html
 <div (hexguardClickOutside)="menuOpen.set(false)" [hexguardClickOutsideEnabled]="menuOpen()">
   <button (click)="menuOpen.set(!menuOpen())">Toggle</button>
-  @if (menuOpen()) { <div class="dropdown">...</div> }
+  @if (menuOpen()) {
+  <div class="dropdown">...</div>
+  }
 </div>
 ```
 
 ### Exclude nested popovers
+
 ```typescript
 injectClickOutside(this.panelRef, {
   exclude: ['.popover-content', '.tooltip-inner'],
@@ -72,31 +80,30 @@ injectClickOutside(this.panelRef, {
 
 ### `injectClickOutside(elementRef, options?)`
 
-| Param | Type | Default | Description |
-|-------|------|---------|-------------|
-| `elementRef` | `Signal<ElementRef \| undefined>` | required | Element to detect outside clicks for |
-| `options.enabled` | `Signal<boolean>` | `signal(true)` | Pauses detection when `false` |
-| `options.exclude` | `string[]` | `[]` | CSS selectors for elements to ignore |
-| Returns | `Signal<PointerEvent \| null>` | | The event on outside click, or `null` |
+| Param             | Type                              | Default        | Description                           |
+| ----------------- | --------------------------------- | -------------- | ------------------------------------- |
+| `elementRef`      | `Signal<ElementRef \| undefined>` | required       | Element to detect outside clicks for  |
+| `options.enabled` | `Signal<boolean>`                 | `signal(true)` | Pauses detection when `false`         |
+| `options.exclude` | `string[]`                        | `[]`           | CSS selectors for elements to ignore  |
+| Returns           | `Signal<PointerEvent \| null>`    |                | The event on outside click, or `null` |
 
 ### `HexguardClickOutsideDirective`
 
-| Binding | Type | Description |
-|---------|------|-------------|
-| `(hexguardClickOutside)` | Output | Emits `PointerEvent` on outside click |
-| `[hexguardClickOutsideEnabled]` | Input | Optional signal to toggle detection |
+| Binding                         | Type   | Description                           |
+| ------------------------------- | ------ | ------------------------------------- |
+| `(hexguardClickOutside)`        | Output | Emits `PointerEvent` on outside click |
+| `[hexguardClickOutsideEnabled]` | Input  | Optional signal to toggle detection   |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| Click-outside detection (directive + injectable) | ✅ |
-| Enable/disable toggle | ✅ |
-| CSS selector exclusions | ✅ |
-| Dropdown or modal components | ❌ (headless — compose your own) |
-| Focus management or focus trapping | ❌ |
+| Concern                                          | Status                           |
+| ------------------------------------------------ | -------------------------------- |
+| Click-outside detection (directive + injectable) | ✅                               |
+| Enable/disable toggle                            | ✅                               |
+| CSS selector exclusions                          | ✅                               |
+| Dropdown or modal components                     | ❌ (headless — compose your own) |
+| Focus management or focus trapping               | ❌                               |
 
 ## Demo
 
 Visit `/packages/angular-click-outside/demo` for dropdown and modal click-outside demos.
-

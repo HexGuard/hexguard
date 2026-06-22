@@ -113,6 +113,14 @@ export function injectUndoStack<T>(options?: UndoStackOptions<T>): UndoStack<T> 
       return cached;
     }
     const result = computed(() => actions().filter((a) => a.type === type));
+    // Limit cache to reasonable size to prevent memory leak
+    if (undosForTypeCache.size >= 50) {
+      // Evict oldest entry if cache grows too large
+      const firstKey = undosForTypeCache.keys().next().value;
+      if (firstKey !== undefined) {
+        undosForTypeCache.delete(firstKey);
+      }
+    }
     undosForTypeCache.set(type, result);
     return result;
   }

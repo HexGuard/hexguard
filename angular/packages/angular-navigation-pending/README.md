@@ -35,13 +35,15 @@ class AppComponent {
 ## Use Cases
 
 ### App-level navigation spinner (no flash on fast transitions)
+
 ```html
 @if (nav.isSlowNavigation()) {
-  <div class="loading-bar">Loading…</div>
+<div class="loading-bar">Loading…</div>
 }
 ```
 
 ### Page-level readiness with route-scoped mode
+
 ```typescript
 // In the routed component:
 const nav = injectNavigationPending({ routeScoped: true, delayedIndicatorMs: 300 });
@@ -56,30 +58,29 @@ async ngOnInit() {
 
 ### `injectNavigationPending(options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `delayedIndicatorMs` | `number` | `200` | Delay before `isSlowNavigation` activates. `0` = immediate |
-| `routeScoped` | `boolean` | `false` | Enable manual `markReady()` for page-level readiness |
+| Option               | Type      | Default | Description                                                |
+| -------------------- | --------- | ------- | ---------------------------------------------------------- |
+| `delayedIndicatorMs` | `number`  | `200`   | Delay before `isSlowNavigation` activates. `0` = immediate |
+| `routeScoped`        | `boolean` | `false` | Enable manual `markReady()` for page-level readiness       |
 
 ### `NavigationPendingState`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `isNavigating` | `Signal<boolean>` | True during any route transition |
+| Member             | Type              | Description                                                   |
+| ------------------ | ----------------- | ------------------------------------------------------------- |
+| `isNavigating`     | `Signal<boolean>` | True during any route transition                              |
 | `isSlowNavigation` | `Signal<boolean>` | True only after `delayedIndicatorMs` of continuous navigation |
-| `markReady()` | `() => void` | Signals page readiness (route-scoped mode only) |
+| `markReady()`      | `() => void`      | Signals page readiness (route-scoped mode only)               |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| App-level route transition busy state | ✅ |
-| Slow-navigation detection with debounce | ✅ |
-| Route-scoped readiness control | ✅ |
-| Route resolvers or data loading | ❌ (use `@hexguard/angular-async-state`) |
-| Skeleton/spinner components | ❌ (headless — compose your own UI) |
+| Concern                                 | Status                                   |
+| --------------------------------------- | ---------------------------------------- |
+| App-level route transition busy state   | ✅                                       |
+| Slow-navigation detection with debounce | ✅                                       |
+| Route-scoped readiness control          | ✅                                       |
+| Route resolvers or data loading         | ❌ (use `@hexguard/angular-async-state`) |
+| Skeleton/spinner components             | ❌ (headless — compose your own UI)      |
 
 ## Demo
 
 Visit `/packages/angular-navigation-pending/demo` for navigation transitions with slow/fast simulation and route-scoped control.
-

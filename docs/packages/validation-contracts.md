@@ -134,9 +134,49 @@ dotnet test tests/HexGuard.ValidationContracts.Tests
 
 ## Release Contract
 
-- **Tag pattern**: `validation-contracts-v{version}` — shared tag with `@hexguard/angular-api-errors`.
+- **Tag pattern**: `dotnet-validationcontracts-v{version}` — shared tag with `@hexguard/angular-api-errors`.
 - **Minor/major**: Coordinated bumps with the Angular package (contract shape must stay in lockstep).
 - **Patches**: Independent of the Angular package (implementation fixes only).
 - **NuGet**: Published as `HexGuard.ValidationContracts`.
 
 The release pipeline is manual (`workflow_dispatch`). See the repository workflows for execution.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational — no code has been changed.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                   | Severity   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| Public API Design         | Narrow, well-scoped surface — 7 types exposed. No internal helpers leaked. All types are immutable `sealed record` types with primary constructors.                                                                                       | praise     |
+| Public API Design         | XML doc comments on ALL public APIs — every type, method, parameter, and return value documented.                                                                                                                                         | praise     |
+| Public API Design         | Uses `IReadOnlyList<T>` for collection properties, `string?` nullable annotations, `ArgumentNullException.ThrowIfNull()` for guard clauses. Follows all documented .NET conventions.                                                      | praise     |
+| Public API Design         | FluentValidation integration behind conditional compile flag (`#if HEXGUARD_HAS_FLUENTVALIDATION`) — no hard dependency.                                                                                                                  | praise     |
+| Implementation Quality    | Immutable records (`ValidationError`, `ValidationResult`, `ValidationResultProblemDetails`) guarantee thread-safety by design.                                                                                                            | praise     |
+| Implementation Quality    | `ValidationResultBuilder` uses internal `List<ValidationError>` with `.AsReadOnly()` at build time — correct allocation strategy.                                                                                                         | praise     |
+| Implementation Quality    | `ValidationResult` helper methods (`FieldErrors`, `ModelErrors`, `ForField()`, `ForFieldPrefix()`) allocate new `List<T>` on every call — documented in deep-dive doc, acceptable for request-scoped use.                                 | suggestion |
+| Documentation             | Comprehensive README with quickstart, feature table, links to deep-dive doc, Angular counterpart, NuGet, sample API.                                                                                                                      | praise     |
+| Documentation             | Deep-dive doc covers full API map, configuration reference tables, internal behavior notes, sample endpoints, build/test commands, release contract.                                                                                      | praise     |
+| Documentation             | **Critical: Tag pattern mismatch** — doc says `validation-contracts-v{version}` but `release-dotnet.yml` uses `dotnet-validationcontracts-v*` (missing `dotnet-` prefix, different casing).                                               | moderate   |
+| Test Coverage             | ~40 test assertions across 6 test classes — unit tests for all types and full HTTP integration tests via `WebApplicationFactory<Program>`.                                                                                                | praise     |
+| Test Coverage             | Integration tests verify: root info endpoint, error codes listing, valid payload, missing-name → 400, invalid-category → 400, null payload → 400, multiple errors.                                                                        | praise     |
+| Test Coverage             | Minor gaps: `FieldPath.IndexChild` with root parent (`""`), `FieldPath.GetLeaf` with empty path, `ForFieldPrefix` with exact match, empty `ValidationResultBuilder.AddErrors()`, FluentValidation integration test (conditional compile). | minor      |
+| Cross-package Consistency | Solution registered in `HexGuard.slnx`. CHANGELOG and LICENSE present. Catalog registered with full metadata. Site ecosystem linked.                                                                                                      | praise     |
+| Cross-package Consistency | Angular counterpart (`@hexguard/angular-api-errors`) mirrors error codes and types exactly — code comments explicitly reference the .NET source.                                                                                          | praise     |
+| Cross-package Consistency | No `InternalsVisibleTo` attribute in `.csproj` — not functionally needed since there are no `internal` types, but the instructions recommend adding it.                                                                                   | minor      |
+| Cross-package Consistency | Release workflow included in `release-dotnet.yml` with tag pattern `dotnet-validationcontracts-v*` — but the deep-dive doc documents the wrong tag pattern.                                                                               | moderate   |
+
+### Improvement & Extension Opportunities
+
+| Area          | Suggestion                                                                                                                                       | Type        | Difficulty |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- | ---------- |
+| Documentation | Fix tag pattern in deep-dive doc: change `validation-contracts-v{version}` to match the actual workflow pattern `dotnet-validationcontracts-v*`. | improvement | easy       |
+| Tests         | Add `FieldPath.IndexChild("", 0, "name")` edge case test.                                                                                        | improvement | easy       |
+| Tests         | Add `FieldPath.GetLeaf("")` edge case test.                                                                                                      | improvement | easy       |
+| Tests         | Add `ForFieldPrefix` exact-match edge case test.                                                                                                 | improvement | easy       |
+| Tests         | Add empty `AddErrors(IEnumerable<>)` test.                                                                                                       | improvement | easy       |
+| Infra         | Add `InternalsVisibleTo` attribute to `.csproj` per workflow instructions (for test project access).                                             | improvement | easy       |
+| Extension     | DataAnnotations mapping (currently Planned in feature matrix) — extension method for `ValidationResult` collection.                              | extension   | medium     |

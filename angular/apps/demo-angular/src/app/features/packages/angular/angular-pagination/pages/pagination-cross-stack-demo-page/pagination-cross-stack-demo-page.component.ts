@@ -49,9 +49,9 @@ interface PaginatedResponse {
           </div>
         </div>
         <p class="demo-card__summary">
-          <code>injectPagination()</code> provides client-side pagination state.
-          The component fetches paginated product data from the <strong>HexGuard.Pagination</strong>
-          .NET library via the shared SampleApi at <code>/api/pagination/products/raw</code>.
+          <code>injectPagination()</code> provides client-side pagination state. The component
+          fetches paginated product data from the <strong>HexGuard.Pagination</strong> .NET library
+          via the shared SampleApi at <code>/api/pagination/products/raw</code>.
         </p>
 
         <div class="pag-cross-stack">
@@ -60,17 +60,24 @@ interface PaginatedResponse {
           <span class="demo-hint-pill">Angular: @hexguard/angular-pagination</span>
         </div>
 
-        <demo-status-strip testId="pagination-cross-stack-status"
+        <demo-status-strip
+          testId="pagination-cross-stack-status"
           summary="URL-synced pagination with .NET backend integration. Page state is reflected in the browser URL."
           currentUrl="Angular Pagination — Cross-stack Demo"
           summaryTestId="pagination-cross-stack-summary"
-          urlTestId="pagination-cross-stack-url" />
+          urlTestId="pagination-cross-stack-url"
+        />
       </article>
 
       <article demoPrimary class="demo-card demo-card--stack" data-testid="pagination-cross-stack">
         <div class="pag-toolbar">
-          <label>Page size:
-            <select [value]="pag.pageSize()" (change)="pag.setPageSize(+($any($event.target).value))" data-testid="pag-cs-page-size">
+          <label
+            >Page size:
+            <select
+              [value]="pag.pageSize()"
+              (change)="pag.setPageSize(+$any($event.target).value)"
+              data-testid="pag-cs-page-size"
+            >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>
@@ -79,7 +86,6 @@ interface PaginatedResponse {
           <button (click)="fetchPage()" [disabled]="isBusy()" data-testid="pag-cs-fetch-btn">
             {{ isBusy() ? 'Loading…' : 'Fetch from .NET API' }}
           </button>
-          
         </div>
 
         @if (error()) {
@@ -98,19 +104,37 @@ interface PaginatedResponse {
           </div>
 
           <div class="pag-nav-buttons">
-            <button (click)="firstPage()" [disabled]="pag.isFirstPage()" data-testid="pag-cs-first">««</button>
-            <button (click)="prevPage()" [disabled]="pag.isFirstPage()" data-testid="pag-cs-prev">«</button>
+            <button (click)="firstPage()" [disabled]="pag.isFirstPage()" data-testid="pag-cs-first">
+              ««
+            </button>
+            <button (click)="prevPage()" [disabled]="pag.isFirstPage()" data-testid="pag-cs-prev">
+              «
+            </button>
             @for (p of pageRange(); track p) {
-              <button (click)="goToPage(p)" [class.active]="p === pag.page()" [attr.data-testid]="'pag-cs-page-' + p">{{p}}</button>
+              <button
+                (click)="goToPage(p)"
+                [class.active]="p === pag.page()"
+                [attr.data-testid]="'pag-cs-page-' + p"
+              >
+                {{ p }}
+              </button>
             }
-            <button (click)="nextPage()" [disabled]="pag.isLastPage()" data-testid="pag-cs-next">»</button>
-            <button (click)="lastPage()" [disabled]="pag.isLastPage()" data-testid="pag-cs-last">»»</button>
+            <button (click)="nextPage()" [disabled]="pag.isLastPage()" data-testid="pag-cs-next">
+              »
+            </button>
+            <button (click)="lastPage()" [disabled]="pag.isLastPage()" data-testid="pag-cs-last">
+              »»
+            </button>
           </div>
 
           <table class="pag-table" data-testid="pag-cs-table">
             <thead>
               <tr>
-                <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
               </tr>
             </thead>
             <tbody>
@@ -126,37 +150,133 @@ interface PaginatedResponse {
             </tbody>
           </table>
         } @else {
-          <p class="pag-empty" data-testid="pag-cs-empty">Click "Fetch from .NET API" to load products.</p>
+          <p class="pag-empty" data-testid="pag-cs-empty">
+            Click "Fetch from .NET API" to load products.
+          </p>
         }
       </article>
 
-      <demo-inspector-panel demoAside panelTestId="pagination-cross-stack-inspector" eyebrow="Reference"
+      <demo-inspector-panel
+        demoAside
+        panelTestId="pagination-cross-stack-inspector"
+        eyebrow="Reference"
         title="URL-synced Pagination snapshot"
         summary="Angular pagination state synced to URL, backed by .NET API."
-        [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId"
-        [docsLinks]="demo.docsLinks" snapshotTestId="pag-cs-snapshot-json" codeTestId="pag-cs-code-sample" />
+        [snapshotJson]="snapshotJson()"
+        [snippetId]="demo.codeSample.snippetId"
+        [docsLinks]="demo.docsLinks"
+        snapshotTestId="pag-cs-snapshot-json"
+        codeTestId="pag-cs-code-sample"
+      />
     </demo-page-layout>
   `,
-  styles: [`
-    .pag-toolbar { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-    .pag-toolbar label { font-size: 0.875rem; display: flex; align-items: center; gap: 0.35rem; }
-    .pag-toolbar select { padding: 0.3rem 0.5rem; border-radius: 0.35rem; border: 1px solid var(--color-border); font-size: 0.85rem; }
-    .pag-toolbar button { padding: 0.5rem 1rem; border: 1px solid var(--color-border); border-radius: 0.35rem; background: var(--color-surface); cursor: pointer; font-size: 0.85rem; }
-    .pag-toolbar button:hover { background: var(--color-surface-alt); }
-    .pag-toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .pag-url-hint { font-size: 0.75rem; color: var(--color-text-weak); font-family: monospace; margin-left: auto; }
-    .pag-cross-stack { display: flex; align-items: center; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
-    .pag-info { display: flex; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--color-text-weak); }
-    .pag-nav-buttons { display: flex; gap: 0.3rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .pag-nav-buttons button { padding: 0.4rem 0.7rem; border: 1px solid var(--color-border); border-radius: 0.4rem; background: var(--color-surface); cursor: pointer; }
-    .pag-nav-buttons button.active { background: #5bc0de; color: white; border-color: #5bc0de; }
-    .pag-nav-buttons button:disabled { opacity: 0.4; cursor: default; }
-    .pag-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    .pag-table th, .pag-table td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--color-border); }
-    .pag-table th { font-weight: 600; background: var(--color-surface-alt); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
-    .pag-cell-id { font-family: monospace; font-size: 0.8rem; }
-    .pag-empty { padding: 1.5rem; text-align: center; color: var(--color-text-weak); }
-  `],
+  styles: [
+    `
+      .pag-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+      }
+      .pag-toolbar label {
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .pag-toolbar select {
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.35rem;
+        border: 1px solid var(--color-border);
+        font-size: 0.85rem;
+      }
+      .pag-toolbar button {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.35rem;
+        background: var(--color-surface);
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .pag-toolbar button:hover {
+        background: var(--color-surface-alt);
+      }
+      .pag-toolbar button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .pag-url-hint {
+        font-size: 0.75rem;
+        color: var(--color-text-weak);
+        font-family: monospace;
+        margin-left: auto;
+      }
+      .pag-cross-stack {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-top: 0.75rem;
+      }
+      .pag-info {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+        color: var(--color-text-weak);
+      }
+      .pag-nav-buttons {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .pag-nav-buttons button {
+        padding: 0.4rem 0.7rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.4rem;
+        background: var(--color-surface);
+        cursor: pointer;
+      }
+      .pag-nav-buttons button.active {
+        background: #5bc0de;
+        color: white;
+        border-color: #5bc0de;
+      }
+      .pag-nav-buttons button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .pag-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+      .pag-table th,
+      .pag-table td {
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .pag-table th {
+        font-weight: 600;
+        background: var(--color-surface-alt);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .pag-cell-id {
+        font-family: monospace;
+        font-size: 0.8rem;
+      }
+      .pag-empty {
+        padding: 1.5rem;
+        text-align: center;
+        color: var(--color-text-weak);
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationCrossStackDemoPageComponent {

@@ -1,1 +1,33 @@
-{ "name": "@hexguard/angular-file-picker", "version": "0.1.0", "description": "Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.", "keywords": ["angular","signals","file-picker","file-upload","drag-drop","hexguard"], "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-file-picker", "bugs": { "url": "https://github.com/hexguard/hexguard/issues" }, "repository": { "type": "git", "url": "https://github.com/hexguard/hexguard.git", "directory": "angular/packages/angular-file-picker" }, "license": "MIT", "peerDependencies": { "@angular/core": "^22.0.0" }, "dependencies": { "tslib": "^2.3.0" }, "publishConfig": { "access": "public" }, "sideEffects": false }
+{
+  "name": "@hexguard/angular-file-picker",
+  "version": "0.1.0",
+  "description": "Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.",
+  "keywords": [
+    "angular",
+    "signals",
+    "file-picker",
+    "file-upload",
+    "drag-drop",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-file-picker",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-file-picker"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

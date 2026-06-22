@@ -18,7 +18,10 @@ export interface ConfirmationHandle {
   readonly isOpen: Signal<boolean>;
   readonly currentRequest: Signal<ConfirmationRequest | null>;
   ask(request: Omit<ConfirmationRequest, 'id'>): Promise<boolean>;
-  run<T>(request: Omit<ConfirmationRequest, 'id'>, action: () => Promise<T>): Promise<ConfirmationResult<T>>;
+  run<T>(
+    request: Omit<ConfirmationRequest, 'id'>,
+    action: () => Promise<T>,
+  ): Promise<ConfirmationResult<T>>;
   /** Resolve the current dialog as confirmed. */
   confirm(): void;
   /** Resolve the current dialog as cancelled. */

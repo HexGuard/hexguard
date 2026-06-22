@@ -6,12 +6,22 @@ describe(injectFormDraft.name, () => {
   function createMockStorage(): Storage {
     const store = new Map<string, string>();
     return {
-      get length() { return store.size; },
+      get length() {
+        return store.size;
+      },
       key: (_: number) => null,
-      getItem(key: string) { return store.get(key) ?? null; },
-      setItem(key: string, value: string) { store.set(key, value); },
-      removeItem(key: string) { store.delete(key); },
-      clear() { store.clear(); },
+      getItem(key: string) {
+        return store.get(key) ?? null;
+      },
+      setItem(key: string, value: string) {
+        store.set(key, value);
+      },
+      removeItem(key: string) {
+        store.delete(key);
+      },
+      clear() {
+        store.clear();
+      },
     };
   }
 
@@ -82,7 +92,6 @@ describe(injectFormDraft.name, () => {
     const restored = draft.restore();
     expect(restored).toBeNull();
   });
-
 
   it('updates metadata on successive saves', async () => {
     const storage = createMockStorage();

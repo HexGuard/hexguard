@@ -18,10 +18,10 @@ import { injectNavigationPending } from '@hexguard/angular-navigation-pending';
 const nav = injectNavigationPending({ delayedIndicatorMs: 200 });
 ```
 
-| Signal | Type | Description |
-|--------|------|-------------|
-| `isNavigating` | `Signal<boolean>` | True from `NavigationStart` to `NavigationEnd`/`Cancel`/`Error` |
-| `isSlowNavigation` | `Signal<boolean>` | True only after `delayedIndicatorMs` of continuous navigation |
+| Signal             | Type              | Description                                                     |
+| ------------------ | ----------------- | --------------------------------------------------------------- |
+| `isNavigating`     | `Signal<boolean>` | True from `NavigationStart` to `NavigationEnd`/`Cancel`/`Error` |
+| `isSlowNavigation` | `Signal<boolean>` | True only after `delayedIndicatorMs` of continuous navigation   |
 
 ### Two Modes
 
@@ -81,10 +81,28 @@ interface NavigationPendingState {
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider a `navigationCount` signal tracking total route transitions for analytics | Low |
-| API | Consider `onSlowNavigation` / `onFastNavigation` callbacks for side-effects (e.g., logging) | Low |
-| Edge Cases | Route-scoped mode with parallel child/aux routes — `markReady()` from one may prematurely end another | Medium |
-| Edge Cases | No test for `delayedIndicatorMs: 0` immediate mode | Low |
-| Integration | Consider a companion `provideNavigationPending()` at the route level for configuration | Low |
+| Area        | Suggestion                                                                                            | Priority |
+| ----------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| API         | Consider a `navigationCount` signal tracking total route transitions for analytics                    | Low      |
+| API         | Consider `onSlowNavigation` / `onFastNavigation` callbacks for side-effects (e.g., logging)           | Low      |
+| Edge Cases  | Route-scoped mode with parallel child/aux routes — `markReady()` from one may prematurely end another | Medium   |
+| Edge Cases  | No test for `delayedIndicatorMs: 0` immediate mode                                                    | Low      |
+| Integration | Consider a companion `provideNavigationPending()` at the route level for configuration                | Low      |
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                          | Severity |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Clean surface: 1 function (`injectNavigationPending`), 2 types.                                                                  | praise   |
+| Implementation Quality    | Router event subscription with `DestroyRef` cleanup. Delayed slow-navigation indicator prevents spinner flash.                   | praise   |
+| Implementation Quality    | Uses RxJS `Subscription` for Router events — inconsistent with signal-first philosophy. Could use `toSignal` or `effect`.        | minor    |
+| Test Coverage             | NavigationStart/End/Cancel/Error, delay threshold, immediate mode, route-scoped `markReady()`.                                   | praise   |
+| Test Coverage             | No test for rapid successive navigations. `ready` signal in route-scoped mode not reset on `NavigationCancel`/`NavigationError`. | minor    |
+| Demo Integration          | Interactive demo with navigation simulation and progress indicator.                                                              | praise   |
+| Cross-package Consistency | No `verify:package:navigation-pending` standalone script in `angular/package.json`.                                              | minor    |

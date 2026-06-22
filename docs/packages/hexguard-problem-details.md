@@ -514,3 +514,18 @@ The full endpoint code lives in
   are additive.
 - `WellKnownProblemTypes` constants may be extended with new well-known types in minor versions.
 - The camelCase serialization policy and null-ignore behavior are stable.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                           | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Comprehensive RFC 9457 implementation — fluent builder, middleware, Minimal API integration. Full CHANGELOG and LICENSE.                                                                                                                          | praise   |
+| Implementation Quality    | `ProblemDetailsBuilder`, `WellKnownProblemTypes`, `ProblemDetailsMiddleware` with configurable options.                                                                                                                                           | praise   |
+| Implementation Quality    | `ValidationResultExtensions.ToProblemResult()` uses `Results.Problem()` with different serialization than `ProblemDetailsResultExtensions.ToProblemResult()` (custom `JsonSerializerOptions` with camelCase, null omit). Potential inconsistency. | moderate |
+| Cross-package Consistency | Release workflow included in `release-dotnet.yml`. Depends on `HexGuard.ValidationContracts`.                                                                                                                                                     | praise   |

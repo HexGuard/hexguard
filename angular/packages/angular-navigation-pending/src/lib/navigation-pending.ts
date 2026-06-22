@@ -1,7 +1,17 @@
 import { computed, DestroyRef, inject, signal } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 
-import { DEFAULT_DELAY_MS, type NavigationPendingOptions, type NavigationPendingState } from './types';
+import {
+  DEFAULT_DELAY_MS,
+  type NavigationPendingOptions,
+  type NavigationPendingState,
+} from './types';
 
 /**
  * Injects a navigation pending handle that tracks route transition state
@@ -28,7 +38,9 @@ import { DEFAULT_DELAY_MS, type NavigationPendingOptions, type NavigationPending
  * });
  * ```
  */
-export function injectNavigationPending(options?: NavigationPendingOptions): NavigationPendingState {
+export function injectNavigationPending(
+  options?: NavigationPendingOptions,
+): NavigationPendingState {
   const router = inject(Router);
   const destroyRef = inject(DestroyRef);
   const delayedIndicatorMs = options?.delayedIndicatorMs ?? DEFAULT_DELAY_MS;

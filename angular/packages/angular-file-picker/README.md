@@ -33,15 +33,15 @@ picker.open();
 ```
 
 ### Drag-and-drop zone
+
 ```html
-<div (dragover)="$event.preventDefault()" (drop)="picker.acceptDrop($event)">
-  Drop files here
-</div>
+<div (dragover)="$event.preventDefault()" (drop)="picker.acceptDrop($event)">Drop files here</div>
 ```
 
 ## Use Cases
 
 ### Image upload with preview
+
 ```typescript
 const picker = injectFilePicker({ accept: 'image/*', readMode: 'dataUrl' });
 
@@ -55,6 +55,7 @@ const picker = injectFilePicker({ accept: 'image/*', readMode: 'dataUrl' });
 ```
 
 ### CSV/text file reader
+
 ```typescript
 const picker = injectFilePicker({ accept: '.csv,.tsv,.txt', readMode: 'text' });
 picker.open();
@@ -62,6 +63,7 @@ picker.open();
 ```
 
 ### Metadata-only (for upload queue)
+
 ```typescript
 const picker = injectFilePicker({ readMode: 'none' });
 picker.open();
@@ -72,32 +74,32 @@ picker.open();
 
 ### `injectFilePicker(options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `accept` | `string \| string[]` | — | MIME types or extensions: `'image/*'`, `['.pdf', '.docx']` |
-| `maxFileSize` | `number` | `10_485_760` (10 MB) | Max file size in bytes |
-| `multiple` | `boolean` | `false` | Allow multiple file selection |
-| `readMode` | `'text' \| 'dataUrl' \| 'buffer' \| 'none'` | `'text'` | How to read file contents |
+| Option        | Type                                        | Default              | Description                                                |
+| ------------- | ------------------------------------------- | -------------------- | ---------------------------------------------------------- |
+| `accept`      | `string \| string[]`                        | —                    | MIME types or extensions: `'image/*'`, `['.pdf', '.docx']` |
+| `maxFileSize` | `number`                                    | `10_485_760` (10 MB) | Max file size in bytes                                     |
+| `multiple`    | `boolean`                                   | `false`              | Allow multiple file selection                              |
+| `readMode`    | `'text' \| 'dataUrl' \| 'buffer' \| 'none'` | `'text'`             | How to read file contents                                  |
 
 ### `FilePickerHandle<T>`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `files` | `Signal<readonly FileHandle<T>[]>` | Selected files with content |
-| `loading` | `Signal<boolean>` | True while reading files |
-| `error` | `Signal<string \| null>` | Validation or read error |
-| `open()` | `() => void` | Open native file picker dialog |
-| `clear()` | `() => void` | Clear all files and errors |
-| `acceptDrop(event)` | `(e: DragEvent) => void` | Process drag-and-drop files |
+| Member              | Type                               | Description                    |
+| ------------------- | ---------------------------------- | ------------------------------ |
+| `files`             | `Signal<readonly FileHandle<T>[]>` | Selected files with content    |
+| `loading`           | `Signal<boolean>`                  | True while reading files       |
+| `error`             | `Signal<string \| null>`           | Validation or read error       |
+| `open()`            | `() => void`                       | Open native file picker dialog |
+| `clear()`           | `() => void`                       | Clear all files and errors     |
+| `acceptDrop(event)` | `(e: DragEvent) => void`           | Process drag-and-drop files    |
 
 ### `FileHandle<T>`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | `string` | File name |
-| `size` | `number` | File size in bytes |
-| `type` | `string` | MIME type |
-| `content` | `T` | File content (`string`, `ArrayBuffer`, or `null` for metadata-only) |
+| Field     | Type     | Description                                                         |
+| --------- | -------- | ------------------------------------------------------------------- |
+| `name`    | `string` | File name                                                           |
+| `size`    | `number` | File size in bytes                                                  |
+| `type`    | `string` | MIME type                                                           |
+| `content` | `T`      | File content (`string`, `ArrayBuffer`, or `null` for metadata-only) |
 
 ## Important Notes
 
@@ -106,16 +108,15 @@ picker.open();
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| File selection dialog | ✅ |
-| Drag-and-drop zone | ✅ |
-| File type/size validation | ✅ |
-| Content reading (text, dataUrl, buffer) | ✅ |
-| Upload to server | ❌ (handle externally) |
-| Upload progress tracking | ❌ |
+| Concern                                 | Status                 |
+| --------------------------------------- | ---------------------- |
+| File selection dialog                   | ✅                     |
+| Drag-and-drop zone                      | ✅                     |
+| File type/size validation               | ✅                     |
+| Content reading (text, dataUrl, buffer) | ✅                     |
+| Upload to server                        | ❌ (handle externally) |
+| Upload progress tracking                | ❌                     |
 
 ## Demo
 
 Visit `/packages/angular-file-picker/demo` for a live file picker with dialog and drag-drop zones.
-

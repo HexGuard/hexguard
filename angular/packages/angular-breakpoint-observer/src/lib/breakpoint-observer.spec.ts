@@ -16,18 +16,12 @@ function mockMatchMedia(minWidth: number, viewportWidth: number): MediaQueryList
     matches,
     media: `(min-width: ${minWidth}px)`,
     onchange: null,
-    addEventListener: (
-      _type: string,
-      listener: EventListenerOrEventListenerObject,
-    ): void => {
+    addEventListener: (_type: string, listener: EventListenerOrEventListenerObject): void => {
       if (typeof listener === 'function') {
         listeners.push(listener as (event: MediaQueryListEvent) => void);
       }
     },
-    removeEventListener: (
-      _type: string,
-      listener: EventListenerOrEventListenerObject,
-    ): void => {
+    removeEventListener: (_type: string, listener: EventListenerOrEventListenerObject): void => {
       listeners = listeners.filter((l) => l !== listener);
     },
     dispatchEvent(_event: Event): boolean {

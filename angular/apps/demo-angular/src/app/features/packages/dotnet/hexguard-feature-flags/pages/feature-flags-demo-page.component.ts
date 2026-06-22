@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DemoInspectorPanelComponent } from '../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../shared/components/demo-page-layout.component';
-import { DemoStatusStripComponent } from '../../../../../shared/components/demo-status-strip.component';
+
 import { formatSnapshot } from '../../../../../shared/formatting';
 import { createTrackedCurrentUrl } from '../../../../../shared/current-url.signal';
 import { DOTNET_FEATURE_FLAGS_HOME } from '../../../../../demo-registry';
@@ -25,7 +25,6 @@ interface FlagResult {
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,
     DemoPageLayoutComponent,
-    DemoStatusStripComponent,
     FormsModule,
   ],
   templateUrl: './feature-flags-demo-page.component.html',

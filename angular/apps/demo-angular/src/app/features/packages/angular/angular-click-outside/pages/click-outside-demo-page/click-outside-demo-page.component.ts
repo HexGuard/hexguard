@@ -20,11 +20,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   ],
   template: `
     <demo-page-layout testId="click-outside-demo-page">
-      <demo-navigation-strip
-        demoNavigation
-        testId="click-outside-demo-navigation"
-        [demo]="demo"
-      />
+      <demo-navigation-strip demoNavigation testId="click-outside-demo-navigation" [demo]="demo" />
 
       <article demoIntro class="demo-card demo-card--stack">
         <div class="demo-card__header">
@@ -35,8 +31,8 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         </div>
         <p class="demo-card__summary">
           <code>injectClickOutside()</code> and <code>HexguardClickOutsideDirective</code>
-          provide signal-based and template-based click-outside detection for dismissing
-          dropdowns, modals, and popovers.
+          provide signal-based and template-based click-outside detection for dismissing dropdowns,
+          modals, and popovers.
         </p>
 
         <demo-status-strip
@@ -90,9 +86,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 
         <div class="co-section">
           <h4 class="co-section__title">Injectable demo</h4>
-          <p class="co-hint">
-            Try clicking the toggle button — then click outside to close.
-          </p>
+          <p class="co-hint">Try clicking the toggle button — then click outside to close.</p>
 
           <button
             type="button"

@@ -28,9 +28,7 @@ import {
  * const isTablet = bp.matches('(min-width: 768px) and (max-width: 1023px)');
  * ```
  */
-export function injectBreakpointObserver(
-  options?: BreakpointObserverOptions,
-): BreakpointObserver {
+export function injectBreakpointObserver(options?: BreakpointObserverOptions): BreakpointObserver {
   const breakpoints = options?.breakpoints ?? DEFAULT_BREAKPOINTS;
   const entries = Object.entries(breakpoints);
   const destroyRef = inject(DestroyRef);

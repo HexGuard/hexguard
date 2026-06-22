@@ -1,0 +1,142 @@
+name: Release Angular Network Status
+
+on:
+  push:
+    tags:
+      - 'angular-network-status-v*'
+  workflow_dispatch:
+    inputs:
+      npm_tag:
+        description: 'npm dist-tag to publish under'
+        required: false
+        default: 'latest'
+      release_tag:
+        description: 'Git tag to attach the GitHub release to when running manually'
+        required: false
+        default: ''
+      create_github_release:
+        description: 'Create a GitHub release for the current tag'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish @hexguard/angular-network-status
+    runs-on: ubuntu-latest
+    environment: npm
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            angular/pnpm-lock.yaml
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install root shell dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Angular workspace dependencies
+        run: pnpm --dir angular install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm --dir angular exec playwright install --with-deps chromium
+
+      - name: Validate workspace
+        run: |
+          pnpm format:check
+          pnpm lint
+          pnpm test:ci
+          pnpm test:e2e
+
+      - name: Build library
+        run: pnpm build:lib:network-status
+
+      - name: Verify package artifact
+        run: pnpm verify:package:network-status
+
+      - name: Resolve publish metadata
+        id: metadata
+        shell: bash
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./angular/packages/angular-network-status/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./angular/packages/angular-network-status/package.json').name")
+          EXPECTED_TAG="angular-network-status-v${PACKAGE_VERSION}"
+
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            TAG_NAME="${GITHUB_REF_NAME}"
+
+            if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
+              echo "Tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
+              exit 1
+            fi
+            NPM_TAG="latest"
+            CREATE_RELEASE="true"
+          else
+            TAG_NAME="${{ inputs.release_tag }}"
+            NPM_TAG="${{ inputs.npm_tag }}"
+            CREATE_RELEASE="${{ inputs.create_github_release }}"
+
+            if [[ "$CREATE_RELEASE" == "true" ]]; then
+              if [[ -z "$TAG_NAME" ]]; then
+                echo 'workflow_dispatch releases require a release_tag input when create_github_release is true.' >&2
+                exit 1
+              fi
+
+              if [[ "$TAG_NAME" != "$EXPECTED_TAG" ]]; then
+                echo "release_tag $TAG_NAME does not match package version $PACKAGE_VERSION (expected $EXPECTED_TAG)." >&2
+                exit 1
+              fi
+            fi
+          fi
+
+          TARBALL_PATH=$(find angular/.artifacts -maxdepth 1 -name 'hexguard-angular-network-status-*.tgz' -print -quit)
+
+          if [[ -z "$TARBALL_PATH" ]]; then
+            echo 'No package tarball was produced in angular/.artifacts.' >&2
+            exit 1
+          fi
+
+          {
+            echo "package_name=$PACKAGE_NAME"
+            echo "package_version=$PACKAGE_VERSION"
+            echo "tag_name=$TAG_NAME"
+            echo "npm_tag=$NPM_TAG"
+            echo "create_release=$CREATE_RELEASE"
+            echo "tarball_path=$TARBALL_PATH"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Publish package to npm
+        run: |
+          pnpm --dir angular/dist/angular-network-status publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+
+      - name: Create GitHub release
+        if: steps.metadata.outputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.metadata.outputs.tag_name }}
+          name: ${{ steps.metadata.outputs.package_name }} v${{ steps.metadata.outputs.package_version }}
+          body: 'See [CHANGELOG](angular/packages/angular-network-status/CHANGELOG.md) for details.'
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.metadata.outputs.tarball_path }}

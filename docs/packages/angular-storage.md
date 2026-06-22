@@ -110,3 +110,20 @@ Tests use mocked `localStorage`/`sessionStorage` via `Object.defineProperty` and
 - Cross-tab sync: value update from another tab, key removal
 - Graceful fallback: storage unavailable (throws)
 - Session storage: correct backend selection
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                             | Severity |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Clean surface: 1 function (`injectStorage`), 3 types. Envelope format with versioning and TTL.                                      | praise   |
+| Implementation Quality    | Cross-tab `storage` event sync via `window.addEventListener('storage', ...)`. Session/local storage backend selection.              | praise   |
+| Implementation Quality    | Catalog status `"In Progress"` — not yet released.                                                                                  | note     |
+| Test Coverage             | All initialization modes, TTL expiry, cross-tab sync, graceful fallback, session storage.                                           | praise   |
+| Test Coverage             | **No release workflow** — missing `.github/workflows/release-angular-storage.yml`.                                                  | moderate |
+| Cross-package Consistency | **Not integrated into `build:lib`, `test:lib`, `test:ci`, or `verify:package` chains**. Only standalone `build:lib:storage` exists. | moderate |

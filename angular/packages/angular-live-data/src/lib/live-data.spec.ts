@@ -12,9 +12,7 @@ describe(injectLiveData.name, () => {
     vi.useRealTimers();
   });
 
-  function createLiveData<T>(
-    options: Partial<LiveDataOptions<T>> & { fetcher: () => Promise<T> },
-  ) {
+  function createLiveData<T>(options: Partial<LiveDataOptions<T>> & { fetcher: () => Promise<T> }) {
     return TestBed.runInInjectionContext(() =>
       injectLiveData({
         pollInterval: 10_000,

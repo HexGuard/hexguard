@@ -89,3 +89,19 @@ Both packages share:
 - Same FNV-1a hash algorithm for deterministic rollout
 - Same sync endpoint contract (`GET /api/feature-flags/sync` with `contextHash`)
 - Same targeting rule semantics (first-match-wins, 8 rule types)
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                               | Severity |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Well-designed evaluation engine with first-match-wins, 8 rule types, deterministic FNV-1a rollout hashing, 304 Not Modified sync via content hashing. | praise   |
+| Implementation Quality    | `InMemoryFeatureFlagStore` with SHA-256 context hash for sync. Proper `InternalsVisibleTo`.                                                           | praise   |
+| Cross-package Consistency | **No release workflow** — FeatureFlags is NOT in `release-dotnet.yml`.                                                                                | moderate |
+| Cross-package Consistency | `ComputeContextHash` is `internal` — external store implementors cannot compute compatible hashes for 304 sync.                                       | minor    |
+| Documentation             | Deep-dive doc exists. XML doc on public APIs.                                                                                                         | praise   |

@@ -31,11 +31,7 @@ interface PaginatedResponse {
 @Component({
   standalone: true,
   selector: 'demo-dotnet-pagination-demo-page',
-  imports: [
-    DemoInspectorPanelComponent,
-    DemoNavigationStripComponent,
-    DemoPageLayoutComponent,
-  ],
+  imports: [DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent],
   template: `
     <demo-page-layout testId="dotnet-pagination-page">
       <demo-navigation-strip
@@ -50,8 +46,8 @@ interface PaginatedResponse {
         <div class="demo-eyebrow">HexGuard.Pagination</div>
         <h2>Paginated product list via the shared .NET SampleApi</h2>
         <p class="demo-card__summary">
-          Fetch pages of products from the <strong>HexGuard.Pagination</strong>
-          library running in the shared SampleApi. The <code>/api/pagination/products/raw</code>
+          Fetch pages of products from the <strong>HexGuard.Pagination</strong> library running in
+          the shared SampleApi. The <code>/api/pagination/products/raw</code>
           endpoint returns typed paginated responses.
         </p>
 
@@ -64,12 +60,24 @@ interface PaginatedResponse {
 
       <article demoPrimary class="demo-card demo-card--stack">
         <div class="pag-toolbar">
-          <label>Page:
-            <input type="number" [value]="page()" min="1" [max]="response()?.totalPages ?? 1"
-              (input)="goToPage(+($any($event.target).value))" data-testid="pag-page-input" />
+          <label
+            >Page:
+            <input
+              type="number"
+              [value]="page()"
+              min="1"
+              [max]="response()?.totalPages ?? 1"
+              (input)="goToPage(+$any($event.target).value)"
+              data-testid="pag-page-input"
+            />
           </label>
-          <label>Page size:
-            <select [value]="pageSize()" (change)="changePageSize(+($any($event.target).value))" data-testid="pag-page-size-select">
+          <label
+            >Page size:
+            <select
+              [value]="pageSize()"
+              (change)="changePageSize(+$any($event.target).value)"
+              data-testid="pag-page-size-select"
+            >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>
@@ -93,8 +101,12 @@ interface PaginatedResponse {
               Showing {{ res.rangeStart }}–{{ res.rangeEnd }} of {{ res.totalCount }}
             </span>
             <span>Page {{ res.page }} of {{ res.totalPages }}</span>
-            @if (res.hasNext) { <span class="pag-hint">→ has next</span> }
-            @if (res.hasPrevious) { <span class="pag-hint">← has previous</span> }
+            @if (res.hasNext) {
+              <span class="pag-hint">→ has next</span>
+            }
+            @if (res.hasPrevious) {
+              <span class="pag-hint">← has previous</span>
+            }
           </div>
 
           <table class="pag-table" data-testid="pag-products-table">
@@ -124,28 +136,105 @@ interface PaginatedResponse {
         }
       </article>
 
-      <demo-inspector-panel demoAside panelTestId="dotnet-pagination-inspector" eyebrow="Reference"
-        title="Pagination snapshot" summary="Live pagination state from the .NET SampleApi."
-        [snapshotJson]="snapshotJson()" snippetId=""
-        snapshotTestId="dotnet-pagination-snapshot" codeTestId="dotnet-pagination-code" />
+      <demo-inspector-panel
+        demoAside
+        panelTestId="dotnet-pagination-inspector"
+        eyebrow="Reference"
+        title="Pagination snapshot"
+        summary="Live pagination state from the .NET SampleApi."
+        [snapshotJson]="snapshotJson()"
+        snippetId=""
+        snapshotTestId="dotnet-pagination-snapshot"
+        codeTestId="dotnet-pagination-code"
+      />
     </demo-page-layout>
   `,
-  styles: [`
-    .pag-toolbar { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-    .pag-toolbar label { font-size: 0.875rem; display: flex; align-items: center; gap: 0.35rem; }
-    .pag-toolbar input, .pag-toolbar select { padding: 0.3rem 0.5rem; border-radius: 0.35rem; border: 1px solid var(--color-border); font-size: 0.85rem; width: 5rem; }
-    .pag-toolbar button { padding: 0.5rem 1rem; border: 1px solid var(--color-border); border-radius: 0.35rem; background: var(--color-surface); cursor: pointer; font-size: 0.85rem; }
-    .pag-toolbar button:hover { background: var(--color-surface-alt); }
-    .pag-toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .pag-cross-stack { display: flex; align-items: center; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
-    .pag-info { display: flex; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--color-text-weak); align-items: center; }
-    .pag-hint { font-style: italic; color: var(--color-accent); }
-    .pag-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    .pag-table th, .pag-table td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--color-border); }
-    .pag-table th { font-weight: 600; background: var(--color-surface-alt); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
-    .pag-table td:first-child { font-family: monospace; font-size: 0.8rem; }
-    .pag-empty { padding: 1.5rem; text-align: center; color: var(--color-text-weak); }
-  `],
+  styles: [
+    `
+      .pag-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+      }
+      .pag-toolbar label {
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .pag-toolbar input,
+      .pag-toolbar select {
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.35rem;
+        border: 1px solid var(--color-border);
+        font-size: 0.85rem;
+        width: 5rem;
+      }
+      .pag-toolbar button {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.35rem;
+        background: var(--color-surface);
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .pag-toolbar button:hover {
+        background: var(--color-surface-alt);
+      }
+      .pag-toolbar button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .pag-cross-stack {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-top: 0.75rem;
+      }
+      .pag-info {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+        color: var(--color-text-weak);
+        align-items: center;
+      }
+      .pag-hint {
+        font-style: italic;
+        color: var(--color-accent);
+      }
+      .pag-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+      .pag-table th,
+      .pag-table td {
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .pag-table th {
+        font-weight: 600;
+        background: var(--color-surface-alt);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .pag-table td:first-child {
+        font-family: monospace;
+        font-size: 0.8rem;
+      }
+      .pag-empty {
+        padding: 1.5rem;
+        text-align: center;
+        color: var(--color-text-weak);
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DotnetPaginationDemoPageComponent {

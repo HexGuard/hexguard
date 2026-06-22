@@ -115,3 +115,20 @@ pnpm format:check && pnpm lint && pnpm test:ci && pnpm build
 - **npm**: Published as `@hexguard/angular-api-errors` with public access.
 
 See `.github/workflows/release-angular-api-errors.yml` for the release pipeline.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                               | Severity |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Well-structured: `ApiErrorParser` service, `provideHexGuardApiErrors()` config, `apiFormErrors()` pure function, `injectApiErrorState()`, `FieldPath`, `ApiErrorCode` constants mirroring .NET `ValidationContracts`. | praise   |
+| Public API Design         | Cross-stack parity with `HexGuard.ValidationContracts` — error codes, types, and field paths are identical.                                                                                                           | praise   |
+| Implementation Quality    | `strictParsing` option is documented and injected but **never read in `parseProblemDetails()`** — dead option.                                                                                                        | moderate |
+| Test Coverage             | Parser (Problem Details, validation errors, field/page extraction), error state (setErrors, clear, hasFieldError), form errors (control mapping), FieldPath (child, index, parent, leaf).                             | praise   |
+| Test Coverage             | No test for `ApiFormErrors` injectable service (`applyToForm` method) — only pure `apiFormErrors()` function tested. `DefaultApiErrorState` is `providedIn: 'root'` singleton — could conflict with scoped providers. | minor    |
+| Cross-package Consistency | No `verify:package:api-errors` standalone script in `angular/package.json`. Release workflow exists with tag pattern matching `validation-contracts-v{version}`.                                                      | minor    |

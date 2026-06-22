@@ -36,19 +36,20 @@ undo.push({
 });
 
 // Reactive state
-undo.hasPending;   // Signal<boolean>
+undo.hasPending; // Signal<boolean>
 undo.pendingUndos; // Signal<UndoAction[]>
 
 // Imperative
-undo.undo('delete-42');      // revert
-undo.undoGroup('batch-1');   // batch revert
-undo.commit('delete-42');    // expire immediately
-undo.clear();                // cancel all
+undo.undo('delete-42'); // revert
+undo.undoGroup('batch-1'); // batch revert
+undo.commit('delete-42'); // expire immediately
+undo.clear(); // cancel all
 ```
 
 ## Use Cases
 
 ### Delete with undo toast
+
 ```typescript
 // In component:
 undo.push({
@@ -70,6 +71,7 @@ undo.push({
 ```
 
 ### Batch archive with group undo
+
 ```typescript
 for (const item of selectedItems) {
   undo.push({
@@ -87,47 +89,46 @@ for (const item of selectedItems) {
 
 ### `injectUndoStack<T>(options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `defaultTtlMs` | `number` | `5000` | Default undo window (ms). Per-action `ttlMs` overrides |
-| `onCommit` | `(action) => void` | — | Called when an action auto-commits after TTL expiry |
+| Option         | Type               | Default | Description                                            |
+| -------------- | ------------------ | ------- | ------------------------------------------------------ |
+| `defaultTtlMs` | `number`           | `5000`  | Default undo window (ms). Per-action `ttlMs` overrides |
+| `onCommit`     | `(action) => void` | —       | Called when an action auto-commits after TTL expiry    |
 
 ### `UndoAction<T>`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | `string` | Unique action identifier |
-| `type` | `string` | Action type for filtering (`'delete'`, `'archive'`, etc.) |
-| `data` | `T` | Arbitrary action payload |
-| `ttlMs?` | `number` | Per-action TTL override |
-| `groupId?` | `string` | Group identifier for batch undo |
-| `onUndo` | `(action) => void` | Callback invoked when undone |
+| Field      | Type               | Description                                               |
+| ---------- | ------------------ | --------------------------------------------------------- |
+| `id`       | `string`           | Unique action identifier                                  |
+| `type`     | `string`           | Action type for filtering (`'delete'`, `'archive'`, etc.) |
+| `data`     | `T`                | Arbitrary action payload                                  |
+| `ttlMs?`   | `number`           | Per-action TTL override                                   |
+| `groupId?` | `string`           | Group identifier for batch undo                           |
+| `onUndo`   | `(action) => void` | Callback invoked when undone                              |
 
 ### `UndoStack<T>`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `pendingUndos` | `Signal<UndoAction<T>[]>` | All pending reversible actions |
-| `hasPending` | `Signal<boolean>` | Whether any undo windows are open |
-| `undosForType(type)` | `(t) => Signal<UndoAction<T>[]>` | Filter pending by action type |
-| `push(action)` | `(a) => void` | Push a new reversible action |
-| `undo(id)` | `(id) => void` | Revert a specific action |
-| `undoGroup(gid)` | `(gid) => void` | Revert all actions in a group (reverse order) |
-| `commit(id)` | `(id) => void` | Expire immediately without undoing |
-| `clear()` | `() => void` | Cancel all pending undo windows |
+| Member               | Type                             | Description                                   |
+| -------------------- | -------------------------------- | --------------------------------------------- |
+| `pendingUndos`       | `Signal<UndoAction<T>[]>`        | All pending reversible actions                |
+| `hasPending`         | `Signal<boolean>`                | Whether any undo windows are open             |
+| `undosForType(type)` | `(t) => Signal<UndoAction<T>[]>` | Filter pending by action type                 |
+| `push(action)`       | `(a) => void`                    | Push a new reversible action                  |
+| `undo(id)`           | `(id) => void`                   | Revert a specific action                      |
+| `undoGroup(gid)`     | `(gid) => void`                  | Revert all actions in a group (reverse order) |
+| `commit(id)`         | `(id) => void`                   | Expire immediately without undoing            |
+| `clear()`            | `() => void`                     | Cancel all pending undo windows               |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| Timer-based undo windows with auto-commit | ✅ |
-| Group undo for batch operations | ✅ |
-| Per-action and default TTL | ✅ |
-| Optimistic-state rollback | ❌ (use `@hexguard/angular-optimistic-state`) |
-| Toast/snackbar UI | ❌ (compose with `@hexguard/angular-notifications`) |
-| Persistence across sessions | ❌ (in-memory only) |
+| Concern                                   | Status                                              |
+| ----------------------------------------- | --------------------------------------------------- |
+| Timer-based undo windows with auto-commit | ✅                                                  |
+| Group undo for batch operations           | ✅                                                  |
+| Per-action and default TTL                | ✅                                                  |
+| Optimistic-state rollback                 | ❌ (use `@hexguard/angular-optimistic-state`)       |
+| Toast/snackbar UI                         | ❌ (compose with `@hexguard/angular-notifications`) |
+| Persistence across sessions               | ❌ (in-memory only)                                 |
 
 ## Demo
 
 Visit `/packages/angular-undo/demo` for delete/archive undo flows with TTL demo.
-

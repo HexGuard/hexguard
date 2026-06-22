@@ -8,7 +8,6 @@ import { ANGULAR_FEATURE_FLAGS_ROUTING_DEMO } from '../../../../../../demo-regis
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
-import { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';
 import { createTrackedCurrentUrl } from '../../../../../../shared/current-url.signal';
 import { formatSnapshot } from '../../../../../../shared/formatting';
 import {
@@ -25,7 +24,6 @@ import {
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,
     DemoPageLayoutComponent,
-    DemoStatusStripComponent,
     FormsModule,
     RouterLink,
   ],

@@ -23,10 +23,7 @@ import { DEFAULT_DEBOUNCE_MS, DEFAULT_TTL_MS } from './types';
  * // @if (draft.hasDraft()) { <p>You have a saved draft</p> }
  * ```
  */
-export function injectFormDraft<T>(
-  key: string,
-  options?: FormDraftOptions<T>,
-): FormDraftHandle<T> {
+export function injectFormDraft<T>(key: string, options?: FormDraftOptions<T>): FormDraftHandle<T> {
   const {
     debounceMs = DEFAULT_DEBOUNCE_MS,
     ttlMs = DEFAULT_TTL_MS,

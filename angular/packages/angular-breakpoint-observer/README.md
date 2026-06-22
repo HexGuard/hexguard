@@ -37,6 +37,7 @@ class ResponsiveComponent {
 ## Use Cases
 
 ### Responsive data table columns
+
 ```typescript
 // Show fewer columns on small viewports
 readonly displayedColumns = computed(() => {
@@ -47,11 +48,13 @@ readonly displayedColumns = computed(() => {
 ```
 
 ### Layout switching
+
 ```typescript
 readonly layout = computed(() => this.bp.below('md')() ? 'stacked' : 'side-by-side');
 ```
 
 ### Custom breakpoint map
+
 ```typescript
 const bp = injectBreakpointObserver({
   breakpoints: { narrow: 480, wide: 960, ultra: 1440 },
@@ -59,6 +62,7 @@ const bp = injectBreakpointObserver({
 ```
 
 ### Arbitrary media query
+
 ```typescript
 readonly isLandscape = this.bp.matches('(orientation: landscape)');
 ```
@@ -67,30 +71,29 @@ readonly isLandscape = this.bp.matches('(orientation: landscape)');
 
 ### `injectBreakpointObserver(options?)`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| Option        | Type                     | Default                                          | Description                       |
+| ------------- | ------------------------ | ------------------------------------------------ | --------------------------------- |
 | `breakpoints` | `Record<string, number>` | `{sm:640, md:768, lg:1024, xl:1280, '2xl':1536}` | Named breakpoint thresholds in px |
 
 ### `BreakpointObserver`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `active` | `Signal<string>` | Name of the largest matching breakpoint |
-| `breakpoints` | `Record<string, Signal<boolean>>` | One boolean signal per breakpoint name |
-| `above(name)` | `(n) => Signal<boolean>` | True when viewport width ≥ the named breakpoint value |
-| `below(name)` | `(n) => Signal<boolean>` | True when viewport width < the named breakpoint value |
-| `matches(query)` | `(q) => Signal<boolean>` | Arbitrary CSS media query string evaluation |
+| Member           | Type                              | Description                                           |
+| ---------------- | --------------------------------- | ----------------------------------------------------- |
+| `active`         | `Signal<string>`                  | Name of the largest matching breakpoint               |
+| `breakpoints`    | `Record<string, Signal<boolean>>` | One boolean signal per breakpoint name                |
+| `above(name)`    | `(n) => Signal<boolean>`          | True when viewport width ≥ the named breakpoint value |
+| `below(name)`    | `(n) => Signal<boolean>`          | True when viewport width < the named breakpoint value |
+| `matches(query)` | `(q) => Signal<boolean>`          | Arbitrary CSS media query string evaluation           |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| TypeScript viewport queries for component logic | ✅ |
-| CSS media query generation for stylesheets | ❌ (use Tailwind or PostCSS) |
-| Element-level resize (`ResizeObserver`) | ❌ |
-| Server-side rendering (`window` unavailable) | ❌ guard with `isPlatformBrowser` |
+| Concern                                         | Status                            |
+| ----------------------------------------------- | --------------------------------- |
+| TypeScript viewport queries for component logic | ✅                                |
+| CSS media query generation for stylesheets      | ❌ (use Tailwind or PostCSS)      |
+| Element-level resize (`ResizeObserver`)         | ❌                                |
+| Server-side rendering (`window` unavailable)    | ❌ guard with `isPlatformBrowser` |
 
 ## Demo
 
 Visit `/packages/angular-breakpoint-observer/demo` for a live breakpoint playground with active/above/below/matches visualization.
-

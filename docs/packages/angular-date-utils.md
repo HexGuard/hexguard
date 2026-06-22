@@ -124,3 +124,20 @@ All pure functions are tested directly. The DI facade is tested via `TestBed.run
 - Business days: forward, backward, zero, weekend boundaries
 - DateRange: validity, containment, overlap, touching ranges, all presets
 - injectDateUtils: locale detection and override
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                          | Severity |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Two-layer design: pure tree-shakeable functions (`relativeTime()`, `compactDate()`, `formatDuration()`, `ageInYears()`, `isWeekend()`, `addBusinessDays()`, `businessDaysBetween()`) + optional DI facade (`injectDateUtils()`). | praise   |
+| Public API Design         | 13 exports — the most of any utility package. Functions are well-named and individually tree-shakeable.                                                                                                                          | praise   |
+| Test Coverage             | All pure functions tested directly. DI facade tested via `TestBed.runInInjectionContext`. Locale detection and override tested.                                                                                                  | praise   |
+| Test Coverage             | **No release workflow** — missing `.github/workflows/release-angular-date-utils.yml`.                                                                                                                                            | moderate |
+| Cross-package Consistency | **Not integrated into `build:lib`, `test:lib`, `test:ci`, or `verify:package` chains**. Only standalone `build:lib:date-utils` exists.                                                                                           | moderate |
+| Cross-package Consistency | Not listed in `docs/packages/README.md` catalog overview table.                                                                                                                                                                  | minor    |

@@ -1,5 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { injectNavigationPending } from './navigation-pending';

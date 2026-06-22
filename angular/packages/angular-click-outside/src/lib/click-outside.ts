@@ -1,10 +1,4 @@
-import {
-  DestroyRef,
-  ElementRef,
-  inject,
-  signal,
-  type Signal,
-} from '@angular/core';
+import { DestroyRef, ElementRef, inject, signal, type Signal } from '@angular/core';
 
 import type { ClickOutsideHandle, ClickOutsideOptions } from './types';
 
@@ -57,10 +51,7 @@ export function injectClickOutside(
 
     // Check if the click target matches any exclude selector
     for (const selector of exclude) {
-      if (
-        target instanceof Element &&
-        target.closest(selector)
-      ) {
+      if (target instanceof Element && target.closest(selector)) {
         return;
       }
     }

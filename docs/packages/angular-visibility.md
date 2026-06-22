@@ -23,12 +23,12 @@ import { injectVisibility, inElementVisibility } from '@hexguard/angular-visibil
 
 ### `injectVisibility()`
 
-| Signal | Type | Description |
-|--------|------|-------------|
-| `isVisible` | `Signal<boolean>` | Tab visible (via `document.visibilityState`) |
-| `isIdle` | `Signal<boolean>` | No user activity for `idleTimeoutMs` |
-| `idleDuration` | `Signal<number>` | Milliseconds since last activity |
-| `lastActivity` | `Signal<number>` | Timestamp of last user interaction |
+| Signal         | Type              | Description                                  |
+| -------------- | ----------------- | -------------------------------------------- |
+| `isVisible`    | `Signal<boolean>` | Tab visible (via `document.visibilityState`) |
+| `isIdle`       | `Signal<boolean>` | No user activity for `idleTimeoutMs`         |
+| `idleDuration` | `Signal<number>`  | Milliseconds since last activity             |
+| `lastActivity` | `Signal<number>`  | Timestamp of last user interaction           |
 
 **Idle detection** works by listening to a configurable set of DOM events (`mousemove`, `keydown`, `mousedown`, `touchstart`, `scroll`, `wheel` by default). Each event resets the idle timer and updates `lastActivity`. A periodic interval (1s) updates `idleDuration` while the user is idle. When `idleDuration >= idleTimeoutMs`, `isIdle` becomes `true`.
 
@@ -83,10 +83,27 @@ Both functions use browser-only APIs (`document`, `IntersectionObserver`, DOM ev
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider an `isAway` signal combining `!isVisible && isIdle` for "user stepped away" state | Low |
-| API | Consider a `resetIdle()` method for scenarios like "user clicked 'I'm back'" | Low |
-| Edge Cases | No test for idle detection resuming after tab becomes visible again | Low |
-| Edge Cases | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw | Medium |
-| Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements | Low |
+| Area        | Suggestion                                                                                                              | Priority |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| API         | Consider an `isAway` signal combining `!isVisible && isIdle` for "user stepped away" state                              | Low      |
+| API         | Consider a `resetIdle()` method for scenarios like "user clicked 'I'm back'"                                            | Low      |
+| Edge Cases  | No test for idle detection resuming after tab becomes visible again                                                     | Low      |
+| Edge Cases  | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw                | Medium   |
+| Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements | Low      |
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension              | Finding                                                                                                                                                               | Severity |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design      | Two orthogonal primitives: `injectVisibility()` (tab/idle) + `inElementVisibility()` (intersection). Clean separation.                                                | praise   |
+| Implementation Quality | Comprehensive: tab visibility change detection, idle timeout tracking, `IntersectionObserver` for element visibility. Automatic `DestroyRef` cleanup.                 | praise   |
+| Implementation Quality | `inElementVisibility` uses `effect()` in function body — if caller destroyed without injection context, the effect may leak. No SSR guard (`document` access throws). | moderate |
+| Test Coverage          | Tab hide/show, idle timeout, activity reset, custom events, idle duration, `IntersectionObserver` mocking.                                                            | praise   |
+| Test Coverage          | No test for element switching (element ref signal changing). No SSR guard test.                                                                                       | minor    |
+| Demo Integration       | Interactive demo with tab visibility indicator, idle timer display.                                                                                                   | praise   |

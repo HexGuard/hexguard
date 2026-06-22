@@ -1,12 +1,20 @@
-import { inject, signal } from '@angular/core';
+import { DestroyRef, inject, signal } from '@angular/core';
 import type { ConfirmationHandle, ConfirmationRequest, ConfirmationResult } from './types';
 
 let nextId = 0;
 
 export function injectConfirmation(): ConfirmationHandle {
+  const destroyRef = inject(DestroyRef);
   const isOpen = signal(false);
   const currentRequest = signal<ConfirmationRequest | null>(null);
   let resolveCurrent: ((value: boolean) => void) | null = null;
+
+  function cleanup(): void {
+    isOpen.set(false);
+    currentRequest.set(null);
+    resolveCurrent?.(false);
+    resolveCurrent = null;
+  }
 
   function ask(request: Omit<ConfirmationRequest, 'id'>): Promise<boolean> {
     if (isOpen()) {
@@ -46,6 +54,11 @@ export function injectConfirmation(): ConfirmationHandle {
     const result = await action();
     return { confirmed: true, result };
   }
+
+  // Clean up dangling promises when the component is destroyed
+  destroyRef.onDestroy(() => {
+    cleanup();
+  });
 
   return {
     isOpen: isOpen.asReadonly(),

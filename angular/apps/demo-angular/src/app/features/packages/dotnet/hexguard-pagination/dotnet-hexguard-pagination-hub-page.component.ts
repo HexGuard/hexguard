@@ -19,8 +19,8 @@ import { getDotnetSitePackage } from '../../../../site-catalog';
       <p class="demo-eyebrow">Cross-stack pairing</p>
       <h3>Angular + .NET Pagination</h3>
       <p class="demo-card__summary">
-        <code>HexGuard.Pagination</code> provides the server-side
-        <code>QueryRequest</code> / <code>QueryResponse&lt;T&gt;</code> contracts.
+        <code>HexGuard.Pagination</code> provides the server-side <code>QueryRequest</code> /
+        <code>QueryResponse&lt;T&gt;</code> contracts.
         <code>&#64;hexguard/angular-pagination</code> provides the client-side signal-based
         pagination state. Together they deliver end-to-end typed pagination across the stack.
       </p>

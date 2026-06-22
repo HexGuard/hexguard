@@ -46,11 +46,11 @@ undo.undoGroup('batch-1'); // undoes both 'a' and 'b' in reverse order
 
 ### Reactive State
 
-| Signal | Type | Description |
-|--------|------|-------------|
-| `pendingUndos` | `Signal<UndoAction[]>` | All pending reversible actions |
-| `hasPending` | `Signal<boolean>` | Whether any undo windows are open |
-| `undosForType(type)` | `Signal<UndoAction[]>` | Filtered by action type |
+| Signal               | Type                   | Description                       |
+| -------------------- | ---------------------- | --------------------------------- |
+| `pendingUndos`       | `Signal<UndoAction[]>` | All pending reversible actions    |
+| `hasPending`         | `Signal<boolean>`      | Whether any undo windows are open |
+| `undosForType(type)` | `Signal<UndoAction[]>` | Filtered by action type           |
 
 ## Lifecycle
 
@@ -71,37 +71,54 @@ undo.undoGroup('batch-1'); // undoes both 'a' and 'b' in reverse order
 
 ### `UndoAction<T>`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | `string` | Unique identifier |
-| `type` | `string` | Action type for filtering |
-| `data` | `T` | Arbitrary payload |
-| `ttlMs?` | `number` | Per-action TTL override |
-| `groupId?` | `string` | Group for batch undo |
-| `onUndo` | `(action) => void` | Undo callback |
+| Field      | Type               | Description               |
+| ---------- | ------------------ | ------------------------- |
+| `id`       | `string`           | Unique identifier         |
+| `type`     | `string`           | Action type for filtering |
+| `data`     | `T`                | Arbitrary payload         |
+| `ttlMs?`   | `number`           | Per-action TTL override   |
+| `groupId?` | `string`           | Group for batch undo      |
+| `onUndo`   | `(action) => void` | Undo callback             |
 
 ### `UndoStack<T>`
 
-| Method/Signal | Description |
-|--------------|-------------|
-| `pendingUndos` | Signal of all pending actions |
-| `hasPending` | Signal: any pending? |
-| `undosForType(type)` | Signal filtered by type |
-| `push(action)` | Add a reversible action |
-| `undo(id)` | Revert a specific action |
-| `undoGroup(groupId)` | Revert all actions in a group |
-| `commit(id)` | Expire without undoing |
-| `clear()` | Cancel all pending undo windows |
+| Method/Signal        | Description                     |
+| -------------------- | ------------------------------- |
+| `pendingUndos`       | Signal of all pending actions   |
+| `hasPending`         | Signal: any pending?            |
+| `undosForType(type)` | Signal filtered by type         |
+| `push(action)`       | Add a reversible action         |
+| `undo(id)`           | Revert a specific action        |
+| `undoGroup(groupId)` | Revert all actions in a group   |
+| `commit(id)`         | Expire without undoing          |
+| `clear()`            | Cancel all pending undo windows |
 
 ---
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider a `remainingTtl(actionId)` signal showing ms left before auto-commit | Low |
-| API | Consider `onBeforeUndo` / `onAfterUndo` lifecycle hooks for analytics | Low |
-| API | Consider `maxPending` option (e.g., limit to 10 pending actions) to prevent memory leaks | Medium |
-| Edge Cases | No test for `undoGroup` with mixed types or overlapping group IDs | Low |
-| Edge Cases | No test for pushing an action with the same `id` as an existing one (should replace or reject) | Medium |
-| Integration | Consider pairing with `@hexguard/angular-notifications` for automatic undo-toast UI | Low |
+| Area        | Suggestion                                                                                     | Priority |
+| ----------- | ---------------------------------------------------------------------------------------------- | -------- |
+| API         | Consider a `remainingTtl(actionId)` signal showing ms left before auto-commit                  | Low      |
+| API         | Consider `onBeforeUndo` / `onAfterUndo` lifecycle hooks for analytics                          | Low      |
+| API         | Consider `maxPending` option (e.g., limit to 10 pending actions) to prevent memory leaks       | Medium   |
+| Edge Cases  | No test for `undoGroup` with mixed types or overlapping group IDs                              | Low      |
+| Edge Cases  | No test for pushing an action with the same `id` as an existing one (should replace or reject) | Medium   |
+| Integration | Consider pairing with `@hexguard/angular-notifications` for automatic undo-toast UI            | Low      |
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                 | Severity |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Clean surface: 1 function (`injectUndoStack`), 3 types. Supports `undoGroup` for batching.                                                                              | praise   |
+| Implementation Quality    | Signal-first undo stack with TTL expiry, `commit()` for save-point grouping, `undosForType()` helper, `DestroyRef` cleanup.                                             | praise   |
+| Test Coverage             | Push/state, undo, TTL expiry, commit, undoGroup, clear, undosForType, destroy cleanup.                                                                                  | praise   |
+| Test Coverage             | No test for duplicate action ID (pushing same `id` creates duplicates — no replace/reject logic). `undosForTypeCache` Map never purges entries — memory leak over time. | moderate |
+| Demo Integration          | Interactive demo with undo/redo controls, action history list.                                                                                                          | praise   |
+| Cross-package Consistency | Release workflow exists. Build scripts integrated.                                                                                                                      | praise   |

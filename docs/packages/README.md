@@ -418,14 +418,6 @@ Status: Proposed
 
 Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.
 
-<a id="package-angular-form-drafts"></a>
-
-### `@hexguard/angular-form-drafts`
-
-Status: Proposed
-
-Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.
-
 <a id="package-angular-confirmation"></a>
 
 ### `@hexguard/angular-confirmation`

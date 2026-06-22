@@ -27,13 +27,13 @@ const bp = injectBreakpointObserver({
 
 The `BreakpointObserver` return type provides five categories of reactive signals:
 
-| Category | Member | Type | Description |
-|----------|--------|------|-------------|
-| Active | `active` | `Signal<string>` | Largest matching breakpoint name |
-| Per-breakpoint | `breakpoints` | `Record<string, Signal<boolean>>` | One boolean per breakpoint |
-| Comparison | `above(name)` | `Signal<boolean>` | Viewport ≥ named breakpoint |
-| Comparison | `below(name)` | `Signal<boolean>` | Viewport < named breakpoint |
-| Arbitrary | `matches(query)` | `Signal<boolean>` | Any CSS media query string |
+| Category       | Member           | Type                              | Description                      |
+| -------------- | ---------------- | --------------------------------- | -------------------------------- |
+| Active         | `active`         | `Signal<string>`                  | Largest matching breakpoint name |
+| Per-breakpoint | `breakpoints`    | `Record<string, Signal<boolean>>` | One boolean per breakpoint       |
+| Comparison     | `above(name)`    | `Signal<boolean>`                 | Viewport ≥ named breakpoint      |
+| Comparison     | `below(name)`    | `Signal<boolean>`                 | Viewport < named breakpoint      |
+| Arbitrary      | `matches(query)` | `Signal<boolean>`                 | Any CSS media query string       |
 
 ### Lifecycle
 
@@ -45,13 +45,13 @@ The `matches(query)` method creates a standalone `MediaQueryList` — its listen
 
 Defaults match the Tailwind / PostCSS convention:
 
-| Name | Min Width |
-|------|-----------|
-| `sm` | 640px |
-| `md` | 768px |
-| `lg` | 1024px |
-| `xl` | 1280px |
-| `2xl` | 1536px |
+| Name  | Min Width |
+| ----- | --------- |
+| `sm`  | 640px     |
+| `md`  | 768px     |
+| `lg`  | 1024px    |
+| `xl`  | 1280px    |
+| `2xl` | 1536px    |
 
 All defaults are overridable via the `breakpoints` option.
 
@@ -83,13 +83,13 @@ interface BreakpointObserver {
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider `atLeast(name)` / `atMost(name)` as aliases for `above`/`below` for readability | Low |
-| API | Consider an `orientation` signal (portrait vs landscape) as a built-in query | Low |
-| Edge Cases | No test for empty breakpoint map or zero-value thresholds | Low |
-| SSR | Document `isPlatformBrowser` guard pattern for SSR apps | Low |
-| Performance | All breakpoints create separate `matchMedia` listeners — consider lazy creation for large breakpoint maps | Low |
+| Area        | Suggestion                                                                                                | Priority |
+| ----------- | --------------------------------------------------------------------------------------------------------- | -------- |
+| API         | Consider `atLeast(name)` / `atMost(name)` as aliases for `above`/`below` for readability                  | Low      |
+| API         | Consider an `orientation` signal (portrait vs landscape) as a built-in query                              | Low      |
+| Edge Cases  | No test for empty breakpoint map or zero-value thresholds                                                 | Low      |
+| SSR         | Document `isPlatformBrowser` guard pattern for SSR apps                                                   | Low      |
+| Performance | All breakpoints create separate `matchMedia` listeners — consider lazy creation for large breakpoint maps | Low      |
 
 ## Behavior Notes
 
@@ -151,8 +151,25 @@ For most apps, this is unnecessary — if the component never renders on the ser
 
 ## Comparison with Alternatives
 
-| Approach | Reactive Signals | Cleanup | Standardized Naming | Custom Queries |
-|----------|:-:|:-:|:-:|:-:|
-| Raw `matchMedia` | ✗ | Manual | ✗ | ✓ |
-| CDK BreakpointObserver | Observable-based | Manual unsubscribe | ✗ | ✓ |
-| **HexGuard breakpoint-observer** | ✓ `Signal` | Auto (`DestroyRef`) | ✓ Tailwind defaults | ✓ |
+| Approach                         | Reactive Signals |       Cleanup       | Standardized Naming | Custom Queries |
+| -------------------------------- | :--------------: | :-----------------: | :-----------------: | :------------: |
+| Raw `matchMedia`                 |        ✗         |       Manual        |          ✗          |       ✓        |
+| CDK BreakpointObserver           | Observable-based | Manual unsubscribe  |          ✗          |       ✓        |
+| **HexGuard breakpoint-observer** |    ✓ `Signal`    | Auto (`DestroyRef`) | ✓ Tailwind defaults |       ✓        |
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension              | Finding                                                                                                                         | Severity |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design      | Clean surface: 1 function (`injectBreakpointObserver`), `DEFAULT_BREAKPOINTS`, 2 types.                                         | praise   |
+| Implementation Quality | Signal-first with `above()`/`below()`/`matches()` helpers. All `matchMedia` listeners cleaned up via `DestroyRef`.              | praise   |
+| Implementation Quality | Tailwind-compatible defaults (sm/md/lg/xl/2xl).                                                                                 | praise   |
+| Test Coverage          | Breakpoint matching, active resolution, above/below, unknown names, custom breakpoints, `matches()` arbitrary queries.          | praise   |
+| Test Coverage          | No viewport resize simulation test (matchMedia change event propagation not tested). No SSR guard (`window.matchMedia` throws). | minor    |
+| Demo Integration       | Interactive demo with live breakpoint display and resize window guidance.                                                       | praise   |

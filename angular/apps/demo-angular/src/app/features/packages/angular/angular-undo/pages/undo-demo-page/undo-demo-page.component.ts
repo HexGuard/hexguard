@@ -19,11 +19,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   ],
   template: `
     <demo-page-layout testId="undo-demo-page">
-      <demo-navigation-strip
-        demoNavigation
-        testId="undo-demo-navigation"
-        [demo]="demo"
-      />
+      <demo-navigation-strip demoNavigation testId="undo-demo-navigation" [demo]="demo" />
 
       <article demoIntro class="demo-card demo-card--stack">
         <div class="demo-card__header">
@@ -33,8 +29,8 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
           </div>
         </div>
         <p class="demo-card__summary">
-          <code>injectUndoStack()</code> manages reversible action flows with configurable
-          undo windows, TTL expiry, group undo, and commit-or-revert behavior.
+          <code>injectUndoStack()</code> manages reversible action flows with configurable undo
+          windows, TTL expiry, group undo, and commit-or-revert behavior.
         </p>
 
         <demo-status-strip
@@ -47,11 +43,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
       </article>
 
       <!-- demo-snippet:start angular-undo/demo-state -->
-      <article
-        demoPrimary
-        class="demo-card demo-card--stack"
-        data-testid="undo-playground"
-      >
+      <article demoPrimary class="demo-card demo-card--stack" data-testid="undo-playground">
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">Undo Stack</p>
@@ -95,7 +87,9 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
             <div class="undo-pending-list">
               @for (action of undo.pendingUndos(); track action.id) {
                 <div class="undo-pending-item" data-testid="undo-pending-item">
-                  <span class="undo-pending-item__label">{{ action.type }}: {{ action.data.label }}</span>
+                  <span class="undo-pending-item__label"
+                    >{{ action.type }}: {{ action.data.label }}</span
+                  >
                   <div class="undo-pending-item__actions">
                     <button
                       type="button"
@@ -118,7 +112,9 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
               }
             </div>
           } @else {
-            <p class="undo-empty" data-testid="undo-empty">No pending undos. Try deleting an item above.</p>
+            <p class="undo-empty" data-testid="undo-empty">
+              No pending undos. Try deleting an item above.
+            </p>
           }
           @if (undo.hasPending()) {
             <div class="undo-actions">

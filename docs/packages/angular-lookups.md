@@ -146,3 +146,22 @@ The pipe intentionally stays thin. If a view needs branching behavior or state i
   or surface the data mismatch directly.
 - The shared sample API deliberately exposes an `invalid` scenario so teams can see the frontend
   reject malformed catalogs instead of silently accepting partial reference data.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                                   | Severity |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Narrow surface — 6 named exports + 1 pipe + 5 type re-exports. No internal helpers leaked. Clean separation: validation, DI registration, facade, pipe, errors, options.                                                                                  | praise   |
+| Public API Design         | `provideHexGuardLookups()` + `injectLookups()` follows the multi-instance provider pattern exactly.                                                                                                                                                       | praise   |
+| Implementation Quality    | Relies on `asyncState()` from `angular-async-state` for cache lifecycle — correct delegation. Validation errors (`LookupCatalogValidationError`) preserved separately from transport errors.                                                              | praise   |
+| Implementation Quality    | `EMPTY_LOOKUP_CATALOG`, collections, items all `Object.freeze()`'d.                                                                                                                                                                                       | praise   |
+| Test Coverage             | 7 integration tests + 1 pipe test covering: initial catalog seed, load+reload, validation errors, signal-backed helpers, metadata/version signals, transport error mapping, `invalidate()` to idle.                                                       | praise   |
+| Test Coverage             | Not tested: pure validation helpers (`validateLookupCatalog`, `assertLookupCatalog`, `findLookupCollection`) individually — only indirectly through integration tests; pipe with null/undefined `itemKey`; `mapError` callback omitted (raw passthrough). | minor    |
+| Demo Integration          | 4 demo routes (editor, summary, backend) with snippet generation, Playwright tests, .NET sample API integration. Excellent coverage.                                                                                                                      | praise   |
+| Cross-package Consistency | Build scripts correctly build dependency first (`pnpm build:lib:async-state && ng build angular-lookups`). `tsconfig.lib.json` maps dependency to dist/ to avoid rootDir errors.                                                                          | praise   |

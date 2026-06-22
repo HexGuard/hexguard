@@ -8,6 +8,8 @@ on:
       - 'dotnet-validationcontracts-v*'
       - 'dotnet-bulkoperations-v*'
       - 'dotnet-capabilities-v*'
+      - 'dotnet-pagination-v*'
+      - 'dotnet-featureflags-v*'
   workflow_dispatch:
     inputs:
       package_id:
@@ -20,6 +22,8 @@ on:
           - HexGuard.ValidationContracts
           - HexGuard.BulkOperations
           - HexGuard.Capabilities
+          - HexGuard.Pagination
+          - HexGuard.FeatureFlags
       release_tag:
         description: 'Git tag to attach the GitHub release to when running manually'
         required: false
@@ -75,6 +79,14 @@ jobs:
                 PACKAGE_ID="HexGuard.Capabilities"
                 PROJ_DIR="dotnet/src/HexGuard.Capabilities"
                 ;;
+              dotnet-pagination-v*)
+                PACKAGE_ID="HexGuard.Pagination"
+                PROJ_DIR="dotnet/src/HexGuard.Pagination"
+                ;;
+              dotnet-featureflags-v*)
+                PACKAGE_ID="HexGuard.FeatureFlags"
+                PROJ_DIR="dotnet/src/HexGuard.FeatureFlags"
+                ;;
               *)
                 echo "Unrecognised tag pattern: $TAG_NAME" >&2
                 exit 1
@@ -108,6 +120,12 @@ jobs:
                 ;;
               HexGuard.Capabilities)
                 PROJ_DIR="dotnet/src/HexGuard.Capabilities"
+                ;;
+              HexGuard.Pagination)
+                PROJ_DIR="dotnet/src/HexGuard.Pagination"
+                ;;
+              HexGuard.FeatureFlags)
+                PROJ_DIR="dotnet/src/HexGuard.FeatureFlags"
                 ;;
               *)
                 echo "Unknown package_id: $PACKAGE_ID" >&2

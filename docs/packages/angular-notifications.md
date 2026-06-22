@@ -186,3 +186,21 @@ interface Notification {
 A standalone component that renders the current notification stack. Each notification is rendered as a `<div class="notification notification--{type}">` with a title (optional), message, action button (optional), and dismiss button. The outlet is positioned fixed in the top-right corner with a slide-in animation.
 
 Override the styling by targeting CSS classes: `.notifications-outlet`, `.notification`, `.notification--success`, `.notification--error`, `.notification--info`, `.notification--warning`, `.notification__title`, `.notification__message`, `.notification__action-btn`, `.notification__dismiss-btn`.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                    | Severity   |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| Public API Design         | Three clean layers: types, service, outlet component. Signal-first queue management.                                                                                                                                       | praise     |
+| Public API Design         | Uses class-based `inject(NotificationService)` rather than function-based `inject*()` pattern — unique among packages. `provideHexGuardNotifications()` is config-only, not multi-instance.                                | suggestion |
+| Implementation Quality    | All state via `signal()` + `computed()`. Auto-dismiss via `setTimeout` with timer tracking. `DestroyRef` cleanup of all timers.                                                                                            | praise     |
+| Implementation Quality    | `globalThis.setTimeout`/`clearTimeout` for SSR safety. `maxVisible` auto-dismisses oldest. Convenience methods (`success()`, `error()`, `info()`, `warning()`).                                                            | praise     |
+| Test Coverage             | 21 service tests + component tests covering: show/dismiss/dismissAll/dismissByType, auto-dismiss timing, persistent duration, `maxVisible` enforcement, `update()` restarts timer, `DestroyRef` cleanup, outlet rendering. | praise     |
+| Demo Integration          | Interactive demo with notification creation, type selection, auto-dismiss. Stable `data-testid` hooks.                                                                                                                     | praise     |
+| Cross-package Consistency | Only package using class-based `@Injectable({ providedIn: 'root' })` pattern. All others use function-based factories. Not necessarily wrong but inconsistent.                                                             | suggestion |

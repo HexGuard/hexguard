@@ -152,3 +152,21 @@ The current implementation is validated through:
 - Playwright coverage for package overview, persona switching, and guarded child-route redirects
 
 For repo-level validation commands, use the package README and the demo runbook together.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                               | Severity |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Largest API in workspace: `evaluatePermission()` pure evaluator, `provide*()` + `inject*()`, route guards (`canActivatePermissions`, `canMatchPermissions`), `*hexguardCan` directive, `.NET` capability sync bridge. | praise   |
+| Implementation Quality    | Single pure evaluator shared by all Angular adapters — prevents drift between facade, guards, and directive. Signal-backed context for reactive updates.                                                              | praise   |
+| Implementation Quality    | Cross-stack .NET bridge via `CapabilitySync` — `CapabilitySet.Roles` → `PermissionContext.roles`, permissions flattened to `"resource.action"` capability strings.                                                    | praise   |
+| Test Coverage             | Pure evaluator tests (all/any/none, roles/capabilities), facade (imperative checks, signal reactivity), guards (redirect, UrlTree, command arrays), directive (else template, context switching).                     | praise   |
+| Test Coverage             | No test for `updateCapabilityContext()` imperative function (exported but untested). `EMPTY_PERMISSION_CONTEXT` frozen but default context token creates mutable signal.                                              | minor    |
+| Demo Integration          | 3+ demo pages with persona switching, guarded routes, Playwright coverage.                                                                                                                                            | praise   |
+| Cross-package Consistency | No `verify:package:permissions` standalone script in `angular/package.json`.                                                                                                                                          | minor    |

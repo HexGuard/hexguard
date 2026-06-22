@@ -119,3 +119,19 @@ export const appConfig: ApplicationConfig = {
 ```
 
 The `CapabilitySet.Roles` maps to `PermissionContext.roles` and each `Permissions[resource]` entry is flattened to `"resource.action"` capability strings consumed by `injectPermissions()`, `*hexguardCan`, and route guards.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                            | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------- |
+| Public API Design         | Clean separation: `ICapabilityService` vs `ICapabilityStore`. Register/check capability patterns.                  | praise   |
+| Implementation Quality    | `InMemoryCapabilityStore` for dev/test. Proper `InternalsVisibleTo`.                                               | praise   |
+| Cross-package Consistency | Release workflow included in `release-dotnet.yml`. Paired with `@hexguard/angular-permissions`.                    | praise   |
+| Documentation             | **No `README.md` in package directory** — unlike all other .NET packages.                                          | moderate |
+| Implementation Quality    | `SetCurrentUser()` relies on manual middleware — no built-in middleware to wire up `AsyncLocal` from HTTP context. | minor    |

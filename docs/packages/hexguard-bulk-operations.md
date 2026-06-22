@@ -72,3 +72,19 @@ Both packages share:
 - HTTP 207 Multi-Status transport
 - RFC 9457 Problem Details error integration on the .NET side
 - `@hexguard/angular-api-errors` compatible error shapes
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                 | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Clean builder with automatic status computation and proper HTTP status codes (200 OK / 207 Multi-Status).                                                                                               | praise   |
+| Implementation Quality    | Typed contracts with `BulkOperationResult<TItem, TResult>`, `BulkOperationResponse<TItem, TResult>`, `BulkOperationRequest<TItem, TPayload>`.                                                           | praise   |
+| Cross-package Consistency | `ToProblemDetails()` returns raw `Dictionary<string, object?>` instead of using `HexGuard.ProblemDetails.ProblemDetailsBuilder` for RFC 9457 compliance — bypasses the ProblemDetails package entirely. | moderate |
+| Cross-package Consistency | Release workflow included in `release-dotnet.yml`. Deep-dive doc exists.                                                                                                                                | praise   |
+| Documentation             | XML doc on all public APIs. README present.                                                                                                                                                             | praise   |

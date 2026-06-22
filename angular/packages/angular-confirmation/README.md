@@ -37,17 +37,21 @@ if (ok) deleteOrder();
 ## Use Cases
 
 ### Simple confirm dialog
+
 ```html
 @if (confirm.isOpen()) {
-  <dialog open>
-    <p>{{ confirm.currentRequest()?.message }}</p>
-    <button (click)="confirm.confirm()">{{ confirm.currentRequest()?.confirmLabel ?? 'OK' }}</button>
-    <button (click)="confirm.cancel()">{{ confirm.currentRequest()?.cancelLabel ?? 'Cancel' }}</button>
-  </dialog>
+<dialog open>
+  <p>{{ confirm.currentRequest()?.message }}</p>
+  <button (click)="confirm.confirm()">{{ confirm.currentRequest()?.confirmLabel ?? 'OK' }}</button>
+  <button (click)="confirm.cancel()">
+    {{ confirm.currentRequest()?.cancelLabel ?? 'Cancel' }}
+  </button>
+</dialog>
 }
 ```
 
 ### Async action with confirmation
+
 ```typescript
 const result = await confirm.run(
   { title: 'Archive', message: `Archive ${count} items?` },
@@ -62,35 +66,34 @@ if (result.confirmed && result.result) {
 
 ### `injectConfirmation()`
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `isOpen` | `Signal<boolean>` | Whether a dialog is currently shown |
-| `currentRequest` | `Signal<ConfirmationRequest \| null>` | Active request for rendering |
-| `ask(request)` | `(r) => Promise<boolean>` | Opens dialog, resolves `true` on confirm, `false` on cancel |
-| `run(request, action)` | `(r, a) => Promise<ConfirmationResult>` | Combines `ask()` with async action execution |
-| `confirm()` | `() => void` | Resolve current dialog as confirmed |
-| `cancel()` | `() => void` | Resolve current dialog as cancelled |
+| Member                 | Type                                    | Description                                                 |
+| ---------------------- | --------------------------------------- | ----------------------------------------------------------- |
+| `isOpen`               | `Signal<boolean>`                       | Whether a dialog is currently shown                         |
+| `currentRequest`       | `Signal<ConfirmationRequest \| null>`   | Active request for rendering                                |
+| `ask(request)`         | `(r) => Promise<boolean>`               | Opens dialog, resolves `true` on confirm, `false` on cancel |
+| `run(request, action)` | `(r, a) => Promise<ConfirmationResult>` | Combines `ask()` with async action execution                |
+| `confirm()`            | `() => void`                            | Resolve current dialog as confirmed                         |
+| `cancel()`             | `() => void`                            | Resolve current dialog as cancelled                         |
 
 ### `ConfirmationRequest`
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `title` | `string` | Dialog title |
-| `message` | `string` | Dialog body text |
-| `confirmLabel?` | `string` | Confirm button text |
-| `cancelLabel?` | `string` | Cancel button text |
-| `destructive?` | `boolean` | Hint for destructive styling |
+| Field           | Type      | Description                  |
+| --------------- | --------- | ---------------------------- |
+| `title`         | `string`  | Dialog title                 |
+| `message`       | `string`  | Dialog body text             |
+| `confirmLabel?` | `string`  | Confirm button text          |
+| `cancelLabel?`  | `string`  | Cancel button text           |
+| `destructive?`  | `boolean` | Hint for destructive styling |
 
 ## Scope Boundaries
 
-| Concern | Status |
-|---------|--------|
-| Promise-based confirm/cancel with reactive signals | ✅ |
-| Duplicate-open prevention | ✅ |
-| Async action wrapper (`run()`) | ✅ |
-| Dialog/modal UI components | ❌ (headless — compose your own) |
+| Concern                                            | Status                           |
+| -------------------------------------------------- | -------------------------------- |
+| Promise-based confirm/cancel with reactive signals | ✅                               |
+| Duplicate-open prevention                          | ✅                               |
+| Async action wrapper (`run()`)                     | ✅                               |
+| Dialog/modal UI components                         | ❌ (headless — compose your own) |
 
 ## Demo
 
 Visit `/packages/angular-confirmation/demo` for delete and archive confirmation flows.
-

@@ -2,15 +2,11 @@ import {
   inject,
   Injectable,
   InjectionToken,
+  isDevMode,
   makeEnvironmentProviders,
   type EnvironmentProviders,
 } from '@angular/core';
-import type {
-  ApiError,
-  ApiErrorProblemDetails,
-  ApiValidationResult,
-  HexGuardApiErrorsOptions,
-} from './types';
+import type { ApiError, ApiValidationResult, HexGuardApiErrorsOptions } from './types';
 
 /** Injection token for `HexGuardApiErrorsOptions`. */
 export const HEXGUARD_API_ERRORS_OPTIONS: InjectionToken<HexGuardApiErrorsOptions> =
@@ -52,9 +48,18 @@ export class ApiErrorParser {
       return { errors: [], isValid: true };
     }
 
-    const pd = body as unknown as ApiErrorProblemDetails;
     const pdRecord = body as Record<string, unknown>;
     const errors: ApiError[] = [];
+
+    // Strict parsing: throw in dev mode when body shape is unexpected
+    const strict = this._options.strictParsing ?? (typeof isDevMode === 'function' && isDevMode());
+    if (strict && !pdRecord['type'] && !pdRecord['title']) {
+      throw new Error(
+        'ApiErrorParser: response body does not match RFC 9457 Problem Details shape. ' +
+          'Expected at least a `type` or `title` field. ' +
+          'Set `strictParsing: false` to skip this check.',
+      );
+    }
 
     // Collect field-level errors from the "errors" extension
     const rawErrors = pdRecord['errors'];
@@ -86,7 +91,7 @@ export class ApiErrorParser {
 
     return {
       errors,
-      traceId: pd.traceId,
+      traceId: typeof pdRecord['traceId'] === 'string' ? pdRecord['traceId'] : undefined,
       isValid: errors.length === 0,
     };
   }

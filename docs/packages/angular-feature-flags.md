@@ -75,3 +75,21 @@ Validated through:
 - Angular TestBed tests for the facade
 - Demo-app build coverage for package-home and live demo routes
 - Cross-stack validation via .NET test suite (40 evaluator + store + endpoint tests, all passing)
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                      | Severity |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Most feature-rich package: pure evaluator, directive, route guards, sync service, 8 targeting rule types, FNV-1a hash for deterministic cross-platform rollout.                                                                              | praise   |
+| Implementation Quality    | Pure evaluator well-designed with first-match-wins semantics, rollout clamping, empty input handling.                                                                                                                                        | praise   |
+| Implementation Quality    | **Not registered in `angular/package.json` build or test scripts** — missing from `build:lib` chain, `test:lib` chain, and no individual `build:lib:feature-flags` / `test:lib:feature-flags` scripts. CI cannot build or test this package. | moderate |
+| Test Coverage             | 27 pure evaluator tests covering all rule types, edge cases, first-match-wins, rollout clamping, empty inputs.                                                                                                                               | praise   |
+| Test Coverage             | **No Angular TestBed tests** for `injectFeatureFlags()`, `*hexguardFeatureFlag` directive, `canActivateFeatureFlag`, `canMatchFeatureFlag`, or `injectFeatureFlag()` shorthand.                                                              | moderate |
+| Demo Integration          | Demo pages exist with Playwright hooks.                                                                                                                                                                                                      | praise   |
+| Cross-package Consistency | No `CHANGELOG.md` found (unlike other packages). .NET counterpart `HexGuard.FeatureFlags` exists with matching contract shapes.                                                                                                              | minor    |

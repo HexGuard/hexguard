@@ -20,9 +20,26 @@ Every app needs "Are you sure?" dialogs for delete, archive, and destructive act
 
 ## Assessment: Potential Improvements
 
-| Area | Suggestion | Priority |
-|------|-----------|----------|
-| API | Consider adding a `reset()` method that clears state without resolving (for external dismiss) | Low |
-| API | Consider a `destroyRef`-based auto-cleanup for dangling unresolved promises when the component is destroyed while a dialog is open | Medium |
-| API | The `run()` method swallows action errors — consider exposing them via an `actionError` signal or returning `{ confirmed: true, error }` | Medium |
-| Tests | Missing test: `run()` with confirmed but failed action returns `{ confirmed: true }` without the error | Low |
+| Area  | Suggestion                                                                                                                               | Priority |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| API   | Consider adding a `reset()` method that clears state without resolving (for external dismiss)                                            | Low      |
+| API   | Consider a `destroyRef`-based auto-cleanup for dangling unresolved promises when the component is destroyed while a dialog is open       | Medium   |
+| API   | The `run()` method swallows action errors — consider exposing them via an `actionError` signal or returning `{ confirmed: true, error }` | Medium   |
+| Tests | Missing test: `run()` with confirmed but failed action returns `{ confirmed: true }` without the error                                   | Low      |
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension              | Finding                                                                                                                                     | Severity |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design      | Minimal surface: 1 function (`injectConfirmation`), 3 types. Elegant signal-based headless design.                                          | praise   |
+| Implementation Quality | `ask()`/`run()`/`confirm()`/`cancel()` — clean promise-based flow. Duplicate-open prevention.                                               | praise   |
+| Implementation Quality | **No `DestroyRef` cleanup** — dangling unresolved promises if component destroyed while dialog open. Noted in deep-dive as Medium priority. | moderate |
+| Test Coverage          | 6 tests: happy path, cancel, duplicate rejection, `run()` flow.                                                                             | praise   |
+| Test Coverage          | No test for `run()` with a _failed_ action callback — error would propagate unhandled.                                                      | minor    |
+| Demo Integration       | Interactive demo with ask/confirm/cancel and inspector panel.                                                                               | praise   |

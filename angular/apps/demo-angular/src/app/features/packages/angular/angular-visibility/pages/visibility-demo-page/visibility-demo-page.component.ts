@@ -22,11 +22,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   ],
   template: `
     <demo-page-layout testId="visibility-demo-page">
-      <demo-navigation-strip
-        demoNavigation
-        testId="visibility-demo-navigation"
-        [demo]="demo"
-      />
+      <demo-navigation-strip demoNavigation testId="visibility-demo-navigation" [demo]="demo" />
 
       <article demoIntro class="demo-card demo-card--stack">
         <div class="demo-card__header">
@@ -51,11 +47,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
       </article>
 
       <!-- demo-snippet:start angular-visibility/demo-state -->
-      <article
-        demoPrimary
-        class="demo-card demo-card--stack"
-        data-testid="visibility-playground"
-      >
+      <article demoPrimary class="demo-card demo-card--stack" data-testid="visibility-playground">
         <div class="demo-card__header">
           <div>
             <p class="demo-eyebrow">Visibility</p>
@@ -75,9 +67,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
               {{ visibility.isVisible() ? 'true' : 'false' }}
             </span>
           </div>
-          <p class="vis-hint">
-            Switch to another tab and come back to see the value change.
-          </p>
+          <p class="vis-hint">Switch to another tab and come back to see the value change.</p>
         </div>
 
         <div class="vis-section">
@@ -101,7 +91,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
           <div class="vis-status">
             <span class="vis-status__label">lastActivity</span>
             <span class="vis-status__value" data-testid="vis-last-activity">
-              {{ visibility.lastActivity() | date:'HH:mm:ss' }}
+              {{ visibility.lastActivity() | date: 'HH:mm:ss' }}
             </span>
           </div>
           <p class="vis-hint">

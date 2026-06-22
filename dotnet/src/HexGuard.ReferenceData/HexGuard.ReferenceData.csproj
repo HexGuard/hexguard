@@ -8,4 +8,8 @@
     <Description>Typed reference-data catalog contracts and validation helpers for .NET applications.</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HexGuard.ReferenceData.Tests" />
+  </ItemGroup>
 </Project>

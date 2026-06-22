@@ -83,3 +83,20 @@ Tests use `vi.useFakeTimers()` and mock `window`/`navigator` globals via `Object
 - Interrupted online transition: offline during debounce
 - Connection type: initial value, change event, missing API
 - `whenBackOnline()`: immediate resolution, deferred resolution
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                           | Severity |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Clean surface: 1 function (`injectNetworkStatus`), 3 types.                                                                                                                                       | praise   |
+| Implementation Quality    | Signal-first with debounced reconnection detection, `recentlyBackOnline` lifecycle, `whenBackOnline()` promise. `DestroyRef` cleanup.                                                             | praise   |
+| Implementation Quality    | Catalog status `"In Progress"` — not yet released.                                                                                                                                                | note     |
+| Test Coverage             | 14 tests: initial states, debounce window, offline/online transitions, `recentlyBackOnline` configurable duration, interrupted transition, connection type detection, `whenBackOnline()` promise. | praise   |
+| Test Coverage             | **No release workflow** — missing `.github/workflows/release-angular-network-status.yml`.                                                                                                         | moderate |
+| Cross-package Consistency | **Not integrated into `build:lib`, `test:lib`, `test:ci`, or `verify:package` chains** in `angular/package.json`. Only standalone `build:lib:network-status` exists.                              | moderate |

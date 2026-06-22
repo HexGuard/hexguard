@@ -170,3 +170,21 @@ Error signal cleared (hasError = false)
 Content re-renders on next change detection
 
 ```
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                        | Severity |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Minimal surface: 1 component + 1 type. No injectable function — appropriate for component-based boundary.                                      | praise   |
+| Implementation Quality    | Clean `ErrorHandler` wrapping with chaining for nested boundaries. Zero deps beyond `@angular/core`. `reset()` correctly clears error state.   | praise   |
+| Test Coverage             | Renders safe content, catches render-time errors, resets state, verifies `fallbackContext` shape.                                              | praise   |
+| Test Coverage             | Test accesses private `controller` via `(boundary as unknown as {...})` — fragile. No test for sibling boundaries coexisting (chain-wrapping). | minor    |
+| Demo Integration          | Demo page with toggle-safe/throw controls, retry button, inspector panel.                                                                      | praise   |
+| Cross-package Consistency | No `verify:package:error-boundary` standalone script in `angular/package.json`.                                                                | minor    |
+| Cross-package Consistency | Only component-only export in the workspace — justified by domain.                                                                             | praise   |

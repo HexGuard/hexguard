@@ -3,17 +3,22 @@
 
   <article demoIntro class="demo-card demo-card--stack">
     <div class="demo-card__header">
-      <div><p class="demo-eyebrow">Angular Live Data</p><h2>Reactive polling with visibility awareness.</h2></div>
+      <div>
+        <p class="demo-eyebrow">Angular Live Data</p>
+        <h2>Reactive polling with visibility awareness.</h2>
+      </div>
     </div>
     <p class="demo-card__summary">
       <code>injectLiveData()</code> provides signal-based data fetching on a configurable interval,
       with automatic pause on tab hidden, stale detection, and retry with exponential backoff.
     </p>
-    <demo-status-strip testId="live-data-demo-status"
+    <demo-status-strip
+      testId="live-data-demo-status"
       summary="Reactive polling with visibility-aware pause/resume, stale detection, and retry."
       currentUrl="Angular Live Data — Demo"
       summaryTestId="live-data-demo-summary"
-      urlTestId="live-data-demo-url" />
+      urlTestId="live-data-demo-url"
+    />
   </article>
 
   <!-- Main polling demo -->
@@ -35,8 +40,20 @@
         }
       </div>
       <div class="live-data-actions">
-        <button (click)="live.pause()" [disabled]="live.isPaused()" data-testid="live-data-pause-btn">Pause</button>
-        <button (click)="live.resume()" [disabled]="!live.isPaused()" data-testid="live-data-resume-btn">Resume</button>
+        <button
+          (click)="live.pause()"
+          [disabled]="live.isPaused()"
+          data-testid="live-data-pause-btn"
+        >
+          Pause
+        </button>
+        <button
+          (click)="live.resume()"
+          [disabled]="!live.isPaused()"
+          data-testid="live-data-resume-btn"
+        >
+          Resume
+        </button>
         <button (click)="live.refresh()" data-testid="live-data-refresh-btn">Refresh Now</button>
       </div>
     </div>
@@ -44,16 +61,23 @@
     @if (live.data(); as dashboard) {
       <div class="kpi-grid" data-testid="live-data-kpi-grid">
         @for (metric of dashboard.metrics; track metric.label) {
-          <div class="kpi-card" [attr.data-testid]="'kpi-' + metric.label.toLowerCase().replace(/\s+/g, '-')">
+          <div
+            class="kpi-card"
+            [attr.data-testid]="'kpi-' + metric.label.toLowerCase().replace(/\s+/g, '-')"
+          >
             <span class="kpi-label">{{ metric.label }}</span>
-            <span class="kpi-value">{{ metric.value }}<span class="kpi-unit">{{ metric.unit }}</span></span>
+            <span class="kpi-value"
+              >{{ metric.value }}<span class="kpi-unit">{{ metric.unit }}</span></span
+            >
             <span class="kpi-trend kpi-trend--{{ metric.trend }}">
               {{ metric.trend === 'up' ? '↑' : metric.trend === 'down' ? '↓' : '→' }}
             </span>
           </div>
         }
       </div>
-      <p class="live-data-timestamp" data-testid="live-data-timestamp">Last updated: {{ dashboard.lastUpdated }}</p>
+      <p class="live-data-timestamp" data-testid="live-data-timestamp">
+        Last updated: {{ dashboard.lastUpdated }}
+      </p>
     } @else {
       <div class="live-data-empty" data-testid="live-data-empty">
         <p>Waiting for first data…</p>
@@ -61,10 +85,18 @@
     }
   </article>
 
-  <demo-inspector-panel demoAside panelTestId="live-data-inspector-panel" eyebrow="Reference"
-    title="Live Data snapshot" summary="Reactive polling state."
-    [snapshotJson]="mainSnapshotJson()" [snippetId]="demo.codeSample.snippetId"
-    [docsLinks]="demo.docsLinks" snapshotTestId="live-data-snapshot-json" codeTestId="live-data-code-sample" />
+  <demo-inspector-panel
+    demoAside
+    panelTestId="live-data-inspector-panel"
+    eyebrow="Reference"
+    title="Live Data snapshot"
+    summary="Reactive polling state."
+    [snapshotJson]="mainSnapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="live-data-snapshot-json"
+    codeTestId="live-data-code-sample"
+  />
 
   <!-- Failing API demo -->
   <article demoSecondary class="demo-card demo-card--stack" data-testid="live-data-failing">
@@ -83,13 +115,21 @@
         @for (metric of dashboard.metrics; track metric.label) {
           <div class="kpi-card">
             <span class="kpi-label">{{ metric.label }}</span>
-            <span class="kpi-value">{{ metric.value }}<span class="kpi-unit">{{ metric.unit }}</span></span>
+            <span class="kpi-value"
+              >{{ metric.value }}<span class="kpi-unit">{{ metric.unit }}</span></span
+            >
           </div>
         }
       </div>
     }
 
-    <demo-inspector-panel panelTestId="live-data-failing-inspector" title="Error Recovery" snippetId="" codeTestId=""
-      [snapshotJson]="failingSnapshotJson()" snapshotTestId="live-data-failing-snapshot-json" />
+    <demo-inspector-panel
+      panelTestId="live-data-failing-inspector"
+      title="Error Recovery"
+      snippetId=""
+      codeTestId=""
+      [snapshotJson]="failingSnapshotJson()"
+      snapshotTestId="live-data-failing-snapshot-json"
+    />
   </article>
 </demo-page-layout>

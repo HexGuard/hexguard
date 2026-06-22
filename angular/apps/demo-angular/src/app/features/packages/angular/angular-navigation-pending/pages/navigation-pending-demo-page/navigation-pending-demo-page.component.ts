@@ -35,10 +35,9 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
           </div>
         </div>
         <p class="demo-card__summary">
-          <code>injectNavigationPending()</code> provides signal-based
-          <code>isNavigating</code> and <code>isSlowNavigation</code> indicators using
-          Angular Router events. Click the links below to trigger transitions and watch
-          the state update.
+          <code>injectNavigationPending()</code> provides signal-based <code>isNavigating</code> and
+          <code>isSlowNavigation</code> indicators using Angular Router events. Click the links
+          below to trigger transitions and watch the state update.
         </p>
 
         <demo-status-strip
@@ -70,7 +69,11 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         }
 
         <div class="nav-links">
-          <a class="demo-button" routerLink="/packages/angular-navigation-pending/demo" data-testid="nav-self">
+          <a
+            class="demo-button"
+            routerLink="/packages/angular-navigation-pending/demo"
+            data-testid="nav-self"
+          >
             Navigate to self (fast)
           </a>
           <a class="demo-button demo-button--accent" routerLink="/" data-testid="nav-home-slow">
@@ -149,12 +152,20 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         animation: nav-fill-slow 2.3s ease-in forwards;
       }
       @keyframes nav-fill {
-        to { width: 30%; }
+        to {
+          width: 30%;
+        }
       }
       @keyframes nav-fill-slow {
-        0% { width: 30%; }
-        70% { width: 85%; }
-        100% { width: 100%; }
+        0% {
+          width: 30%;
+        }
+        70% {
+          width: 85%;
+        }
+        100% {
+          width: 100%;
+        }
       }
       .nav-links {
         display: flex;

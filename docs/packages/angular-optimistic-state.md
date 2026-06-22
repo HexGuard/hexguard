@@ -181,3 +181,37 @@ pnpm test:e2e
 
 The demo routes are part of the validation story because they prove visible optimistic overlays,
 rollback, and conflict-policy behavior against the same public API surface the package exports.
+
+---
+
+## API Review Findings
+
+Review date: 2026-06-22. Findings are observational — no code has been changed.
+
+### Observations
+
+| Dimension                 | Finding                                                                                                                                                                                                                                                                                                                                             | Severity |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Public API Design         | Tight, well-considered API — 1 factory function, 1 outlet component, 1 error class, supporting types. No internal helpers leaked.                                                                                                                                                                                                                   | praise   |
+| Public API Design         | Clean architectural distinction between `settledValue()` (committed baseline) and `value()` (committed + pending overlays).                                                                                                                                                                                                                         | praise   |
+| Public API Design         | JSDoc on `optimisticState()` and `OptimisticStatePendingError`. `OptimisticStateOptions` fields have terse JSDoc (1-liners) — could be more descriptive inline.                                                                                                                                                                                     | minor    |
+| Implementation Quality    | Signal-first: all state via `signal()`/`computed()`. No `effect()` usage in core.                                                                                                                                                                                                                                                                   | praise   |
+| Implementation Quality    | Three conflict policies (`reject`, `queue`, `replace`) cover practical range of same-target overlap behaviors. Entry-based mutation history with `entries()` inspection.                                                                                                                                                                            | praise   |
+| Implementation Quality    | In-flight deduplication handled through conflict policies at the same-target level (not promise-level) — architecturally correct for optimistic state where each mutation is a distinct tracked entry.                                                                                                                                              | praise   |
+| Implementation Quality    | Failed/replaced entry results are correctly ignored via short-circuit in `settleFailure`/`settleSuccess`. Chained queue execution via `activateNextQueuedMutation()`.                                                                                                                                                                               | praise   |
+| Test Coverage             | 6 core tests + 3 outlet tests covering: optimistic overlay + success reconciliation, failure rollback + error mapping, all 3 conflict policies (`reject`/`queue`/`replace`), outlet templates (value/pending/error).                                                                                                                                | praise   |
+| Test Coverage             | Not tested: `reset()`, `setConflictPolicy()` dynamic switching, multiple different targets accumulating overlays, `reconcile` default fallback to `apply`, `mapError` default, `now` override, `run` with `void` input, `hasPendingMutations`/`hasQueuedMutations`/`pendingCount`/`queuedCount` at various states, queue chaining beyond 2 entries. | moderate |
+| Demo Integration          | 3 demo routes (toggle, inline-edit, bulk) with hub page, snippet generation, Playwright selectors. Full integration.                                                                                                                                                                                                                                | praise   |
+| Cross-package Consistency | Follows same conventions as `angular-async-state`: `Hexguard` prefix on outlet, `*PendingError` error class pattern, `mapError` identity cast default. Conflict policies are richer (queue, replace) than async-action's simpler reuse/reject — appropriate for domain differences.                                                                 | praise   |
+| Cross-package Consistency | Build scripts, release workflow, angular.json registration, catalog entry all present and correct.                                                                                                                                                                                                                                                  | praise   |
+
+### Improvement & Extension Opportunities
+
+| Area          | Suggestion                                                                                                                                        | Type        | Difficulty |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ---------- |
+| Tests         | Add `reset()` and `setConflictPolicy()` dynamic switching tests.                                                                                  | improvement | easy       |
+| Tests         | Add multi-target overlay accumulation test.                                                                                                       | improvement | easy       |
+| Tests         | Add `void` input type test (`OptimisticStateRunArgs` edge case).                                                                                  | improvement | easy       |
+| Tests         | Add `hasPendingMutations`/`hasQueuedMutations`/`pendingCount`/`queuedCount` state coherence tests.                                                | improvement | medium     |
+| Tests         | Add queue chaining beyond 2 entries test.                                                                                                         | improvement | easy       |
+| Documentation | Expand inline JSDoc on `OptimisticStateOptions` fields to include more descriptive detail (behavioural notes currently live in README/deep-dive). | improvement | easy       |

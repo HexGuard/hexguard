@@ -1475,18 +1475,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-form-drafts',
-    anchorId: 'package-angular-form-drafts',
-    packageName: '@hexguard/angular-form-drafts',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-form-drafts',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-confirmation',
     anchorId: 'package-angular-confirmation',
     packageName: '@hexguard/angular-confirmation',

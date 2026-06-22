@@ -114,7 +114,11 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
       };
 
       reader.onerror = () => {
-        reject(new Error(`Failed to read file "${file.name}": ${reader.error?.message ?? 'Unknown error'}`));
+        reject(
+          new Error(
+            `Failed to read file "${file.name}": ${reader.error?.message ?? 'Unknown error'}`,
+          ),
+        );
       };
 
       switch (readMode) {

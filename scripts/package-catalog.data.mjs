@@ -447,8 +447,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-form-drafts/README.md',
     deepDivePath: 'docs/packages/angular-form-drafts.md',
     repositoryPath: 'angular/packages/angular-form-drafts',
-    summary: 'Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.',
-    detail: 'Every multi-step or long-form input benefits from draft persistence. Unlike building raw localStorage save/restore on every screen, injectFormDraft() provides debounced auto-save, configurable TTL, signal-based draft status, and clean clear() — all without dictating form UI.',
+    summary:
+      'Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.',
+    detail:
+      'Every multi-step or long-form input benefits from draft persistence. Unlike building raw localStorage save/restore on every screen, injectFormDraft() provides debounced auto-save, configurable TTL, signal-based draft status, and clean clear() — all without dictating form UI.',
     installCommand: 'pnpm add @hexguard/angular-form-drafts',
     featureHighlights: [
       'Debounced auto-save to localStorage — configurable debounce window.',
@@ -476,8 +478,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-file-picker/README.md',
     deepDivePath: 'docs/packages/angular-file-picker.md',
     repositoryPath: 'angular/packages/angular-file-picker',
-    summary: 'Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.',
-    detail: 'Every app that needs file upload, image preview, or drag-and-drop zones can benefit from a headless file picker. Unlike building raw file inputs on every screen, injectFilePicker() provides consistent validation (MIME type, extension, file size), configurable read modes (text, data URL, ArrayBuffer), and reactive signal state — all without dictating UI.',
+    summary:
+      'Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.',
+    detail:
+      'Every app that needs file upload, image preview, or drag-and-drop zones can benefit from a headless file picker. Unlike building raw file inputs on every screen, injectFilePicker() provides consistent validation (MIME type, extension, file size), configurable read modes (text, data URL, ArrayBuffer), and reactive signal state — all without dictating UI.',
     installCommand: 'pnpm add @hexguard/angular-file-picker',
     featureHighlights: [
       'Programmatic file dialog via open() — no template <input> needed.',
@@ -506,8 +510,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-confirmation/README.md',
     deepDivePath: 'docs/packages/angular-confirmation.md',
     repositoryPath: 'angular/packages/angular-confirmation',
-    summary: 'Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.',
-    detail: 'Focused on every app that needs "Are you sure?" confirmation dialogs for delete, archive, and destructive actions — without rebuilding promise-based dialog state and duplicate-open prevention on every screen.',
+    summary:
+      'Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.',
+    detail:
+      'Focused on every app that needs "Are you sure?" confirmation dialogs for delete, archive, and destructive actions — without rebuilding promise-based dialog state and duplicate-open prevention on every screen.',
     installCommand: 'pnpm add @hexguard/angular-confirmation',
     featureHighlights: [
       'ask() — returns Promise<boolean> for simple confirm/cancel flows.',
@@ -535,8 +541,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-live-data/README.md',
     deepDivePath: 'docs/packages/angular-live-data.md',
     repositoryPath: 'angular/packages/angular-live-data',
-    summary: 'Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.',
-    detail: 'Every app with dashboard metrics, real-time status displays, or auto-refreshing data needs periodic polling. Unlike raw setInterval, injectLiveData() integrates with Angular signals, respects Page Visibility API, provides stale detection, and handles transient errors with configurable backoff retry.',
+    summary:
+      'Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.',
+    detail:
+      'Every app with dashboard metrics, real-time status displays, or auto-refreshing data needs periodic polling. Unlike raw setInterval, injectLiveData() integrates with Angular signals, respects Page Visibility API, provides stale detection, and handles transient errors with configurable backoff retry.',
     installCommand: 'pnpm add @hexguard/angular-live-data',
     featureHighlights: [
       'Configurable poll interval with automatic visibility-aware pause/resume.',
@@ -1004,16 +1012,6 @@ export const roadmapPackages = [
     status: 'Proposed',
     summary:
       'Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-form-drafts',
-    anchorId: 'package-angular-form-drafts',
-    packageName: '@hexguard/angular-form-drafts',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize draft persistence, restore, discard, and autosave ergonomics for Angular edit flows without forcing one storage or form model.',
     showOnSiteHome: false,
   },
   {
