@@ -54,6 +54,8 @@ const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-util
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
 const ANGULAR_UNDO_CATALOG = getGeneratedCurrentPackage('angular-undo');
 const ANGULAR_CONFIRMATION_CATALOG = getGeneratedCurrentPackage('angular-confirmation');
+const ANGULAR_LIVE_DATA_CATALOG = getGeneratedCurrentPackage('angular-live-data');
+const ANGULAR_FILE_PICKER_CATALOG = getGeneratedCurrentPackage('angular-file-picker');
 const ANGULAR_PAGINATION_CATALOG = getGeneratedCurrentPackage('angular-pagination');
 const ANGULAR_CLICK_OUTSIDE_CATALOG = getGeneratedCurrentPackage('angular-click-outside');
 const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
@@ -72,6 +74,8 @@ const ANGULAR_CONFIRMATION_DOCS = ANGULAR_CONFIRMATION_CATALOG.docsLinks;
 const ANGULAR_PAGINATION_DOCS = ANGULAR_PAGINATION_CATALOG.docsLinks;
 const ANGULAR_CLICK_OUTSIDE_DOCS = ANGULAR_CLICK_OUTSIDE_CATALOG.docsLinks;
 const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
+const ANGULAR_LIVE_DATA_DOCS = ANGULAR_LIVE_DATA_CATALOG.docsLinks;
+const ANGULAR_FILE_PICKER_DOCS = ANGULAR_FILE_PICKER_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
@@ -1310,6 +1314,77 @@ export const ANGULAR_PAGINATION_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_FILE_PICKER_DEMO: DemoPageEntry = {
+  id: 'file-picker',
+  packageId: 'angular-file-picker',
+  route: '/packages/angular-file-picker/demo',
+  legacyRoute: '/file-picker',
+  label: 'File Picker',
+  title: 'Headless file selection with signal-based state and drag-and-drop',
+  description: 'A live demo shows file selection via dialog or drag-drop, type/size validation, and configurable content reading (text, data URL, or metadata only).',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-file-picker/README.md' },
+    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-file-picker.md' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: { snippetId: 'angular-file-picker/demo-state', label: 'File Picker demo component source', description: 'The full file picker demo component source.' },
+};
+export const ANGULAR_FILE_PICKER_PACKAGE: DemoPackageEntry = {
+  id: 'angular-file-picker',
+  route: '/packages/angular-file-picker',
+  label: 'Angular File Picker',
+  title: ANGULAR_FILE_PICKER_CATALOG.packageName,
+  description: ANGULAR_FILE_PICKER_CATALOG.summary,
+  docsLinks: ANGULAR_FILE_PICKER_DOCS,
+  demos: [ANGULAR_FILE_PICKER_DEMO],
+};
+
+export const ANGULAR_PAGINATION_CROSS_STACK_DEMO: DemoPageEntry = {
+  id: 'pagination-cross-stack',
+  packageId: 'angular-pagination',
+  route: '/packages/angular-pagination/cross-stack-demo',
+  legacyRoute: '/pagination/dotnet',
+  label: 'Cross-stack Demo',
+  title: 'Angular Pagination + HexGuard.Pagination cross-stack integration',
+  description: 'A live demo shows angular-pagination calling the HexGuard.Pagination .NET library via the shared SampleApi. Page navigation fetches products from the backend with typed QueryRequest/QueryResponse contracts.',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md' },
+    { label: '.NET Pagination README', href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.Pagination/README.md' },
+    { label: 'Sample API', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: {
+    snippetId: 'angular-pagination/cross-stack-demo-state',
+    label: 'Cross-stack pagination demo component source',
+    description: 'The full cross-stack pagination demo component source.',
+  },
+};
+
+export const ANGULAR_LIVE_DATA_DEMO: DemoPageEntry = {
+  id: 'live-data',
+  packageId: 'angular-live-data',
+  route: '/packages/angular-live-data/demo',
+  legacyRoute: '/live-data',
+  label: 'Live Data',
+  title: 'Reactive polling with visibility-aware pause/resume and stale detection',
+  description: 'A live demo shows KPI dashboard metrics polling every 5 seconds, with pause/resume controls, stale badge, and error recovery demonstration.',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-live-data/README.md' },
+    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-live-data.md' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: { snippetId: 'angular-live-data/demo-state', label: 'Live Data demo component source', description: 'The full live data demo component source.' },
+};
+export const ANGULAR_LIVE_DATA_PACKAGE: DemoPackageEntry = {
+  id: 'angular-live-data',
+  route: '/packages/angular-live-data',
+  label: 'Angular Live Data',
+  title: ANGULAR_LIVE_DATA_CATALOG.packageName,
+  description: ANGULAR_LIVE_DATA_CATALOG.summary,
+  docsLinks: ANGULAR_LIVE_DATA_DOCS,
+  demos: [ANGULAR_LIVE_DATA_DEMO],
+};
+
 export const ANGULAR_CONFIRMATION_DEMO: DemoPageEntry = {
   id: 'confirmation',
   packageId: 'angular-confirmation',
@@ -1341,7 +1416,7 @@ export const ANGULAR_PAGINATION_PACKAGE: DemoPackageEntry = {
   title: ANGULAR_PAGINATION_CATALOG.packageName,
   description: ANGULAR_PAGINATION_CATALOG.summary,
   docsLinks: ANGULAR_PAGINATION_DOCS,
-  demos: [ANGULAR_PAGINATION_DEMO],
+  demos: [ANGULAR_PAGINATION_DEMO, ANGULAR_PAGINATION_CROSS_STACK_DEMO],
 };
 
 export const ANGULAR_UNDO_PACKAGE: DemoPackageEntry = {
@@ -1419,6 +1494,8 @@ export const DEMO_PACKAGES = [
   ANGULAR_UNDO_PACKAGE,
   ANGULAR_PAGINATION_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
+  ANGULAR_LIVE_DATA_PACKAGE,
+  ANGULAR_FILE_PICKER_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
@@ -1652,7 +1729,49 @@ export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_PAGINATION_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-pagination',
+  packageId: 'hexguard-pagination',
+  route: '/dotnet/pagination',
+  label: 'Pagination Library',
+  title: 'HexGuard.Pagination — standardized query/pagination contracts for .NET APIs',
+  description:
+    'Demonstrates QueryRequest, QueryResponse<T>, and SortSpec types from the HexGuard.Pagination library, with a paginated product list served via the shared SampleApi.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Pagination',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
+  {
+    id: 'hexguard-pagination',
+    route: '/dotnet/hexguard-pagination',
+    label: 'HexGuard Pagination',
+    title: 'HexGuard.Pagination',
+    nugetId: 'HexGuard.Pagination',
+    description:
+      'Standardized pagination and query contracts for .NET APIs — QueryRequest, QueryResponse<T>, SortSpec. Pairs with @hexguard/angular-pagination.',
+    summary:
+      'QueryRequest, QueryResponse<T>, SortSpec records for standardized paginated list endpoints. Computed helpers: HasNext, HasPrevious, RangeStart, RangeEnd.',
+    status: 'Available',
+    docsLinks: [
+      { label: 'Source code', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Pagination' },
+      { label: 'Sample API', href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi' },
+      { label: '.NET workspace docs', href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/README.md' },
+    ],
+    demos: [DOTNET_PAGINATION_HOME],
+  },
   {
     id: 'hexguard-problem-details',
     route: '/dotnet/hexguard-problem-details',

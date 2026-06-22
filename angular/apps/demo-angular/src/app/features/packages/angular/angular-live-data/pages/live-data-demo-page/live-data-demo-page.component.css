@@ -1,0 +1,135 @@
+.live-data-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.live-data-toolbar h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.live-data-badges {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge--loading {
+  background: #f0ad4e;
+  color: #fff;
+}
+
+.badge--stale {
+  background: #d9534f;
+  color: #fff;
+}
+
+.badge--paused {
+  background: #5bc0de;
+  color: #fff;
+}
+
+.badge--error {
+  background: #d9534f;
+  color: #fff;
+}
+
+.live-data-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.live-data-actions button {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.live-data-actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.live-data-actions button:not(:disabled):hover {
+  background: var(--color-surface-hover);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.kpi-label {
+  font-size: 0.8rem;
+  color: var(--color-text-weak);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-unit {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-weak);
+  margin-left: 0.3rem;
+}
+
+.kpi-trend {
+  font-size: 1rem;
+}
+
+.kpi-trend--up {
+  color: #5cb85c;
+}
+
+.kpi-trend--down {
+  color: #d9534f;
+}
+
+.kpi-trend--stable {
+  color: var(--color-text-weak);
+}
+
+.live-data-timestamp {
+  font-size: 0.8rem;
+  color: var(--color-text-weak);
+  margin: 0;
+}
+
+.live-data-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-weak);
+}

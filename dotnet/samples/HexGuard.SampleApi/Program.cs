@@ -9,6 +9,7 @@ using HexGuard.SampleApi.Packages.HexGuardFeatureFlags;
 using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 using HexGuard.SampleApi.Packages.HexGuardBulkOperations;
 using HexGuard.SampleApi.Packages.HexGuardCapabilities;
+using HexGuard.SampleApi.Packages.HexGuardPagination;
 using HexGuard.Capabilities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -127,6 +128,13 @@ app.MapGet("/", () => Results.Ok(new
             userEndpoint = "/api/capabilities/user?persona=admin",
             note = "Capabilities — server-side permission contracts, paired with @hexguard/angular-permissions",
         },
+        new
+        {
+            id = "hexguard-pagination",
+            route = "/api/pagination",
+            productsEndpoint = "/api/pagination/products?page=1&pageSize=5",
+            note = "Pagination — QueryRequest/QueryResponse contracts, paired with @hexguard/angular-pagination",
+        },
     },
 }));
 
@@ -140,6 +148,7 @@ app.MapValidationContractsSampleEndpoints();
 app.MapFeatureFlagEndpoints();
 app.MapFeatureFlagsSampleEndpoints();
 app.MapBulkOperationsSampleEndpoints();
+app.MapPaginationSampleEndpoints();
 app.MapCapabilitiesSampleEndpoints();
 
 app.Run();

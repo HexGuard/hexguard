@@ -105,9 +105,9 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 
           @if (dropdownOpen()) {
             <div
-              #dropdownRef
               class="co-dropdown"
               data-testid="co-dropdown"
+              (hexguardClickOutside)="dropdownOpen.set(false)"
             >
               <p>Dropdown content. Click outside to close.</p>
               <button

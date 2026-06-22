@@ -461,6 +461,7 @@ export const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string> = {
   'hexguard-feature-flags': 'angular-feature-flags',
   'hexguard-capabilities': 'angular-permissions',
   'hexguard-bulk-operations': 'angular-bulk-operations',
+  'hexguard-pagination': 'angular-pagination',
 };
 
 /**

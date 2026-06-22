@@ -269,6 +269,28 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-file-picker/demo-state',
+    title: 'File Picker demo component source',
+    description: 'Generated from the real File Picker demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-file-picker/pages/file-picker-demo-page/file-picker-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-file-picker/pages/file-picker-demo-page/file-picker-demo-page.component.ts',
+  },
+  {
+    id: 'angular-live-data/demo-state',
+    title: 'Live Data demo component source',
+    description: 'Generated from the real Live Data demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-live-data/pages/live-data-demo-page/live-data-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-live-data/pages/live-data-demo-page/live-data-demo-page.component.ts',
+  },
+  {
+    id: 'angular-pagination/cross-stack-demo-state',
+    title: 'Pagination cross-stack demo component source',
+    description: 'Generated from the Cross-stack pagination demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-pagination/pages/pagination-cross-stack-demo-page/pagination-cross-stack-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-pagination/pages/pagination-cross-stack-demo-page/pagination-cross-stack-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-live-data/pages/live-data-demo-page/live-data-demo-page.component.ts',
+  },
+  {
     id: 'angular-confirmation/demo-state',
     title: 'Confirmation demo component source',
     description: 'Generated from the real Confirmation demo component files, including TypeScript, template, and styles.',

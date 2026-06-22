@@ -97,6 +97,11 @@ import { AngularUndoHomePageComponent } from './features/packages/angular/angula
 import { UndoDemoPageComponent } from './features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component';
 import { AngularPaginationHomePageComponent } from './features/packages/angular/angular-pagination/angular-pagination-home-page.component';
 import { PaginationDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component';
+import { AngularFilePickerHomePageComponent } from './features/packages/angular/angular-file-picker/angular-file-picker-home-page.component';
+import { FilePickerDemoPageComponent } from './features/packages/angular/angular-file-picker/pages/file-picker-demo-page/file-picker-demo-page.component';
+import { PaginationCrossStackDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-cross-stack-demo-page/pagination-cross-stack-demo-page.component';
+import { AngularLiveDataHomePageComponent } from './features/packages/angular/angular-live-data/angular-live-data-home-page.component';
+import { LiveDataDemoPageComponent } from './features/packages/angular/angular-live-data/pages/live-data-demo-page/live-data-demo-page.component';
 import { AngularConfirmationHomePageComponent } from './features/packages/angular/angular-confirmation/angular-confirmation-home-page.component';
 import { ConfirmationDemoPageComponent } from './features/packages/angular/angular-confirmation/pages/confirmation-demo-page/confirmation-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
@@ -114,6 +119,8 @@ import { FeatureFlagsDemoPageComponent } from './features/packages/dotnet/hexgua
 import { DotnetBulkOperationsDemoPageComponent } from './features/packages/dotnet/hexguard-bulk-operations/pages/bulk-operations-demo-page.component';
 import { DotnetValidationContractsHubPageComponent } from './features/packages/dotnet/hexguard-validation-contracts/dotnet-validation-contracts-hub-page.component';
 import { DotnetCapabilitiesHubPageComponent } from './features/packages/dotnet/hexguard-capabilities/dotnet-capabilities-hub-page.component';
+import { DotnetPaginationHubPageComponent } from './features/packages/dotnet/hexguard-pagination/dotnet-hexguard-pagination-hub-page.component';
+import { DotnetPaginationDemoPageComponent } from './features/packages/dotnet/hexguard-pagination/pages/pagination-demo-page.component';
 
 export const routes: Routes = [
   {
@@ -400,6 +407,31 @@ export const routes: Routes = [
     title: 'Pagination Demo',
   },
   {
+    path: 'packages/angular-pagination/cross-stack-demo',
+    component: PaginationCrossStackDemoPageComponent,
+    title: 'Pagination Cross-stack Demo',
+  },
+  {
+    path: 'packages/angular-file-picker',
+    component: AngularFilePickerHomePageComponent,
+    title: 'Angular File Picker Demos',
+  },
+  {
+    path: 'packages/angular-file-picker/demo',
+    component: FilePickerDemoPageComponent,
+    title: 'File Picker Demo',
+  },
+  {
+    path: 'packages/angular-live-data',
+    component: AngularLiveDataHomePageComponent,
+    title: 'Angular Live Data Demos',
+  },
+  {
+    path: 'packages/angular-live-data/demo',
+    component: LiveDataDemoPageComponent,
+    title: 'Live Data Demo',
+  },
+  {
     path: 'packages/angular-confirmation',
     component: AngularConfirmationHomePageComponent,
     title: 'Angular Confirmation Demos',
@@ -551,6 +583,16 @@ export const routes: Routes = [
     path: 'dotnet/bulk-operations',
     component: DotnetBulkOperationsDemoPageComponent,
     title: 'Bulk Operations Library Demo',
+  },
+  {
+    path: 'dotnet/hexguard-pagination',
+    component: DotnetPaginationHubPageComponent,
+    title: 'HexGuard.Pagination',
+  },
+  {
+    path: 'dotnet/pagination',
+    component: DotnetPaginationDemoPageComponent,
+    title: 'Pagination (.NET) Demo',
   },
   {
     path: 'dotnet/capabilities',
