@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { injectUndoStack } from '@hexguard/angular-undo';
 
 import { ANGULAR_UNDO_DEMO } from '../../../../../../demo-registry';
@@ -233,9 +233,9 @@ export class UndoDemoPageComponent {
     onCommit: (action) => this.logAction(`Committed: ${action.type} ${action.data.label}`),
   });
 
-  private logEntries: { text: string; color: string }[] = [];
+  private readonly logEntries = signal<{ text: string; color: string }[]>([]);
 
-  protected readonly log = computed(() => [...this.logEntries]);
+  protected readonly log = computed(() => this.logEntries());
 
   protected deleteItem(id: string): void {
     const label = id;
@@ -262,7 +262,7 @@ export class UndoDemoPageComponent {
   }
 
   protected logAction(text: string, color = 'var(--color-text-strong)'): void {
-    this.logEntries = [...this.logEntries, { text, color }];
+    this.logEntries.update((prev) => [...prev, { text, color }]);
   }
 
   protected readonly snapshotJson = computed(() =>

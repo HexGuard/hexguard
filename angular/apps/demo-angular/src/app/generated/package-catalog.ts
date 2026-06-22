@@ -413,7 +413,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-breakpoint-observer',
     packageName: '@hexguard/angular-breakpoint-observer',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.',
@@ -456,7 +456,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-visibility',
     packageName: '@hexguard/angular-visibility',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.',
@@ -499,7 +499,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-navigation-pending',
     packageName: '@hexguard/angular-navigation-pending',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.',
@@ -542,7 +542,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-click-outside',
     packageName: '@hexguard/angular-click-outside',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.',
@@ -585,7 +585,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-undo',
     packageName: '@hexguard/angular-undo',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.',
@@ -627,7 +627,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-pagination',
     packageName: '@hexguard/angular-pagination',
     category: 'URL & Forms',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.',
@@ -670,7 +670,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-form-drafts',
     packageName: '@hexguard/angular-form-drafts',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.',
@@ -714,7 +714,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-file-picker',
     packageName: '@hexguard/angular-file-picker',
     category: 'Utilities',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.',
@@ -759,7 +759,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-confirmation',
     packageName: '@hexguard/angular-confirmation',
     category: 'UI Infrastructure',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.',
@@ -803,7 +803,7 @@ export const GENERATED_CURRENT_PACKAGES = [
     id: 'angular-live-data',
     packageName: '@hexguard/angular-live-data',
     category: 'Async State',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     summary:
       'Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.',

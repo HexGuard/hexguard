@@ -18,16 +18,16 @@ another.
 | `@hexguard/angular-permissions`         | Released    | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                              | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)                 |
 | `HexGuard.ReferenceData`                | Released    | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                  | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-debounce`            | Released    | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                 | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                       |
-| `@hexguard/angular-breakpoint-observer` | Available   | Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.                                                | [Deep Dive](angular-breakpoint-observer.md), [npm-facing README](../../angular/packages/angular-breakpoint-observer/README.md), [Demo runbook](../demo/README.md) |
-| `@hexguard/angular-visibility`          | Available   | Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.                                   | [Deep Dive](angular-visibility.md), [npm-facing README](../../angular/packages/angular-visibility/README.md), [Demo runbook](../demo/README.md)                   |
-| `@hexguard/angular-navigation-pending`  | Available   | Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.                                                                 | [Deep Dive](angular-navigation-pending.md), [npm-facing README](../../angular/packages/angular-navigation-pending/README.md), [Demo runbook](../demo/README.md)   |
-| `@hexguard/angular-click-outside`       | Available   | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)             |
-| `@hexguard/angular-undo`                | Available   | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                               |
-| `@hexguard/angular-pagination`          | Available   | Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.                                                                                              | [Deep Dive](angular-pagination.md), [npm-facing README](../../angular/packages/angular-pagination/README.md), [Demo runbook](../demo/README.md)                   |
-| `@hexguard/angular-form-drafts`         | Available   | Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.                                                                                  | [Deep Dive](angular-form-drafts.md), [npm-facing README](../../angular/packages/angular-form-drafts/README.md), [Demo runbook](../demo/README.md)                 |
-| `@hexguard/angular-file-picker`         | Available   | Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.                                                                    | [Deep Dive](angular-file-picker.md), [npm-facing README](../../angular/packages/angular-file-picker/README.md), [Demo runbook](../demo/README.md)                 |
-| `@hexguard/angular-confirmation`        | Available   | Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.                                                                                   | [Deep Dive](angular-confirmation.md), [npm-facing README](../../angular/packages/angular-confirmation/README.md), [Demo runbook](../demo/README.md)               |
-| `@hexguard/angular-live-data`           | Available   | Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.                                                                 | [Deep Dive](angular-live-data.md), [npm-facing README](../../angular/packages/angular-live-data/README.md), [Demo runbook](../demo/README.md)                     |
+| `@hexguard/angular-breakpoint-observer` | Released    | Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.                                                | [Deep Dive](angular-breakpoint-observer.md), [npm-facing README](../../angular/packages/angular-breakpoint-observer/README.md), [Demo runbook](../demo/README.md) |
+| `@hexguard/angular-visibility`          | Released    | Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.                                   | [Deep Dive](angular-visibility.md), [npm-facing README](../../angular/packages/angular-visibility/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-navigation-pending`  | Released    | Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.                                                                 | [Deep Dive](angular-navigation-pending.md), [npm-facing README](../../angular/packages/angular-navigation-pending/README.md), [Demo runbook](../demo/README.md)   |
+| `@hexguard/angular-click-outside`       | Released    | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)             |
+| `@hexguard/angular-undo`                | Released    | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                               |
+| `@hexguard/angular-pagination`          | Released    | Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.                                                                                              | [Deep Dive](angular-pagination.md), [npm-facing README](../../angular/packages/angular-pagination/README.md), [Demo runbook](../demo/README.md)                   |
+| `@hexguard/angular-form-drafts`         | Released    | Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.                                                                                  | [Deep Dive](angular-form-drafts.md), [npm-facing README](../../angular/packages/angular-form-drafts/README.md), [Demo runbook](../demo/README.md)                 |
+| `@hexguard/angular-file-picker`         | Released    | Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.                                                                    | [Deep Dive](angular-file-picker.md), [npm-facing README](../../angular/packages/angular-file-picker/README.md), [Demo runbook](../demo/README.md)                 |
+| `@hexguard/angular-confirmation`        | Released    | Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.                                                                                   | [Deep Dive](angular-confirmation.md), [npm-facing README](../../angular/packages/angular-confirmation/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-live-data`           | Released    | Reactive polling and live data for Angular: auto-polls on interval, pauses when tab hidden, detects stale data, retries with backoff.                                                                 | [Deep Dive](angular-live-data.md), [npm-facing README](../../angular/packages/angular-live-data/README.md), [Demo runbook](../demo/README.md)                     |
 | `HexGuard.Pagination`                   | Available   | Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.                                                                                | [Deep Dive](angular-pagination.md), [npm-facing README](../../dotnet/src/HexGuard.Pagination/README.md), [Demo runbook](../demo/README.md)                        |
 | `@hexguard/angular-notifications`       | Released    | Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.                                    | [Deep Dive](angular-notifications.md), [npm-facing README](../../angular/packages/angular-notifications/README.md), [Demo runbook](../demo/README.md)             |
 | `@hexguard/angular-error-boundary`      | Released    | Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.                                           | [Deep Dive](angular-error-boundary.md), [npm-facing README](../../angular/packages/angular-error-boundary/README.md), [Demo runbook](../demo/README.md)           |
@@ -138,7 +138,7 @@ It focuses on predictable debounce semantics with explicit flush/cancel control 
 
 ### `@hexguard/angular-breakpoint-observer`
 
-Status: Available
+Status: Released
 
 This package is the simplest HexGuard viewport primitive: one injectable factory function, one options interface, one return type, zero dependencies beyond Angular and tslib.
 
@@ -148,7 +148,7 @@ It focuses on deterministic breakpoint matching with Tailwind-compatible default
 
 ### `@hexguard/angular-visibility`
 
-Status: Available
+Status: Released
 
 This package is a focused Angular primitive covering document-level visibility, idle detection, and element-level IntersectionObserver tracking.
 
@@ -158,7 +158,7 @@ It provides two exports — one injectable factory and one standalone function �
 
 ### `@hexguard/angular-navigation-pending`
 
-Status: Available
+Status: Released
 
 This package is a focused Angular primitive for route transition state tracking.
 
@@ -168,7 +168,7 @@ It provides one injectable factory with two signals and an optional route-scoped
 
 ### `@hexguard/angular-click-outside`
 
-Status: Available
+Status: Released
 
 This package provides two surfaces — one injectable and one directive — for click-outside detection.
 
@@ -178,7 +178,7 @@ It uses capture-phase pointerdown events for reliable outside-click detection, w
 
 ### `@hexguard/angular-undo`
 
-Status: Available
+Status: Released
 
 This package provides one injectable for managing a stack of reversible actions with full timer management.
 
@@ -188,7 +188,7 @@ It is headless by design — compose with @hexguard/angular-notifications for th
 
 ### `@hexguard/angular-pagination`
 
-Status: Available
+Status: Released
 
 This package provides one injectable factory with signal-based state, navigation helpers, and an optional URL-sync adapter.
 
@@ -198,7 +198,7 @@ Pairs with HexGuard.Pagination on the .NET side for consistent QueryRequest/Quer
 
 ### `@hexguard/angular-form-drafts`
 
-Status: Available
+Status: Released
 
 This package provides one injectable factory for form draft persistence.
 
@@ -208,7 +208,7 @@ It is rendering-agnostic — compose with any form UI library.
 
 ### `@hexguard/angular-file-picker`
 
-Status: Available
+Status: Released
 
 This package provides one injectable factory for headless file selection.
 
@@ -218,7 +218,7 @@ It is rendering-agnostic — compose with your own upload UI for the actual pres
 
 ### `@hexguard/angular-confirmation`
 
-Status: Available
+Status: Released
 
 This package provides one injectable factory for headless confirmation dialog state.
 
@@ -228,7 +228,7 @@ It is rendering-agnostic — compose with your own modal/dialog component for th
 
 ### `@hexguard/angular-live-data`
 
-Status: Available
+Status: Released
 
 This package provides one injectable factory for periodic data polling with signals.
 

@@ -172,9 +172,19 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
     },
     acceptDrop(event: DragEvent) {
       event.preventDefault();
-      const fileList = event.dataTransfer?.files;
-      if (fileList && fileList.length > 0) {
-        void processFiles(Array.from(fileList));
+      // Try files first, then items (some browsers populate one vs the other)
+      let files: File[] | undefined;
+      const dt = event.dataTransfer;
+      if (dt?.files && dt.files.length > 0) {
+        files = Array.from(dt.files);
+      } else if (dt?.items && dt.items.length > 0) {
+        files = Array.from(dt.items)
+          .filter((item) => item.kind === 'file')
+          .map((item) => item.getAsFile())
+          .filter((f): f is File => f !== null);
+      }
+      if (files && files.length > 0) {
+        void processFiles(files);
       }
     },
   };

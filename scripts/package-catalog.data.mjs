@@ -261,7 +261,7 @@ export const currentPackages = [
   {
     id: 'angular-breakpoint-observer',
     packageName: '@hexguard/angular-breakpoint-observer',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-breakpoint-observer/README.md',
@@ -291,7 +291,7 @@ export const currentPackages = [
   {
     id: 'angular-visibility',
     packageName: '@hexguard/angular-visibility',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-visibility/README.md',
@@ -321,7 +321,7 @@ export const currentPackages = [
   {
     id: 'angular-navigation-pending',
     packageName: '@hexguard/angular-navigation-pending',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-navigation-pending/README.md',
@@ -351,7 +351,7 @@ export const currentPackages = [
   {
     id: 'angular-click-outside',
     packageName: '@hexguard/angular-click-outside',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-click-outside/README.md',
@@ -381,7 +381,7 @@ export const currentPackages = [
   {
     id: 'angular-undo',
     packageName: '@hexguard/angular-undo',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-undo/README.md',
@@ -411,7 +411,7 @@ export const currentPackages = [
   {
     id: 'angular-pagination',
     packageName: '@hexguard/angular-pagination',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'URL & Forms',
     readmePath: 'angular/packages/angular-pagination/README.md',
@@ -441,7 +441,7 @@ export const currentPackages = [
   {
     id: 'angular-form-drafts',
     packageName: '@hexguard/angular-form-drafts',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-form-drafts/README.md',
@@ -470,7 +470,7 @@ export const currentPackages = [
   {
     id: 'angular-file-picker',
     packageName: '@hexguard/angular-file-picker',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Utilities',
     readmePath: 'angular/packages/angular-file-picker/README.md',
@@ -500,7 +500,7 @@ export const currentPackages = [
   {
     id: 'angular-confirmation',
     packageName: '@hexguard/angular-confirmation',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'UI Infrastructure',
     readmePath: 'angular/packages/angular-confirmation/README.md',
@@ -529,7 +529,7 @@ export const currentPackages = [
   {
     id: 'angular-live-data',
     packageName: '@hexguard/angular-live-data',
-    status: 'Available',
+    status: 'Released',
     scope: 'Angular',
     category: 'Async State',
     readmePath: 'angular/packages/angular-live-data/README.md',
