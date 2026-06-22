@@ -449,6 +449,32 @@
         }
       }
     },
+    "angular-pagination": {
+      "projectType": "library",
+      "root": "packages/angular-pagination",
+      "sourceRoot": "packages/angular-pagination/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-pagination/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-pagination/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-pagination/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-undo": {
       "projectType": "library",
       "root": "packages/angular-undo",

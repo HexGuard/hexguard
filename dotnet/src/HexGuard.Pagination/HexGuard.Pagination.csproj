@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>HexGuard.Pagination</PackageId>
+    <Version>0.1.0</Version>
+    <Description>Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>HexGuard.Pagination.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

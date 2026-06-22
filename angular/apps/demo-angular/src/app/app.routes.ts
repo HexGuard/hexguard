@@ -95,6 +95,8 @@ import { AngularClickOutsideHomePageComponent } from './features/packages/angula
 import { ClickOutsideDemoPageComponent } from './features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component';
 import { AngularUndoHomePageComponent } from './features/packages/angular/angular-undo/angular-undo-home-page.component';
 import { UndoDemoPageComponent } from './features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component';
+import { AngularPaginationHomePageComponent } from './features/packages/angular/angular-pagination/angular-pagination-home-page.component';
+import { PaginationDemoPageComponent } from './features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component';
 import { AngularErrorBoundaryHomePageComponent } from './features/packages/angular/angular-error-boundary/angular-error-boundary-home-page.component';
 import { ErrorBoundaryDemoPageComponent } from './features/packages/angular/angular-error-boundary/pages/error-boundary-demo-page/error-boundary-demo-page.component';
 import { AngularHubPageComponent } from './features/packages/angular/angular-hub/angular-hub-page.component';
@@ -384,6 +386,16 @@ export const routes: Routes = [
     path: 'packages/angular-undo/demo',
     component: UndoDemoPageComponent,
     title: 'Undo Demo',
+  },
+  {
+    path: 'packages/angular-pagination',
+    component: AngularPaginationHomePageComponent,
+    title: 'Angular Pagination Demos',
+  },
+  {
+    path: 'packages/angular-pagination/demo',
+    component: PaginationDemoPageComponent,
+    title: 'Pagination Demo',
   },
   {
     path: 'packages/angular-notifications',

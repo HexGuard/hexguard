@@ -269,6 +269,16 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-pagination/demo-state',
+    title: 'Pagination demo component source',
+    description:
+      'Generated from the real Pagination demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-pagination/pages/pagination-demo-page/pagination-demo-page.component.ts',
+  },
+  {
     id: 'angular-undo/demo-state',
     title: 'Undo demo component source',
     description:

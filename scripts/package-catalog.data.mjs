@@ -409,6 +409,66 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-pagination',
+    packageName: '@hexguard/angular-pagination',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'URL & Forms',
+    readmePath: 'angular/packages/angular-pagination/README.md',
+    deepDivePath: 'docs/packages/angular-pagination.md',
+    repositoryPath: 'angular/packages/angular-pagination',
+    summary:
+      'Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.',
+    detail:
+      'Focused on every list, table, and search-results page that needs pagination state — current page, page size, total count, total pages, next/previous enabled, page-range display — without rebuilding page-number math, boundary handling, and reset semantics on every screen.',
+    installCommand: 'pnpm add @hexguard/angular-pagination',
+    featureHighlights: [
+      'Signal-based pagination state: page, pageSize, total, totalPages, hasNext, hasPrevious, rangeStart, rangeEnd.',
+      'Navigation helpers: goToPage, nextPage, previousPage, firstPage, lastPage, setPageSize.',
+      'Optional URL-sync adapter via withPaginationUrlSync() for @hexguard/angular-url-state.',
+      'Auto-reset to page 1 on external signal change, for composition with search/filter state.',
+    ],
+    bestFitScenarios: [
+      'Data tables with server-side pagination where page state needs to drive API calls.',
+      'Search result pages where page and page size reset when filters change.',
+      'Angular apps that want pagination state synced to URL query params for shareable links.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides one injectable factory with signal-based state, navigation helpers, and an optional URL-sync adapter.',
+      'Pairs with HexGuard.Pagination on the .NET side for consistent QueryRequest/QueryResponse contracts across the stack.',
+    ],
+  },
+  {
+    id: 'hexguard-pagination',
+    packageName: 'HexGuard.Pagination',
+    status: 'Available',
+    scope: '.NET',
+    category: null,
+    readmePath: 'dotnet/src/HexGuard.Pagination/README.md',
+    deepDivePath: null,
+    repositoryPath: 'dotnet/src/HexGuard.Pagination',
+    summary:
+      'Standardized pagination and query contracts for .NET APIs: QueryRequest, QueryResponse&lt;T&gt;, and SortSpec records.',
+    detail:
+      'Provides QueryRequest (Page, PageSize, Search, Sort, Filters), QueryResponse&lt;T&gt; (Items, TotalCount, Page, PageSize, TotalPages, HasNext, HasPrevious, RangeStart, RangeEnd), and SortSpec records for consistent paginated API responses across .NET services.',
+    installCommand: 'dotnet add package HexGuard.Pagination',
+    featureHighlights: [
+      'QueryRequest record with page, page size, search, sort, and filter support.',
+      'QueryResponse&lt;T&gt; with computed HasNext, HasPrevious, RangeStart, RangeEnd helpers.',
+      'QueryResponse.Create() factory method for convenient response construction.',
+      'SortSpec record for typed sort specifications.',
+    ],
+    bestFitScenarios: [
+      'ASP.NET Core APIs that need standardized paginated list endpoints.',
+      'Backend services that pair with @hexguard/angular-pagination for end-to-end typed query contracts.',
+      'Any .NET API where consistent request/response shapes reduce mapping boilerplate.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides the .NET side of the pagination cross-stack pair, with request and response contracts.',
+      'Pairs with @hexguard/angular-pagination for consistent pagination contracts across the stack.',
+    ],
+  },
+  {
     id: 'angular-notifications',
     packageName: '@hexguard/angular-notifications',
     status: 'Released',

@@ -13,5 +13,6 @@
     <ProjectReference Include="../../src/HexGuard.FeatureFlags/HexGuard.FeatureFlags.csproj" />
     <ProjectReference Include="../../src/HexGuard.BulkOperations/HexGuard.BulkOperations.csproj" />
     <ProjectReference Include="../../src/HexGuard.Capabilities/HexGuard.Capabilities.csproj" />
+    <ProjectReference Include="../../src/HexGuard.Pagination/HexGuard.Pagination.csproj" />
   </ItemGroup>
 </Project>

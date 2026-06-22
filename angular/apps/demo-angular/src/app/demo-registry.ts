@@ -53,6 +53,7 @@ const ANGULAR_FEATURE_FLAGS_DOCS = ANGULAR_FEATURE_FLAGS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_CATALOG = getGeneratedCurrentPackage('angular-date-utils');
 const ANGULAR_BREAKPOINT_OBSERVER_CATALOG = getGeneratedCurrentPackage('angular-breakpoint-observer');
 const ANGULAR_UNDO_CATALOG = getGeneratedCurrentPackage('angular-undo');
+const ANGULAR_PAGINATION_CATALOG = getGeneratedCurrentPackage('angular-pagination');
 const ANGULAR_CLICK_OUTSIDE_CATALOG = getGeneratedCurrentPackage('angular-click-outside');
 const ANGULAR_NAVIGATION_PENDING_CATALOG = getGeneratedCurrentPackage('angular-navigation-pending');
 const ANGULAR_VISIBILITY_CATALOG = getGeneratedCurrentPackage('angular-visibility');
@@ -66,6 +67,7 @@ const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
 const ANGULAR_DATE_UTILS_DOCS = ANGULAR_DATE_UTILS_CATALOG.docsLinks;
 const ANGULAR_BREAKPOINT_OBSERVER_DOCS = ANGULAR_BREAKPOINT_OBSERVER_CATALOG.docsLinks;
 const ANGULAR_UNDO_DOCS = ANGULAR_UNDO_CATALOG.docsLinks;
+const ANGULAR_PAGINATION_DOCS = ANGULAR_PAGINATION_CATALOG.docsLinks;
 const ANGULAR_CLICK_OUTSIDE_DOCS = ANGULAR_CLICK_OUTSIDE_CATALOG.docsLinks;
 const ANGULAR_NAVIGATION_PENDING_DOCS = ANGULAR_NAVIGATION_PENDING_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
@@ -1285,6 +1287,37 @@ export const ANGULAR_UNDO_DEMO: DemoPageEntry = {
   },
 };
 
+export const ANGULAR_PAGINATION_DEMO: DemoPageEntry = {
+  id: 'pagination',
+  packageId: 'angular-pagination',
+  route: '/packages/angular-pagination/demo',
+  legacyRoute: '/pagination',
+  label: 'Pagination',
+  title: 'Signal-based pagination state with page math, navigation, and URL-sync adapter',
+  description:
+    'A live pagination playground demonstrates page, pageSize, total, totalPages, hasNext, hasPrevious, range display, and page number navigation.',
+  docsLinks: [
+    { label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-pagination/README.md' },
+    { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md' },
+    { label: 'Demo runbook', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md' },
+  ],
+  codeSample: {
+    snippetId: 'angular-pagination/demo-state',
+    label: 'Pagination demo component source',
+    description: 'The full pagination demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_PAGINATION_PACKAGE: DemoPackageEntry = {
+  id: 'angular-pagination',
+  route: '/packages/angular-pagination',
+  label: 'Angular Pagination',
+  title: ANGULAR_PAGINATION_CATALOG.packageName,
+  description: ANGULAR_PAGINATION_CATALOG.summary,
+  docsLinks: ANGULAR_PAGINATION_DOCS,
+  demos: [ANGULAR_PAGINATION_DEMO],
+};
+
 export const ANGULAR_UNDO_PACKAGE: DemoPackageEntry = {
   id: 'angular-undo',
   route: '/packages/angular-undo',
@@ -1358,6 +1391,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_NAVIGATION_PENDING_PACKAGE,
   ANGULAR_CLICK_OUTSIDE_PACKAGE,
   ANGULAR_UNDO_PACKAGE,
+  ANGULAR_PAGINATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
