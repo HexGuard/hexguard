@@ -80,3 +80,16 @@ Creates a reactive live-data polling handle. Must be called in an injection cont
 ## Demo
 
 Visit `/packages/angular-live-data/demo` in the demo app to see a live KPI dashboard with pause/resume controls, stale badge, and error recovery.
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | The `error` signal is typed as `Signal<unknown>` — consider a discriminated union `{ type: 'network' \| 'parse', message: string }` | Low |
+| API | Consider adding a configurable `onError` callback for side-effects (logging, toast) | Low |
+| API | Consider an `initialFetch` option to skip the immediate first fetch (useful when data is provided externally) | Low |
+| API | `refresh()` awaits the fetch, but consumers may want to know when the refresh completes — currently returns `Promise<void>` but the resolved data isn't returned | Low |
+| Stale Detection | Uses a 1-second interval accumulator — consider using `Date.now()` with a `computed()` that re-evaluates via a periodic signal update for cleaner reactivity | Low |
+| WebSocket/SSE | The README scope boundaries note WebSocket/SSE as planned — consider an `injectLiveStream()` companion for push-based data | Medium |

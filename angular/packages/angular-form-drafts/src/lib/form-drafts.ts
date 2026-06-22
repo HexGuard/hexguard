@@ -99,7 +99,15 @@ export function injectFormDraft<T>(
     metadata: metadata.asReadonly(),
 
     restore(): FormDraft<T> | null {
-      return readDraft();
+      const draft = readDraft();
+      if (draft) {
+        hasDraft.set(true);
+        metadata.set(draft.meta);
+      } else {
+        hasDraft.set(false);
+        metadata.set(null);
+      }
+      return draft;
     },
 
     save(data: T): void {

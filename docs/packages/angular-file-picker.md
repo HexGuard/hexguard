@@ -81,3 +81,17 @@ Creates a headless file picker. Must be called in an injection context.
 ## Demo
 
 Visit `/packages/angular-file-picker/demo` in the demo app to see a live file picker with dialog and drag-drop zones.
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | The `accept` option only validates client-side — document that server-side validation is still required | Low |
+| API | Consider adding `acceptDrop` overload that accepts a `FileList` directly (useful when wrapping other drag-drop libraries) | Low |
+| API | Consider a `clearError()` method for scenarios where the error should be dismissed without clearing files | Low |
+| API | The demo has a "Read mode" select that doesn't actually change the picker's read mode — the picker is created with a fixed mode at construction time | Medium |
+| Validation | `accept` filter wildcard `image/*` works but `image/*,video/*` type patterns should be explicitly tested | Low |
+| Edge Cases | No test for the `change` event path (picking files via the native dialog) — only `acceptDrop` is tested | Medium |
+| Memory | `createInput()` appends a hidden `<input>` to `document.body` — consider reusing the same element across calls instead of creating a new one each time | Low |

@@ -43,12 +43,8 @@ export function injectConfirmation(): ConfirmationHandle {
     if (!ok) {
       return { confirmed: false };
     }
-    try {
-      const result = await action();
-      return { confirmed: true, result };
-    } catch {
-      return { confirmed: true };
-    }
+    const result = await action();
+    return { confirmed: true, result };
   }
 
   return {

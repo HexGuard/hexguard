@@ -9,14 +9,13 @@ pnpm add @hexguard/angular-live-data
 ## Quickstart
 ```ts
 const live = injectLiveData({
-  fetch: () => fetch('/api/metrics').then(r => r.json()),
-  intervalMs: 30_000,
-  staleAfterMs: 60_000,
+  pollInterval: 30_000,
+  fetcher: () => fetch('/api/metrics').then(r => r.json()),
 });
 
-live.value;         // Signal<T | null>
-live.isLoading;     // Signal<boolean>
-live.isStale;       // Signal<boolean>
+live.data();        // Signal<T | undefined>
+live.loading();     // Signal<boolean>
+live.stale();       // Signal<boolean>
 live.refresh();     // manual refresh
 live.pause();       // pause polling
 live.resume();      // resume polling

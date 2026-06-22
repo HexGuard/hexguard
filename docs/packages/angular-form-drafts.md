@@ -63,3 +63,16 @@ Creates a localStorage-backed form draft handle. Must be called in an injection 
 ## Demo
 
 Visit `/packages/angular-form-drafts/demo` in the demo app to see a live form with auto-save, restore, and clear controls.
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider adding a `lastSavedAt` signal for showing "Saved X minutes ago" in the UI | Low |
+| API | Consider a `draftCount` static method to enumerate all draft keys (useful for a "Manage drafts" page) | Medium |
+| API | Consider an `autoSave` option (on/off) to let users disable auto-save | Low |
+| Expiry | Currently, `hasDraft` is only updated on init, save, clear, and `restore()`. An expired draft's `hasDraft` stays true until `restore()` is called — fixed by making `restore()` sync the signals | Fixed |
+| Concurrency | No handling for multiple tabs writing to the same draft key — last-write-wins | Low |
+| Size Limit | Consider a `maxDraftSize` option or warning for large drafts (localStorage quota is ~5MB) | Low |
