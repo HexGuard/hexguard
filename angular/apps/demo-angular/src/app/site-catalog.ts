@@ -316,6 +316,7 @@ export const SITE_SHARED_API_CONSUMERS: readonly {
   { angularId: 'angular-optimistic-state', angularLabel: '@hexguard/angular-optimistic-state' },
   { angularId: 'angular-permissions', angularLabel: '@hexguard/angular-permissions' },
   { angularId: 'angular-feature-flags', angularLabel: '@hexguard/angular-feature-flags' },
+  { angularId: 'angular-pagination', angularLabel: '@hexguard/angular-pagination' },
 ];
 
 // ── Package dependency map ─────────────────────────────────────────
@@ -376,6 +377,24 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       stack: 'dotnet',
       relationship: 'Cross-stack counterpart',
       route: '/dotnet/hexguard-bulk-operations',
+    },
+  ],
+  'angular-pagination': [
+    {
+      packageId: 'hexguard-pagination',
+      label: 'HexGuard.Pagination',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-pagination',
+    },
+  ],
+  'hexguard-pagination': [
+    {
+      packageId: 'angular-pagination',
+      label: '@hexguard/angular-pagination',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-pagination',
     },
   ],
   'hexguard-reference-data': [
@@ -462,6 +481,13 @@ export const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string> = {
   'hexguard-capabilities': 'angular-permissions',
   'hexguard-bulk-operations': 'angular-bulk-operations',
   'hexguard-pagination': 'angular-pagination',
+};
+
+/**
+ * Maps Angular package IDs to their .NET counterpart package IDs for cross-stack references.
+ */
+export const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string> = {
+  'angular-pagination': 'hexguard-pagination',
 };
 
 /**
