@@ -1,112 +1,104 @@
 # @hexguard/angular-visibility
 
-Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and `IntersectionObserver`-based element visibility.
+**Document and element visibility tracking for Angular.** Tab-hidden detection, idle-timeout, user-activity signals, and `IntersectionObserver`-based element visibility — no RxJS required.
 
-**[Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-visibility.md)** ·
-**[Demo routes](#demo-routes)** ·
-**[Installation](#installation)**
+**[Deep package notes](docs/packages/angular-visibility.md)** · **[Demo](/packages/angular-visibility/demo)**
+
+---
+
+## Problem
+
+Apps need to pause/resume background work (polling, animations, websockets) when the tab is hidden, detect when users are idle for UI dimming or session timeout, and know when elements scroll into the viewport for lazy-loading or analytics. Each concern requires separate browser APIs (`visibilitychange`, user activity events, `IntersectionObserver`) with manual add/removeEventListener plumbing.
+
+**`@hexguard/angular-visibility`** combines all three into a single injectable with automatic `DestroyRef` cleanup — tab visibility, idle detection, and element intersection.
 
 ## Installation
 
 ```bash
 pnpm add @hexguard/angular-visibility
-# No RxJS dependency required
 ```
 
 ## Quickstart
 
-```ts
+```typescript
 import { injectVisibility, inElementVisibility } from '@hexguard/angular-visibility';
 
-@Component({ ... })
-export class MyComponent {
-  private readonly visibility = injectVisibility();
-  readonly target = viewChild.required<ElementRef>('target');
+@Component({...})
+class DashboardComponent {
+  private readonly v = injectVisibility({ idleTimeoutMs: 120_000 });
 
-  // Tab visibility
-  readonly isVisible = this.visibility.isVisible;            // Signal<boolean>
-
-  // Idle detection
-  readonly isIdle = this.visibility.isIdle;                  // Signal<boolean>
-  readonly idleDuration = this.visibility.idleDuration;      // Signal<number> (ms)
-  readonly lastActivity = this.visibility.lastActivity;      // Signal<number> (timestamp)
-
-  // Element visibility via IntersectionObserver
-  readonly isElementVisible = inElementVisibility(this.target);
-
-  constructor() {
-    effect(() => {
-      if (!this.isVisible()) this.pausePolling();
-      else this.resumePolling();
-    });
-  }
+  readonly isTabVisible = this.v.isVisible;        // Signal<boolean>
+  readonly isIdle = this.v.isIdle;                  // Signal<boolean>
+  readonly idleDuration = this.v.idleDuration;      // Signal<number> (ms)
+  readonly elVisible = inElementVisibility(this.myEl); // Signal<boolean>
 }
 ```
 
-## Features
+## Use Cases
 
-| Feature                         | Status | Notes                                              |
-| ------------------------------- | ------ | -------------------------------------------------- |
-| Tab visibility tracking         | ✅     | Via `document.visibilityState` + `visibilitychange`|
-| Idle detection (configurable)   | ✅     | Default 60s timeout, 0 to disable                  |
-| `idleDuration` signal           | ✅     | Ms since last activity (updates periodically)      |
-| `lastActivity` timestamp        | ✅     | Timestamp of last detected user interaction        |
-| Custom activity events          | ✅     | Configurable event whitelist                       |
-| Element visibility              | ✅     | Via `IntersectionObserver`, returns `Signal<boolean>`|
-| Automatic cleanup               | ✅     | Via Angular `DestroyRef`                           |
-| Zero extra dependencies         | ✅     | Only `@angular/core` + `tslib`                     |
+### Pause background work on tab switch
+```typescript
+effect(() => {
+  if (!this.v.isVisible()) this.liveData.pause();
+  else this.liveData.resume();
+});
+```
 
-## Demo routes
+### Session timeout / UI dimming
+```typescript
+effect(() => {
+  if (this.v.isIdle()) this.showIdleOverlay();
+  else this.hideIdleOverlay();
+});
+```
 
-| Route                                                    | Description                                                   |
-| -------------------------------------------------------- | ------------------------------------------------------------- |
-| `/packages/angular-visibility`                           | Visibility package overview                                    |
-| `/packages/angular-visibility/demo`                      | Tab visibility, idle detection, and element visibility demo    |
+### Lazy-load on scroll
+```typescript
+readonly loaded = signal(false);
+effect(() => {
+  if (this.elVisible() && !this.loaded()) {
+    this.loaded.set(true);
+    this.loadChunk();
+  }
+});
+```
 
-## What It Owns
-
-- One injectable for document/tab visibility + idle detection
-- One standalone function for element visibility via `IntersectionObserver`
-- Configurable idle timeout and activity events
-- Automatic `DestroyRef` cleanup for all listeners and observers
-
-## What It Does Not Own
-
-- User-engagement analytics or session tracking
-- Virtual scrolling viewport visibility — see `@angular/cdk/scrolling`
-- Audio/video playback visibility — browser-native
-- Scroll-driven animations — that's a rendering concern
-
-## API Reference
+## API
 
 ### `injectVisibility(options?)`
 
-Creates a document-level visibility and idle detection handle.
-
-**Parameters:**
-
-- `options.idleTimeoutMs?: number` — Inactivity threshold in ms (default 60000, 0 = disabled).
-- `options.activityEvents?: string[]` — Events that reset the idle timer. Default: `['mousemove', 'keydown', 'mousedown', 'touchstart', 'scroll', 'wheel']`.
-
-**Returns:** `VisibilityState`
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `idleTimeoutMs` | `number` | `60000` | Inactivity threshold (ms). `0` = disable idle detection |
+| `activityEvents` | `string[]` | `['mousemove','keydown','mousedown','touchstart','scroll','wheel']` | Events that reset the idle timer |
 
 ### `VisibilityState`
 
-```ts
-interface VisibilityState {
-  readonly isVisible: Signal<boolean>;
-  readonly isIdle: Signal<boolean>;
-  readonly idleDuration: Signal<number>;
-  readonly lastActivity: Signal<number>;
-}
-```
+| Signal | Type | Description |
+|--------|------|-------------|
+| `isVisible` | `Signal<boolean>` | Whether the document tab is currently visible |
+| `isIdle` | `Signal<boolean>` | Whether the user has been inactive beyond the timeout |
+| `idleDuration` | `Signal<number>` | Milliseconds since last user activity |
+| `lastActivity` | `Signal<number>` | Timestamp of the last detected activity event |
 
 ### `inElementVisibility(elementRef)`
 
-Returns a `Signal<boolean>` that is `true` when the element is intersecting the viewport.
+| Param | Type | Description |
+|-------|------|-------------|
+| `elementRef` | `Signal<ElementRef \| undefined>` | A signal returning the target element ref |
+| Returns | `Signal<boolean>` | True when the element is intersecting the viewport |
 
-**Parameters:**
+## Scope Boundaries
 
-- `elementRef: Signal<ElementRef | undefined>` — A signal returning an `ElementRef` or `undefined`.
+| Concern | Status |
+|---------|--------|
+| Tab visibility tracking (`visibilitychange`) | ✅ |
+| User idle detection (configurable timeout + events) | ✅ |
+| Element viewport intersection (`IntersectionObserver`) | ✅ |
+| User engagement analytics or session tracking | ❌ |
+| Virtual scrolling viewport visibility | ❌ (use `@angular/cdk`) |
 
-**Returns:** `Signal<boolean>`
+## Demo
+
+Visit `/packages/angular-visibility/demo` for tab visibility, idle detection, and element visibility demos.
+

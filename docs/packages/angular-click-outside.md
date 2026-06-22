@@ -74,6 +74,18 @@ const outside = injectClickOutside(panelRef, {
 - The capture-phase `pointerdown` listener is added on creation and removed via `DestroyRef.onDestroy()`.
 - The directive uses Angular's built-in lifecycle through the `injectClickOutside` injectable under the hood.
 
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider adding a `(hexguardClickOutsideEnabled)` output for parent notification of enable state changes | Low |
+| API | Consider supporting `ElementRef` directly (not wrapped in `Signal`) for simpler directive usage | Low |
+| Edge Cases | No test for `enabled` signal toggling during an active open state | Low |
+| Edge Cases | No test for multiple excluded selectors | Low |
+| Performance | Capture-phase listener fires on every pointer event — consider a passive approach using focus/blur where applicable | Low |
+
 ## API Surface
 
 ### `injectClickOutside(elementRef, options?)`

@@ -1,82 +1,85 @@
 # @hexguard/angular-navigation-pending
 
-Route transition busy state for Angular: signal-based `isNavigating` and `isSlowNavigation` indicators with configurable delay threshold and route-scoped mode.
+**Route transition busy state for Angular.** Signal-based `isNavigating` and `isSlowNavigation` indicators with configurable delay threshold and route-scoped mode — no RxJS required.
 
-**[Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-navigation-pending.md)** ·
-**[Demo routes](#demo-routes)** ·
-**[Installation](#installation)**
+**[Deep package notes](docs/packages/angular-navigation-pending.md)** · **[Demo](/packages/angular-navigation-pending/demo)**
+
+---
+
+## Problem
+
+When users navigate between routes, Angular loads new data, resolves guards, and boots components. During this time the UI appears unresponsive — users may click again or think the app is broken. Showing a loading indicator on every navigation (even fast ones < 200ms) causes distracting flashes. Pages with complex initialization need to delay the "ready" signal until their data loads.
+
+**`@hexguard/angular-navigation-pending`** provides a signal-based navigation busy state with a configurable delay threshold to prevent spinner flash, plus route-scoped mode for page-level readiness signals.
 
 ## Installation
 
 ```bash
 pnpm add @hexguard/angular-navigation-pending
-# No RxJS dependency required
 ```
 
 ## Quickstart
 
-```ts
+```typescript
 import { injectNavigationPending } from '@hexguard/angular-navigation-pending';
 
-@Component({ ... })
-export class AppComponent {
+@Component({...})
+class AppComponent {
   private readonly nav = injectNavigationPending({ delayedIndicatorMs: 200 });
 
-  readonly isNavigating = this.nav.isNavigating;           // Signal<boolean>
-  readonly isSlowNavigation = this.nav.isSlowNavigation;   // Signal<boolean>
+  readonly isNavigating = this.nav.isNavigating;          // Signal<boolean>
+  readonly isSlowNavigation = this.nav.isSlowNavigation;  // Signal<boolean> — after 200ms
 }
 ```
 
-## Features
+## Use Cases
 
-| Feature                         | Status | Notes                                              |
-| ------------------------------- | ------ | -------------------------------------------------- |
-| App-level navigation state      | ✅     | Wraps Angular Router events                        |
-| `isSlowNavigation` signal       | ✅     | True only after configurable delay threshold       |
-| Route-scoped mode               | ✅     | Manual `markReady()` for page-level readiness       |
-| Zero unnecessary flash          | ✅     | `delayedIndicatorMs` prevents flash-of-spinner     |
-| Automatic cleanup               | ✅     | Via Angular `DestroyRef`                           |
-| Zero extra dependencies         | ✅     | Only `@angular/core`, `@angular/router`, `tslib`   |
+### App-level navigation spinner (no flash on fast transitions)
+```html
+@if (nav.isSlowNavigation()) {
+  <div class="loading-bar">Loading…</div>
+}
+```
 
-## Demo routes
+### Page-level readiness with route-scoped mode
+```typescript
+// In the routed component:
+const nav = injectNavigationPending({ routeScoped: true, delayedIndicatorMs: 300 });
 
-| Route                                                         | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `/packages/angular-navigation-pending`                        | Navigation Pending package overview                            |
-| `/packages/angular-navigation-pending/demo`                   | Navigation transitions with slow/fast simulation               |
+async ngOnInit() {
+  await this.loadDashboardData();
+  nav.markReady(); // Hide spinner once data is ready
+}
+```
 
-## What It Owns
-
-- One injectable for route transition pending state
-- Configurable delay threshold to prevent spinner flash
-- Route-scoped mode for page-level readiness control
-- Automatic `DestroyRef` cleanup
-
-## What It Does Not Own
-
-- Route resolvers or data loading — that's async-state
-- Skeleton loading or spinner components — headless only
-- Scroll restoration or navigation memory — see route-memory
-
-## API Reference
+## API
 
 ### `injectNavigationPending(options?)`
 
-Creates a navigation pending handle.
-
-**Parameters:**
-
-- `options.delayedIndicatorMs?: number` — Delay before `isSlowNavigation` becomes true (default 200, 0 = immediate).
-- `options.routeScoped?: boolean` — When true, enables manual `markReady()` control (default false).
-
-**Returns:** `NavigationPendingState`
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `delayedIndicatorMs` | `number` | `200` | Delay before `isSlowNavigation` activates. `0` = immediate |
+| `routeScoped` | `boolean` | `false` | Enable manual `markReady()` for page-level readiness |
 
 ### `NavigationPendingState`
 
-```ts
-interface NavigationPendingState {
-  readonly isNavigating: Signal<boolean>;
-  readonly isSlowNavigation: Signal<boolean>;
-  markReady(): void;
-}
-```
+| Member | Type | Description |
+|--------|------|-------------|
+| `isNavigating` | `Signal<boolean>` | True during any route transition |
+| `isSlowNavigation` | `Signal<boolean>` | True only after `delayedIndicatorMs` of continuous navigation |
+| `markReady()` | `() => void` | Signals page readiness (route-scoped mode only) |
+
+## Scope Boundaries
+
+| Concern | Status |
+|---------|--------|
+| App-level route transition busy state | ✅ |
+| Slow-navigation detection with debounce | ✅ |
+| Route-scoped readiness control | ✅ |
+| Route resolvers or data loading | ❌ (use `@hexguard/angular-async-state`) |
+| Skeleton/spinner components | ❌ (headless — compose your own UI) |
+
+## Demo
+
+Visit `/packages/angular-navigation-pending/demo` for navigation transitions with slow/fast simulation and route-scoped control.
+

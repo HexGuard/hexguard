@@ -78,3 +78,15 @@ Both functions use browser-only APIs (`document`, `IntersectionObserver`, DOM ev
 - `inElementVisibility` creates a **new** `IntersectionObserver` each time the `elementRef` signal changes to a different element, disconnecting the previous observer.
 - The idle timer interval runs at 1 second granularity — `idleDuration` updates in ~1s steps, not continuously.
 - Custom activity events passed via `activityEvents` replace the default list entirely — they are not merged.
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider an `isAway` signal combining `!isVisible && isIdle` for "user stepped away" state | Low |
+| API | Consider a `resetIdle()` method for scenarios like "user clicked 'I'm back'" | Low |
+| Edge Cases | No test for idle detection resuming after tab becomes visible again | Low |
+| Edge Cases | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw | Medium |
+| Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements | Low |

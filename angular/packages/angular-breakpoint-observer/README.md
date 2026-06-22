@@ -1,91 +1,96 @@
 # @hexguard/angular-breakpoint-observer
 
-Signal-based reactive breakpoint detection for Angular: wraps `window.matchMedia` into typed breakpoint signals with `above`/`below`/`active`/`matches` helpers.
+**Signal-based reactive breakpoint detection for Angular.** Wraps `window.matchMedia` into typed breakpoint signals with `above`, `below`, `active`, and per-breakpoint helpers — no RxJS required.
 
-**[Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-breakpoint-observer.md)** ·
-**[Demo routes](#demo-routes)** ·
-**[Installation](#installation)**
+**[Deep package notes](docs/packages/angular-breakpoint-observer.md)** · **[Demo](/packages/angular-breakpoint-observer/demo)**
+
+---
+
+## Problem
+
+CSS media queries handle presentation, but component logic frequently needs to know the viewport size in TypeScript — show/hide table columns on mobile, switch layout orientation, choose responsive data-display mode, or adapt pagination size. Every team reinvents `matchMedia` listeners with manual cleanup, inconsistent breakpoint naming, and no standard comparison helpers.
+
+**`@hexguard/angular-breakpoint-observer`** standardizes this into one injectable contract with automatic `DestroyRef` cleanup.
 
 ## Installation
 
 ```bash
 pnpm add @hexguard/angular-breakpoint-observer
-# No RxJS dependency required
 ```
 
 ## Quickstart
 
-```ts
+```typescript
 import { injectBreakpointObserver } from '@hexguard/angular-breakpoint-observer';
 
-@Component({ ... })
-export class MyComponent {
+@Component({...})
+class ResponsiveComponent {
   private readonly bp = injectBreakpointObserver();
 
-  // Reactive signals
   readonly active = this.bp.active;           // Signal<'sm' | 'md' | 'lg' | 'xl' | '2xl'>
   readonly isMobile = this.bp.below('md');    // Signal<boolean> — viewport < 768px
   readonly isDesktop = this.bp.above('lg');   // Signal<boolean> — viewport >= 1024px
-  readonly isTablet = this.bp.matches('(min-width: 768px) and (max-width: 1023px)');
-
-  // Per-breakpoint signals
   readonly columns = this.bp.breakpoints;     // { sm: Signal<boolean>, md: Signal<boolean>, ... }
 }
 ```
 
-## Features
+## Use Cases
 
-| Feature                            | Status | Notes                                              |
-| -----------------------------------| ------ | -------------------------------------------------- |
-| Active breakpoint signal           | ✅     | Largest matching breakpoint name                   |
-| Per-breakpoint boolean signals     | ✅     | One signal per breakpoint in the map                |
-| `above(name)` comparison           | ✅     | Viewport at or above the named breakpoint           |
-| `below(name)` comparison           | ✅     | Viewport strictly below the named breakpoint        |
-| `matches(query)` arbitrary queries | ✅     | Works with any CSS media query string               |
-| Custom breakpoint maps             | ✅     | Override defaults with app-specific thresholds      |
-| Tailwind-compatible defaults       | ✅     | `sm: 640`, `md: 768`, `lg: 1024`, `xl: 1280`, `2xl: 1536` |
-| Zero extra dependencies            | ✅     | Only `@angular/core` + `tslib`                      |
+### Responsive data table columns
+```typescript
+// Show fewer columns on small viewports
+readonly displayedColumns = computed(() => {
+  if (this.bp.below('md')()) return ['name', 'status'];
+  if (this.bp.below('lg')()) return ['name', 'status', 'date'];
+  return ['name', 'status', 'date', 'assignee', 'actions'];
+});
+```
 
-## Demo routes
+### Layout switching
+```typescript
+readonly layout = computed(() => this.bp.below('md')() ? 'stacked' : 'side-by-side');
+```
 
-| Route                                                      | Description                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------------- |
-| `/packages/angular-breakpoint-observer`                    | Breakpoint Observer package overview                           |
-| `/packages/angular-breakpoint-observer/demo`               | Breakpoint playground with active, above/below, and matches    |
+### Custom breakpoint map
+```typescript
+const bp = injectBreakpointObserver({
+  breakpoints: { narrow: 480, wide: 960, ultra: 1440 },
+});
+```
 
-## What It Owns
+### Arbitrary media query
+```typescript
+readonly isLandscape = this.bp.matches('(orientation: landscape)');
+```
 
-- One injectable breakpoint observer factory using `window.matchMedia`
-- Reactive `active`, `above()`, `below()`, `matches()` signals
-- `DestroyRef` cleanup for all media query listeners
-
-## What It Does Not Own
-
-- CSS media query generation — this is for TypeScript, not stylesheets
-- Element-level resize observation — use `ResizeObserver` for that
-- Server-side rendering — `window.matchMedia` is browser-only
-- Responsive layout components — this is a headless primitive
-
-## API Reference
+## API
 
 ### `injectBreakpointObserver(options?)`
 
-Creates a breakpoint observer handle.
-
-**Parameters:**
-
-- `options?: BreakpointObserverOptions` — `{ breakpoints?: Record<string, number> }`. Defaults to `{ sm: 640, md: 768, lg: 1024, xl: 1280, '2xl': 1536 }`.
-
-**Returns:** `BreakpointObserver`
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `breakpoints` | `Record<string, number>` | `{sm:640, md:768, lg:1024, xl:1280, '2xl':1536}` | Named breakpoint thresholds in px |
 
 ### `BreakpointObserver`
 
-```ts
-interface BreakpointObserver {
-  readonly active: Signal<string>;
-  readonly breakpoints: Record<string, Signal<boolean>>;
-  above(name: string): Signal<boolean>;
-  below(name: string): Signal<boolean>;
-  matches(query: string): Signal<boolean>;
-}
-```
+| Member | Type | Description |
+|--------|------|-------------|
+| `active` | `Signal<string>` | Name of the largest matching breakpoint |
+| `breakpoints` | `Record<string, Signal<boolean>>` | One boolean signal per breakpoint name |
+| `above(name)` | `(n) => Signal<boolean>` | True when viewport width ≥ the named breakpoint value |
+| `below(name)` | `(n) => Signal<boolean>` | True when viewport width < the named breakpoint value |
+| `matches(query)` | `(q) => Signal<boolean>` | Arbitrary CSS media query string evaluation |
+
+## Scope Boundaries
+
+| Concern | Status |
+|---------|--------|
+| TypeScript viewport queries for component logic | ✅ |
+| CSS media query generation for stylesheets | ❌ (use Tailwind or PostCSS) |
+| Element-level resize (`ResizeObserver`) | ❌ |
+| Server-side rendering (`window` unavailable) | ❌ guard with `isPlatformBrowser` |
+
+## Demo
+
+Visit `/packages/angular-breakpoint-observer/demo` for a live breakpoint playground with active/above/below/matches visualization.
+

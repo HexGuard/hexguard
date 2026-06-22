@@ -79,6 +79,18 @@ interface BreakpointObserver {
 }
 ```
 
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider `atLeast(name)` / `atMost(name)` as aliases for `above`/`below` for readability | Low |
+| API | Consider an `orientation` signal (portrait vs landscape) as a built-in query | Low |
+| Edge Cases | No test for empty breakpoint map or zero-value thresholds | Low |
+| SSR | Document `isPlatformBrowser` guard pattern for SSR apps | Low |
+| Performance | All breakpoints create separate `matchMedia` listeners — consider lazy creation for large breakpoint maps | Low |
+
 ## Behavior Notes
 
 ### `active` Resolution

@@ -1,10 +1,16 @@
 # @hexguard/angular-pagination
 
-Signal-based pagination state for Angular: page, pageSize, total, derived signals, and optional URL-sync adapter for `@hexguard/angular-url-state`. Pairs with `HexGuard.Pagination` on the .NET side.
+**Signal-based pagination state for Angular.** Page, pageSize, total, derived signals (totalPages, hasNext, rangeStart, etc.), and optional URL-sync adapter. Pairs with `HexGuard.Pagination` on the .NET side.
 
-**[Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-pagination.md)** ·
-**[Demo routes](#demo-routes)** ·
-**[Installation](#installation)**
+**[Deep package notes](docs/packages/angular-pagination.md)** · **[.NET counterpart](/dotnet/hexguard-pagination)** · **[Demo](/packages/angular-pagination/demo)** · **[Cross-stack demo](/packages/angular-pagination/cross-stack-demo)**
+
+---
+
+## Problem
+
+Every list, table, and search-results page needs pagination state — current page, page size, total count, total pages, next/previous enabled, page-range display — yet every team rebuilds the same page-number math, boundary handling, and reset semantics. Pagination state also needs to compose with URL query params and filter signals.
+
+**`@hexguard/angular-pagination`** standardizes this into one injectable contract with writable signals (`page`, `pageSize`, `total`), derived computed signals, and navigation helpers.
 
 ## Installation
 
@@ -14,74 +20,97 @@ pnpm add @hexguard/angular-pagination
 
 ## Quickstart
 
-```ts
+```typescript
 import { injectPagination } from '@hexguard/angular-pagination';
 
-@Component({ ... })
-export class ProductListComponent {
-  readonly pagination = injectPagination({ pageSize: 20 });
+@Component({...})
+class ProductListComponent {
+  readonly pag = injectPagination({ pageSize: 20 });
 
   // Read state
-  readonly page = this.pagination.page;           // Signal<number>
-  readonly totalPages = this.pagination.totalPages; // Signal<number>
-  readonly hasNext = this.pagination.hasNext;       // Signal<boolean>
+  readonly page = this.pag.page;               // WritableSignal<number>
+  readonly totalPages = this.pag.totalPages;    // Signal<number>
+  readonly hasNext = this.pag.hasNext;          // Signal<boolean>
 
-  // Navigate
-  this.pagination.nextPage();
-  this.pagination.goToPage(3);
+  // Set total from API
+  ngOnInit() { this.fetchPage(); }
 
-  // Set total from API response
-  this.pagination.total.set(response.totalCount);
+  async fetchPage() {
+    const res = await fetch(`/api/products?page=${this.pag.page()}&size=${this.pag.pageSize()}`);
+    const body = await res.json();
+    this.pag.total.set(body.totalCount);
+    this.items = body.items;
+  }
 }
 ```
 
-## Features
+## Use Cases
 
-| Feature                     | Status | Notes                                      |
-| --------------------------- | ------ | ------------------------------------------ |
-| Page math signals           | ✅     | page, pageSize, total, totalPages, etc.    |
-| Navigation helpers          | ✅     | goToPage, next, prev, first, last          |
-| URL-sync adapter            | ✅     | Optional, pairs with angular-url-state     |
-| Auto-reset on signal change | ✅     | Reset to page 1 when external signal fires |
-| Pairs with .NET             | ✅     | HexGuard.Pagination QueryRequest/Response   |
+### Search/filter with auto-reset
+```typescript
+const searchFilter = signal('');
+const pag = injectPagination({ pageSize: 20, resetOn: searchFilter });
+// When searchFilter changes, pagination resets to page 1 automatically.
+```
 
-## API Reference
+### URL-synced pagination
+```typescript
+import { urlState, numberParam } from '@hexguard/angular-url-state';
+import { withPaginationUrlSync } from '@hexguard/angular-pagination';
+
+const state = urlState({ page: { codec: numberParam(1), queryKey: 'p' } });
+const pag = injectPagination({ pageSize: 20 });
+withPaginationUrlSync(pag, { urlState: state });
+```
+
+### Range display
+```html
+<span>Showing {{ pag.rangeStart() }}–{{ pag.rangeEnd() }} of {{ pag.total() }}</span>
+```
+
+## API
 
 ### `injectPagination(options?)`
 
-```ts
-interface PaginationOptions {
-  pageSize?: number;
-  initialPage?: number;
-  resetOn?: Signal<unknown>;
-}
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `pageSize` | `number` | `20` | Number of items per page |
+| `initialPage` | `number` | `1` | Starting page (1-based) |
+| `resetOn` | `Signal<unknown>` | — | External signal — page resets to 1 on change |
 
-interface PaginationHandle {
-  readonly page: WritableSignal<number>;
-  readonly pageSize: WritableSignal<number>;
-  readonly total: WritableSignal<number>;
-  readonly totalPages: Signal<number>;
-  readonly hasNext: Signal<boolean>;
-  readonly hasPrevious: Signal<boolean>;
-  readonly rangeStart: Signal<number>;
-  readonly rangeEnd: Signal<number>;
-  readonly isFirstPage: Signal<boolean>;
-  readonly isLastPage: Signal<boolean>;
-  nextPage(): void;
-  previousPage(): void;
-  goToPage(page: number): void;
-  firstPage(): void;
-  lastPage(): void;
-  setPageSize(size: number): void;
-}
-```
+### `PaginationHandle`
 
-### `withPaginationUrlState(config)`
+| Member | Type | Description |
+|--------|------|-------------|
+| `page` | `WritableSignal<number>` | Current page (1-based) |
+| `pageSize` | `WritableSignal<number>` | Items per page |
+| `total` | `WritableSignal<number>` | Total items (set from API response) |
+| `totalPages` | `Signal<number>` | Derived: `ceil(total / pageSize)` |
+| `hasNext` | `Signal<boolean>` | `page < totalPages` |
+| `hasPrevious` | `Signal<boolean>` | `page > 1` |
+| `rangeStart` | `Signal<number>` | 1-based index of first visible item |
+| `rangeEnd` | `Signal<number>` | 1-based index of last visible item |
+| `isFirstPage` | `Signal<boolean>` | `page <= 1` |
+| `isLastPage` | `Signal<boolean>` | `page >= totalPages` |
+| `goToPage(n)` | `(n) => void` | Navigate to page (clamped) |
+| `nextPage()` / `previousPage()` | `() => void` | Step one page (no-op at bounds) |
+| `firstPage()` / `lastPage()` | `() => void` | Jump to boundary |
+| `setPageSize(n)` | `(n) => void` | Change page size, resets to page 1 |
 
-```ts
-interface PaginationUrlSyncConfig {
-  urlState?: UrlState;
-  paramPage?: string;    // default 'p'
-  paramSize?: string;    // default 'size'
-}
-```
+## Cross-stack Pairing
+
+The Angular package pairs with `HexGuard.Pagination` (.NET) which provides `QueryRequest` / `QueryResponse<T>` records. See the [cross-stack demo](/packages/angular-pagination/cross-stack-demo) for end-to-end integration.
+
+## Scope Boundaries
+
+| Concern | Status |
+|---------|--------|
+| Page math and navigation signals | ✅ |
+| URL-sync adapter (angular-url-state) | ✅ |
+| Auto-reset on filter change | ✅ |
+| Data fetching (API calls) | ❌ (handle externally) |
+
+## Demo
+
+Visit `/packages/angular-pagination/demo` for a live pagination playground, and `/packages/angular-pagination/cross-stack-demo` for the .NET-backed version.
+

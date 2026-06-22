@@ -76,3 +76,15 @@ interface NavigationPendingState {
 - `markReady()` is a no-op when `routeScoped` is `false`.
 - On a new `NavigationStart`, `ready` is reset to `false`, so route-scoped navigation tracking works correctly for repeated navigations.
 - The `@angular/router` package is a required peer dependency.
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider a `navigationCount` signal tracking total route transitions for analytics | Low |
+| API | Consider `onSlowNavigation` / `onFastNavigation` callbacks for side-effects (e.g., logging) | Low |
+| Edge Cases | Route-scoped mode with parallel child/aux routes — `markReady()` from one may prematurely end another | Medium |
+| Edge Cases | No test for `delayedIndicatorMs: 0` immediate mode | Low |
+| Integration | Consider a companion `provideNavigationPending()` at the route level for configuration | Low |

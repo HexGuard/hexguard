@@ -92,3 +92,16 @@ undo.undoGroup('batch-1'); // undoes both 'a' and 'b' in reverse order
 | `undoGroup(groupId)` | Revert all actions in a group |
 | `commit(id)` | Expire without undoing |
 | `clear()` | Cancel all pending undo windows |
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion | Priority |
+|------|-----------|----------|
+| API | Consider a `remainingTtl(actionId)` signal showing ms left before auto-commit | Low |
+| API | Consider `onBeforeUndo` / `onAfterUndo` lifecycle hooks for analytics | Low |
+| API | Consider `maxPending` option (e.g., limit to 10 pending actions) to prevent memory leaks | Medium |
+| Edge Cases | No test for `undoGroup` with mixed types or overlapping group IDs | Low |
+| Edge Cases | No test for pushing an action with the same `id` as an existing one (should replace or reject) | Medium |
+| Integration | Consider pairing with `@hexguard/angular-notifications` for automatic undo-toast UI | Low |

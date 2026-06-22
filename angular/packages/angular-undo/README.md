@@ -1,21 +1,26 @@
 # @hexguard/angular-undo
 
-Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior for delete, archive, move, and status-change actions.
+**Timer-based undo stack for Angular.** Reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior — no RxJS required.
 
-**[Deep package notes](https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-undo.md)** ·
-**[Demo routes](#demo-routes)** ·
-**[Installation](#installation)**
+**[Deep package notes](docs/packages/angular-undo.md)** · **[Demo](/packages/angular-undo/demo)**
+
+---
+
+## Problem
+
+Destructive actions (delete, archive, move, status change) need an undo window so users can revert mistakes. Teams rebuild the same timer-based stack: push action → start TTL timer → provide undo/commit buttons → auto-commit on expiry. Group undo (select-all → delete → batch revert) adds more complexity.
+
+**`@hexguard/angular-undo`** standardizes this into one injectable contract with per-action TTL, group undo, auto-commit callback, and reactive pending-state signals.
 
 ## Installation
 
 ```bash
 pnpm add @hexguard/angular-undo
-# No RxJS dependency required
 ```
 
 ## Quickstart
 
-```ts
+```typescript
 import { injectUndoStack } from '@hexguard/angular-undo';
 
 const undo = injectUndoStack<{ id: string }>({
@@ -31,88 +36,98 @@ undo.push({
 });
 
 // Reactive state
-undo.hasPending; // Signal<boolean>
+undo.hasPending;   // Signal<boolean>
 undo.pendingUndos; // Signal<UndoAction[]>
 
 // Imperative
 undo.undo('delete-42');      // revert
-undo.undoGroup('batch-1');    // batch revert
-undo.commit('delete-42');     // expire immediately
-undo.clear();                 // cancel all
+undo.undoGroup('batch-1');   // batch revert
+undo.commit('delete-42');    // expire immediately
+undo.clear();                // cancel all
 ```
 
-## Features
+## Use Cases
 
-| Feature                         | Status | Notes                                              |
-| ------------------------------- | ------ | -------------------------------------------------- |
-| Timer-based undo windows        | ✅     | Configurable per-action TTL                        |
-| Auto-commit on expiry           | ✅     | Configurable `onCommit` callback                   |
-| Manual undo / commit            | ✅     | By action ID                                       |
-| Group undo                      | ✅     | Via shared `groupId` string                        |
-| `pendingUndos` signal           | ✅     | All pending reversible actions                     |
-| `hasPending` signal             | ✅     | Whether any undo windows are open                  |
-| `undosForType(type)` signal     | ✅     | Filter by action type                              |
-| `clear()`                       | ✅     | Cancel all pending undo windows                    |
-| Automatic timer cleanup        | ✅     | Via `DestroyRef`                                   |
-| Zero extra dependencies         | ✅     | Only `@angular/core` + `tslib`                     |
+### Delete with undo toast
+```typescript
+// In component:
+undo.push({
+  id: `delete-${item.id}`,
+  type: 'delete',
+  data: item,
+  onUndo: () => restoreItem(item),
+});
 
-## Demo routes
+// Template: show "Undo" button while timer runs
+@if (undo.hasPending()) {
+  <div class="toast">
+    Item deleted
+    @for (a of undo.undosForType('delete'); track a.id) {
+      <button (click)="undo.undo(a.id)">Undo</button>
+    }
+  </div>
+}
+```
 
-| Route                                                    | Description                                                   |
-| -------------------------------------------------------- | ------------------------------------------------------------- |
-| `/packages/angular-undo`                                 | Undo package overview                                          |
-| `/packages/angular-undo/demo`                            | Delete/archive undo flows with TTL demo                        |
+### Batch archive with group undo
+```typescript
+for (const item of selectedItems) {
+  undo.push({
+    id: `archive-${item.id}`,
+    type: 'archive',
+    data: item,
+    groupId: 'batch-archive',
+    onUndo: (a) => unarchiveItem(a.data),
+  });
+}
+// Later: undo.undoGroup('batch-archive') reverts all in reverse order
+```
 
-## What It Owns
-
-- One injectable for managing a stack of reversible actions
-- Timer-based undo windows with auto-commit
-- Action grouping for batch undo
-- Reactive signals for pending state
-
-## What It Does Not Own
-
-- Optimistic-state rollback — see `@hexguard/angular-optimistic-state`
-- Toast or snackbar UI — compose with `@hexguard/angular-notifications`
-- Persistence — in-memory only
-
-## API Reference
+## API
 
 ### `injectUndoStack<T>(options?)`
 
-Creates an undo stack handle.
-
-**Parameters:**
-
-- `options.defaultTtlMs?: number` — Default undo window in ms (default 5000).
-- `options.onCommit?: (action: UndoAction<T>) => void` — Called when an action auto-commits after TTL expiry.
-
-**Returns:** `UndoStack<T>`
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `defaultTtlMs` | `number` | `5000` | Default undo window (ms). Per-action `ttlMs` overrides |
+| `onCommit` | `(action) => void` | — | Called when an action auto-commits after TTL expiry |
 
 ### `UndoAction<T>`
 
-```ts
-interface UndoAction<T = any> {
-  id: string;
-  type: string;
-  data: T;
-  ttlMs?: number;
-  groupId?: string;
-  onUndo: (action: UndoAction<T>) => void;
-}
-```
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` | Unique action identifier |
+| `type` | `string` | Action type for filtering (`'delete'`, `'archive'`, etc.) |
+| `data` | `T` | Arbitrary action payload |
+| `ttlMs?` | `number` | Per-action TTL override |
+| `groupId?` | `string` | Group identifier for batch undo |
+| `onUndo` | `(action) => void` | Callback invoked when undone |
 
 ### `UndoStack<T>`
 
-```ts
-interface UndoStack<T> {
-  readonly pendingUndos: Signal<UndoAction<T>[]>;
-  readonly hasPending: Signal<boolean>;
-  undosForType(type: string): Signal<UndoAction<T>[]>;
-  push(action: UndoAction<T>): void;
-  undo(actionId: string): void;
-  undoGroup(groupId: string): void;
-  commit(actionId: string): void;
-  clear(): void;
-}
-```
+| Member | Type | Description |
+|--------|------|-------------|
+| `pendingUndos` | `Signal<UndoAction<T>[]>` | All pending reversible actions |
+| `hasPending` | `Signal<boolean>` | Whether any undo windows are open |
+| `undosForType(type)` | `(t) => Signal<UndoAction<T>[]>` | Filter pending by action type |
+| `push(action)` | `(a) => void` | Push a new reversible action |
+| `undo(id)` | `(id) => void` | Revert a specific action |
+| `undoGroup(gid)` | `(gid) => void` | Revert all actions in a group (reverse order) |
+| `commit(id)` | `(id) => void` | Expire immediately without undoing |
+| `clear()` | `() => void` | Cancel all pending undo windows |
+
+## Scope Boundaries
+
+| Concern | Status |
+|---------|--------|
+| Timer-based undo windows with auto-commit | ✅ |
+| Group undo for batch operations | ✅ |
+| Per-action and default TTL | ✅ |
+| Optimistic-state rollback | ❌ (use `@hexguard/angular-optimistic-state`) |
+| Toast/snackbar UI | ❌ (compose with `@hexguard/angular-notifications`) |
+| Persistence across sessions | ❌ (in-memory only) |
+
+## Demo
+
+Visit `/packages/angular-undo/demo` for delete/archive undo flows with TTL demo.
+
