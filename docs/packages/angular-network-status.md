@@ -92,6 +92,37 @@ Tests use `vi.useFakeTimers()` and mock `window`/`navigator` globals via `Object
 
 ---
 
+## Assessment: Potential Improvements
+
+| Area | Suggestion                                                                                                                                                        | Priority    |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API  | ✅ Added RxJS observable alternative — `createNetworkStatusObservables()` returns `{ online$, connectionType$ }`. Import from `@hexguard/angular-network-status`. | Implemented |
+
+## RxJS Observable API
+
+For RxJS consumers, `createNetworkStatusObservables()` returns observable streams without DI requirement:
+
+```ts
+import { createNetworkStatusObservables } from '@hexguard/angular-network-status';
+import { switchMap, filter } from 'rxjs/operators';
+import { fromFetch } from 'rxjs/fetch';
+
+const { online$, connectionType$ } = createNetworkStatusObservables();
+
+// Pause background sync when offline
+online$
+  .pipe(
+    filter(Boolean),
+    switchMap(() => fromFetch('/api/sync')),
+  )
+  .subscribe();
+
+// Monitor connection quality
+connectionType$.subscribe((type) => {
+  console.log('Connection:', type); // '4g' | '3g' | 'slow-2g' | …
+});
+```
+
 ## API Review Findings
 
 Review date: 2026-06-22. Findings are observational.

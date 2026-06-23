@@ -85,16 +85,42 @@ Visit `/packages/angular-live-data/demo` in the demo app to see a live KPI dashb
 
 ## Assessment: Potential Improvements
 
-| Area            | Suggestion                                                                                                                                                       | Priority |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| API             | The `error` signal is typed as `Signal<unknown>` — consider a discriminated union `{ type: 'network' \| 'parse', message: string }`                              | Low      |
-| API             | Consider adding a configurable `onError` callback for side-effects (logging, toast)                                                                              | Low      |
-| API             | Consider an `initialFetch` option to skip the immediate first fetch (useful when data is provided externally)                                                    | Low      |
-| API             | `refresh()` awaits the fetch, but consumers may want to know when the refresh completes — currently returns `Promise<void>` but the resolved data isn't returned | Low      |
-| Stale Detection | Uses a 1-second interval accumulator — consider using `Date.now()` with a `computed()` that re-evaluates via a periodic signal update for cleaner reactivity     | Low      |
-| WebSocket/SSE   | The README scope boundaries note WebSocket/SSE as planned — consider an `injectLiveStream()` companion for push-based data                                       | Medium   |
+| Area            | Suggestion                                                                                                                                                                                                              | Priority    |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API             | The `error` signal is typed as `Signal<unknown>` — consider a discriminated union `{ type: 'network' \| 'parse', message: string }`                                                                                     | Low         |
+| API             | Consider adding a configurable `onError` callback for side-effects (logging, toast)                                                                                                                                     | Low         |
+| API             | Consider an `initialFetch` option to skip the immediate first fetch (useful when data is provided externally)                                                                                                           | Low         |
+| API             | `refresh()` awaits the fetch, but consumers may want to know when the refresh completes — currently returns `Promise<void>` but the resolved data isn't returned                                                        | Low         |
+| Stale Detection | Uses a 1-second interval accumulator — consider using `Date.now()` with a `computed()` that re-evaluates via a periodic signal update for cleaner reactivity                                                            | Low         |
+| WebSocket/SSE   | The README scope boundaries note WebSocket/SSE as planned — consider an `injectLiveStream()` companion for push-based data                                                                                              | Medium      |
+| API             | ✅ Added RxJS observable alternative — `liveData$()` returns `{ data$, loading$, error$, stale$ }` as observables. Import from `@hexguard/angular-live-data`. Consumers compose with `switchMap`, `combineLatest`, etc. | Implemented |
 
 ---
+
+## RxJS Observable API
+
+For RxJS consumers, `liveData$()` returns a `LiveDataStream<T>` with observable properties instead of signals.
+
+```ts
+import { liveData$ } from '@hexguard/angular-live-data';
+import { switchMap } from 'rxjs/operators';
+
+const stream = liveData$({
+  pollInterval: 30_000,
+  fetcher: () => fetch('/api/dashboard').then((r) => r.json()),
+});
+
+// Compose with other observable streams
+stream.data$.subscribe((data) => updateUI(data));
+stream.loading$.subscribe((isLoading) => showSpinner(isLoading));
+stream.error$.subscribe((err) => showError(err));
+stream.stale$.subscribe((isStale) => showStaleIndicator(isStale));
+
+// Chain with other reactive pipelines
+const enriched$ = stream.data$.pipe(switchMap((data) => fetchRelatedData(data)));
+
+// Later: stream.stop() or sub.unsubscribe()
+```
 
 ## Related Resources
 

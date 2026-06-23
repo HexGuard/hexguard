@@ -81,13 +81,40 @@ interface NavigationPendingState {
 
 ## Assessment: Potential Improvements
 
-| Area        | Suggestion                                                                                            | Priority |
-| ----------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| API         | Consider a `navigationCount` signal tracking total route transitions for analytics                    | Low      |
-| API         | Consider `onSlowNavigation` / `onFastNavigation` callbacks for side-effects (e.g., logging)           | Low      |
-| Edge Cases  | Route-scoped mode with parallel child/aux routes — `markReady()` from one may prematurely end another | Medium   |
-| Edge Cases  | No test for `delayedIndicatorMs: 0` immediate mode                                                    | Low      |
-| Integration | Consider a companion `provideNavigationPending()` at the route level for configuration                | Low      |
+| Area        | Suggestion                                                                                                                                                                           | Priority    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| API         | Consider a `navigationCount` signal tracking total route transitions for analytics                                                                                                   | Low         |
+| API         | Consider `onSlowNavigation` / `onFastNavigation` callbacks for side-effects (e.g., logging)                                                                                          | Low         |
+| Edge Cases  | Route-scoped mode with parallel child/aux routes — `markReady()` from one may prematurely end another                                                                                | Medium      |
+| Edge Cases  | No test for `delayedIndicatorMs: 0` immediate mode                                                                                                                                   | Low         |
+| Integration | Consider a companion `provideNavigationPending()` at the route level for configuration                                                                                               | Low         |
+| API         | ✅ Added RxJS observable alternative — `fromRouterNavigation(router)` returns `{ isNavigating$, isSlowNavigation$, destroy() }`. Import from `@hexguard/angular-navigation-pending`. | Implemented |
+
+## RxJS Observable API
+
+For RxJS consumers, `fromRouterNavigation()` exposes navigation state as observables:
+
+```ts
+import { fromRouterNavigation } from '@hexguard/angular-navigation-pending';
+import { filter, switchMap } from 'rxjs/operators';
+
+@Component({ ... })
+class MyComponent {
+  constructor(router: Router) {
+    const nav = fromRouterNavigation(router);
+
+    // Show loading bar during transitions
+    nav.isNavigating$.subscribe(busy => showLoader(busy));
+
+    // Only react to slow transitions
+    nav.isSlowNavigation$.pipe(filter(Boolean))
+      .subscribe(() => showSlowIndicator());
+
+    // Clean up on destroy
+    inject(DestroyRef).onDestroy(() => nav.destroy());
+  }
+}
+```
 
 ## Related Resources
 

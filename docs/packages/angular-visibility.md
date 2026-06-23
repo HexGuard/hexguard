@@ -83,13 +83,43 @@ Both functions use browser-only APIs (`document`, `IntersectionObserver`, DOM ev
 
 ## Assessment: Potential Improvements
 
-| Area        | Suggestion                                                                                                              | Priority |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
-| API         | Consider an `isAway` signal combining `!isVisible && isIdle` for "user stepped away" state                              | Low      |
-| API         | Consider a `resetIdle()` method for scenarios like "user clicked 'I'm back'"                                            | Low      |
-| Edge Cases  | No test for idle detection resuming after tab becomes visible again                                                     | Low      |
-| Edge Cases  | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw                | Medium   |
-| Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements | Low      |
+| Area        | Suggestion                                                                                                                                                                             | Priority    |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API         | Consider an `isAway` signal combining `!isVisible && isIdle` for "user stepped away" state                                                                                             | Low         |
+| API         | Consider a `resetIdle()` method for scenarios like "user clicked 'I'm back'"                                                                                                           | Low         |
+| Edge Cases  | No test for idle detection resuming after tab becomes visible again                                                                                                                    | Low         |
+| Edge Cases  | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw                                                                               | Medium      |
+| Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements                                                                | Low         |
+| API         | ✅ Added RxJS observable alternatives — `fromVisibilityChanges()`, `fromIdleState()`, `fromElementVisibility()` — all return `Observable`. Import from `@hexguard/angular-visibility`. | Implemented |
+
+## RxJS Observable API
+
+Three standalone observable functions for RxJS consumers:
+
+```ts
+import {
+  fromVisibilityChanges,
+  fromIdleState,
+  fromElementVisibility,
+} from '@hexguard/angular-visibility';
+import { switchMap } from 'rxjs/operators';
+
+// 1. Tab visibility — pause/resume work
+fromVisibilityChanges()
+  .pipe(switchMap((isVisible) => (isVisible ? startPolling() : stopPolling())))
+  .subscribe();
+
+// 2. Idle detection — mark user as away
+type IdleState = 'active' | 'idle';
+fromIdleState(120_000) // 2-minute timeout
+  .subscribe((isIdle) => updateUserStatus(isIdle ? 'idle' : 'active'));
+
+// 3. Element visibility — lazy-load content when scrolled into view
+const target = document.getElementById('lazy-section')!;
+fromElementVisibility(target, '0px 0px -200px 0px').subscribe((isVisible) => {
+  if (isVisible) loadContent();
+});
+```
 
 ## Related Resources
 

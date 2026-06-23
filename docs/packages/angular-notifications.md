@@ -228,10 +228,29 @@ class UploadComponent {
 
     this.api.upload(file).then(() => {
       this.uploadNotification?.update({ duration: 3000 });
-      // Notification will auto-dismiss after 3 seconds
     });
   }
 }
+```
+
+### RxJS observable — `createNotificationStream()`
+
+For RxJS consumers, `createNotificationStream()` returns a standalone notification stream:
+
+```ts
+import { createNotificationStream } from '@hexguard/angular-notifications';
+import { filter } from 'rxjs/operators';
+
+const notifier = createNotificationStream();
+
+// Filter by severity
+notifier.notifications$.pipe(filter((n) => n.type === 'error')).subscribe((n) => showErrorToast(n));
+
+// Fire notifications
+notifier.success('Order saved!');
+notifier.error('Request failed.');
+notifier.info('Processing...');
+notifier.warning('Session expiring');
 ```
 
 ## Related Resources
@@ -240,6 +259,14 @@ class UploadComponent {
 - [Package Catalog](../README.md)
 - [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-notifications/)
 - [Source Code](../../angular/packages/angular-notifications/src/)
+
+---
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion                                                                                                                                                                              | Priority    |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API  | ✅ Added RxJS observable alternative — `createNotificationStream()` returns `{ notifications$, success(), error(), info(), warning() }`. Import from `@hexguard/angular-notifications`. | Implemented |
 
 ---
 

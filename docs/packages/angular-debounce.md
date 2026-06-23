@@ -202,3 +202,37 @@ Review date: 2026-06-22. Findings are observational — no code has been changed
 | Tests      | Add Playwright E2E test for interactive debounce demo (type input, verify timing, click flush/cancel).                                                                                                                   | improvement | medium     |
 | Robustness | Add runtime validation or `console.warn` for `{leading: false, trailing: false}` and negative `dueTime`.                                                                                                                 | improvement | easy       |
 | Extension  | Two-way binding support via writable source creation (noted in CHANGELOG but not demonstrated in docs).                                                                                                                  | extension   | easy       |
+| Extension  | ✅ Added RxJS observable variant — `debouncedObservable<T>(source$, dueTime, options?)` returns `Observable<T>` with same leading/trailing edge modes. Import from `@hexguard/angular-debounce`.                         | extension   | completed  |
+
+## RxJS Observable API
+
+For consumers using RxJS, `debouncedObservable()` mirrors `debouncedSignal()` but takes an input `Observable<T>` and returns an `Observable<T>`:
+
+```ts
+import { debouncedObservable } from '@hexguard/angular-debounce';
+import { Subject } from 'rxjs';
+
+const search$ = new Subject<string>();
+const debounced$ = debouncedObservable(search$, 300);
+
+const sub = debounced$.subscribe((value) => {
+  api.search(value); // 300ms after last emission
+});
+
+search$.next('a');
+search$.next('ab');
+search$.next('abc');
+// After 300ms: logs 'abc'
+
+// Later: sub.unsubscribe() cleans up both the source subscription and timer
+```
+
+Same edge modes as the signal variant:
+
+```ts
+// Leading-only: emit immediately on each source emission
+const leading$ = debouncedObservable(source$, 1000, { leading: true, trailing: false });
+
+// Both edges: emit immediately + after settling
+const both$ = debouncedObservable(source$, 500, { leading: true, trailing: true });
+```

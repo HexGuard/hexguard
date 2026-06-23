@@ -86,15 +86,36 @@ Visit `/packages/angular-file-picker/demo` in the demo app to see a live file pi
 
 ## Assessment: Potential Improvements
 
-| Area       | Suggestion                                                                                                                                             | Priority |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| API        | The `accept` option only validates client-side — document that server-side validation is still required                                                | Low      |
-| API        | Consider adding `acceptDrop` overload that accepts a `FileList` directly (useful when wrapping other drag-drop libraries)                              | Low      |
-| API        | Consider a `clearError()` method for scenarios where the error should be dismissed without clearing files                                              | Low      |
-| API        | The demo has a "Read mode" select that doesn't actually change the picker's read mode — the picker is created with a fixed mode at construction time   | Medium   |
-| Validation | `accept` filter wildcard `image/*` works but `image/*,video/*` type patterns should be explicitly tested                                               | Low      |
-| Edge Cases | No test for the `change` event path (picking files via the native dialog) — only `acceptDrop` is tested                                                | Medium   |
-| Memory     | `createInput()` appends a hidden `<input>` to `document.body` — consider reusing the same element across calls instead of creating a new one each time | Low      |
+| Area       | Suggestion                                                                                                                                                                                          | Priority    |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API        | The `accept` option only validates client-side — document that server-side validation is still required                                                                                             | Low         |
+| API        | Consider adding `acceptDrop` overload that accepts a `FileList` directly (useful when wrapping other drag-drop libraries)                                                                           | Low         |
+| API        | Consider a `clearError()` method for scenarios where the error should be dismissed without clearing files                                                                                           | Low         |
+| API        | The demo has a "Read mode" select that doesn't actually change the picker's read mode — the picker is created with a fixed mode at construction time                                                | Medium      |
+| Validation | `accept` filter wildcard `image/*` works but `image/*,video/*` type patterns should be explicitly tested                                                                                            | Low         |
+| Edge Cases | No test for the `change` event path (picking files via the native dialog) — only `acceptDrop` is tested                                                                                             | Medium      |
+| Memory     | `createInput()` appends a hidden `<input>` to `document.body` — consider reusing the same element across calls instead of creating a new one each time                                              | Low         |
+| API        | ✅ Added RxJS observable alternative — `fromFileSelection()` returns `Observable<readonly FileHandle[]>` (cold observable, opens dialog on subscribe). Import from `@hexguard/angular-file-picker`. | Implemented |
+
+## RxJS Observable API
+
+For RxJS consumers, `fromFileSelection()` returns a cold observable that opens the file dialog on subscribe:
+
+```ts
+import { fromFileSelection } from '@hexguard/angular-file-picker';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+fromFileSelection({ accept: 'image/*', multiple: true })
+  .pipe(
+    map((files) => files.map((f) => f.name)),
+    catchError((err) => {
+      console.error('File error:', err);
+      return of([]);
+    }),
+  )
+  .subscribe((names) => console.log('Selected:', names));
+```
 
 ## Related Resources
 

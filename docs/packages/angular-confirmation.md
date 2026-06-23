@@ -20,12 +20,13 @@ Every app needs "Are you sure?" dialogs for delete, archive, and destructive act
 
 ## Assessment: Potential Improvements
 
-| Area  | Suggestion                                                                                                                               | Priority |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| API   | Consider adding a `reset()` method that clears state without resolving (for external dismiss)                                            | Low      |
-| API   | Consider a `destroyRef`-based auto-cleanup for dangling unresolved promises when the component is destroyed while a dialog is open       | Medium   |
-| API   | The `run()` method swallows action errors — consider exposing them via an `actionError` signal or returning `{ confirmed: true, error }` | Medium   |
-| Tests | Missing test: `run()` with confirmed but failed action returns `{ confirmed: true }` without the error                                   | Low      |
+| Area  | Suggestion                                                                                                                                                              | Priority    |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API   | Consider adding a `reset()` method that clears state without resolving (for external dismiss)                                                                           | Low         |
+| API   | Consider a `destroyRef`-based auto-cleanup for dangling unresolved promises when the component is destroyed while a dialog is open                                      | Medium      |
+| API   | The `run()` method swallows action errors — consider exposing them via an `actionError` signal or returning `{ confirmed: true, error }`                                | Medium      |
+| Tests | Missing test: `run()` with confirmed but failed action returns `{ confirmed: true }` without the error                                                                  | Low         |
+| API   | ✅ Added RxJS observable alternative — `createConfirmationStream()` returns `{ requests$, ask$(), confirm(), cancel() }`. Import from `@hexguard/angular-confirmation`. | Implemented |
 
 ## Code Examples
 
@@ -76,6 +77,28 @@ class PublishArticleComponent {
     }
   }
 }
+```
+
+## RxJS Observable API
+
+For RxJS consumers, `createConfirmationStream()` returns a dialog stream that can be composed with other observable pipelines:
+
+```ts
+import { createConfirmationStream } from '@hexguard/angular-confirmation';
+import { switchMap } from 'rxjs/operators';
+
+const dialog = createConfirmationStream();
+
+// Dialog component subscribes to requests
+const modalSub = dialog.requests$.subscribe((req) => openModal(req));
+
+// Caller chains with other async flows
+dialog
+  .ask$({ title: 'Delete?', message: 'Are you sure?' })
+  .pipe(switchMap((confirmed) => (confirmed ? deleteItem() : skip())))
+  .subscribe();
+
+// In dialog template: dialog.confirm() or dialog.cancel()
 ```
 
 ## Related Resources

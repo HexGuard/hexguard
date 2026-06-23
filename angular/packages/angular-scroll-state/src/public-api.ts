@@ -11,6 +11,11 @@ export { injectScrollState } from './lib/scroll-state';
 export { inInfiniteScroll } from './lib/infinite-scroll';
 export { inScrollSpy } from './lib/scroll-spy';
 export { scrollTo } from './lib/scroll-to';
+export {
+  fromScrollPosition,
+  fromInfiniteScroll,
+  fromScrollSpy as fromScrollSpy$,
+} from './lib/scroll-state-observable';
 export type { ScrollStateOptions, ScrollStateHandle } from './lib/types';
 export type { InfiniteScrollOptions, InfiniteScrollHandle } from './lib/types';
 export type { ScrollSpyOptions, ScrollSpyHandle } from './lib/types';

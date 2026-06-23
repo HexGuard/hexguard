@@ -68,14 +68,15 @@ Visit `/packages/angular-form-drafts/demo` in the demo app to see a live form wi
 
 ## Assessment: Potential Improvements
 
-| Area        | Suggestion                                                                                                                                                                                       | Priority |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| API         | Consider adding a `lastSavedAt` signal for showing "Saved X minutes ago" in the UI                                                                                                               | Low      |
-| API         | Consider a `draftCount` static method to enumerate all draft keys (useful for a "Manage drafts" page)                                                                                            | Medium   |
-| API         | Consider an `autoSave` option (on/off) to let users disable auto-save                                                                                                                            | Low      |
-| Expiry      | Currently, `hasDraft` is only updated on init, save, clear, and `restore()`. An expired draft's `hasDraft` stays true until `restore()` is called — fixed by making `restore()` sync the signals | Fixed    |
-| Concurrency | No handling for multiple tabs writing to the same draft key — last-write-wins                                                                                                                    | Low      |
-| Size Limit  | Consider a `maxDraftSize` option or warning for large drafts (localStorage quota is ~5MB)                                                                                                        | Low      |
+| Area        | Suggestion                                                                                                                                                                                                | Priority    |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API         | Consider adding a `lastSavedAt` signal for showing "Saved X minutes ago" in the UI                                                                                                                        | Low         |
+| API         | Consider a `draftCount` static method to enumerate all draft keys (useful for a "Manage drafts" page)                                                                                                     | Medium      |
+| API         | Consider an `autoSave` option (on/off) to let users disable auto-save                                                                                                                                     | Low         |
+| Expiry      | Currently, `hasDraft` is only updated on init, save, clear, and `restore()`. An expired draft's `hasDraft` stays true until `restore()` is called — fixed by making `restore()` sync the signals          | Fixed       |
+| Concurrency | No handling for multiple tabs writing to the same draft key — last-write-wins                                                                                                                             | Low         |
+| Size Limit  | Consider a `maxDraftSize` option or warning for large drafts (localStorage quota is ~5MB)                                                                                                                 | Low         |
+| API         | ✅ Added RxJS observable alternative — `watchFormDraft()` returns `{ draft$, hasDraft$, metadata$, save(), clear() }` with `debounceTime`-based persistence. Import from `@hexguard/angular-form-drafts`. | Implemented |
 
 ## Code Examples
 
@@ -123,6 +124,28 @@ const draft = injectFormDraft('session-data', {
   storage: sessionStorage,
   debounceMs: 1000,
 });
+```
+
+### RxJS observable — `watchFormDraft()`
+
+For RxJS consumers, `watchFormDraft()` provides observable-based draft management with `debounceTime` persistence:
+
+```ts
+import { watchFormDraft } from '@hexguard/angular-form-drafts';
+import { filter } from 'rxjs/operators';
+
+const draft = watchFormDraft<{ title: string; body: string }>('new-post');
+
+// React to draft state changes
+draft.hasDraft$.subscribe((has) => showDraftIndicator(has));
+draft.draft$.pipe(filter(Boolean)).subscribe((d) => preview(d.data));
+
+// Debounced auto-save
+draft.save({ title: 'Hello', body: 'World' });
+// Persists to localStorage after default 500ms debounce
+
+// Clear when done
+draft.clear();
 ```
 
 ## Related Resources

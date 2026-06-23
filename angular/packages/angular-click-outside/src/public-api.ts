@@ -6,5 +6,6 @@
  * - `HexguardClickOutsideDirective` — template directive with output and enabled input.
  */
 export { injectClickOutside } from './lib/click-outside';
+export { fromClickOutsideEvent } from './lib/click-outside-observable';
 export { HexguardClickOutsideDirective } from './lib/click-outside.directive';
 export type { ClickOutsideOptions, ClickOutsideHandle } from './lib/types';

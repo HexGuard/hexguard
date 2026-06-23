@@ -9,5 +9,7 @@
  */
 export { injectPagination } from './lib/pagination';
 export { withPaginationUrlSync } from './lib/url-sync';
+export { createPaginationState } from './lib/pagination-observable';
 export type { PaginationOptions, PaginationHandle } from './lib/types';
 export type { PaginationUrlSyncConfig, UrlStateLike } from './lib/url-sync';
+export type { PaginationObservables } from './lib/pagination-observable';

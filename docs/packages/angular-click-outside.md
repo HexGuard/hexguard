@@ -80,13 +80,14 @@ const outside = injectClickOutside(panelRef, {
 
 ## Assessment: Potential Improvements
 
-| Area        | Suggestion                                                                                                          | Priority |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- | -------- |
-| API         | Consider adding a `(hexguardClickOutsideEnabled)` output for parent notification of enable state changes            | Low      |
-| API         | Consider supporting `ElementRef` directly (not wrapped in `Signal`) for simpler directive usage                     | Low      |
-| Edge Cases  | No test for `enabled` signal toggling during an active open state                                                   | Low      |
-| Edge Cases  | No test for multiple excluded selectors                                                                             | Low      |
-| Performance | Capture-phase listener fires on every pointer event — consider a passive approach using focus/blur where applicable | Low      |
+| Area        | Suggestion                                                                                                                                                                                                      | Priority    |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API         | Consider adding a `(hexguardClickOutsideEnabled)` output for parent notification of enable state changes                                                                                                        | Low         |
+| API         | Consider supporting `ElementRef` directly (not wrapped in `Signal`) for simpler directive usage                                                                                                                 | Low         |
+| API         | ✅ Added RxJS observable alternative — `fromClickOutsideEvent(element, options?)` returns `Observable<PointerEvent>`. Import from `@hexguard/angular-click-outside`. Consumers can pipe through RxJS operators. | Implemented |
+| Edge Cases  | No test for `enabled` signal toggling during an active open state                                                                                                                                               | Low         |
+| Edge Cases  | No test for multiple excluded selectors                                                                                                                                                                         | Low         |
+| Performance | Capture-phase listener fires on every pointer event — consider a passive approach using focus/blur where applicable                                                                                             | Low         |
 
 ## API Surface
 
@@ -159,6 +160,23 @@ class ModalComponent {
   </div>
   }
 </div>
+```
+
+### RxJS observable — `fromClickOutsideEvent()`
+
+For RxJS consumers, `fromClickOutsideEvent()` returns a cold `Observable<PointerEvent>` that can be piped through operators:
+
+```ts
+import { fromClickOutsideEvent } from '@hexguard/angular-click-outside';
+import { filter, throttleTime } from 'rxjs/operators';
+
+const panel = document.getElementById('dropdown-panel')!;
+
+const sub = fromClickOutsideEvent(panel, { exclude: ['.toggle-btn'] })
+  .pipe(throttleTime(300))
+  .subscribe(() => close());
+
+// Later: sub.unsubscribe()
 ```
 
 ## Related Resources

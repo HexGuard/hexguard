@@ -30,13 +30,14 @@ The Angular package pairs with `HexGuard.Pagination` which provides `QueryReques
 
 ## Assessment: Potential Improvements
 
-| Area         | Suggestion                                                                                                                                                                           | Priority |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| API          | Consider adding `pageRange()` computed helper (like the demo computes) as a built-in signal                                                                                          | Low      |
-| API          | Consider `goToPage` returning a `Promise` for chaining with async data fetch                                                                                                         | Low      |
-| URL Sync     | The `withPaginationUrlSync()` function requires a `UrlStateLike` handle — consider a zero-config variant that injects it internally when `@hexguard/angular-url-state` is configured | Medium   |
-| .NET Pairing | The `QueryRequest`/`QueryResponse<T>` contracts are well-aligned but there's no auto-generation of TypeScript types from the .NET records                                            | Low      |
-| Tests        | Missing edge case: `totalPages` with zero total returns 0, but `lastPage()` navigates to `max(1, 0) = 1` — this is handled correctly but not explicitly tested                       | Low      |
+| Area         | Suggestion                                                                                                                                                                           | Priority    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| API          | Consider adding `pageRange()` computed helper (like the demo computes) as a built-in signal                                                                                          | Low         |
+| API          | Consider `goToPage` returning a `Promise` for chaining with async data fetch                                                                                                         | Low         |
+| URL Sync     | The `withPaginationUrlSync()` function requires a `UrlStateLike` handle — consider a zero-config variant that injects it internally when `@hexguard/angular-url-state` is configured | Medium      |
+| .NET Pairing | The `QueryRequest`/`QueryResponse<T>` contracts are well-aligned but there's no auto-generation of TypeScript types from the .NET records                                            | Low         |
+| Tests        | Missing edge case: `totalPages` with zero total returns 0, but `lastPage()` navigates to `max(1, 0) = 1` — this is handled correctly but not explicitly tested                       | Low         |
+| API          | ✅ Added RxJS observable alternative — `createPaginationState()` returns `{ page$, pageSize$, total$, totalPages$, hasNext$, ... }`. Import from `@hexguard/angular-pagination`.     | Implemented |
 
 ---
 
@@ -93,6 +94,31 @@ class SearchResultsComponent {
   });
   // URL updates: ?p=2&size=50 → pag state updates reactively
 }
+```
+
+### RxJS observable — `createPaginationState()`
+
+For RxJS consumers, `createPaginationState()` returns `BehaviorSubject`-based pagination without Angular DI:
+
+```ts
+import { createPaginationState } from '@hexguard/angular-pagination';
+import { combineLatest, switchMap } from 'rxjs';
+
+const pag = createPaginationState();
+
+// Derived observables update automatically
+pag.totalPages$.subscribe((n) => (totalPages = n));
+pag.hasNext$.subscribe((has) => btnNext(has));
+
+// Combine with data fetching
+const data$ = combineLatest([pag.page$, pag.pageSize$]).pipe(
+  switchMap(([page, size]) => fetch(`/api/items?page=${page}&size=${size}`)),
+);
+
+// Navigate
+pag.nextPage();
+pag.goToPage(5);
+pag.setPageSize(50);
 ```
 
 ## Related Resources

@@ -21,13 +21,14 @@ Every list-detail flow has the same UX gap: a user navigates from a list to a de
 
 ## Assessment: Potential Improvements
 
-| Area  | Suggestion                                                                                            | Priority |
-| ----- | ----------------------------------------------------------------------------------------------------- | -------- |
-| API   | Consider adding a `TTL` option so saved memory auto-expires after a configurable duration             | Low      |
-| API   | Consider a `saveAndNavigate()` helper that saves context then navigates to a route                    | Low      |
-| API   | Consider adding `restoreAndClear(key)` — a single call that restores and removes the entry atomically | Low      |
-| Tests | Missing test: `hasMemory` signal reactivity after `save()` in serialized mode                         | Low      |
-| Tests | Missing test: multiple `autoSave` calls on different keys                                             | Low      |
+| Area  | Suggestion                                                                                                                                                                 | Priority    |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API   | Consider adding a `TTL` option so saved memory auto-expires after a configurable duration                                                                                  | Low         |
+| API   | Consider a `saveAndNavigate()` helper that saves context then navigates to a route                                                                                         | Low         |
+| API   | Consider adding `restoreAndClear(key)` — a single call that restores and removes the entry atomically                                                                      | Low         |
+| Tests | Missing test: `hasMemory` signal reactivity after `save()` in serialized mode                                                                                              | Low         |
+| Tests | Missing test: multiple `autoSave` calls on different keys                                                                                                                  | Low         |
+| API   | ✅ Added RxJS observable alternative — `createRouteMemory()` returns `{ hasMemory$(key)$, save, restore, clear, clearAll }`. Import from `@hexguard/angular-route-memory`. | Implemented |
 
 ## Code Examples
 
@@ -78,6 +79,26 @@ class FilterPanelComponent {
 }
 // The filter state is automatically saved when the component is destroyed
 // and can be restored on next visit.
+```
+
+### RxJS observable — `createRouteMemory()`
+
+For RxJS consumers, `createRouteMemory()` provides an observable-based route memory store:
+
+```ts
+import { createRouteMemory } from '@hexguard/angular-route-memory';
+
+const mem = createRouteMemory();
+
+// React to memory state changes
+mem.hasMemory$('orders-filter').subscribe((hasDraft) => {
+  if (hasDraft) restoreFilters(mem.restore('orders-filter'));
+});
+
+// Save and restore
+mem.save('current-tab', { tab: 'details' });
+const tab = mem.restore('current-tab');
+mem.clear('current-tab');
 ```
 
 ## Related Resources

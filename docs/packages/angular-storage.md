@@ -117,7 +117,39 @@ Tests use mocked `localStorage`/`sessionStorage` via `Object.defineProperty` and
 - [Package Catalog](../README.md)
 - [Source Code](../../angular/packages/angular-storage/src/)
 
+## Assessment: Potential Improvements
+
+| Area | Suggestion                                                                         | Priority                                         |
+| ---- | ---------------------------------------------------------------------------------- | ------------------------------------------------ | ----------- |
+| API  | ✅ Added RxJS observable alternative — `fromStorageKey(key)` returns `Observable<T | null>`. Import from `@hexguard/angular-storage`. | Implemented |
+
 ---
+
+## RxJS Observable API
+
+For RxJS consumers, `fromStorageKey()` returns an observable that emits the current value on subscribe and reacts to cross-tab changes:
+
+```ts
+import { fromStorageKey } from '@hexguard/angular-storage';
+import { filter } from 'rxjs/operators';
+
+interface Preferences {
+  theme: 'light' | 'dark';
+  sidebarOpen: boolean;
+}
+
+fromStorageKey<Preferences>('user-preferences')
+  .pipe(filter(Boolean))
+  .subscribe((prefs) => {
+    applyTheme(prefs.theme);
+    toggleSidebar(prefs.sidebarOpen);
+  });
+
+// With explicit storage backend:
+fromStorageKey<string>('session-token', 'session').subscribe((token) => {
+  if (token) authenticate(token);
+});
+```
 
 ## API Review Findings
 

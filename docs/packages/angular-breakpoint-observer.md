@@ -83,13 +83,14 @@ interface BreakpointObserver {
 
 ## Assessment: Potential Improvements
 
-| Area        | Suggestion                                                                                                | Priority |
-| ----------- | --------------------------------------------------------------------------------------------------------- | -------- |
-| API         | Consider `atLeast(name)` / `atMost(name)` as aliases for `above`/`below` for readability                  | Low      |
-| API         | Consider an `orientation` signal (portrait vs landscape) as a built-in query                              | Low      |
-| Edge Cases  | No test for empty breakpoint map or zero-value thresholds                                                 | Low      |
-| SSR         | Document `isPlatformBrowser` guard pattern for SSR apps                                                   | Low      |
-| Performance | All breakpoints create separate `matchMedia` listeners — consider lazy creation for large breakpoint maps | Low      |
+| Area        | Suggestion                                                                                                                                                                                                                                                    | Priority    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API         | Consider `atLeast(name)` / `atMost(name)` as aliases for `above`/`below` for readability                                                                                                                                                                      | Low         |
+| API         | Consider an `orientation` signal (portrait vs landscape) as a built-in query                                                                                                                                                                                  | Low         |
+| API         | ✅ Added RxJS observable alternative — `fromBreakpointChanges()` returns `Observable<BreakpointChange>` (emits per-breakpoint match changes). Import from `@hexguard/angular-breakpoint-observer`. Consumers can `combineLatest`, `filter`, `partition`, etc. | Implemented |
+| Edge Cases  | No test for empty breakpoint map or zero-value thresholds                                                                                                                                                                                                     | Low         |
+| SSR         | Document `isPlatformBrowser` guard pattern for SSR apps                                                                                                                                                                                                       | Low         |
+| Performance | All breakpoints create separate `matchMedia` listeners — consider lazy creation for large breakpoint maps                                                                                                                                                     | Low         |
 
 ## Behavior Notes
 
@@ -156,6 +157,38 @@ For most apps, this is unnecessary — if the component never renders on the ser
 | Raw `matchMedia`                 |        ✗         |       Manual        |          ✗          |       ✓        |
 | CDK BreakpointObserver           | Observable-based | Manual unsubscribe  |          ✗          |       ✓        |
 | **HexGuard breakpoint-observer** |    ✓ `Signal`    | Auto (`DestroyRef`) | ✓ Tailwind defaults |       ✓        |
+
+## RxJS Observable API
+
+For consumers already using RxJS, `fromBreakpointChanges()` emits a `BreakpointChange` each time a breakpoint crosses its threshold.
+
+```ts
+import { fromBreakpointChanges } from '@hexguard/angular-breakpoint-observer';
+
+const changes$ = fromBreakpointChanges().pipe(/* share() for multicasting */);
+
+const sub = changes$.subscribe((change) => {
+  console.log(`${change.name}: ${change.matches}`);
+  // e.g. "lg: true", "md: false"
+});
+
+// Later: sub.unsubscribe() cleans up all matchMedia listeners
+```
+
+Use with RxJS operators to combine with other streams:
+
+```ts
+import { fromBreakpointChanges } from '@hexguard/angular-breakpoint-observer';
+import { filter, map } from 'rxjs/operators';
+
+// React only to desktop breakpoints
+fromBreakpointChanges()
+  .pipe(
+    filter((c) => c.name === 'lg' || c.name === 'xl'),
+    map((c) => c.matches),
+  )
+  .subscribe((isDesktop) => updateLayout(isDesktop));
+```
 
 ## Related Resources
 

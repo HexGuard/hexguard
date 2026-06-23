@@ -3,8 +3,12 @@
  *
  * Provides signal-based connectivity state, connection-type detection,
  * debounced reconnection, and a promise-based whenBackOnline() helper.
+ *
+ * Also provides observable-based alternatives for RxJS consumers.
  */
 export { injectNetworkStatus } from './lib/network-status';
+export { createNetworkStatusObservables } from './lib/network-status-observable';
+export type { NetworkStatusObservables } from './lib/network-status-observable';
 export type {
   NetworkStatusOptions,
   NetworkStatus,

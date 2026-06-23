@@ -19,13 +19,14 @@ Business apps with lists, detail pages, or long content need scroll management: 
 
 ## Assessment: Potential Improvements
 
-| Area  | Suggestion                                                                                                        | Priority |
-| ----- | ----------------------------------------------------------------------------------------------------------------- | -------- |
-| API   | Consider adding `scrollToBottom()` helper for chat/message-list-style auto-scroll                                 | Low      |
-| API   | Consider adding `scrollIntoViewIfNeeded()` for conditional smooth-scroll only when element is not already visible | Low      |
-| API   | Consider adding `pullToRefresh()` as a companion export sharing the same observer pattern                         | Low      |
-| API   | Consider adding a `ScrollRestoreDirective` that auto-restores scroll on route activation                          | Low      |
-| Tests | Consider adding integration tests with a real scroll container using Cypress/Playwright-style interaction         | Medium   |
+| Area  | Suggestion                                                                                                                                                                         | Priority    |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API   | Consider adding `scrollToBottom()` helper for chat/message-list-style auto-scroll                                                                                                  | Low         |
+| API   | Consider adding `scrollIntoViewIfNeeded()` for conditional smooth-scroll only when element is not already visible                                                                  | Low         |
+| API   | Consider adding `pullToRefresh()` as a companion export sharing the same observer pattern                                                                                          | Low         |
+| API   | Consider adding a `ScrollRestoreDirective` that auto-restores scroll on route activation                                                                                           | Low         |
+| Tests | Consider adding integration tests with a real scroll container using Cypress/Playwright-style interaction                                                                          | Medium      |
+| API   | ✅ Added RxJS observable alternatives — `fromScrollPosition()`, `fromInfiniteScroll()`, `fromScrollSpy()` — all return `Observable`. Import from `@hexguard/angular-scroll-state`. | Implemented |
 
 ## Code Examples
 
@@ -97,6 +98,35 @@ class DocPageComponent {
   // spy.activeSection() → Signal<string | null>
   // Highlights the current section in the table of contents sidebar.
 }
+```
+
+### RxJS observable alternatives
+
+Three standalone observable functions for RxJS consumers:
+
+```ts
+import {
+  fromScrollPosition,
+  fromInfiniteScroll,
+  fromScrollSpy$,
+} from '@hexguard/angular-scroll-state';
+import { debounceTime, filter, switchMap } from 'rxjs/operators';
+
+// 1. Scroll position with RxJS operators
+fromScrollPosition()
+  .pipe(debounceTime(150))
+  .subscribe((y) => updateProgressBar(y));
+
+// 2. Infinite scroll with switchMap (auto-cancels previous load)
+const sentinel = document.getElementById('scroll-sentinel')!;
+fromInfiniteScroll(sentinel)
+  .pipe(switchMap(() => fetch('/api/items?page=' + page++)))
+  .subscribe((items) => appendItems(items));
+
+// 3. Scroll-spy for active section tracking
+fromScrollSpy$(['intro', 'features', 'api', 'pricing']).subscribe((sectionId) => {
+  highlightNav(sectionId);
+});
 ```
 
 ## Related Resources

@@ -71,6 +71,32 @@ This package is an Angular-only standalone package. It composes with `@hexguard/
 
 **Excluded** — server-backed "select all matching filter" semantics, tree-selection behavior, data table rendering, URL persistence of selection state.
 
+## RxJS Observable API
+
+For RxJS consumers, `createSelectionState()` returns observable-based selection state without Angular DI:
+
+```ts
+import { createSelectionState } from '@hexguard/angular-selection-state';
+import { combineLatest } from 'rxjs';
+
+const sel = createSelectionState<string>();
+
+// React to selection changes
+sel.selected$.subscribe((keys) => console.log('Selected:', [...keys]));
+sel.count$.subscribe((n) => updateCount(n));
+sel.canAct$.subscribe((canAct) => btnEnabled(canAct));
+
+// Combine with data streams
+const bulkPayload$ = combineLatest([sel.selected$, items$]).pipe(
+  map(([selected, items]) => items.filter((item) => selected.has(item.id))),
+);
+
+// Mutate
+sel.toggle('item-1');
+sel.selectAll(['a', 'b', 'c']);
+sel.clear();
+```
+
 ## Related Resources
 
 - [Package README](../../angular/packages/angular-selection-state/README.md)
@@ -78,6 +104,12 @@ This package is an Angular-only standalone package. It composes with `@hexguard/
 - [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-selection-state/)
 - [Source Code](../../angular/packages/angular-selection-state/src/)
 - [Consumed by: `@hexguard/angular-bulk-operations`](./angular-bulk-operations.md)
+
+## Assessment: Potential Improvements
+
+| Area | Suggestion                                                                                                                                                                                | Priority    |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| API  | ✅ Added RxJS observable alternative — `createSelectionState()` returns `{ selected$, count$, isEmpty$, canAct$, toggle, select, ... }`. Import from `@hexguard/angular-selection-state`. | Implemented |
 
 ---
 

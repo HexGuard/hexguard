@@ -6,4 +6,5 @@
  * leading and trailing edge emission behavior.
  */
 export { debouncedSignal } from './lib/debounce';
+export { debouncedObservable } from './lib/debounced-observable';
 export type { DebounceOptions, DebouncedValue } from './lib/types';
