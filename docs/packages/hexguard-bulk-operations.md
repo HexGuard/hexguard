@@ -73,6 +73,14 @@ Both packages share:
 - RFC 9457 Problem Details error integration on the .NET side
 - `@hexguard/angular-api-errors` compatible error shapes
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.BulkOperations/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardBulkOperations/)
+- [Source Code](../../dotnet/src/HexGuard.BulkOperations/)
+- [Angular Counterpart: `@hexguard/angular-bulk-operations`](./angular-bulk-operations.md)
+
 ---
 
 ## API Review Findings

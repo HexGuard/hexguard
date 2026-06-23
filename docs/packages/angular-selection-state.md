@@ -71,6 +71,14 @@ This package is an Angular-only standalone package. It composes with `@hexguard/
 
 **Excluded** — server-backed "select all matching filter" semantics, tree-selection behavior, data table rendering, URL persistence of selection state.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-selection-state/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-selection-state/)
+- [Source Code](../../angular/packages/angular-selection-state/src/)
+- [Consumed by: `@hexguard/angular-bulk-operations`](./angular-bulk-operations.md)
+
 ---
 
 ## API Review Findings

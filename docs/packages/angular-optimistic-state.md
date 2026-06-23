@@ -182,6 +182,14 @@ pnpm test:e2e
 The demo routes are part of the validation story because they prove visible optimistic overlays,
 rollback, and conflict-policy behavior against the same public API surface the package exports.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-optimistic-state/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-optimistic-state/)
+- [Source Code](../../angular/packages/angular-optimistic-state/src/)
+- [Sibling: `@hexguard/angular-async-state`](./angular-async-state.md)
+
 ---
 
 ## API Review Findings

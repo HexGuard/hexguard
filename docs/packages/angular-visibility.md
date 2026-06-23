@@ -91,6 +91,13 @@ Both functions use browser-only APIs (`document`, `IntersectionObserver`, DOM ev
 | Edge Cases  | `inElementVisibility` with `undefined` elementRef — should return `false` but current behavior may throw                | Medium   |
 | Performance | The `IntersectionObserver` is created per `inElementVisibility` call — consider a shared observer for multiple elements | Low      |
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-visibility/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-visibility/)
+- [Source Code](../../angular/packages/angular-visibility/src/)
+
 ---
 
 ## API Review Findings

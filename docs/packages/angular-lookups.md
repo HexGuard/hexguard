@@ -147,6 +147,15 @@ The pipe intentionally stays thin. If a view needs branching behavior or state i
 - The shared sample API deliberately exposes an `invalid` scenario so teams can see the frontend
   reject malformed catalogs instead of silently accepting partial reference data.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-lookups/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-lookups/)
+- [Source Code](../../angular/packages/angular-lookups/src/)
+- [.NET Counterpart: `HexGuard.ReferenceData`](./hexguard-reference-data.md)
+- [Dependency: `@hexguard/angular-async-state`](./angular-async-state.md)
+
 ---
 
 ## API Review Findings

@@ -181,6 +181,14 @@ pnpm verify:package
 - tag `angular-query-form-v<version>`
 - let `.github/workflows/release-angular-query-form.yml` validate, publish, and create the release
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-query-form/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-query-form/)
+- [Source Code](../../angular/packages/angular-query-form/src/)
+- [Depends on: `@hexguard/angular-url-state`](./angular-url-state.md)
+
 ---
 
 ## API Review Findings

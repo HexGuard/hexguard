@@ -150,6 +150,13 @@ formValue.set(newData); // renders immediately, also debounces save
 
 Choose this package when you want a native signal debounce without RxJS. Choose RxJS when you're already using observables in the same pipeline.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-debounce/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-debounce/)
+- [Source Code](../../angular/packages/angular-debounce/src/)
+
 ---
 
 ## API Review Findings

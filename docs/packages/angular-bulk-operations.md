@@ -57,6 +57,15 @@ Both packages share identical contract shapes (BulkOperationRequest, BulkOperati
 
 **Excluded** — admin-panel UI or data-table components, long-running operation polling (OperationStatus pair), distributed transaction guarantees, file uploads.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-bulk-operations/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-bulk-operations/)
+- [Source Code](../../angular/packages/angular-bulk-operations/src/)
+- [.NET Counterpart: `HexGuard.BulkOperations`](./hexguard-bulk-operations.md)
+- [Dependency: `@hexguard/angular-selection-state`](./angular-selection-state.md)
+
 ---
 
 ## API Review Findings

@@ -277,6 +277,76 @@ pnpm verify:package
 - tag `angular-async-state-v<version>`
 - let `.github/workflows/release-angular-async-state.yml` validate, publish, and create the release
 
+## Code Examples
+
+### Outlet template for async value loading
+
+```html
+<hexguard-async-state-outlet [state]="products" idleTemplate>
+  <p>Type a search term to begin</p>
+</hexguard-async-state-outlet>
+<ng-template
+  >loadingTemplate>
+  <p><span class="spinner"></span> Loading products…</p>
+</ng-template>
+<ng-template let-value
+  >valueTemplate>
+  <product-table [products]="value" />
+</ng-template>
+<ng-template let-error
+  >errorTemplate>
+  <p class="error">Failed: {{ error.message }}</p>
+  <button (click)="products.load()">Retry</button>
+</ng-template>
+<ng-template
+  >emptyTemplate>
+  <p>No products found</p>
+</ng-template>
+```
+
+### Action with duplicate-run rejection
+
+```typescript
+import { asyncAction } from '@hexguard/angular-async-state';
+
+const saveOrder = asyncAction<Order, SaveResult, SaveError>({
+  run: async (order) => this.api.save(order),
+  duplicateRunPolicy: 'reject', // Second click while pending throws
+  mapError: (err) => normalizeError(err),
+});
+
+async function onSubmit(): Promise<void> {
+  try {
+    const result = await saveOrder.run(this.form.value);
+    // result is SaveResult
+  } catch (err) {
+    if (err instanceof AsyncActionPendingError) {
+      // Duplicate submit prevented
+    }
+  }
+}
+```
+
+### Stale-data UI during reload
+
+```typescript
+const dashboard = asyncState<Metrics>({
+  initialValue: { revenue: 0, users: 0 },
+  load: () => fetch('/api/dashboard/metrics').then((r) => r.json()),
+});
+// @if (dashboard.status() === 'reloading') { <span>Refreshing…</span> }
+// The old value stays visible via dashboard.value() during reload
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-async-state/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-async-state/)
+- [Source Code](../../angular/packages/angular-async-state/src/)
+- [Sibling: `@hexguard/angular-optimistic-state`](./angular-optimistic-state.md)
+- [Consumed by: `@hexguard/angular-lookups`](./angular-lookups.md)
+
 ---
 
 ## API Review Findings

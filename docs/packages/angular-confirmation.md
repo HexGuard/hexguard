@@ -27,6 +27,64 @@ Every app needs "Are you sure?" dialogs for delete, archive, and destructive act
 | API   | The `run()` method swallows action errors — consider exposing them via an `actionError` signal or returning `{ confirmed: true, error }` | Medium   |
 | Tests | Missing test: `run()` with confirmed but failed action returns `{ confirmed: true }` without the error                                   | Low      |
 
+## Code Examples
+
+### Ask for confirmation before a destructive action
+
+```typescript
+import { injectConfirmation } from '@hexguard/angular-confirmation';
+
+@Component({ ... })
+class DeleteDocumentComponent {
+  readonly confirm = injectConfirmation();
+
+  async onDelete(): Promise<void> {
+    const ok = await this.confirm.ask({
+      title: 'Delete document?',
+      message: 'This action cannot be undone.',
+      confirmLabel: 'Delete',
+      cancelLabel: 'Cancel',
+    });
+    if (!ok) return;
+    await this.api.delete(documentId);
+  }
+}
+// Template:
+// @if (confirm.isOpen()) {
+//   <div class="dialog">
+//     <p>{{ confirm.currentRequest()?.message }}</p>
+//     <button (click)="confirm.confirm()">Confirm</button>
+//     <button (click)="confirm.cancel()">Cancel</button>
+//   </div>
+// }
+```
+
+### Confirm-and-execute pattern with `run()`
+
+```typescript
+@Component({ ... })
+class PublishArticleComponent {
+  readonly confirm = injectConfirmation();
+
+  async onPublish(): Promise<void> {
+    const result = await this.confirm.run(
+      { title: 'Publish article?', message: 'Article will be visible to readers.' },
+      () => this.api.publish(articleId),
+    );
+    if (result.confirmed) {
+      this.notify.success('Article published');
+    }
+  }
+}
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-confirmation/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-confirmation/)
+- [Source Code](../../angular/packages/angular-confirmation/src/)
+
 ---
 
 ## API Review Findings

@@ -27,6 +27,76 @@ Standardized pagination/query contracts for .NET APIs. Paired with `@hexguard/an
 | -------------------------- | ------ | -------------------------------- |
 | `/api/pagination/products` | GET    | Paginated product list with sort |
 
+## Code Examples
+
+### Define a paginated endpoint
+
+```csharp
+using HexGuard.Pagination;
+
+app.MapGet("/api/products", (int? page, int? pageSize) =>
+{
+    var query = new QueryRequest
+    {
+        Page = page ?? 1,
+        PageSize = pageSize ?? 20,
+        SortBy = "name",
+        SortDirection = "asc",
+    };
+
+    var items = db.Products
+        .Skip((query.Page - 1) * query.PageSize)
+        .Take(query.PageSize)
+        .ToList();
+
+    var total = db.Products.Count();
+
+    var response = QueryResponse<Product>.Create(query, items, total);
+    // response.HasNext, response.HasPrevious, response.TotalPages
+    // response.RangeStart, response.RangeEnd
+    return Results.Ok(response);
+});
+```
+
+### Use computed properties for UI helpers
+
+```csharp
+var response = QueryResponse<Product>.Create(query, items, total);
+
+if (response.HasPrevious) { /* show Previous button */ }
+if (response.HasNext) { /* show Next button */ }
+
+// Range: "Showing 1-20 of 100"
+var rangeText = $"Showing {response.RangeStart}-{response.RangeEnd} of {response.TotalCount}";
+```
+
+### Angular pairing — request shape
+
+```typescript
+// @hexguard/angular-pagination client sends:
+interface QueryRequest {
+  page: number;
+  pageSize: number;
+  sortBy?: string;
+  sortDirection?: 'asc' | 'desc';
+}
+```
+
+```typescript
+// Server responds with:
+interface QueryResponse<T> {
+  items: T[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+  rangeStart: number;
+  rangeEnd: number;
+}
+```
+
 ## Validation Surface
 
 ```bash
@@ -39,6 +109,14 @@ pnpm dotnet:test
 
 - **Tag pattern**: Currently not registered in `release-dotnet.yml`. Pending release workflow setup.
 - **nuget**: Published as `HexGuard.Pagination`.
+
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.Pagination/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardPagination/)
+- [Source Code](../../dotnet/src/HexGuard.Pagination/)
+- [Angular Counterpart: `@hexguard/angular-pagination`](./angular-pagination.md)
 
 ---
 

@@ -96,6 +96,16 @@ Visit `/packages/angular-live-data/demo` in the demo app to see a live KPI dashb
 
 ---
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-live-data/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-live-data/)
+- [Source Code](../../angular/packages/angular-live-data/src/)
+- [Sibling: `@hexguard/angular-async-state`](./angular-async-state.md)
+
+---
+
 ## API Review Findings
 
 Review date: 2026-06-22. Findings are observational — no code has been changed.

@@ -96,6 +96,13 @@ Visit `/packages/angular-file-picker/demo` in the demo app to see a live file pi
 | Edge Cases | No test for the `change` event path (picking files via the native dialog) — only `acceptDrop` is tested                                                | Medium   |
 | Memory     | `createInput()` appends a hidden `<input>` to `document.body` — consider reusing the same element across calls instead of creating a new one each time | Low      |
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-file-picker/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-file-picker/)
+- [Source Code](../../angular/packages/angular-file-picker/src/)
+
 ---
 
 ## API Review Findings

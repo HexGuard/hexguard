@@ -125,6 +125,13 @@ All pure functions are tested directly. The DI facade is tested via `TestBed.run
 - DateRange: validity, containment, overlap, touching ranges, all presets
 - injectDateUtils: locale detection and override
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-date-utils/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-date-utils/)
+- [Source Code](../../angular/packages/angular-date-utils/src/)
+
 ---
 
 ## API Review Findings

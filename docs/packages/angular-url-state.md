@@ -177,6 +177,73 @@ route transitions.
 - tag `angular-url-state-v<version>`
 - let `.github/workflows/release-angular-url-state.yml` validate, publish, and create the release
 
+## Code Examples
+
+### Debounced search input with URL sync
+
+```typescript
+import { urlState, stringParam, numberParam } from '@hexguard/angular-url-state';
+
+@Component({ ... })
+class SearchComponent {
+  readonly filters = urlState({
+    searchText: { codec: stringParam(''), queryKey: 'q' },
+    page: numberParam(1),
+    category: stringParam('all'),
+  }, { debounceMs: 250, history: 'replace' });
+
+  // Reactive: filters.searchText(), filters.page(), filters.category()
+  // URL: ?q=hello&page=2&category=books
+
+  resetSearch(): void {
+    this.filters.patch({ page: 1 });  // Maintain category, reset page
+  }
+
+  clearAll(): void {
+    this.filters.reset();  // All fields back to codec defaults
+  }
+}
+```
+
+### Multi-select tag filter with arrayParam
+
+```typescript
+import { urlState, arrayParam, stringParam } from '@hexguard/angular-url-state';
+
+const state = urlState({
+  tags: { codec: arrayParam(stringParam()), queryKey: 'tag' },
+});
+
+function toggleTag(tag: string): void {
+  const current = state.snapshot().tags;
+  const next = current.includes(tag) ? current.filter((t) => t !== tag) : [...current, tag];
+  state.patch({ tags: next });
+}
+// URL: ?tag=angular&tag=rxjs&tag=signals
+```
+
+### Nullable param with conditional display
+
+```typescript
+import { urlState, nullableParam, stringParam } from '@hexguard/angular-url-state';
+
+const state = urlState({ discountCode: nullableParam(stringParam()) });
+effect(() => {
+  const code = state.snapshot().discountCode;
+  if (code !== null) {
+    applyDiscount(code); // Only runs when a value is present
+  }
+});
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-url-state/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-url-state/)
+- [Source Code](../../angular/packages/angular-url-state/src/)
+- [Consumed by: `@hexguard/angular-query-form`](./angular-query-form.md)
+
 ---
 
 ## API Review Findings

@@ -90,6 +90,14 @@ Both packages share:
 - Same sync endpoint contract (`GET /api/feature-flags/sync` with `contextHash`)
 - Same targeting rule semantics (first-match-wins, 8 rule types)
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.FeatureFlags/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardFeatureFlags/)
+- [Source Code](../../dotnet/src/HexGuard.FeatureFlags/)
+- [Angular Counterpart: `@hexguard/angular-feature-flags`](./angular-feature-flags.md)
+
 ---
 
 ## API Review Findings

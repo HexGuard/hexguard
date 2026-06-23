@@ -157,6 +157,13 @@ For most apps, this is unnecessary — if the component never renders on the ser
 | CDK BreakpointObserver           | Observable-based | Manual unsubscribe  |          ✗          |       ✓        |
 | **HexGuard breakpoint-observer** |    ✓ `Signal`    | Auto (`DestroyRef`) | ✓ Tailwind defaults |       ✓        |
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-breakpoint-observer/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-breakpoint-observer/)
+- [Source Code](../../angular/packages/angular-breakpoint-observer/src/)
+
 ---
 
 ## API Review Findings

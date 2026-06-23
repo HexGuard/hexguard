@@ -77,6 +77,61 @@ Visit `/packages/angular-form-drafts/demo` in the demo app to see a live form wi
 | Concurrency | No handling for multiple tabs writing to the same draft key — last-write-wins                                                                                                                    | Low      |
 | Size Limit  | Consider a `maxDraftSize` option or warning for large drafts (localStorage quota is ~5MB)                                                                                                        | Low      |
 
+## Code Examples
+
+### Clear draft after successful API submission
+
+```typescript
+import { injectFormDraft } from '@hexguard/angular-form-drafts';
+
+@Component({ ... })
+class ArticleEditorComponent {
+  readonly draft = injectFormDraft<Article>('article-new');
+
+  async onSubmit(): Promise<void> {
+    const saved = this.draft.restore();
+    if (!saved) return;
+
+    try {
+      await this.api.save(saved.data);
+      this.draft.clear(); // Remove draft on success
+      this.notify.success('Saved!');
+    } catch {
+      // Keep draft intact on failure — user can retry
+      this.notify.error('Save failed, your draft is preserved');
+    }
+  }
+}
+```
+
+### Custom serializer for complex data
+
+```typescript
+const draft = injectFormDraft<FormData>('complex-form', {
+  serialize: (data) => JSON.stringify(data, ['title', 'body', 'tags']),
+  deserialize: (raw) => {
+    const parsed = JSON.parse(raw);
+    return { data: parsed, savedAt: parsed.savedAt, expiresAt: parsed.expiresAt };
+  },
+});
+```
+
+### Use sessionStorage instead of localStorage
+
+```typescript
+const draft = injectFormDraft('session-data', {
+  storage: sessionStorage,
+  debounceMs: 1000,
+});
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-form-drafts/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-form-drafts/)
+- [Source Code](../../angular/packages/angular-form-drafts/src/)
+
 ---
 
 ## API Review Findings

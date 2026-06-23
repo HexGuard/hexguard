@@ -40,6 +40,72 @@ The Angular package pairs with `HexGuard.Pagination` which provides `QueryReques
 
 ---
 
+## Code Examples
+
+### Basic pagination with reactive signals
+
+```typescript
+import { injectPagination } from '@hexguard/angular-pagination';
+
+@Component({ ... })
+class ProductTableComponent {
+  readonly pag = injectPagination({ pageSize: 20 });
+
+  constructor() {
+    this.loadPage(1);
+  }
+
+  async loadPage(page: number): Promise<void> {
+    this.pag.goToPage(page);
+    const data = await fetchProducts(page, this.pag.pageSize());
+    this.pag.total.set(data.totalCount);
+    // Derived signals update automatically:
+    // pag.hasNext(), pag.hasPrevious(), pag.totalPages()
+    // pag.rangeStart(), pag.rangeEnd()
+  }
+}
+// Template:
+// <button (click)=\"pag.previousPage()\" [disabled]=\"!pag.hasPrevious()\">Prev</button>
+// <span>Page {{ pag.page() }} of {{ pag.totalPages() }}</span>
+// <button (click)=\"pag.nextPage()\" [disabled]=\"!pag.hasNext()\">Next</button>
+```
+
+### Reset page when filters change
+
+```typescript
+const searchFilter = signal('');
+const pag = injectPagination({ resetOn: searchFilter });
+// Whenever searchFilter changes, page resets to 1 automatically
+```
+
+### URL-synced pagination with `@hexguard/angular-url-state`
+
+```typescript
+import { urlState, numberParam } from '@hexguard/angular-url-state';
+import { injectPagination, withPaginationUrlSync } from '@hexguard/angular-pagination';
+
+@Component({ ... })
+class SearchResultsComponent {
+  readonly state = urlState({ p: numberParam(1), size: numberParam(20) });
+  readonly pag = withPaginationUrlSync(injectPagination(), {
+    keys: this.state.keys,
+    patch: (delta) => this.state.patch(delta),
+  });
+  // URL updates: ?p=2&size=50 → pag state updates reactively
+}
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-pagination/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-pagination/)\
+- [Source Code](../../angular/packages/angular-pagination/src/)
+- [.NET Counterpart: `HexGuard.Pagination`](./hexguard-pagination.md)
+- [Optional Dependency: `@hexguard/angular-url-state`](./angular-url-state.md)
+
+---
+
 ## API Review Findings
 
 Review date: 2026-06-22. Findings are observational — no code has been changed.

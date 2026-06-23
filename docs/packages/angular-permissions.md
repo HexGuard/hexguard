@@ -153,6 +153,14 @@ The current implementation is validated through:
 
 For repo-level validation commands, use the package README and the demo runbook together.
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-permissions/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-permissions/)
+- [Source Code](../../angular/packages/angular-permissions/src/)
+- [.NET Counterpart: `HexGuard.Capabilities`](./hexguard-capabilities.md)
+
 ---
 
 ## API Review Findings

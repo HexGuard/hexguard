@@ -515,6 +515,15 @@ The full endpoint code lives in
 - `WellKnownProblemTypes` constants may be extended with new well-known types in minor versions.
 - The camelCase serialization policy and null-ignore behavior are stable.
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.ProblemDetails/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardProblemDetails/)
+- [Source Code](../../dotnet/src/HexGuard.ProblemDetails/)
+- [Depends on: `HexGuard.ValidationContracts`](./validation-contracts.md)
+- [Angular Counterpart: `@hexguard/angular-api-errors`](./angular-api-errors.md)
+
 ---
 
 ## API Review Findings

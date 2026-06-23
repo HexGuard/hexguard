@@ -115,6 +115,59 @@ const outside = injectClickOutside(panelRef, {
 - When `enabled` is `false`, all pointer events are ignored regardless of target.
 - When the `elementRef` signal produces `undefined`, detection is paused until a valid element is provided.
 
+## Code Examples
+
+### Toggle enabled during animation
+
+```typescript
+@Component({ ... })
+class ModalComponent {
+  readonly panelRef = viewChild.required<ElementRef>('panel');
+  readonly isOpen = signal(false);
+  readonly isAnimating = signal(false);
+
+  readonly clickOutside = injectClickOutside(this.panelRef, {
+    enabled: computed(() => this.isOpen() && !this.isAnimating()),
+    exclude: ['.modal-backdrop'],
+  });
+
+  effect(() => {
+    if (this.clickOutside.clickOutside()) {
+      this.close();
+    }
+  });
+
+  async close(): Promise<void> {
+    this.isAnimating.set(true);
+    // Close animation runs — click outside is temporarily disabled
+    await animateClose();
+    this.isOpen.set(false);
+    this.isAnimating.set(false);
+  }
+}
+```
+
+### Directive usage with dynamic enabled state
+
+```html
+<div (hexguardClickOutside)="close()" [hexguardClickOutsideEnabled]="dropdownOpen()">
+  <button (click)="toggle()">Options</button>
+  @if (dropdownOpen()) {
+  <div class="dropdown">
+    <button (click)="doAction('edit')">Edit</button>
+    <button (click)="doAction('delete')">Delete</button>
+  </div>
+  }
+</div>
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-click-outside/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/)
+- [Source Code](../../angular/packages/angular-click-outside/src/)
+
 ---
 
 ## API Review Findings

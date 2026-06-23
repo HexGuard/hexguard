@@ -111,6 +111,12 @@ Tests use mocked `localStorage`/`sessionStorage` via `Object.defineProperty` and
 - Graceful fallback: storage unavailable (throws)
 - Session storage: correct backend selection
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-storage/README.md)
+- [Package Catalog](../README.md)
+- [Source Code](../../angular/packages/angular-storage/src/)
+
 ---
 
 ## API Review Findings

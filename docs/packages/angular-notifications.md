@@ -187,6 +187,60 @@ A standalone component that renders the current notification stack. Each notific
 
 Override the styling by targeting CSS classes: `.notifications-outlet`, `.notification`, `.notification--success`, `.notification--error`, `.notification--info`, `.notification--warning`, `.notification__title`, `.notification__message`, `.notification__action-btn`, `.notification__dismiss-btn`.
 
+## Code Examples
+
+### Place the notification outlet in your root layout
+
+```html
+<!-- app.component.html -->
+<router-outlet />
+<hexguard-notification-outlet />
+```
+
+### Dismiss notifications by type after navigation
+
+```typescript
+@Component({ ... })
+class DashboardComponent {
+  private readonly notifications = inject(NotificationService);
+
+  onPageChange(): void {
+    // Clear transient success/error notifications when navigating
+    this.notifications.dismissByType('success');
+    this.notifications.dismissByType('error');
+    // Keep 'warning' notifications visible (e.g. unsaved changes)
+  }
+}
+```
+
+### Update notification options dynamically
+
+```typescript
+@Component({ ... })
+class UploadComponent {
+  private readonly notifications = inject(NotificationService);
+  private uploadNotification: NotificationHandle | null = null;
+
+  onUpload(): void {
+    this.uploadNotification = this.notifications.info('Uploading…', {
+      duration: 0,  // Persistent
+    });
+
+    this.api.upload(file).then(() => {
+      this.uploadNotification?.update({ duration: 3000 });
+      // Notification will auto-dismiss after 3 seconds
+    });
+  }
+}
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-notifications/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-notifications/)
+- [Source Code](../../angular/packages/angular-notifications/src/)
+
 ---
 
 ## API Review Findings

@@ -120,6 +120,14 @@ export const appConfig: ApplicationConfig = {
 
 The `CapabilitySet.Roles` maps to `PermissionContext.roles` and each `Permissions[resource]` entry is flattened to `"resource.action"` capability strings consumed by `injectPermissions()`, `*hexguardCan`, and route guards.
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.Capabilities/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardCapabilities/)
+- [Source Code](../../dotnet/src/HexGuard.Capabilities/)
+- [Angular Counterpart: `@hexguard/angular-permissions`](./angular-permissions.md)
+
 ---
 
 ## API Review Findings

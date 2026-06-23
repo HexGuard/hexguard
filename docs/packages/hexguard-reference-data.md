@@ -101,6 +101,14 @@ The full endpoint code lives in
   `ReferenceDataCatalogValidator` public methods are stable in `0.x`.
 - New validation rules or collection constraints are additive in minor versions.
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.ReferenceData/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardReferenceData/)
+- [Source Code](../../dotnet/src/HexGuard.ReferenceData/)
+- [Angular Counterpart: `@hexguard/angular-lookups`](./angular-lookups.md)
+
 ---
 
 ## API Review Findings

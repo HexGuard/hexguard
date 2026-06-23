@@ -84,6 +84,12 @@ Tests use `vi.useFakeTimers()` and mock `window`/`navigator` globals via `Object
 - Connection type: initial value, change event, missing API
 - `whenBackOnline()`: immediate resolution, deferred resolution
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-network-status/README.md)
+- [Package Catalog](../README.md)
+- [Source Code](../../angular/packages/angular-network-status/src/)
+
 ---
 
 ## API Review Findings

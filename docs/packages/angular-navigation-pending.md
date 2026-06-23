@@ -89,6 +89,13 @@ interface NavigationPendingState {
 | Edge Cases  | No test for `delayedIndicatorMs: 0` immediate mode                                                    | Low      |
 | Integration | Consider a companion `provideNavigationPending()` at the route level for configuration                | Low      |
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-navigation-pending/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-navigation-pending/)
+- [Source Code](../../angular/packages/angular-navigation-pending/src/)
+
 ---
 
 ## API Review Findings

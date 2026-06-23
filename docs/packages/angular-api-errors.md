@@ -116,6 +116,105 @@ pnpm format:check && pnpm lint && pnpm test:ci && pnpm build
 
 See `.github/workflows/release-angular-api-errors.yml` for the release pipeline.
 
+## Code Examples
+
+### Parse a Problem Details response after an HTTP error
+
+```typescript
+import { inject } from '@angular/core';
+import { ApiErrorParser } from '@hexguard/angular-api-errors';
+
+@Component({ ... })
+class ProductFormComponent {
+  private readonly parser = inject(ApiErrorParser);
+
+  async onSubmit(): Promise<void> {
+    const response = await fetch('/api/products', { method: 'POST', body: payload });
+    if (!response.ok) {
+      const body = await response.json();
+      const result = this.parser.parseProblemDetails(body);
+      // result.errors — field-level validation errors
+      // result.isValid — false when errors exist
+      // result.traceId — correlation ID from the server
+    }
+  }
+}
+```
+
+### Bind server errors to a Reactive Form
+
+```typescript
+import { inject } from '@angular/core';
+import { apiFormErrors } from '@hexguard/angular-api-errors';
+
+@Component({ ... })
+class EditProductComponent {
+  private readonly parser = inject(ApiErrorParser);
+
+  handleError(body: unknown): void {
+    const result = this.parser.parseProblemDetails(body);
+    const formErrors = apiFormErrors(result, this.productForm);
+    // formErrors.fieldErrors — errors mapped to form controls by field path
+    // formErrors.pageErrors — model-level errors without a field
+  }
+}
+```
+
+### Monitor error state reactively with signals
+
+```typescript
+import { inject } from '@angular/core';
+import { injectApiErrorState } from '@hexguard/angular-api-errors';
+
+@Component({ ... })
+class DashboardComponent {
+  readonly errorState = injectApiErrorState();
+
+  onFetchError(body: unknown): void {
+    this.errorState.setErrors(this.parser.parseProblemDetails(body));
+  }
+
+  dismissError(): void {
+    this.errorState.clear();
+  }
+}
+// Template:
+// @if (errorState.hasError()) { <p>{{ errorState.latestError()?.message }}</p> }
+```
+
+### Use FieldPath helpers for nested error mapping
+
+```typescript
+import { FieldPath } from '@hexguard/angular-api-errors';
+
+// 'items' matches 'items.0.name' via prefix
+const parent = FieldPath.GetParent('items.0.name'); // 'items'
+const leaf = FieldPath.GetLeaf('items.0.name'); // 'name'
+const child = FieldPath.Child('shipping', 'address'); // 'shipping.address'
+```
+
+### Look up error codes that mirror the .NET backend
+
+```typescript
+import { ApiErrorCode } from '@hexguard/angular-api-errors';
+
+if (error.code === ApiErrorCode.Required) {
+  /* field is required */
+}
+if (error.code === ApiErrorCode.InvalidFormat) {
+  /* bad format */
+}
+```
+
+## Related Resources
+
+- [Package README](../../angular/packages/angular-api-errors/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-api-errors/)
+- [Source Code](../../angular/packages/angular-api-errors/src/)
+- [.NET Counterpart: `HexGuard.ValidationContracts`](./validation-contracts.md)
+- [Angular Counterpart (this package)](./angular-api-errors.md)
+
 ---
 
 ## API Review Findings

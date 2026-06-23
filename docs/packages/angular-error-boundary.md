@@ -171,6 +171,13 @@ Content re-renders on next change detection
 
 ```
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-error-boundary/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-error-boundary/)
+- [Source Code](../../angular/packages/angular-error-boundary/src/)
+
 ---
 
 ## API Review Findings

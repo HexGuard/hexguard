@@ -106,6 +106,13 @@ undo.undoGroup('batch-1'); // undoes both 'a' and 'b' in reverse order
 | Edge Cases  | No test for pushing an action with the same `id` as an existing one (should replace or reject) | Medium   |
 | Integration | Consider pairing with `@hexguard/angular-notifications` for automatic undo-toast UI            | Low      |
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-undo/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/angular/angular-undo/)
+- [Source Code](../../angular/packages/angular-undo/src/)
+
 ---
 
 ## API Review Findings

@@ -76,6 +76,14 @@ Validated through:
 - Demo-app build coverage for package-home and live demo routes
 - Cross-stack validation via .NET test suite (40 evaluator + store + endpoint tests, all passing)
 
+## Related Resources
+
+- [Package README](../../angular/packages/angular-feature-flags/README.md)
+- [Package Catalog](../README.md)
+- [Demo Routes](../../angular/apps/demo-angular/src/app/features/packages/dotnet/hexguard-feature-flags/)
+- [Source Code](../../angular/packages/angular-feature-flags/src/)
+- [.NET Counterpart: `HexGuard.FeatureFlags`](./hexguard-feature-flags.md)
+
 ---
 
 ## API Review Findings

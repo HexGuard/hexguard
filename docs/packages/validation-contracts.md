@@ -141,6 +141,15 @@ dotnet test tests/HexGuard.ValidationContracts.Tests
 
 The release pipeline is manual (`workflow_dispatch`). See the repository workflows for execution.
 
+## Related Resources
+
+- [Package README](../../dotnet/src/HexGuard.ValidationContracts/README.md)
+- [Package Catalog](../README.md)
+- [Sample API Endpoints](../../dotnet/samples/HexGuard.SampleApi/Packages/HexGuardValidationContracts/)
+- [Source Code](../../dotnet/src/HexGuard.ValidationContracts/)
+- [Angular Counterpart: `@hexguard/angular-api-errors`](./angular-api-errors.md)
+- [Consumed by: `HexGuard.ProblemDetails`](./hexguard-problem-details.md)
+
 ---
 
 ## API Review Findings
