@@ -1,0 +1,58 @@
+<demo-page-layout testId="page-context-demo">
+  <demo-navigation-strip demoNavigation testId="page-context-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Page Context</p>
+        <h2>Page-level metadata for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="page-context-demo-status"
+      summary="Set page-level metadata: title, breadcrumbs, tabs, and contextual actions."
+      currentUrl="Angular Page Context — Demo"
+      summaryTestId="page-context-demo-summary"
+      urlTestId="page-context-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="page-context-playground">
+    <!-- demo-snippet:start angular-page-context/demo-state -->
+    <div class="demo-actions">
+      <button class="demo-button" data-testid="btn-set-dashboard" (click)="setDashboard()">
+        Set Dashboard Context
+      </button>
+      <button class="demo-button" data-testid="btn-set-orders" (click)="setOrders()">
+        Set Orders Context
+      </button>
+      <button class="demo-button" data-testid="btn-clear" (click)="clear()">Clear</button>
+    </div>
+    <div class="demo-values">
+      <p>
+        <strong>Title:</strong> <span data-testid="context-title">{{ pageCtx.title() }}</span>
+      </p>
+      <p>
+        <strong>Breadcrumbs:</strong>
+        <span data-testid="context-breadcrumbs">{{ pageCtx.breadcrumbs().length }} items</span>
+      </p>
+      <p>
+        <strong>Active Tab:</strong>
+        <span data-testid="context-active-tab">{{ pageCtx.activeTab() }}</span>
+      </p>
+      <p>
+        <strong>Actions:</strong>
+        <span data-testid="context-actions">{{ pageCtx.actions().length }} actions</span>
+      </p>
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="page-context-inspector-panel"
+    title="Page Context snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="page-context-snapshot-json"
+    codeTestId="page-context-code-sample"
+  />
+</demo-page-layout>

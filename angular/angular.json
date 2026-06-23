@@ -633,6 +633,136 @@
         }
       }
     },
+    "angular-command-palette": {
+      "projectType": "library",
+      "root": "packages/angular-command-palette",
+      "sourceRoot": "packages/angular-command-palette/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-command-palette/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-command-palette/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-command-palette/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-page-context": {
+      "projectType": "library",
+      "root": "packages/angular-page-context",
+      "sourceRoot": "packages/angular-page-context/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-page-context/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-page-context/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-page-context/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-route-memory": {
+      "projectType": "library",
+      "root": "packages/angular-route-memory",
+      "sourceRoot": "packages/angular-route-memory/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-route-memory/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-route-memory/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-route-memory/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-scroll-state": {
+      "projectType": "library",
+      "root": "packages/angular-scroll-state",
+      "sourceRoot": "packages/angular-scroll-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-scroll-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-scroll-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-scroll-state/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-wizard-state": {
+      "projectType": "library",
+      "root": "packages/angular-wizard-state",
+      "sourceRoot": "packages/angular-wizard-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-wizard-state/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-wizard-state/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-wizard-state/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-visibility": {
       "projectType": "library",
       "root": "packages/angular-visibility",
@@ -684,8 +814,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.1MB",
-                  "maximumError": "1.2MB"
+                  "maximumWarning": "1.2MB",
+                  "maximumError": "1.3MB"
                 },
                 {
                   "type": "anyComponentStyle",

@@ -1,0 +1,35 @@
+{
+  "name": "@hexguard/angular-route-memory",
+  "version": "0.1.0",
+  "description": "Route-to-route memory for Angular: return-to-list flows, preserved filters, last active tab, and route-scoped scroll restoration with signal-based save/restore semantics.",
+  "keywords": [
+    "angular",
+    "signals",
+    "route-memory",
+    "route",
+    "navigation",
+    "return-to-list",
+    "scroll-restore",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-route-memory",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-route-memory"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

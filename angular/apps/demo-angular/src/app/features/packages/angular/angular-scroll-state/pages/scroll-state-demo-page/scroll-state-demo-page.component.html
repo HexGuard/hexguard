@@ -1,0 +1,52 @@
+<demo-page-layout testId="scroll-state-demo">
+  <demo-navigation-strip demoNavigation testId="scroll-state-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Scroll State</p>
+        <h2>Scroll position management for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="scroll-state-demo-status"
+      summary="Track scroll position, save/restore across navigations, and scroll-to-top."
+      currentUrl="Angular Scroll State — Demo"
+      summaryTestId="scroll-state-demo-summary"
+      urlTestId="scroll-state-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="scroll-state-playground">
+    <!-- demo-snippet:start angular-scroll-state/demo-state -->
+    <p class="scroll-info" data-testid="scroll-y">
+      Current scrollY: <strong>{{ scrollState.scrollY() }}</strong>
+    </p>
+    <div class="demo-actions">
+      <button class="demo-button" data-testid="btn-save-scroll" (click)="save()">
+        Save Position
+      </button>
+      <button class="demo-button" data-testid="btn-restore-scroll" (click)="restore()">
+        Restore Position
+      </button>
+      <button class="demo-button" data-testid="btn-scroll-top" (click)="scrollToTop()">
+        Scroll to Top
+      </button>
+    </div>
+    <div class="scroll-long-content">
+      <p>Scroll down to see the scroll position tracking in action.</p>
+      @for (item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track item) {
+        <div class="scroll-item">Item {{ item }}</div>
+      }
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="scroll-state-inspector-panel"
+    title="Scroll State snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="scroll-state-snapshot-json"
+    codeTestId="scroll-state-code-sample"
+  />
+</demo-page-layout>

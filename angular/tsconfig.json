@@ -34,7 +34,12 @@
       "@hexguard/angular-visibility": ["./packages/angular-visibility/src/public-api.ts"],
       "@hexguard/angular-date-utils": ["./packages/angular-date-utils/src/public-api.ts"],
       "@hexguard/angular-network-status": ["./packages/angular-network-status/src/public-api.ts"],
+      "@hexguard/angular-command-palette": ["./packages/angular-command-palette/src/public-api.ts"],
+      "@hexguard/angular-page-context": ["./packages/angular-page-context/src/public-api.ts"],
+      "@hexguard/angular-route-memory": ["./packages/angular-route-memory/src/public-api.ts"],
+      "@hexguard/angular-scroll-state": ["./packages/angular-scroll-state/src/public-api.ts"],
       "@hexguard/angular-undo": ["./packages/angular-undo/src/public-api.ts"],
+      "@hexguard/angular-wizard-state": ["./packages/angular-wizard-state/src/public-api.ts"],
       "@hexguard/angular-storage": ["./packages/angular-storage/src/public-api.ts"]
     },
     "noImplicitOverride": true,
@@ -96,6 +101,36 @@
     },
     {
       "path": "./packages/angular-feature-flags/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-command-palette/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-command-palette/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-page-context/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-page-context/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-route-memory/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-route-memory/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-scroll-state/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-scroll-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-wizard-state/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-wizard-state/tsconfig.spec.json"
     },
     {
       "path": "./apps/demo-angular/tsconfig.app.json"

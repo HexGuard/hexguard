@@ -1399,6 +1399,223 @@ export const GENERATED_CURRENT_PACKAGES = [
       },
     ],
   },
+  {
+    id: 'angular-route-memory',
+    packageName: '@hexguard/angular-route-memory',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Route-to-route memory for Angular: save and restore list filters, active tabs, and scroll positions across navigations with signal-based primitives.',
+    detail:
+      'Provides injectRouteMemory() with save/restore/clear operations, autoSave on scope cleanup, optional sessionStorage serialization, and hasMemory signals for reactive UI binding.',
+    installCommand: 'pnpm add @hexguard/angular-route-memory',
+    featureHighlights: [
+      'injectRouteMemory() with typed save/restore/clear/clearAll operations.',
+      'autoSave(key, factory) for automatic save on scope cleanup.',
+      'hasMemory(key) signal for reactive UI feedback.',
+      'Optional sessionStorage serialization for cross-tab and hard-navigation survival.',
+    ],
+    bestFitScenarios: [
+      'List-detail flows where returning should restore filters, active tab, and scroll position.',
+      'Search pages that should survive accidental navigation away and back.',
+      'Angular apps that need route-scoped memory without global state or URL pollution.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless route-memory primitive for Angular apps.',
+      'It focuses on explicit save/restore contracts, optional serialization, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-route-memory',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-route-memory/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-route-memory.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-page-context',
+    packageName: '@hexguard/angular-page-context',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Page-level metadata for Angular: standardized titles, breadcrumbs, tabs, and contextual actions with signal-based state and route-scoped lifecycle.',
+    detail:
+      'Provides injectPageContext() with set() for simultaneous updates and signals for title, breadcrumbs, activeTab, and actions.',
+    installCommand: 'pnpm add @hexguard/angular-page-context',
+    featureHighlights: [
+      'injectPageContext() with set(context) for atomic metadata updates.',
+      'title, breadcrumbs, activeTab, and actions signals for reactive UI binding.',
+      'setActiveTab(id) for tab-switching without full context reset.',
+      'Route-scoped lifecycle via DestroyRef — context clears on destroy.',
+    ],
+    bestFitScenarios: [
+      'Screens that need dynamic page titles and breadcrumb trails updated declaratively.',
+      'Dashboards with multiple tabs where the active tab should be route-scoped.',
+      'Angular apps that want consistent page-shell metadata without a design-system dependency.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless page-context primitive for Angular apps.',
+      'It focuses on explicit set/read contracts, signal-based state, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-page-context',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-page-context/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-page-context.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-scroll-state',
+    packageName: '@hexguard/angular-scroll-state',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Scroll position save/restore, infinite-scroll detection, scroll-spy section tracking, and imperative smooth-scroll helpers with signal-based primitives.',
+    detail:
+      'Provides injectScrollState() for tracking scroll position, inInfiniteScroll() for IntersectionObserver-based load-more, inScrollSpy() for section tracking, and scrollTo() for imperative scrolling.',
+    installCommand: 'pnpm add @hexguard/angular-scroll-state',
+    featureHighlights: [
+      'injectScrollState() with rAF-throttled scroll tracking and save/restore.',
+      'inInfiniteScroll() with IntersectionObserver, loading/exhausted states, and configurable root margin.',
+      'inScrollSpy() for tracking the most-visible section in a content page.',
+      'scrollTo() imperative helper with smooth-scroll and element-target support.',
+    ],
+    bestFitScenarios: [
+      'List-detail pages that need scroll-state preservation across navigations.',
+      'Long content pages with load-more patterns and section-highlight navigation.',
+      'Angular apps that need scroll management without a third-party library.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless scroll-state primitive for Angular apps.',
+      'It focuses on IntersectionObserver-based detection, rAF-throttled events, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-scroll-state',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-scroll-state/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-scroll-state.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-wizard-state',
+    packageName: '@hexguard/angular-wizard-state',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Multi-step flow state for Angular: linear and conditional step progression, validation gates, resume behavior, and review-or-confirm steps with signal-based primitives.',
+    detail:
+      'Provides injectWizardState() with step navigation, per-step validation gates, conditional step visibility, storage adapters for resumability, and step lifecycle hooks.',
+    installCommand: 'pnpm add @hexguard/angular-wizard-state',
+    featureHighlights: [
+      'injectWizardState() with linear and conditional step progression.',
+      'Per-step validation gates via Signal<boolean> — blocks next() when false.',
+      'Conditional step visibility via canShow predicates.',
+      'Storage adapters for resumability across navigations.',
+      'Step lifecycle hooks: onStepEnter, onStepLeave, onFinish, onCancel.',
+    ],
+    bestFitScenarios: [
+      'Create, import, and onboarding flows with multi-step forms.',
+      'Wizards that need conditional step skipping based on prior answers.',
+      'Angular apps that need resumable wizards surviving page refreshes.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless wizard-state primitive for Angular apps.',
+      'It focuses on explicit step contracts, validation gates, storage adapters, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-wizard-state',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-wizard-state/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-wizard-state.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-command-palette',
+    packageName: '@hexguard/angular-command-palette',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.',
+    detail:
+      'Provides injectCommandRegistry() with register/unregister, search, keyboard shortcut matching, palette open/close state, and configurable enabled signals per command.',
+    installCommand: 'pnpm add @hexguard/angular-command-palette',
+    featureHighlights: [
+      'injectCommandRegistry() with typed Command model and register/unregister.',
+      'search(query) — filters commands by title and category.',
+      'handleShortcut(event) — keyboard shortcut matching with Ctrl/Meta support.',
+      'paletteOpen, togglePalette(), openPalette(), closePalette() state.',
+      'Per-command enabled signal for context-aware visibility.',
+    ],
+    bestFitScenarios: [
+      'Productivity-focused apps that need consistent keyboard shortcut handling.',
+      'Screens that should expose searchable action palettes for power users.',
+      'Angular apps that want a headless command registry without a built-in overlay UI.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless command-registry primitive for Angular apps.',
+      'It focuses on command registration, keyboard shortcuts, search, and a validated publish surface. Palette UI helpers are deferred to a future version.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-command-palette',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-command-palette/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-command-palette.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
 ] as const satisfies readonly GeneratedCurrentPackageCatalogEntry[];
 
 export const GENERATED_ROADMAP_PACKAGES = [
@@ -1427,18 +1644,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-route-memory',
-    anchorId: 'package-angular-route-memory',
-    packageName: '@hexguard/angular-route-memory',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize repeated route-memory patterns such as return-to-list, restored filters, last tab, and route-scoped context recovery.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-route-memory',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-navigation-pending',
     anchorId: 'package-angular-navigation-pending',
     packageName: '@hexguard/angular-navigation-pending',
@@ -1448,18 +1653,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would standardize route transition busy state, page readiness, and app-level navigation pending indicators through a headless Angular contract.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-navigation-pending',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-wizard-state',
-    anchorId: 'package-angular-wizard-state',
-    packageName: '@hexguard/angular-wizard-state',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize multi-step flow state, validation gates, resume behavior, and review or confirm steps for create, import, and onboarding experiences.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-wizard-state',
     showOnSiteHome: false,
   },
   {
@@ -1496,30 +1689,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
       'Would standardize visibility-aware polling, stale indicators, and refresh ergonomics for dashboard-style and operational Angular screens.',
     docsHref:
       'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-live-data',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-page-context',
-    anchorId: 'package-angular-page-context',
-    packageName: '@hexguard/angular-page-context',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize page titles, breadcrumbs, contextual actions, and route-scoped page chrome through a headless metadata contract.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-page-context',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-command-palette',
-    anchorId: 'package-angular-command-palette',
-    packageName: '@hexguard/angular-command-palette',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize command registration, keyboard shortcuts, and searchable command invocation, with optional palette UI layered over a headless command registry.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-command-palette',
     showOnSiteHome: false,
   },
   {

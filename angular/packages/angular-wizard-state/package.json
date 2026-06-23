@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-wizard-state",
+  "version": "0.1.0",
+  "description": "Multi-step flow state for Angular: linear and conditional step progression, validation gates, resume-from-interruption, and review/confirm steps with signal-based primitives.",
+  "keywords": [
+    "angular",
+    "signals",
+    "wizard",
+    "wizard-state",
+    "multi-step",
+    "stepper",
+    "onboarding",
+    "flow",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-wizard-state",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-wizard-state"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

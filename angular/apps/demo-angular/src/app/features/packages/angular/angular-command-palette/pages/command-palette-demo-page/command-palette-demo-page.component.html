@@ -1,0 +1,74 @@
+<demo-page-layout testId="command-palette-demo">
+  <demo-navigation-strip demoNavigation testId="command-palette-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Command Palette</p>
+        <h2>Headless command registry for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="command-palette-demo-status"
+      summary="Register, search, and invoke commands with keyboard shortcut support."
+      currentUrl="Angular Command Palette — Demo"
+      summaryTestId="command-palette-demo-summary"
+      urlTestId="command-palette-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="command-palette-playground">
+    <!-- demo-snippet:start angular-command-palette/demo-state -->
+    <div class="palette-controls">
+      <button
+        class="demo-button"
+        (click)="registry.togglePalette()"
+        data-testid="btn-toggle-palette"
+      >
+        {{ registry.paletteOpen() ? 'Close' : 'Open' }} Palette
+      </button>
+    </div>
+
+    @if (registry.paletteOpen()) {
+      <div class="palette-overlay" data-testid="palette-overlay">
+        <input
+          class="palette-input"
+          type="text"
+          placeholder="Search commands..."
+          [value]="query()"
+          (input)="query.set($any($event.target).value)"
+          data-testid="palette-search"
+          autofocus
+        />
+        <ul class="palette-results">
+          @for (cmd of filteredCommands; track cmd.id) {
+            <li class="palette-item" (click)="invokeCommand(cmd)" data-testid="palette-item">
+              <span class="palette-item-title">{{ cmd.title }}</span>
+              @if (cmd.shortcut) {
+                <span class="palette-item-shortcut">{{ cmd.shortcut }}</span>
+              }
+              @if (cmd.category) {
+                <span class="palette-item-category">{{ cmd.category }}</span>
+              }
+            </li>
+          } @empty {
+            <li class="palette-empty">No commands found</li>
+          }
+        </ul>
+      </div>
+    }
+
+    <p class="last-invoked" data-testid="last-invoked">
+      Last invoked: <strong>{{ lastInvoked() || 'None' }}</strong>
+    </p>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="command-palette-inspector-panel"
+    title="Command Palette snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="command-palette-snapshot-json"
+    codeTestId="command-palette-code-sample"
+  />
+</demo-page-layout>

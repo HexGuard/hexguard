@@ -1,0 +1,49 @@
+<demo-page-layout testId="route-memory-demo">
+  <demo-navigation-strip demoNavigation testId="route-memory-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Route Memory</p>
+        <h2>Route-to-route memory for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="route-memory-demo-status"
+      summary="Demonstrates save, restore, and clear of route-scoped context with signal-based hasMemory feedback."
+      currentUrl="Angular Route Memory — Demo"
+      summaryTestId="route-memory-demo-summary"
+      urlTestId="route-memory-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="route-memory-playground">
+    <!-- demo-snippet:start angular-route-memory/demo-state -->
+    <div class="demo-actions">
+      <button class="demo-button" data-testid="btn-save-list-1" (click)="save('list-1')">
+        Save 'list-1'
+      </button>
+      <button class="demo-button" data-testid="btn-restore-list-1" (click)="restore('list-1')">
+        Restore 'list-1'
+      </button>
+      <button class="demo-button" data-testid="btn-clear-list-1" (click)="clearKey('list-1')">
+        Clear 'list-1'
+      </button>
+      <button class="demo-button" data-testid="btn-clear-all" (click)="clearAll()">
+        Clear All
+      </button>
+    </div>
+    <p class="demo-feedback" data-testid="has-memory">
+      hasMemory('list-1'): {{ memory.hasMemory('list-1')() ? '✅ Yes' : '❌ No' }}
+    </p>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="route-memory-inspector-panel"
+    title="Route Memory snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="route-memory-snapshot-json"
+    codeTestId="route-memory-code-sample"
+  />
+</demo-page-layout>

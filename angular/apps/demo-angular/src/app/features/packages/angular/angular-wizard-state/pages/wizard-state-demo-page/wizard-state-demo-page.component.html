@@ -1,0 +1,93 @@
+<demo-page-layout testId="wizard-state-demo">
+  <demo-navigation-strip demoNavigation testId="wizard-state-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Wizard State</p>
+        <h2>Multi-step flow state for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="wizard-state-demo-status"
+      summary="Multi-step flow with validation gates: navigate through Details, Configuration, and Review."
+      currentUrl="Angular Wizard State — Demo"
+      summaryTestId="wizard-state-demo-summary"
+      urlTestId="wizard-state-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="wizard-state-playground">
+    <!-- demo-snippet:start angular-wizard-state/demo-state -->
+    <h3>Wizard: {{ wizard.currentStep()?.title }}</h3>
+
+    @if (wizard.isFinished()) {
+      <div class="wizard-finished" data-testid="wizard-finished">
+        <p>✅ Wizard completed!</p>
+        <button class="demo-button" (click)="wizard.reset()" data-testid="btn-reset">Reset</button>
+      </div>
+    } @else {
+      <div class="wizard-step" data-testid="wizard-step">
+        @if (wizard.currentStep()?.id === 'details') {
+          <p>Enter the basic details for this item.</p>
+        }
+        @if (wizard.currentStep()?.id === 'config') {
+          <p>Configure your settings:</p>
+          <label class="wizard-checkbox">
+            <input
+              type="checkbox"
+              [checked]="agree()"
+              (change)="agree.set(!agree())"
+              data-testid="chk-agree"
+            />
+            I agree to the terms (enables Next)
+          </label>
+        }
+        @if (wizard.currentStep()?.id === 'review') {
+          <p>Review your choices and confirm.</p>
+        }
+      </div>
+
+      <div class="wizard-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="wizard.progress()"></div>
+        </div>
+        <span class="progress-label" data-testid="progress-label">{{ wizard.progress() }}%</span>
+      </div>
+
+      <div class="demo-actions">
+        <button
+          class="demo-button"
+          [disabled]="!wizard.canGoBack()"
+          (click)="wizard.back()"
+          data-testid="btn-back"
+        >
+          Back
+        </button>
+        <button
+          class="demo-button"
+          [disabled]="!wizard.canGoNext()"
+          (click)="wizard.next()"
+          data-testid="btn-next"
+        >
+          Next
+        </button>
+        <button class="demo-button" (click)="wizard.finish()" data-testid="btn-finish">
+          Finish
+        </button>
+        <button class="demo-button" (click)="wizard.cancel()" data-testid="btn-cancel">
+          Cancel
+        </button>
+      </div>
+    }
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="wizard-state-inspector-panel"
+    title="Wizard State snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="wizard-state-snapshot-json"
+    codeTestId="wizard-state-code-sample"
+  />
+</demo-page-layout>

@@ -67,6 +67,11 @@ const ANGULAR_NETWORK_STATUS_CATALOG = getGeneratedCurrentPackage('angular-netwo
 const ANGULAR_STORAGE_CATALOG = getGeneratedCurrentPackage('angular-storage');
 const ANGULAR_SELECTION_STATE_CATALOG = getGeneratedCurrentPackage('angular-selection-state');
 const ANGULAR_BULK_OPERATIONS_CATALOG = getGeneratedCurrentPackage('angular-bulk-operations');
+const ANGULAR_ROUTE_MEMORY_CATALOG = getGeneratedCurrentPackage('angular-route-memory');
+const ANGULAR_PAGE_CONTEXT_CATALOG = getGeneratedCurrentPackage('angular-page-context');
+const ANGULAR_SCROLL_STATE_CATALOG = getGeneratedCurrentPackage('angular-scroll-state');
+const ANGULAR_WIZARD_STATE_CATALOG = getGeneratedCurrentPackage('angular-wizard-state');
+const ANGULAR_COMMAND_PALETTE_CATALOG = getGeneratedCurrentPackage('angular-command-palette');
 
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
@@ -83,6 +88,11 @@ const ANGULAR_FORM_DRAFTS_DOCS = ANGULAR_FORM_DRAFTS_CATALOG.docsLinks;
 const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
+const ANGULAR_ROUTE_MEMORY_DOCS = ANGULAR_ROUTE_MEMORY_CATALOG.docsLinks;
+const ANGULAR_PAGE_CONTEXT_DOCS = ANGULAR_PAGE_CONTEXT_CATALOG.docsLinks;
+const ANGULAR_SCROLL_STATE_DOCS = ANGULAR_SCROLL_STATE_CATALOG.docsLinks;
+const ANGULAR_WIZARD_STATE_DOCS = ANGULAR_WIZARD_STATE_CATALOG.docsLinks;
+const ANGULAR_COMMAND_PALETTE_DOCS = ANGULAR_COMMAND_PALETTE_CATALOG.docsLinks;
 
 export const ANGULAR_URL_STATE_ORDERS_DEMO: DemoPageEntry = {
   id: 'orders',
@@ -1586,6 +1596,222 @@ export const ANGULAR_STORAGE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_STORAGE_DEMO],
 };
 
+// ── angular-route-memory demo entries ──────────────────────────
+
+export const ANGULAR_ROUTE_MEMORY_DEMO: DemoPageEntry = {
+  id: 'route-memory',
+  packageId: 'angular-route-memory',
+  route: '/packages/angular-route-memory/demo',
+  legacyRoute: '/route-memory',
+  label: 'Route Memory',
+  title: 'Save, restore, and clear route-scoped context with signal-based hasMemory feedback',
+  description:
+    'A live demo shows save/restore/clear operations on route-scoped memory with reactive hasMemory signal feedback.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-route-memory/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-route-memory.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-route-memory/demo-state',
+    label: 'Route Memory demo component source',
+    description:
+      'The full route-memory demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_ROUTE_MEMORY_PACKAGE: DemoPackageEntry = {
+  id: 'angular-route-memory',
+  route: '/packages/angular-route-memory',
+  label: 'Angular Route Memory',
+  title: ANGULAR_ROUTE_MEMORY_CATALOG.packageName,
+  description: ANGULAR_ROUTE_MEMORY_CATALOG.summary,
+  docsLinks: ANGULAR_ROUTE_MEMORY_DOCS,
+  demos: [ANGULAR_ROUTE_MEMORY_DEMO],
+};
+
+// ── angular-page-context demo entries ──────────────────────────
+
+export const ANGULAR_PAGE_CONTEXT_DEMO: DemoPageEntry = {
+  id: 'page-context',
+  packageId: 'angular-page-context',
+  route: '/packages/angular-page-context/demo',
+  legacyRoute: '/page-context',
+  label: 'Page Context',
+  title: 'Set and switch page-level metadata: title, breadcrumbs, tabs, and contextual actions',
+  description:
+    'A live demo shows setting dashboard and order page contexts with reactive title, breadcrumb, active tab, and action feedback.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-page-context/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-page-context.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-page-context/demo-state',
+    label: 'Page Context demo component source',
+    description:
+      'The full page-context demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_PAGE_CONTEXT_PACKAGE: DemoPackageEntry = {
+  id: 'angular-page-context',
+  route: '/packages/angular-page-context',
+  label: 'Angular Page Context',
+  title: ANGULAR_PAGE_CONTEXT_CATALOG.packageName,
+  description: ANGULAR_PAGE_CONTEXT_CATALOG.summary,
+  docsLinks: ANGULAR_PAGE_CONTEXT_DOCS,
+  demos: [ANGULAR_PAGE_CONTEXT_DEMO],
+};
+
+// ── angular-scroll-state demo entries ──────────────────────────
+
+export const ANGULAR_SCROLL_STATE_DEMO: DemoPageEntry = {
+  id: 'scroll-state',
+  packageId: 'angular-scroll-state',
+  route: '/packages/angular-scroll-state/demo',
+  legacyRoute: '/scroll-state',
+  label: 'Scroll State',
+  title: 'Scroll position tracking, save/restore, and scroll-to-top with signal-based primitives',
+  description:
+    'A live demo shows scroll position tracking, save/restore across navigations, and scroll-to-top behavior.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-scroll-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-scroll-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-scroll-state/demo-state',
+    label: 'Scroll State demo component source',
+    description:
+      'The full scroll-state demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_SCROLL_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-scroll-state',
+  route: '/packages/angular-scroll-state',
+  label: 'Angular Scroll State',
+  title: ANGULAR_SCROLL_STATE_CATALOG.packageName,
+  description: ANGULAR_SCROLL_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_SCROLL_STATE_DOCS,
+  demos: [ANGULAR_SCROLL_STATE_DEMO],
+};
+
+// ── angular-wizard-state demo entries ──────────────────────────
+
+export const ANGULAR_WIZARD_STATE_DEMO: DemoPageEntry = {
+  id: 'wizard-state',
+  packageId: 'angular-wizard-state',
+  route: '/packages/angular-wizard-state/demo',
+  legacyRoute: '/wizard-state',
+  label: 'Wizard State',
+  title:
+    'Multi-step flow with validation gates, progress tracking, and finish/cancel/reset semantics',
+  description:
+    'A live demo shows linear step progression through Details, Configuration, and Review steps with validation gates and progress tracking.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-wizard-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-wizard-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-wizard-state/demo-state',
+    label: 'Wizard State demo component source',
+    description:
+      'The full wizard-state demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_WIZARD_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-wizard-state',
+  route: '/packages/angular-wizard-state',
+  label: 'Angular Wizard State',
+  title: ANGULAR_WIZARD_STATE_CATALOG.packageName,
+  description: ANGULAR_WIZARD_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_WIZARD_STATE_DOCS,
+  demos: [ANGULAR_WIZARD_STATE_DEMO],
+};
+
+// ── angular-command-palette demo entries ───────────────────────
+
+export const ANGULAR_COMMAND_PALETTE_DEMO: DemoPageEntry = {
+  id: 'command-palette',
+  packageId: 'angular-command-palette',
+  route: '/packages/angular-command-palette/demo',
+  legacyRoute: '/command-palette',
+  label: 'Command Palette',
+  title: 'Register, search, and invoke commands with keyboard shortcut support',
+  description:
+    'A live demo shows a headless command registry with search, keyboard shortcuts (Ctrl+Shift+N, Ctrl+Shift+L, etc.), and palette open/close state.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-command-palette/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-command-palette.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-command-palette/demo-state',
+    label: 'Command Palette demo component source',
+    description:
+      'The full command-palette demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_COMMAND_PALETTE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-command-palette',
+  route: '/packages/angular-command-palette',
+  label: 'Angular Command Palette',
+  title: ANGULAR_COMMAND_PALETTE_CATALOG.packageName,
+  description: ANGULAR_COMMAND_PALETTE_CATALOG.summary,
+  docsLinks: ANGULAR_COMMAND_PALETTE_DOCS,
+  demos: [ANGULAR_COMMAND_PALETTE_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -1598,21 +1824,26 @@ export const DEMO_PACKAGES = [
   ANGULAR_VISIBILITY_PACKAGE,
   ANGULAR_NAVIGATION_PENDING_PACKAGE,
   ANGULAR_CLICK_OUTSIDE_PACKAGE,
-  ANGULAR_UNDO_PACKAGE,
-  ANGULAR_PAGINATION_PACKAGE,
+  ANGULAR_COMMAND_PALETTE_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
-  ANGULAR_LIVE_DATA_PACKAGE,
-  ANGULAR_FILE_PICKER_PACKAGE,
-  ANGULAR_FORM_DRAFTS_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
-  ANGULAR_NOTIFICATIONS_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
   ANGULAR_FEATURE_FLAGS_PACKAGE,
+  ANGULAR_FILE_PICKER_PACKAGE,
+  ANGULAR_FORM_DRAFTS_PACKAGE,
+  ANGULAR_LIVE_DATA_PACKAGE,
+  ANGULAR_NETWORK_STATUS_PACKAGE,
+  ANGULAR_NOTIFICATIONS_PACKAGE,
+  ANGULAR_PAGE_CONTEXT_PACKAGE,
+  ANGULAR_PAGINATION_PACKAGE,
+  ANGULAR_ROUTE_MEMORY_PACKAGE,
+  ANGULAR_SCROLL_STATE_PACKAGE,
   ANGULAR_SELECTION_STATE_PACKAGE,
+  ANGULAR_STORAGE_PACKAGE,
+  ANGULAR_UNDO_PACKAGE,
+  ANGULAR_WIZARD_STATE_PACKAGE,
   ANGULAR_BULK_OPERATIONS_PACKAGE,
   ANGULAR_DATE_UTILS_PACKAGE,
-  ANGULAR_NETWORK_STATUS_PACKAGE,
-  ANGULAR_STORAGE_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

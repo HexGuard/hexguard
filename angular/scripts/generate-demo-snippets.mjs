@@ -340,6 +340,56 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component.ts',
   },
+  {
+    id: 'angular-route-memory/demo-state',
+    title: 'Route Memory demo component source',
+    description:
+      'Generated from the real Route Memory demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-route-memory/pages/route-memory-demo-page/route-memory-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-route-memory/pages/route-memory-demo-page/route-memory-demo-page.component.ts',
+  },
+  {
+    id: 'angular-page-context/demo-state',
+    title: 'Page Context demo component source',
+    description:
+      'Generated from the real Page Context demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-page-context/pages/page-context-demo-page/page-context-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-page-context/pages/page-context-demo-page/page-context-demo-page.component.ts',
+  },
+  {
+    id: 'angular-scroll-state/demo-state',
+    title: 'Scroll State demo component source',
+    description:
+      'Generated from the real Scroll State demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-scroll-state/pages/scroll-state-demo-page/scroll-state-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-scroll-state/pages/scroll-state-demo-page/scroll-state-demo-page.component.ts',
+  },
+  {
+    id: 'angular-wizard-state/demo-state',
+    title: 'Wizard State demo component source',
+    description:
+      'Generated from the real Wizard State demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-wizard-state/pages/wizard-state-demo-page/wizard-state-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-wizard-state/pages/wizard-state-demo-page/wizard-state-demo-page.component.ts',
+  },
+  {
+    id: 'angular-command-palette/demo-state',
+    title: 'Command Palette demo component source',
+    description:
+      'Generated from the real Command Palette demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-command-palette/pages/command-palette-demo-page/command-palette-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-command-palette/pages/command-palette-demo-page/command-palette-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

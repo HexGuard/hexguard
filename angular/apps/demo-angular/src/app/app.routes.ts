@@ -54,6 +54,16 @@ import { AngularNetworkStatusHomePageComponent } from './features/packages/angul
 import { NetworkStatusDemoPageComponent } from './features/packages/angular/angular-network-status/pages/network-status-demo-page/network-status-demo-page.component';
 import { AngularStorageHomePageComponent } from './features/packages/angular/angular-storage/angular-storage-home-page.component';
 import { StorageDemoPageComponent } from './features/packages/angular/angular-storage/pages/storage-demo-page/storage-demo-page.component';
+import { AngularCommandPaletteHomePageComponent } from './features/packages/angular/angular-command-palette/angular-command-palette-home-page.component';
+import { CommandPaletteDemoPageComponent } from './features/packages/angular/angular-command-palette/pages/command-palette-demo-page/command-palette-demo-page.component';
+import { AngularPageContextHomePageComponent } from './features/packages/angular/angular-page-context/angular-page-context-home-page.component';
+import { PageContextDemoPageComponent } from './features/packages/angular/angular-page-context/pages/page-context-demo-page/page-context-demo-page.component';
+import { AngularRouteMemoryHomePageComponent } from './features/packages/angular/angular-route-memory/angular-route-memory-home-page.component';
+import { RouteMemoryDemoPageComponent } from './features/packages/angular/angular-route-memory/pages/route-memory-demo-page/route-memory-demo-page.component';
+import { AngularScrollStateHomePageComponent } from './features/packages/angular/angular-scroll-state/angular-scroll-state-home-page.component';
+import { ScrollStateDemoPageComponent } from './features/packages/angular/angular-scroll-state/pages/scroll-state-demo-page/scroll-state-demo-page.component';
+import { AngularWizardStateHomePageComponent } from './features/packages/angular/angular-wizard-state/angular-wizard-state-home-page.component';
+import { WizardStateDemoPageComponent } from './features/packages/angular/angular-wizard-state/pages/wizard-state-demo-page/wizard-state-demo-page.component';
 import { AngularBulkOperationsHomePageComponent } from './features/packages/angular/angular-bulk-operations/angular-bulk-operations-home-page.component';
 import { BulkOperationsDemoPageComponent } from './features/packages/angular/angular-bulk-operations/pages/bulk-operations-demo-page/bulk-operations-demo-page.component';
 import { BulkOperationsApiDemoPageComponent } from './features/packages/angular/angular-bulk-operations/pages/bulk-operations-api-demo-page/bulk-operations-api-demo-page.component';
@@ -569,6 +579,61 @@ export const routes: Routes = [
     path: 'packages/angular-storage/demo',
     component: StorageDemoPageComponent,
     title: 'Storage Demo',
+  },
+  // ── Command Palette ─────────────────────────────────────────────
+  {
+    path: 'packages/angular-command-palette',
+    component: AngularCommandPaletteHomePageComponent,
+    title: 'Angular Command Palette Demos',
+  },
+  {
+    path: 'packages/angular-command-palette/demo',
+    component: CommandPaletteDemoPageComponent,
+    title: 'Command Palette Demo',
+  },
+  // ── Page Context ────────────────────────────────────────────────
+  {
+    path: 'packages/angular-page-context',
+    component: AngularPageContextHomePageComponent,
+    title: 'Angular Page Context Demos',
+  },
+  {
+    path: 'packages/angular-page-context/demo',
+    component: PageContextDemoPageComponent,
+    title: 'Page Context Demo',
+  },
+  // ── Route Memory ────────────────────────────────────────────────
+  {
+    path: 'packages/angular-route-memory',
+    component: AngularRouteMemoryHomePageComponent,
+    title: 'Angular Route Memory Demos',
+  },
+  {
+    path: 'packages/angular-route-memory/demo',
+    component: RouteMemoryDemoPageComponent,
+    title: 'Route Memory Demo',
+  },
+  // ── Scroll State ────────────────────────────────────────────────
+  {
+    path: 'packages/angular-scroll-state',
+    component: AngularScrollStateHomePageComponent,
+    title: 'Angular Scroll State Demos',
+  },
+  {
+    path: 'packages/angular-scroll-state/demo',
+    component: ScrollStateDemoPageComponent,
+    title: 'Scroll State Demo',
+  },
+  // ── Wizard State ────────────────────────────────────────────────
+  {
+    path: 'packages/angular-wizard-state',
+    component: AngularWizardStateHomePageComponent,
+    title: 'Angular Wizard State Demos',
+  },
+  {
+    path: 'packages/angular-wizard-state/demo',
+    component: WizardStateDemoPageComponent,
+    title: 'Wizard State Demo',
   },
   // ── .NET showcase routes ────────────────────────────────────────
   {

@@ -1,0 +1,36 @@
+{
+  "name": "@hexguard/angular-scroll-state",
+  "version": "0.1.0",
+  "description": "Scroll position save/restore, infinite-scroll detection, scroll-spy section tracking, and imperative smooth-scroll helpers for Angular with signal-based primitives.",
+  "keywords": [
+    "angular",
+    "signals",
+    "scroll",
+    "scroll-state",
+    "infinite-scroll",
+    "scroll-spy",
+    "scroll-restore",
+    "intersection-observer",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-scroll-state",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-scroll-state"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

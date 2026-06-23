@@ -1,0 +1,35 @@
+{
+  "name": "@hexguard/angular-command-palette",
+  "version": "0.1.0",
+  "description": "Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.",
+  "keywords": [
+    "angular",
+    "signals",
+    "command-palette",
+    "command",
+    "palette",
+    "keyboard-shortcuts",
+    "shortcuts",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-command-palette",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-command-palette"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

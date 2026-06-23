@@ -41,6 +41,11 @@ another.
 | `@hexguard/angular-date-utils`          | In Progress | Date-range state models, relative-time formatting, locale-aware compact notation, and date-comparison helpers that go beyond Angular built-in DatePipe for date-heavy business apps.                  | [Deep Dive](angular-date-utils.md), [npm-facing README](../../angular/packages/angular-date-utils/README.md), [Demo runbook](../demo/README.md)                   |
 | `@hexguard/angular-selection-state`     | Released    | Keyed selection state model for lists and tables: toggle, select-all, clear, and bulk-action enablement through a headless signal-based contract.                                                     | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)         |
 | `@hexguard/angular-bulk-operations`     | Released    | Angular bulk-operation service for HTTP 207 Multi-Status workflows: typed request/response contracts, per-item result tracking, and partial-failure display.                                          | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)         |
+| `@hexguard/angular-route-memory`        | Available   | Route-to-route memory for Angular: save and restore list filters, active tabs, and scroll positions across navigations with signal-based primitives.                                                  | [Deep Dive](angular-route-memory.md), [npm-facing README](../../angular/packages/angular-route-memory/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-page-context`        | Available   | Page-level metadata for Angular: standardized titles, breadcrumbs, tabs, and contextual actions with signal-based state and route-scoped lifecycle.                                                   | [Deep Dive](angular-page-context.md), [npm-facing README](../../angular/packages/angular-page-context/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-scroll-state`        | Available   | Scroll position save/restore, infinite-scroll detection, scroll-spy section tracking, and imperative smooth-scroll helpers with signal-based primitives.                                              | [Deep Dive](angular-scroll-state.md), [npm-facing README](../../angular/packages/angular-scroll-state/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-wizard-state`        | Available   | Multi-step flow state for Angular: linear and conditional step progression, validation gates, resume behavior, and review-or-confirm steps with signal-based primitives.                              | [Deep Dive](angular-wizard-state.md), [npm-facing README](../../angular/packages/angular-wizard-state/README.md), [Demo runbook](../demo/README.md)               |
+| `@hexguard/angular-command-palette`     | Available   | Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.                                         | [Deep Dive](angular-command-palette.md), [npm-facing README](../../angular/packages/angular-command-palette/README.md), [Demo runbook](../demo/README.md)         |
 
 ## Package Status Notes
 
@@ -368,6 +373,56 @@ This package pairs with HexGuard.BulkOperations on the .NET side through shared 
 
 It focuses on selection-to-request mapping, response parsing, partial-failure display, and a validated publish surface across docs, demos, and package artifacts.
 
+<a id="package-angular-route-memory"></a>
+
+### `@hexguard/angular-route-memory`
+
+Status: Available
+
+This package is available as a headless route-memory primitive for Angular apps.
+
+It focuses on explicit save/restore contracts, optional serialization, and a validated publish surface.
+
+<a id="package-angular-page-context"></a>
+
+### `@hexguard/angular-page-context`
+
+Status: Available
+
+This package is available as a headless page-context primitive for Angular apps.
+
+It focuses on explicit set/read contracts, signal-based state, and a validated publish surface.
+
+<a id="package-angular-scroll-state"></a>
+
+### `@hexguard/angular-scroll-state`
+
+Status: Available
+
+This package is available as a headless scroll-state primitive for Angular apps.
+
+It focuses on IntersectionObserver-based detection, rAF-throttled events, and a validated publish surface.
+
+<a id="package-angular-wizard-state"></a>
+
+### `@hexguard/angular-wizard-state`
+
+Status: Available
+
+This package is available as a headless wizard-state primitive for Angular apps.
+
+It focuses on explicit step contracts, validation gates, storage adapters, and a validated publish surface.
+
+<a id="package-angular-command-palette"></a>
+
+### `@hexguard/angular-command-palette`
+
+Status: Available
+
+This package is available as a headless command-registry primitive for Angular apps.
+
+It focuses on command registration, keyboard shortcuts, search, and a validated publish surface. Palette UI helpers are deferred to a future version.
+
 ## Planned and Proposed Package Briefs
 
 <a id="package-angular-submit-lock"></a>
@@ -386,14 +441,6 @@ Status: Proposed
 
 Would standardize upload lifecycle state such as queueing, progress, retry, cancel, and completion without forcing one transport implementation.
 
-<a id="package-angular-route-memory"></a>
-
-### `@hexguard/angular-route-memory`
-
-Status: Proposed
-
-Would standardize repeated route-memory patterns such as return-to-list, restored filters, last tab, and route-scoped context recovery.
-
 <a id="package-angular-navigation-pending"></a>
 
 ### `@hexguard/angular-navigation-pending`
@@ -401,14 +448,6 @@ Would standardize repeated route-memory patterns such as return-to-list, restore
 Status: Proposed
 
 Would standardize route transition busy state, page readiness, and app-level navigation pending indicators through a headless Angular contract.
-
-<a id="package-angular-wizard-state"></a>
-
-### `@hexguard/angular-wizard-state`
-
-Status: Proposed
-
-Would standardize multi-step flow state, validation gates, resume behavior, and review or confirm steps for create, import, and onboarding experiences.
 
 <a id="package-angular-undo"></a>
 
@@ -433,22 +472,6 @@ Would standardize confirm/cancel and confirm-and-run flows for destructive or hi
 Status: Proposed
 
 Would standardize visibility-aware polling, stale indicators, and refresh ergonomics for dashboard-style and operational Angular screens.
-
-<a id="package-angular-page-context"></a>
-
-### `@hexguard/angular-page-context`
-
-Status: Proposed
-
-Would standardize page titles, breadcrumbs, contextual actions, and route-scoped page chrome through a headless metadata contract.
-
-<a id="package-angular-command-palette"></a>
-
-### `@hexguard/angular-command-palette`
-
-Status: Proposed
-
-Would standardize command registration, keyboard shortcuts, and searchable command invocation, with optional palette UI layered over a headless command registry.
 
 <a id="package-angular-query-signal-forms"></a>
 
