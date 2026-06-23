@@ -1,7 +1,7 @@
 ---
 id: feature-blazor-click-outside
 type: feature
-status: proposed
+status: dropped-duplicate
 created: 2026-06-23
 package: HexGuard.Blazor.ClickOutside
 ---

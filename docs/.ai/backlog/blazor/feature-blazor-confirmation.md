@@ -1,7 +1,7 @@
 ---
 id: feature-blazor-confirmation
 type: feature
-status: proposed
+status: dropped-niche
 created: 2026-06-23
 package: HexGuard.Blazor.Confirmation
 ---
