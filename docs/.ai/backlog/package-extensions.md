@@ -799,3 +799,11 @@ const routes = [
 | 84 | `HexGuard.FeatureFlags` | `ScheduledFlag` — auto-enable/disable at datetime | .NET | Medium | High |
 | 85 | `HexGuard.ReferenceData` | `ReferenceDataVersioning` — catalog version tracking | .NET | Medium | Medium |
 | 86 | `HexGuard.BulkOperations` | `BulkOperationMetrics` — duration, throughput, error rate | .NET | Low | Medium |
+| 87 | `@hexguard/angular-async-state` | `withAuth()` — auto-attach auth token to async loads | Angular | Low | High |
+| 88 | `@hexguard/angular-pagination` | `withApi()` — auto-bind to CRUD API endpoint | Angular | Medium | High |
+| 89 | `@hexguard/angular-form-drafts` | `withServerSync()` — sync drafts to server | Angular | Medium | High |
+| 90 | `@hexguard/angular-notifications` | `withPersistence()` — persist notification history | Angular | Low | Medium |
+| 91 | `HexGuard.Pagination` | `AutoCrudQuery` — auto-apply to IQueryable | .NET | Medium | High |
+| 92 | `HexGuard.ProblemDetails` | `ProblemDetailsFactory` — typed factory per exception type | .NET | Low | High |
+| 93 | `HexGuard.FeatureFlags` | `FlagAtBuildTime` — tree-shake disabled features | .NET | Medium | Medium |
+| 94 | `HexGuard.ValidationContracts` | `ValidationFilter` — auto-validate Minimal API params | .NET | Low | High |
