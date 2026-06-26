@@ -10,7 +10,7 @@ package: '@hexguard/angular-deploy'
 
 ## Summary
 
-Deployment/build awareness — version, commit hash, build time, environment name as signals. `EnvironmentBannerComponent` for staging/dev overlays.
+Deployment/build awareness — version, commit hash, build time, environment name as signals. Headless state only — consumers render their own environment indicators.
 
 ## Proposed Public API
 
@@ -25,9 +25,11 @@ export function injectBuildInfo(): {
   readonly isDevelopment: Signal<boolean>;
 };
 
-@Component({ selector: 'hex-env-banner', standalone: true })
-export class EnvironmentBannerComponent {
-  // Shows "STAGING" / "DEV" overlay — hidden in production
+// Usage — consumer renders their own banner:
+// @if (buildInfo.isStaging()) {
+//   <div class="env-banner staging">STAGING</div>
+// }
+```
 }
 ```
 
