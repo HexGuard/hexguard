@@ -141,3 +141,215 @@
 - [ ] Add changelog generation tied to package-scoped releases.
 - [ ] Introduce smoke tests for published tarballs in a clean consumer fixture.
 - [ ] Add package ownership metadata once the roadmap turns into multiple maintainers.
+
+---
+
+## Prioritization Matrix
+
+All 280 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (94 items across 22 packages).
+
+### 🟢 P0 — Foundation / Released
+
+Core building blocks the ecosystem depends on.
+
+| Package | Stack | Status |
+|---------|-------|--------|
+| `@hexguard/angular-url-state` | Angular | Released |
+| `@hexguard/angular-async-state` | Angular | Released |
+| `@hexguard/angular-signal-utils` | Angular | Proposed |
+| `HexGuard.ProblemDetails` | .NET | Released |
+| `HexGuard.ValidationContracts` | .NET | Released |
+| `HexGuard.Pagination` | .NET | Available |
+| `@hexguard/ts-result` | TypeScript | Proposed |
+
+### 🔵 P1 — Acceleration / High-Impact
+
+Maximum go-to-market acceleration. Ship these first.
+
+| Package | Stack | Impact |
+|---------|-------|--------|
+| `@hexguard/angular-auth-flow` | Angular | Saves 2-4 weeks/project |
+| `@hexguard/angular-data-grid` | Angular | Saves 1-2 days/list page |
+| `@hexguard/angular-admin` | Angular | Saves 1-2 weeks/project |
+| `@hexguard/angular-notifications` | Angular | Universal |
+| `@hexguard/angular-permissions` | Angular | Universal |
+| `@hexguard/angular-api-errors` | Angular | Universal |
+| `@hexguard/angular-storage` | Angular | Universal |
+| `@hexguard/angular-debounce` | Angular | Universal |
+| `@hexguard/angular-router-signals` | Angular | Universal |
+| `HexGuard.Crud` | .NET | Saves 80% of CRUD code |
+| `HexGuard.Auth` | .NET | Pre-built auth |
+| `HexGuard.ApiClient` | .NET | Eliminates manual HTTP code |
+| `HexGuard.Startup` | .NET | Production infrastructure |
+| `HexGuard.Tenancy` | .NET | SaaS foundation |
+| `HexGuard.RequestLogging` | .NET | Universal debugging |
+
+### 🟡 P2 — Broadly Useful
+
+Used in most projects. Strong value, schedule after P1.
+
+| Package | Stack |
+|---------|-------|
+| `@hexguard/angular-pagination` | Angular |
+| `@hexguard/angular-form-drafts` | Angular |
+| `@hexguard/angular-confirmation` | Angular |
+| `@hexguard/angular-undo` | Angular |
+| `@hexguard/angular-file-picker` | Angular |
+| `@hexguard/angular-selection-state` | Angular |
+| `@hexguard/angular-filter` | Angular |
+| `@hexguard/angular-table` | Angular |
+| `@hexguard/angular-accordion` | Angular |
+| `@hexguard/angular-timer` | Angular |
+| `@hexguard/angular-calendar` | Angular |
+| `@hexguard/angular-combobox` | Angular |
+| `@hexguard/angular-tags` | Angular |
+| `@hexguard/angular-focus` | Angular |
+| `@hexguard/angular-keyboard-nav` | Angular |
+| `@hexguard/angular-signal-persist` | Angular |
+| `@hexguard/angular-effect-utils` | Angular |
+| `@hexguard/angular-form-arrays` | Angular |
+| `@hexguard/angular-resource` | Angular |
+| `@hexguard/angular-polling` | Angular |
+| `@hexguard/angular-signal-sort` | Angular |
+| `@hexguard/angular-signal-group` | Angular |
+| `@hexguard/angular-signal-map` | Angular |
+| `@hexguard/angular-import` | Angular |
+| `@hexguard/angular-csv` | Angular |
+| `@hexguard/angular-theme` | Angular |
+| `@hexguard/angular-deploy` | Angular |
+| `@hexguard/angular-tree-state` | Angular |
+| `@hexguard/angular-batch` | Angular |
+| `@hexguard/angular-file-reader` | Angular |
+| `@hexguard/angular-mention` | Angular |
+| `@hexguard/angular-color` | Angular |
+| `@hexguard/angular-chat` | Angular |
+| `@hexguard/angular-idle` | Angular |
+| `@hexguard/angular-offline` | Angular |
+| `@hexguard/angular-sync` | Angular |
+| `HexGuard.FeatureFlags` | .NET |
+| `HexGuard.Capabilities` | .NET |
+| `HexGuard.BulkOperations` | .NET |
+| `HexGuard.ReferenceData` | .NET |
+| `HexGuard.Validation` | .NET |
+| `HexGuard.DbContext` | .NET |
+| `HexGuard.Clock` | .NET |
+| `HexGuard.Result` | .NET |
+| `HexGuard.Configuration` | .NET |
+| `HexGuard.SecureHeaders` | .NET |
+| `HexGuard.ApiTelemetry` | .NET |
+| `HexGuard.ResponseCaching` | .NET |
+| `HexGuard.DataMasking` | .NET |
+| `HexGuard.RequestDeduplication` | .NET |
+| `HexGuard.Outbox` | .NET |
+| `HexGuard.Content` | .NET |
+| `HexGuard.Etl` | .NET |
+| `HexGuard.Concurrency` | .NET |
+| `HexGuard.Filtering` | .NET |
+| `HexGuard.RateLimiting` | .NET |
+| `HexGuard.SoftDelete` | .NET |
+| `HexGuard.Idempotency` | .NET |
+| `HexGuard.AuditTrail` | .NET |
+| `@hexguard/ts-guard` | TypeScript |
+| `@hexguard/ts-retry` | TypeScript |
+| `@hexguard/ts-fetch` | TypeScript |
+| `@hexguard/ts-env` | TypeScript |
+| `@hexguard/ts-schema` | TypeScript |
+| `@hexguard/ts-collections` | TypeScript |
+| `@hexguard/ts-cache` | TypeScript |
+| `@hexguard/ts-pipe` | TypeScript |
+| `@hexguard/ts-debounce` | TypeScript |
+| `@hexguard/ts-random` | TypeScript |
+| `@hexguard/ts-slug` | TypeScript |
+| `@hexguard/ts-fuzzy` | TypeScript |
+| `@hexguard/ts-markdown` | TypeScript |
+| `@hexguard/ts-template` | TypeScript |
+
+### 🟠 P3 — Domain-Specific
+
+Valuable in specific domains (real-time, AI, e-commerce, CMS).
+
+| Package | Stack | Domain |
+|---------|-------|--------|
+| `@hexguard/angular-charts` | Angular | Analytics |
+| `@hexguard/angular-dashboard` | Angular | Analytics |
+| `@hexguard/angular-webrtc` | Angular | Real-time |
+| `@hexguard/angular-websocket` | Angular | Real-time |
+| `@hexguard/angular-graphql` | Angular | Data |
+| `@hexguard/angular-presence` | Angular | Collaboration |
+| `@hexguard/angular-media` | Angular | Media |
+| `@hexguard/angular-wizard-state` | Angular | Forms |
+| `@hexguard/angular-drag-state` | Angular | UI |
+| `@hexguard/angular-tour` | Angular | Onboarding |
+| `@hexguard/angular-cart` | Angular | E-commerce |
+| `@hexguard/angular-content` | Angular | CMS |
+| `@hexguard/angular-cookie-consent` | Angular | Legal |
+| `@hexguard/angular-upload-state` | Angular | Media |
+| `@hexguard/angular-signal-machine` | Angular | State |
+| `@hexguard/angular-speech` | Angular | Accessibility |
+| `HexGuard.Sagas` | .NET | Workflow |
+| `HexGuard.Sse` | .NET | Real-time |
+| `HexGuard.Streaming` | .NET | Data |
+| `HexGuard.Markdown` | .NET | Content |
+| `HexGuard.ImageProcessing` | .NET | Media |
+| `HexGuard.WebhookReceiver` | .NET | Integration |
+| `HexGuard.Grpc` | .NET | RPC |
+| `HexGuard.StateMachine` | .NET | Workflow |
+| `HexGuard.Scheduling` | .NET | Workflow |
+| `HexGuard.DataSeeding` | .NET | Dev/Test |
+| `@hexguard/ts-semaphore` | TypeScript | Concurrency |
+| `@hexguard/ts-lock` | TypeScript | Concurrency |
+| `@hexguard/ts-queue` | TypeScript | Data |
+| `@hexguard/ts-diff` | TypeScript | Content |
+| `@hexguard/ts-event` | TypeScript | Patterns |
+| `@hexguard/ts-broadcast` | TypeScript | Browser |
+| `@hexguard/ts-transform` | TypeScript | ETL |
+
+### ⚪ P4 — Niche / Experimental
+
+Valid ideas with narrower audience. Good for ecosystem completeness.
+
+| Package | Stack |
+|---------|-------|
+| `@hexguard/angular-screen-orientation` | Angular |
+| `@hexguard/angular-wake-lock` | Angular |
+| `@hexguard/angular-share` | Angular |
+| `@hexguard/angular-sticky` | Angular |
+| `@hexguard/angular-portal` | Angular |
+| `@hexguard/angular-web-vitals` | Angular |
+| `@hexguard/angular-keyboard` | Angular |
+| `@hexguard/angular-empty-state` | Angular |
+| `@hexguard/angular-skeleton` | Angular |
+| `@hexguard/angular-focus-trap` | Angular |
+| `@hexguard/angular-resizable` | Angular |
+| `@hexguard/angular-command-palette` | Angular |
+| `@hexguard/angular-click-outside` | Angular |
+| `@hexguard/angular-scroll-state` | Angular |
+| `@hexguard/angular-navigation-pending` | Angular |
+| `@hexguard/angular-live-data` | Angular |
+| `@hexguard/angular-route-memory` | Angular |
+| `@hexguard/angular-page-context` | Angular |
+| `@hexguard/angular-visibility` | Angular |
+| `@hexguard/angular-query-signal-forms` | Angular |
+| `HexGuard.ApiDiscovery` | .NET |
+| `HexGuard.ApiDocumentation` | .NET |
+| `HexGuard.ContentNegotiation` | .NET |
+| `HexGuard.RequestCorrelation` | .NET |
+| `HexGuard.ApiCompression` | .NET |
+| `HexGuard.SecureStorage` | .NET |
+| `HexGuard.EndpointValidation` | .NET |
+| `HexGuard.EndpointConventions` | .NET |
+| `HexGuard.Export` | .NET |
+
+---
+
+## Headless Compliance Audit (2026-06-26)
+
+All 280 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+
+| Brief | Issue | Resolution |
+|-------|-------|------------|
+| `angular-deploy` | Had `EnvironmentBannerComponent` (rendered) | Removed — headless signals only |
+| `blazor-markdown` | Had `MarkdownViewer.razor` (rendered) | Reframed as `MarkdownService` (string → string) |
+
+Error boundaries (`angular-error-boundary`, `blazor-error-boundary`) retain their component nature — error boundary infrastructure requires rendering to catch errors. This is accepted as platform-level infrastructure, not consumer UI.

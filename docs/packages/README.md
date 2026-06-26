@@ -1341,6 +1341,25 @@ These proposals are strongest when Angular and .NET packages ship as complementa
 - `HexGuard.Moderation + @hexguard/angular-moderation`: content moderation queue contracts, review-state, and appeal workflows for user-generated content.
 - `HexGuard.Analytics + @hexguard/angular-analytics`: privacy-respecting analytics event contracts, page-view tracking, and Angular analytics-service abstraction.
 
+---
+
+## Complete Backlog
+
+The full catalog of **280 proposed packages** across 5 stacks is maintained in `docs/.ai/backlog/`:
+
+| Stack | Briefs | Folder | Naming Convention |
+|-------|--------|--------|-------------------|
+| Angular | 103 | `docs/.ai/backlog/angular/` | `@hexguard/angular-{name}` |
+| Blazor | 55 | `docs/.ai/backlog/blazor/` | `HexGuard.Blazor.{Name}` |
+| .NET | 54 | `docs/.ai/backlog/dotnet/` | `HexGuard.{Name}` |
+| Cross-stack | 32 | `docs/.ai/backlog/cross-stack/` | Paired `HexGuard.{Name}` + `@hexguard/angular-{name}` |
+| TypeScript | 36 | `docs/.ai/backlog/typescript/` | `@hexguard/ts-{name}` |
+| **Total** | **280** | | |
+
+An additional **94 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
+
+All packages are **headless** — state/signals/services only, no rendered UI. See `docs/.ai/backlog.md` for the full prioritization matrix and `docs/.ai/backlog/package-extensions.md` for extension proposals.
+
 <a id="package-problemdetails"></a>
 
 ### `HexGuard.ProblemDetails`
