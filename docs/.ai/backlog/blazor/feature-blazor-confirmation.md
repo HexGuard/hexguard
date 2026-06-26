@@ -1,8 +1,9 @@
 ---
 id: feature-blazor-confirmation
 type: feature
-status: dropped-niche
+status: proposed
 created: 2026-06-23
+updated: 2026-06-25
 package: HexGuard.Blazor.Confirmation
 ---
 
@@ -11,6 +12,8 @@ package: HexGuard.Blazor.Confirmation
 ## Summary
 
 Headless confirmation dialog state for Blazor — promise-based `Ask()` / `Run()` flows for destructive or high-impact actions. Blazor has no built-in confirmation pattern; developers must manually manage `isOpen`, `currentRequest`, and resolve/reject callbacks for every dialog.
+
+**Re-promotion note (2026-06-25):** Originally filed as dropped-niche, but the Angular counterpart `@hexguard/angular-confirmation` is a released, well-used package. The `ask`/`run` promise pattern with `TaskCompletionSource` maps naturally to Blazor. The "niche" assessment was incorrect — destructive-action confirmation is a universal pattern.
 
 ## Goals
 
