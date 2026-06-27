@@ -146,8 +146,8 @@
 
 ## Prioritization Matrix
 
-All 314 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
-Extensions are listed in `docs/.ai/backlog/package-extensions.md` (128 items across 22 packages).
+All 333 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (136 items across 22 packages).
 
 ### 🟢 P0 — Foundation / Released
 
@@ -351,6 +351,20 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `@hexguard/angular-policy-attestation` | Angular | Compliance |
 | `@hexguard/angular-access-log` | Angular | Audit |
 | `@hexguard/angular-field-audit` | Angular | Audit |
+| `@hexguard/angular-invoice` | Angular | Financial |
+| `@hexguard/angular-signature` | Angular | Legal |
+| `@hexguard/angular-media-library` | Angular | Content |
+| `@hexguard/angular-ai-chat` | Angular | AI |
+| `@hexguard/angular-billing` | Angular | Financial |
+| `@hexguard/angular-org-chart` | Angular | HR |
+| `@hexguard/angular-time-tracking` | Angular | HR |
+| `@hexguard/angular-invoice` | Angular | Financial |
+| `@hexguard/angular-signature` | Angular | Legal |
+| `@hexguard/angular-media-library` | Angular | Content |
+| `@hexguard/angular-ai-chat` | Angular | AI |
+| `@hexguard/angular-billing` | Angular | Financial |
+| `@hexguard/angular-org-chart` | Angular | HR |
+| `@hexguard/angular-time-tracking` | Angular | HR |
 | `@hexguard/angular-customer-portal` | Angular | Customer |
 | `HexGuard.Portal` | .NET | Customer |
 | `HexGuard.Secrets` | .NET | Security |
@@ -364,6 +378,13 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `HexGuard.Pii` | .NET | Security |
 | `HexGuard.PolicyAttestation` | .NET | Compliance |
 | `HexGuard.AccessLog` | .NET | Audit |
+| `HexGuard.Invoicing` | .NET | Financial |
+| `HexGuard.Signing` | .NET | Legal |
+| `HexGuard.MediaLibrary` | .NET | Content |
+| `HexGuard.AiGateway` | .NET | AI |
+| `HexGuard.Billing` | .NET | Financial |
+| `HexGuard.TimeTracking` | .NET | HR |
+| `HexGuard.Sla` | .NET | Operations |
 | `@hexguard/angular-checkout` | Angular | E-commerce |
 | `@hexguard/angular-discount` | Angular | E-commerce |
 | `@hexguard/angular-orders` | Angular | E-commerce |
@@ -418,12 +439,15 @@ Valid ideas with narrower audience. Good for ecosystem completeness.
 | `@hexguard/ts-seo` | TypeScript |
 | `@hexguard/ts-gdpr` | TypeScript |
 | `@hexguard/ts-hash` | TypeScript |
+| `@hexguard/ts-invoice` | TypeScript |
+| `@hexguard/ts-duration` | TypeScript |
+| `@hexguard/ts-currency` | TypeScript |
 
 ---
 
 ## Headless Compliance Audit (2026-06-27)
 
-All 314 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+All 333 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
 
 | Brief | Issue | Resolution |
 |-------|-------|------------|

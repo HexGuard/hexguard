@@ -841,3 +841,11 @@ const routes = [
 | 126 | `@hexguard/angular-storage` | `gdprCompliant()` — automatic expiry + consent gating on stored data | Angular | Medium | High |
 | 127 | `HexGuard.RequestLogging` | `ComplianceHeaders` — inject audit/compliance HTTP headers | .NET | Low | High |
 | 128 | `@hexguard/angular-cookie-consent` | `consentVersionSync()` — auto-detect policy updates for re-consent | Angular | Low | High |
+| 129 | `@hexguard/angular-invoice` | `invoiceTemplate` — configurable template fields for invoice display | Angular | Low | Medium |
+| 130 | `@hexguard/angular-billing` | `usageSparkline` — computed usage trend data for sparkline charts | Angular | Low | Medium |
+| 131 | `@hexguard/angular-ai-chat` | `tokenCostTracker` — real-time cost estimation during streaming | Angular | Medium | High |
+| 132 | `@hexguard/angular-signature` | `signatureAuditTrail` — immutable signature event log per session | Angular | Low | High |
+| 133 | `HexGuard.Invoicing` | `RecurringInvoice` — auto-generate invoices on configurable schedule | .NET | Medium | High |
+| 134 | `HexGuard.Billing` | `UsageAnomalyDetection` — detect unusual usage spikes | .NET | Medium | High |
+| 135 | `@hexguard/angular-media-library` | `cropTool` — image crop coordinates and aspect ratio state | Angular | Medium | Medium |
+| 136 | `HexGuard.Sla` | `SlaCreditAutoCalculate` — automatic credit computation on breach | .NET | Low | High |

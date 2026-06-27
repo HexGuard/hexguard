@@ -1356,18 +1356,18 @@ These proposals are strongest when Angular and .NET packages ship as complementa
 
 ## Complete Backlog
 
-The full catalog of **314 proposed packages** across 5 stacks is maintained in `docs/.ai/backlog/`:
+The full catalog of **333 proposed packages** across 5 stacks is maintained in `docs/.ai/backlog/`:
 
 | Stack       | Briefs  | Folder                          | Naming Convention                                     |
 | ----------- | ------- | ------------------------------- | ----------------------------------------------------- |
-| Angular     | 121     | `docs/.ai/backlog/angular/`     | `@hexguard/angular-{name}`                            |
+| Angular     | 128     | `docs/.ai/backlog/angular/`     | `@hexguard/angular-{name}`                            |
 | Blazor      | 47      | `docs/.ai/backlog/blazor/`      | `HexGuard.Blazor.{Name}`                              |
-| .NET        | 77      | `docs/.ai/backlog/dotnet/`      | `HexGuard.{Name}`                                     |
-| Cross-stack | 39      | `docs/.ai/backlog/cross-stack/` | Paired `HexGuard.{Name}` + `@hexguard/angular-{name}` |
-| TypeScript  | 30      | `docs/.ai/backlog/typescript/`  | `@hexguard/ts-{name}`                                 |
-| **Total**   | **314** |                                 |                                                       |
+| .NET        | 84      | `docs/.ai/backlog/dotnet/`      | `HexGuard.{Name}`                                     |
+| Cross-stack | 41      | `docs/.ai/backlog/cross-stack/` | Paired `HexGuard.{Name}` + `@hexguard/angular-{name}` |
+| TypeScript  | 33      | `docs/.ai/backlog/typescript/`  | `@hexguard/ts-{name}`                                 |
+| **Total**   | **333** |                                 |                                                       |
 
-An additional **128 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
+An additional **136 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
 
 All packages are **headless** — state/signals/services only, no rendered UI. See `docs/.ai/backlog.md` for the full prioritization matrix and `docs/.ai/backlog/package-extensions.md` for extension proposals.
 
