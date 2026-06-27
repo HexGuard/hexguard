@@ -823,3 +823,13 @@ const routes = [
 | 108 | `HexGuard.RateLimiting` | `TenantRateLimit` — per-tenant rate limiting | .NET | Medium | High |
 | 109 | `@hexguard/angular-backup` | `backupHistory` — backup list with restore capability | Angular | Medium | Medium |
 | 110 | `HexGuard.Backup` | `BackupVerification` — auto-restore + verify integrity | .NET | Medium | High |
+| 111 | `@hexguard/angular-debounce` | `withCancel()` — cancellation token support for debounced values | Angular | Low | High |
+| 112 | `@hexguard/angular-url-state` | `debounceSync()` — debounced URL sync to avoid rapid history entries | Angular | Low | High |
+| 113 | `@hexguard/angular-async-state` | `withPolling()` — periodic refresh with configurable interval | Angular | Medium | High |
+| 114 | `@hexguard/angular-storage` | `withEncryption()` — client-side AES encryption for stored values | Angular | Medium | Medium |
+| 115 | `HexGuard.Approvals` | `ApprovalDelegationRules` — auto-delegation on absence or timeout | .NET | Medium | High |
+| 116 | `@hexguard/angular-approvals` | `approvalDueDateWarning` — computed overdue detection and escalation | Angular | Low | Medium |
+| 117 | `HexGuard.EventBus` | `OutboxEventPublisher` — transactional outbox pattern integration | .NET | Medium | High |
+| 118 | `@hexguard/angular-selection-state` | `shiftClickRange` — shift+click range selection across items | Angular | Medium | Medium |
+| 119 | `HexGuard.Localization` | `EnumLocalizer` — auto-localize enum display names from resources | .NET | Low | High |
+| 120 | `@hexguard/angular-data-grid` | `columnPersistence` — save/restore column config to localStorage | Angular | Low | High |
