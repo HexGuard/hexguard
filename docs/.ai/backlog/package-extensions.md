@@ -807,3 +807,11 @@ const routes = [
 | 92 | `HexGuard.ProblemDetails` | `ProblemDetailsFactory` — typed factory per exception type | .NET | Low | High |
 | 93 | `HexGuard.FeatureFlags` | `FlagAtBuildTime` — tree-shake disabled features | .NET | Medium | Medium |
 | 94 | `HexGuard.ValidationContracts` | `ValidationFilter` — auto-validate Minimal API params | .NET | Low | High |
+| 95 | `@hexguard/angular-subscription` | `withPlanGate()` — feature flag check against current plan | Angular | Low | High |
+| 96 | `@hexguard/angular-feature-flags` | `perPlan()` — plan-aware flag evaluation | Angular | Low | Medium |
+| 97 | `HexGuard.Tenancy` | `TenantPlanEnforcement` — block features beyond tenant plan | .NET | Medium | High |
+| 98 | `@hexguard/angular-orders` | `orderStatusTimeline` — computed status progression | Angular | Low | Medium |
+| 99 | `HexGuard.Email` | `EmailTemplatePreview` — render + preview endpoint | .NET | Low | Medium |
+| 100 | `@hexguard/angular-prompt` | `promptCompare` — side-by-side prompt version diff | Angular | Medium | Medium |
+| 101 | `HexGuard.Media` | `cdnUrl` — auto-generate CDN URLs with variant support | .NET | Low | High |
+| 102 | `@hexguard/angular-testing` | `fakeAsyncSignal` — signal-aware fakeAsync for zone-less | Angular | Medium | High |
