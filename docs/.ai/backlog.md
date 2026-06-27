@@ -146,8 +146,8 @@
 
 ## Prioritization Matrix
 
-All 295 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
-Extensions are listed in `docs/.ai/backlog/package-extensions.md` (120 items across 22 packages).
+All 314 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (128 items across 22 packages).
 
 ### 🟢 P0 — Foundation / Released
 
@@ -275,6 +275,20 @@ Used in most projects. Strong value, schedule after P1.
 | `@hexguard/angular-export` | Angular |
 | `@hexguard/angular-kanban` | Angular |
 | `@hexguard/angular-progress` | Angular |
+| `@hexguard/angular-seo` | Angular |
+| `@hexguard/angular-consent-manager` | Angular |
+| `@hexguard/angular-policy-attestation` | Angular |
+| `@hexguard/angular-data-export` | Angular |
+| `@hexguard/angular-data-retention` | Angular |
+| `@hexguard/angular-access-log` | Angular |
+| `@hexguard/angular-field-audit` | Angular |
+| `HexGuard.Consent` | .NET |
+| `HexGuard.Dsar` | .NET |
+| `HexGuard.DataExport` | .NET |
+| `HexGuard.DataRetention` | .NET |
+| `HexGuard.Pii` | .NET |
+| `HexGuard.PolicyAttestation` | .NET |
+| `HexGuard.AccessLog` | .NET |
 | `@hexguard/ts-guard` | TypeScript |
 | `@hexguard/ts-retry` | TypeScript |
 | `@hexguard/ts-fetch` | TypeScript |
@@ -330,12 +344,26 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `@hexguard/ts-broadcast` | TypeScript | Browser |
 | `@hexguard/ts-transform` | TypeScript | ETL |
 | `@hexguard/angular-experiment` | Angular | Testing |
+| `@hexguard/angular-seo` | Angular | SEO |
+| `@hexguard/angular-consent-manager` | Angular | Compliance |
+| `@hexguard/angular-data-export` | Angular | Compliance |
+| `@hexguard/angular-data-retention` | Angular | Compliance |
+| `@hexguard/angular-policy-attestation` | Angular | Compliance |
+| `@hexguard/angular-access-log` | Angular | Audit |
+| `@hexguard/angular-field-audit` | Angular | Audit |
 | `@hexguard/angular-customer-portal` | Angular | Customer |
 | `HexGuard.Portal` | .NET | Customer |
 | `HexGuard.Secrets` | .NET | Security |
 | `HexGuard.LoadShedding` | .NET | Resilience |
 | `HexGuard.Experimentation` | .NET | Testing |
 | `HexGuard.Approvals` | .NET | Workflow |
+| `HexGuard.Consent` | .NET | Compliance |
+| `HexGuard.Dsar` | .NET | Compliance |
+| `HexGuard.DataExport` | .NET | Compliance |
+| `HexGuard.DataRetention` | .NET | Compliance |
+| `HexGuard.Pii` | .NET | Security |
+| `HexGuard.PolicyAttestation` | .NET | Compliance |
+| `HexGuard.AccessLog` | .NET | Audit |
 | `@hexguard/angular-checkout` | Angular | E-commerce |
 | `@hexguard/angular-discount` | Angular | E-commerce |
 | `@hexguard/angular-orders` | Angular | E-commerce |
@@ -387,12 +415,15 @@ Valid ideas with narrower audience. Good for ecosystem completeness.
 | `@hexguard/ts-date` | TypeScript |
 | `@hexguard/ts-object` | TypeScript |
 | `@hexguard/ts-url` | TypeScript |
+| `@hexguard/ts-seo` | TypeScript |
+| `@hexguard/ts-gdpr` | TypeScript |
+| `@hexguard/ts-hash` | TypeScript |
 
 ---
 
 ## Headless Compliance Audit (2026-06-27)
 
-All 295 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+All 314 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
 
 | Brief | Issue | Resolution |
 |-------|-------|------------|

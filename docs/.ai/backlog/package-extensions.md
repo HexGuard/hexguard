@@ -833,3 +833,11 @@ const routes = [
 | 118 | `@hexguard/angular-selection-state` | `shiftClickRange` — shift+click range selection across items | Angular | Medium | Medium |
 | 119 | `HexGuard.Localization` | `EnumLocalizer` — auto-localize enum display names from resources | .NET | Low | High |
 | 120 | `@hexguard/angular-data-grid` | `columnPersistence` — save/restore column config to localStorage | Angular | Low | High |
+| 121 | `@hexguard/angular-url-state` | `canonicalSync()` — auto-set canonical URL from query state | Angular | Low | Medium |
+| 122 | `@hexguard/angular-page-context` | `structuredData()` — inject JSON-LD from page context | Angular | Low | Medium |
+| 123 | `HexGuard.AuditTrail` | `FieldDiffFormatter` — human-readable field change descriptions | .NET | Medium | High |
+| 124 | `@hexguard/angular-audit-dashboard` | `complianceExport()` — pre-formatted audit report export | Angular | Low | High |
+| 125 | `HexGuard.DataMasking` | `PiiAutoMask` — auto-detect and mask PII in responses | .NET | Medium | High |
+| 126 | `@hexguard/angular-storage` | `gdprCompliant()` — automatic expiry + consent gating on stored data | Angular | Medium | High |
+| 127 | `HexGuard.RequestLogging` | `ComplianceHeaders` — inject audit/compliance HTTP headers | .NET | Low | High |
+| 128 | `@hexguard/angular-cookie-consent` | `consentVersionSync()` — auto-detect policy updates for re-consent | Angular | Low | High |
