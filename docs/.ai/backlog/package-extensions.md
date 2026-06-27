@@ -815,3 +815,11 @@ const routes = [
 | 100 | `@hexguard/angular-prompt` | `promptCompare` — side-by-side prompt version diff | Angular | Medium | Medium |
 | 101 | `HexGuard.Media` | `cdnUrl` — auto-generate CDN URLs with variant support | .NET | Low | High |
 | 102 | `@hexguard/angular-testing` | `fakeAsyncSignal` — signal-aware fakeAsync for zone-less | Angular | Medium | High |
+| 103 | `@hexguard/angular-status` | `incidentTimeline` — visual incident history | Angular | Low | Medium |
+| 104 | `@hexguard/angular-feature-flags` | `killSwitch` — operational emergency flags | Angular | Low | High |
+| 105 | `HexGuard.Startup` | `DatabaseMigrationTask` — built-in migration startup task | .NET | Low | High |
+| 106 | `HexGuard.Telemetry` | `CustomMetric<T>` — typed metric registration helper | .NET | Low | High |
+| 107 | `@hexguard/angular-notifications` | `incidentAlert` — auto-notify on incident change | Angular | Medium | Medium |
+| 108 | `HexGuard.RateLimiting` | `TenantRateLimit` — per-tenant rate limiting | .NET | Medium | High |
+| 109 | `@hexguard/angular-backup` | `backupHistory` — backup list with restore capability | Angular | Medium | Medium |
+| 110 | `HexGuard.Backup` | `BackupVerification` — auto-restore + verify integrity | .NET | Medium | High |
