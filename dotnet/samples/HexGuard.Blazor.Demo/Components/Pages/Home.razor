@@ -1,0 +1,117 @@
+@page "/"
+
+<PageTitle>HexGuard Blazor Demo</PageTitle>
+
+<div class="home-page">
+    <header class="home-hero">
+        <h1 class="hero-title">
+            <span class="hero-icon">⬡</span> HexGuard Blazor
+        </h1>
+        <p class="hero-subtitle">
+            Headless Blazor component libraries — minimal dependencies, narrow public APIs,
+            pure C# where possible. Built for .NET 10.
+        </p>
+    </header>
+
+    <section class="package-grid">
+        <h2>Available Packages</h2>
+
+        <div class="package-card">
+            <div class="card-header">
+                <span class="card-badge badge-available">Available</span>
+                <span class="card-nuget">HexGuard.Blazor.DebouncedInput</span>
+            </div>
+            <h3 class="card-title">DebouncedInput</h3>
+            <p class="card-summary">
+                Headless debounced value primitive — delay value propagation until the user stops typing.
+                Configurable debounce window with leading, trailing, and leading+trailing modes.
+            </p>
+            <ul class="card-features">
+                <li>Pure C# — no JS interop</li>
+                <li>Trailing / Leading / Leading+Trailing modes</li>
+                <li>Flush, Cancel, Dispose lifecycle</li>
+                <li>DI-friendly registration</li>
+            </ul>
+            <a class="card-link" href="debounced-input">
+                Try Demo →
+            </a>
+        </div>
+    </section>
+
+    <section class="links-section">
+        <h2>Related</h2>
+        <div class="link-cards">
+            <a class="link-card" href="http://127.0.0.1:4200" target="_blank">
+                <span class="link-icon">🅰️</span>
+                <span>Angular Packages Demo</span>
+            </a>
+            <a class="link-card" href="http://127.0.0.1:5074" target="_blank">
+                <span class="link-icon">🔌</span>
+                <span>.NET Sample API</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="server-companions">
+        <h2>Server Companions</h2>
+        <p class="section-description">
+            These .NET backend libraries are natural companions for Blazor apps.
+            Demonstrated through the shared
+            <a href="http://127.0.0.1:5074" target="_blank">HexGuard.SampleApi</a>.
+        </p>
+        <div class="companion-grid">
+            <div class="companion-card">
+                <div class="companion-header">
+                    <span class="companion-nuget">HexGuard.Pagination</span>
+                </div>
+                <h3 class="companion-title">Pagination</h3>
+                <p class="companion-summary">
+                    Standardized QueryRequest, QueryResponse&lt;T&gt;, and SortSpec contracts
+                    for .NET APIs — ideal for Blazor data grids and tables.
+                </p>
+                <a class="card-link" href="http://127.0.0.1:4200/dotnet/pagination" target="_blank">
+                    Docs &amp; Demo →
+                </a>
+            </div>
+            <div class="companion-card">
+                <div class="companion-header">
+                    <span class="companion-nuget">HexGuard.FeatureFlags</span>
+                </div>
+                <h3 class="companion-title">Feature Flags</h3>
+                <p class="companion-summary">
+                    Feature flag contracts and ASP.NET Core endpoints — toggle Blazor UI
+                    features dynamically from the backend.
+                </p>
+                <a class="card-link" href="http://127.0.0.1:4200/dotnet/feature-flags" target="_blank">
+                    Docs &amp; Demo →
+                </a>
+            </div>
+            <div class="companion-card">
+                <div class="companion-header">
+                    <span class="companion-nuget">HexGuard.ReferenceData</span>
+                </div>
+                <h3 class="companion-title">Reference Data</h3>
+                <p class="companion-summary">
+                    Typed reference-data catalog contracts — serve lookup tables
+                    and option lists to Blazor drop-downs and filter surfaces.
+                </p>
+                <a class="card-link" href="http://127.0.0.1:4200/dotnet/reference-data" target="_blank">
+                    Docs &amp; Demo →
+                </a>
+            </div>
+            <div class="companion-card">
+                <div class="companion-header">
+                    <span class="companion-nuget">HexGuard.BulkOperations</span>
+                </div>
+                <h3 class="companion-title">Bulk Operations</h3>
+                <p class="companion-summary">
+                    Bulk action contracts and HTTP 207 Multi-Status helpers — process
+                    batch selections from Blazor data grids with partial-success reporting.
+                </p>
+                <a class="card-link" href="http://127.0.0.1:4200/dotnet/bulk-operations" target="_blank">
+                    Docs &amp; Demo →
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

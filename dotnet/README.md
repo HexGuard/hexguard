@@ -39,7 +39,22 @@ The current implementation serves `http://127.0.0.1:5074/api/angular-lookups/cat
 refreshed, and invalid scenarios so the Angular demo can show both successful frontend-backend
 integration and explicit validation failures.
 
+## Blazor Demo
+
+A Blazor Web App demo showcasing HexGuard Blazor component libraries lives at `samples/HexGuard.Blazor.Demo`.
+
+```bash
+# Start the Blazor demo (serves at http://127.0.0.1:5075)
+pnpm blazor:start:demo
+
+# Run Blazor-specific tests
+pnpm blazor:test
+```
+
+Blazor packages follow the `HexGuard.Blazor.{Name}` naming convention, use `Microsoft.NET.Sdk.Razor`, and target `net10.0`. Tests use xunit + bUnit for component rendering.
+
 ## Package READMEs
 
+- [HexGuard.Blazor.DebouncedInput](src/HexGuard.Blazor.DebouncedInput/README.md) — headless debounced value primitive for Blazor
 - [HexGuard.ReferenceData](src/HexGuard.ReferenceData/README.md) — typed reference-data catalog contracts and validation
 - [HexGuard.ValidationContracts](src/HexGuard.ValidationContracts/README.md) — validation error contracts and RFC 9457 Problem Details

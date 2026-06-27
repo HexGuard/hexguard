@@ -1,0 +1,199 @@
+@page "/debounced-input"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>DebouncedInput Demo — HexGuard Blazor</PageTitle>
+
+<div class="demo-page" data-testid="blazor-debounced-input-demo">
+    <header class="demo-header">
+        <h1>DebouncedInput</h1>
+        <p class="demo-description">
+            Type in the search field below. The <strong>raw keystroke</strong> counter updates on every
+            input. The <strong>debounced invocation</strong> counter only increments after the configured
+            delay window elapses (or immediately in Leading mode).
+        </p>
+    </header>
+
+    <section class="demo-controls">
+        <div class="control-group">
+            <label for="delaySlider">Delay: <strong>@delayMs ms</strong></label>
+            <input id="delaySlider"
+                   type="range"
+                   min="0"
+                   max="2000"
+                   step="50"
+                   value="@delayMs"
+                   @oninput="OnDelayChanged"
+                   data-testid="debounce-delay-slider" />
+            <div class="range-labels">
+                <span>0ms</span><span>2000ms</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="maxDelaySlider">Max Delay: <strong>@(maxDelayMs == 0 ? "unlimited" : $"{maxDelayMs} ms")</strong></label>
+            <input id="maxDelaySlider"
+                   type="range"
+                   min="0"
+                   max="3000"
+                   step="100"
+                   value="@maxDelayMs"
+                   @oninput="OnMaxDelayChanged"
+                   data-testid="debounce-maxdelay-slider" />
+            <div class="range-labels">
+                <span>unlimited</span><span>3000ms</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="modeSelect">Mode:</label>
+            <select id="modeSelect"
+                    @bind="selectedMode"
+                    @bind:after="OnModeChanged"
+                    data-testid="debounce-mode-select">
+                <option value="Trailing">Trailing (fire after pause)</option>
+                <option value="Leading">Leading (fire immediately)</option>
+                <option value="LeadingAndTrailing">Leading + Trailing</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <button class="btn btn-secondary" @onclick="FlushDebounce" data-testid="debounce-flush-btn">
+                Flush Now
+            </button>
+            <button class="btn btn-secondary" @onclick="CancelDebounce" data-testid="debounce-cancel-btn">
+                Cancel
+            </button>
+            <button class="btn btn-secondary" @onclick="ResetCounters" data-testid="debounce-reset-btn">
+                Reset Counters
+            </button>
+        </div>
+    </section>
+
+    <section class="demo-interactive">
+        <div class="search-field">
+            <label for="searchInput">Search (try typing fast):</label>
+            <input id="searchInput"
+                   type="text"
+                   value="@searchText"
+                   @oninput="OnSearchInput"
+                   placeholder="Type to search..."
+                   data-testid="debounce-search-input" />
+        </div>
+
+        <div class="counters" data-testid="debounce-counters">
+            <div class="counter">
+                <span class="counter-label">Raw Keystrokes</span>
+                <span class="counter-value" data-testid="debounce-raw-count">@rawKeystrokeCount</span>
+            </div>
+            <div class="counter">
+                <span class="counter-label">Debounced Invocations</span>
+                <span class="counter-value" data-testid="debounce-invocation-count">@debouncedInvocationCount</span>
+            </div>
+            <div class="counter">
+                <span class="counter-label">Last Processed</span>
+                <span class="counter-value" data-testid="debounce-last-processed">
+                    @(string.IsNullOrEmpty(lastProcessedValue) ? "(none)" : $"\"{lastProcessedValue}\"")
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-code-panel">
+        <h2>Usage</h2>
+        <pre class="code-block"><code>@@inject Func&lt;Func&lt;string, Task&gt;, int, DebounceMode, DebouncedValue&lt;string&gt;&gt; DebounceFactory
+
+@@code {
+    private DebouncedValue&lt;string&gt;? _debounce;
+
+    protected override void OnInitialized()
+    {
+        _debounce = DebounceFactory(
+            async value =&gt; { /* perform search */ },
+            delayMs: 300,
+            maxDelayMs: 1000,
+            mode: DebounceMode.Trailing);
+    }
+
+    private void OnSearch(ChangeEventArgs e)
+    {
+        _debounce!.Push(e.Value?.ToString() ?? "");
+    }
+
+    public void Dispose() =&gt; _debounce?.Dispose();
+}</code></pre>
+    </section>
+</div>
+
+@code {
+    private string searchText = "";
+    private int delayMs = 300;
+    private int maxDelayMs = 1000;
+    private DebounceMode selectedMode = DebounceMode.Trailing;
+    private int rawKeystrokeCount;
+    private int debouncedInvocationCount;
+    private string lastProcessedValue = "";
+
+    private DebouncedValue<string> _debounce = null!;
+
+    protected override void OnInitialized()
+    {
+        CreateDebounce();
+    }
+
+    private void CreateDebounce()
+    {
+        _debounce?.Dispose();
+        _debounce = DebouncedValue<string>.Create(
+            async value =>
+            {
+                debouncedInvocationCount++;
+                lastProcessedValue = value;
+                await Task.CompletedTask;
+            },
+            delayMs: delayMs,
+            maxDelayMs: maxDelayMs,
+            mode: selectedMode);
+    }
+
+    private void OnSearchInput(ChangeEventArgs e)
+    {
+        rawKeystrokeCount++;
+        searchText = e.Value?.ToString() ?? "";
+        _debounce.Push(searchText);
+    }
+
+    private void OnDelayChanged(ChangeEventArgs e)
+    {
+        delayMs = int.TryParse(e.Value?.ToString(), out var val) ? val : 300;
+        CreateDebounce();
+    }
+
+    private void OnMaxDelayChanged(ChangeEventArgs e)
+    {
+        maxDelayMs = int.TryParse(e.Value?.ToString(), out var val) ? val : 0;
+        CreateDebounce();
+    }
+
+    private void OnModeChanged()
+    {
+        CreateDebounce();
+    }
+
+    private void FlushDebounce()
+    {
+        _debounce.Flush();
+    }
+
+    private void CancelDebounce()
+    {
+        _debounce.Cancel();
+    }
+
+    private void ResetCounters()
+    {
+        rawKeystrokeCount = 0;
+        debouncedInvocationCount = 0;
+        lastProcessedValue = "";
+        CreateDebounce();
+    }
+}

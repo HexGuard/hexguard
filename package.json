@@ -191,6 +191,9 @@
     "dotnet:build": "dotnet build dotnet/HexGuard.slnx --configuration Release",
     "dotnet:test": "dotnet test dotnet/HexGuard.slnx --configuration Release",
     "dotnet:start:demo-api": "dotnet run --project dotnet/samples/HexGuard.SampleApi/HexGuard.SampleApi.csproj -- --urls http://127.0.0.1:5074",
+    "blazor:start:demo": "dotnet run --project dotnet/samples/HexGuard.Blazor.Demo/HexGuard.Blazor.Demo.csproj -- --urls http://127.0.0.1:5075",
+    "blazor:test": "dotnet test dotnet/HexGuard.slnx --configuration Release --filter \"FullyQualifiedName~Blazor\"",
+    "blazor:verify:package:debounced-input": "node -e \"const{execSync}=require('child_process');const fs=require('fs');fs.mkdirSync('.artifacts',{recursive:true});execSync('dotnet pack dotnet/src/HexGuard.Blazor.DebouncedInput/HexGuard.Blazor.DebouncedInput.csproj --configuration Release --output .artifacts/blazor',{stdio:'inherit'});const files=fs.readdirSync('.artifacts/blazor').filter(f=>f.endsWith('.nupkg'));if(!files.length){console.error('No .nupkg found');process.exit(1)}console.log('Packed: '+files[0])\"",
     "validate:angular": "pnpm lint && pnpm test:ci && pnpm test:e2e && pnpm build && pnpm verify:package",
     "validate:dotnet": "pnpm dotnet:restore && pnpm dotnet:build && pnpm dotnet:test",
     "validate": "pnpm format:check && pnpm validate:angular && pnpm validate:dotnet"

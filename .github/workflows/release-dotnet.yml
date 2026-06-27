@@ -10,6 +10,7 @@ on:
       - 'dotnet-capabilities-v*'
       - 'dotnet-pagination-v*'
       - 'dotnet-featureflags-v*'
+      - 'dotnet-blazor-debouncedinput-v*'
   workflow_dispatch:
     inputs:
       package_id:
@@ -24,6 +25,7 @@ on:
           - HexGuard.Capabilities
           - HexGuard.Pagination
           - HexGuard.FeatureFlags
+          - HexGuard.Blazor.DebouncedInput
       release_tag:
         description: 'Git tag to attach the GitHub release to when running manually'
         required: false
@@ -86,6 +88,10 @@ jobs:
               dotnet-featureflags-v*)
                 PACKAGE_ID="HexGuard.FeatureFlags"
                 PROJ_DIR="dotnet/src/HexGuard.FeatureFlags"
+                ;;
+              dotnet-blazor-debouncedinput-v*)
+                PACKAGE_ID="HexGuard.Blazor.DebouncedInput"
+                PROJ_DIR="dotnet/src/HexGuard.Blazor.DebouncedInput"
                 ;;
               *)
                 echo "Unrecognised tag pattern: $TAG_NAME" >&2

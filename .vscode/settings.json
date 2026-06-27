@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.razor": "aspnetcorerazor",
+    "*.cshtml": "aspnetcorerazor"
+  },
+  "dotnet.defaultSolution": "dotnet/HexGuard.slnx"
+}

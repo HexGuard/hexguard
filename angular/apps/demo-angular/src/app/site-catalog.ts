@@ -22,7 +22,7 @@ export interface SiteLink {
  * Supported stack identifiers. Add new stacks here — the rest of the
  * demo site adapts automatically via the registry below.
  */
-export type StackId = 'angular' | 'dotnet' | 'cross-stack';
+export type StackId = 'angular' | 'dotnet' | 'blazor' | 'cross-stack';
 
 /**
  * Metadata for a supported stack. The registry is the single source of
@@ -60,6 +60,15 @@ export const STACK_REGISTRY: Record<StackId, StackDefinition> = {
     description:
       '.NET guardrail libraries and a shared demo API, all demonstrated through the HexGuard.SampleApi.',
   },
+  blazor: {
+    id: 'blazor',
+    label: 'Blazor',
+    packageLabel: 'Blazor',
+    routePrefix: '/blazor',
+    hubRoute: '/blazor',
+    description:
+      'Headless Blazor component libraries — pure C#, minimal JS interop, interactive demos in the Blazor Web App.',
+  },
   'cross-stack': {
     id: 'cross-stack',
     label: 'Cross-stack',
@@ -75,7 +84,7 @@ export const STACK_REGISTRY: Record<StackId, StackDefinition> = {
  * Ordered list of stacks for menu/navigation rendering.
  * Excludes special stacks (like cross-stack) where appropriate at call-site.
  */
-export const STACK_ORDER: readonly StackId[] = ['angular', 'dotnet', 'cross-stack'];
+export const STACK_ORDER: readonly StackId[] = ['angular', 'blazor', 'dotnet', 'cross-stack'];
 
 /** Scope identifier used by the unified package card system. */
 export type UnifiedScope = StackId;
@@ -524,7 +533,7 @@ export function toUnifiedDotnetEntry(entry: DotnetSitePackageCatalogEntry): Unif
     id: entry.id,
     packageName: entry.packageName,
     category: angularPkg?.category ?? null,
-    scope: 'dotnet',
+    scope: (entry.dotnetPackage.stackId as UnifiedScope) ?? 'dotnet',
     status: entry.status,
     summary: entry.summary,
     detail: null,

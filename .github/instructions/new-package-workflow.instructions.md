@@ -1,5 +1,5 @@
 ---
-description: 'Mandatory workflow for creating new HexGuard packages (Angular, .NET, or cross-stack pairs). Covers scaffolding, workspace registration, cross-package dependencies, demo integration, catalog registration, release artifacts, and the final assessment gate. Follow this checklist in order.'
+description: 'Mandatory workflow for creating new HexGuard packages (Angular, .NET, Blazor, or cross-stack pairs). Covers scaffolding, workspace registration, cross-package dependencies, demo integration, catalog registration, release artifacts, and the final assessment gate. Follow this checklist in order.'
 applyTo: '**/*'
 ---
 
@@ -56,6 +56,40 @@ This checklist must be followed **in order** when creating a new HexGuard packag
    - `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`.
    - `Microsoft.AspNetCore.Mvc.Testing` (for integration tests via `WebApplicationFactory`).
    - Project references: the source project and the shared `HexGuard.SampleApi`.
+
+### Blazor Package
+
+1. **Create `.csproj`**:
+   - Use `Microsoft.NET.Sdk.Razor` (required for Razor Class Libraries that may contain `.razor` components).
+   - `TargetFramework`: `net10.0`.
+   - `ImplicitUsings`: `enable`, `Nullable`: `enable`.
+   - `PackageId`: `HexGuard.Blazor.{Name}`, `Version`: `0.1.0`.
+   - `Description`, `GenerateDocumentationFile`.
+   - Add `<FrameworkReference Include="Microsoft.AspNetCore.App" />`.
+   - Add `InternalsVisibleTo` for the test project.
+
+2. **Create package files**:
+   - `CHANGELOG.md` — initial entry with `## 0.1.0` and `- Initial release.` bullet.
+   - `LICENSE` — copy from an existing .NET package.
+   - `README.md` — include install (`dotnet add package`), quickstart with Razor + C# examples, features table, API reference, scope boundaries.
+
+3. **Register in `dotnet/HexGuard.slnx`**:
+   - Add the project under `<Folder Name="/src/">`.
+   - Add the test project under `<Folder Name="/tests/">`.
+
+4. **Create test project**:
+   - Standard test `.csproj`: `net10.0`, `IsPackable: false`.
+   - NuGet references: `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`, `Microsoft.AspNetCore.Mvc.Testing`.
+   - Add `bunit` for Blazor component rendering tests (version `1.38.5` or latest stable).
+   - Project references: the source project and `HexGuard.SampleApi`.
+   - For pure C# services (no rendering), standard xunit suffices — bUnit only needed when testing `.razor` components.
+
+5. **Add root scripts**:
+   - Add `"blazor:start:demo"` and `"blazor:test"` convenience scripts in root `package.json`.
+   - The existing `dotnet:restore`, `dotnet:build`, `dotnet:test` scripts automatically cover new projects via `HexGuard.slnx`.
+
+6. **Add convenience script to `angular/package.json`**:
+   - Add `"start:blazor-demo": "dotnet run --project ../dotnet/samples/HexGuard.Blazor.Demo/HexGuard.Blazor.Demo.csproj -- --urls http://127.0.0.1:5075"`.
 
 ---
 
@@ -190,6 +224,35 @@ Add proxy scripts wrapping the angular scripts:
    - Add `DotnetDemoPageEntry` in `demo-registry.ts`.
    - Add to `DOTNET_PACKAGES` array.
    - Add route in `app.routes.ts`.
+
+### Blazor Package Demo
+
+1. **Add demo page to `HexGuard.Blazor.Demo`**:
+   - Create a new Razor page under `Components/Pages/{Name}Demo.razor`.
+   - Use `@rendermode RenderMode.InteractiveServer` for interactive components.
+   - Include interactive examples, controls, and a code snippet panel showing usage.
+   - Add `data-testid` attributes on interactive elements for future Playwright tests.
+   - Inject or create the Blazor service being demonstrated.
+
+2. **Add navigation**:
+   - Add a `NavLink` entry in `Components/Layout/NavMenu.razor` with route `{name}`.
+   - Add the package card to `Components/Pages/Home.razor` in the `package-grid` section.
+
+3. **Add project reference**:
+   - If not already present, add a `ProjectReference` to the Blazor library in `HexGuard.Blazor.Demo.csproj`.
+
+4. **Add hub page** (in Angular demo app):
+   - Create a hub page component under `features/packages/blazor/hexguard-blazor-{name}/` using `DotnetPackageHubPageComponent`.
+   - Link to the live Blazor demo at `http://127.0.0.1:5075/{name}`.
+
+5. **Add Angular demo entries**:
+   - Add a `DotnetPackageEntry` to `DOTNET_PACKAGES` in `demo-registry.ts` with **`stackId: 'blazor'`** (required — this is what separates Blazor packages from .NET packages in the unified catalog).
+   - Add route in `app.routes.ts` under `/blazor/{name}`.
+
+6. **Cross-demo verification**:
+   - The Angular demo site home page will automatically show the package under the "Blazor" filter chip (derived from `STACK_REGISTRY`).
+   - The Blazor home page at `/blazor` auto-discovers Blazor packages via `stackId`.
+   - Verify both demos list the package correctly: `http://127.0.0.1:4200/blazor` and `http://127.0.0.1:5075`.
 
 ---
 

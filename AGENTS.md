@@ -4,7 +4,8 @@
 
 - `angular/`: Angular workspace for libraries, demo app, Playwright coverage, and Angular-specific tooling
 - `angular/packages/angular-url-state`: publishable Angular library and public API surface
-- `dotnet/`: dedicated .NET workspace for future libraries, tests, and sample hosts
+- `dotnet/`: dedicated .NET workspace for libraries, tests, and sample hosts (Angular + Blazor)
+- `dotnet/samples/HexGuard.Blazor.Demo`: Blazor Web App demo showcasing Blazor component libraries
 - `angular/apps/demo-angular`: docs-grade demo used by unit and Playwright coverage
 - `docs/`: package guides, demo runbook, roadmap, and AI workflow docs
 - `.github/workflows/`: CI, release, and publish automation
@@ -17,6 +18,8 @@
 - validate library work with `pnpm test:lib` and `pnpm build:lib`
 - validate demo work with `pnpm test:app` and `pnpm test:e2e`
 - validate .NET workspace work with `pnpm dotnet:restore`, `pnpm dotnet:build`, and `pnpm dotnet:test`
+- run Blazor demo with `pnpm blazor:start:demo` (serves at `http://127.0.0.1:5075`)
+- run Blazor-specific tests with `pnpm blazor:test`
 - before finishing broader changes, run `pnpm format:check`, `pnpm lint`, `pnpm test:ci`, and `pnpm build`
 
 ## Conventions
@@ -25,6 +28,10 @@
 - preserve deterministic query serialization and safe invalid URL fallback behavior
 - add stable `data-testid` hooks for new interactive demo elements so Playwright tests stay robust
 - update `docs/` and package READMEs when public APIs, demo flows, or release behavior changes
+- Blazor packages use `Microsoft.NET.Sdk.Razor`, target `net10.0`, follow `HexGuard.Blazor.{Name}` naming, and minimize JS interop
+- Blazor tests use xunit + bUnit for component rendering; DebouncedInput is pure C# and uses xunit only
+- new Blazor packages get a hub page in the Angular demo (`/blazor/{name}`) with `stackId: 'blazor'` in `demo-registry.ts` and an interactive demo page in the Blazor Web App demo
+- the Angular demo site-catalog `STACK_REGISTRY` is the single source of truth for stack display labels and route prefixes
 
 ## Custom Prompts & Agents
 

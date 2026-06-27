@@ -133,6 +133,8 @@ import { DotnetValidationContractsHubPageComponent } from './features/packages/d
 import { DotnetCapabilitiesHubPageComponent } from './features/packages/dotnet/hexguard-capabilities/dotnet-capabilities-hub-page.component';
 import { DotnetPaginationHubPageComponent } from './features/packages/dotnet/hexguard-pagination/dotnet-hexguard-pagination-hub-page.component';
 import { DotnetPaginationDemoPageComponent } from './features/packages/dotnet/hexguard-pagination/pages/pagination-demo-page.component';
+import { BlazorDebouncedInputHubPageComponent } from './features/packages/blazor/hexguard-blazor-debounced-input/blazor-debounced-input-hub-page.component';
+import { BlazorHomePageComponent } from './features/packages/blazor/blazor-home/blazor-home-page.component';
 
 export const routes: Routes = [
   {
@@ -680,6 +682,17 @@ export const routes: Routes = [
     path: 'dotnet/sample-api',
     component: SampleApiExplorerPageComponent,
     title: 'SampleApi Explorer',
+  },
+  // ── Blazor showcase routes ──────────────────────────────────────
+  {
+    path: 'blazor',
+    component: BlazorHomePageComponent,
+    title: 'HexGuard Blazor Packages',
+  },
+  {
+    path: 'blazor/debounced-input',
+    component: BlazorDebouncedInputHubPageComponent,
+    title: 'HexGuard.Blazor.DebouncedInput',
   },
   // ── Legacy redirects ────────────────────────────────────────────
   {

@@ -15,6 +15,7 @@ import {
   imports: [RouterLink],
   template: `
     @if (dotnetPackage(); as dp) {
+      @let isBlazor = dp.stackId === 'blazor';
       <nav class="demo-nav-strip" [attr.data-testid]="testId()" aria-label="Demo navigation">
         <a
           class="demo-nav-strip__back"
@@ -22,7 +23,7 @@ import {
           [attr.data-testid]="testId() + '-overview'"
         >
           <span>{{ dp.nugetId }}</span>
-          <strong>.NET package overview</strong>
+          <strong>{{ isBlazor ? 'Blazor' : '.NET' }} package overview</strong>
         </a>
 
         <div class="demo-nav-strip__demos" aria-label="Package demos">

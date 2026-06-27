@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/samples/">
+    <Project Path="samples/HexGuard.Blazor.Demo/HexGuard.Blazor.Demo.csproj" />
     <Project Path="samples/HexGuard.SampleApi/HexGuard.SampleApi.csproj" />
   </Folder>
   <Folder Name="/src/">
@@ -7,6 +8,7 @@
     <Project Path="src/HexGuard.ReferenceData/HexGuard.ReferenceData.csproj" />
     <Project Path="src/HexGuard.ValidationContracts/HexGuard.ValidationContracts.csproj" />
     <Project Path="src/HexGuard.FeatureFlags/HexGuard.FeatureFlags.csproj" />
+    <Project Path="src/HexGuard.Blazor.DebouncedInput/HexGuard.Blazor.DebouncedInput.csproj" />
     <Project Path="src/HexGuard.BulkOperations/HexGuard.BulkOperations.csproj" />
     <Project Path="src/HexGuard.Capabilities/HexGuard.Capabilities.csproj" />
     <Project Path="src/HexGuard.Pagination/HexGuard.Pagination.csproj" />
@@ -17,6 +19,7 @@
     <Project Path="tests/HexGuard.ValidationContracts.Tests/HexGuard.ValidationContracts.Tests.csproj" />
     <Project Path="tests/HexGuard.FeatureFlags.Tests/HexGuard.FeatureFlags.Tests.csproj" />
     <Project Path="tests/HexGuard.BulkOperations.Tests/HexGuard.BulkOperations.Tests.csproj" />
+    <Project Path="tests/HexGuard.Blazor.DebouncedInput.Tests/HexGuard.Blazor.DebouncedInput.Tests.csproj" />
     <Project Path="tests/HexGuard.Capabilities.Tests/HexGuard.Capabilities.Tests.csproj" />
     <Project Path="tests/HexGuard.Pagination.Tests/HexGuard.Pagination.Tests.csproj" />
   </Folder>

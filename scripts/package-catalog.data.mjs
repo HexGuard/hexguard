@@ -202,6 +202,35 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'blazor-debounced-input',
+    packageName: 'HexGuard.Blazor.DebouncedInput',
+    status: 'Available',
+    scope: '.NET',
+    category: 'Utilities',
+    readmePath: 'dotnet/src/HexGuard.Blazor.DebouncedInput/README.md',
+    deepDivePath: 'docs/packages/hexguard-blazor-debounced-input.md',
+    repositoryPath: 'dotnet/src/HexGuard.Blazor.DebouncedInput',
+    summary: 'Headless debounced value primitive for Blazor — delay value propagation with configurable trailing, leading, and leading+trailing modes.',
+    detail:
+      'Designed for search-as-you-type, form auto-save, and live-filter scenarios. Pure C# using CancellationTokenSource + Task.Delay — no JavaScript interop required.',
+    installCommand: 'dotnet add package HexGuard.Blazor.DebouncedInput',
+    featureHighlights: [
+      'Trailing, Leading, and LeadingAndTrailing debounce modes.',
+      'Push(), Flush(), Cancel(), Dispose() lifecycle with no JS interop.',
+      'DI-friendly registration via AddDebouncedValue<T>().',
+      'Interactive Blazor demo with live counters and control sliders.',
+    ],
+    bestFitScenarios: [
+      'Search-as-you-type fields that should query the backend only after the user pauses.',
+      'Form auto-save scenarios where every keystroke should not trigger a save.',
+      'Live-filter tables and dashboards with expensive filtering operations.',
+    ],
+    statusNoteParagraphs: [
+      'This is the first Blazor package in the HexGuard catalog, establishing the pattern for HexGuard.Blazor.* libraries.',
+      'It anchors the new Blazor Web App demo at http://127.0.0.1:5075 and follows the same conventions as existing .NET packages.',
+    ],
+  },
+  {
     id: 'hexguard-reference-data',
     packageName: 'HexGuard.ReferenceData',
     status: 'Released',

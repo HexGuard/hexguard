@@ -81,6 +81,7 @@
     "test:e2e": "playwright test",
     "pretest:e2e": "pnpm catalog:sync && pnpm demo:snippets",
     "start:lookups-api": "dotnet run --project ../dotnet/samples/HexGuard.SampleApi/HexGuard.SampleApi.csproj -- --urls http://127.0.0.1:5074",
+    "start:blazor-demo": "dotnet run --project ../dotnet/samples/HexGuard.Blazor.Demo/HexGuard.Blazor.Demo.csproj -- --urls http://127.0.0.1:5075",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:install": "playwright install chromium",

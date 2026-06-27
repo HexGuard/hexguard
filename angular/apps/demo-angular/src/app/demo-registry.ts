@@ -1886,6 +1886,8 @@ export interface DotnetPackageEntry {
   readonly status: 'Available' | 'In Progress';
   readonly docsLinks: readonly DemoLink[];
   readonly demos: readonly DotnetDemoPageEntry[];
+  /** Optional stack override — use 'blazor' for HexGuard.Blazor.* packages. Defaults to 'dotnet'. */
+  readonly stackId?: 'dotnet' | 'blazor';
 }
 
 export const DOTNET_REFERENCE_DATA_HOME: DotnetDemoPageEntry = {
@@ -2281,6 +2283,38 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
       },
     ],
     demos: [DOTNET_REFERENCE_DATA_HOME, DOTNET_SAMPLE_API_EXPLORER],
+  },
+  {
+    id: 'blazor-debounced-input',
+    route: '/blazor/debounced-input',
+    label: 'Blazor DebouncedInput',
+    title: 'HexGuard.Blazor.DebouncedInput',
+    nugetId: 'HexGuard.Blazor.DebouncedInput',
+    description:
+      'Headless debounced value primitive for Blazor — delay value propagation with configurable trailing, leading, and leading+trailing modes. Pure C#, no JS interop.',
+    summary:
+      'Headless debounce for search-as-you-type, form auto-save, and live-filter scenarios. Uses CancellationTokenSource + Task.Delay — no JavaScript interop required.',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/src/HexGuard.Blazor.DebouncedInput/README.md',
+      },
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Blazor.DebouncedInput',
+      },
+      {
+        label: 'Live Blazor Demo',
+        href: 'http://127.0.0.1:5075/debounced-input',
+      },
+      {
+        label: 'Blazor demo docs',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/dotnet/samples/HexGuard.Blazor.Demo',
+      },
+    ],
+    demos: [],
+    stackId: 'blazor',
   },
 ];
 
