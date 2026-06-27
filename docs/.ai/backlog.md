@@ -146,8 +146,8 @@
 
 ## Prioritization Matrix
 
-All 280 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
-Extensions are listed in `docs/.ai/backlog/package-extensions.md` (94 items across 22 packages).
+All 282 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (110 items across 22 packages).
 
 ### 🟢 P0 — Foundation / Released
 
@@ -250,6 +250,18 @@ Used in most projects. Strong value, schedule after P1.
 | `HexGuard.SoftDelete` | .NET |
 | `HexGuard.Idempotency` | .NET |
 | `HexGuard.AuditTrail` | .NET |
+| `HexGuard.Backup` | .NET |
+| `HexGuard.Telemetry` | .NET |
+| `HexGuard.Reporting` | .NET |
+| `HexGuard.Threads` | .NET |
+| `HexGuard.Transactions` | .NET |
+| `@hexguard/angular-job-monitor` | Angular |
+| `@hexguard/angular-knowledge-base` | Angular |
+| `@hexguard/angular-transactions` | Angular |
+| `@hexguard/angular-report-viewer` | Angular |
+| `@hexguard/angular-audit-dashboard` | Angular |
+| `@hexguard/angular-thread` | Angular |
+| `@hexguard/angular-status` | Angular |
 | `@hexguard/ts-guard` | TypeScript |
 | `@hexguard/ts-retry` | TypeScript |
 | `@hexguard/ts-fetch` | TypeScript |
@@ -304,6 +316,20 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `@hexguard/ts-event` | TypeScript | Patterns |
 | `@hexguard/ts-broadcast` | TypeScript | Browser |
 | `@hexguard/ts-transform` | TypeScript | ETL |
+| `@hexguard/angular-customer-portal` | Angular | Customer |
+| `HexGuard.Portal` | .NET | Customer |
+| `HexGuard.Secrets` | .NET | Security |
+| `HexGuard.LoadShedding` | .NET | Resilience |
+| `@hexguard/angular-checkout` | Angular | E-commerce |
+| `@hexguard/angular-discount` | Angular | E-commerce |
+| `@hexguard/angular-orders` | Angular | E-commerce |
+| `@hexguard/angular-subscription` | Angular | SaaS |
+| `@hexguard/angular-onboarding` | Angular | Onboarding |
+| `@hexguard/angular-team` | Angular | Collaboration |
+| `@hexguard/angular-tenant-switcher` | Angular | SaaS |
+| `@hexguard/angular-prompt` | Angular | AI |
+| `HexGuard.AppBuilder` | .NET | Dev/Test |
+| `HexGuard.DataSeeding` | .NET | Dev/Test |
 
 ### ⚪ P4 — Niche / Experimental
 
@@ -340,12 +366,13 @@ Valid ideas with narrower audience. Good for ecosystem completeness.
 | `HexGuard.EndpointValidation` | .NET |
 | `HexGuard.EndpointConventions` | .NET |
 | `HexGuard.Export` | .NET |
+| `@hexguard/ts-cli` | TypeScript |
 
 ---
 
-## Headless Compliance Audit (2026-06-26)
+## Headless Compliance Audit (2026-06-27)
 
-All 280 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+All 282 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
 
 | Brief | Issue | Resolution |
 |-------|-------|------------|
