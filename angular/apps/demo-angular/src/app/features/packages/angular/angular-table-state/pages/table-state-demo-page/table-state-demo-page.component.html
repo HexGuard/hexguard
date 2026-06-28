@@ -1,0 +1,36 @@
+<demo-page-layout testId="table-state-demo">
+  <demo-navigation-strip demoNavigation testId="table-state-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header"><div><p class="demo-eyebrow">Angular Table State</p><h2>Unified table state for Angular.</h2></div></div>
+    <demo-status-strip testId="table-state-demo-status" summary="Sort, paginate, select, and filter through one signal-based handle." currentUrl="Angular Table State — Demo" summaryTestId="table-state-demo-summary" urlTestId="table-state-demo-url" />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="table-state-playground">
+    <!-- demo-snippet:start angular-table-state/demo-state -->
+    <div class="table-controls">
+      <div class="control-row">
+        <span><strong>Sort:</strong> {{ table.sortState().column || '—' }} ({{ table.sortState().direction }})</span>
+        <button class="demo-button" (click)="table.toggleSort('name')" data-testid="btn-sort-name">Sort Name</button>
+        <button class="demo-button" (click)="table.toggleSort('date')" data-testid="btn-sort-date">Sort Date</button>
+        <button class="demo-button" (click)="table.clearSort()" data-testid="btn-clear-sort">Clear Sort</button>
+      </div>
+      <div class="control-row">
+        <span><strong>Page:</strong> {{ table.pagination.page() }}</span>
+        <button class="demo-button" (click)="table.pagination.nextPage()" data-testid="btn-next-page">Next</button>
+        <button class="demo-button" (click)="table.pagination.previousPage()" data-testid="btn-prev-page">Prev</button>
+      </div>
+      <div class="control-row">
+        <span><strong>Filter:</strong></span>
+        <input class="filter-input" placeholder="Status" (input)="table.setFilter('status', $any($event.target).value)" data-testid="input-filter" />
+        <button class="demo-button" (click)="table.clearAllFilters()" data-testid="btn-clear-filters">Clear Filters</button>
+      </div>
+      <div class="control-row">
+        <span><strong>Selected:</strong> {{ table.selection.selectedCount() }}</span>
+        <button class="demo-button" (click)="table.selection.toggle('item-1')" data-testid="btn-toggle-sel">Toggle item-1</button>
+        <button class="demo-button" (click)="table.selection.clearSelection()" data-testid="btn-clear-sel">Clear Selection</button>
+      </div>
+      <button class="demo-button demo-button--danger" (click)="table.resetAll()" data-testid="btn-reset-all">Reset All</button>
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel demoAside panelTestId="table-state-inspector-panel" title="Table State snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="table-state-snapshot-json" codeTestId="table-state-code-sample" />
+</demo-page-layout>

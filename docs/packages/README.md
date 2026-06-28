@@ -49,6 +49,8 @@ another.
 | `@hexguard/angular-scroll-state`        | Available   | Scroll position save/restore, infinite-scroll detection, scroll-spy section tracking, and imperative smooth-scroll helpers with signal-based primitives.                                              | [Deep Dive](angular-scroll-state.md), [npm-facing README](../../angular/packages/angular-scroll-state/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-wizard-state`        | Available   | Multi-step flow state for Angular: linear and conditional step progression, validation gates, resume behavior, and review-or-confirm steps with signal-based primitives.                              | [Deep Dive](angular-wizard-state.md), [npm-facing README](../../angular/packages/angular-wizard-state/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-command-palette`     | Available   | Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.                                         | [Deep Dive](angular-command-palette.md), [npm-facing README](../../angular/packages/angular-command-palette/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-dirty-state`         | Available   | Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.                                                              | [Deep Dive](angular-dirty-state.md), [npm-facing README](../../angular/packages/angular-dirty-state/README.md), [Demo runbook](../demo/README.md)                  |
+| `@hexguard/angular-table-state`         | Available   | Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.                                                                                  | [Deep Dive](angular-table-state.md), [npm-facing README](../../angular/packages/angular-table-state/README.md), [Demo runbook](../demo/README.md)                  |
 
 ## Package Status Notes
 
@@ -456,6 +458,26 @@ This package is available as a headless command-registry primitive for Angular a
 
 It focuses on command registration, keyboard shortcuts, search, and a validated publish surface. Palette UI helpers are deferred to a future version.
 
+<a id="package-angular-dirty-state"></a>
+
+### `@hexguard/angular-dirty-state`
+
+Status: Available
+
+This package is available as a headless dirty-state primitive for Angular apps.
+
+It focuses on manual dirty marking, route guard integration, and a validated publish surface.
+
+<a id="package-angular-table-state"></a>
+
+### `@hexguard/angular-table-state`
+
+Status: Available
+
+This package composes existing HexGuard primitives (pagination, selection-state) into a unified handle.
+
+It focuses on composition, not re-implementation — each sub-system is delegated to the existing package.
+
 ## Planned and Proposed Package Briefs
 
 <a id="package-angular-submit-lock"></a>
@@ -514,14 +536,6 @@ Status: Proposed
 
 Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form surface continues to evolve.
 
-<a id="package-angular-table-state"></a>
-
-### `@hexguard/angular-table-state`
-
-Status: Planned
-
-Builds on URL state to coordinate sorting, paging, filters, and selection in reusable data-table workflows.
-
 <a id="package-angular-preferences"></a>
 
 ### `@hexguard/angular-preferences`
@@ -537,14 +551,6 @@ Targets lightweight user preferences such as dashboard defaults, hidden columns,
 Status: Proposed
 
 Would standardize active-tenant selection, route scoping, restore behavior, and tenant-aware client context for multi-tenant Angular apps.
-
-<a id="package-angular-dirty-state"></a>
-
-### `@hexguard/angular-dirty-state`
-
-Status: Planned
-
-Will provide consistent unsaved-change tracking and route-guard integration for Angular screens.
 
 <a id="package-angular-http-dedupe"></a>
 

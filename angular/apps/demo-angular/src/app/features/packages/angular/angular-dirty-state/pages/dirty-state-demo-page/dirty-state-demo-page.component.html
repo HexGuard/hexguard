@@ -1,0 +1,18 @@
+<demo-page-layout testId="dirty-state-demo">
+  <demo-navigation-strip demoNavigation testId="dirty-state-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header"><div><p class="demo-eyebrow">Angular Dirty State</p><h2>Unsaved-change tracking for Angular.</h2></div></div>
+    <demo-status-strip testId="dirty-state-demo-status" summary="Track unsaved changes with signal-based isDirty feedback and route guard integration." currentUrl="Angular Dirty State — Demo" summaryTestId="dirty-state-demo-summary" urlTestId="dirty-state-demo-url" />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="dirty-state-playground">
+    <!-- demo-snippet:start angular-dirty-state/demo-state -->
+    <p data-testid="is-dirty">Status: <strong>{{ dirty.isDirty() ? '🔴 Dirty' : '🟢 Clean' }}</strong></p>
+    <div class="demo-actions">
+      <button class="demo-button" (click)="dirty.markDirty()" data-testid="btn-mark-dirty">Mark Dirty</button>
+      <button class="demo-button" (click)="dirty.markClean()" data-testid="btn-mark-clean">Mark Clean</button>
+      <button class="demo-button" (click)="dirty.reset()" data-testid="btn-reset">Reset</button>
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel demoAside panelTestId="dirty-state-inspector-panel" title="Dirty State snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="dirty-state-snapshot-json" codeTestId="dirty-state-code-sample" />
+</demo-page-layout>

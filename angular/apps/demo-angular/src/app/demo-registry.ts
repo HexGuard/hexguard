@@ -74,6 +74,8 @@ const ANGULAR_WIZARD_STATE_CATALOG = getGeneratedCurrentPackage('angular-wizard-
 const ANGULAR_COMMAND_PALETTE_CATALOG = getGeneratedCurrentPackage('angular-command-palette');
 const ANGULAR_CLIPBOARD_CATALOG = getGeneratedCurrentPackage('angular-clipboard');
 const ANGULAR_THEME_CATALOG = getGeneratedCurrentPackage('angular-theme');
+const ANGULAR_DIRTY_STATE_CATALOG = getGeneratedCurrentPackage('angular-dirty-state');
+const ANGULAR_TABLE_STATE_CATALOG = getGeneratedCurrentPackage('angular-table-state');
 
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
@@ -92,6 +94,8 @@ const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 const ANGULAR_CLIPBOARD_DOCS = ANGULAR_CLIPBOARD_CATALOG.docsLinks;
 const ANGULAR_THEME_DOCS = ANGULAR_THEME_CATALOG.docsLinks;
+const ANGULAR_DIRTY_STATE_DOCS = ANGULAR_DIRTY_STATE_CATALOG.docsLinks;
+const ANGULAR_TABLE_STATE_DOCS = ANGULAR_TABLE_STATE_CATALOG.docsLinks;
 const ANGULAR_ROUTE_MEMORY_DOCS = ANGULAR_ROUTE_MEMORY_CATALOG.docsLinks;
 const ANGULAR_PAGE_CONTEXT_DOCS = ANGULAR_PAGE_CONTEXT_CATALOG.docsLinks;
 const ANGULAR_SCROLL_STATE_DOCS = ANGULAR_SCROLL_STATE_CATALOG.docsLinks;
@@ -1816,6 +1820,178 @@ export const ANGULAR_COMMAND_PALETTE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_COMMAND_PALETTE_DEMO],
 };
 
+// ── angular-clipboard demo entries ──────────────────────────
+
+export const ANGULAR_CLIPBOARD_DEMO: DemoPageEntry = {
+  id: 'clipboard',
+  packageId: 'angular-clipboard',
+  route: '/packages/angular-clipboard/demo',
+  legacyRoute: '/clipboard',
+  label: 'Clipboard',
+  title: 'Copy, paste, and history signals with permission state',
+  description:
+    'A live demo shows copy/paste operations, copy history with configurable size, permission state, and in-flight copy tracking.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-clipboard/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-clipboard.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-clipboard/demo-state',
+    label: 'Clipboard demo component source',
+    description:
+      'The full clipboard demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_CLIPBOARD_PACKAGE: DemoPackageEntry = {
+  id: 'angular-clipboard',
+  route: '/packages/angular-clipboard',
+  label: 'Angular Clipboard',
+  title: ANGULAR_CLIPBOARD_CATALOG.packageName,
+  description: ANGULAR_CLIPBOARD_CATALOG.summary,
+  docsLinks: ANGULAR_CLIPBOARD_DOCS,
+  demos: [ANGULAR_CLIPBOARD_DEMO],
+};
+
+// ── angular-theme demo entries ─────────────────────────────
+
+export const ANGULAR_THEME_DEMO: DemoPageEntry = {
+  id: 'theme',
+  packageId: 'angular-theme',
+  route: '/packages/angular-theme/demo',
+  legacyRoute: '/theme',
+  label: 'Theme',
+  title: 'System/manual/dark toggle with mode persistence and data-theme attribute',
+  description:
+    'A live demo shows mode toggling (light/dark/system), effective theme resolution, data-theme attribute sync, and reset-to-system control.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-theme/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-theme.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-theme/demo-state',
+    label: 'Theme demo component source',
+    description:
+      'The full theme demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_THEME_PACKAGE: DemoPackageEntry = {
+  id: 'angular-theme',
+  route: '/packages/angular-theme',
+  label: 'Angular Theme',
+  title: ANGULAR_THEME_CATALOG.packageName,
+  description: ANGULAR_THEME_CATALOG.summary,
+  docsLinks: ANGULAR_THEME_DOCS,
+  demos: [ANGULAR_THEME_DEMO],
+};
+
+// ── angular-dirty-state demo entries ───────────────────────
+
+export const ANGULAR_DIRTY_STATE_DEMO: DemoPageEntry = {
+  id: 'dirty-state',
+  packageId: 'angular-dirty-state',
+  route: '/packages/angular-dirty-state/demo',
+  legacyRoute: '/dirty-state',
+  label: 'Dirty State',
+  title: 'Unsaved-change tracking with markDirty/markClean and route guard',
+  description:
+    'A live demo shows manual dirty marking, snapshot capture, reset operations, and route deactivation guard integration with isDirty signal feedback.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-dirty-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-dirty-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-dirty-state/demo-state',
+    label: 'Dirty State demo component source',
+    description:
+      'The full dirty-state demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_DIRTY_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-dirty-state',
+  route: '/packages/angular-dirty-state',
+  label: 'Angular Dirty State',
+  title: ANGULAR_DIRTY_STATE_CATALOG.packageName,
+  description: ANGULAR_DIRTY_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_DIRTY_STATE_DOCS,
+  demos: [ANGULAR_DIRTY_STATE_DEMO],
+};
+
+// ── angular-table-state demo entries ───────────────────────
+
+export const ANGULAR_TABLE_STATE_DEMO: DemoPageEntry = {
+  id: 'table-state',
+  packageId: 'angular-table-state',
+  route: '/packages/angular-table-state/demo',
+  legacyRoute: '/table-state',
+  label: 'Table State',
+  title: 'Coordinated sort, pagination, selection, and filter state',
+  description:
+    'A live demo shows sort column/direction toggling, pagination page control, row selection with count, filter add/remove, and one-call resetAll.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-table-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-table-state.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-table-state/demo-state',
+    label: 'Table State demo component source',
+    description:
+      'The full table-state demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_TABLE_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-table-state',
+  route: '/packages/angular-table-state',
+  label: 'Angular Table State',
+  title: ANGULAR_TABLE_STATE_CATALOG.packageName,
+  description: ANGULAR_TABLE_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_TABLE_STATE_DOCS,
+  demos: [ANGULAR_TABLE_STATE_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -1832,6 +2008,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_COMMAND_PALETTE_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
+  ANGULAR_DIRTY_STATE_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
   ANGULAR_FEATURE_FLAGS_PACKAGE,
   ANGULAR_FILE_PICKER_PACKAGE,
@@ -1845,6 +2022,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_SCROLL_STATE_PACKAGE,
   ANGULAR_SELECTION_STATE_PACKAGE,
   ANGULAR_STORAGE_PACKAGE,
+  ANGULAR_TABLE_STATE_PACKAGE,
   ANGULAR_THEME_PACKAGE,
   ANGULAR_UNDO_PACKAGE,
   ANGULAR_WIZARD_STATE_PACKAGE,

@@ -1192,6 +1192,63 @@ export const currentPackages = [
       'It focuses on command registration, keyboard shortcuts, search, and a validated publish surface. Palette UI helpers are deferred to a future version.',
     ],
   },
+  {
+    id: 'angular-dirty-state',
+    packageName: '@hexguard/angular-dirty-state',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-dirty-state/README.md',
+    deepDivePath: 'docs/packages/angular-dirty-state.md',
+    repositoryPath: 'angular/packages/angular-dirty-state',
+    summary: 'Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.',
+    detail: 'Provides injectDirtyState() with isDirty signal, imperative dirty/clean/reset controls, snapshot capture, and injectDirtyGuard() returning a CanDeactivateFn for Angular Router integration.',
+    installCommand: 'pnpm add @hexguard/angular-dirty-state',
+    featureHighlights: [
+      'injectDirtyState() with isDirty signal and markDirty/markClean/reset controls.',
+      'Snapshot capture for baseline comparison.',
+      'injectDirtyGuard() — CanDeactivateFn factory for route guard integration.',
+      'Automatic cleanup via DestroyRef.',
+    ],
+    bestFitScenarios: [
+      'Forms and editors that need unsaved-change detection and route blocking.',
+      'Angular apps that want consistent dirty-state tracking without form-library coupling.',
+      'Screens that need browser beforeunload confirmation for unsaved work.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless dirty-state primitive for Angular apps.',
+      'It focuses on manual dirty marking, route guard integration, and a validated publish surface.',
+    ],
+  },
+  {
+    id: 'angular-table-state',
+    packageName: '@hexguard/angular-table-state',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'UI Infrastructure',
+    readmePath: 'angular/packages/angular-table-state/README.md',
+    deepDivePath: 'docs/packages/angular-table-state.md',
+    repositoryPath: 'angular/packages/angular-table-state',
+    summary: 'Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.',
+    detail: 'Provides injectTableState() with sort toggling, pagination integration (accepts external PaginationHandle or creates internal), selection integration, filter management, and a combined resetAll() method.',
+    installCommand: 'pnpm add @hexguard/angular-table-state',
+    featureHighlights: [
+      'injectTableState() with sort, pagination, selection, and filter in one handle.',
+      'Accepts external PaginationHandle or creates internal default.',
+      'Accepts external selection state or creates internal default.',
+      'resetAll() — clears sort, filters, selection, and resets page to 1.',
+      'URL sync adapter (separate export, requires @hexguard/angular-url-state).',
+    ],
+    bestFitScenarios: [
+      'Data tables that need coordinated sort, page, selection, and filter state.',
+      'Angular apps using @hexguard/angular-pagination and @hexguard/angular-selection-state that want a unified handle.',
+      'Screens that need one-call reset of all table interaction state.',
+    ],
+    statusNoteParagraphs: [
+      'This package composes existing HexGuard primitives (pagination, selection-state) into a unified handle.',
+      'It focuses on composition, not re-implementation — each sub-system is delegated to the existing package.',
+    ],
+  },
 ];
 
 export const roadmapPackages = [
@@ -1266,16 +1323,6 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-table-state',
-    anchorId: 'package-angular-table-state',
-    packageName: '@hexguard/angular-table-state',
-    scope: 'Angular',
-    status: 'Planned',
-    summary:
-      'Builds on URL state to coordinate sorting, paging, filters, and selection in reusable data-table workflows.',
-    showOnSiteHome: true,
-  },
-  {
     id: 'angular-preferences',
     anchorId: 'package-angular-preferences',
     packageName: '@hexguard/angular-preferences',
@@ -1294,16 +1341,6 @@ export const roadmapPackages = [
     summary:
       'Would standardize active-tenant selection, route scoping, restore behavior, and tenant-aware client context for multi-tenant Angular apps.',
     showOnSiteHome: false,
-  },
-  {
-    id: 'angular-dirty-state',
-    anchorId: 'package-angular-dirty-state',
-    packageName: '@hexguard/angular-dirty-state',
-    scope: 'Angular',
-    status: 'Planned',
-    summary:
-      'Will provide consistent unsaved-change tracking and route-guard integration for Angular screens.',
-    showOnSiteHome: true,
   },
   {
     id: 'angular-http-dedupe',

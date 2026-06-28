@@ -1266,4 +1266,68 @@ export const DEMO_SOURCE_SNIPPETS: Record<string, DemoSourceSnippet> = {
       },
     ],
   },
+  'angular-dirty-state/demo-state': {
+    id: 'angular-dirty-state/demo-state',
+    title: 'Dirty State demo component source',
+    description:
+      'Generated from the real Dirty State demo component files, including TypeScript, template, and styles.',
+    files: [
+      {
+        id: 'ts',
+        label: 'component.ts',
+        language: 'ts',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component.ts',
+        code: "import { ChangeDetectionStrategy, Component, computed } from '@angular/core';\nimport { injectDirtyState } from '@hexguard/angular-dirty-state';\nimport { ANGULAR_DIRTY_STATE_DEMO } from '../../../../../../demo-registry';\nimport { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';\nimport { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';\nimport { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';\nimport { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';\nimport { formatSnapshot } from '../../../../../../shared/formatting';\n\n@Component({\n  standalone: true,\n  selector: 'demo-dirty-state-demo-page',\n  templateUrl: './dirty-state-demo-page.component.html',\n  styleUrl: './dirty-state-demo-page.component.css',\n  imports: [\n    DemoInspectorPanelComponent, DemoNavigationStripComponent,\n    DemoPageLayoutComponent, DemoStatusStripComponent,\n  ],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class DirtyStateDemoPageComponent {\n  protected readonly demo = ANGULAR_DIRTY_STATE_DEMO;\n  protected readonly dirty = injectDirtyState();\n  protected readonly snapshotJson = computed(() =>\n    formatSnapshot({ isDirty: this.dirty.isDirty(), snapshot: this.dirty.snapshot() }));\n}",
+      },
+      {
+        id: 'html',
+        label: 'template.html',
+        language: 'html',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component.html',
+        code: '<demo-page-layout testId="dirty-state-demo">\n  <demo-navigation-strip demoNavigation testId="dirty-state-demo-navigation" [demo]="demo" />\n  <article demoIntro class="demo-card demo-card--stack">\n    <div class="demo-card__header"><div><p class="demo-eyebrow">Angular Dirty State</p><h2>Unsaved-change tracking for Angular.</h2></div></div>\n    <demo-status-strip testId="dirty-state-demo-status" summary="Track unsaved changes with signal-based isDirty feedback and route guard integration." currentUrl="Angular Dirty State — Demo" summaryTestId="dirty-state-demo-summary" urlTestId="dirty-state-demo-url" />\n  </article>\n  <article demoPrimary class="demo-card demo-card--stack" data-testid="dirty-state-playground">\n    <!-- demo-snippet:start angular-dirty-state/demo-state -->\n    <p data-testid="is-dirty">Status: <strong>{{ dirty.isDirty() ? \'🔴 Dirty\' : \'🟢 Clean\' }}</strong></p>\n    <div class="demo-actions">\n      <button class="demo-button" (click)="dirty.markDirty()" data-testid="btn-mark-dirty">Mark Dirty</button>\n      <button class="demo-button" (click)="dirty.markClean()" data-testid="btn-mark-clean">Mark Clean</button>\n      <button class="demo-button" (click)="dirty.reset()" data-testid="btn-reset">Reset</button>\n    </div>\n    <!-- demo-snippet:end -->\n  </article>\n  <demo-inspector-panel demoAside panelTestId="dirty-state-inspector-panel" title="Dirty State snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="dirty-state-snapshot-json" codeTestId="dirty-state-code-sample" />\n</demo-page-layout>',
+      },
+      {
+        id: 'css',
+        label: 'styles.css',
+        language: 'css',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component.css',
+        code: '.demo-button { padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer; font-size: 0.875rem; }\n.demo-button:hover { background: #e0e0e0; }\n.demo-actions { display: flex; gap: 0.75rem; margin: 1rem 0; }',
+      },
+    ],
+  },
+  'angular-table-state/demo-state': {
+    id: 'angular-table-state/demo-state',
+    title: 'Table State demo component source',
+    description:
+      'Generated from the real Table State demo component files, including TypeScript, template, and styles.',
+    files: [
+      {
+        id: 'ts',
+        label: 'component.ts',
+        language: 'ts',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.ts',
+        code: "import { ChangeDetectionStrategy, Component, computed } from '@angular/core';\nimport { injectTableState } from '@hexguard/angular-table-state';\nimport { ANGULAR_TABLE_STATE_DEMO } from '../../../../../../demo-registry';\nimport { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';\nimport { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';\nimport { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';\nimport { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';\nimport { formatSnapshot } from '../../../../../../shared/formatting';\n\n@Component({\n  standalone: true,\n  selector: 'demo-table-state-demo-page',\n  templateUrl: './table-state-demo-page.component.html',\n  styleUrl: './table-state-demo-page.component.css',\n  imports: [\n    DemoInspectorPanelComponent, DemoNavigationStripComponent,\n    DemoPageLayoutComponent, DemoStatusStripComponent,\n  ],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class TableStateDemoPageComponent {\n  protected readonly demo = ANGULAR_TABLE_STATE_DEMO;\n  protected readonly table = injectTableState();\n  protected readonly snapshotJson = computed(() =>\n    formatSnapshot({\n      sortColumn: this.table.sortColumn(), sortDirection: this.table.sortDirection(),\n      page: this.table.pagination.page(), filters: this.table.filters(),\n      selectedCount: this.table.selection.selectedCount(),\n    }));\n}",
+      },
+      {
+        id: 'html',
+        label: 'template.html',
+        language: 'html',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.html',
+        code: '<demo-page-layout testId="table-state-demo">\n  <demo-navigation-strip demoNavigation testId="table-state-demo-navigation" [demo]="demo" />\n  <article demoIntro class="demo-card demo-card--stack">\n    <div class="demo-card__header"><div><p class="demo-eyebrow">Angular Table State</p><h2>Unified table state for Angular.</h2></div></div>\n    <demo-status-strip testId="table-state-demo-status" summary="Sort, paginate, select, and filter through one signal-based handle." currentUrl="Angular Table State — Demo" summaryTestId="table-state-demo-summary" urlTestId="table-state-demo-url" />\n  </article>\n  <article demoPrimary class="demo-card demo-card--stack" data-testid="table-state-playground">\n    <!-- demo-snippet:start angular-table-state/demo-state -->\n    <div class="table-controls">\n      <div class="control-row">\n        <span><strong>Sort:</strong> {{ table.sortState().column || \'—\' }} ({{ table.sortState().direction }})</span>\n        <button class="demo-button" (click)="table.toggleSort(\'name\')" data-testid="btn-sort-name">Sort Name</button>\n        <button class="demo-button" (click)="table.toggleSort(\'date\')" data-testid="btn-sort-date">Sort Date</button>\n        <button class="demo-button" (click)="table.clearSort()" data-testid="btn-clear-sort">Clear Sort</button>\n      </div>\n      <div class="control-row">\n        <span><strong>Page:</strong> {{ table.pagination.page() }}</span>\n        <button class="demo-button" (click)="table.pagination.nextPage()" data-testid="btn-next-page">Next</button>\n        <button class="demo-button" (click)="table.pagination.previousPage()" data-testid="btn-prev-page">Prev</button>\n      </div>\n      <div class="control-row">\n        <span><strong>Filter:</strong></span>\n        <input class="filter-input" placeholder="Status" (input)="table.setFilter(\'status\', $any($event.target).value)" data-testid="input-filter" />\n        <button class="demo-button" (click)="table.clearAllFilters()" data-testid="btn-clear-filters">Clear Filters</button>\n      </div>\n      <div class="control-row">\n        <span><strong>Selected:</strong> {{ table.selection.selectedCount() }}</span>\n        <button class="demo-button" (click)="table.selection.toggle(\'item-1\')" data-testid="btn-toggle-sel">Toggle item-1</button>\n        <button class="demo-button" (click)="table.selection.clearSelection()" data-testid="btn-clear-sel">Clear Selection</button>\n      </div>\n      <button class="demo-button demo-button--danger" (click)="table.resetAll()" data-testid="btn-reset-all">Reset All</button>\n    </div>\n    <!-- demo-snippet:end -->\n  </article>\n  <demo-inspector-panel demoAside panelTestId="table-state-inspector-panel" title="Table State snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="table-state-snapshot-json" codeTestId="table-state-code-sample" />\n</demo-page-layout>',
+      },
+      {
+        id: 'css',
+        label: 'styles.css',
+        language: 'css',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.css',
+        code: '.table-controls { display: flex; flex-direction: column; gap: 0.75rem; }\n.control-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }\n.demo-button { padding: 0.375rem 0.75rem; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer; font-size: 0.8125rem; }\n.demo-button:hover { background: #e0e0e0; }\n.demo-button--danger { border-color: #d32f2f; color: #d32f2f; }\n.filter-input { padding: 0.375rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.8125rem; }',
+      },
+    ],
+  },
 };

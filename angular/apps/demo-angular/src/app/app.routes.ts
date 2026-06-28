@@ -137,6 +137,12 @@ import { DotnetPaginationHubPageComponent } from './features/packages/dotnet/hex
 import { DotnetPaginationDemoPageComponent } from './features/packages/dotnet/hexguard-pagination/pages/pagination-demo-page.component';
 import { BlazorDebouncedInputHubPageComponent } from './features/packages/blazor/hexguard-blazor-debounced-input/blazor-debounced-input-hub-page.component';
 import { BlazorHomePageComponent } from './features/packages/blazor/blazor-home/blazor-home-page.component';
+import { AngularClipboardHomePageComponent } from './features/packages/angular/angular-clipboard/angular-clipboard-home-page.component';
+import { ClipboardDemoPageComponent } from './features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component';
+import { AngularDirtyStateHomePageComponent } from './features/packages/angular/angular-dirty-state/angular-dirty-state-home-page.component';
+import { DirtyStateDemoPageComponent } from './features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component';
+import { AngularTableStateHomePageComponent } from './features/packages/angular/angular-table-state/angular-table-state-home-page.component';
+import { TableStateDemoPageComponent } from './features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component';
 
 export const routes: Routes = [
   {
@@ -649,6 +655,28 @@ export const routes: Routes = [
     path: 'packages/angular-theme/demo',
     component: ThemeDemoPageComponent,
     title: 'Theme Demo',
+  },
+  // ── Dirty State ─────────────────────────────────────────────────
+  {
+    path: 'packages/angular-dirty-state',
+    component: AngularDirtyStateHomePageComponent,
+    title: 'Angular Dirty State Demos',
+  },
+  {
+    path: 'packages/angular-dirty-state/demo',
+    component: DirtyStateDemoPageComponent,
+    title: 'Dirty State Demo',
+  },
+  // ── Table State ─────────────────────────────────────────────────
+  {
+    path: 'packages/angular-table-state',
+    component: AngularTableStateHomePageComponent,
+    title: 'Angular Table State Demos',
+  },
+  {
+    path: 'packages/angular-table-state/demo',
+    component: TableStateDemoPageComponent,
+    title: 'Table State Demo',
   },
   // ── Wizard State ────────────────────────────────────────────────
   {

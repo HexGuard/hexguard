@@ -410,6 +410,26 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-command-palette/pages/command-palette-demo-page/command-palette-demo-page.component.ts',
   },
+  {
+    id: 'angular-dirty-state/demo-state',
+    title: 'Dirty State demo component source',
+    description:
+      'Generated from the real Dirty State demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component.ts',
+  },
+  {
+    id: 'angular-table-state/demo-state',
+    title: 'Table State demo component source',
+    description:
+      'Generated from the real Table State demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {
