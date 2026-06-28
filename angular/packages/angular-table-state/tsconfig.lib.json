@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "outDir": "../../out-tsc/lib", "declaration": true, "declarationMap": true, "types": [],
+    "paths": {
+      "@hexguard/angular-pagination": ["../../dist/angular-pagination"],
+      "@hexguard/angular-selection-state": ["../../dist/angular-selection-state"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}
