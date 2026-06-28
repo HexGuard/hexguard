@@ -933,6 +933,32 @@
         }
       }
     },
+    "angular-preferences": {
+      "projectType": "library",
+      "root": "packages/angular-preferences",
+      "sourceRoot": "packages/angular-preferences/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-preferences/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-preferences/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-preferences/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "demo-angular": {
       "projectType": "application",
       "schematics": {},

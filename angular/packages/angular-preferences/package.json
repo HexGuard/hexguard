@@ -1,0 +1,20 @@
+{
+  "name": "@hexguard/angular-preferences",
+  "version": "0.1.0",
+  "description": "Typed user preferences for Angular: schema-driven key-value persistence with per-key signals, TTL, and cross-tab sync.",
+  "keywords": ["angular", "signals", "preferences", "settings", "persistence", "storage", "hexguard"],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-preferences",
+  "bugs": { "url": "https://github.com/hexguard/hexguard/issues" },
+  "repository": { "type": "git", "url": "https://github.com/hexguard/hexguard.git", "directory": "angular/packages/angular-preferences" },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@hexguard/angular-storage": "^0.1.0"
+  },
+  "devDependencies": {
+    "@hexguard/angular-storage": "workspace:*"
+  },
+  "dependencies": { "tslib": "^2.3.0" },
+  "publishConfig": { "access": "public" },
+  "sideEffects": false
+}
