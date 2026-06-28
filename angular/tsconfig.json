@@ -43,6 +43,7 @@
       "@hexguard/angular-undo": ["./packages/angular-undo/src/public-api.ts"],
       "@hexguard/angular-wizard-state": ["./packages/angular-wizard-state/src/public-api.ts"],
       "@hexguard/angular-signal-persist": ["./packages/angular-signal-persist/src/public-api.ts"],
+      "@hexguard/angular-signal-utils": ["./packages/angular-signal-utils/src/public-api.ts"],
       "@hexguard/angular-storage": ["./packages/angular-storage/src/public-api.ts"],
       "@hexguard/angular-table-state": ["./packages/angular-table-state/src/public-api.ts"],
       "@hexguard/angular-theme": ["./packages/angular-theme/src/public-api.ts"]
