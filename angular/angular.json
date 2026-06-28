@@ -241,6 +241,26 @@
         }
       }
     },
+    "angular-dirty-state": {
+      "projectType": "library",
+      "root": "packages/angular-dirty-state",
+      "sourceRoot": "packages/angular-dirty-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-dirty-state/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-dirty-state/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-dirty-state/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-notifications": {
       "projectType": "library",
       "root": "packages/angular-notifications",

@@ -14,6 +14,7 @@
       "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"],
       "@hexguard/angular-api-errors": ["./packages/angular-api-errors/src/public-api.ts"],
       "@hexguard/angular-debounce": ["./packages/angular-debounce/src/public-api.ts"],
+      "@hexguard/angular-dirty-state": ["./packages/angular-dirty-state/src/public-api.ts"],
       "@hexguard/angular-notifications": ["./packages/angular-notifications/src/public-api.ts"],
       "@hexguard/angular-error-boundary": ["./packages/angular-error-boundary/src/public-api.ts"],
       "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"],
@@ -68,8 +69,12 @@
     {
       "path": "./packages/angular-url-state/tsconfig.spec.json"
     },
+    {      "path": "./packages/angular-dirty-state/tsconfig.lib.json"
+    },
     {
-      "path": "./packages/angular-query-form/tsconfig.lib.json"
+      "path": "./packages/angular-dirty-state/tsconfig.spec.json"
+    },
+    {      "path": "./packages/angular-query-form/tsconfig.lib.json"
     },
     {
       "path": "./packages/angular-query-form/tsconfig.spec.json"

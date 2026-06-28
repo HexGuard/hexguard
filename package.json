@@ -162,6 +162,7 @@
     "verify:package:breakpoint-observer": "pnpm angular:verify:package:breakpoint-observer",
     "build:lib:selection-state": "pnpm angular:build:lib:selection-state",
     "build:lib:debounce": "pnpm angular:build:lib:debounce",
+    "build:lib:dirty-state": "pnpm angular:build:lib:dirty-state",
     "build:lib:bulk-operations": "pnpm angular:build:lib:bulk-operations",
     "build:lib:date-utils": "pnpm angular:build:lib:date-utils",
     "build:lib:network-status": "pnpm angular:build:lib:network-status",
