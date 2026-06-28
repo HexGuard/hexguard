@@ -933,6 +933,26 @@
         }
       }
     },
+    "angular-http-dedupe": {
+      "projectType": "library",
+      "root": "packages/angular-http-dedupe",
+      "sourceRoot": "packages/angular-http-dedupe/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-http-dedupe/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-http-dedupe/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-http-dedupe/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-preferences": {
       "projectType": "library",
       "root": "packages/angular-preferences",

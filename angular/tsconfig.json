@@ -18,6 +18,7 @@
       "@hexguard/angular-notifications": ["./packages/angular-notifications/src/public-api.ts"],
       "@hexguard/angular-error-boundary": ["./packages/angular-error-boundary/src/public-api.ts"],
       "@hexguard/angular-feature-flags": ["./packages/angular-feature-flags/src/public-api.ts"],
+      "@hexguard/angular-http-dedupe": ["./packages/angular-http-dedupe/src/public-api.ts"],
       "@hexguard/angular-selection-state": ["./packages/angular-selection-state/src/public-api.ts"],
       "@hexguard/angular-pagination": ["./packages/angular-pagination/src/public-api.ts"],
       "@hexguard/angular-preferences": ["./packages/angular-preferences/src/public-api.ts"],
