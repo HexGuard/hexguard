@@ -143,6 +143,14 @@ import { AngularDirtyStateHomePageComponent } from './features/packages/angular/
 import { DirtyStateDemoPageComponent } from './features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component';
 import { AngularTableStateHomePageComponent } from './features/packages/angular/angular-table-state/angular-table-state-home-page.component';
 import { TableStateDemoPageComponent } from './features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component';
+import { AngularSignalPersistHomePageComponent } from './features/packages/angular/angular-signal-persist/angular-signal-persist-home-page.component';
+import { SignalPersistDemoPageComponent } from './features/packages/angular/angular-signal-persist/pages/signal-persist-demo-page/signal-persist-demo-page.component';
+import { AngularSignalUtilsHomePageComponent } from './features/packages/angular/angular-signal-utils/angular-signal-utils-home-page.component';
+import { SignalUtilsDemoPageComponent } from './features/packages/angular/angular-signal-utils/pages/signal-utils-demo-page/signal-utils-demo-page.component';
+import { AngularPreferencesHomePageComponent } from './features/packages/angular/angular-preferences/angular-preferences-home-page.component';
+import { PreferencesDemoPageComponent } from './features/packages/angular/angular-preferences/pages/preferences-demo-page/preferences-demo-page.component';
+import { AngularHttpDedupeHomePageComponent } from './features/packages/angular/angular-http-dedupe/angular-http-dedupe-home-page.component';
+import { HttpDedupeDemoPageComponent } from './features/packages/angular/angular-http-dedupe/pages/http-dedupe-demo-page/http-dedupe-demo-page.component';
 
 export const routes: Routes = [
   {
@@ -677,6 +685,50 @@ export const routes: Routes = [
     path: 'packages/angular-table-state/demo',
     component: TableStateDemoPageComponent,
     title: 'Table State Demo',
+  },
+  // ── Signal Persist ──────────────────────────────────────────────
+  {
+    path: 'packages/angular-signal-persist',
+    component: AngularSignalPersistHomePageComponent,
+    title: 'Angular Signal Persist Demos',
+  },
+  {
+    path: 'packages/angular-signal-persist/demo',
+    component: SignalPersistDemoPageComponent,
+    title: 'Signal Persist Demo',
+  },
+  // ── Signal Utils ────────────────────────────────────────────────
+  {
+    path: 'packages/angular-signal-utils',
+    component: AngularSignalUtilsHomePageComponent,
+    title: 'Angular Signal Utils Demos',
+  },
+  {
+    path: 'packages/angular-signal-utils/demo',
+    component: SignalUtilsDemoPageComponent,
+    title: 'Signal Utils Demo',
+  },
+  // ── Preferences ─────────────────────────────────────────────────
+  {
+    path: 'packages/angular-preferences',
+    component: AngularPreferencesHomePageComponent,
+    title: 'Angular Preferences Demos',
+  },
+  {
+    path: 'packages/angular-preferences/demo',
+    component: PreferencesDemoPageComponent,
+    title: 'Preferences Demo',
+  },
+  // ── HTTP Dedupe ─────────────────────────────────────────────────
+  {
+    path: 'packages/angular-http-dedupe',
+    component: AngularHttpDedupeHomePageComponent,
+    title: 'Angular HTTP Dedupe Demos',
+  },
+  {
+    path: 'packages/angular-http-dedupe/demo',
+    component: HttpDedupeDemoPageComponent,
+    title: 'HTTP Dedupe Demo',
   },
   // ── Wizard State ────────────────────────────────────────────────
   {

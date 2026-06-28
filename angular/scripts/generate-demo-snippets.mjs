@@ -430,6 +430,46 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-table-state/pages/table-state-demo-page/table-state-demo-page.component.ts',
   },
+  {
+    id: 'angular-signal-persist/demo-state',
+    title: 'Signal Persist demo component source',
+    description:
+      'Generated from the real Signal Persist demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-signal-persist/pages/signal-persist-demo-page/signal-persist-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-signal-persist/pages/signal-persist-demo-page/signal-persist-demo-page.component.ts',
+  },
+  {
+    id: 'angular-signal-utils/demo-state',
+    title: 'Signal Utils demo component source',
+    description:
+      'Generated from the real Signal Utils demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-signal-utils/pages/signal-utils-demo-page/signal-utils-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-signal-utils/pages/signal-utils-demo-page/signal-utils-demo-page.component.ts',
+  },
+  {
+    id: 'angular-preferences/demo-state',
+    title: 'Preferences demo component source',
+    description:
+      'Generated from the real Preferences demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-preferences/pages/preferences-demo-page/preferences-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-preferences/pages/preferences-demo-page/preferences-demo-page.component.ts',
+  },
+  {
+    id: 'angular-http-dedupe/demo-state',
+    title: 'HTTP Dedupe demo component source',
+    description:
+      'Generated from the real HTTP Dedupe demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-http-dedupe/pages/http-dedupe-demo-page/http-dedupe-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-http-dedupe/pages/http-dedupe-demo-page/http-dedupe-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

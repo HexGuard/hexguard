@@ -1,0 +1,12 @@
+<demo-page-layout>
+  <demo-navigation-strip />
+  <div class="demo-content">
+    <h2>HTTP Dedupe Demo</h2>
+    <p>Simulates deduplicated request execution.</p>
+    <button (click)="onExecute()" data-testid="execute-btn">Execute Request</button>
+    <div>Result: {{ result }}</div>
+    <div>Call count: {{ callCount }}</div>
+  </div>
+  <demo-status-strip />
+  <demo-inspector-panel [json]="snapshotJson()" />
+</demo-page-layout>

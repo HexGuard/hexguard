@@ -76,6 +76,10 @@ const ANGULAR_CLIPBOARD_CATALOG = getGeneratedCurrentPackage('angular-clipboard'
 const ANGULAR_THEME_CATALOG = getGeneratedCurrentPackage('angular-theme');
 const ANGULAR_DIRTY_STATE_CATALOG = getGeneratedCurrentPackage('angular-dirty-state');
 const ANGULAR_TABLE_STATE_CATALOG = getGeneratedCurrentPackage('angular-table-state');
+const ANGULAR_SIGNAL_PERSIST_CATALOG = getGeneratedCurrentPackage('angular-signal-persist');
+const ANGULAR_SIGNAL_UTILS_CATALOG = getGeneratedCurrentPackage('angular-signal-utils');
+const ANGULAR_PREFERENCES_CATALOG = getGeneratedCurrentPackage('angular-preferences');
+const ANGULAR_HTTP_DEDUPE_CATALOG = getGeneratedCurrentPackage('angular-http-dedupe');
 
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
@@ -96,6 +100,10 @@ const ANGULAR_CLIPBOARD_DOCS = ANGULAR_CLIPBOARD_CATALOG.docsLinks;
 const ANGULAR_THEME_DOCS = ANGULAR_THEME_CATALOG.docsLinks;
 const ANGULAR_DIRTY_STATE_DOCS = ANGULAR_DIRTY_STATE_CATALOG.docsLinks;
 const ANGULAR_TABLE_STATE_DOCS = ANGULAR_TABLE_STATE_CATALOG.docsLinks;
+const ANGULAR_SIGNAL_PERSIST_DOCS = ANGULAR_SIGNAL_PERSIST_CATALOG.docsLinks;
+const ANGULAR_SIGNAL_UTILS_DOCS = ANGULAR_SIGNAL_UTILS_CATALOG.docsLinks;
+const ANGULAR_PREFERENCES_DOCS = ANGULAR_PREFERENCES_CATALOG.docsLinks;
+const ANGULAR_HTTP_DEDUPE_DOCS = ANGULAR_HTTP_DEDUPE_CATALOG.docsLinks;
 const ANGULAR_ROUTE_MEMORY_DOCS = ANGULAR_ROUTE_MEMORY_CATALOG.docsLinks;
 const ANGULAR_PAGE_CONTEXT_DOCS = ANGULAR_PAGE_CONTEXT_CATALOG.docsLinks;
 const ANGULAR_SCROLL_STATE_DOCS = ANGULAR_SCROLL_STATE_CATALOG.docsLinks;
@@ -1992,6 +2000,178 @@ export const ANGULAR_TABLE_STATE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_TABLE_STATE_DEMO],
 };
 
+// ── angular-signal-persist demo entries ────────────────────
+
+export const ANGULAR_SIGNAL_PERSIST_DEMO: DemoPageEntry = {
+  id: 'signal-persist',
+  packageId: 'angular-signal-persist',
+  route: '/packages/angular-signal-persist/demo',
+  legacyRoute: '/signal-persist',
+  label: 'Signal Persist',
+  title: 'Auto-persist any WritableSignal to localStorage',
+  description:
+    'A live demo shows signal persistence with hydration on init, set/update persistence, and refresh-to-verify.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-signal-persist/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-signal-persist.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-signal-persist/demo-state',
+    label: 'Signal Persist demo component source',
+    description:
+      'The full signal-persist demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_SIGNAL_PERSIST_PACKAGE: DemoPackageEntry = {
+  id: 'angular-signal-persist',
+  route: '/packages/angular-signal-persist',
+  label: 'Angular Signal Persist',
+  title: ANGULAR_SIGNAL_PERSIST_CATALOG.packageName,
+  description: ANGULAR_SIGNAL_PERSIST_CATALOG.summary,
+  docsLinks: ANGULAR_SIGNAL_PERSIST_DOCS,
+  demos: [ANGULAR_SIGNAL_PERSIST_DEMO],
+};
+
+// ── angular-signal-utils demo entries ──────────────────────
+
+export const ANGULAR_SIGNAL_UTILS_DEMO: DemoPageEntry = {
+  id: 'signal-utils',
+  packageId: 'angular-signal-utils',
+  route: '/packages/angular-signal-utils/demo',
+  legacyRoute: '/signal-utils',
+  label: 'Signal Utils',
+  title: 'Signal utility helpers: computedFrom, injectToggle, memoized, throttledSignal',
+  description:
+    'A live demo shows computedFrom multi-dep derivation, injectToggle boolean toggle, and throttledSignal rate-limited emissions.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-signal-utils/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-signal-utils.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-signal-utils/demo-state',
+    label: 'Signal Utils demo component source',
+    description:
+      'The full signal-utils demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_SIGNAL_UTILS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-signal-utils',
+  route: '/packages/angular-signal-utils',
+  label: 'Angular Signal Utils',
+  title: ANGULAR_SIGNAL_UTILS_CATALOG.packageName,
+  description: ANGULAR_SIGNAL_UTILS_CATALOG.summary,
+  docsLinks: ANGULAR_SIGNAL_UTILS_DOCS,
+  demos: [ANGULAR_SIGNAL_UTILS_DEMO],
+};
+
+// ── angular-preferences demo entries ───────────────────────
+
+export const ANGULAR_PREFERENCES_DEMO: DemoPageEntry = {
+  id: 'preferences',
+  packageId: 'angular-preferences',
+  route: '/packages/angular-preferences/demo',
+  legacyRoute: '/preferences',
+  label: 'Preferences',
+  title: 'Typed schema-driven user preferences with persistence',
+  description:
+    'A live demo shows typed preference get/set, patch, reset, resetAll, and cross-tab persistence.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-preferences/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-preferences.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-preferences/demo-state',
+    label: 'Preferences demo component source',
+    description:
+      'The full preferences demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_PREFERENCES_PACKAGE: DemoPackageEntry = {
+  id: 'angular-preferences',
+  route: '/packages/angular-preferences',
+  label: 'Angular Preferences',
+  title: ANGULAR_PREFERENCES_CATALOG.packageName,
+  description: ANGULAR_PREFERENCES_CATALOG.summary,
+  docsLinks: ANGULAR_PREFERENCES_DOCS,
+  demos: [ANGULAR_PREFERENCES_DEMO],
+};
+
+// ── angular-http-dedupe demo entries ───────────────────────
+
+export const ANGULAR_HTTP_DEDUPE_DEMO: DemoPageEntry = {
+  id: 'http-dedupe',
+  packageId: 'angular-http-dedupe',
+  route: '/packages/angular-http-dedupe/demo',
+  legacyRoute: '/http-dedupe',
+  label: 'HTTP Dedupe',
+  title: 'Keyed in-flight deduplication with response caching',
+  description:
+    'A live demo shows in-flight request dedup and cache-within-TTL behavior.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-http-dedupe/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-http-dedupe.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-http-dedupe/demo-state',
+    label: 'HTTP Dedupe demo component source',
+    description:
+      'The full HTTP dedupe demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_HTTP_DEDUPE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-http-dedupe',
+  route: '/packages/angular-http-dedupe',
+  label: 'Angular HTTP Dedupe',
+  title: ANGULAR_HTTP_DEDUPE_CATALOG.packageName,
+  description: ANGULAR_HTTP_DEDUPE_CATALOG.summary,
+  docsLinks: ANGULAR_HTTP_DEDUPE_DOCS,
+  demos: [ANGULAR_HTTP_DEDUPE_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -2028,6 +2208,10 @@ export const DEMO_PACKAGES = [
   ANGULAR_WIZARD_STATE_PACKAGE,
   ANGULAR_BULK_OPERATIONS_PACKAGE,
   ANGULAR_DATE_UTILS_PACKAGE,
+  ANGULAR_SIGNAL_PERSIST_PACKAGE,
+  ANGULAR_SIGNAL_UTILS_PACKAGE,
+  ANGULAR_PREFERENCES_PACKAGE,
+  ANGULAR_HTTP_DEDUPE_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

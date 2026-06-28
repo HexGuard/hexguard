@@ -1,0 +1,24 @@
+<demo-page-layout>
+  <demo-navigation-strip />
+  <div class="demo-content">
+    <h2>Persisted Signal Demo</h2>
+    <p>Values auto-persist to localStorage. Refresh the page to verify persistence.</p>
+
+    <div class="control-group">
+      <label>Theme:</label>
+      <select [ngModel]="theme()" (ngModelChange)="theme.set($event)" data-testid="theme-select">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="system">System</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Count: {{ count() }}</label>
+      <button (click)="count.update(v => v + 1)" data-testid="increment-btn">+</button>
+      <button (click)="count.set(0)" data-testid="reset-btn">Reset</button>
+    </div>
+  </div>
+  <demo-status-strip />
+  <demo-inspector-panel [json]="snapshotJson()" />
+</demo-page-layout>

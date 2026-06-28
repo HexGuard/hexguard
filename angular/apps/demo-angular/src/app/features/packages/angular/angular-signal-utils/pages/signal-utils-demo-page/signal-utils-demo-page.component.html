@@ -1,0 +1,28 @@
+<demo-page-layout>
+  <demo-navigation-strip />
+  <div class="demo-content">
+    <h2>Signal Utils Demo</h2>
+
+    <div class="control-group">
+      <label>First:</label>
+      <input [ngModel]="first()" (ngModelChange)="first.set($event)" data-testid="first-input" />
+      <label>Last:</label>
+      <input [ngModel]="last()" (ngModelChange)="last.set($event)" data-testid="last-input" />
+      <span>Full: <strong>{{ fullName() }}</strong></span>
+    </div>
+
+    <div class="control-group">
+      <label>Toggle:</label>
+      <span data-testid="toggle-value">{{ toggle.value() ? 'ON' : 'OFF' }}</span>
+      <button (click)="toggle.toggle()" data-testid="toggle-btn">Toggle</button>
+    </div>
+
+    <div class="control-group">
+      <label>Throttled:</label>
+      <span>{{ throttled.value() }}</span>
+      <button (click)="throttled.set(throttled.value() + 1)" data-testid="throttle-btn">+ (throttled)</button>
+    </div>
+  </div>
+  <demo-status-strip />
+  <demo-inspector-panel [json]="snapshotJson()" />
+</demo-page-layout>

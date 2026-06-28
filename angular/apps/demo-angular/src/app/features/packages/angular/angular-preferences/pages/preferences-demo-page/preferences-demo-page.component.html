@@ -1,0 +1,27 @@
+<demo-page-layout>
+  <demo-navigation-strip />
+  <div class="demo-content">
+    <h2>Preferences Demo</h2>
+    <p>Preferences persist to localStorage. Refresh to verify.</p>
+
+    <div class="control-group">
+      <label>Sidebar:</label>
+      <button (click)="prefs.set('sidebar', !prefs.get('sidebar')())" data-testid="sidebar-btn">
+        {{ prefs.get('sidebar')() ? 'Open' : 'Closed' }}
+      </button>
+    </div>
+
+    <div class="control-group">
+      <label>Page Size:</label>
+      <select [ngModel]="prefs.get('pageSize')()" (ngModelChange)="prefs.set('pageSize', $event)" data-testid="page-size-select">
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+
+    <button (click)="prefs.resetAll()" data-testid="reset-all-btn">Reset All</button>
+  </div>
+  <demo-status-strip />
+  <demo-inspector-panel [json]="snapshotJson()" />
+</demo-page-layout>
