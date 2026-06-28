@@ -1,0 +1,34 @@
+{
+  "name": "@hexguard/angular-signal-persist",
+  "version": "0.1.0",
+  "description": "One-call signal persistence for Angular: wrap any WritableSignal<T> to auto-persist to localStorage or sessionStorage with TTL, migration, and cross-tab sync.",
+  "keywords": [
+    "angular",
+    "signals",
+    "persist",
+    "persistence",
+    "localStorage",
+    "sessionStorage",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-signal-persist",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-signal-persist"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

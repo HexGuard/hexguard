@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { injectFilePicker } from '@hexguard/angular-file-picker';
 import { ANGULAR_FILE_PICKER_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
@@ -53,8 +53,8 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
           <label class="fp-mode-label"
             >Read mode:
             <select
-              [value]="currentMode()"
-              (change)="currentMode.set($any($event.target).value)"
+              [value]="picker.readMode()"
+              (change)="picker.readMode.set($any($event.target).value)"
               data-testid="fp-mode-select"
             >
               <option value="text">Text</option>
@@ -223,11 +223,8 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 })
 export class FilePickerDemoPageComponent {
   protected readonly demo = ANGULAR_FILE_PICKER_DEMO;
-  protected readonly currentMode = signal('text');
-
   protected readonly picker = injectFilePicker({
     multiple: true,
-    readMode: 'text',
   });
 
   protected readonly snapshotJson = computed(() =>

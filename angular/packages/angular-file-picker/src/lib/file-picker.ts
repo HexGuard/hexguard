@@ -34,12 +34,13 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
     accept,
     maxFileSize = DEFAULT_MAX_FILE_SIZE,
     multiple = false,
-    readMode = 'text',
+    readMode: initialReadMode = 'text',
   } = options ?? {};
 
   const files = signal<readonly FileHandle[]>([], { equal: (a, b) => a === b });
   const loading = signal(false);
   const error = signal<string | null>(null);
+  const readMode = signal<FileReadMode>(initialReadMode);
 
   const destroyRef = inject(DestroyRef);
   let inputEl: HTMLInputElement | null = null;
@@ -102,7 +103,9 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
         type: file.type,
       };
 
-      if (readMode === 'none') {
+      const currentMode = readMode();
+
+      if (currentMode === 'none') {
         resolve({ ...metadata, content: null });
         return;
       }
@@ -121,7 +124,7 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
         );
       };
 
-      switch (readMode) {
+      switch (currentMode) {
         case 'text':
           reader.readAsText(file);
           break;
@@ -164,6 +167,7 @@ export function injectFilePicker(options?: FilePickerOptions): FilePickerHandle 
     files: files.asReadonly(),
     loading: loading.asReadonly(),
     error: error.asReadonly(),
+    readMode: readMode as unknown as FilePickerHandle['readMode'],
     open() {
       if (!inputEl) {
         inputEl = createInput();

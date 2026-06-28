@@ -391,6 +391,32 @@
         }
       }
     },
+    "angular-signal-persist": {
+      "projectType": "library",
+      "root": "packages/angular-signal-persist",
+      "sourceRoot": "packages/angular-signal-persist/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-signal-persist/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-signal-persist/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-signal-persist/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-storage": {
       "projectType": "library",
       "root": "packages/angular-storage",

@@ -48,6 +48,11 @@ export interface FilePickerHandle<T = string | ArrayBuffer | null> {
   readonly loading: import('@angular/core').Signal<boolean>;
   /** Last validation or read error, or `null`. */
   readonly error: import('@angular/core').Signal<string | null>;
+  /**
+   * Current read mode. Changing this affects subsequent file selections.
+   * Does not re-read already-loaded files.
+   */
+  readonly readMode: import('@angular/core').WritableSignal<FileReadMode>;
   /** Open the native file picker dialog. */
   open(): void;
   /** Clear all selected files. */
