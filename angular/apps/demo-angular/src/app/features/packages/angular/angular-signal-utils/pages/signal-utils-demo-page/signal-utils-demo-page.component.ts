@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { computedFrom, injectToggle, throttledSignal } from '@hexguard/angular-signal-utils';
+import { ANGULAR_SIGNAL_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
@@ -15,6 +16,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignalUtilsDemoPageComponent {
+  protected readonly demo = ANGULAR_SIGNAL_UTILS_DEMO;
   protected readonly first = signal('Jane');
   protected readonly last = signal('Doe');
   protected readonly fullName = computedFrom([this.first, this.last], (f, l) => `${f} ${l}`);

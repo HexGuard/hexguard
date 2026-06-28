@@ -1,28 +1,47 @@
-<demo-page-layout>
-  <demo-navigation-strip />
-  <div class="demo-content">
-    <h2>Signal Utils Demo</h2>
-
+<demo-page-layout testId="signal-utils-demo">
+  <demo-navigation-strip demoNavigation testId="signal-utils-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Signal Utils</p>
+        <h2>Signal utility helpers: computedFrom, injectToggle, throttledSignal.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="signal-utils-demo-status"
+      summary="Test computedFrom multi-dep derivation, injectToggle boolean toggle, and throttledSignal rate-limited emissions."
+      currentUrl="Angular Signal Utils — Demo"
+      summaryTestId="signal-utils-demo-summary"
+      urlTestId="signal-utils-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="signal-utils-playground">
     <div class="control-group">
       <label>First:</label>
-      <input [ngModel]="first()" (ngModelChange)="first.set($event)" data-testid="first-input" />
+      <input #firstInput (input)="first.set(firstInput.value)" [value]="first()" data-testid="first-input" />
       <label>Last:</label>
-      <input [ngModel]="last()" (ngModelChange)="last.set($event)" data-testid="last-input" />
+      <input #lastInput (input)="last.set(lastInput.value)" [value]="last()" data-testid="last-input" />
       <span>Full: <strong>{{ fullName() }}</strong></span>
     </div>
-
     <div class="control-group">
       <label>Toggle:</label>
       <span data-testid="toggle-value">{{ toggle.value() ? 'ON' : 'OFF' }}</span>
-      <button (click)="toggle.toggle()" data-testid="toggle-btn">Toggle</button>
+      <button class="demo-button" (click)="toggle.toggle()" data-testid="toggle-btn">Toggle</button>
     </div>
-
     <div class="control-group">
       <label>Throttled:</label>
       <span>{{ throttled.value() }}</span>
-      <button (click)="throttled.set(throttled.value() + 1)" data-testid="throttle-btn">+ (throttled)</button>
+      <button class="demo-button" (click)="throttled.set(throttled.value() + 1)" data-testid="throttle-btn">+ (throttled)</button>
     </div>
-  </div>
-  <demo-status-strip />
-  <demo-inspector-panel [json]="snapshotJson()" />
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="signal-utils-inspector-panel"
+    title="Signal Utils snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="signal-utils-snapshot-json"
+    codeTestId="signal-utils-code-sample"
+  />
 </demo-page-layout>

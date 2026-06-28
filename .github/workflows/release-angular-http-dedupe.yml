@@ -1,0 +1,52 @@
+name: Release Angular HTTP Dedupe
+
+on:
+  push:
+    tags: ['angular-http-dedupe-v*']
+  workflow_dispatch:
+    inputs:
+      npm_tag: { description: 'npm dist-tag', required: false, default: 'latest' }
+      release_tag: { description: 'Git tag for manual release', required: false, default: '' }
+      create_github_release: { description: 'Create GitHub release', required: false, type: boolean, default: false }
+
+permissions: { contents: write, id-token: write }
+
+jobs:
+  publish:
+    name: Publish @hexguard/angular-http-dedupe
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.27.0, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22.22.3, cache: pnpm, cache-dependency-path: "pnpm-lock.yaml\nangular/pnpm-lock.yaml", registry-url: 'https://registry.npmjs.org' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir angular install --frozen-lockfile
+      - run: pnpm --dir angular exec playwright install --with-deps chromium
+      - run: pnpm format:check && pnpm lint && pnpm test:ci && pnpm test:e2e
+      - run: pnpm build:lib:http-dedupe
+      - run: pnpm verify:package:http-dedupe
+      - id: metadata
+        shell: bash
+        run: |
+          V=$(node -p "require('./angular/packages/angular-http-dedupe/package.json').version")
+          N=$(node -p "require('./angular/packages/angular-http-dedupe/package.json').name")
+          ET="angular-http-dedupe-v${V}"
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            T="${GITHUB_REF_NAME}"; [[ "$T" != "$ET" ]] && echo "Tag mismatch" >&2 && exit 1
+            NT="latest"; CR="true"
+          else
+            T="${{ inputs.release_tag }}"; NT="${{ inputs.npm_tag }}"; CR="${{ inputs.create_github_release }}"
+            [[ "$CR" == "true" && ( -z "$T" || "$T" != "$ET" ) ]] && echo "Invalid tag" >&2 && exit 1
+          fi
+          TP=$(find angular/.artifacts -maxdepth 1 -name 'hexguard-angular-http-dedupe-*.tgz' -print -quit)
+          [[ -z "$TP" ]] && echo "No tarball" >&2 && exit 1
+          echo "package_name=$N\npackage_version=$V\ntag_name=$T\nnpm_tag=$NT\ncreate_release=$CR\ntarball_path=$TP" >> "$GITHUB_OUTPUT"
+      - run: pnpm --dir angular/dist/angular-http-dedupe publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+        env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }
+      - if: steps.metadata.outputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with: { tag_name: "${{ steps.metadata.outputs.tag_name }}", name: "${{ steps.metadata.outputs.package_name }}@${{ steps.metadata.outputs.package_version }}", generate_release_notes: true, files: "${{ steps.metadata.outputs.tarball_path }}" }

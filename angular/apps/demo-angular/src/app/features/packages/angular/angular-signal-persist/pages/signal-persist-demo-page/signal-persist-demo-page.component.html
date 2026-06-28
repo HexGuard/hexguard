@@ -1,24 +1,43 @@
-<demo-page-layout>
-  <demo-navigation-strip />
-  <div class="demo-content">
-    <h2>Persisted Signal Demo</h2>
-    <p>Values auto-persist to localStorage. Refresh the page to verify persistence.</p>
-
+<demo-page-layout testId="signal-persist-demo">
+  <demo-navigation-strip demoNavigation testId="signal-persist-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Signal Persist</p>
+        <h2>Auto-persist any WritableSignal to localStorage.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="signal-persist-demo-status"
+      summary="Values auto-persist to localStorage. Refresh the page to verify persistence."
+      currentUrl="Angular Signal Persist — Demo"
+      summaryTestId="signal-persist-demo-summary"
+      urlTestId="signal-persist-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="signal-persist-playground">
     <div class="control-group">
       <label>Theme:</label>
-      <select [ngModel]="theme()" (ngModelChange)="theme.set($event)" data-testid="theme-select">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="system">System</option>
+      <select #themeSelect (change)="theme.set(themeSelect.value)" data-testid="theme-select">
+        <option value="light" [selected]="theme() === 'light'">Light</option>
+        <option value="dark" [selected]="theme() === 'dark'">Dark</option>
+        <option value="system" [selected]="theme() === 'system'">System</option>
       </select>
     </div>
-
     <div class="control-group">
       <label>Count: {{ count() }}</label>
-      <button (click)="count.update(v => v + 1)" data-testid="increment-btn">+</button>
-      <button (click)="count.set(0)" data-testid="reset-btn">Reset</button>
+      <button class="demo-button" (click)="count.update(v => v + 1)" data-testid="increment-btn">+</button>
+      <button class="demo-button" (click)="count.set(0)" data-testid="reset-btn">Reset</button>
     </div>
-  </div>
-  <demo-status-strip />
-  <demo-inspector-panel [json]="snapshotJson()" />
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="signal-persist-inspector-panel"
+    title="Signal Persist snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="signal-persist-snapshot-json"
+    codeTestId="signal-persist-code-sample"
+  />
 </demo-page-layout>

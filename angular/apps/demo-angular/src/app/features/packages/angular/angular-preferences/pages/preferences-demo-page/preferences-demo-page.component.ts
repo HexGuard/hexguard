@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { injectPreferences, pref } from '@hexguard/angular-preferences';
+import { ANGULAR_PREFERENCES_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
@@ -20,6 +21,7 @@ const DEMO_PREFS = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreferencesDemoPageComponent {
+  protected readonly demo = ANGULAR_PREFERENCES_DEMO;
   protected readonly prefs = injectPreferences(DEMO_PREFS);
   protected readonly snapshotJson = computed(() =>
     formatSnapshot({ sidebar: this.prefs.get('sidebar')(), pageSize: this.prefs.get('pageSize')() }));

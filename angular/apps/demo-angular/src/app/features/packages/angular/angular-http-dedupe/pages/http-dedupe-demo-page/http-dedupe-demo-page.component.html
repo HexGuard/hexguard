@@ -1,12 +1,33 @@
-<demo-page-layout>
-  <demo-navigation-strip />
-  <div class="demo-content">
-    <h2>HTTP Dedupe Demo</h2>
-    <p>Simulates deduplicated request execution.</p>
-    <button (click)="onExecute()" data-testid="execute-btn">Execute Request</button>
+<demo-page-layout testId="http-dedupe-demo">
+  <demo-navigation-strip demoNavigation testId="http-dedupe-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular HTTP Dedupe</p>
+        <h2>Keyed in-flight deduplication with response caching.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="http-dedupe-demo-status"
+      summary="Simulates deduplicated request execution with in-flight dedup and cache."
+      currentUrl="Angular HTTP Dedupe — Demo"
+      summaryTestId="http-dedupe-demo-summary"
+      urlTestId="http-dedupe-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="http-dedupe-playground">
+    <button class="demo-button" (click)="onExecute()" data-testid="execute-btn">Execute Request</button>
     <div>Result: {{ result }}</div>
     <div>Call count: {{ callCount }}</div>
-  </div>
-  <demo-status-strip />
-  <demo-inspector-panel [json]="snapshotJson()" />
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="http-dedupe-inspector-panel"
+    title="HTTP Dedupe snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="http-dedupe-snapshot-json"
+    codeTestId="http-dedupe-code-sample"
+  />
 </demo-page-layout>

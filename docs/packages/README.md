@@ -51,6 +51,10 @@ another.
 | `@hexguard/angular-command-palette`     | Available   | Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.                                         | [Deep Dive](angular-command-palette.md), [npm-facing README](../../angular/packages/angular-command-palette/README.md), [Demo runbook](../demo/README.md)          |
 | `@hexguard/angular-dirty-state`         | Available   | Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.                                                              | [Deep Dive](angular-dirty-state.md), [npm-facing README](../../angular/packages/angular-dirty-state/README.md), [Demo runbook](../demo/README.md)                  |
 | `@hexguard/angular-table-state`         | Available   | Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.                                                                                  | [Deep Dive](angular-table-state.md), [npm-facing README](../../angular/packages/angular-table-state/README.md), [Demo runbook](../demo/README.md)                  |
+| `@hexguard/angular-signal-persist`      | Available   | One-call signal persistence for Angular: wrap any WritableSignal to auto-persist to localStorage/sessionStorage with TTL, migration, and cross-tab sync.                                              | [Deep Dive](angular-signal-persist.md), [npm-facing README](../../angular/packages/angular-signal-persist/README.md), [Demo runbook](../demo/README.md)            |
+| `@hexguard/angular-signal-utils`        | Available   | Signal utility helpers for Angular: computedFrom, injectToggle, memoized, and throttledSignal — pure function primitives for common signal patterns.                                                  | [Deep Dive](angular-signal-utils.md), [npm-facing README](../../angular/packages/angular-signal-utils/README.md), [Demo runbook](../demo/README.md)                |
+| `@hexguard/angular-preferences`         | Available   | Typed user preferences for Angular: schema-driven key-value persistence with per-key signals backed by @hexguard/angular-storage.                                                                     | [Deep Dive](angular-preferences.md), [npm-facing README](../../angular/packages/angular-preferences/README.md), [Demo runbook](../demo/README.md)                  |
+| `@hexguard/angular-http-dedupe`         | Available   | Collapse duplicate concurrent HTTP requests in Angular: keyed in-flight deduplication with optional response caching.                                                                                 | [Deep Dive](angular-http-dedupe.md), [npm-facing README](../../angular/packages/angular-http-dedupe/README.md), [Demo runbook](../demo/README.md)                  |
 
 ## Package Status Notes
 
@@ -478,6 +482,46 @@ This package composes existing HexGuard primitives (pagination, selection-state)
 
 It focuses on composition, not re-implementation — each sub-system is delegated to the existing package.
 
+<a id="package-angular-signal-persist"></a>
+
+### `@hexguard/angular-signal-persist`
+
+Status: Available
+
+This package is a higher-level convenience over raw Storage API.
+
+For fine-grained storage control (versioning, typed get/set), use @hexguard/angular-storage directly.
+
+<a id="package-angular-signal-utils"></a>
+
+### `@hexguard/angular-signal-utils`
+
+Status: Available
+
+Does NOT include debouncedSignal — use @hexguard/angular-debounce for that.
+
+Lazy signal deferred to a future version.
+
+<a id="package-angular-preferences"></a>
+
+### `@hexguard/angular-preferences`
+
+Status: Available
+
+This package builds on @hexguard/angular-storage for the persistence backend.
+
+Nested key paths deferred to a future version.
+
+<a id="package-angular-http-dedupe"></a>
+
+### `@hexguard/angular-http-dedupe`
+
+Status: Available
+
+This package deduplicates by request key across all consumers.
+
+HttpInterceptorFn integration deferred to a future version.
+
 ## Planned and Proposed Package Briefs
 
 <a id="package-angular-submit-lock"></a>
@@ -496,38 +540,6 @@ Status: Proposed
 
 Would standardize upload lifecycle state such as queueing, progress, retry, cancel, and completion without forcing one transport implementation.
 
-<a id="package-angular-navigation-pending"></a>
-
-### `@hexguard/angular-navigation-pending`
-
-Status: Proposed
-
-Would standardize route transition busy state, page readiness, and app-level navigation pending indicators through a headless Angular contract.
-
-<a id="package-angular-undo"></a>
-
-### `@hexguard/angular-undo`
-
-Status: Proposed
-
-Would standardize reversible action flows with undo windows, expiry, and commit-or-revert behavior for delete, archive, move, and status-change actions.
-
-<a id="package-angular-confirmation"></a>
-
-### `@hexguard/angular-confirmation`
-
-Status: Proposed
-
-Would standardize confirm/cancel and confirm-and-run flows for destructive or high-impact actions through a headless API with optional dialog adapters.
-
-<a id="package-angular-live-data"></a>
-
-### `@hexguard/angular-live-data`
-
-Status: Proposed
-
-Would standardize visibility-aware polling, stale indicators, and refresh ergonomics for dashboard-style and operational Angular screens.
-
 <a id="package-angular-query-signal-forms"></a>
 
 ### `@hexguard/angular-query-signal-forms`
@@ -536,14 +548,6 @@ Status: Proposed
 
 Would extend the URL-state story to Angular Signal Forms through a separate adapter package so the Reactive Forms contract in `@hexguard/angular-query-form` stays stable while Angular's signal-form surface continues to evolve.
 
-<a id="package-angular-preferences"></a>
-
-### `@hexguard/angular-preferences`
-
-Status: Planned
-
-Targets lightweight user preferences such as dashboard defaults, hidden columns, and saved views.
-
 <a id="package-angular-tenant-context"></a>
 
 ### `@hexguard/angular-tenant-context`
@@ -551,14 +555,6 @@ Targets lightweight user preferences such as dashboard defaults, hidden columns,
 Status: Proposed
 
 Would standardize active-tenant selection, route scoping, restore behavior, and tenant-aware client context for multi-tenant Angular apps.
-
-<a id="package-angular-http-dedupe"></a>
-
-### `@hexguard/angular-http-dedupe`
-
-Status: Planned
-
-Designed to collapse duplicate HTTP work across concurrent consumers while keeping cancellation and cache semantics explicit.
 
 <a id="package-angular-http-resource-debug"></a>
 

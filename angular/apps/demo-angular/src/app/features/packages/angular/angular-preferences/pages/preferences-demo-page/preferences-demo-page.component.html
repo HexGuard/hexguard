@@ -1,27 +1,45 @@
-<demo-page-layout>
-  <demo-navigation-strip />
-  <div class="demo-content">
-    <h2>Preferences Demo</h2>
-    <p>Preferences persist to localStorage. Refresh to verify.</p>
-
+<demo-page-layout testId="preferences-demo">
+  <demo-navigation-strip demoNavigation testId="preferences-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Preferences</p>
+        <h2>Typed schema-driven user preferences with persistence.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="preferences-demo-status"
+      summary="Preferences persist to localStorage. Refresh to verify."
+      currentUrl="Angular Preferences — Demo"
+      summaryTestId="preferences-demo-summary"
+      urlTestId="preferences-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="preferences-playground">
     <div class="control-group">
       <label>Sidebar:</label>
-      <button (click)="prefs.set('sidebar', !prefs.get('sidebar')())" data-testid="sidebar-btn">
+      <button class="demo-button" (click)="prefs.set('sidebar', !prefs.get('sidebar')())" data-testid="sidebar-btn">
         {{ prefs.get('sidebar')() ? 'Open' : 'Closed' }}
       </button>
     </div>
-
     <div class="control-group">
       <label>Page Size:</label>
-      <select [ngModel]="prefs.get('pageSize')()" (ngModelChange)="prefs.set('pageSize', $event)" data-testid="page-size-select">
-        <option [value]="10">10</option>
-        <option [value]="20">20</option>
-        <option [value]="50">50</option>
+      <select #pageSizeSelect (change)="prefs.set('pageSize', +pageSizeSelect.value)" data-testid="page-size-select">
+        <option value="10" [selected]="prefs.get('pageSize')() === 10">10</option>
+        <option value="20" [selected]="prefs.get('pageSize')() === 20">20</option>
+        <option value="50" [selected]="prefs.get('pageSize')() === 50">50</option>
       </select>
     </div>
-
-    <button (click)="prefs.resetAll()" data-testid="reset-all-btn">Reset All</button>
-  </div>
-  <demo-status-strip />
-  <demo-inspector-panel [json]="snapshotJson()" />
+    <button class="demo-button" (click)="prefs.resetAll()" data-testid="reset-all-btn">Reset All</button>
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="preferences-inspector-panel"
+    title="Preferences snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="preferences-snapshot-json"
+    codeTestId="preferences-code-sample"
+  />
 </demo-page-layout>

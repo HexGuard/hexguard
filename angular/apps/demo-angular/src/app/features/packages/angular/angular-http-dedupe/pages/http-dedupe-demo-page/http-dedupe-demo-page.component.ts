@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { createHttpDedupe } from '@hexguard/angular-http-dedupe';
+import { ANGULAR_HTTP_DEDUPE_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
@@ -15,6 +16,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HttpDedupeDemoPageComponent {
+  protected readonly demo = ANGULAR_HTTP_DEDUPE_DEMO;
   protected result = '';
   protected callCount = 0;
 
