@@ -849,3 +849,11 @@ const routes = [
 | 134 | `HexGuard.Billing` | `UsageAnomalyDetection` — detect unusual usage spikes | .NET | Medium | High |
 | 135 | `@hexguard/angular-media-library` | `cropTool` — image crop coordinates and aspect ratio state | Angular | Medium | Medium |
 | 136 | `HexGuard.Sla` | `SlaCreditAutoCalculate` — automatic credit computation on breach | .NET | Low | High |
+| 137 | `@hexguard/angular-inventory` | `barcodeLookup` — barcode scanning input state with camera/scan gun | Angular | Medium | Medium |
+| 138 | `@hexguard/angular-pipeline` | `dealForecast` — weighted pipeline forecast with confidence bands | Angular | Low | High |
+| 139 | `HexGuard.Inventory` | `FifoCosting` — FIFO-based inventory cost calculation | .NET | Medium | High |
+| 140 | `HexGuard.Crm` | `DealStageAutomation` — auto-advance deals on key activity triggers | .NET | Medium | Medium |
+| 141 | `@hexguard/angular-incidents` | `incidentBroadcast` — stakeholder notification composition state | Angular | Low | High |
+| 142 | `HexGuard.Gamification` | `AchievementChains` — sequential badge unlock chains with prerequisites | .NET | Medium | High |
+| 143 | `@hexguard/angular-badges` | `badgeShare` — social sharing state for earned achievements | Angular | Low | Medium |
+| 144 | `HexGuard.WebhookSender` | `WebhookPayloadTemplates` — templated payload transformation per endpoint | .NET | Medium | High |

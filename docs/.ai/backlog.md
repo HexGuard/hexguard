@@ -146,8 +146,8 @@
 
 ## Prioritization Matrix
 
-All 333 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
-Extensions are listed in `docs/.ai/backlog/package-extensions.md` (136 items across 22 packages).
+All 352 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (144 items across 22 packages).
 
 ### 🟢 P0 — Foundation / Released
 
@@ -358,13 +358,13 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `@hexguard/angular-billing` | Angular | Financial |
 | `@hexguard/angular-org-chart` | Angular | HR |
 | `@hexguard/angular-time-tracking` | Angular | HR |
-| `@hexguard/angular-invoice` | Angular | Financial |
-| `@hexguard/angular-signature` | Angular | Legal |
-| `@hexguard/angular-media-library` | Angular | Content |
-| `@hexguard/angular-ai-chat` | Angular | AI |
-| `@hexguard/angular-billing` | Angular | Financial |
-| `@hexguard/angular-org-chart` | Angular | HR |
-| `@hexguard/angular-time-tracking` | Angular | HR |
+| `@hexguard/angular-inventory` | Angular | Logistics |
+| `@hexguard/angular-pipeline` | Angular | Sales |
+| `@hexguard/angular-absence` | Angular | HR |
+| `@hexguard/angular-badges` | Angular | Engagement |
+| `@hexguard/angular-quiz` | Angular | Education |
+| `@hexguard/angular-incidents` | Angular | Operations |
+| `@hexguard/angular-webhooks` | Angular | Integration |
 | `@hexguard/angular-customer-portal` | Angular | Customer |
 | `HexGuard.Portal` | .NET | Customer |
 | `HexGuard.Secrets` | .NET | Security |
@@ -385,6 +385,13 @@ Valuable in specific domains (real-time, AI, e-commerce, CMS).
 | `HexGuard.Billing` | .NET | Financial |
 | `HexGuard.TimeTracking` | .NET | HR |
 | `HexGuard.Sla` | .NET | Operations |
+| `HexGuard.Inventory` | .NET | Logistics |
+| `HexGuard.Crm` | .NET | Sales |
+| `HexGuard.Leave` | .NET | HR |
+| `HexGuard.Gamification` | .NET | Engagement |
+| `HexGuard.Assessment` | .NET | Education |
+| `HexGuard.Incidents` | .NET | Operations |
+| `HexGuard.WebhookSender` | .NET | Integration |
 | `@hexguard/angular-checkout` | Angular | E-commerce |
 | `@hexguard/angular-discount` | Angular | E-commerce |
 | `@hexguard/angular-orders` | Angular | E-commerce |
@@ -442,12 +449,15 @@ Valid ideas with narrower audience. Good for ecosystem completeness.
 | `@hexguard/ts-invoice` | TypeScript |
 | `@hexguard/ts-duration` | TypeScript |
 | `@hexguard/ts-currency` | TypeScript |
+| `@hexguard/ts-badge` | TypeScript |
+| `@hexguard/ts-address` | TypeScript |
+| `@hexguard/ts-phone` | TypeScript |
 
 ---
 
 ## Headless Compliance Audit (2026-06-27)
 
-All 333 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+All 352 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
 
 | Brief | Issue | Resolution |
 |-------|-------|------------|
