@@ -818,6 +818,70 @@ export const DEMO_SOURCE_SNIPPETS: Record<string, DemoSourceSnippet> = {
       },
     ],
   },
+  'angular-clipboard/demo-state': {
+    id: 'angular-clipboard/demo-state',
+    title: 'Clipboard demo component source',
+    description:
+      'Generated from the real Clipboard demo component files, including TypeScript, template, and styles.',
+    files: [
+      {
+        id: 'ts',
+        label: 'component.ts',
+        language: 'ts',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component.ts',
+        code: "import { ChangeDetectionStrategy, Component, computed } from '@angular/core';\nimport { injectClipboard } from '@hexguard/angular-clipboard';\nimport { ANGULAR_CLIPBOARD_DEMO } from '../../../../../../demo-registry';\nimport { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';\nimport { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';\nimport { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';\nimport { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';\nimport { formatSnapshot } from '../../../../../../shared/formatting';\n\n@Component({\n  standalone: true,\n  selector: 'demo-clipboard-demo-page',\n  templateUrl: './clipboard-demo-page.component.html',\n  styleUrl: './clipboard-demo-page.component.css',\n  imports: [\n    DemoInspectorPanelComponent,\n    DemoNavigationStripComponent,\n    DemoPageLayoutComponent,\n    DemoStatusStripComponent,\n  ],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ClipboardDemoPageComponent {\n  protected readonly demo = ANGULAR_CLIPBOARD_DEMO;\n  protected readonly clip = injectClipboard({ historySize: 5 });\n  protected copyText = 'Text to copy';\n\n  protected async onCopy(): Promise<void> {\n    await this.clip.copy(this.copyText);\n  }\n\n  protected async onPaste(): Promise<void> {\n    const text = await this.clip.paste();\n    if (text !== null) {\n      this.copyText = text;\n    }\n  }\n\n  protected readonly snapshotJson = computed(() =>\n    formatSnapshot({\n      lastCopied: this.clip.lastCopied(),\n      lastPasted: this.clip.lastPasted(),\n      historyLength: this.clip.history().length,\n      isCopying: this.clip.isCopying(),\n      copyError: this.clip.copyError(),\n      permissionState: this.clip.permissionState(),\n    }),\n  );\n}",
+      },
+      {
+        id: 'html',
+        label: 'template.html',
+        language: 'html',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component.html',
+        code: '<demo-page-layout testId="clipboard-demo">\n  <demo-navigation-strip demoNavigation testId="clipboard-demo-navigation" [demo]="demo" />\n  <article demoIntro class="demo-card demo-card--stack">\n    <div class="demo-card__header">\n      <div>\n        <p class="demo-eyebrow">Angular Clipboard</p>\n        <h2>Headless clipboard interaction state.</h2>\n      </div>\n    </div>\n    <demo-status-strip\n      testId="clipboard-demo-status"\n      summary="Copy, paste, and track clipboard history with signal-based primitives."\n      currentUrl="Angular Clipboard — Demo"\n      summaryTestId="clipboard-demo-summary"\n      urlTestId="clipboard-demo-url"\n    />\n  </article>\n  <article demoPrimary class="demo-card demo-card--stack" data-testid="clipboard-playground">\n    <!-- demo-snippet:start angular-clipboard/demo-state -->\n    <div class="clipboard-controls">\n      <input\n        class="clipboard-input"\n        type="text"\n        [value]="copyText"\n        (input)="copyText = $any($event.target).value"\n        data-testid="clipboard-text-input"\n      />\n      <div class="clipboard-actions">\n        <button class="demo-button" (click)="onCopy()" data-testid="btn-copy" [disabled]="clip.isCopying()">\n          {{ clip.isCopying() ? \'Copying...\' : \'Copy\' }}\n        </button>\n        <button class="demo-button" (click)="onPaste()" data-testid="btn-paste">\n          Paste\n        </button>\n        <button class="demo-button" (click)="clip.clearHistory()" data-testid="btn-clear-history">\n          Clear History\n        </button>\n      </div>\n      @if (clip.copyError(); as error) {\n        <p class="clipboard-error" data-testid="copy-error">Error: {{ error }}</p>\n      }\n      @if (clip.lastCopied(); as copied) {\n        <p class="clipboard-success" data-testid="last-copied">Copied: "{{ copied }}"</p>\n      }\n      @if (clip.lastPasted(); as pasted) {\n        <p class="clipboard-success" data-testid="last-pasted">Pasted: "{{ pasted }}"</p>\n      }\n      @if (clip.history().length > 0) {\n        <div class="clipboard-history" data-testid="clipboard-history">\n          <h4>History ({{ clip.history().length }})</h4>\n          <ol>\n            @for (item of clip.history(); track item) {\n              <li>{{ item }}</li>\n            }\n          </ol>\n        </div>\n      }\n    </div>\n    <!-- demo-snippet:end -->\n  </article>\n  <demo-inspector-panel\n    demoAside\n    panelTestId="clipboard-inspector-panel"\n    title="Clipboard snapshot"\n    [snapshotJson]="snapshotJson()"\n    [snippetId]="demo.codeSample.snippetId"\n    [docsLinks]="demo.docsLinks"\n    snapshotTestId="clipboard-snapshot-json"\n    codeTestId="clipboard-code-sample"\n  />\n</demo-page-layout>',
+      },
+      {
+        id: 'css',
+        label: 'styles.css',
+        language: 'css',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component.css',
+        code: '.clipboard-controls {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.clipboard-input {\n  padding: 0.625rem 0.75rem;\n  border: 1px solid var(--border-color, #ccc);\n  border-radius: 4px;\n  font-size: 0.925rem;\n  outline: none;\n}\n\n.clipboard-input:focus {\n  border-color: #4a90d9;\n  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.15);\n}\n\n.clipboard-actions {\n  display: flex;\n  gap: 0.75rem;\n  flex-wrap: wrap;\n}\n\n.demo-button {\n  padding: 0.5rem 1rem;\n  border: 1px solid var(--border-color, #ccc);\n  border-radius: 4px;\n  background: var(--button-bg, #f5f5f5);\n  cursor: pointer;\n  font-size: 0.875rem;\n  transition: background 0.15s;\n}\n\n.demo-button:hover {\n  background: var(--button-hover-bg, #e0e0e0);\n}\n\n.demo-button:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n.clipboard-error {\n  color: #d32f2f;\n  font-size: 0.875rem;\n  margin: 0;\n}\n\n.clipboard-success {\n  color: #2e7d32;\n  font-size: 0.875rem;\n  margin: 0;\n}\n\n.clipboard-history {\n  margin-top: 0.5rem;\n  padding: 0.75rem;\n  background: var(--surface-alt, #f9f9f9);\n  border-radius: 4px;\n}\n\n.clipboard-history h4 {\n  margin: 0 0 0.5rem;\n  font-size: 0.875rem;\n}\n\n.clipboard-history ol {\n  margin: 0;\n  padding-left: 1.25rem;\n  font-size: 0.8125rem;\n}\n\n.clipboard-history li {\n  padding: 0.125rem 0;\n}',
+      },
+    ],
+  },
+  'angular-theme/demo-state': {
+    id: 'angular-theme/demo-state',
+    title: 'Theme demo component source',
+    description:
+      'Generated from the real Theme demo component files, including TypeScript, template, and styles.',
+    files: [
+      {
+        id: 'ts',
+        label: 'component.ts',
+        language: 'ts',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component.ts',
+        code: "import { ChangeDetectionStrategy, Component, computed } from '@angular/core';\nimport { injectTheme } from '@hexguard/angular-theme';\nimport { ANGULAR_THEME_DEMO } from '../../../../../../demo-registry';\nimport { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';\nimport { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';\nimport { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';\nimport { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';\nimport { formatSnapshot } from '../../../../../../shared/formatting';\n\n@Component({\n  standalone: true,\n  selector: 'demo-theme-demo-page',\n  templateUrl: './theme-demo-page.component.html',\n  styleUrl: './theme-demo-page.component.css',\n  imports: [\n    DemoInspectorPanelComponent,\n    DemoNavigationStripComponent,\n    DemoPageLayoutComponent,\n    DemoStatusStripComponent,\n  ],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ThemeDemoPageComponent {\n  protected readonly demo = ANGULAR_THEME_DEMO;\n  protected readonly theme = injectTheme();\n\n  protected readonly snapshotJson = computed(() =>\n    formatSnapshot({\n      mode: this.theme.mode(),\n      effectiveTheme: this.theme.effectiveTheme(),\n      isDark: this.theme.isDark(),\n      isLight: this.theme.isLight(),\n      dataTheme: typeof document !== 'undefined' ? document.documentElement.getAttribute('data-theme') : 'ssr',\n    }),\n  );\n}",
+      },
+      {
+        id: 'html',
+        label: 'template.html',
+        language: 'html',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component.html',
+        code: '<demo-page-layout testId="theme-demo">\n  <demo-navigation-strip demoNavigation testId="theme-demo-navigation" [demo]="demo" />\n  <article demoIntro class="demo-card demo-card--stack">\n    <div class="demo-card__header">\n      <div>\n        <p class="demo-eyebrow">Angular Theme</p>\n        <h2>Theme switching state for Angular.</h2>\n      </div>\n    </div>\n    <demo-status-strip\n      testId="theme-demo-status"\n      summary="Switch between light, dark, and system theme modes with signal-based primitives."\n      currentUrl="Angular Theme — Demo"\n      summaryTestId="theme-demo-summary"\n      urlTestId="theme-demo-url"\n    />\n  </article>\n  <article demoPrimary class="demo-card demo-card--stack" data-testid="theme-playground">\n    <!-- demo-snippet:start angular-theme/demo-state -->\n    <div class="theme-controls">\n      <p class="theme-current" data-testid="current-theme">\n        Current mode: <strong>{{ theme.mode() }}</strong>\n        (effective: <strong>{{ theme.effectiveTheme() }}</strong>)\n      </p>\n      <div class="theme-buttons">\n        <button\n          class="demo-button"\n          [class.demo-button--active]="theme.mode() === \'light\'"\n          (click)="theme.setMode(\'light\')"\n          data-testid="btn-light"\n        >☀️ Light</button>\n        <button\n          class="demo-button"\n          [class.demo-button--active]="theme.mode() === \'dark\'"\n          (click)="theme.setMode(\'dark\')"\n          data-testid="btn-dark"\n        >🌙 Dark</button>\n        <button\n          class="demo-button"\n          [class.demo-button--active]="theme.mode() === \'system\'"\n          (click)="theme.resetToSystem()"\n          data-testid="btn-system"\n        >💻 System</button>\n      </div>\n      <button\n        class="demo-button"\n        (click)="theme.toggle()"\n        data-testid="btn-toggle"\n      >Toggle ({{ theme.effectiveTheme() === \'dark\' ? \'→ Light\' : \'→ Dark\' }})</button>\n    </div>\n    <!-- demo-snippet:end -->\n  </article>\n  <demo-inspector-panel\n    demoAside\n    panelTestId="theme-inspector-panel"\n    title="Theme snapshot"\n    [snapshotJson]="snapshotJson()"\n    [snippetId]="demo.codeSample.snippetId"\n    [docsLinks]="demo.docsLinks"\n    snapshotTestId="theme-snapshot-json"\n    codeTestId="theme-code-sample"\n  />\n</demo-page-layout>',
+      },
+      {
+        id: 'css',
+        label: 'styles.css',
+        language: 'css',
+        sourcePath:
+          'angular/apps/demo-angular/src/app/features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component.css',
+        code: '.theme-controls {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.theme-current {\n  font-size: 1rem;\n  margin: 0;\n}\n\n.theme-buttons {\n  display: flex;\n  gap: 0.75rem;\n  flex-wrap: wrap;\n}\n\n.demo-button {\n  padding: 0.5rem 1rem;\n  border: 1px solid var(--border-color, #ccc);\n  border-radius: 4px;\n  background: var(--button-bg, #f5f5f5);\n  cursor: pointer;\n  font-size: 0.875rem;\n  transition: background 0.15s, box-shadow 0.15s;\n}\n\n.demo-button:hover {\n  background: var(--button-hover-bg, #e0e0e0);\n}\n\n.demo-button--active {\n  box-shadow: 0 0 0 2px #4a90d9;\n  border-color: #4a90d9;\n}',
+      },
+    ],
+  },
   'angular-form-drafts/demo-state': {
     id: 'angular-form-drafts/demo-state',
     title: 'Form Drafts demo component source',

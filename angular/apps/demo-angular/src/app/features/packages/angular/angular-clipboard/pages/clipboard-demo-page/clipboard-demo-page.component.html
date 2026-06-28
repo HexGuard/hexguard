@@ -1,0 +1,71 @@
+<demo-page-layout testId="clipboard-demo">
+  <demo-navigation-strip demoNavigation testId="clipboard-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Clipboard</p>
+        <h2>Headless clipboard interaction state.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="clipboard-demo-status"
+      summary="Copy, paste, and track clipboard history with signal-based primitives."
+      currentUrl="Angular Clipboard — Demo"
+      summaryTestId="clipboard-demo-summary"
+      urlTestId="clipboard-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="clipboard-playground">
+    <!-- demo-snippet:start angular-clipboard/demo-state -->
+    <div class="clipboard-controls">
+      <input
+        class="clipboard-input"
+        type="text"
+        [value]="copyText"
+        (input)="copyText = $any($event.target).value"
+        data-testid="clipboard-text-input"
+      />
+      <div class="clipboard-actions">
+        <button class="demo-button" (click)="onCopy()" data-testid="btn-copy" [disabled]="clip.isCopying()">
+          {{ clip.isCopying() ? 'Copying...' : 'Copy' }}
+        </button>
+        <button class="demo-button" (click)="onPaste()" data-testid="btn-paste">
+          Paste
+        </button>
+        <button class="demo-button" (click)="clip.clearHistory()" data-testid="btn-clear-history">
+          Clear History
+        </button>
+      </div>
+      @if (clip.copyError(); as error) {
+        <p class="clipboard-error" data-testid="copy-error">Error: {{ error }}</p>
+      }
+      @if (clip.lastCopied(); as copied) {
+        <p class="clipboard-success" data-testid="last-copied">Copied: "{{ copied }}"</p>
+      }
+      @if (clip.lastPasted(); as pasted) {
+        <p class="clipboard-success" data-testid="last-pasted">Pasted: "{{ pasted }}"</p>
+      }
+      @if (clip.history().length > 0) {
+        <div class="clipboard-history" data-testid="clipboard-history">
+          <h4>History ({{ clip.history().length }})</h4>
+          <ol>
+            @for (item of clip.history(); track item) {
+              <li>{{ item }}</li>
+            }
+          </ol>
+        </div>
+      }
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="clipboard-inspector-panel"
+    title="Clipboard snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="clipboard-snapshot-json"
+    codeTestId="clipboard-code-sample"
+  />
+</demo-page-layout>

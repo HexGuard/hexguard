@@ -269,6 +269,26 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-clipboard/demo-state',
+    title: 'Clipboard demo component source',
+    description:
+      'Generated from the real Clipboard demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component.ts',
+  },
+  {
+    id: 'angular-theme/demo-state',
+    title: 'Theme demo component source',
+    description:
+      'Generated from the real Theme demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component.ts',
+  },
+  {
     id: 'angular-form-drafts/demo-state',
     title: 'Form Drafts demo component source',
     description:

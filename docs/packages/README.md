@@ -23,6 +23,8 @@ another.
 | `@hexguard/angular-visibility`          | Released    | Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.                                   | [Deep Dive](angular-visibility.md), [npm-facing README](../../angular/packages/angular-visibility/README.md), [Demo runbook](../demo/README.md)                    |
 | `@hexguard/angular-navigation-pending`  | Released    | Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.                                                                 | [Deep Dive](angular-navigation-pending.md), [npm-facing README](../../angular/packages/angular-navigation-pending/README.md), [Demo runbook](../demo/README.md)    |
 | `@hexguard/angular-click-outside`       | Released    | Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.                              | [Deep Dive](angular-click-outside.md), [npm-facing README](../../angular/packages/angular-click-outside/README.md), [Demo runbook](../demo/README.md)              |
+| `@hexguard/angular-clipboard`           | Available   | Headless clipboard interaction state for Angular: copy, paste, permission handling, execCommand fallback, and in-memory history with signal-based primitives.                                         | [Deep Dive](angular-clipboard.md), [npm-facing README](../../angular/packages/angular-clipboard/README.md), [Demo runbook](../demo/README.md)                      |
+| `@hexguard/angular-theme`               | Available   | Theme switching state for Angular: light/dark/system modes, CSS class management, prefers-color-scheme detection, persistence, and smooth transitions with signal-based primitives.                   | [Deep Dive](angular-theme.md), [npm-facing README](../../angular/packages/angular-theme/README.md), [Demo runbook](../demo/README.md)                              |
 | `@hexguard/angular-undo`                | Released    | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                    | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                                |
 | `@hexguard/angular-pagination`          | Released    | Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.                                                                                              | [Deep Dive](angular-pagination.md), [npm-facing README](../../angular/packages/angular-pagination/README.md), [Demo runbook](../demo/README.md)                    |
 | `@hexguard/angular-form-drafts`         | Released    | Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.                                                                                  | [Deep Dive](angular-form-drafts.md), [npm-facing README](../../angular/packages/angular-form-drafts/README.md), [Demo runbook](../demo/README.md)                  |
@@ -189,6 +191,26 @@ Status: Released
 This package provides two surfaces — one injectable and one directive — for click-outside detection.
 
 It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.
+
+<a id="package-angular-clipboard"></a>
+
+### `@hexguard/angular-clipboard`
+
+Status: Available
+
+This package is available as a headless clipboard primitive for Angular apps.
+
+It focuses on text-only clipboard, async API with fallback, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-theme"></a>
+
+### `@hexguard/angular-theme`
+
+Status: Available
+
+This package is available as a headless theme primitive for Angular apps.
+
+It focuses on signal-based state, matchMedia detection, localStorage persistence, and a validated publish surface.
 
 <a id="package-angular-undo"></a>
 

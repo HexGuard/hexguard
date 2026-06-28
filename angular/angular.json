@@ -397,6 +397,32 @@
         }
       }
     },
+    "angular-theme": {
+      "projectType": "library",
+      "root": "packages/angular-theme",
+      "sourceRoot": "packages/angular-theme/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-theme/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-theme/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-theme/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-bulk-operations": {
       "projectType": "library",
       "root": "packages/angular-bulk-operations",
@@ -603,6 +629,32 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "packages/angular-click-outside/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-clipboard": {
+      "projectType": "library",
+      "root": "packages/angular-clipboard",
+      "sourceRoot": "packages/angular-clipboard/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-clipboard/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-clipboard/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-clipboard/tsconfig.spec.json"
           }
         }
       }

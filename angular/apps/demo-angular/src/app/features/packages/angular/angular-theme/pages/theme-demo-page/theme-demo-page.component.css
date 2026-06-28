@@ -1,0 +1,35 @@
+.theme-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.theme-current {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.theme-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.demo-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  background: var(--button-bg, #f5f5f5);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.demo-button:hover {
+  background: var(--button-hover-bg, #e0e0e0);
+}
+
+.demo-button--active {
+  box-shadow: 0 0 0 2px #4a90d9;
+  border-color: #4a90d9;
+}

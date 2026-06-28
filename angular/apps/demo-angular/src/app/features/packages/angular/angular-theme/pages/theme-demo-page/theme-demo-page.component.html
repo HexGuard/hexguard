@@ -1,0 +1,63 @@
+<demo-page-layout testId="theme-demo">
+  <demo-navigation-strip demoNavigation testId="theme-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Theme</p>
+        <h2>Theme switching state for Angular.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="theme-demo-status"
+      summary="Switch between light, dark, and system theme modes with signal-based primitives."
+      currentUrl="Angular Theme — Demo"
+      summaryTestId="theme-demo-summary"
+      urlTestId="theme-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="theme-playground">
+    <!-- demo-snippet:start angular-theme/demo-state -->
+    <div class="theme-controls">
+      <p class="theme-current" data-testid="current-theme">
+        Current mode: <strong>{{ theme.mode() }}</strong>
+        (effective: <strong>{{ theme.effectiveTheme() }}</strong>)
+      </p>
+      <div class="theme-buttons">
+        <button
+          class="demo-button"
+          [class.demo-button--active]="theme.mode() === 'light'"
+          (click)="theme.setMode('light')"
+          data-testid="btn-light"
+        >☀️ Light</button>
+        <button
+          class="demo-button"
+          [class.demo-button--active]="theme.mode() === 'dark'"
+          (click)="theme.setMode('dark')"
+          data-testid="btn-dark"
+        >🌙 Dark</button>
+        <button
+          class="demo-button"
+          [class.demo-button--active]="theme.mode() === 'system'"
+          (click)="theme.resetToSystem()"
+          data-testid="btn-system"
+        >💻 System</button>
+      </div>
+      <button
+        class="demo-button"
+        (click)="theme.toggle()"
+        data-testid="btn-toggle"
+      >Toggle ({{ theme.effectiveTheme() === 'dark' ? '→ Light' : '→ Dark' }})</button>
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="theme-inspector-panel"
+    title="Theme snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="theme-snapshot-json"
+    codeTestId="theme-code-sample"
+  />
+</demo-page-layout>

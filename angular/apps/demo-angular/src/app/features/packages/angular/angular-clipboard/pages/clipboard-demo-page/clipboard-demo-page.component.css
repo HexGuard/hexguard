@@ -1,0 +1,77 @@
+.clipboard-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.clipboard-input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  font-size: 0.925rem;
+  outline: none;
+}
+
+.clipboard-input:focus {
+  border-color: #4a90d9;
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.15);
+}
+
+.clipboard-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.demo-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  background: var(--button-bg, #f5f5f5);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s;
+}
+
+.demo-button:hover {
+  background: var(--button-hover-bg, #e0e0e0);
+}
+
+.demo-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clipboard-error {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.clipboard-success {
+  color: #2e7d32;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.clipboard-history {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--surface-alt, #f9f9f9);
+  border-radius: 4px;
+}
+
+.clipboard-history h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+.clipboard-history ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.8125rem;
+}
+
+.clipboard-history li {
+  padding: 0.125rem 0;
+}

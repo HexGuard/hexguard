@@ -55,6 +55,8 @@ import { NetworkStatusDemoPageComponent } from './features/packages/angular/angu
 import { AngularStorageHomePageComponent } from './features/packages/angular/angular-storage/angular-storage-home-page.component';
 import { StorageDemoPageComponent } from './features/packages/angular/angular-storage/pages/storage-demo-page/storage-demo-page.component';
 import { AngularCommandPaletteHomePageComponent } from './features/packages/angular/angular-command-palette/angular-command-palette-home-page.component';
+import { AngularThemeHomePageComponent } from './features/packages/angular/angular-theme/angular-theme-home-page.component';
+import { ThemeDemoPageComponent } from './features/packages/angular/angular-theme/pages/theme-demo-page/theme-demo-page.component';
 import { CommandPaletteDemoPageComponent } from './features/packages/angular/angular-command-palette/pages/command-palette-demo-page/command-palette-demo-page.component';
 import { AngularPageContextHomePageComponent } from './features/packages/angular/angular-page-context/angular-page-context-home-page.component';
 import { PageContextDemoPageComponent } from './features/packages/angular/angular-page-context/pages/page-context-demo-page/page-context-demo-page.component';
@@ -582,6 +584,17 @@ export const routes: Routes = [
     component: StorageDemoPageComponent,
     title: 'Storage Demo',
   },
+  // ── Clipboard ──────────────────────────────────────────────────
+  {
+    path: 'packages/angular-clipboard',
+    component: AngularClipboardHomePageComponent,
+    title: 'Angular Clipboard Demos',
+  },
+  {
+    path: 'packages/angular-clipboard/demo',
+    component: ClipboardDemoPageComponent,
+    title: 'Clipboard Demo',
+  },
   // ── Command Palette ─────────────────────────────────────────────
   {
     path: 'packages/angular-command-palette',
@@ -625,6 +638,17 @@ export const routes: Routes = [
     path: 'packages/angular-scroll-state/demo',
     component: ScrollStateDemoPageComponent,
     title: 'Scroll State Demo',
+  },
+  // ── Theme ────────────────────────────────────────────────────────
+  {
+    path: 'packages/angular-theme',
+    component: AngularThemeHomePageComponent,
+    title: 'Angular Theme Demos',
+  },
+  {
+    path: 'packages/angular-theme/demo',
+    component: ThemeDemoPageComponent,
+    title: 'Theme Demo',
   },
   // ── Wizard State ────────────────────────────────────────────────
   {
