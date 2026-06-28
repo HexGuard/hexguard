@@ -1,7 +1,7 @@
 {
   "name": "@hexguard/angular-table-state",
   "version": "0.1.0",
-  "description": "Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle with optional URL sync adapter.",
+  "description": "Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.",
   "keywords": ["angular", "signals", "table", "table-state", "sort", "pagination", "selection", "filter", "hexguard"],
   "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-table-state",
   "bugs": { "url": "https://github.com/hexguard/hexguard/issues" },
@@ -11,8 +11,11 @@
     "@angular/core": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@hexguard/angular-pagination": "^0.1.0",
-    "@hexguard/angular-selection-state": "^0.1.0",
-    "@hexguard/angular-url-state": "^0.1.0"
+    "@hexguard/angular-selection-state": "^0.1.0"
+  },
+  "devDependencies": {
+    "@hexguard/angular-pagination": "workspace:*",
+    "@hexguard/angular-selection-state": "workspace:*"
   },
   "dependencies": { "tslib": "^2.3.0" },
   "publishConfig": { "access": "public" },

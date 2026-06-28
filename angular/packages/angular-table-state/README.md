@@ -92,9 +92,8 @@ table.resetAll();
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `pagination` | `PaginationHandle?` | — | External pagination handle (default: creates internal) |
+| `paginationOptions` | `PaginationOptions?` | — | Options for internal pagination (ignored if external pagination provided) |
 | `selection` | `SelectionStateLike?` | — | External selection state (default: creates internal) |
-| `defaultSortColumn` | `string?` | `null` | Initial sort column |
-| `defaultSortDirection` | `'asc' \| 'desc' \| ''` | `''` | Initial sort direction |
 
 ## Scope Boundaries
 
@@ -105,7 +104,6 @@ table.resetAll();
 | Selection delegation (external or internal) | ✅ |
 | Filter add/remove/clear-all | ✅ |
 | resetAll() — coordinated clear | ✅ |
-| URL sync (via @hexguard/angular-url-state) | ✅ |
 | Column visibility management | ❌ (v0.2) |
 | Row expansion state | ❌ (v0.2) |
 
