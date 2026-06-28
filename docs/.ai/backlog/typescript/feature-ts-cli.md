@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-cli
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-cli'
 
 ## Summary
 
-CLI helpers for TypeScript — argument parsing, progress bars, spinners, prompts, colored output. For building Node.js CLI tools and scripts.
+CLI helpers for TypeScript â€” argument parsing, progress bars, spinners, prompts, colored output. For building Node.js CLI tools and scripts.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

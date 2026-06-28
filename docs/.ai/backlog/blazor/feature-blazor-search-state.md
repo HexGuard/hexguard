@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-search-state
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: HexGuard.Blazor.Search
 
 ## Summary
 
-Search/filter state for Blazor lists and grids — debounced query, filter groups, matched count, and recent searches persistence. Every data list needs search and filter state.
+Search/filter state for Blazor lists and grids â€” debounced query, filter groups, matched count, and recent searches persistence. Every data list needs search and filter state.
 
 **Angular counterpart:** `@hexguard/angular-search` (cross-stack brief)
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

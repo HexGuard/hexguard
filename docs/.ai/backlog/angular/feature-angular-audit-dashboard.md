@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-audit-dashboard
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-audit-dashboard'
 
 ## Summary
 
-Audit event browsing dashboard — timeline, entity filter, user filter, export. Pairs with `HexGuard.AuditTrail`.
+Audit event browsing dashboard â€” timeline, entity filter, user filter, export. Pairs with `HexGuard.AuditTrail`.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

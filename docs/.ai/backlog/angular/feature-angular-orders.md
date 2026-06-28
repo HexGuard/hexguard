@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-orders
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-orders'
 
 ## Summary
 
-Headless order management state — order list, detail, tracking, returns, cancellations. Essential for e-commerce post-purchase experience.
+Headless order management state â€” order list, detail, tracking, returns, cancellations. Essential for e-commerce post-purchase experience.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

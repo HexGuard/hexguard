@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-accordion
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: HexGuard.Blazor.Accordion
 
 ## Summary
 
-Headless accordion/expandable section state for Blazor — expand/collapse with single/multi mode, animation tracking, and ARIA attributes. Blazor counterpart to `@hexguard/angular-accordion`.
+Headless accordion/expandable section state for Blazor â€” expand/collapse with single/multi mode, animation tracking, and ARIA attributes. Blazor counterpart to `@hexguard/angular-accordion`.
 
 **Competition check:** Zero Blazor accordion state packages.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

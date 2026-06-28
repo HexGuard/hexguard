@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-table-state
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: HexGuard.Blazor.TableState
 
 ## Summary
 
-Headless table column structure state for Blazor — column visibility, ordering, pinning, resizing, and sorting. Blazor counterpart to `@hexguard/angular-table`.
+Headless table column structure state for Blazor â€” column visibility, ordering, pinning, resizing, and sorting. Blazor counterpart to `@hexguard/angular-table`.
 
 **Competition check:** Zero Blazor table-state packages.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

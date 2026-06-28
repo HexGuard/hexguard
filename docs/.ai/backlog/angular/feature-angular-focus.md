@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-focus
 type: feature
 status: proposed
@@ -10,14 +10,28 @@ package: '@hexguard/angular-focus'
 
 ## Summary
 
-Focus management utilities for Angular — roving tabindex manager, focus visible tracking, and auto-focus directive. For accessible toolbars, listboxes, grids, and menus.
+Focus management utilities for Angular â€” roving tabindex manager, focus visible tracking, and auto-focus directive. For accessible toolbars, listboxes, grids, and menus.
 
 **Complements `angular-focus-trap`** (traps focus in a container). `angular-focus` adds roving tabindex and focus-visible detection.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 
 ```typescript
-// ── Roving Tabindex ──────────────────────────────────────
+// â”€â”€ Roving Tabindex â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function injectRovingTabindex(config: {
   orientation?: 'horizontal' | 'vertical' | 'both';
@@ -30,14 +44,14 @@ export function injectRovingTabindex(config: {
   getTabIndex(index: number): 0 | -1;
 };
 
-// ── Focus Visible ────────────────────────────────────────
+// â”€â”€ Focus Visible â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function injectFocusVisible(): {
   readonly isFocusVisible: Signal<boolean>;
   // Tracks whether last input was keyboard (true) or mouse/touch (false)
 };
 
-// ── Auto Focus Directive ─────────────────────────────────
+// â”€â”€ Auto Focus Directive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @Component({
   selector: '[hexAutoFocus]',

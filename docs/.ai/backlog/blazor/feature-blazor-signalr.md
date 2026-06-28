@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-signalr
 type: feature
 status: proposed
@@ -10,11 +10,25 @@ package: HexGuard.Blazor.SignalR
 
 ## Summary
 
-Typed SignalR hub connection state for Blazor — manage connection lifecycle, auto-reconnect, invoke hub methods, and receive typed messages with reactive state. Promoted from the cross-stack sidenote as a Blazor-side primitive.
+Typed SignalR hub connection state for Blazor â€” manage connection lifecycle, auto-reconnect, invoke hub methods, and receive typed messages with reactive state. Promoted from the cross-stack sidenote as a Blazor-side primitive.
 
 **Cross-stack counterpart:** Pairs with `HexGuard.SignalR` for hub contract definitions.
 
 **Competition check:** ASP.NET Core's `HubConnectionBuilder` requires manual wiring. No Blazor package provides a typed, lifecycle-managed SignalR connection.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

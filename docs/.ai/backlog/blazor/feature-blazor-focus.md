@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-focus
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.Focus
 
 ## Summary
 
-Focus management for Blazor — roving tabindex, auto-focus, focus trapping complement. Works with `HexGuard.Blazor.FocusTrap`.
+Focus management for Blazor â€” roving tabindex, auto-focus, focus trapping complement. Works with `HexGuard.Blazor.FocusTrap`.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

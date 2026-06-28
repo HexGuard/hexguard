@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-duration
 type: feature
 status: proposed
@@ -12,15 +12,28 @@ package: '@hexguard/ts-duration'
 
 Zero-dependency duration parsing, formatting, and arithmetic utilities. Parse human-readable durations ("2h 30m"), format seconds into readable strings, and perform duration math.
 
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
+
 ## Proposed Public API
 
 ```typescript
 // Parsing
 export function parseDuration(input: string): number; // returns total seconds
-// "2h 30m 15s" → 9015
-// "1.5h" → 5400
-// "90m" → 5400
-// "1d 6h" → 108000
+// "2h 30m 15s" â†’ 9015
+// "1.5h" â†’ 5400
+// "90m" â†’ 5400
+// "1d 6h" â†’ 108000
 
 // Formatting
 export function formatDuration(seconds: number, format?: DurationFormat): string;

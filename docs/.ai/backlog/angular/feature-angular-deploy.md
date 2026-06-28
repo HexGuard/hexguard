@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-deploy
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-deploy'
 
 ## Summary
 
-Deployment/build awareness — version, commit hash, build time, environment name as signals. Headless state only — consumers render their own environment indicators.
+Deployment/build awareness â€” version, commit hash, build time, environment name as signals. Headless state only â€” consumers render their own environment indicators.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 
@@ -25,13 +39,12 @@ export function injectBuildInfo(): {
   readonly isDevelopment: Signal<boolean>;
 };
 
-// Usage — consumer renders their own banner:
+// Usage â€” consumer renders their own banner:
 // @if (buildInfo.isStaging()) {
 //   <div class="env-banner staging">STAGING</div>
 // }
 ```
-}
-```
+
 
 ## Implementation Plan
 

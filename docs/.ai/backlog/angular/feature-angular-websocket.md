@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-websocket
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-websocket'
 
 ## Summary
 
-Typed WebSocket connection state for Angular — connect, auto-reconnect, send/receive typed messages, connection status and latency as signals. Lower-level than SignalR; works with any WebSocket server.
+Typed WebSocket connection state for Angular â€” connect, auto-reconnect, send/receive typed messages, connection status and latency as signals. Lower-level than SignalR; works with any WebSocket server.
 
 **Distinct from `angular-signalr`** (SignalR protocol). This is a raw WebSocket wrapper for custom protocols.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

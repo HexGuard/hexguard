@@ -27,6 +27,34 @@ HexGuard portfolio needs action-centric ergonomics without a larger optimistic d
 - Full optimistic entity state management.
 - Generic caching or synchronization.
 
+## Proposed Public API
+
+```typescript
+export interface OptimisticAction<TInput, TOutput> {
+  execute(input: TInput): Promise<TOutput>;
+  rollback?(input: TInput, snapshot?: unknown): Promise<void>;
+  onSuccess?(result: TOutput): void;
+  onError?(error: unknown, input: TInput): void;
+}
+
+export function createOptimisticAction<TInput, TOutput>(
+  config: OptimisticActionConfig<TInput, TOutput>
+): {
+  readonly isPending: Signal<boolean>;
+  readonly isOptimistic: Signal<boolean>;
+  readonly error: Signal<unknown | null>;
+  execute(input: TInput): Promise<TOutput>;
+  rollback(): Promise<void>;
+};
+
+export interface OptimisticActionConfig<TInput, TOutput> {
+  execute(input: TInput): Promise<TOutput>;
+  applyOptimistic(input: TInput): TOutput;
+  rollback(input: TInput, optimisticResult: TOutput): Promise<void>;
+  onError?(error: unknown, input: TInput): void;
+}
+```
+
 ## Decisions
 
 - Keep this proposal narrower than `angular-optimistic-state`.

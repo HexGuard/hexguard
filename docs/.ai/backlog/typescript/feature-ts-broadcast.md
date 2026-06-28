@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-broadcast
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-broadcast'
 
 ## Summary
 
-BroadcastChannel API wrapper for TypeScript — typed cross-tab/window/iframe communication. Every app that opens multiple tabs (admin panels, dashboards) needs cross-tab sync for auth state, theme changes, and data refresh.
+BroadcastChannel API wrapper for TypeScript â€” typed cross-tab/window/iframe communication. Every app that opens multiple tabs (admin panels, dashboards) needs cross-tab sync for auth state, theme changes, and data refresh.
 
 **Competition check:** No popular typed BroadcastChannel abstraction exists.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

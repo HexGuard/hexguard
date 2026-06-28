@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-data-grid
 type: feature
 status: proposed
@@ -11,6 +11,20 @@ package: '@hexguard/angular-data-grid'
 ## Summary
 
 Pre-built data grid composing table + pagination + selection + filter + sort into one unified state. **Saves 1-2 days per list page.** Auto-reloads when any sub-state changes.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

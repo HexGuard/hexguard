@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-admin
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-admin'
 
 ## Summary
 
-Admin panel shell state — sidebar (expand/collapse, active item), tabs (open/close/reorder), breadcrumbs, notifications badge. **Saves 1-2 weeks per project.**
+Admin panel shell state â€” sidebar (expand/collapse, active item), tabs (open/close/reorder), breadcrumbs, notifications badge. **Saves 1-2 weeks per project.**
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

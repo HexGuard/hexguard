@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-invoice
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-invoice'
 
 ## Summary
 
-Zero-dependency invoice calculation utilities — line item totals, tax computation, discount application, and currency formatting. Pure functions for invoice math.
+Zero-dependency invoice calculation utilities â€” line item totals, tax computation, discount application, and currency formatting. Pure functions for invoice math.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 
@@ -27,7 +40,7 @@ export interface Discount { type: 'percent' | 'fixed'; value: number; descriptio
 
 // Invoice number generation
 export function generateInvoiceNumber(format: string, lastNumber: number): string;
-// format: "INV-{YYYY}-{NNNNN}" → "INV-2026-00042"
+// format: "INV-{YYYY}-{NNNNN}" â†’ "INV-2026-00042"
 
 // Due date calculation
 export function calculateDueDate(issuedAt: Date, paymentTerms: PaymentTerms): Date;

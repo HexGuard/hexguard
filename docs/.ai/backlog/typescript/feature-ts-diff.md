@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-diff
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-diff'
 
 ## Summary
 
-Text diff and patch utilities for TypeScript — line/word/char-level diff via Myers algorithm, unified patch creation and application. For diff viewers, code review, version comparison.
+Text diff and patch utilities for TypeScript â€” line/word/char-level diff via Myers algorithm, unified patch creation and application. For diff viewers, code review, version comparison.
 
 **Competition check:** `diff` (50M+ weekly) is the standard but heavy. This is a narrow, zero-dependency implementation.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

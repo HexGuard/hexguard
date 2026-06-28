@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-auth-flow
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-auth-flow'
 
 ## Summary
 
-Headless authentication flow state — login, register, MFA, OAuth, forgot password, token refresh, route guards, HTTP interceptor. **The #1 time sink in new app development** — saves 2-4 weeks per project.
+Headless authentication flow state â€” login, register, MFA, OAuth, forgot password, token refresh, route guards, HTTP interceptor. **The #1 time sink in new app development** â€” saves 2-4 weeks per project.
 
 **Composes with** `angular-storage` (token persistence), `angular-idle` (session timeout).
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 
@@ -35,9 +49,9 @@ export function injectAuthFlow(config: {
   provideAuthInterceptor(): Provider;  // Auto-token + 401 refresh
 };
 
-export const authGuard: CanActivateFn;   // → /login
-export const guestGuard: CanActivateFn;  // → /
-export const mfaGuard: CanActivateFn;    // → /mfa
+export const authGuard: CanActivateFn;   // â†’ /login
+export const guestGuard: CanActivateFn;  // â†’ /
+export const mfaGuard: CanActivateFn;    // â†’ /mfa
 ```
 
 ## Implementation Plan

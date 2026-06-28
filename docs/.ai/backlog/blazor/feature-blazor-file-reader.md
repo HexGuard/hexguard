@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-file-reader
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.FileReader
 
 ## Summary
 
-FileReader state for Blazor WASM — read files as text/DataURL/ArrayBuffer via JS interop. Blazor counterpart to `@hexguard/angular-file-reader`.
+FileReader state for Blazor WASM â€” read files as text/DataURL/ArrayBuffer via JS interop. Blazor counterpart to `@hexguard/angular-file-reader`.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 
@@ -18,7 +32,7 @@ FileReader state for Blazor WASM — read files as text/DataURL/ArrayBuffer via 
 public sealed class FileReaderService : IAsyncDisposable
 {
     public bool IsReading { get; private set; }
-    public double Progress { get; private set; }    // 0–1
+    public double Progress { get; private set; }    // 0â€“1
     public event Action? OnChanged;
 
     public Task<string> ReadAsTextAsync(string base64, string encoding = "UTF-8");

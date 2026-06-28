@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-debounce
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-debounce'
 
 ## Summary
 
-Debounce and throttle utilities for TypeScript — framework-agnostic, zero-dependency. `@hexguard/angular-debounce` exists for Angular signals; this is the vanilla TS equivalent for Node.js and non-Angular projects.
+Debounce and throttle utilities for TypeScript â€” framework-agnostic, zero-dependency. `@hexguard/angular-debounce` exists for Angular signals; this is the vanilla TS equivalent for Node.js and non-Angular projects.
 
 **Competition check:** `lodash.debounce` dominates but is part of a larger library.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

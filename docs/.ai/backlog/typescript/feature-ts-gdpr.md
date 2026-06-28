@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-gdpr
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-gdpr'
 
 ## Summary
 
-Zero-dependency GDPR/CCPA compliance utilities — consent string parsing, age verification, data classification helpers, and regulatory formatting. For client-side compliance tooling.
+Zero-dependency GDPR/CCPA compliance utilities â€” consent string parsing, age verification, data classification helpers, and regulatory formatting. For client-side compliance tooling.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-idle
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-idle'
 
 ## Summary
 
-Session idle/timeout manager — track inactivity, show warning before expiry, auto-logout on timeout. Every secure app needs session timeout workflows.
+Session idle/timeout manager â€” track inactivity, show warning before expiry, auto-logout on timeout. Every secure app needs session timeout workflows.
 
 **Complements `angular-visibility`** (idle detection) with the full timeout workflow (warning, extend, logout).
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 
@@ -38,6 +52,6 @@ export function injectIdleManager(config: {
 ## Implementation Plan
 
 1. Scaffold `angular/packages/angular-idle/`.
-2. Implement idle detection → countdown → warning → timeout flow.
+2. Implement idle detection â†’ countdown â†’ warning â†’ timeout flow.
 3. Add tests.
 4. Register in workspace.

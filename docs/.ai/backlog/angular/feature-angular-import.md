@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-import
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-import'
 
 ## Summary
 
-Data import wizard state — file selection → column mapping → validation → preview → execution. Every admin panel with CSV/Excel import rebuilds this flow.
+Data import wizard state â€” file selection â†’ column mapping â†’ validation â†’ preview â†’ execution. Every admin panel with CSV/Excel import rebuilds this flow.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

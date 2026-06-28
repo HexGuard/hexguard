@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-env
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-env'
 
 ## Summary
 
-Typed environment configuration loading with validation — read from `process.env`, `.env` files, or injected values. Validates at startup — fails fast with clear errors.
+Typed environment configuration loading with validation â€” read from `process.env`, `.env` files, or injected values. Validates at startup â€” fails fast with clear errors.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 
@@ -26,7 +39,7 @@ const config = loadEnv({
   DATABASE_URL: { type: 'string', required: true },
   LOG_LEVEL: { type: 'union', values: ['debug', 'info', 'warn', 'error'], default: 'info' },
 });
-// config.PORT is number, config.DATABASE_URL is string — typed!
+// config.PORT is number, config.DATABASE_URL is string â€” typed!
 ```
 
 ## Implementation Plan

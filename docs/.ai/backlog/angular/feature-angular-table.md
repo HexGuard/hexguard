@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-table
 type: feature
 status: proposed
@@ -10,11 +10,25 @@ package: '@hexguard/angular-table'
 
 ## Summary
 
-Headless data table structure state for Angular — column ordering, visibility toggling, column pinning (fixed left/right), resizable column handles, and sort state. Every admin panel has a data table with show/hide/reorder/resize/sort columns — yet every team rebuilds the same column management state.
+Headless data table structure state for Angular â€” column ordering, visibility toggling, column pinning (fixed left/right), resizable column handles, and sort state. Every admin panel has a data table with show/hide/reorder/resize/sort columns â€” yet every team rebuilds the same column management state.
 
-**Distinct from `angular-pagination`** (page/pageSize/total) and `angular-selection-state` (checkbox selection). `angular-table` manages the **table structure itself** — its columns.
+**Distinct from `angular-pagination`** (page/pageSize/total) and `angular-selection-state` (checkbox selection). `angular-table` manages the **table structure itself** â€” its columns.
 
 **Competition check:** Angular CDK's `CdkTable` handles rendering but not headless column state. No standalone column state package exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

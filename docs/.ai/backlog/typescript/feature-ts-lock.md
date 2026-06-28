@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-lock
 type: feature
 status: proposed
@@ -11,6 +11,19 @@ package: '@hexguard/ts-lock'
 ## Summary
 
 Web Locks API wrapper for cross-tab mutex coordination. Falls back to in-memory `Mutex` when unavailable (Node.js, SSR).
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

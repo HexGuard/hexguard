@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-currency
 type: feature
 status: proposed
@@ -11,6 +11,19 @@ package: '@hexguard/ts-currency'
 ## Summary
 
 Zero-dependency currency formatting, conversion, and arithmetic utilities. Locale-aware formatting, ISO 4217 currency codes, and precise decimal math.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

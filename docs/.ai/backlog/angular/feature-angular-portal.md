@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-portal
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-portal'
 
 ## Summary
 
-Headless portal/teleport state for Angular — programmatically move DOM content to another location in the DOM tree (e.g., modals, tooltips, popovers to `<body>`). Angular CDK Portal is powerful but complex; this is a simpler signal-based wrapper.
+Headless portal/teleport state for Angular â€” programmatically move DOM content to another location in the DOM tree (e.g., modals, tooltips, popovers to `<body>`). Angular CDK Portal is powerful but complex; this is a simpler signal-based wrapper.
 
 **Competition check:** Angular CDK Portal covers this but with overhead. No simple signal-based alternative exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

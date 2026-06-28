@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-cache
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-cache'
 
 ## Summary
 
-In-memory cache utilities — `LruCache<K,V>` with eviction, `TtlCache<K,V>` with time-based expiry, and `memo()` for function memoization. Every app with expensive computations or API calls needs caching.
+In-memory cache utilities â€” `LruCache<K,V>` with eviction, `TtlCache<K,V>` with time-based expiry, and `memo()` for function memoization. Every app with expensive computations or API calls needs caching.
 
 **Competition check:** `lru-cache` (100M+ weekly) is dominant but heavy. No single package combines LRU + TTL + memo.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

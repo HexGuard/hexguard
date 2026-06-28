@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-prompt
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-prompt'
 
 ## Summary
 
-Headless AI prompt management state — prompt templates, variable interpolation, version history, test-run with live preview, and evaluation. Composes with `angular-chat` for streaming output display. **Essential for AI-powered features.**
+Headless AI prompt management state â€” prompt templates, variable interpolation, version history, test-run with live preview, and evaluation. Composes with `angular-chat` for streaming output display. **Essential for AI-powered features.**
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

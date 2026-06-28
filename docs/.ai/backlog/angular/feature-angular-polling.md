@@ -6,7 +6,7 @@ created: 2026-06-26
 package: '@hexguard/angular-polling'
 ---
 
-# @hexguard/angular-polling'
+# @hexguard/angular-polling
 
 ## Summary
 

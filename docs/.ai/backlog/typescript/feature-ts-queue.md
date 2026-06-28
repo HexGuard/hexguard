@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-queue
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-queue'
 
 ## Summary
 
-Data structures — `Queue<T>`, `Deque<T>`, `PriorityQueue<T>`, `Stack<T>` with typed, efficient implementations.
+Data structures â€” `Queue<T>`, `Deque<T>`, `PriorityQueue<T>`, `Stack<T>` with typed, efficient implementations.
 
 **Competition check:** `mnemonist` is dominant but heavy. This is a narrow, TS-first package.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

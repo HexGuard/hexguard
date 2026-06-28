@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-fuzzy
 type: feature
 status: proposed
@@ -10,31 +10,44 @@ package: '@hexguard/ts-fuzzy'
 
 ## Summary
 
-Fuzzy search and filtering for TypeScript arrays — search objects by multiple fields with typo-tolerant matching, scored results, and highlight ranges. Lighter than fuse.js.
+Fuzzy search and filtering for TypeScript arrays â€” search objects by multiple fields with typo-tolerant matching, scored results, and highlight ranges. Lighter than fuse.js.
 
 **Competition check:** `fuse.js` (5M+ weekly) is dominant but heavy (15KB). `fuzzysort` is lighter but opinionated.
 
 ## Goals
 
-1. Provide `fuzzySearch(array, query, options)` — scored, sorted matches.
+1. Provide `fuzzySearch(array, query, options)` â€” scored, sorted matches.
 2. Support multi-field search with configurable weights.
 3. Provide match ranges for text highlighting.
 4. Support threshold and max results.
 5. Zero dependencies.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 
 ```typescript
 export interface FuzzyOptions<T> {
   keys: (keyof T | { name: keyof T; weight: number })[];
-  threshold?: number;           // 0–1, default 0.4
+  threshold?: number;           // 0â€“1, default 0.4
   maxResults?: number;
   caseSensitive?: boolean;
 }
 
 export interface FuzzyResult<T> {
   item: T;
-  score: number;               // 0–1, higher = better match
+  score: number;               // 0â€“1, higher = better match
   matches: FieldMatch[];       // For highlighting
 }
 

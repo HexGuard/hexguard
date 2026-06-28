@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-date
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-date'
 
 ## Summary
 
-Zero-dependency date manipulation utilities — add/subtract, diff, format, range, startOf/endOf. Immutable, timezone-aware, no moment/luxon dependency.
+Zero-dependency date manipulation utilities â€” add/subtract, diff, format, range, startOf/endOf. Immutable, timezone-aware, no moment/luxon dependency.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-calendar
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: HexGuard.Blazor.Calendar
 
 ## Summary
 
-Headless calendar view state for Blazor — month/week/day navigation, grid generation, date selection. Blazor counterpart to `@hexguard/angular-calendar`.
+Headless calendar view state for Blazor â€” month/week/day navigation, grid generation, date selection. Blazor counterpart to `@hexguard/angular-calendar`.
 
 **Competition check:** Zero Blazor calendar state packages.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

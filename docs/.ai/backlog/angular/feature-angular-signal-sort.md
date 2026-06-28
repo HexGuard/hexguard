@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-signal-sort
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-signal-sort'
 
 ## Summary
 
-Single-function sort utility for array signals — take `Signal<T[]>` plus a sort config, get a sorted `Signal<T[]>`. Supports multi-sort, custom comparers, and locale-aware strings. Trivial pattern repeated hundreds of times per codebase.
+Single-function sort utility for array signals â€” take `Signal<T[]>` plus a sort config, get a sorted `Signal<T[]>`. Supports multi-sort, custom comparers, and locale-aware strings. Trivial pattern repeated hundreds of times per codebase.
 
 **Competition check:** No Angular signal-sort utility exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

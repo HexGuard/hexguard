@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-admin
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.Admin
 
 ## Summary
 
-Admin panel shell state for Blazor — sidebar, tabs, breadcrumbs, notification badge. Blazor counterpart to `@hexguard/angular-admin`.
+Admin panel shell state for Blazor â€” sidebar, tabs, breadcrumbs, notification badge. Blazor counterpart to `@hexguard/angular-admin`.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

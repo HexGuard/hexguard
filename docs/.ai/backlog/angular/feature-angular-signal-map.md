@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-signal-map
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-signal-map'
 
 ## Summary
 
-Signal array utility functions — `map`, `filter`, `reduce`, `find`, `some`, `every`, `flatMap` as computed signals operating on array signals. Every data transformation in a component currently writes the same `computed(() => source().map(...))` pattern.
+Signal array utility functions â€” `map`, `filter`, `reduce`, `find`, `some`, `every`, `flatMap` as computed signals operating on array signals. Every data transformation in a component currently writes the same `computed(() => source().map(...))` pattern.
 
 **Competition check:** No Angular signal array utility package exists. The patterns are trivial but repeated endlessly.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

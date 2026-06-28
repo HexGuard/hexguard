@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-signal-group
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-signal-group'
 
 ## Summary
 
-Signal-based grouping and aggregation utilities — take `Signal<T[]>`, group by a key, compute per-group aggregates (count, sum, avg, min, max), return reactive `Group<T>[]`. Every dashboard, report, and grouped table needs this.
+Signal-based grouping and aggregation utilities â€” take `Signal<T[]>`, group by a key, compute per-group aggregates (count, sum, avg, min, max), return reactive `Group<T>[]`. Every dashboard, report, and grouped table needs this.
 
 **Competition check:** No Angular grouping signal utility exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-onboarding
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-onboarding'
 
 ## Summary
 
-Headless onboarding wizard state — welcome screen, setup steps (profile, team invite, preferences), completion. Distinct from `angular-tour` (product feature tour) — this is the **first-run account setup flow** for new users/tenants.
+Headless onboarding wizard state â€” welcome screen, setup steps (profile, team invite, preferences), completion. Distinct from `angular-tour` (product feature tour) â€” this is the **first-run account setup flow** for new users/tenants.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

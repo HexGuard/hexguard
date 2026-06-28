@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-wake-lock
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-wake-lock'
 
 ## Summary
 
-Screen Wake Lock API state for Angular — keep the device screen awake during presentations, video playback, QR code display, or kiosk mode. Simple `acquire()`/`release()` with signal-based state tracking.
+Screen Wake Lock API state for Angular â€” keep the device screen awake during presentations, video playback, QR code display, or kiosk mode. Simple `acquire()`/`release()` with signal-based state tracking.
 
 **Competition check:** No Angular wake-lock state package exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

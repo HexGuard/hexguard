@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-navigation-pending
 type: feature
 status: proposed
@@ -47,7 +47,7 @@ export class AppComponent {
   });
 
   readonly isNavigating = this.nav.isNavigating;       // Signal<boolean>
-  readonly isSlowNavigation = this.nav.isSlowNavigation; // Signal<boolean> — true only after delayedIndicatorMs
+  readonly isSlowNavigation = this.nav.isSlowNavigation; // Signal<boolean> â€” true only after delayedIndicatorMs
 }
 
 // Route-level usage
@@ -106,52 +106,4 @@ export class MyPageComponent {
 ## Follow-Ups
 
 - Revisit integration with page-context and async-state once those packages are mature.
-- Decide whether skeleton-oriented helpers belong in a companion package.---
-  id: feature-angular-navigation-pending
-  type: feature
-  status: proposed
-  created: 2026-06-13
-  package: '@hexguard/angular-navigation-pending'
-
----
-
-# Angular Navigation Pending Package
-
-## Summary
-
-Design `@hexguard/angular-navigation-pending` to standardize route transition busy state, page
-readiness, and route-level pending indicators.
-
-Many apps need a consistent answer to “is this page still loading?” and keep rebuilding fragile
-global spinners and navigation guards around async route transitions.
-
-## Goals
-
-- Standardize route transition pending state.
-- Support global and route-scoped pending indicators.
-- Compose with async-state and router events.
-
-## Non-Goals
-
-- Replacing Angular routing.
-- Owning data fetching itself.
-
-## Decisions
-
-- Prefer headless pending-state signals first.
-- Keep rendering concerns outside the core package.
-
-## Implementation Plan
-
-1. Define pending, ready, and failed navigation semantics.
-2. Support route-scoped and app-scoped pending signals.
-3. Add tests and demos for async route transitions and page readiness.
-
-## Validation
-
-- Unit tests for transition and readiness state.
-- Demo coverage for route-level pending UX.
-
-## Follow-Ups
-
-- Revisit overlap with page-context and async-state if route readiness depends on both.
+- Decide whether skeleton-oriented helpers belong in a companion package.

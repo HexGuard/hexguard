@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-checkout
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-checkout'
 
 ## Summary
 
-Headless checkout flow state — address → shipping → payment → review → confirmation. Multi-step with per-step validation, persistence, and composable with `angular-cart` and `angular-payment`. **Essential for e-commerce.**
+Headless checkout flow state â€” address â†’ shipping â†’ payment â†’ review â†’ confirmation. Multi-step with per-step validation, persistence, and composable with `angular-cart` and `angular-payment`. **Essential for e-commerce.**
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

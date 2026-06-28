@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-csv
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: HexGuard.Blazor.Csv
 
 ## Summary
 
-CSV parsing/generation for Blazor — parse CSV text to typed records, generate CSV from collections. Blazor counterpart to `@hexguard/angular-csv`.
+CSV parsing/generation for Blazor â€” parse CSV text to typed records, generate CSV from collections. Blazor counterpart to `@hexguard/angular-csv`.
 
 **Competition check:** Zero Blazor CSV packages exist.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

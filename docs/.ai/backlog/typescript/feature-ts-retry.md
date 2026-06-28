@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-retry
 type: feature
 status: proposed
@@ -10,22 +10,35 @@ package: '@hexguard/ts-retry'
 
 ## Summary
 
-Retry utility for TypeScript — retry a function with configurable strategies (exponential backoff, fixed delay, jitter, linear), max attempts, and timeout. Every network call, database query, and external API integration needs retry logic.
+Retry utility for TypeScript â€” retry a function with configurable strategies (exponential backoff, fixed delay, jitter, linear), max attempts, and timeout. Every network call, database query, and external API integration needs retry logic.
 
 **Competition check:** `promise-retry`, `async-retry` exist but are single-function packages without typed strategies or abort support. This package provides composable retry strategies.
 
 ## Goals
 
-1. Provide `retry(fn, strategy)` — retry with typed strategies.
+1. Provide `retry(fn, strategy)` â€” retry with typed strategies.
 2. Support strategies: `fixed(delay)`, `exponential(base)`, `linear(base)`, with optional `jitter`.
 3. Support `maxAttempts`, `timeout`, `onRetry` callback.
 4. Support `AbortSignal` for cancellation.
 5. Return `Result<T, RetryError>` for functional composition.
 
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
+
 ## Proposed Public API
 
 ```typescript
-// ── Strategies ────────────────────────────────────────────
+// â”€â”€ Strategies â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type RetryStrategy = (attempt: number) => number;  // Returns delay in ms
 
@@ -34,7 +47,7 @@ export const exponential: (baseMs?: number, maxMs?: number) => RetryStrategy;
 export const linear: (baseMs?: number, maxMs?: number) => RetryStrategy;
 export const withJitter: (strategy: RetryStrategy, factor?: number) => RetryStrategy;
 
-// ── Options ───────────────────────────────────────────────
+// â”€â”€ Options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface RetryOptions {
   strategy?: RetryStrategy;       // Default: exponential(100, 30_000)
@@ -45,7 +58,7 @@ export interface RetryOptions {
   shouldRetry?: (error: unknown) => boolean;  // Default: always retry
 }
 
-// ── Retry ─────────────────────────────────────────────────
+// â”€â”€ Retry â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export async function retry<T>(
   fn: (attempt: number) => Promise<T>,

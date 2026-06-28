@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-seo
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-seo'
 
 ## Summary
 
-Zero-dependency SEO utilities for TypeScript — JSON-LD structured data builders, meta tag generators, and sitemap XML generation. For SSR and static site generation.
+Zero-dependency SEO utilities for TypeScript â€” JSON-LD structured data builders, meta tag generators, and sitemap XML generation. For SSR and static site generation.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

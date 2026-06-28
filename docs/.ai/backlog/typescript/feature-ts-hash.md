@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-hash
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-hash'
 
 ## Summary
 
-Zero-dependency hashing utilities for TypeScript — SHA-256, SHA-512, HMAC, CRC32, and hash-based IDs. For data integrity, cache keys, and fingerprinting. Uses the Web Crypto API.
+Zero-dependency hashing utilities for TypeScript â€” SHA-256, SHA-512, HMAC, CRC32, and hash-based IDs. For data integrity, cache keys, and fingerprinting. Uses the Web Crypto API.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

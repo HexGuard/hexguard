@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-keyboard-nav
 type: feature
 status: proposed
@@ -10,16 +10,30 @@ package: '@hexguard/angular-keyboard-nav'
 
 ## Summary
 
-Headless WAI-ARIA keyboard navigation patterns — listbox, grid, tabs, menu, and toolbar standardized `handleKeyDown(event)` functions. Every custom widget needs ARIA keyboard navigation for accessibility compliance.
+Headless WAI-ARIA keyboard navigation patterns â€” listbox, grid, tabs, menu, and toolbar standardized `handleKeyDown(event)` functions. Every custom widget needs ARIA keyboard navigation for accessibility compliance.
 
 **Distinct from `angular-keyboard`** (global shortcuts like Ctrl+S). This handles **widget-internal navigation**: Arrow keys in a listbox, Tab in a tab strip, etc.
 
 **Competition check:** No Angular ARIA keyboard navigation package exists.
 
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
+
 ## Proposed Public API
 
 ```typescript
-// ── Listbox ──────────────────────────────────────────────
+// â”€â”€ Listbox â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface ListboxNavConfig {
   totalItems: number | Signal<number>;
@@ -41,7 +55,7 @@ export function injectListboxNav(config: ListboxNavConfig): {
   handleKeyDown(event: KeyboardEvent): void;
 };
 
-// ── Grid ─────────────────────────────────────────────────
+// â”€â”€ Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function injectGridNav(config: {
   rows: number | Signal<number>;
@@ -55,7 +69,7 @@ export function injectGridNav(config: {
   handleKeyDown(event: KeyboardEvent): void;
 };
 
-// ── Tabs ─────────────────────────────────────────────────
+// â”€â”€ Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function injectTabsNav(config: {
   totalTabs: number | Signal<number>;
@@ -70,7 +84,7 @@ export function injectTabsNav(config: {
   handleKeyDown(event: KeyboardEvent): void;
 };
 
-// ── Menu ─────────────────────────────────────────────────
+// â”€â”€ Menu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function injectMenuNav(config: {
   totalItems: number | Signal<number>;

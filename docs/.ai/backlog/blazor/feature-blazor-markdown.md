@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-markdown
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.Markdown
 
 ## Summary
 
-Markdown-to-HTML rendering service for Blazor — sanitized HTML output with configurable options. **Headless service** — returns a string; consumers render the `MarkupString` in their own components.
+Markdown-to-HTML rendering service for Blazor â€” sanitized HTML output with configurable options. **Headless service** â€” returns a string; consumers render the `MarkupString` in their own components.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 
@@ -31,7 +45,7 @@ public sealed record MarkdownOptions
     public bool Gfm { get; set; } = true;
 }
 
-// Usage — consumer renders the result:
+// Usage â€” consumer renders the result:
 // <div>@((MarkupString)_markdown.Render(content))</div>
 ```
 

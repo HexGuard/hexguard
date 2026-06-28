@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-split-view
 type: feature
 status: proposed
@@ -10,14 +10,28 @@ package: HexGuard.Blazor.SplitView
 
 ## Summary
 
-Resizable split panel state for Blazor — track splitter position, min/max constraints, collapse/expand, and persist ratios. Every IDE-style layout and dashboard with resizable panels needs this.
+Resizable split panel state for Blazor â€” track splitter position, min/max constraints, collapse/expand, and persist ratios. Every IDE-style layout and dashboard with resizable panels needs this.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 
 ```csharp
 public sealed class SplitViewState : IDisposable
 {
-    public double SplitterPosition { get; private set; }   // 0–1 ratio or absolute px
+    public double SplitterPosition { get; private set; }   // 0â€“1 ratio or absolute px
     public bool IsCollapsed { get; private set; }
     public SplitViewMode Mode { get; set; }                 // Ratio, Pixels
     public double MinPosition { get; set; }

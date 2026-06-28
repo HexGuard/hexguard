@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-media
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.Media
 
 ## Summary
 
-Audio/video playback state for Blazor — wraps HTML5 media elements with reactive state via JS interop. Blazor counterpart to `@hexguard/angular-media`.
+Audio/video playback state for Blazor â€” wraps HTML5 media elements with reactive state via JS interop. Blazor counterpart to `@hexguard/angular-media`.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 

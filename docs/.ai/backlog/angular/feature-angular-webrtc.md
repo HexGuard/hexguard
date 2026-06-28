@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-webrtc
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-webrtc'
 
 ## Summary
 
-WebRTC peer connection state — local/remote streams, ICE status, data channels as signals. Every video call, screen sharing, and P2P transfer needs WebRTC state.
+WebRTC peer connection state â€” local/remote streams, ICE status, data channels as signals. Every video call, screen sharing, and P2P transfer needs WebRTC state.
 
 **Competition check:** No headless Angular WebRTC state package exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-subscription
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-subscription'
 
 ## Summary
 
-Headless subscription & billing state — plan display, plan selection, trial management, usage meters, billing history. **The #1 missing package for B2B SaaS.** Every SaaS app needs subscription management UI state.
+Headless subscription & billing state â€” plan display, plan selection, trial management, usage meters, billing history. **The #1 missing package for B2B SaaS.** Every SaaS app needs subscription management UI state.
 
 **Composes with** `angular-payment` for checkout, `angular-feature-flags` for plan-gated features.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

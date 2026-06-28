@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-collections
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-collections'
 
 ## Summary
 
-Collection utility functions for TypeScript — deep merge, deep clone, deep equal, diff/patch, groupBy, uniqueBy, sortBy, chunk, range. Every TypeScript codebase accumulates ad-hoc versions of these.
+Collection utility functions for TypeScript â€” deep merge, deep clone, deep equal, diff/patch, groupBy, uniqueBy, sortBy, chunk, range. Every TypeScript codebase accumulates ad-hoc versions of these.
 
 **Competition check:** `lodash`, `ramda` cover these but are large. This is a narrow, tree-shakeable package with just the 10 most commonly used collection utilities.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

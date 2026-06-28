@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-sticky
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-sticky'
 
 ## Summary
 
-Sticky positioning state for Angular — track when elements enter/leave sticky state via IntersectionObserver, calculate offsets, expose signals. For sticky headers, toolbars, and footers in scrollable containers.
+Sticky positioning state for Angular â€” track when elements enter/leave sticky state via IntersectionObserver, calculate offsets, expose signals. For sticky headers, toolbars, and footers in scrollable containers.
 
 **Competition check:** No Angular sticky state package exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

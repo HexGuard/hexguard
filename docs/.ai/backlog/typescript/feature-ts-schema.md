@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-schema
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-schema'
 
 ## Summary
 
-JSON Schema → TypeScript type inference + runtime validation. Define schemas with full type inference and validate unknown data.
+JSON Schema â†’ TypeScript type inference + runtime validation. Define schemas with full type inference and validate unknown data.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-theme
 type: feature
 status: proposed
@@ -10,9 +10,23 @@ package: '@hexguard/angular-theme'
 
 ## Summary
 
-Theme switching state — light/dark/system modes, CSS class management, `prefers-color-scheme` detection, persistence, and smooth transitions.
+Theme switching state â€” light/dark/system modes, CSS class management, `prefers-color-scheme` detection, persistence, and smooth transitions.
 
 **Competition check:** No headless Angular theme state package exists.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

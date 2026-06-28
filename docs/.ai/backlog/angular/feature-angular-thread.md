@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-thread
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-thread'
 
 ## Summary
 
-Headless threaded discussion state — topic list, thread view, reply/reply-to, moderation. For forums, Q&A, support threads.
+Headless threaded discussion state â€” topic list, thread view, reply/reply-to, moderation. For forums, Q&A, support threads.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

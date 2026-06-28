@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-url
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-url'
 
 ## Summary
 
-Zero-dependency URL construction and parsing utilities — build URLs safely, parse query strings, join paths, extract parts. Safer than manual string concatenation.
+Zero-dependency URL construction and parsing utilities â€” build URLs safely, parse query strings, join paths, extract parts. Safer than manual string concatenation.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

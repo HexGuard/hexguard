@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-upload-state
 type: feature
 status: proposed
@@ -53,7 +53,7 @@ upload.active; // Signal<UploadItem | null>
 upload.isUploading; // Signal<boolean>
 upload.completed; // Signal<UploadItem[]>
 upload.failed; // Signal<UploadItem[]>
-upload.progress; // Signal<number> — 0–100 overall
+upload.progress; // Signal<number> â€” 0â€“100 overall
 
 upload.upload(file);
 upload.retry(itemId);
@@ -66,7 +66,7 @@ interface UploadItem {
   id: string;
   file: File;
   status: 'queued' | 'uploading' | 'completed' | 'failed' | 'cancelled';
-  progress: number; // 0–100
+  progress: number; // 0â€“100
   response?: unknown;
   error?: string;
 }
@@ -82,10 +82,10 @@ interface UploadItem {
 ### Phase 1: Core Implementation
 
 3. Define `UploadItem`, `UploadState` types with status enum.
-4. Implement `injectUploadState()` — manages queue, active upload, progress tracking.
-5. Implement `upload()` — creates UploadItem, sends via `XMLHttpRequest` with `upload.onprogress`.
-6. Implement `cancel()` — aborts `XMLHttpRequest`.
-7. Implement `retry()` — creates new UploadItem from failed item data.
+4. Implement `injectUploadState()` â€” manages queue, active upload, progress tracking.
+5. Implement `upload()` â€” creates UploadItem, sends via `XMLHttpRequest` with `upload.onprogress`.
+6. Implement `cancel()` â€” aborts `XMLHttpRequest`.
+7. Implement `retry()` â€” creates new UploadItem from failed item data.
 8. Implement aggregate signals: `isUploading`, `progress` (overall), `completed`, `failed`.
 9. Add unit tests for: queue management, progress updates, cancel, retry, completion, failure, clear, concurrent uploads.
 
@@ -113,53 +113,4 @@ interface UploadItem {
 ## Follow-Ups
 
 - Revisit direct composition with a future cross-stack uploads contract.
-- Decide whether drag-and-drop helpers belong in a companion package.---
-  id: feature-angular-upload-state
-  type: feature
-  status: proposed
-  created: 2026-06-13
-  package: '@hexguard/angular-upload-state'
-
----
-
-# Angular Upload State Package
-
-## Summary
-
-Design `@hexguard/angular-upload-state` to standardize file upload lifecycle state in Angular:
-queued, uploading, progress, canceled, failed, retried, and completed.
-
-Upload flows are highly repetitive across business apps and often end up with brittle progress,
-cancel, and retry state handling.
-
-## Goals
-
-- Standardize upload lifecycle state and progress tracking.
-- Support cancellation, retry, and multi-file upload orchestration.
-- Keep transport and storage providers pluggable.
-
-## Non-Goals
-
-- A complete file-storage backend.
-- Virus scanning or media processing pipelines.
-
-## Decisions
-
-- Prefer signal-first upload state rather than UI-first wrappers.
-- Keep single-file and multi-file flows composable from the same primitives.
-
-## Implementation Plan
-
-1. Define upload item and upload session contracts.
-2. Support queued, progress, cancel, retry, and complete transitions.
-3. Add provider adapters for transport and upload endpoints.
-4. Add tests and demos for document and bulk import workflows.
-
-## Validation
-
-- Unit tests for progress, cancel, retry, and failure transitions.
-- Demo coverage for file upload and retry behavior.
-
-## Follow-Ups
-
-- Revisit cross-stack composition with `HexGuard.Uploads` after the client contract settles.
+- Decide whether drag-and-drop helpers belong in a companion package.

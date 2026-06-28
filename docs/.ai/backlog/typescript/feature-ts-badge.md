@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-badge
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-badge'
 
 ## Summary
 
-Zero-dependency badge and achievement evaluation utilities — condition checking, progress calculation, level curves, and leaderboard sorting. For gamification engines.
+Zero-dependency badge and achievement evaluation utilities â€” condition checking, progress calculation, level curves, and leaderboard sorting. For gamification engines.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

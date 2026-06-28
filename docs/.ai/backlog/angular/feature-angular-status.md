@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-angular-status
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: '@hexguard/angular-status'
 
 ## Summary
 
-System status page state — health checks, recent incidents, uptime, metrics overview. Like Statuspage.io but headless state for embedding in admin panels.
+System status page state â€” health checks, recent incidents, uptime, metrics overview. Like Statuspage.io but headless state for embedding in admin panels.
+
+
+## Goals
+
+- Provide reactive, signal-based headless state for Angular applications
+- Dependency-free at runtime beyond Angular core and tslib
+- SSR-safe with TransferState awareness where applicable
+
+
+## Non-Goals
+
+- No rendered UI components — headless state, signals, and services only
+- No browser globals or window-dependent code without SSR guard
+- No backend API calls (consumer provides data/endpoints)
 
 ## Proposed Public API
 

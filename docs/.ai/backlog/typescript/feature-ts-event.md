@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-event
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-event'
 
 ## Summary
 
-Typed event emitter / pub-sub for TypeScript — `EventEmitter<T>` with typed events, async listeners, `once`, and `Disposable` cleanup. Lighter than Node.js EventEmitter, typed unlike `mitt`.
+Typed event emitter / pub-sub for TypeScript â€” `EventEmitter<T>` with typed events, async listeners, `once`, and `Disposable` cleanup. Lighter than Node.js EventEmitter, typed unlike `mitt`.
 
 **Competition check:** `mitt` (2M+ weekly) is popular but untyped. Node.js `EventEmitter` is heavy.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 
@@ -38,7 +51,7 @@ interface MyEvents {
 const bus = createEmitter<MyEvents>();
 const d = bus.on('user:login', async (data) => console.log(data.userId));
 await bus.emit('user:login', { userId: '42', timestamp: new Date() });
-// d[Symbol.dispose]() — auto-cleanup
+// d[Symbol.dispose]() â€” auto-cleanup
 ```
 
 ## Implementation Plan

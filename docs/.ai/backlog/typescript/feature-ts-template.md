@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-template
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-template'
 
 ## Summary
 
-String template engine — `{{variable}}` interpolation, `{{#each}}` loops, `{{#if}}` conditionals, pipes. For email templates, reports, scaffolding.
+String template engine â€” `{{variable}}` interpolation, `{{#each}}` loops, `{{#if}}` conditionals, pipes. For email templates, reports, scaffolding.
 
 **Competition check:** Handlebars/mustache are full engines. This is narrow and zero-dependency.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

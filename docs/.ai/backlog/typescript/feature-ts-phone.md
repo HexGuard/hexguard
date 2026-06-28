@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-phone
 type: feature
 status: proposed
@@ -11,6 +11,19 @@ package: '@hexguard/ts-phone'
 ## Summary
 
 Zero-dependency phone number formatting, parsing, and validation utilities. E.164 formatting, national formatting, carrier detection, and country code lookup.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

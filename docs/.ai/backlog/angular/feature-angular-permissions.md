@@ -30,6 +30,29 @@ centralized, and consistent.
 - Performing backend authorization for the server.
 - Shipping opinionated menus or page shells in the core package.
 
+## Proposed Public API
+
+```typescript
+export interface PermissionState {
+  readonly capabilities: Signal<Set<string>>;
+  readonly roles: Signal<Set<string>>;
+  readonly isLoaded: Signal<boolean>;
+  can(capability: string): boolean;
+  hasRole(role: string): boolean;
+  canAny(...capabilities: string[]): boolean;
+  canAll(...capabilities: string[]): boolean;
+}
+
+export function injectPermissions(): PermissionState;
+
+// Route guard
+export function canActivateWithCapability(capability: string): CanActivateFn;
+export function canActivateWithRole(role: string): CanActivateFn;
+
+// Structural directive token (for *hexguardIfCapable)
+export const HEXGUARD_PERMISSION_DIRECTIVE = new InjectionToken<...>();
+```
+
 ## Decisions
 
 - Prefer a policy-first headless API.

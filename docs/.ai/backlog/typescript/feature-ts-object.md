@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-object
 type: feature
 status: proposed
@@ -10,7 +10,20 @@ package: '@hexguard/ts-object'
 
 ## Summary
 
-Zero-dependency object utility functions — pick, omit, deep merge, deep clone, deep equal, flatten, and key transformation. Type-safe with proper generics.
+Zero-dependency object utility functions â€” pick, omit, deep merge, deep clone, deep equal, flatten, and key transformation. Type-safe with proper generics.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

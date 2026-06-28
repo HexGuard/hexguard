@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-markdown
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-markdown'
 
 ## Summary
 
-Markdown → safe HTML with sanitization. Lighter than marked + DOMPurify combo.
+Markdown â†’ safe HTML with sanitization. Lighter than marked + DOMPurify combo.
 
 **Competition check:** `marked` (8M+) + `dompurify` (5M+) is the standard combo. This is a single, sanitized-by-default package.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-semaphore
 type: feature
 status: proposed
@@ -10,9 +10,22 @@ package: '@hexguard/ts-semaphore'
 
 ## Summary
 
-Async concurrency primitives — `Semaphore` (limit concurrent async ops), `Mutex` (exclusive lock), and `RateLimiter` (token bucket). Every app with concurrent API calls, file I/O, or resource pools needs concurrency control.
+Async concurrency primitives â€” `Semaphore` (limit concurrent async ops), `Mutex` (exclusive lock), and `RateLimiter` (token bucket). Every app with concurrent API calls, file I/O, or resource pools needs concurrency control.
 
 **Competition check:** `async-sema` (4M+ weekly) exists but is JS-only. This is typed TS with all three primitives.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 

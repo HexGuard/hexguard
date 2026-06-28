@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-result
 type: feature
 status: proposed
@@ -10,23 +10,36 @@ package: '@hexguard/ts-result'
 
 ## Summary
 
-Result and Option types for TypeScript — `Result<T, E>` for fallible operations, `Option<T>` for nullable values, with `match()`/`map()`/`bind()`/`unwrapOr()` utilities. Avoids try/catch sprawl and null checks by making success/failure and presence/absence explicit in the type system.
+Result and Option types for TypeScript â€” `Result<T, E>` for fallible operations, `Option<T>` for nullable values, with `match()`/`map()`/`bind()`/`unwrapOr()` utilities. Avoids try/catch sprawl and null checks by making success/failure and presence/absence explicit in the type system.
 
 **Competition check:** `ts-results` (7M weekly downloads), `fp-ts`, `effect-ts` exist but are heavy (fp-ts is a full FP library). This is a **narrow, zero-dependency** package with just Result and Option plus their combinators.
 
 ## Goals
 
-1. Provide `Result<T, E>` — discriminated union for success/error.
-2. Provide `Option<T>` — discriminated union for Some/None.
+1. Provide `Result<T, E>` â€” discriminated union for success/error.
+2. Provide `Option<T>` â€” discriminated union for Some/None.
 3. Provide chainable `map`, `bind` (flatMap), `match`, `unwrapOr`, `unwrapOrElse`.
-4. Provide `fromPromise` — convert a Promise to `Result<T, Error>`.
-5. Provide `combine` — combine multiple Results into one.
+4. Provide `fromPromise` â€” convert a Promise to `Result<T, Error>`.
+5. Provide `combine` â€” combine multiple Results into one.
 6. Zero dependencies, tree-shakeable, ESM.
+
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
 
 ## Proposed Public API
 
 ```typescript
-// ── Result ────────────────────────────────────────────────
+// â”€â”€ Result â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type Result<T, E = Error> = Ok<T> | Err<E>;
 
@@ -56,7 +69,7 @@ export function combine<T extends [unknown, ...unknown[]]>(
   results: { [K in keyof T]: Result<T[K], unknown> }
 ): Result<T, AggregateError>;
 
-// ── Option ────────────────────────────────────────────────
+// â”€â”€ Option â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type Option<T> = Some<T> | None;
 

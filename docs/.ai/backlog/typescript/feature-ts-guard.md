@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-ts-guard
 type: feature
 status: proposed
@@ -10,22 +10,35 @@ package: '@hexguard/ts-guard'
 
 ## Summary
 
-Runtime type guards and validation for TypeScript — validate unknown data against TypeScript types at runtime, returning `Result<T, ValidationError[]>` with typed output. Lighter than Zod (which is a full schema DSL); uses plain TypeScript functions.
+Runtime type guards and validation for TypeScript â€” validate unknown data against TypeScript types at runtime, returning `Result<T, ValidationError[]>` with typed output. Lighter than Zod (which is a full schema DSL); uses plain TypeScript functions.
 
 **Competition check:** Zod (10M+ weekly downloads) is dominant but heavy. `joi`, `yup`, `valibot` exist. This targets the **simplest possible** use case: define a guard function, call it on unknown data, get a typed result.
 
 ## Goals
 
-1. Provide `guard<T>(value, isT)` — validate and narrow type.
+1. Provide `guard<T>(value, isT)` â€” validate and narrow type.
 2. Provide built-in guards: `isString`, `isNumber`, `isBoolean`, `isArray`, `isObject`, `isUnion`, `isLiteral`.
 3. Provide `isShape<T>` for object shape validation with nested guards.
 4. Return `Result<T, GuardError[]>` for functional composition with `ts-result`.
 5. Zero dependencies.
 
+
+## Goals
+
+- Provide zero-dependency, tree-shakeable pure functions
+- Full TypeScript generics with strict type safety
+- Compatible with browser and Node.js runtimes
+
+## Non-Goals
+
+- No runtime dependencies
+- No framework-specific integrations
+- No server-side or platform-specific features
+
 ## Proposed Public API
 
 ```typescript
-// ── Core ──────────────────────────────────────────────────
+// â”€â”€ Core â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type Guard<T> = (value: unknown) => value is T;
 export type Validator<T> = (value: unknown) => ValidationResult<T>;
@@ -42,7 +55,7 @@ export interface ValidationError {
   received: string;    // "number"
 }
 
-// ── Built-in Guards ───────────────────────────────────────
+// â”€â”€ Built-in Guards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const isString: Guard<string>;
 export const isNumber: Guard<number>;
@@ -56,18 +69,18 @@ export const isLiteral: <T extends string | number | boolean>(value: T) => Guard
 export const isOptional: <T>(guard: Guard<T>) => Guard<T | undefined>;
 export const isNullable: <T>(guard: Guard<T>) => Guard<T | null>;
 
-// ── Shape (Object) Validation ─────────────────────────────
+// â”€â”€ Shape (Object) Validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function isShape<T extends Record<string, unknown>>(
   shape: { [K in keyof T]: Guard<T[K]> }
 ): Guard<T>;
 
-// ── Validate + Narrow ─────────────────────────────────────
+// â”€â”€ Validate + Narrow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function guard<T>(value: unknown, guard: Guard<T>): value is T;
 export function validate<T>(value: unknown, guard: Guard<T>): ValidationResult<T>;
 
-// ── Usage ─────────────────────────────────────────────────
+// â”€â”€ Usage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const UserGuard = isShape({
   id: isNumber,

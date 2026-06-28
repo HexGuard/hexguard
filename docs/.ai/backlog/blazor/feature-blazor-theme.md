@@ -1,4 +1,4 @@
----
+﻿---
 id: feature-blazor-theme
 type: feature
 status: proposed
@@ -10,7 +10,21 @@ package: HexGuard.Blazor.Theme
 
 ## Summary
 
-Theme switching state for Blazor — light/dark/system, CSS class management, `prefers-color-scheme` detection. Blazor counterpart to `@hexguard/angular-theme`.
+Theme switching state for Blazor â€” light/dark/system, CSS class management, `prefers-color-scheme` detection. Blazor counterpart to `@hexguard/angular-theme`.
+
+
+## Goals
+
+- Provide reactive headless state for Blazor components
+- SSR-safe with interactive server mode compatibility
+- Minimal JavaScript interop, preferring native Blazor patterns
+
+
+## Non-Goals
+
+- No rendered UI components — headless state and services only
+- No JavaScript library dependencies
+- No server-side API integration (client-side state management only)
 
 ## Proposed Public API
 
