@@ -679,6 +679,26 @@
         }
       }
     },
+    "angular-form-utils": {
+      "projectType": "library",
+      "root": "packages/angular-form-utils",
+      "sourceRoot": "packages/angular-form-utils/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-form-utils/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-form-utils/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-form-utils/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-confirmation": {
       "projectType": "library",
       "root": "packages/angular-confirmation",
@@ -826,6 +846,46 @@
           "options": {
             "tsConfig": "packages/angular-page-context/tsconfig.spec.json"
           }
+        }
+      }
+    },
+    "angular-recently-viewed": {
+      "projectType": "library",
+      "root": "packages/angular-recently-viewed",
+      "sourceRoot": "packages/angular-recently-viewed/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-recently-viewed/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-recently-viewed/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-recently-viewed/tsconfig.spec.json" }
+        }
+      }
+    },
+    "angular-query-signal-forms": {
+      "projectType": "library",
+      "root": "packages/angular-query-signal-forms",
+      "sourceRoot": "packages/angular-query-signal-forms/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-query-signal-forms/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-query-signal-forms/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-query-signal-forms/tsconfig.spec.json" }
         }
       }
     },

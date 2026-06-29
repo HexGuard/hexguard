@@ -1,1 +1,29 @@
-/* All styles use global design system classes (demo-button, demo-actions-row). */
+.dirty-form-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block: var(--space-block, 0.7rem);
+}
+
+.dirty-label {
+  min-width: 4rem;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.dirty-guard-message {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+.dirty-divider {
+  margin: var(--space-section, 1.35rem) 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}

@@ -7,18 +7,94 @@
         <h2>Keyed in-flight deduplication with response caching.</h2>
       </div>
     </div>
+    <p class="demo-card__summary">
+      Two-tier dedup: simultaneous identical requests share one in-flight promise;
+      completed responses are cached within a 5-second TTL.
+    </p>
     <demo-status-strip
       testId="http-dedupe-demo-status"
-      summary="Simulates deduplicated request execution with in-flight dedup and cache."
+      summary="Execute a request, or fire two in parallel to see in-flight dedup. Re-execute within 5 s to see cache."
       currentUrl="Angular HTTP Dedupe — Demo"
       summaryTestId="http-dedupe-demo-summary"
       urlTestId="http-dedupe-demo-url"
     />
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="http-dedupe-playground">
-    <button class="demo-button" (click)="onExecute()" data-testid="execute-btn">Execute Request</button>
-    <div>Result: {{ result }}</div>
-    <div>Call count: {{ callCount }}</div>
+    <!-- demo-snippet:start angular-http-dedupe/demo-state -->
+    <div class="demo-actions-row">
+      <button
+        class="demo-button"
+        (click)="executeSingle()"
+        [disabled]="loading()"
+        data-testid="execute-btn"
+      >
+        Execute Request
+      </button>
+      <button
+        class="demo-button demo-button--ghost"
+        (click)="executeParallel()"
+        [disabled]="loading()"
+        data-testid="execute-parallel-btn"
+      >
+        Execute Two (Parallel)
+      </button>
+      <button
+        class="demo-button demo-button--ghost"
+        (click)="clearCache()"
+        data-testid="clear-cache-btn"
+      >
+        Clear Cache
+      </button>
+    </div>
+
+    @if (loading()) {
+      <p class="dedupe-loading" data-testid="dedupe-loading">⏳ Request in progress…</p>
+    }
+
+    <div class="dedupe-stats" data-testid="dedupe-stats">
+      <div class="dedupe-stat">
+        <span class="dedupe-stat-label">Result:</span>
+        <span class="dedupe-stat-value" data-testid="dedupe-result">{{
+          result() ?? '—'
+        }}</span>
+      </div>
+      <div class="dedupe-stat">
+        <span class="dedupe-stat-label">Source:</span>
+        @if (source(); as s) {
+          <span
+            class="demo-hint-pill"
+            [class.dedupe-source-fresh]="s === 'fresh'"
+            [class.dedupe-source-reused]="s === 'reused'"
+            data-testid="dedupe-source"
+          >
+            {{ s === 'fresh' ? '🆕 Fresh (fetch ran)' : '♻️ Reused (dedup/cache)' }}
+          </span>
+        } @else {
+          <span class="demo-hint-pill" data-testid="dedupe-source">—</span>
+        }
+      </div>
+      <div class="dedupe-stat">
+        <span class="dedupe-stat-label">Execute calls:</span>
+        <span class="dedupe-stat-value" data-testid="dedupe-total-calls">{{
+          totalCalls()
+        }}</span>
+      </div>
+      <div class="dedupe-stat">
+        <span class="dedupe-stat-label">Actual fetches:</span>
+        <span class="dedupe-stat-value" data-testid="dedupe-actual-fetches">{{
+          actualFetches()
+        }}</span>
+      </div>
+      @if (avoided > 0) {
+        <div class="dedupe-stat">
+          <span class="dedupe-stat-label">Avoided:</span>
+          <span class="dedupe-stat-value dedupe-avoided" data-testid="dedupe-avoided">
+            {{ avoided }} call{{ avoided === 1 ? '' : 's' }} saved
+          </span>
+        </div>
+      }
+    </div>
+    <!-- demo-snippet:end -->
   </article>
   <demo-inspector-panel
     demoAside

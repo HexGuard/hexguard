@@ -10,7 +10,9 @@
         "./packages/angular-optimistic-state/src/public-api.ts"
       ],
       "@hexguard/angular-permissions": ["./packages/angular-permissions/src/public-api.ts"],
+      "@hexguard/angular-recently-viewed": ["./packages/angular-recently-viewed/src/public-api.ts"],
       "@hexguard/angular-query-form": ["./packages/angular-query-form/src/public-api.ts"],
+      "@hexguard/angular-query-signal-forms": ["./packages/angular-query-signal-forms/src/public-api.ts"],
       "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"],
       "@hexguard/angular-api-errors": ["./packages/angular-api-errors/src/public-api.ts"],
       "@hexguard/angular-debounce": ["./packages/angular-debounce/src/public-api.ts"],
@@ -31,6 +33,7 @@
       "@hexguard/angular-live-data": ["./packages/angular-live-data/src/public-api.ts"],
       "@hexguard/angular-file-picker": ["./packages/angular-file-picker/src/public-api.ts"],
       "@hexguard/angular-form-drafts": ["./packages/angular-form-drafts/src/public-api.ts"],
+      "@hexguard/angular-form-utils": ["./packages/angular-form-utils/src/public-api.ts"],
       "@hexguard/angular-confirmation": ["./packages/angular-confirmation/src/public-api.ts"],
       "@hexguard/angular-navigation-pending": [
         "./packages/angular-navigation-pending/src/public-api.ts"

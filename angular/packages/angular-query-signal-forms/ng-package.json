@@ -1,0 +1,6 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/angular-query-signal-forms",
+  "assets": ["LICENSE"],
+  "lib": { "entryFile": "src/public-api.ts" }
+}

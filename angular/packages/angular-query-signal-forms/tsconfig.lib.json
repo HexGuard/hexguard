@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "outDir": "../../out-tsc/lib", "declaration": true, "declarationMap": true, "types": [], "paths": { "@hexguard/angular-url-state": ["../../dist/angular-url-state"] } },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

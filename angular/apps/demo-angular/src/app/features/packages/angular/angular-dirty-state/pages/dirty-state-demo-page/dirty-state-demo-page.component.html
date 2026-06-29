@@ -1,18 +1,97 @@
 <demo-page-layout testId="dirty-state-demo">
   <demo-navigation-strip demoNavigation testId="dirty-state-demo-navigation" [demo]="demo" />
   <article demoIntro class="demo-card demo-card--stack">
-    <div class="demo-card__header"><div><p class="demo-eyebrow">Angular Dirty State</p><h2>Unsaved-change tracking for Angular.</h2></div></div>
-    <demo-status-strip testId="dirty-state-demo-status" summary="Track unsaved changes with signal-based isDirty feedback and route guard integration." currentUrl="Angular Dirty State — Demo" summaryTestId="dirty-state-demo-summary" urlTestId="dirty-state-demo-url" />
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Dirty State</p>
+        <h2>Unsaved-change tracking with route guard integration.</h2>
+      </div>
+    </div>
+    <p class="demo-card__summary">
+      Type into the form to mark the state dirty, then try to "leave" — the route
+      guard (powered by <code>injectDirtyGuard</code>) blocks navigation with a
+      confirmation prompt when changes are unsaved.
+    </p>
+    <demo-status-strip
+      testId="dirty-state-demo-status"
+      summary="Edit the form field, then simulate a navigation to see the dirty guard in action."
+      currentUrl="Angular Dirty State — Demo"
+      summaryTestId="dirty-state-demo-summary"
+      urlTestId="dirty-state-demo-url"
+    />
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="dirty-state-playground">
     <!-- demo-snippet:start angular-dirty-state/demo-state -->
-    <p data-testid="is-dirty">Status: <strong>{{ dirty.isDirty() ? '🔴 Dirty' : '🟢 Clean' }}</strong></p>
+    <p data-testid="is-dirty">
+      Status:
+      <strong>{{ dirty.isDirty() ? '🔴 Dirty' : '🟢 Clean' }}</strong>
+    </p>
+
+    <h3 class="demo-heading-lg">Form Simulation</h3>
+    <label class="dirty-form-row">
+      <span class="dirty-label">Name:</span>
+      <input
+        class="demo-input demo-input-inline"
+        type="text"
+        [value]="formValue()"
+        (input)="onInput($any($event.target).value)"
+        placeholder="Type something…"
+        data-testid="dirty-form-input"
+      />
+    </label>
+
     <div class="demo-actions-row">
-      <button class="demo-button" (click)="dirty.markDirty()" data-testid="btn-mark-dirty">Mark Dirty</button>
-      <button class="demo-button demo-button--ghost" (click)="dirty.markClean()" data-testid="btn-mark-clean">Mark Clean</button>
-      <button class="demo-button demo-button--ghost" (click)="dirty.reset()" data-testid="btn-reset">Reset</button>
+      <button class="demo-button" (click)="save()" data-testid="btn-save">
+        Save (mark clean)
+      </button>
+      <button
+        class="demo-button demo-button--ghost"
+        (click)="reset()"
+        data-testid="btn-reset"
+      >
+        Reset
+      </button>
     </div>
+
+    <hr class="dirty-divider" />
+
+    <h3 class="demo-heading-lg">Route Guard Demo</h3>
+    <p class="demo-card__summary">
+      Clicking "Leave Page" simulates Angular Router's
+      <code>canDeactivate</code> check. The guard calls
+      <code>confirm()</code> when dirty.
+    </p>
+
+    <div class="demo-actions-row">
+      <button
+        class="demo-button"
+        (click)="tryLeave()"
+        data-testid="btn-try-leave"
+      >
+        Leave Page
+      </button>
+    </div>
+
+    @if (guardResult(); as result) {
+      <p data-testid="guard-result">
+        <strong>Navigation {{ result === 'allowed' ? '✅ allowed' : '⛔ blocked' }}</strong>
+      </p>
+      @if (result === 'blocked') {
+        <pre class="dirty-guard-message" data-testid="guard-message"
+          >Guard message: "{{ guardMessage }}"</pre
+        >
+      }
+    }
     <!-- demo-snippet:end -->
   </article>
-  <demo-inspector-panel demoAside panelTestId="dirty-state-inspector-panel" title="Dirty State snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="dirty-state-snapshot-json" codeTestId="dirty-state-code-sample" />
+  <demo-inspector-panel
+    demoAside
+    panelTestId="dirty-state-inspector-panel"
+    title="Dirty State snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="dirty-state-snapshot-json"
+    codeTestId="dirty-state-code-sample"
+  />
 </demo-page-layout>

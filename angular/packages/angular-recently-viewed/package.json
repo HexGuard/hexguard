@@ -1,0 +1,20 @@
+{
+  "name": "@hexguard/angular-recently-viewed",
+  "version": "0.1.0",
+  "description": "Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.",
+  "keywords": ["angular", "signals", "recently-viewed", "history", "persistence", "storage", "hexguard"],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-recently-viewed",
+  "bugs": { "url": "https://github.com/hexguard/hexguard/issues" },
+  "repository": { "type": "git", "url": "https://github.com/hexguard/hexguard.git", "directory": "angular/packages/angular-recently-viewed" },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@hexguard/angular-storage": "^0.1.0"
+  },
+  "devDependencies": {
+    "@hexguard/angular-storage": "workspace:*"
+  },
+  "dependencies": { "tslib": "^2.3.0" },
+  "publishConfig": { "access": "public" },
+  "sideEffects": false
+}
