@@ -1343,7 +1343,7 @@ The full catalog of **357 proposed packages** across 5 stacks is maintained in `
 | TypeScript  | 36      | `docs/.ai/backlog/typescript/`  | `@hexguard/ts-{name}`                                 |
 | **Total**   | **357** |                                 |                                                       |
 
-An additional **160 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
+An additional **167 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
 
 All packages are **headless** — state/signals/services only, no rendered UI. See `docs/.ai/backlog.md` for the full prioritization matrix and `docs/.ai/backlog/package-extensions.md` for extension proposals.
 

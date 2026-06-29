@@ -873,3 +873,10 @@ const routes = [
 | 158 | `HexGuard.Blazor.ErrorSetup` | `errorReporting()` — Sentry/AppInsights integration adapter | Blazor | Low | High |
 | 159 | `HexGuard.Blazor.DevTools` | `performanceBudget()` — warn on excessive component re-renders | Blazor | Low | Medium |
 | 160 | `HexGuard.Blazor.RenderMode` | `autoModeStrategy()` — pre-load WASM assembly in background during SSR | Blazor | Medium | High |
+| 161 | `HexGuard.Blazor.VirtualScroll` | `stickyHeaders` — group headers that stick during scroll | Blazor | Medium | Medium |
+| 162 | `HexGuard.Blazor.Animation` | `pageTransitions` — route-level enter/exit animation coordination | Blazor | Medium | High |
+| 163 | `HexGuard.Blazor.DynamicRender` | `lazyLoadAssembly` — on-demand assembly loading from CDN | Blazor | Medium | High |
+| 164 | `HexGuard.Blazor.HeadManagement` | `structuredDataCatalog` — pre-built JSON-LD schema catalog for common types | Blazor | Low | Medium |
+| 165 | `HexGuard.Blazor.TestingBootstrap` | `visualRegression` — screenshot-based snapshot diff testing | Blazor | High | Medium |
+| 166 | `HexGuard.Blazor.StaticAssets` | `imageResponsive` — auto-generate srcset/sizes markup for images | Blazor | Low | High |
+| 167 | `HexGuard.Blazor.CiCd` | `canaryDeployment` — traffic-splitting deployment strategy template | Blazor | Medium | Medium |
