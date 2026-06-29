@@ -880,3 +880,10 @@ const routes = [
 | 165 | `HexGuard.Blazor.TestingBootstrap` | `visualRegression` — screenshot-based snapshot diff testing | Blazor | High | Medium |
 | 166 | `HexGuard.Blazor.StaticAssets` | `imageResponsive` — auto-generate srcset/sizes markup for images | Blazor | Low | High |
 | 167 | `HexGuard.Blazor.CiCd` | `canaryDeployment` — traffic-splitting deployment strategy template | Blazor | Medium | Medium |
+| 168 | `@hexguard/angular-a11y` | `axeIntegration` — axe-core accessibility audit state injection | Angular | Medium | High |
+| 169 | `@hexguard/angular-i18n` | `lazyLoadBundles` — per-route translation chunk loading | Angular | Medium | High |
+| 170 | `@hexguard/angular-cache` | `withPersistence()` — IndexedDB-backed cache survival across sessions | Angular | Medium | High |
+| 171 | `HexGuard.Blazor.A11y` | `axeIntegration` — browser axe-core audit trigger from .NET | Blazor | Medium | High |
+| 172 | `HexGuard.Blazor.I18n` | `autoTranslate` — machine translation fallback for missing keys | Blazor | Medium | Medium |
+| 173 | `HexGuard.Blazor.Cache` | `cacheWarming` — pre-populate cache at application startup | Blazor | Low | High |
+| 174 | `@hexguard/ts-a11y` | `axeConfig` — axe-core configuration builder with rule presets | TypeScript | Low | Medium |
