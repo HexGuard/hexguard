@@ -665,22 +665,6 @@ Status: Proposed
 
 Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.
 
-<a id="package-angular-form-utils"></a>
-
-### `@hexguard/angular-form-utils`
-
-Status: Proposed
-
-Would standardize cross-field validators, dirty-check helpers, unsaved-changes guards, and form-level dirty state tracking for Angular forms.
-
-<a id="package-angular-recently-viewed"></a>
-
-### `@hexguard/angular-recently-viewed`
-
-Status: Proposed
-
-Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.
-
 <a id="package-dotnet-downloads"></a>
 
 ### `HexGuard.Downloads`

@@ -1582,26 +1582,6 @@ export const roadmapPackages = [
   },
 
   {
-    id: 'angular-form-utils',
-    anchorId: 'package-angular-form-utils',
-    packageName: '@hexguard/angular-form-utils',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize cross-field validators, dirty-check helpers, unsaved-changes guards, and form-level dirty state tracking for Angular forms.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-recently-viewed',
-    anchorId: 'package-angular-recently-viewed',
-    packageName: '@hexguard/angular-recently-viewed',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.',
-    showOnSiteHome: false,
-  },
-  {
     id: 'dotnet-downloads',
     anchorId: 'package-dotnet-downloads',
     packageName: 'HexGuard.Downloads',

@@ -1,0 +1,18 @@
+<demo-page-layout testId="query-signal-forms-demo">
+  <demo-navigation-strip demoNavigation testId="query-signal-forms-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Query Signal Forms</p>
+        <h2>URL-state adapter for signal forms.</h2>
+      </div>
+    </div>
+    <demo-status-strip testId="query-signal-forms-demo-status" summary="Bind typed query params to signal form models." currentUrl="Angular Query Signal Forms — Demo" summaryTestId="query-signal-forms-demo-summary" urlTestId="query-signal-forms-demo-url" />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="query-signal-forms-playground">
+    <label>Search: <input #searchInput (input)="query.patch({ search: searchInput.value })" [value]="query.snapshot().search" data-testid="search-input" /></label>
+    <label>Page: <input #pageInput type="number" (input)="query.patch({ page: +pageInput.value })" [value]="query.snapshot().page" data-testid="page-input" /></label>
+    <button class="demo-button demo-button--ghost" (click)="query.reset()" data-testid="reset-btn">Reset</button>
+  </article>
+  <demo-inspector-panel demoAside panelTestId="query-signal-forms-inspector-panel" title="Query Signal Forms snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="query-signal-forms-snapshot-json" codeTestId="query-signal-forms-code-sample" />
+</demo-page-layout>

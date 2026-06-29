@@ -80,6 +80,9 @@ const ANGULAR_SIGNAL_PERSIST_CATALOG = getGeneratedCurrentPackage('angular-signa
 const ANGULAR_SIGNAL_UTILS_CATALOG = getGeneratedCurrentPackage('angular-signal-utils');
 const ANGULAR_PREFERENCES_CATALOG = getGeneratedCurrentPackage('angular-preferences');
 const ANGULAR_HTTP_DEDUPE_CATALOG = getGeneratedCurrentPackage('angular-http-dedupe');
+const ANGULAR_RECENTLY_VIEWED_CATALOG = getGeneratedCurrentPackage('angular-recently-viewed');
+const ANGULAR_FORM_UTILS_CATALOG = getGeneratedCurrentPackage('angular-form-utils');
+const ANGULAR_QUERY_SIGNAL_FORMS_CATALOG = getGeneratedCurrentPackage('angular-query-signal-forms');
 
 const ANGULAR_SELECTION_STATE_DOCS = ANGULAR_SELECTION_STATE_CATALOG.docsLinks;
 const ANGULAR_BULK_OPERATIONS_DOCS = ANGULAR_BULK_OPERATIONS_CATALOG.docsLinks;
@@ -104,6 +107,9 @@ const ANGULAR_SIGNAL_PERSIST_DOCS = ANGULAR_SIGNAL_PERSIST_CATALOG.docsLinks;
 const ANGULAR_SIGNAL_UTILS_DOCS = ANGULAR_SIGNAL_UTILS_CATALOG.docsLinks;
 const ANGULAR_PREFERENCES_DOCS = ANGULAR_PREFERENCES_CATALOG.docsLinks;
 const ANGULAR_HTTP_DEDUPE_DOCS = ANGULAR_HTTP_DEDUPE_CATALOG.docsLinks;
+const ANGULAR_RECENTLY_VIEWED_DOCS = ANGULAR_RECENTLY_VIEWED_CATALOG.docsLinks;
+const ANGULAR_FORM_UTILS_DOCS = ANGULAR_FORM_UTILS_CATALOG.docsLinks;
+const ANGULAR_QUERY_SIGNAL_FORMS_DOCS = ANGULAR_QUERY_SIGNAL_FORMS_CATALOG.docsLinks;
 const ANGULAR_ROUTE_MEMORY_DOCS = ANGULAR_ROUTE_MEMORY_CATALOG.docsLinks;
 const ANGULAR_PAGE_CONTEXT_DOCS = ANGULAR_PAGE_CONTEXT_CATALOG.docsLinks;
 const ANGULAR_SCROLL_STATE_DOCS = ANGULAR_SCROLL_STATE_CATALOG.docsLinks;
@@ -2172,6 +2178,135 @@ export const ANGULAR_HTTP_DEDUPE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_HTTP_DEDUPE_DEMO],
 };
 
+// ── angular-recently-viewed demo entries ────────────────
+
+export const ANGULAR_RECENTLY_VIEWED_DEMO: DemoPageEntry = {
+  id: 'recently-viewed',
+  packageId: 'angular-recently-viewed',
+  route: '/packages/angular-recently-viewed/demo',
+  legacyRoute: '/recently-viewed',
+  label: 'Recently Viewed',
+  title: 'Track and restore recently viewed items',
+  description:
+    'A live demo shows item navigation tracking, recent-items list, and click-to-restore.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-recently-viewed/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-recently-viewed.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-recently-viewed/demo-state',
+    label: 'Recently Viewed demo component source',
+    description:
+      'The full recently-viewed demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_RECENTLY_VIEWED_PACKAGE: DemoPackageEntry = {
+  id: 'angular-recently-viewed',
+  route: '/packages/angular-recently-viewed',
+  label: 'Angular Recently Viewed',
+  title: ANGULAR_RECENTLY_VIEWED_CATALOG.packageName,
+  description: ANGULAR_RECENTLY_VIEWED_CATALOG.summary,
+  docsLinks: ANGULAR_RECENTLY_VIEWED_DOCS,
+  demos: [ANGULAR_RECENTLY_VIEWED_DEMO],
+};
+
+// ── angular-form-utils demo entries ──────────────────────
+
+export const ANGULAR_FORM_UTILS_DEMO: DemoPageEntry = {
+  id: 'form-utils',
+  packageId: 'angular-form-utils',
+  route: '/packages/angular-form-utils/demo',
+  legacyRoute: '/form-utils',
+  label: 'Form Utils',
+  title: 'Form utility helpers: control validation, value accessors, and more',
+  description:
+    'A live demo shows form control value accessors, validation state helpers, and utility functions for Angular reactive forms.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-utils/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-utils.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-form-utils/demo-state',
+    label: 'Form Utils demo component source',
+    description:
+      'The full form-utils demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_FORM_UTILS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-form-utils',
+  route: '/packages/angular-form-utils',
+  label: 'Angular Form Utils',
+  title: ANGULAR_FORM_UTILS_CATALOG.packageName,
+  description: ANGULAR_FORM_UTILS_CATALOG.summary,
+  docsLinks: ANGULAR_FORM_UTILS_DOCS,
+  demos: [ANGULAR_FORM_UTILS_DEMO],
+};
+
+// ── angular-query-signal-forms demo entries ──────────────
+
+export const ANGULAR_QUERY_SIGNAL_FORMS_DEMO: DemoPageEntry = {
+  id: 'query-signal-forms',
+  packageId: 'angular-query-signal-forms',
+  route: '/packages/angular-query-signal-forms/demo',
+  legacyRoute: '/query-signal-forms',
+  label: 'Query Signal Forms',
+  title: 'Signal-based reactive forms with URL-synced query state',
+  description:
+    'A live demo shows signal-based form controls, URL query param synchronization, and declarative form state management.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-signal-forms/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-query-signal-forms.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-query-signal-forms/demo-state',
+    label: 'Query Signal Forms demo component source',
+    description:
+      'The full query-signal-forms demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_QUERY_SIGNAL_FORMS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-query-signal-forms',
+  route: '/packages/angular-query-signal-forms',
+  label: 'Angular Query Signal Forms',
+  title: ANGULAR_QUERY_SIGNAL_FORMS_CATALOG.packageName,
+  description: ANGULAR_QUERY_SIGNAL_FORMS_CATALOG.summary,
+  docsLinks: ANGULAR_QUERY_SIGNAL_FORMS_DOCS,
+  demos: [ANGULAR_QUERY_SIGNAL_FORMS_DEMO],
+};
+
 export const DEMO_PACKAGES = [
   ANGULAR_URL_STATE_PACKAGE,
   ANGULAR_QUERY_FORM_PACKAGE,
@@ -2212,6 +2347,9 @@ export const DEMO_PACKAGES = [
   ANGULAR_SIGNAL_UTILS_PACKAGE,
   ANGULAR_PREFERENCES_PACKAGE,
   ANGULAR_HTTP_DEDUPE_PACKAGE,
+  ANGULAR_RECENTLY_VIEWED_PACKAGE,
+  ANGULAR_FORM_UTILS_PACKAGE,
+  ANGULAR_QUERY_SIGNAL_FORMS_PACKAGE,
 ] as const;
 export const DEMO_PAGES = DEMO_PACKAGES.flatMap((entry) => entry.demos);
 

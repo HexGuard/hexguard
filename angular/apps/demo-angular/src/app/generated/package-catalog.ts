@@ -2300,30 +2300,6 @@ export const GENERATED_ROADMAP_PACKAGES = [
     showOnSiteHome: false,
   },
   {
-    id: 'angular-form-utils',
-    anchorId: 'package-angular-form-utils',
-    packageName: '@hexguard/angular-form-utils',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize cross-field validators, dirty-check helpers, unsaved-changes guards, and form-level dirty state tracking for Angular forms.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-form-utils',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-recently-viewed',
-    anchorId: 'package-angular-recently-viewed',
-    packageName: '@hexguard/angular-recently-viewed',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.',
-    docsHref:
-      'https://github.com/HexGuard/hexguard/blob/main/docs/packages/README.md#package-angular-recently-viewed',
-    showOnSiteHome: false,
-  },
-  {
     id: 'dotnet-downloads',
     anchorId: 'package-dotnet-downloads',
     packageName: 'HexGuard.Downloads',

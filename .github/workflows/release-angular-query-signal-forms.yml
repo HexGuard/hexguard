@@ -1,0 +1,80 @@
+name: Release Angular Query Signal Forms
+
+on:
+  push:
+    tags:
+      - 'angular-query-signal-forms-v*'
+  workflow_dispatch:
+    inputs:
+      npm_tag:
+        description: 'npm dist-tag to publish under'
+        required: false
+        default: 'latest'
+      release_tag:
+        description: 'Git tag to attach the GitHub release to when running manually'
+        required: false
+        default: ''
+      create_github_release:
+        description: 'Create a GitHub release for the current tag'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish @hexguard/angular-query-signal-forms
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.27.0, run_install: false }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+          cache: pnpm
+          cache-dependency-path: "pnpm-lock.yaml\nangular/pnpm-lock.yaml"
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir angular install --frozen-lockfile
+      - run: pnpm --dir angular exec playwright install --with-deps chromium
+      - run: pnpm format:check && pnpm lint && pnpm test:ci && pnpm test:e2e
+      - run: pnpm build:lib:query-signal-forms
+      - run: pnpm verify:package:query-signal-forms
+      - id: metadata
+        shell: bash
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./angular/packages/angular-query-signal-forms/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./angular/packages/angular-query-signal-forms/package.json').name")
+          EXPECTED_TAG="angular-query-signal-forms-v${PACKAGE_VERSION}"
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            TAG_NAME="${GITHUB_REF_NAME}"
+            [[ "$TAG_NAME" != "$EXPECTED_TAG" ]] && echo "Tag mismatch" >&2 && exit 1
+            NPM_TAG="latest"; CREATE_RELEASE="true"
+          else
+            TAG_NAME="${{ inputs.release_tag }}"; NPM_TAG="${{ inputs.npm_tag }}"; CREATE_RELEASE="${{ inputs.create_github_release }}"
+            [[ "$CREATE_RELEASE" == "true" && -z "$TAG_NAME" ]] && echo "release_tag required" >&2 && exit 1
+            [[ "$CREATE_RELEASE" == "true" && "$TAG_NAME" != "$EXPECTED_TAG" ]] && echo "Tag mismatch" >&2 && exit 1
+          fi
+          TARBALL_PATH=$(find angular/.artifacts -maxdepth 1 -name 'hexguard-angular-query-signal-forms-*.tgz' -print -quit)
+          [[ -z "$TARBALL_PATH" ]] && echo "No tarball" >&2 && exit 1
+          echo "package_name=$PACKAGE_NAME" >> "$GITHUB_OUTPUT"
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "npm_tag=$NPM_TAG" >> "$GITHUB_OUTPUT"
+          echo "create_release=$CREATE_RELEASE" >> "$GITHUB_OUTPUT"
+          echo "tarball_path=$TARBALL_PATH" >> "$GITHUB_OUTPUT"
+      - run: pnpm --dir angular/dist/angular-query-signal-forms publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+        env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }
+      - if: steps.metadata.outputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.metadata.outputs.tag_name }}
+          name: ${{ steps.metadata.outputs.package_name }}@${{ steps.metadata.outputs.package_version }}
+          generate_release_notes: true
+          files: ${{ steps.metadata.outputs.tarball_path }}

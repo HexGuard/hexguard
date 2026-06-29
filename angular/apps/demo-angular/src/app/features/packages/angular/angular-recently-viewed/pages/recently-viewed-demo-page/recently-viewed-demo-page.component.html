@@ -1,0 +1,23 @@
+<demo-page-layout testId="recently-viewed-demo">
+  <demo-navigation-strip demoNavigation testId="recently-viewed-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Recently Viewed</p>
+        <h2>Recently-viewed item tracking with persistence.</h2>
+      </div>
+    </div>
+    <demo-status-strip testId="recently-viewed-demo-status" summary="Track recently viewed items with dedup, max items, and TTL." currentUrl="Angular Recently Viewed — Demo" summaryTestId="recently-viewed-demo-summary" urlTestId="recently-viewed-demo-url" />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="recently-viewed-playground">
+    <button class="demo-button" (click)="addItem()" data-testid="add-btn">Add Item</button>
+    <button class="demo-button demo-button--ghost" (click)="recent.clear()" data-testid="clear-btn">Clear</button>
+    <ul>
+      @for (item of recent.items(); track item.id) {
+        <li data-testid="recent-item">{{ item.label }} <button (click)="recent.remove(item.id)">×</button></li>
+      }
+    </ul>
+    <p>Count: {{ recent.count() }}</p>
+  </article>
+  <demo-inspector-panel demoAside panelTestId="recently-viewed-inspector-panel" title="Recently Viewed snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="recently-viewed-snapshot-json" codeTestId="recently-viewed-code-sample" />
+</demo-page-layout>

@@ -1,0 +1,20 @@
+<demo-page-layout testId="form-utils-demo">
+  <demo-navigation-strip demoNavigation testId="form-utils-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Form Utils</p>
+        <h2>Form validators and dirty state tracking.</h2>
+      </div>
+    </div>
+    <demo-status-strip testId="form-utils-demo-status" summary="Test cross-field validators and form dirty state." currentUrl="Angular Form Utils — Demo" summaryTestId="form-utils-demo-summary" urlTestId="form-utils-demo-url" />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="form-utils-playground" [formGroup]="form">
+    <label>Password: <input formControlName="password" type="password" data-testid="password-input" /></label>
+    <label>Confirm: <input formControlName="confirm" type="password" data-testid="confirm-input" /></label>
+    @if (form.errors?.['fieldsEqual']) { <p class="error" data-testid="match-error">{{ form.errors!['fieldsEqual'].message }}</p> }
+    <p>Dirty: {{ dirty.isDirty() }}</p>
+    <button class="demo-button demo-button--ghost" (click)="dirty.resetAll()">Reset Dirty</button>
+  </article>
+  <demo-inspector-panel demoAside panelTestId="form-utils-inspector-panel" title="Form Utils snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="form-utils-snapshot-json" codeTestId="form-utils-code-sample" />
+</demo-page-layout>

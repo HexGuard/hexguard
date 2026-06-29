@@ -470,6 +470,27 @@ const snippets = [
     sourcePath:
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-http-dedupe/pages/http-dedupe-demo-page/http-dedupe-demo-page.component.ts',
   },
+  {
+    id: 'angular-recently-viewed/demo-state',
+    title: 'Recently Viewed demo component source',
+    description: 'Generated from the real Recently Viewed demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
+  },
+  {
+    id: 'angular-form-utils/demo-state',
+    title: 'Form Utils demo component source',
+    description: 'Generated from the real Form Utils demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
+  },
+  {
+    id: 'angular-query-signal-forms/demo-state',
+    title: 'Query Signal Forms demo component source',
+    description: 'Generated from the real Query Signal Forms demo component files, including TypeScript, template, and styles.',
+    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
+    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
+  },
 ];
 
 function normalizeSource(source) {

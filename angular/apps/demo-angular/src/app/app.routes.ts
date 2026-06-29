@@ -151,6 +151,12 @@ import { AngularPreferencesHomePageComponent } from './features/packages/angular
 import { PreferencesDemoPageComponent } from './features/packages/angular/angular-preferences/pages/preferences-demo-page/preferences-demo-page.component';
 import { AngularHttpDedupeHomePageComponent } from './features/packages/angular/angular-http-dedupe/angular-http-dedupe-home-page.component';
 import { HttpDedupeDemoPageComponent } from './features/packages/angular/angular-http-dedupe/pages/http-dedupe-demo-page/http-dedupe-demo-page.component';
+import { AngularRecentlyViewedHomePageComponent } from './features/packages/angular/angular-recently-viewed/angular-recently-viewed-home-page.component';
+import { RecentlyViewedDemoPageComponent } from './features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component';
+import { AngularFormUtilsHomePageComponent } from './features/packages/angular/angular-form-utils/angular-form-utils-home-page.component';
+import { FormUtilsDemoPageComponent } from './features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component';
+import { AngularQuerySignalFormsHomePageComponent } from './features/packages/angular/angular-query-signal-forms/angular-query-signal-forms-home-page.component';
+import { QuerySignalFormsDemoPageComponent } from './features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component';
 
 export const routes: Routes = [
   {
@@ -461,6 +467,17 @@ export const routes: Routes = [
     component: FormDraftsDemoPageComponent,
     title: 'Form Drafts Demo',
   },
+  // ── Form Utils ──────────────────────────────────────────────────
+  {
+    path: 'packages/angular-form-utils',
+    component: AngularFormUtilsHomePageComponent,
+    title: 'Angular Form Utils Demos',
+  },
+  {
+    path: 'packages/angular-form-utils/demo',
+    component: FormUtilsDemoPageComponent,
+    title: 'Form Utils Demo',
+  },
   {
     path: 'packages/angular-live-data',
     component: AngularLiveDataHomePageComponent,
@@ -729,6 +746,28 @@ export const routes: Routes = [
     path: 'packages/angular-http-dedupe/demo',
     component: HttpDedupeDemoPageComponent,
     title: 'HTTP Dedupe Demo',
+  },
+  // ── Query Signal Forms ──────────────────────────────────────────
+  {
+    path: 'packages/angular-query-signal-forms',
+    component: AngularQuerySignalFormsHomePageComponent,
+    title: 'Angular Query Signal Forms Demos',
+  },
+  {
+    path: 'packages/angular-query-signal-forms/demo',
+    component: QuerySignalFormsDemoPageComponent,
+    title: 'Query Signal Forms Demo',
+  },
+  // ── Recently Viewed ─────────────────────────────────────────────
+  {
+    path: 'packages/angular-recently-viewed',
+    component: AngularRecentlyViewedHomePageComponent,
+    title: 'Angular Recently Viewed Demos',
+  },
+  {
+    path: 'packages/angular-recently-viewed/demo',
+    component: RecentlyViewedDemoPageComponent,
+    title: 'Recently Viewed Demo',
   },
   // ── Wizard State ────────────────────────────────────────────────
   {
