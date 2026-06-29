@@ -1332,18 +1332,18 @@ These proposals are strongest when Angular and .NET packages ship as complementa
 
 ## Complete Backlog
 
-The full catalog of **350 proposed packages** across 5 stacks is maintained in `docs/.ai/backlog/`:
+The full catalog of **357 proposed packages** across 5 stacks is maintained in `docs/.ai/backlog/`:
 
 | Stack       | Briefs  | Folder                          | Naming Convention                                     |
 | ----------- | ------- | ------------------------------- | ----------------------------------------------------- |
 | Angular     | 135     | `docs/.ai/backlog/angular/`     | `@hexguard/angular-{name}`                            |
-| Blazor      | 45      | `docs/.ai/backlog/blazor/`      | `HexGuard.Blazor.{Name}`                              |
+| Blazor      | 52      | `docs/.ai/backlog/blazor/`      | `HexGuard.Blazor.{Name}`                              |
 | .NET        | 91      | `docs/.ai/backlog/dotnet/`      | `HexGuard.{Name}`                                     |
 | Cross-stack | 43      | `docs/.ai/backlog/cross-stack/` | Paired `HexGuard.{Name}` + `@hexguard/angular-{name}` |
 | TypeScript  | 36      | `docs/.ai/backlog/typescript/`  | `@hexguard/ts-{name}`                                 |
-| **Total**   | **350** |                                 |                                                       |
+| **Total**   | **357** |                                 |                                                       |
 
-An additional **144 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
+An additional **152 extension proposals** across 22 existing packages are tracked in `docs/.ai/backlog/package-extensions.md`.
 
 All packages are **headless** — state/signals/services only, no rendered UI. See `docs/.ai/backlog.md` for the full prioritization matrix and `docs/.ai/backlog/package-extensions.md` for extension proposals.
 

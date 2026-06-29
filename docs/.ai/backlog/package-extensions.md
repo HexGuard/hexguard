@@ -857,3 +857,11 @@ const routes = [
 | 142 | `HexGuard.Gamification` | `AchievementChains` — sequential badge unlock chains with prerequisites | .NET | Medium | High |
 | 143 | `@hexguard/angular-badges` | `badgeShare` — social sharing state for earned achievements | Angular | Low | Medium |
 | 144 | `HexGuard.WebhookSender` | `WebhookPayloadTemplates` — templated payload transformation per endpoint | .NET | Medium | High |
+| 145 | `HexGuard.Blazor.LocalStorage` | `withEncryption()` — transparent AES-GCM encryption for stored values | Blazor | Medium | High |
+| 146 | `HexGuard.Blazor.FileReader` | `chunkedRead()` — large file chunked streaming to avoid WASM memory pressure | Blazor | Medium | High |
+| 147 | `HexGuard.Blazor.DebouncedInput` | `withSignalR()` — debounce input over SignalR circuit to reduce round-trips | Blazor | Low | High |
+| 148 | `HexGuard.Blazor.Reactive` | `ObservableProperty` source generator — compile-time property wrapping | Blazor | Medium | High |
+| 149 | `HexGuard.Blazor.JsInterop` | `modulePreloading` — preload JS modules before first invocation | Blazor | Low | Medium |
+| 150 | `HexGuard.Blazor.PrerenderState` | `streamingState` — register state key before async operation completes | Blazor | Low | High |
+| 151 | `HexGuard.Blazor.Offline` | `conflictResolver` — pluggable conflict resolution strategy per action type | Blazor | Medium | Medium |
+| 152 | `HexGuard.Blazor.FormHelpers` | `navigateAwayGuard` — unsaved changes confirmation on navigation | Blazor | Low | High |
