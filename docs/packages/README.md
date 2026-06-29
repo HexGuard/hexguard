@@ -524,14 +524,6 @@ HttpInterceptorFn integration deferred to a future version.
 
 ## Planned and Proposed Package Briefs
 
-<a id="package-angular-submit-lock"></a>
-
-### `@hexguard/angular-submit-lock`
-
-Status: Planned
-
-May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit in-flight state on top of a broader async action contract.
-
 <a id="package-angular-upload-state"></a>
 
 ### `@hexguard/angular-upload-state`
@@ -580,14 +572,6 @@ Status: Proposed
 
 Would standardize editing lease state, keepalive, takeover, expiry, and conflict banners for collaborative Angular edit screens.
 
-<a id="package-problemdetails"></a>
-
-### `HexGuard.ProblemDetails`
-
-Status: Planned
-
-Will provide focused .NET helpers for creating and mapping RFC 9457 problem-details responses.
-
 <a id="package-webhooks"></a>
 
 ### `HexGuard.Webhooks`
@@ -595,14 +579,6 @@ Will provide focused .NET helpers for creating and mapping RFC 9457 problem-deta
 Status: Planned
 
 Will provide webhook verification and event-processing primitives for .NET services.
-
-<a id="package-pagination"></a>
-
-### `HexGuard.Pagination`
-
-Status: Planned
-
-Will provide pagination contracts and response helpers for APIs that need a clear page model.
 
 <a id="package-outbox"></a>
 
@@ -660,22 +636,6 @@ Status: Proposed
 
 Would pair backend lease or lock contracts with Angular editing banners, keepalive, takeover, and expiry handling.
 
-<a id="package-angular-breakpoint-observer"></a>
-
-### `@hexguard/angular-breakpoint-observer`
-
-Status: Proposed
-
-Would standardize reactive TypeScript breakpoint detection with typed breakpoint contracts and signal-based active-breakpoint helpers so component logic can respond to viewport changes.
-
-<a id="package-angular-clipboard"></a>
-
-### `@hexguard/angular-clipboard`
-
-Status: Proposed
-
-Would provide a dependency-free async clipboard wrapper with fallback chain, copy feedback state, and optional directive for Angular apps.
-
 <a id="package-angular-form-utils"></a>
 
 ### `@hexguard/angular-form-utils`
@@ -691,14 +651,6 @@ Would standardize cross-field validators, dirty-check helpers, unsaved-changes g
 Status: Proposed
 
 Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.
-
-<a id="package-angular-pagination"></a>
-
-### `@hexguard/angular-pagination`
-
-Status: Proposed
-
-Would provide Angular pagination state signals, page-change helpers, and URL-compatible page state to pair with HexGuard.Pagination on the .NET side.
 
 <a id="package-dotnet-downloads"></a>
 

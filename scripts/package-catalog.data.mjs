@@ -1366,16 +1366,6 @@ export const currentPackages = [
 
 export const roadmapPackages = [
   {
-    id: 'angular-submit-lock',
-    anchorId: 'package-angular-submit-lock',
-    packageName: '@hexguard/angular-submit-lock',
-    scope: 'Angular',
-    status: 'Planned',
-    summary:
-      'May narrow into thin ergonomics for preventing duplicate submissions and exposing explicit in-flight state on top of a broader async action contract.',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-upload-state',
     anchorId: 'package-angular-upload-state',
     packageName: '@hexguard/angular-upload-state',
@@ -1436,32 +1426,12 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
   {
-    id: 'problemdetails',
-    anchorId: 'package-problemdetails',
-    packageName: 'HexGuard.ProblemDetails',
-    scope: '.NET',
-    status: 'Planned',
-    summary:
-      'Will provide focused .NET helpers for creating and mapping RFC 9457 problem-details responses.',
-    showOnSiteHome: true,
-  },
-  {
     id: 'webhooks',
     anchorId: 'package-webhooks',
     packageName: 'HexGuard.Webhooks',
     scope: '.NET',
     status: 'Planned',
     summary: 'Will provide webhook verification and event-processing primitives for .NET services.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'pagination',
-    anchorId: 'package-pagination',
-    packageName: 'HexGuard.Pagination',
-    scope: '.NET',
-    status: 'Planned',
-    summary:
-      'Will provide pagination contracts and response helpers for APIs that need a clear page model.',
     showOnSiteHome: false,
   },
   {
@@ -1536,26 +1506,6 @@ export const roadmapPackages = [
   },
 
   {
-    id: 'angular-breakpoint-observer',
-    anchorId: 'package-angular-breakpoint-observer',
-    packageName: '@hexguard/angular-breakpoint-observer',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would standardize reactive TypeScript breakpoint detection with typed breakpoint contracts and signal-based active-breakpoint helpers so component logic can respond to viewport changes.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-clipboard',
-    anchorId: 'package-angular-clipboard',
-    packageName: '@hexguard/angular-clipboard',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide a dependency-free async clipboard wrapper with fallback chain, copy feedback state, and optional directive for Angular apps.',
-    showOnSiteHome: false,
-  },
-  {
     id: 'angular-form-utils',
     anchorId: 'package-angular-form-utils',
     packageName: '@hexguard/angular-form-utils',
@@ -1573,16 +1523,6 @@ export const roadmapPackages = [
     status: 'Proposed',
     summary:
       'Would standardize recently-viewed item tracking with configurable max, dedup, pluggable persistence, and optional route integration for navigation sidebar patterns.',
-    showOnSiteHome: false,
-  },
-  {
-    id: 'angular-pagination',
-    anchorId: 'package-angular-pagination',
-    packageName: '@hexguard/angular-pagination',
-    scope: 'Angular',
-    status: 'Proposed',
-    summary:
-      'Would provide Angular pagination state signals, page-change helpers, and URL-compatible page state to pair with HexGuard.Pagination on the .NET side.',
     showOnSiteHome: false,
   },
   {
