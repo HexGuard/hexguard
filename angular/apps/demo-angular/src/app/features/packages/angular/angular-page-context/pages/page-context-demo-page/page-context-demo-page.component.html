@@ -17,14 +17,14 @@
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="page-context-playground">
     <!-- demo-snippet:start angular-page-context/demo-state -->
-    <div class="demo-actions">
+    <div class="demo-actions-row">
       <button class="demo-button" data-testid="btn-set-dashboard" (click)="setDashboard()">
         Set Dashboard Context
       </button>
-      <button class="demo-button" data-testid="btn-set-orders" (click)="setOrders()">
+      <button class="demo-button demo-button--ghost" data-testid="btn-set-orders" (click)="setOrders()">
         Set Orders Context
       </button>
-      <button class="demo-button" data-testid="btn-clear" (click)="clear()">Clear</button>
+      <button class="demo-button demo-button--ghost" data-testid="btn-clear" (click)="clear()">Clear</button>
     </div>
     <div class="demo-values">
       <p>

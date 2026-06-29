@@ -7,10 +7,10 @@
   <article demoPrimary class="demo-card demo-card--stack" data-testid="dirty-state-playground">
     <!-- demo-snippet:start angular-dirty-state/demo-state -->
     <p data-testid="is-dirty">Status: <strong>{{ dirty.isDirty() ? '🔴 Dirty' : '🟢 Clean' }}</strong></p>
-    <div class="demo-actions">
+    <div class="demo-actions-row">
       <button class="demo-button" (click)="dirty.markDirty()" data-testid="btn-mark-dirty">Mark Dirty</button>
-      <button class="demo-button" (click)="dirty.markClean()" data-testid="btn-mark-clean">Mark Clean</button>
-      <button class="demo-button" (click)="dirty.reset()" data-testid="btn-reset">Reset</button>
+      <button class="demo-button demo-button--ghost" (click)="dirty.markClean()" data-testid="btn-mark-clean">Mark Clean</button>
+      <button class="demo-button demo-button--ghost" (click)="dirty.reset()" data-testid="btn-reset">Reset</button>
     </div>
     <!-- demo-snippet:end -->
   </article>

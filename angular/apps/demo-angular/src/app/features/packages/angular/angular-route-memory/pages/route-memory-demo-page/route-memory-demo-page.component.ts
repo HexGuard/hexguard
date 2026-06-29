@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { injectRouteMemory } from '@hexguard/angular-route-memory';
 import { ANGULAR_ROUTE_MEMORY_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
@@ -24,26 +24,42 @@ export class RouteMemoryDemoPageComponent {
   protected readonly demo = ANGULAR_ROUTE_MEMORY_DEMO;
   protected readonly memory = injectRouteMemory();
 
+  /** Tracks the saved value for each key so the snapshot is meaningful. */
+  private readonly savedContents = signal<Record<string, Record<string, unknown> | null>>({});
+
+  /** The last restored value, formatted for display. */
+  protected readonly lastRestored = signal<string | null>(null);
+
   protected save(key: string): void {
-    this.memory.save(key, { saved: true, timestamp: Date.now() });
+    const value = { saved: true, timestamp: Date.now() };
+    this.memory.save(key, value);
+    this.savedContents.update((m) => ({ ...m, [key]: value }));
+    this.lastRestored.set(null);
   }
 
-  protected restore(key: string): string {
+  protected restore(key: string): void {
     const value = this.memory.restore(key);
-    return value ? JSON.stringify(value) : 'null';
+    this.lastRestored.set(value ? JSON.stringify(value, null, 2) : 'null');
   }
 
   protected clearKey(key: string): void {
     this.memory.clear(key);
+    this.savedContents.update((m) => ({ ...m, [key]: null }));
+    this.lastRestored.set(null);
   }
 
   protected clearAll(): void {
     this.memory.clearAll();
+    this.savedContents.set({});
+    this.lastRestored.set(null);
   }
 
   protected readonly snapshotJson = computed(() =>
     formatSnapshot({
-      hasMemory: this.memory.hasMemory('list-1')(),
+      savedKeys: Object.entries(this.savedContents())
+        .filter(([, v]) => v !== null)
+        .map(([k]) => k),
+      lastRestored: this.lastRestored(),
     }),
   );
 }

@@ -20,11 +20,21 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 })
 export class TableStateDemoPageComponent {
   protected readonly demo = ANGULAR_TABLE_STATE_DEMO;
-  protected readonly table = injectTableState();
+  protected readonly table = injectTableState({ paginationOptions: { pageSize: 20 } });
+
+  constructor() {
+    // Set a realistic total so nextPage/previousPage actually work.
+    this.table.pagination.total.set(50);
+  }
+
   protected readonly snapshotJson = computed(() =>
     formatSnapshot({
-      sortColumn: this.table.sortColumn(), sortDirection: this.table.sortDirection(),
-      page: this.table.pagination.page(), filters: this.table.filters(),
+      sortColumn: this.table.sortColumn(),
+      sortDirection: this.table.sortDirection(),
+      page: this.table.pagination.page(),
+      totalPages: this.table.pagination.totalPages(),
+      pageSize: this.table.pagination.pageSize(),
+      filters: this.table.filters(),
       selectedCount: this.table.selection.selectedCount(),
     }));
 }

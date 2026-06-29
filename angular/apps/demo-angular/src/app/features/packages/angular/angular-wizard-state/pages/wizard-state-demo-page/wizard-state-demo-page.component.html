@@ -53,7 +53,7 @@
         <span class="progress-label" data-testid="progress-label">{{ wizard.progress() }}%</span>
       </div>
 
-      <div class="demo-actions">
+      <div class="demo-actions-row">
         <button
           class="demo-button"
           [disabled]="!wizard.canGoBack()"
@@ -70,10 +70,10 @@
         >
           Next
         </button>
-        <button class="demo-button" (click)="wizard.finish()" data-testid="btn-finish">
+        <button class="demo-button demo-button--ghost" (click)="wizard.finish()" data-testid="btn-finish">
           Finish
         </button>
-        <button class="demo-button" (click)="wizard.cancel()" data-testid="btn-cancel">
+        <button class="demo-button demo-button--ghost" (click)="wizard.cancel()" data-testid="btn-cancel">
           Cancel
         </button>
       </div>

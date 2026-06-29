@@ -11,6 +11,37 @@ applyTo: 'angular/apps/demo-angular/src/**'
 - When routes or interactive flows change, update `angular/playwright/tests/demo-angular.spec.ts` and `docs/demo/README.md`.
 - Validate demo changes with `pnpm test:app`, `pnpm test:e2e`, and `pnpm build:demo`.
 
+## Design System Reuse
+
+Demo pages **must** reuse the existing global design system instead of defining custom styles.
+
+### Global CSS Classes (in `styles.css`)
+
+Use these instead of defining your own:
+- **Buttons**: `demo-button`, `demo-button--ghost`, `demo-button--secondary`, `demo-button--sm`
+- **Layout**: `demo-actions-row` (flex row for button groups), `demo-card`, `demo-card__header`, `demo-card__summary`, `demo-eyebrow`
+- **Indicators**: `demo-hint-pill` (badge/pill text), `demo-banner`, `demo-banner--error`, `demo-banner--success`
+- **Typography**: `demo-heading-xl`, `demo-heading-lg`
+
+### Design Tokens (CSS custom properties in `styles.css`)
+
+Use `--color-*` tokens instead of hardcoded values or ad-hoc variable names:
+- `--color-border` / `--color-border-strong` (not `--border-color`)
+- `--color-surface` / `--color-surface-strong` (not `--surface-color`)
+- `--color-ink` (text color), `--color-muted` (secondary text)
+- `--color-accent`, `--color-accent-strong`, `--color-accent-soft`, `--color-accent-border`
+- `--font-display`, `--font-mono`
+- `--space-block`, `--space-card-pad`, `--space-card-gap`, `--space-inner`
+
+### Rules
+
+1. **Never redefine `.demo-button` in component CSS** — it's already in `styles.css` with variants.
+2. **Never define a custom `demo-actions` class** — use `demo-actions-row` from the global styles.
+3. **Keep component CSS minimal** — only add custom layout or spacing that doesn't exist in the design system.
+4. **Use `demo-hint-pill`** for status indicators instead of custom `<p>` with `font-weight`.
+5. **When displaying raw data**, wrap it in a `<pre>` with `--font-mono` and `--color-border`/`--color-surface` for the container.
+6. **`data-testid`** attributes are required on all interactive elements and key display areas.
+
 ## Cross-Demo Package Listing
 
 The Angular demo is the canonical hub for ALL HexGuard packages across stacks. When adding a new package:

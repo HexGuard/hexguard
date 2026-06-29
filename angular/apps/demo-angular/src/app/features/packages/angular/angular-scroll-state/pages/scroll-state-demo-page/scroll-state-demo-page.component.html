@@ -20,14 +20,14 @@
     <p class="scroll-info" data-testid="scroll-y">
       Current scrollY: <strong>{{ scrollState.scrollY() }}</strong>
     </p>
-    <div class="demo-actions">
+    <div class="demo-actions-row">
       <button class="demo-button" data-testid="btn-save-scroll" (click)="save()">
         Save Position
       </button>
-      <button class="demo-button" data-testid="btn-restore-scroll" (click)="restore()">
+      <button class="demo-button demo-button--ghost" data-testid="btn-restore-scroll" (click)="restore()">
         Restore Position
       </button>
-      <button class="demo-button" data-testid="btn-scroll-top" (click)="scrollToTop()">
+      <button class="demo-button demo-button--ghost" data-testid="btn-scroll-top" (click)="scrollToTop()">
         Scroll to Top
       </button>
     </div>

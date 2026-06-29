@@ -33,7 +33,15 @@ export function injectCommandRegistry(options?: CommandRegistryOptions): Command
 
   // Global keydown listener for shortcut handling
   function onKeyDown(event: KeyboardEvent): void {
-    // Ignore if user is typing in an input
+    // Always process shortcuts that involve modifier keys (Ctrl, Alt, Meta),
+    // even when the user is focused on an input — plain keystrokes pass
+    // through so normal typing works in search fields.
+    if (event.ctrlKey || event.altKey || event.metaKey) {
+      handleShortcut(event);
+      return;
+    }
+
+    // Ignore plain keystrokes when user is typing in a form control
     if (
       event.target instanceof HTMLInputElement ||
       event.target instanceof HTMLTextAreaElement ||

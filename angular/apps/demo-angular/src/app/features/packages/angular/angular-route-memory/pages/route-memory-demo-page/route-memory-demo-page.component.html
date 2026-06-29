@@ -17,23 +17,28 @@
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="route-memory-playground">
     <!-- demo-snippet:start angular-route-memory/demo-state -->
-    <div class="demo-actions">
+    <div class="demo-actions-row">
       <button class="demo-button" data-testid="btn-save-list-1" (click)="save('list-1')">
         Save 'list-1'
       </button>
-      <button class="demo-button" data-testid="btn-restore-list-1" (click)="restore('list-1')">
+      <button class="demo-button demo-button--ghost" data-testid="btn-restore-list-1" (click)="restore('list-1')">
         Restore 'list-1'
       </button>
-      <button class="demo-button" data-testid="btn-clear-list-1" (click)="clearKey('list-1')">
+      <button class="demo-button demo-button--ghost" data-testid="btn-clear-list-1" (click)="clearKey('list-1')">
         Clear 'list-1'
       </button>
-      <button class="demo-button" data-testid="btn-clear-all" (click)="clearAll()">
+      <button class="demo-button demo-button--ghost" data-testid="btn-clear-all" (click)="clearAll()">
         Clear All
       </button>
     </div>
-    <p class="demo-feedback" data-testid="has-memory">
-      hasMemory('list-1'): {{ memory.hasMemory('list-1')() ? '✅ Yes' : '❌ No' }}
-    </p>
+    <div class="demo-route-memory-feedback">
+      <span class="demo-hint-pill" data-testid="has-memory">
+        hasMemory('list-1'): {{ memory.hasMemory('list-1')() ? '✅ Yes' : '❌ No' }}
+      </span>
+      @if (lastRestored(); as value) {
+        <pre class="demo-route-memory-restored" data-testid="restored-value">{{ value }}</pre>
+      }
+    </div>
     <!-- demo-snippet:end -->
   </article>
   <demo-inspector-panel
