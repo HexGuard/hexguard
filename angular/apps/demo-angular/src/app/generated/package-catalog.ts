@@ -2008,6 +2008,127 @@ export const GENERATED_CURRENT_PACKAGES = [
       },
     ],
   },
+  {
+    id: 'angular-recently-viewed',
+    packageName: '@hexguard/angular-recently-viewed',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.',
+    detail:
+      'Provides injectRecentlyViewed() with add/dedup/maxItems/TTL/remove/clear. Items persist via @hexguard/angular-storage with cross-tab sync.',
+    installCommand: 'pnpm add @hexguard/angular-recently-viewed',
+    featureHighlights: [
+      'injectRecentlyViewed() with add(), remove(), clear().',
+      'Configurable maxItems trim and TTL expiry.',
+      'Three dedup strategies: replace, ignore, allow-duplicates.',
+      'Backed by @hexguard/angular-storage for cross-tab sync.',
+    ],
+    bestFitScenarios: [
+      'Recently-viewed sidebar on detail pages.',
+      'Navigation history for order, product, or profile screens.',
+    ],
+    statusNoteParagraphs: ['Automatic Router event tracking deferred to v0.2.'],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-recently-viewed',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-recently-viewed/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-recently-viewed.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-form-utils',
+    packageName: '@hexguard/angular-form-utils',
+    category: 'Utilities',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Form utility helpers for Angular: cross-field validators, form dirty state tracking, and unsaved-changes route guard.',
+    detail:
+      'Provides fieldsEqual/NotEqual/requiredIf/requiresAtLeastOne validator factories, injectFormDirtyState() for reactive dirty tracking, and formUnsavedGuard() returning a CanDeactivateFn.',
+    installCommand: 'pnpm add @hexguard/angular-form-utils',
+    featureHighlights: [
+      'Cross-field validators: fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne.',
+      'injectFormDirtyState() with isDirty, controlStates, markControlClean/Dirty, resetAll.',
+      'formUnsavedGuard() — CanDeactivateFn factory for route protection.',
+    ],
+    bestFitScenarios: [
+      'Confirm-password and confirm-email validation patterns.',
+      'Form dirty-state tracking without manual markDirty calls.',
+      'Unsaved-changes route guards for form-heavy screens.',
+    ],
+    statusNoteParagraphs: ['Reactive Forms only. Template-driven forms deferred to v0.2.'],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-form-utils',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-form-utils/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-form-utils.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-query-signal-forms',
+    packageName: '@hexguard/angular-query-signal-forms',
+    category: 'URL & Forms',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'URL-state adapter for Angular Signal Forms: bind typed query parameters to signal form models through @hexguard/angular-url-state with sync modes and reset-on-change rules.',
+    detail:
+      'Provides querySignalForm() with syncMode (live/manual), resetKeysOnChange rules, commit/revert in manual mode, and re-exports all url-state codecs for single-package import.',
+    installCommand: 'pnpm add @hexguard/angular-query-signal-forms',
+    featureHighlights: [
+      'querySignalForm() with snapshot, patch, reset, commit, revert.',
+      'syncMode: live (immediate) or manual (stage then commit).',
+      'resetKeysOnChange — dependent keys auto-reset to defaults.',
+      'Re-exports all @hexguard/angular-url-state codecs.',
+    ],
+    bestFitScenarios: [
+      'Search/filter screens that need shareable URLs with signal forms.',
+      'Data tables with URL-synced sort, page, and filter state.',
+      'Multi-step filter workflows that need commit/revert behavior.',
+    ],
+    statusNoteParagraphs: [
+      'Operates at urlState() level — no @angular/forms/signals form() dependency.',
+      '@angular/forms/signals integration deferred until Signal Forms stabilizes.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-query-signal-forms',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-query-signal-forms/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-query-signal-forms.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
 ] as const satisfies readonly GeneratedCurrentPackageCatalogEntry[];
 
 export const GENERATED_ROADMAP_PACKAGES = [

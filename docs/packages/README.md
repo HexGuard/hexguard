@@ -55,6 +55,9 @@ another.
 | `@hexguard/angular-signal-utils`        | Available   | Signal utility helpers for Angular: computedFrom, injectToggle, memoized, and throttledSignal — pure function primitives for common signal patterns.                                                  | [Deep Dive](angular-signal-utils.md), [npm-facing README](../../angular/packages/angular-signal-utils/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-preferences`         | Available   | Typed user preferences for Angular: schema-driven key-value persistence with per-key signals backed by @hexguard/angular-storage.                                                                     | [Deep Dive](angular-preferences.md), [npm-facing README](../../angular/packages/angular-preferences/README.md), [Demo runbook](../demo/README.md)                  |
 | `@hexguard/angular-http-dedupe`         | Available   | Collapse duplicate concurrent HTTP requests in Angular: keyed in-flight deduplication with optional response caching.                                                                                 | [Deep Dive](angular-http-dedupe.md), [npm-facing README](../../angular/packages/angular-http-dedupe/README.md), [Demo runbook](../demo/README.md)                  |
+| `@hexguard/angular-recently-viewed`     | Available   | Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.                                                         | [Deep Dive](angular-recently-viewed.md), [npm-facing README](../../angular/packages/angular-recently-viewed/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-form-utils`          | Available   | Form utility helpers for Angular: cross-field validators, form dirty state tracking, and unsaved-changes route guard.                                                                                 | [Deep Dive](angular-form-utils.md), [npm-facing README](../../angular/packages/angular-form-utils/README.md), [Demo runbook](../demo/README.md)                    |
+| `@hexguard/angular-query-signal-forms`  | Available   | URL-state adapter for Angular Signal Forms: bind typed query parameters to signal form models through @hexguard/angular-url-state with sync modes and reset-on-change rules.                          | [Deep Dive](angular-query-signal-forms.md), [npm-facing README](../../angular/packages/angular-query-signal-forms/README.md), [Demo runbook](../demo/README.md)    |
 
 ## Package Status Notes
 
@@ -521,6 +524,32 @@ Status: Available
 This package deduplicates by request key across all consumers.
 
 HttpInterceptorFn integration deferred to a future version.
+
+<a id="package-angular-recently-viewed"></a>
+
+### `@hexguard/angular-recently-viewed`
+
+Status: Available
+
+Automatic Router event tracking deferred to v0.2.
+
+<a id="package-angular-form-utils"></a>
+
+### `@hexguard/angular-form-utils`
+
+Status: Available
+
+Reactive Forms only. Template-driven forms deferred to v0.2.
+
+<a id="package-angular-query-signal-forms"></a>
+
+### `@hexguard/angular-query-signal-forms`
+
+Status: Available
+
+Operates at urlState() level — no @angular/forms/signals form() dependency.
+
+@angular/forms/signals integration deferred until Signal Forms stabilizes.
 
 ## Planned and Proposed Package Briefs
 
