@@ -865,3 +865,11 @@ const routes = [
 | 150 | `HexGuard.Blazor.PrerenderState` | `streamingState` — register state key before async operation completes | Blazor | Low | High |
 | 151 | `HexGuard.Blazor.Offline` | `conflictResolver` — pluggable conflict resolution strategy per action type | Blazor | Medium | Medium |
 | 152 | `HexGuard.Blazor.FormHelpers` | `navigateAwayGuard` — unsaved changes confirmation on navigation | Blazor | Low | High |
+| 153 | `HexGuard.Blazor.AuthBootstrap` | `multiTenantAuth()` — per-tenant auth configuration for SaaS | Blazor | Medium | High |
+| 154 | `HexGuard.Blazor.HttpDefaults` | `apiVersioning()` — version header + deprecation awareness | Blazor | Low | Medium |
+| 155 | `HexGuard.Blazor.AppShell` | `announcements()` — app-wide announcement banner state | Blazor | Low | Medium |
+| 156 | `HexGuard.Blazor.PwaSetup` | `backgroundSync()` — register periodic background sync tasks | Blazor | Medium | Medium |
+| 157 | `HexGuard.Blazor.LoggingSetup` | `sensitiveDataMasking()` — auto-mask PII/SPI in log output | Blazor | Medium | High |
+| 158 | `HexGuard.Blazor.ErrorSetup` | `errorReporting()` — Sentry/AppInsights integration adapter | Blazor | Low | High |
+| 159 | `HexGuard.Blazor.DevTools` | `performanceBudget()` — warn on excessive component re-renders | Blazor | Low | Medium |
+| 160 | `HexGuard.Blazor.RenderMode` | `autoModeStrategy()` — pre-load WASM assembly in background during SSR | Blazor | Medium | High |
