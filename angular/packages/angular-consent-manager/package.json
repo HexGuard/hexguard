@@ -1,0 +1,37 @@
+{
+  "name": "@hexguard/angular-consent-manager",
+  "version": "0.1.0",
+  "description": "Headless consent management engine for Angular — state machine, storage, region detection, Google Consent Mode v2, audit trail, and script loader for cookie/data processing consent.",
+  "keywords": [
+    "angular",
+    "consent",
+    "cookie-consent",
+    "gdpr",
+    "ccpa",
+    "google-consent-mode",
+    "iab-tcf",
+    "privacy",
+    "signals",
+    "hexguard"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-consent-manager",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-consent-manager"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

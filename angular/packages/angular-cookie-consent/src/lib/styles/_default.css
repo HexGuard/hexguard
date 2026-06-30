@@ -1,0 +1,29 @@
+/* Default styling for cookie consent components.
+   All values use CSS custom properties for easy overrides. */
+
+:root {
+  --hex-consent-z-index: 9999;
+
+  /* Banner */
+  --hex-consent-banner-bg: #ffffff;
+  --hex-consent-banner-text: #1a1a1a;
+  --hex-consent-banner-text-secondary: #666666;
+  --hex-consent-banner-border: #e0e0e0;
+
+  /* Buttons */
+  --hex-consent-btn-primary-bg: #0066cc;
+  --hex-consent-btn-primary-text: #ffffff;
+  --hex-consent-btn-secondary-bg: #f0f0f0;
+  --hex-consent-btn-secondary-text: #333333;
+
+  /* Toggle */
+  --hex-consent-toggle-active: #0066cc;
+  --hex-consent-toggle-inactive: #cccccc;
+
+  /* Overlay */
+  --hex-consent-overlay-bg: rgba(0, 0, 0, 0.5);
+
+  /* Floating button */
+  --hex-consent-floating-btn-bg: #f8f8f8;
+  --hex-consent-floating-btn-text: #333333;
+}

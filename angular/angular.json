@@ -805,6 +805,58 @@
         }
       }
     },
+    "angular-color": {
+      "projectType": "library",
+      "root": "packages/angular-color",
+      "sourceRoot": "packages/angular-color/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-color/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-color/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-color/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "angular-cookie-consent": {
+      "projectType": "library",
+      "root": "packages/angular-cookie-consent",
+      "sourceRoot": "packages/angular-cookie-consent/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-cookie-consent/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-cookie-consent/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-cookie-consent/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-clipboard": {
       "projectType": "library",
       "root": "packages/angular-clipboard",
@@ -883,6 +935,32 @@
         }
       }
     },
+    "angular-consent-manager": {
+      "projectType": "library",
+      "root": "packages/angular-consent-manager",
+      "sourceRoot": "packages/angular-consent-manager/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-consent-manager/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-consent-manager/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-consent-manager/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-page-context": {
       "projectType": "library",
       "root": "packages/angular-page-context",
@@ -938,7 +1016,9 @@
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
-            "production": { "tsConfig": "packages/angular-query-signal-forms/tsconfig.lib.prod.json" },
+            "production": {
+              "tsConfig": "packages/angular-query-signal-forms/tsconfig.lib.prod.json"
+            },
             "development": { "tsConfig": "packages/angular-query-signal-forms/tsconfig.lib.json" }
           },
           "defaultConfiguration": "production"

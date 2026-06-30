@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+﻿import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import { format, resolveConfig } from 'prettier';
@@ -269,6 +269,16 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component.ts',
   },
   {
+    id: 'angular-color/demo-state',
+    title: 'Color demo component source',
+    description:
+      'Generated from the real Color demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component.ts',
+  },
+  {
     id: 'angular-clipboard/demo-state',
     title: 'Clipboard demo component source',
     description:
@@ -473,23 +483,32 @@ const snippets = [
   {
     id: 'angular-recently-viewed/demo-state',
     title: 'Recently Viewed demo component source',
-    description: 'Generated from the real Recently Viewed demo component files, including TypeScript, template, and styles.',
-    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
-    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
+    description:
+      'Generated from the real Recently Viewed demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-recently-viewed/pages/recently-viewed-demo-page/recently-viewed-demo-page.component.ts',
   },
   {
     id: 'angular-form-utils/demo-state',
     title: 'Form Utils demo component source',
-    description: 'Generated from the real Form Utils demo component files, including TypeScript, template, and styles.',
-    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
-    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
+    description:
+      'Generated from the real Form Utils demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-form-utils/pages/form-utils-demo-page/form-utils-demo-page.component.ts',
   },
   {
     id: 'angular-query-signal-forms/demo-state',
     title: 'Query Signal Forms demo component source',
-    description: 'Generated from the real Query Signal Forms demo component files, including TypeScript, template, and styles.',
-    workspacePath: 'apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
-    sourcePath: 'angular/apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
+    description:
+      'Generated from the real Query Signal Forms demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-query-signal-forms/pages/query-signal-forms-demo-page/query-signal-forms-demo-page.component.ts',
   },
 ];
 
@@ -572,3 +591,4 @@ writeFileSync(
   generatedSnippetsPath,
   await formatWithResolvedConfig(generated, generatedSnippetsPath),
 );
+

@@ -1,4 +1,4 @@
-import { getGeneratedCurrentPackage } from './generated/package-catalog';
+﻿import { getGeneratedCurrentPackage } from './generated/package-catalog';
 
 export interface DemoLink {
   readonly label: string;
@@ -73,6 +73,7 @@ const ANGULAR_SCROLL_STATE_CATALOG = getGeneratedCurrentPackage('angular-scroll-
 const ANGULAR_WIZARD_STATE_CATALOG = getGeneratedCurrentPackage('angular-wizard-state');
 const ANGULAR_COMMAND_PALETTE_CATALOG = getGeneratedCurrentPackage('angular-command-palette');
 const ANGULAR_CLIPBOARD_CATALOG = getGeneratedCurrentPackage('angular-clipboard');
+const ANGULAR_COLOR_CATALOG = getGeneratedCurrentPackage('angular-color');
 const ANGULAR_THEME_CATALOG = getGeneratedCurrentPackage('angular-theme');
 const ANGULAR_DIRTY_STATE_CATALOG = getGeneratedCurrentPackage('angular-dirty-state');
 const ANGULAR_TABLE_STATE_CATALOG = getGeneratedCurrentPackage('angular-table-state');
@@ -80,6 +81,8 @@ const ANGULAR_SIGNAL_PERSIST_CATALOG = getGeneratedCurrentPackage('angular-signa
 const ANGULAR_SIGNAL_UTILS_CATALOG = getGeneratedCurrentPackage('angular-signal-utils');
 const ANGULAR_PREFERENCES_CATALOG = getGeneratedCurrentPackage('angular-preferences');
 const ANGULAR_HTTP_DEDUPE_CATALOG = getGeneratedCurrentPackage('angular-http-dedupe');
+const ANGULAR_RESOURCE_CATALOG = getGeneratedCurrentPackage('angular-resource');
+const ANGULAR_UPLOAD_STATE_CATALOG = getGeneratedCurrentPackage('angular-upload-state');
 const ANGULAR_RECENTLY_VIEWED_CATALOG = getGeneratedCurrentPackage('angular-recently-viewed');
 const ANGULAR_FORM_UTILS_CATALOG = getGeneratedCurrentPackage('angular-form-utils');
 const ANGULAR_QUERY_SIGNAL_FORMS_CATALOG = getGeneratedCurrentPackage('angular-query-signal-forms');
@@ -100,6 +103,7 @@ const ANGULAR_VISIBILITY_DOCS = ANGULAR_VISIBILITY_CATALOG.docsLinks;
 const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 const ANGULAR_CLIPBOARD_DOCS = ANGULAR_CLIPBOARD_CATALOG.docsLinks;
+const ANGULAR_COLOR_DOCS = ANGULAR_COLOR_CATALOG.docsLinks;
 const ANGULAR_THEME_DOCS = ANGULAR_THEME_CATALOG.docsLinks;
 const ANGULAR_DIRTY_STATE_DOCS = ANGULAR_DIRTY_STATE_CATALOG.docsLinks;
 const ANGULAR_TABLE_STATE_DOCS = ANGULAR_TABLE_STATE_CATALOG.docsLinks;
@@ -649,7 +653,7 @@ export const ANGULAR_PERMISSIONS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_PERMISSIONS_ACTIONS_DEMO, ANGULAR_PERMISSIONS_ROUTING_DEMO],
 };
 
-// ── angular-feature-flags demo entries ───────────────────────────────
+// â”€â”€ angular-feature-flags demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_FEATURE_FLAGS_TOGGLES_DEMO: DemoPageEntry = {
   id: 'feature-flags-toggles',
@@ -907,7 +911,7 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
   demos: [FORM_VALIDATION_DEMO, ANGULAR_API_ERRORS_BACKEND_DEMO],
 };
 
-// ── angular-debounce demo entries ────────────────────────────────────
+// â”€â”€ angular-debounce demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
 const ANGULAR_DEBOUNCE_DOCS = ANGULAR_DEBOUNCE_CATALOG.docsLinks;
@@ -953,7 +957,7 @@ export const ANGULAR_DEBOUNCE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_DEBOUNCE_DEMO],
 };
 
-// ── angular-notifications demo entries ───────────────────────────────
+// â”€â”€ angular-notifications demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ANGULAR_NOTIFICATIONS_CATALOG = getGeneratedCurrentPackage('angular-notifications');
 const ANGULAR_NOTIFICATIONS_DOCS = ANGULAR_NOTIFICATIONS_CATALOG.docsLinks;
@@ -999,7 +1003,7 @@ export const ANGULAR_NOTIFICATIONS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_NOTIFICATIONS_DEMO],
 };
 
-// ── angular-error-boundary demo entries ──────────────────────────────
+// â”€â”€ angular-error-boundary demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ANGULAR_ERROR_BOUNDARY_CATALOG = getGeneratedCurrentPackage('angular-error-boundary');
 const ANGULAR_ERROR_BOUNDARY_DOCS = ANGULAR_ERROR_BOUNDARY_CATALOG.docsLinks;
@@ -1045,7 +1049,7 @@ export const ANGULAR_ERROR_BOUNDARY_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_ERROR_BOUNDARY_DEMO],
 };
 
-// ── angular-date-utils demo entries ──────────────────────────────────
+// â”€â”€ angular-date-utils demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_DATE_UTILS_DEMO: DemoPageEntry = {
   id: 'date-utils',
@@ -1088,7 +1092,7 @@ export const ANGULAR_DATE_UTILS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_DATE_UTILS_DEMO],
 };
 
-// ── angular-network-status demo entries ─────────────────────────────
+// â”€â”€ angular-network-status demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_NETWORK_STATUS_DEMO: DemoPageEntry = {
   id: 'network-status',
@@ -1131,7 +1135,7 @@ export const ANGULAR_NETWORK_STATUS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_NETWORK_STATUS_DEMO],
 };
 
-// ── angular-storage demo entries ─────────────────────────────────────
+// â”€â”€ angular-storage demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_STORAGE_DEMO: DemoPageEntry = {
   id: 'storage',
@@ -1164,7 +1168,7 @@ export const ANGULAR_STORAGE_DEMO: DemoPageEntry = {
   },
 };
 
-// ── angular-breakpoint-observer demo entries ────────────────────────
+// â”€â”€ angular-breakpoint-observer demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_BREAKPOINT_OBSERVER_DEMO: DemoPageEntry = {
   id: 'breakpoint-observer',
@@ -1197,7 +1201,7 @@ export const ANGULAR_BREAKPOINT_OBSERVER_DEMO: DemoPageEntry = {
   },
 };
 
-// ── angular-visibility demo entries ────────────────────────────
+// â”€â”€ angular-visibility demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_VISIBILITY_DEMO: DemoPageEntry = {
   id: 'visibility',
@@ -1230,7 +1234,7 @@ export const ANGULAR_VISIBILITY_DEMO: DemoPageEntry = {
   },
 };
 
-// ── angular-navigation-pending demo entries ────────────────────
+// â”€â”€ angular-navigation-pending demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_NAVIGATION_PENDING_DEMO: DemoPageEntry = {
   id: 'navigation-pending',
@@ -1263,8 +1267,31 @@ export const ANGULAR_NAVIGATION_PENDING_DEMO: DemoPageEntry = {
   },
 };
 
-// ── angular-click-outside demo entries ───────────────────────────
+// â”€â”€ angular-click-outside demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+export const ANGULAR_RESOURCE_DEMO: DemoPageEntry = {
+  id: 'resource',
+  packageId: 'angular-resource',
+  route: '/packages/angular-resource/demo',
+  legacyRoute: '/resource',
+  label: 'Resource',
+  title: 'Cached, retry, and deduplicated resource helpers',
+  description: 'Demonstrates cachedResource() with TTL and stale-while-revalidate, retryResource() with exponential backoff, and deduplicatedResource() for sharing in-flight requests.',
+  docsLinks: [{ label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-resource/README.md' }, { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-resource.md' }],
+  codeSample: { snippetId: 'angular-resource/demo', label: 'Resource demo source', description: 'Source code for the resource demo component demonstrating caching, retry, and dedup.' },
+};
+
+export const ANGULAR_UPLOAD_STATE_DEMO: DemoPageEntry = {
+  id: 'upload-state',
+  packageId: 'angular-upload-state',
+  route: '/packages/angular-upload-state/demo',
+  legacyRoute: '/upload-state',
+  label: 'Upload State',
+  title: 'File upload queue with progress, cancel, and retry',
+  description: 'Demonstrates injectUploadState() with queue, per-file progress, overall progress, cancel, retry, and clear operations.',
+  docsLinks: [{ label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-upload-state/README.md' }, { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-upload-state.md' }],
+  codeSample: { snippetId: 'angular-upload-state/demo', label: 'Upload state demo source', description: 'Source code for the upload state demo component.' },
+};
 export const ANGULAR_CLICK_OUTSIDE_DEMO: DemoPageEntry = {
   id: 'click-outside',
   packageId: 'angular-click-outside',
@@ -1296,7 +1323,7 @@ export const ANGULAR_CLICK_OUTSIDE_DEMO: DemoPageEntry = {
   },
 };
 
-// ── angular-undo demo entries ──────────────────────────────────
+// â”€â”€ angular-undo demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_UNDO_DEMO: DemoPageEntry = {
   id: 'undo',
@@ -1568,6 +1595,25 @@ export const ANGULAR_UNDO_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_UNDO_DEMO],
 };
 
+export const ANGULAR_RESOURCE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-resource',
+  route: '/packages/angular-resource',
+  label: 'Angular Resource',
+  title: ANGULAR_RESOURCE_CATALOG.packageName,
+  description: ANGULAR_RESOURCE_CATALOG.summary,
+  docsLinks: ANGULAR_RESOURCE_CATALOG.docsLinks,
+  demos: [ANGULAR_RESOURCE_DEMO],
+};
+
+export const ANGULAR_UPLOAD_STATE_PACKAGE: DemoPackageEntry = {
+  id: 'angular-upload-state',
+  route: '/packages/angular-upload-state',
+  label: 'Angular Upload State',
+  title: ANGULAR_UPLOAD_STATE_CATALOG.packageName,
+  description: ANGULAR_UPLOAD_STATE_CATALOG.summary,
+  docsLinks: ANGULAR_UPLOAD_STATE_CATALOG.docsLinks,
+  demos: [ANGULAR_UPLOAD_STATE_DEMO],
+};
 export const ANGULAR_CLICK_OUTSIDE_PACKAGE: DemoPackageEntry = {
   id: 'angular-click-outside',
   route: '/packages/angular-click-outside',
@@ -1618,7 +1664,7 @@ export const ANGULAR_STORAGE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_STORAGE_DEMO],
 };
 
-// ── angular-route-memory demo entries ──────────────────────────
+// â”€â”€ angular-route-memory demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_ROUTE_MEMORY_DEMO: DemoPageEntry = {
   id: 'route-memory',
@@ -1661,7 +1707,7 @@ export const ANGULAR_ROUTE_MEMORY_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_ROUTE_MEMORY_DEMO],
 };
 
-// ── angular-page-context demo entries ──────────────────────────
+// â”€â”€ angular-page-context demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_PAGE_CONTEXT_DEMO: DemoPageEntry = {
   id: 'page-context',
@@ -1704,7 +1750,7 @@ export const ANGULAR_PAGE_CONTEXT_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_PAGE_CONTEXT_DEMO],
 };
 
-// ── angular-scroll-state demo entries ──────────────────────────
+// â”€â”€ angular-scroll-state demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_SCROLL_STATE_DEMO: DemoPageEntry = {
   id: 'scroll-state',
@@ -1747,7 +1793,7 @@ export const ANGULAR_SCROLL_STATE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_SCROLL_STATE_DEMO],
 };
 
-// ── angular-wizard-state demo entries ──────────────────────────
+// â”€â”€ angular-wizard-state demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_WIZARD_STATE_DEMO: DemoPageEntry = {
   id: 'wizard-state',
@@ -1791,7 +1837,7 @@ export const ANGULAR_WIZARD_STATE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_WIZARD_STATE_DEMO],
 };
 
-// ── angular-command-palette demo entries ───────────────────────
+// â”€â”€ angular-command-palette demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_COMMAND_PALETTE_DEMO: DemoPageEntry = {
   id: 'command-palette',
@@ -1834,7 +1880,7 @@ export const ANGULAR_COMMAND_PALETTE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_COMMAND_PALETTE_DEMO],
 };
 
-// ── angular-clipboard demo entries ──────────────────────────
+// â”€â”€ angular-clipboard demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_CLIPBOARD_DEMO: DemoPageEntry = {
   id: 'clipboard',
@@ -1877,7 +1923,50 @@ export const ANGULAR_CLIPBOARD_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_CLIPBOARD_DEMO],
 };
 
-// ── angular-theme demo entries ─────────────────────────────
+// â”€â”€ angular-color demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+export const ANGULAR_COLOR_DEMO: DemoPageEntry = {
+  id: 'color',
+  packageId: 'angular-color',
+  route: '/packages/angular-color/demo',
+  legacyRoute: '/color',
+  label: 'Color',
+  title: 'Color picker with HSL sliders, hex input, WCAG contrast checker, and palette generation',
+  description:
+    'A live demo shows HSL channel sliders with real-time color preview, hex input, WCAG contrast ratio calculation against a second color, and palette generation.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-color/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-color.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-color/demo-state',
+    label: 'Color demo component source',
+    description:
+      'The full color demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_COLOR_PACKAGE: DemoPackageEntry = {
+  id: 'angular-color',
+  route: '/packages/angular-color',
+  label: 'Angular Color',
+  title: ANGULAR_COLOR_CATALOG.packageName,
+  description: ANGULAR_COLOR_CATALOG.summary,
+  docsLinks: ANGULAR_COLOR_DOCS,
+  demos: [ANGULAR_COLOR_DEMO],
+};
+
+// â”€â”€ angular-theme demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_THEME_DEMO: DemoPageEntry = {
   id: 'theme',
@@ -1920,7 +2009,7 @@ export const ANGULAR_THEME_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_THEME_DEMO],
 };
 
-// ── angular-dirty-state demo entries ───────────────────────
+// â”€â”€ angular-dirty-state demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_DIRTY_STATE_DEMO: DemoPageEntry = {
   id: 'dirty-state',
@@ -1963,7 +2052,7 @@ export const ANGULAR_DIRTY_STATE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_DIRTY_STATE_DEMO],
 };
 
-// ── angular-table-state demo entries ───────────────────────
+// â”€â”€ angular-table-state demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_TABLE_STATE_DEMO: DemoPageEntry = {
   id: 'table-state',
@@ -2006,7 +2095,7 @@ export const ANGULAR_TABLE_STATE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_TABLE_STATE_DEMO],
 };
 
-// ── angular-signal-persist demo entries ────────────────────
+// â”€â”€ angular-signal-persist demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_SIGNAL_PERSIST_DEMO: DemoPageEntry = {
   id: 'signal-persist',
@@ -2049,7 +2138,7 @@ export const ANGULAR_SIGNAL_PERSIST_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_SIGNAL_PERSIST_DEMO],
 };
 
-// ── angular-signal-utils demo entries ──────────────────────
+// â”€â”€ angular-signal-utils demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_SIGNAL_UTILS_DEMO: DemoPageEntry = {
   id: 'signal-utils',
@@ -2092,7 +2181,7 @@ export const ANGULAR_SIGNAL_UTILS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_SIGNAL_UTILS_DEMO],
 };
 
-// ── angular-preferences demo entries ───────────────────────
+// â”€â”€ angular-preferences demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_PREFERENCES_DEMO: DemoPageEntry = {
   id: 'preferences',
@@ -2135,7 +2224,7 @@ export const ANGULAR_PREFERENCES_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_PREFERENCES_DEMO],
 };
 
-// ── angular-http-dedupe demo entries ───────────────────────
+// â”€â”€ angular-http-dedupe demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_HTTP_DEDUPE_DEMO: DemoPageEntry = {
   id: 'http-dedupe',
@@ -2144,8 +2233,7 @@ export const ANGULAR_HTTP_DEDUPE_DEMO: DemoPageEntry = {
   legacyRoute: '/http-dedupe',
   label: 'HTTP Dedupe',
   title: 'Keyed in-flight deduplication with response caching',
-  description:
-    'A live demo shows in-flight request dedup and cache-within-TTL behavior.',
+  description: 'A live demo shows in-flight request dedup and cache-within-TTL behavior.',
   docsLinks: [
     {
       label: 'Package README',
@@ -2178,7 +2266,7 @@ export const ANGULAR_HTTP_DEDUPE_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_HTTP_DEDUPE_DEMO],
 };
 
-// ── angular-recently-viewed demo entries ────────────────
+// â”€â”€ angular-recently-viewed demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_RECENTLY_VIEWED_DEMO: DemoPageEntry = {
   id: 'recently-viewed',
@@ -2221,7 +2309,7 @@ export const ANGULAR_RECENTLY_VIEWED_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_RECENTLY_VIEWED_DEMO],
 };
 
-// ── angular-form-utils demo entries ──────────────────────
+// â”€â”€ angular-form-utils demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_FORM_UTILS_DEMO: DemoPageEntry = {
   id: 'form-utils',
@@ -2264,7 +2352,7 @@ export const ANGULAR_FORM_UTILS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_FORM_UTILS_DEMO],
 };
 
-// ── angular-query-signal-forms demo entries ──────────────
+// â”€â”€ angular-query-signal-forms demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_QUERY_SIGNAL_FORMS_DEMO: DemoPageEntry = {
   id: 'query-signal-forms',
@@ -2320,6 +2408,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_NAVIGATION_PENDING_PACKAGE,
   ANGULAR_CLICK_OUTSIDE_PACKAGE,
   ANGULAR_CLIPBOARD_PACKAGE,
+  ANGULAR_COLOR_PACKAGE,
   ANGULAR_COMMAND_PALETTE_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
@@ -2346,7 +2435,8 @@ export const DEMO_PACKAGES = [
   ANGULAR_SIGNAL_PERSIST_PACKAGE,
   ANGULAR_SIGNAL_UTILS_PACKAGE,
   ANGULAR_PREFERENCES_PACKAGE,
-  ANGULAR_HTTP_DEDUPE_PACKAGE,
+  ANGULAR_HTTP_DEDUPE_PACKAGE,  ANGULAR_RESOURCE_PACKAGE,
+  ANGULAR_UPLOAD_STATE_PACKAGE,
   ANGULAR_RECENTLY_VIEWED_PACKAGE,
   ANGULAR_FORM_UTILS_PACKAGE,
   ANGULAR_QUERY_SIGNAL_FORMS_PACKAGE,
@@ -2361,7 +2451,7 @@ export function getDemoPage(pageId: string): DemoPageEntry | undefined {
   return DEMO_PAGES.find((entry) => entry.id === pageId);
 }
 
-// ── .NET showcase types ──────────────────────────────────────────────
+// â”€â”€ .NET showcase types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface DotnetDemoCodeSample {
   readonly snippetId: string;
@@ -2392,7 +2482,7 @@ export interface DotnetPackageEntry {
   readonly status: 'Available' | 'In Progress';
   readonly docsLinks: readonly DemoLink[];
   readonly demos: readonly DotnetDemoPageEntry[];
-  /** Optional stack override — use 'blazor' for HexGuard.Blazor.* packages. Defaults to 'dotnet'. */
+  /** Optional stack override â€” use 'blazor' for HexGuard.Blazor.* packages. Defaults to 'dotnet'. */
   readonly stackId?: 'dotnet' | 'blazor';
 }
 
@@ -2401,7 +2491,7 @@ export const DOTNET_REFERENCE_DATA_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-reference-data',
   route: '/dotnet/reference-data',
   label: 'ReferenceData Library',
-  title: 'HexGuard.ReferenceData ÔÇö typed catalog contracts and validation',
+  title: 'HexGuard.ReferenceData Ã”Ã‡Ã¶ typed catalog contracts and validation',
   description:
     'Demonstrates the ReferenceDataCatalog, ReferenceDataCollection, ReferenceDataItem types and the ReferenceDataCatalogValidator directly from the HexGuard.ReferenceData library via the shared SampleApi.',
   docsLinks: [
@@ -2449,7 +2539,7 @@ export const DOTNET_VALIDATION_CONTRACTS_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-validation-contracts',
   route: '/dotnet/validation-contracts',
   label: 'ValidationContracts Library',
-  title: 'HexGuard.ValidationContracts — validation error contracts and RFC 9457 support',
+  title: 'HexGuard.ValidationContracts â€” validation error contracts and RFC 9457 support',
   description:
     'Demonstrates ValidationError, ValidationResult, FieldPath, and ValidationErrorCode types from the HexGuard.ValidationContracts library, with RFC 9457 Problem Details integration through the shared SampleApi.',
   docsLinks: [
@@ -2473,7 +2563,7 @@ export const DOTNET_FEATURE_FLAGS_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-feature-flags',
   route: '/dotnet/feature-flags',
   label: 'FeatureFlags Library',
-  title: 'HexGuard.FeatureFlags — feature flag evaluation and sync API',
+  title: 'HexGuard.FeatureFlags â€” feature flag evaluation and sync API',
   description:
     'Evaluates feature flags via the shared SampleApi. Select a persona to see how targeting rules (groupIn, rollout, attributeMatch) resolve against the .NET FeatureFlagEvaluator.',
   docsLinks: [
@@ -2501,7 +2591,7 @@ export const DOTNET_BULK_OPERATIONS_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-bulk-operations',
   route: '/dotnet/bulk-operations',
   label: 'BulkOperations Library',
-  title: 'HexGuard.BulkOperations — HTTP 207 Multi-Status bulk action contracts',
+  title: 'HexGuard.BulkOperations â€” HTTP 207 Multi-Status bulk action contracts',
   description:
     'Demonstrates the BulkOperationResultBuilder and Results.Extensions.BulkOperation() via the shared SampleApi. Proves 207 Multi-Status responses for partial success and per-item error reporting.',
   docsLinks: [
@@ -2529,7 +2619,7 @@ export const DOTNET_CAPABILITIES_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-capabilities',
   route: '/dotnet/capabilities',
   label: 'Capabilities Library',
-  title: 'HexGuard.Capabilities — persona-based capability sets',
+  title: 'HexGuard.Capabilities â€” persona-based capability sets',
   description:
     'Demonstrates ICapabilityService, InMemoryCapabilityStore, and the persona-based capability evaluation via the shared SampleApi. Proves role/permission contract gating across stacks.',
   docsLinks: [
@@ -2553,7 +2643,7 @@ export const DOTNET_PROBLEM_DETAILS_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-problem-details',
   route: '/dotnet/problem-details',
   label: 'Problem Details Library',
-  title: 'HexGuard.ProblemDetails — RFC 9457 Problem Details for .NET',
+  title: 'HexGuard.ProblemDetails â€” RFC 9457 Problem Details for .NET',
   description:
     'Demonstrates ProblemDetails record, ProblemDetailsBuilder, and ProblemDetailsMiddleware from the HexGuard.ProblemDetails library, paired with @hexguard/angular-api-errors for end-to-end RFC 9457 Problem Details across stacks.',
   docsLinks: [
@@ -2581,7 +2671,7 @@ export const DOTNET_PAGINATION_HOME: DotnetDemoPageEntry = {
   packageId: 'hexguard-pagination',
   route: '/dotnet/pagination',
   label: 'Pagination Library',
-  title: 'HexGuard.Pagination — standardized query/pagination contracts for .NET APIs',
+  title: 'HexGuard.Pagination â€” standardized query/pagination contracts for .NET APIs',
   description:
     'Demonstrates QueryRequest, QueryResponse<T>, and SortSpec types from the HexGuard.Pagination library, with a paginated product list served via the shared SampleApi.',
   docsLinks: [
@@ -2608,7 +2698,7 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
     title: 'HexGuard.Pagination',
     nugetId: 'HexGuard.Pagination',
     description:
-      'Standardized pagination and query contracts for .NET APIs — QueryRequest, QueryResponse<T>, SortSpec. Pairs with @hexguard/angular-pagination.',
+      'Standardized pagination and query contracts for .NET APIs â€” QueryRequest, QueryResponse<T>, SortSpec. Pairs with @hexguard/angular-pagination.',
     summary:
       'QueryRequest, QueryResponse<T>, SortSpec records for standardized paginated list endpoints. Computed helpers: HasNext, HasPrevious, RangeStart, RangeEnd.',
     status: 'Available',
@@ -2637,7 +2727,7 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
     description:
       'RFC 9457 Problem Details types, builder, middleware, and Minimal API result extensions for .NET. Pairs with @hexguard/angular-api-errors.',
     summary:
-      'RFC 9457 Problem Details — core types, builder, middleware, and Minimal API IResult extensions for producing standard error responses.',
+      'RFC 9457 Problem Details â€” core types, builder, middleware, and Minimal API IResult extensions for producing standard error responses.',
     status: 'Available',
     docsLinks: [
       {
@@ -2797,9 +2887,9 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
     title: 'HexGuard.Blazor.DebouncedInput',
     nugetId: 'HexGuard.Blazor.DebouncedInput',
     description:
-      'Headless debounced value primitive for Blazor — delay value propagation with configurable trailing, leading, and leading+trailing modes. Pure C#, no JS interop.',
+      'Headless debounced value primitive for Blazor â€” delay value propagation with configurable trailing, leading, and leading+trailing modes. Pure C#, no JS interop.',
     summary:
-      'Headless debounce for search-as-you-type, form auto-save, and live-filter scenarios. Uses CancellationTokenSource + Task.Delay — no JavaScript interop required.',
+      'Headless debounce for search-as-you-type, form auto-save, and live-filter scenarios. Uses CancellationTokenSource + Task.Delay â€” no JavaScript interop required.',
     status: 'Available',
     docsLinks: [
       {
@@ -2831,3 +2921,7 @@ export function getDotnetPackage(packageId: string): DotnetPackageEntry | undefi
 export function getDotnetDemoPage(pageId: string): DotnetDemoPageEntry | undefined {
   return DOTNET_PACKAGES.flatMap((pkg) => pkg.demos).find((entry) => entry.id === pageId);
 }
+
+
+
+

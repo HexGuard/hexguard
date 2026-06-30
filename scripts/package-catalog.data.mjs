@@ -1,4 +1,4 @@
-export const currentPackages = [
+﻿export const currentPackages = [
   {
     id: 'angular-url-state',
     packageName: '@hexguard/angular-url-state',
@@ -155,7 +155,7 @@ export const currentPackages = [
     summary:
       'Normalizes backend validation, business-rule failures, and RFC 9457 problem-details payloads into a consistent Angular-facing error surface with field-level form binding and page-level error state.',
     detail:
-      'Designed for Angular apps that need to map backend validation errors onto form controls, extract page-level messages, and maintain consistent error state through signals — without hand-written parsing glue.',
+      'Designed for Angular apps that need to map backend validation errors onto form controls, extract page-level messages, and maintain consistent error state through signals â€” without hand-written parsing glue.',
     installCommand: 'pnpm add @hexguard/angular-api-errors',
     featureHighlights: [
       'RFC 9457 Problem Details parsing with typed ApiValidationResult contracts and field-level error extraction.',
@@ -210,9 +210,10 @@ export const currentPackages = [
     readmePath: 'dotnet/src/HexGuard.Blazor.DebouncedInput/README.md',
     deepDivePath: 'docs/packages/hexguard-blazor-debounced-input.md',
     repositoryPath: 'dotnet/src/HexGuard.Blazor.DebouncedInput',
-    summary: 'Headless debounced value primitive for Blazor — delay value propagation with configurable trailing, leading, and leading+trailing modes.',
+    summary:
+      'Headless debounced value primitive for Blazor â€” delay value propagation with configurable trailing, leading, and leading+trailing modes.',
     detail:
-      'Designed for search-as-you-type, form auto-save, and live-filter scenarios. Pure C# using CancellationTokenSource + Task.Delay — no JavaScript interop required.',
+      'Designed for search-as-you-type, form auto-save, and live-filter scenarios. Pure C# using CancellationTokenSource + Task.Delay â€” no JavaScript interop required.',
     installCommand: 'dotnet add package HexGuard.Blazor.DebouncedInput',
     featureHighlights: [
       'Trailing, Leading, and LeadingAndTrailing debounce modes.',
@@ -299,7 +300,7 @@ export const currentPackages = [
     summary:
       'Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.',
     detail:
-      'Focused on responsive TypeScript logic where component code needs to react to viewport size — show/hide columns, switch layout, adapt pagination — without rebuilding matchMedia listeners with manual cleanup and inconsistent breakpoint naming.',
+      'Focused on responsive TypeScript logic where component code needs to react to viewport size â€” show/hide columns, switch layout, adapt pagination â€” without rebuilding matchMedia listeners with manual cleanup and inconsistent breakpoint naming.',
     installCommand: 'pnpm add @hexguard/angular-breakpoint-observer',
     featureHighlights: [
       'Active breakpoint signal that resolves to the largest matching breakpoint name.',
@@ -329,7 +330,7 @@ export const currentPackages = [
     summary:
       'Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.',
     detail:
-      'Focused on Angular apps that need to pause polling when the tab is hidden, show "are you still there?" prompts after inactivity, pause animations when elements scroll out of view, and resume when the user returns — without rebuilding visibilitychange listeners and IntersectionObserver setups from scratch.',
+      'Focused on Angular apps that need to pause polling when the tab is hidden, show "are you still there?" prompts after inactivity, pause animations when elements scroll out of view, and resume when the user returns â€” without rebuilding visibilitychange listeners and IntersectionObserver setups from scratch.',
     installCommand: 'pnpm add @hexguard/angular-visibility',
     featureHighlights: [
       'Tab visibility tracking via document.visibilityState with reactive signal.',
@@ -344,7 +345,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package is a focused Angular primitive covering document-level visibility, idle detection, and element-level IntersectionObserver tracking.',
-      'It provides two exports — one injectable factory and one standalone function — with zero runtime dependencies beyond Angular core and tslib.',
+      'It provides two exports â€” one injectable factory and one standalone function â€” with zero runtime dependencies beyond Angular core and tslib.',
     ],
   },
   {
@@ -359,7 +360,7 @@ export const currentPackages = [
     summary:
       'Route transition busy state for Angular: signal-based isNavigating and isSlowNavigation indicators with configurable delay threshold.',
     detail:
-      'Focused on Angular apps that need consistent navigation pending indicators — global loaders, route readiness spinners, and page-level pending markers — without rebuilding Router event subscriptions and flash-of-spinner prevention from scratch.',
+      'Focused on Angular apps that need consistent navigation pending indicators â€” global loaders, route readiness spinners, and page-level pending markers â€” without rebuilding Router event subscriptions and flash-of-spinner prevention from scratch.',
     installCommand: 'pnpm add @hexguard/angular-navigation-pending',
     featureHighlights: [
       'isNavigating signal bound to Angular Router NavigationStart/End/Cancel/Error events.',
@@ -389,7 +390,7 @@ export const currentPackages = [
     summary:
       'Click-outside detection for Angular: signal-based injectable and directive for detecting clicks outside a referenced element to dismiss dropdowns, modals, and popovers.',
     detail:
-      'Focused on Angular apps that need to dismiss dropdowns, modals, and popovers when the user clicks outside — without rebuilding pointer event listeners with manual exclusion logic and cleanup from scratch.',
+      'Focused on Angular apps that need to dismiss dropdowns, modals, and popovers when the user clicks outside â€” without rebuilding pointer event listeners with manual exclusion logic and cleanup from scratch.',
     installCommand: 'pnpm add @hexguard/angular-click-outside',
     featureHighlights: [
       'Injectable injectClickOutside() for programmatic click-outside detection.',
@@ -403,9 +404,40 @@ export const currentPackages = [
       'Popovers, tooltips, and flyout panels that need click-outside dismissal.',
     ],
     statusNoteParagraphs: [
-      'This package provides two surfaces — one injectable and one directive — for click-outside detection.',
+      'This package provides two surfaces â€” one injectable and one directive â€” for click-outside detection.',
       'It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.',
     ],
+  },  {
+    id: 'angular-resource',
+    packageName: '@hexguard/angular-resource',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Async State',
+    readmePath: 'angular/packages/angular-resource/README.md',
+    deepDivePath: 'docs/packages/angular-resource.md',
+    repositoryPath: 'angular/packages/angular-resource',
+    summary: 'Helper utilities for Angular 22+ resource() API: in-memory caching with TTL, exponential-backoff retry, and request deduplication.',
+    detail: 'Extends Angular 22 resource() with production-ready patterns: in-memory cache with configurable TTL and stale-while-revalidate, exponential-backoff retry for transient failures, and request deduplication for concurrent identical fetches.',
+    installCommand: 'pnpm add @hexguard/angular-resource',
+    featureHighlights: ['cachedResource() with configurable TTL and stale-while-revalidate.', 'retryResource() with exponential backoff up to configurable max retries.', 'deduplicatedResource() sharing in-flight promises for identical requests.'],
+    bestFitScenarios: ['Data fetching where the same resource is accessed from multiple components.', 'APIs with transient failures where automatic retry improves UX.', 'Search or list pages where debouncing still produces duplicate requests.'],
+    statusNoteParagraphs: ['Wraps Angular 22 resource() internally and returns ResourceRef<T | undefined> for a familiar API.', 'No runtime dependencies beyond @angular/core and tslib.'],
+  },
+  {
+    id: 'angular-upload-state',
+    packageName: '@hexguard/angular-upload-state',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Async State',
+    readmePath: 'angular/packages/angular-upload-state/README.md',
+    deepDivePath: 'docs/packages/angular-upload-state.md',
+    repositoryPath: 'angular/packages/angular-upload-state',
+    summary: 'File upload lifecycle state for Angular: queue management, progress tracking, cancellation, and retry via signal-based API.',
+    detail: 'Manages file upload lifecycle state with XMLHttpRequest-based progress tracking, queue management, per-item cancellation via xhr.abort(), retry by recreating uploads from failed data, and aggregate progress signals.',
+    installCommand: 'pnpm add @hexguard/angular-upload-state',
+    featureHighlights: ['Per-file progress tracking with overall progress signal (0-100%).', 'Cancel and retry individual uploads.', 'maxFileSize client-side validation and single/multi-file modes.'],
+    bestFitScenarios: ['Document upload screens with progress bars and cancel buttons.', 'Image upload widgets that need retry on failure.', 'Attachment workflows across forms and dialogs.'],
+    statusNoteParagraphs: ['Uses XMLHttpRequest for reliable upload.onprogress tracking across all browsers.', 'Headless state — no UI dependencies, compose with any template.'],
   },
   {
     id: 'angular-clipboard',
@@ -416,8 +448,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-clipboard/README.md',
     deepDivePath: 'docs/packages/angular-clipboard.md',
     repositoryPath: 'angular/packages/angular-clipboard',
-    summary: 'Headless clipboard interaction state for Angular: copy, paste, permission handling, execCommand fallback, and in-memory history with signal-based primitives.',
-    detail: 'Provides injectClipboard() with copy/paste operations, execCommand fallback, permission state tracking, configurable history ring, and signal-based feedback for isCopying, copyError, lastCopied, lastPasted, and history.',
+    summary:
+      'Headless clipboard interaction state for Angular: copy, paste, permission handling, execCommand fallback, and in-memory history with signal-based primitives.',
+    detail:
+      'Provides injectClipboard() with copy/paste operations, execCommand fallback, permission state tracking, configurable history ring, and signal-based feedback for isCopying, copyError, lastCopied, lastPasted, and history.',
     installCommand: 'pnpm add @hexguard/angular-clipboard',
     featureHighlights: [
       'copy(text) with navigator.clipboard.writeText and execCommand fallback.',
@@ -437,6 +471,37 @@ export const currentPackages = [
     ],
   },
   {
+    id: 'angular-color',
+    packageName: '@hexguard/angular-color',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'Utilities',
+    readmePath: 'angular/packages/angular-color/README.md',
+    deepDivePath: 'docs/packages/angular-color.md',
+    repositoryPath: 'angular/packages/angular-color',
+    summary:
+      'Color manipulation utilities and headless color picker state for Angular â€” parse, convert, and manipulate colors across Hex, RGB, HSL, HSV color spaces with contrast calculation, palette generation, and signal-based color picker state.',
+    detail:
+      'Provides a Color value object with hex/RGB/HSL/HSV conversion, WCAG contrast ratio, palette generation, plus injectColorPicker() for signal-based per-channel color picker state.',
+    installCommand: 'pnpm add @hexguard/angular-color',
+    featureHighlights: [
+      'Color value object with hex, RGB, HSL, HSV conversion and manipulation.',
+      'WCAG contrast ratio calculation with AA/AAA level detection.',
+      'Palette generation: complementary, analogous, triadic, monochromatic, split-complementary.',
+      'Headless color picker state with per-channel signals: hue, saturation, lightness, alpha.',
+    ],
+    bestFitScenarios: [
+      'Theming UIs and dark/light mode customizers.',
+      'Chart builders, dashboard personalization, and design tools.',
+      'Accessibility checkers needing WCAG contrast ratio validation.',
+      'Angular apps that need signal-based color picker state without a heavy UI library.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless color manipulation primitive for Angular apps.',
+      'It focuses on pure color math, immutable value objects, headless picker state, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+  },
+  {
     id: 'angular-theme',
     packageName: '@hexguard/angular-theme',
     status: 'Available',
@@ -445,8 +510,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-theme/README.md',
     deepDivePath: 'docs/packages/angular-theme.md',
     repositoryPath: 'angular/packages/angular-theme',
-    summary: 'Theme switching state for Angular: light/dark/system modes, CSS class management, prefers-color-scheme detection, persistence, and smooth transitions with signal-based primitives.',
-    detail: 'Provides injectTheme() with mode signals, effectiveTheme resolution, matchMedia-based system preference detection, localStorage persistence, and data-theme attribute management on <html>.',
+    summary:
+      'Theme switching state for Angular: light/dark/system modes, CSS class management, prefers-color-scheme detection, persistence, and smooth transitions with signal-based primitives.',
+    detail:
+      'Provides injectTheme() with mode signals, effectiveTheme resolution, matchMedia-based system preference detection, localStorage persistence, and data-theme attribute management on <html>.',
     installCommand: 'pnpm add @hexguard/angular-theme',
     featureHighlights: [
       'mode signal: light, dark, or system.',
@@ -479,7 +546,7 @@ export const currentPackages = [
     summary:
       'Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.',
     detail:
-      'Focused on destructive actions like delete, archive, move, or status-change where an undo window — "Item deleted. Undo?" — provides a safety net before the action is finalized. Every team rebuilds the same timer-based undo stack, expiry handling, and commit-or-revert state management.',
+      'Focused on destructive actions like delete, archive, move, or status-change where an undo window â€” "Item deleted. Undo?" â€” provides a safety net before the action is finalized. Every team rebuilds the same timer-based undo stack, expiry handling, and commit-or-revert state management.',
     installCommand: 'pnpm add @hexguard/angular-undo',
     featureHighlights: [
       'Timer-based undo stack with configurable TTL windows and per-action override.',
@@ -494,7 +561,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package provides one injectable for managing a stack of reversible actions with full timer management.',
-      'It is headless by design — compose with @hexguard/angular-notifications for the "Undo?" toast UI.',
+      'It is headless by design â€” compose with @hexguard/angular-notifications for the "Undo?" toast UI.',
     ],
   },
   {
@@ -509,7 +576,7 @@ export const currentPackages = [
     summary:
       'Signal-based pagination state for Angular: page, pageSize, total, derived signals, and URL-sync adapter.',
     detail:
-      'Focused on every list, table, and search-results page that needs pagination state — current page, page size, total count, total pages, next/previous enabled, page-range display — without rebuilding page-number math, boundary handling, and reset semantics on every screen.',
+      'Focused on every list, table, and search-results page that needs pagination state â€” current page, page size, total count, total pages, next/previous enabled, page-range display â€” without rebuilding page-number math, boundary handling, and reset semantics on every screen.',
     installCommand: 'pnpm add @hexguard/angular-pagination',
     featureHighlights: [
       'Signal-based pagination state: page, pageSize, total, totalPages, hasNext, hasPrevious, rangeStart, rangeEnd.',
@@ -539,12 +606,12 @@ export const currentPackages = [
     summary:
       'Form draft management for Angular: localStorage-backed auto-save, restore, TTL expiry, and signal-based draft state.',
     detail:
-      'Every multi-step or long-form input benefits from draft persistence. Unlike building raw localStorage save/restore on every screen, injectFormDraft() provides debounced auto-save, configurable TTL, signal-based draft status, and clean clear() — all without dictating form UI.',
+      'Every multi-step or long-form input benefits from draft persistence. Unlike building raw localStorage save/restore on every screen, injectFormDraft() provides debounced auto-save, configurable TTL, signal-based draft status, and clean clear() â€” all without dictating form UI.',
     installCommand: 'pnpm add @hexguard/angular-form-drafts',
     featureHighlights: [
-      'Debounced auto-save to localStorage — configurable debounce window.',
-      'Configurable TTL — drafts expire after a set time.',
-      'Signal-based hasDraft and metadata — react to draft state in templates.',
+      'Debounced auto-save to localStorage â€” configurable debounce window.',
+      'Configurable TTL â€” drafts expire after a set time.',
+      'Signal-based hasDraft and metadata â€” react to draft state in templates.',
       'restore() returns typed draft data with metadata.',
       'clear() cancels pending saves and removes the draft.',
     ],
@@ -555,7 +622,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package provides one injectable factory for form draft persistence.',
-      'It is rendering-agnostic — compose with any form UI library.',
+      'It is rendering-agnostic â€” compose with any form UI library.',
     ],
   },
   {
@@ -570,10 +637,10 @@ export const currentPackages = [
     summary:
       'Headless file picker for Angular: programmatic file selection, drag-and-drop, type/size validation, and signal-based file reading.',
     detail:
-      'Every app that needs file upload, image preview, or drag-and-drop zones can benefit from a headless file picker. Unlike building raw file inputs on every screen, injectFilePicker() provides consistent validation (MIME type, extension, file size), configurable read modes (text, data URL, ArrayBuffer), and reactive signal state — all without dictating UI.',
+      'Every app that needs file upload, image preview, or drag-and-drop zones can benefit from a headless file picker. Unlike building raw file inputs on every screen, injectFilePicker() provides consistent validation (MIME type, extension, file size), configurable read modes (text, data URL, ArrayBuffer), and reactive signal state â€” all without dictating UI.',
     installCommand: 'pnpm add @hexguard/angular-file-picker',
     featureHighlights: [
-      'Programmatic file dialog via open() — no template <input> needed.',
+      'Programmatic file dialog via open() â€” no template <input> needed.',
       'Drag-and-drop integration via acceptDrop() handler.',
       'Client-side type validation with accept filter (MIME types and extensions).',
       'Client-side file size limit with maxFileSize option.',
@@ -587,7 +654,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package provides one injectable factory for headless file selection.',
-      'It is rendering-agnostic — compose with your own upload UI for the actual presentation.',
+      'It is rendering-agnostic â€” compose with your own upload UI for the actual presentation.',
     ],
   },
   {
@@ -602,14 +669,14 @@ export const currentPackages = [
     summary:
       'Headless confirmation dialog state for Angular: promise-based ask/run flows for destructive or high-impact actions.',
     detail:
-      'Focused on every app that needs "Are you sure?" confirmation dialogs for delete, archive, and destructive actions — without rebuilding promise-based dialog state and duplicate-open prevention on every screen.',
+      'Focused on every app that needs "Are you sure?" confirmation dialogs for delete, archive, and destructive actions â€” without rebuilding promise-based dialog state and duplicate-open prevention on every screen.',
     installCommand: 'pnpm add @hexguard/angular-confirmation',
     featureHighlights: [
-      'ask() — returns Promise<boolean> for simple confirm/cancel flows.',
-      'run() — composes ask with async action execution, returns ConfirmationResult.',
+      'ask() â€” returns Promise<boolean> for simple confirm/cancel flows.',
+      'run() â€” composes ask with async action execution, returns ConfirmationResult.',
       'confirm()/cancel() imperative methods for UI binding.',
       'isOpen and currentRequest reactive signals for rendering.',
-      'Duplicate-open prevention — rejects new requests while a dialog is open.',
+      'Duplicate-open prevention â€” rejects new requests while a dialog is open.',
     ],
     bestFitScenarios: [
       'Delete flows that need an "Are you sure?" confirmation before proceeding.',
@@ -618,7 +685,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package provides one injectable factory for headless confirmation dialog state.',
-      'It is rendering-agnostic — compose with your own modal/dialog component for the actual UI.',
+      'It is rendering-agnostic â€” compose with your own modal/dialog component for the actual UI.',
     ],
   },
   {
@@ -637,10 +704,10 @@ export const currentPackages = [
     installCommand: 'pnpm add @hexguard/angular-live-data',
     featureHighlights: [
       'Configurable poll interval with automatic visibility-aware pause/resume.',
-      'Stale detection — signal goes stale after configurable window without success.',
+      'Stale detection â€” signal goes stale after configurable window without success.',
       'Exponential-backoff retry on failure with configurable max retries and delays.',
       'Pause/resume imperative controls and immediate refresh() trigger.',
-      'DestroyRef-based cleanup — no manual teardown needed.',
+      'DestroyRef-based cleanup â€” no manual teardown needed.',
     ],
     bestFitScenarios: [
       'Dashboard KPI cards that auto-refresh on a timer.',
@@ -649,7 +716,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package provides one injectable factory for periodic data polling with signals.',
-      'It is rendering-agnostic — fetch any data shape and display with your own templates.',
+      'It is rendering-agnostic â€” fetch any data shape and display with your own templates.',
       'Future work may include WebSocket/SSE-based live data adapters.',
     ],
   },
@@ -695,7 +762,7 @@ export const currentPackages = [
     summary:
       'Headless toast/notification queue for Angular: signal-based notification management with auto-dismiss, typed notification types, and an optional outlet component.',
     detail:
-      'Focused on a predictable notification queue contract where every toast has explicit lifecycle, dismiss control, and configurable duration — without coupling to a specific UI library.',
+      'Focused on a predictable notification queue contract where every toast has explicit lifecycle, dismiss control, and configurable duration â€” without coupling to a specific UI library.',
     installCommand: 'pnpm add @hexguard/angular-notifications',
     featureHighlights: [
       'Typed notification model with success, error, info, and warning types.',
@@ -725,7 +792,7 @@ export const currentPackages = [
     summary:
       'Declarative component error boundary for Angular: catches render-time and async errors from projected content with configurable fallback and reset support.',
     detail:
-      'Focused on graceful error containment where one component should not take down the whole page — with explicit fallback templates, error signals, and recovery control.',
+      'Focused on graceful error containment where one component should not take down the whole page â€” with explicit fallback templates, error signals, and recovery control.',
     installCommand: 'pnpm add @hexguard/angular-error-boundary',
     featureHighlights: [
       'Catches render-time errors from projected child components.',
@@ -754,7 +821,7 @@ export const currentPackages = [
     deepDivePath: 'docs/packages/angular-feature-flags.md',
     repositoryPath: 'angular/packages/angular-feature-flags',
     summary:
-      'Feature flag evaluation for Angular — typed flag checks across routes, templates, and service logic with sync support for .NET backends.',
+      'Feature flag evaluation for Angular â€” typed flag checks across routes, templates, and service logic with sync support for .NET backends.',
     detail:
       'Designed for Angular apps that need to gate routes, content, and features behind typed feature flags with optional remote sync. Pairs with HexGuard.FeatureFlags on the .NET side through a shared flag contract and sync protocol.',
     installCommand: 'pnpm add @hexguard/angular-feature-flags',
@@ -784,22 +851,22 @@ export const currentPackages = [
     deepDivePath: 'docs/packages/hexguard-problem-details.md',
     repositoryPath: 'dotnet/src/HexGuard.ProblemDetails',
     summary:
-      'RFC 9457 Problem Details for HTTP APIs — types, builders, and ASP.NET Core integration for producing standard error responses.',
+      'RFC 9457 Problem Details for HTTP APIs â€” types, builders, and ASP.NET Core integration for producing standard error responses.',
     detail:
       'Provides the core ProblemDetails record, fluent builder, well-known problem type constants, catch-all middleware, and Minimal API result extensions. Pairs with @hexguard/angular-api-errors for end-to-end typed error pipelines across stacks.',
     installCommand: 'dotnet add package HexGuard.ProblemDetails',
     featureHighlights: [
-      'RFC 9457–compliant ProblemDetails record with extension member support.',
+      'RFC 9457â€“compliant ProblemDetails record with extension member support.',
       'Fluent ProblemDetailsBuilder for constructing responses.',
       'ProblemDetailsException for throw-vs-return middleware patterns.',
       'ASP.NET Core middleware for automatic error interception.',
       'Minimal API IResult extension methods.',
-      'No external dependencies — pure net10.0.',
+      'No external dependencies â€” pure net10.0.',
     ],
     bestFitScenarios: [
       'Standardizing HTTP error responses across ASP.NET Core APIs.',
       'End-to-end typed error pipelines with @hexguard/angular-api-errors.',
-      'Replacing ad hoc error shapes with RFC 9457–compliant payloads.',
+      'Replacing ad hoc error shapes with RFC 9457â€“compliant payloads.',
     ],
     statusNoteParagraphs: [
       'Initial release focuses on core types, builder, middleware, and Minimal API extensions.',
@@ -1088,7 +1155,7 @@ export const currentPackages = [
       'injectPageContext() with set(context) for atomic metadata updates.',
       'title, breadcrumbs, activeTab, and actions signals for reactive UI binding.',
       'setActiveTab(id) for tab-switching without full context reset.',
-      'Route-scoped lifecycle via DestroyRef — context clears on destroy.',
+      'Route-scoped lifecycle via DestroyRef â€” context clears on destroy.',
     ],
     bestFitScenarios: [
       'Screens that need dynamic page titles and breadcrumb trails updated declaratively.',
@@ -1146,7 +1213,7 @@ export const currentPackages = [
     installCommand: 'pnpm add @hexguard/angular-wizard-state',
     featureHighlights: [
       'injectWizardState() with linear and conditional step progression.',
-      'Per-step validation gates via Signal<boolean> — blocks next() when false.',
+      'Per-step validation gates via Signal<boolean> â€” blocks next() when false.',
       'Conditional step visibility via canShow predicates.',
       'Storage adapters for resumability across navigations.',
       'Step lifecycle hooks: onStepEnter, onStepLeave, onFinish, onCancel.',
@@ -1177,8 +1244,8 @@ export const currentPackages = [
     installCommand: 'pnpm add @hexguard/angular-command-palette',
     featureHighlights: [
       'injectCommandRegistry() with typed Command model and register/unregister.',
-      'search(query) — filters commands by title and category.',
-      'handleShortcut(event) — keyboard shortcut matching with Ctrl/Meta support.',
+      'search(query) â€” filters commands by title and category.',
+      'handleShortcut(event) â€” keyboard shortcut matching with Ctrl/Meta support.',
       'paletteOpen, togglePalette(), openPalette(), closePalette() state.',
       'Per-command enabled signal for context-aware visibility.',
     ],
@@ -1201,13 +1268,15 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-dirty-state/README.md',
     deepDivePath: 'docs/packages/angular-dirty-state.md',
     repositoryPath: 'angular/packages/angular-dirty-state',
-    summary: 'Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.',
-    detail: 'Provides injectDirtyState() with isDirty signal, imperative dirty/clean/reset controls, snapshot capture, and injectDirtyGuard() returning a CanDeactivateFn for Angular Router integration.',
+    summary:
+      'Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.',
+    detail:
+      'Provides injectDirtyState() with isDirty signal, imperative dirty/clean/reset controls, snapshot capture, and injectDirtyGuard() returning a CanDeactivateFn for Angular Router integration.',
     installCommand: 'pnpm add @hexguard/angular-dirty-state',
     featureHighlights: [
       'injectDirtyState() with isDirty signal and markDirty/markClean/reset controls.',
       'Snapshot capture for baseline comparison.',
-      'injectDirtyGuard() — CanDeactivateFn factory for route guard integration.',
+      'injectDirtyGuard() â€” CanDeactivateFn factory for route guard integration.',
       'Automatic cleanup via DestroyRef.',
     ],
     bestFitScenarios: [
@@ -1229,14 +1298,16 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-table-state/README.md',
     deepDivePath: 'docs/packages/angular-table-state.md',
     repositoryPath: 'angular/packages/angular-table-state',
-    summary: 'Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.',
-    detail: 'Provides injectTableState() with sort toggling, pagination integration (accepts external PaginationHandle or creates internal), selection integration, filter management, and a combined resetAll() method.',
+    summary:
+      'Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.',
+    detail:
+      'Provides injectTableState() with sort toggling, pagination integration (accepts external PaginationHandle or creates internal), selection integration, filter management, and a combined resetAll() method.',
     installCommand: 'pnpm add @hexguard/angular-table-state',
     featureHighlights: [
       'injectTableState() with sort, pagination, selection, and filter in one handle.',
       'Accepts external PaginationHandle or creates internal default.',
       'Accepts external selection state or creates internal default.',
-      'resetAll() — clears sort, filters, selection, and resets page to 1.',
+      'resetAll() â€” clears sort, filters, selection, and resets page to 1.',
       'URL sync adapter (separate export, requires @hexguard/angular-url-state).',
     ],
     bestFitScenarios: [
@@ -1246,7 +1317,7 @@ export const currentPackages = [
     ],
     statusNoteParagraphs: [
       'This package composes existing HexGuard primitives (pagination, selection-state) into a unified handle.',
-      'It focuses on composition, not re-implementation — each sub-system is delegated to the existing package.',
+      'It focuses on composition, not re-implementation â€” each sub-system is delegated to the existing package.',
     ],
   },
   {
@@ -1258,12 +1329,14 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-signal-persist/README.md',
     deepDivePath: 'docs/packages/angular-signal-persist.md',
     repositoryPath: 'angular/packages/angular-signal-persist',
-    summary: 'One-call signal persistence for Angular: wrap any WritableSignal to auto-persist to localStorage/sessionStorage with TTL, migration, and cross-tab sync.',
-    detail: 'Provides injectPersistedSignal() that returns a WritableSignal which auto-persists via an effect(). Supports TTL expiry, onRestore migration, custom serializer/deserializer, debounced writes, and cross-tab StorageEvent sync.',
+    summary:
+      'One-call signal persistence for Angular: wrap any WritableSignal to auto-persist to localStorage/sessionStorage with TTL, migration, and cross-tab sync.',
+    detail:
+      'Provides injectPersistedSignal() that returns a WritableSignal which auto-persists via an effect(). Supports TTL expiry, onRestore migration, custom serializer/deserializer, debounced writes, and cross-tab StorageEvent sync.',
     installCommand: 'pnpm add @hexguard/angular-signal-persist',
     featureHighlights: [
-      'injectPersistedSignal() returns a plain WritableSignal — use set()/update() as normal.',
-      'TTL expiry — stored values auto-expire after configurable duration.',
+      'injectPersistedSignal() returns a plain WritableSignal â€” use set()/update() as normal.',
+      'TTL expiry â€” stored values auto-expire after configurable duration.',
       'onRestore migration callback for schema upgrades.',
       'Custom serializer/deserializer for non-JSON values.',
       'Cross-tab sync via StorageEvent.',
@@ -1288,14 +1361,16 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-signal-utils/README.md',
     deepDivePath: 'docs/packages/angular-signal-utils.md',
     repositoryPath: 'angular/packages/angular-signal-utils',
-    summary: 'Signal utility helpers for Angular: computedFrom, injectToggle, memoized, and throttledSignal — pure function primitives for common signal patterns.',
-    detail: 'Provides computedFrom() for multi-dep derived signals, injectToggle() for boolean toggle with on/off/toggle methods, memoized() for cached computed with optional TTL, and throttledSignal() for rate-limited signal emissions.',
+    summary:
+      'Signal utility helpers for Angular: computedFrom, injectToggle, memoized, and throttledSignal â€” pure function primitives for common signal patterns.',
+    detail:
+      'Provides computedFrom() for multi-dep derived signals, injectToggle() for boolean toggle with on/off/toggle methods, memoized() for cached computed with optional TTL, and throttledSignal() for rate-limited signal emissions.',
     installCommand: 'pnpm add @hexguard/angular-signal-utils',
     featureHighlights: [
-      'computedFrom() — derive a signal from multiple source signals.',
-      'injectToggle() — boolean toggle with toggle()/set()/on()/off().',
-      'memoized() — cached computed with optional TTL expiry.',
-      'throttledSignal() — rate-limited emissions with leading/trailing, flush(), cancel().',
+      'computedFrom() â€” derive a signal from multiple source signals.',
+      'injectToggle() â€” boolean toggle with toggle()/set()/on()/off().',
+      'memoized() â€” cached computed with optional TTL expiry.',
+      'throttledSignal() â€” rate-limited emissions with leading/trailing, flush(), cancel().',
     ],
     bestFitScenarios: [
       'Components that need multi-dep derived signals without manual computed nesting.',
@@ -1303,7 +1378,7 @@ export const currentPackages = [
       'Expensive computations that benefit from TTL-based caching.',
     ],
     statusNoteParagraphs: [
-      'Does NOT include debouncedSignal — use @hexguard/angular-debounce for that.',
+      'Does NOT include debouncedSignal â€” use @hexguard/angular-debounce for that.',
       'Lazy signal deferred to a future version.',
     ],
   },
@@ -1316,8 +1391,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-preferences/README.md',
     deepDivePath: 'docs/packages/angular-preferences.md',
     repositoryPath: 'angular/packages/angular-preferences',
-    summary: 'Typed user preferences for Angular: schema-driven key-value persistence with per-key signals backed by @hexguard/angular-storage.',
-    detail: 'Provides injectPreferences(schema) with pref(key, defaultValue) factory. Each key in the schema becomes a typed signal backed by angular-storage for cross-tab sync, TTL, and versioning.',
+    summary:
+      'Typed user preferences for Angular: schema-driven key-value persistence with per-key signals backed by @hexguard/angular-storage.',
+    detail:
+      'Provides injectPreferences(schema) with pref(key, defaultValue) factory. Each key in the schema becomes a typed signal backed by angular-storage for cross-tab sync, TTL, and versioning.',
     installCommand: 'pnpm add @hexguard/angular-preferences',
     featureHighlights: [
       'Schema-driven typed preferences with as const type inference.',
@@ -1342,15 +1419,17 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-http-dedupe/README.md',
     deepDivePath: 'docs/packages/angular-http-dedupe.md',
     repositoryPath: 'angular/packages/angular-http-dedupe',
-    summary: 'Collapse duplicate concurrent HTTP requests in Angular: keyed in-flight deduplication with optional response caching.',
-    detail: 'Provides createHttpDedupe() — a pure factory that returns an HttpDedupe handle. Two-tier dedup: in-flight (same request while pending returns same promise) and cache (completed result reused within maxAgeMs).',
+    summary:
+      'Collapse duplicate concurrent HTTP requests in Angular: keyed in-flight deduplication with optional response caching.',
+    detail:
+      'Provides createHttpDedupe() â€” a pure factory that returns an HttpDedupe handle. Two-tier dedup: in-flight (same request while pending returns same promise) and cache (completed result reused within maxAgeMs).',
     installCommand: 'pnpm add @hexguard/angular-http-dedupe',
     featureHighlights: [
       'Keyed deduplication: identical requests share the same promise while in-flight.',
       'Optional response caching within configurable maxAgeMs.',
       'Custom keyFn for request fingerprinting.',
       'LRU eviction at maxCacheSize (default 50).',
-      'Pure factory — no DI required, works in tests or non-Angular contexts.',
+      'Pure factory â€” no DI required, works in tests or non-Angular contexts.',
     ],
     bestFitScenarios: [
       'Multiple components that independently fetch the same data on mount.',
@@ -1371,8 +1450,10 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-recently-viewed/README.md',
     deepDivePath: 'docs/packages/angular-recently-viewed.md',
     repositoryPath: 'angular/packages/angular-recently-viewed',
-    summary: 'Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.',
-    detail: 'Provides injectRecentlyViewed() with add/dedup/maxItems/TTL/remove/clear. Items persist via @hexguard/angular-storage with cross-tab sync.',
+    summary:
+      'Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.',
+    detail:
+      'Provides injectRecentlyViewed() with add/dedup/maxItems/TTL/remove/clear. Items persist via @hexguard/angular-storage with cross-tab sync.',
     installCommand: 'pnpm add @hexguard/angular-recently-viewed',
     featureHighlights: [
       'injectRecentlyViewed() with add(), remove(), clear().',
@@ -1395,27 +1476,29 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-form-utils/README.md',
     deepDivePath: 'docs/packages/angular-form-utils.md',
     repositoryPath: 'angular/packages/angular-form-utils',
-    summary: 'Form utility helpers for Angular: cross-field validators, form dirty state tracking, unsaved-changes route guard, error aggregation, and async validation.',
-    detail: 'Provides fieldsEqual/NotEqual/requiredIf/requiresAtLeastOne validator factories, injectFormDirtyState() for reactive dirty tracking, formUnsavedGuard() returning a CanDeactivateFn, aggregateFormErrors() for flat error maps, and asyncFieldValidator() for promise-based validation.',
+    summary:
+      'Form utility helpers for Angular: cross-field validators, form dirty state tracking, unsaved-changes route guard, error aggregation, and async validation.',
+    detail:
+      'Provides fieldsEqual/NotEqual/requiredIf/requiresAtLeastOne validator factories, injectFormDirtyState() for reactive dirty tracking, formUnsavedGuard() returning a CanDeactivateFn, aggregateFormErrors() for flat error maps, and asyncFieldValidator() for promise-based validation.',
     installCommand: 'pnpm add @hexguard/angular-form-utils',
     featureHighlights: [
       'Cross-field validators: fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne.',
       'injectFormDirtyState() with isDirty, controlStates, markControlClean/Dirty, resetAll.',
-      'formUnsavedGuard() — CanDeactivateFn factory for route protection.',
-      'aggregateFormErrors() — recursive form-tree error collection into flat path→errors map.',
-      'asyncFieldValidator() — typed wrapper for promise-based async validation.',
-      'injectFormArrayDirtyState() — dirty state tracking for FormArray items with index-based access.',
-      'arrayToggleItem() — add/remove values in a FormArray (toggle semantics).',
-      'moveArrayItem() — reorder items by moving to a new index.',
-      'syncArrayValues() — batch-sync a FormArray to match a set of values, preserving existing controls.',
-      'controlSignal() — typed Signal from a form control value at a dotted path.',
-      'isControlInvalid() — touched && invalid shorthand for template error display.',
-      'formDiff() — deep partial diff between two form value snapshots.',
-      'formStatusSignal() — reactive Signal tracking form status (VALID/INVALID/PENDING/DISABLED).',
-      'formSubmitHandler() — standardized submit handler with mark-all-touched and validation.',
-      'IsInvalidPipe — | isInvalid template pipe for touched && invalid checks.',
-      'FormErrorPipe — | formError template pipe for extracting validation errors by key.',
-      'ShowFormErrorDirective — *showFormError structural directive for touched && invalid conditional display.',
+      'formUnsavedGuard() â€” CanDeactivateFn factory for route protection.',
+      'aggregateFormErrors() â€” recursive form-tree error collection into flat pathâ†’errors map.',
+      'asyncFieldValidator() â€” typed wrapper for promise-based async validation.',
+      'injectFormArrayDirtyState() â€” dirty state tracking for FormArray items with index-based access.',
+      'arrayToggleItem() â€” add/remove values in a FormArray (toggle semantics).',
+      'moveArrayItem() â€” reorder items by moving to a new index.',
+      'syncArrayValues() â€” batch-sync a FormArray to match a set of values, preserving existing controls.',
+      'controlSignal() â€” typed Signal from a form control value at a dotted path.',
+      'isControlInvalid() â€” touched && invalid shorthand for template error display.',
+      'formDiff() â€” deep partial diff between two form value snapshots.',
+      'formStatusSignal() â€” reactive Signal tracking form status (VALID/INVALID/PENDING/DISABLED).',
+      'formSubmitHandler() â€” standardized submit handler with mark-all-touched and validation.',
+      'IsInvalidPipe â€” | isInvalid template pipe for touched && invalid checks.',
+      'FormErrorPipe â€” | formError template pipe for extracting validation errors by key.',
+      'ShowFormErrorDirective â€” *showFormError structural directive for touched && invalid conditional display.',
     ],
     bestFitScenarios: [
       'Confirm-password and confirm-email validation patterns.',
@@ -1442,13 +1525,15 @@ export const currentPackages = [
     readmePath: 'angular/packages/angular-query-signal-forms/README.md',
     deepDivePath: 'docs/packages/angular-query-signal-forms.md',
     repositoryPath: 'angular/packages/angular-query-signal-forms',
-    summary: 'URL-state adapter for Angular Signal Forms: bind typed query parameters to signal form models through @hexguard/angular-url-state with sync modes and reset-on-change rules.',
-    detail: 'Provides querySignalForm() with syncMode (live/manual), resetKeysOnChange rules, commit/revert in manual mode, and re-exports all url-state codecs for single-package import.',
+    summary:
+      'URL-state adapter for Angular Signal Forms: bind typed query parameters to signal form models through @hexguard/angular-url-state with sync modes and reset-on-change rules.',
+    detail:
+      'Provides querySignalForm() with syncMode (live/manual), resetKeysOnChange rules, commit/revert in manual mode, and re-exports all url-state codecs for single-package import.',
     installCommand: 'pnpm add @hexguard/angular-query-signal-forms',
     featureHighlights: [
       'querySignalForm() with snapshot, patch, reset, commit, revert.',
       'syncMode: live (immediate) or manual (stage then commit).',
-      'resetKeysOnChange — dependent keys auto-reset to defaults.',
+      'resetKeysOnChange â€” dependent keys auto-reset to defaults.',
       'Re-exports all @hexguard/angular-url-state codecs.',
     ],
     bestFitScenarios: [
@@ -1457,7 +1542,7 @@ export const currentPackages = [
       'Multi-step filter workflows that need commit/revert behavior.',
     ],
     statusNoteParagraphs: [
-      'Operates at urlState() level — no @angular/forms/signals form() dependency.',
+      'Operates at urlState() level â€” no @angular/forms/signals form() dependency.',
       '@angular/forms/signals integration deferred until Signal Forms stabilizes.',
     ],
   },
@@ -2015,3 +2100,4 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
 ];
+

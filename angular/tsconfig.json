@@ -13,7 +13,9 @@
       "@hexguard/angular-recently-viewed": ["./packages/angular-recently-viewed/src/public-api.ts"],
       "@hexguard/angular-resource": ["./packages/angular-resource/src/public-api.ts"],
       "@hexguard/angular-query-form": ["./packages/angular-query-form/src/public-api.ts"],
-      "@hexguard/angular-query-signal-forms": ["./packages/angular-query-signal-forms/src/public-api.ts"],
+      "@hexguard/angular-query-signal-forms": [
+        "./packages/angular-query-signal-forms/src/public-api.ts"
+      ],
       "@hexguard/angular-url-state": ["./packages/angular-url-state/src/public-api.ts"],
       "@hexguard/angular-api-errors": ["./packages/angular-api-errors/src/public-api.ts"],
       "@hexguard/angular-debounce": ["./packages/angular-debounce/src/public-api.ts"],
@@ -30,6 +32,9 @@
         "./packages/angular-breakpoint-observer/src/public-api.ts"
       ],
       "@hexguard/angular-click-outside": ["./packages/angular-click-outside/src/public-api.ts"],
+      "@hexguard/angular-color": ["./packages/angular-color/src/public-api.ts"],
+      "@hexguard/angular-consent-manager": ["./packages/angular-consent-manager/src/public-api.ts"],
+      "@hexguard/angular-cookie-consent": ["./packages/angular-cookie-consent/src/public-api.ts"],
       "@hexguard/angular-clipboard": ["./packages/angular-clipboard/src/public-api.ts"],
       "@hexguard/angular-live-data": ["./packages/angular-live-data/src/public-api.ts"],
       "@hexguard/angular-file-picker": ["./packages/angular-file-picker/src/public-api.ts"],
@@ -79,13 +84,11 @@
     {
       "path": "./packages/angular-url-state/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-dirty-state/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-dirty-state/tsconfig.lib.json" },
     {
       "path": "./packages/angular-dirty-state/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-query-form/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-query-form/tsconfig.lib.json" },
     {
       "path": "./packages/angular-query-form/tsconfig.spec.json"
     },
@@ -95,23 +98,19 @@
     {
       "path": "./packages/angular-async-state/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-table-state/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-table-state/tsconfig.lib.json" },
     {
       "path": "./packages/angular-table-state/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-lookups/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-lookups/tsconfig.lib.json" },
     {
       "path": "./packages/angular-lookups/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-theme/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-theme/tsconfig.lib.json" },
     {
       "path": "./packages/angular-theme/tsconfig.spec.json"
     },
-    {      "path": "./packages/angular-optimistic-state/tsconfig.lib.json"
-    },
+    { "path": "./packages/angular-optimistic-state/tsconfig.lib.json" },
     {
       "path": "./packages/angular-optimistic-state/tsconfig.spec.json"
     },

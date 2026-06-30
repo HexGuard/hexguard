@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "hexguard-repo",
   "private": true,
   "packageManager": "pnpm@10.27.0",
@@ -23,6 +23,7 @@
     "angular:build:lib:visibility": "pnpm --dir angular build:lib:visibility",
     "angular:build:lib:navigation-pending": "pnpm --dir angular build:lib:navigation-pending",
     "angular:build:lib:click-outside": "pnpm --dir angular build:lib:click-outside",
+    "angular:build:lib:color": "pnpm --dir angular build:lib:color",
     "angular:build:lib:undo": "pnpm --dir angular build:lib:undo",
     "angular:build:lib:pagination": "pnpm --dir angular build:lib:pagination",
     "angular:build:lib:confirmation": "pnpm --dir angular build:lib:confirmation",
@@ -45,6 +46,7 @@
     "angular:test:lib:visibility": "pnpm --dir angular test:lib:visibility",
     "angular:test:lib:navigation-pending": "pnpm --dir angular test:lib:navigation-pending",
     "angular:test:lib:click-outside": "pnpm --dir angular test:lib:click-outside",
+    "angular:test:lib:color": "pnpm --dir angular test:lib:color",
     "angular:test:lib:confirmation": "pnpm --dir angular test:lib:confirmation",
     "angular:test:lib:live-data": "pnpm --dir angular test:lib:live-data",
     "angular:test:lib:pagination": "pnpm --dir angular test:lib:pagination",
@@ -70,6 +72,7 @@
     "angular:verify:package:undo": "pnpm --dir angular verify:package:undo",
     "angular:verify:package:pagination": "pnpm --dir angular verify:package:pagination",
     "angular:verify:package:click-outside": "pnpm --dir angular verify:package:click-outside",
+    "angular:verify:package:color": "pnpm --dir angular verify:package:color",
     "angular:verify:package:breakpoint-observer": "pnpm --dir angular verify:package:breakpoint-observer",
     "angular:verify:package:live-data": "pnpm --dir angular verify:package:live-data",
     "angular:verify:package:file-picker": "pnpm --dir angular verify:package:file-picker",
@@ -116,6 +119,7 @@
     "build:lib:confirmation": "pnpm angular:build:lib:confirmation",
     "build:lib:pagination": "pnpm angular:build:lib:pagination",
     "build:lib:click-outside": "pnpm angular:build:lib:click-outside",
+    "build:lib:color": "pnpm angular:build:lib:color",
     "build:lib:clipboard": "pnpm angular:build:lib:clipboard",
     "build:lib:navigation-pending": "pnpm angular:build:lib:navigation-pending",
     "build:lib:live-data": "pnpm angular:build:lib:live-data",
@@ -136,6 +140,7 @@
     "test:lib:query-form": "pnpm angular:test:lib:query-form",
     "test:lib:undo": "pnpm angular:test:lib:undo",
     "test:lib:click-outside": "pnpm angular:test:lib:click-outside",
+    "test:lib:color": "pnpm angular:test:lib:color",
     "test:lib:clipboard": "pnpm angular:test:lib:clipboard",
     "test:lib:confirmation": "pnpm angular:test:lib:confirmation",
     "test:lib:live-data": "pnpm angular:test:lib:live-data",
@@ -171,6 +176,7 @@
     "verify:package:async-state": "pnpm angular:verify:package:async-state",
     "verify:package:undo": "pnpm angular:verify:package:undo",
     "verify:package:click-outside": "pnpm angular:verify:package:click-outside",
+    "verify:package:color": "pnpm angular:verify:package:color",
     "verify:package:clipboard": "pnpm angular:verify:package:clipboard",
     "verify:package:lookups": "pnpm angular:verify:package:lookups",
     "verify:package:navigation-pending": "pnpm angular:verify:package:navigation-pending",
@@ -247,4 +253,3 @@
     "prettier": "^3.8.1"
   }
 }
-

@@ -1,0 +1,144 @@
+<demo-page-layout testId="color-demo">
+  <demo-navigation-strip demoNavigation testId="color-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Color</p>
+        <h2>Color manipulation &amp; headless color picker state.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="color-demo-status"
+      summary="Parse, convert, and manipulate colors across Hex, RGB, HSL, and HSV — with WCAG contrast checking, palette generation, and signal-based picker state."
+      currentUrl="Angular Color — Demo"
+      summaryTestId="color-demo-summary"
+      urlTestId="color-demo-url"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="color-picker-playground">
+    <!-- demo-snippet:start angular-color/demo-state -->
+    <div class="color-picker-grid">
+      <!-- Color swatch -->
+      <div class="color-swatch" [style.background-color]="picker.hex()" data-testid="color-swatch">
+        <span class="color-swatch__hex">{{ picker.hex() }}</span>
+      </div>
+
+      <!-- HSL sliders -->
+      <div class="color-sliders">
+        <label class="slider-label">
+          Hue <span data-testid="hue-value">{{ picker.hue() }}</span
+          >°
+          <input
+            type="range"
+            min="0"
+            max="360"
+            [value]="picker.hue()"
+            (input)="setHue($event)"
+            data-testid="hue-slider"
+          />
+        </label>
+        <label class="slider-label">
+          Saturation <span data-testid="saturation-value">{{ picker.saturation() }}</span
+          >%
+          <input
+            type="range"
+            min="0"
+            max="100"
+            [value]="picker.saturation()"
+            (input)="setSaturation($event)"
+            data-testid="saturation-slider"
+          />
+        </label>
+        <label class="slider-label">
+          Lightness <span data-testid="lightness-value">{{ picker.lightness() }}</span
+          >%
+          <input
+            type="range"
+            min="0"
+            max="100"
+            [value]="picker.lightness()"
+            (input)="setLightness($event)"
+            data-testid="lightness-slider"
+          />
+        </label>
+        <label class="slider-label">
+          Alpha <span data-testid="alpha-value">{{ picker.alpha() }}</span>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            [value]="picker.alpha()"
+            (input)="setAlpha($event)"
+            data-testid="alpha-slider"
+          />
+        </label>
+      </div>
+
+      <!-- Hex input -->
+      <div class="hex-input-group">
+        <label>
+          Hex
+          <input
+            type="text"
+            [value]="picker.hex()"
+            (input)="setHex($event)"
+            data-testid="hex-input"
+            class="demo-input"
+          />
+        </label>
+      </div>
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+
+  <!-- Contrast checker -->
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="contrast-checker">
+    <h3>WCAG Contrast Checker</h3>
+    <div class="contrast-grid">
+      <div class="contrast-swatch" [style.background-color]="picker.hex()">
+        <span>{{ picker.hex() }}</span>
+      </div>
+      <div class="contrast-swatch" [style.background-color]="contrastColor.hex()">
+        <span>{{ contrastColor.hex() }}</span>
+      </div>
+    </div>
+    <label>
+      Contrast color
+      <input
+        type="text"
+        [value]="contrastColor.hex()"
+        (input)="setContrastHex($event)"
+        data-testid="contrast-hex-input"
+        class="demo-input"
+      />
+    </label>
+    <p class="contrast-result" data-testid="contrast-result">
+      Ratio: <strong>{{ contrastRatio() }}</strong> — Level: <strong>{{ contrastLevel() }}</strong>
+    </p>
+  </article>
+
+  <!-- Palette -->
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="palette-display">
+    <h3>Analogous Palette</h3>
+    <div class="palette-strip">
+      @for (c of palette(); track c.toHex()) {
+        <div class="palette-chip" [style.background-color]="c.toHex()">
+          <span>{{ c.toHex() }}</span>
+        </div>
+      }
+    </div>
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="color-inspector-panel"
+    title="Color snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="color-snapshot-json"
+    codeTestId="color-code-sample"
+  />
+</demo-page-layout>

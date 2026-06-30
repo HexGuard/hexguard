@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+﻿import { inject } from '@angular/core';
 import type { Routes } from '@angular/router';
 
 import { canActivateFeatureFlag } from '@hexguard/angular-feature-flags';
@@ -139,6 +139,8 @@ import { BlazorDebouncedInputHubPageComponent } from './features/packages/blazor
 import { BlazorHomePageComponent } from './features/packages/blazor/blazor-home/blazor-home-page.component';
 import { AngularClipboardHomePageComponent } from './features/packages/angular/angular-clipboard/angular-clipboard-home-page.component';
 import { ClipboardDemoPageComponent } from './features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component';
+import { AngularColorHomePageComponent } from './features/packages/angular/angular-color/angular-color-home-page.component';
+import { ColorDemoPageComponent } from './features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component';
 import { AngularDirtyStateHomePageComponent } from './features/packages/angular/angular-dirty-state/angular-dirty-state-home-page.component';
 import { DirtyStateDemoPageComponent } from './features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component';
 import { AngularTableStateHomePageComponent } from './features/packages/angular/angular-table-state/angular-table-state-home-page.component';
@@ -202,7 +204,7 @@ export const routes: Routes = [
   {
     path: 'dotnet/problem-details',
     component: ProblemDetailsDemoPageComponent,
-    title: 'Problem Details Demo — RFC 9457 in Action',
+    title: 'Problem Details Demo â€” RFC 9457 in Action',
   },
   {
     path: 'dotnet/hexguard-reference-data',
@@ -411,8 +413,7 @@ export const routes: Routes = [
     component: NavigationPendingDemoPageComponent,
     title: 'Navigation Pending Demo',
     canDeactivate: [slowDeactivateGuard(2500)],
-  },
-  {
+  },  {
     path: 'packages/angular-click-outside',
     component: AngularClickOutsideHomePageComponent,
     title: 'Angular Click Outside Demos',
@@ -467,7 +468,7 @@ export const routes: Routes = [
     component: FormDraftsDemoPageComponent,
     title: 'Form Drafts Demo',
   },
-  // ── Form Utils ──────────────────────────────────────────────────
+  // â”€â”€ Form Utils â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-form-utils',
     component: AngularFormUtilsHomePageComponent,
@@ -550,7 +551,7 @@ export const routes: Routes = [
     component: ErrorBoundaryDemoPageComponent,
     title: 'Error Boundary Demo',
   },
-  // ── Selection state ────────────────────────────────────────────
+  // â”€â”€ Selection state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-selection-state',
     component: AngularSelectionStateHomePageComponent,
@@ -561,7 +562,7 @@ export const routes: Routes = [
     component: SelectionStateDemoPageComponent,
     title: 'Selection State Demo',
   },
-  // ── Bulk operations ────────────────────────────────────────────
+  // â”€â”€ Bulk operations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-bulk-operations',
     component: AngularBulkOperationsHomePageComponent,
@@ -582,7 +583,7 @@ export const routes: Routes = [
     component: BulkOperationsLibraryDemoPageComponent,
     title: 'Bulk Operations Library API Workflow',
   },
-  // ── Date Utils ──────────────────────────────────────────────────
+  // â”€â”€ Date Utils â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-date-utils',
     component: AngularDateUtilsHomePageComponent,
@@ -593,7 +594,7 @@ export const routes: Routes = [
     component: DateUtilsDemoPageComponent,
     title: 'Date Utils Demo',
   },
-  // ── Network Status ──────────────────────────────────────────────
+  // â”€â”€ Network Status â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-network-status',
     component: AngularNetworkStatusHomePageComponent,
@@ -604,7 +605,7 @@ export const routes: Routes = [
     component: NetworkStatusDemoPageComponent,
     title: 'Network Status Demo',
   },
-  // ── Storage ─────────────────────────────────────────────────────
+  // â”€â”€ Storage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-storage',
     component: AngularStorageHomePageComponent,
@@ -615,7 +616,7 @@ export const routes: Routes = [
     component: StorageDemoPageComponent,
     title: 'Storage Demo',
   },
-  // ── Clipboard ──────────────────────────────────────────────────
+  // â”€â”€ Clipboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-clipboard',
     component: AngularClipboardHomePageComponent,
@@ -626,7 +627,7 @@ export const routes: Routes = [
     component: ClipboardDemoPageComponent,
     title: 'Clipboard Demo',
   },
-  // ── Command Palette ─────────────────────────────────────────────
+  // â”€â”€ Command Palette â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-command-palette',
     component: AngularCommandPaletteHomePageComponent,
@@ -637,7 +638,7 @@ export const routes: Routes = [
     component: CommandPaletteDemoPageComponent,
     title: 'Command Palette Demo',
   },
-  // ── Page Context ────────────────────────────────────────────────
+  // â”€â”€ Page Context â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-page-context',
     component: AngularPageContextHomePageComponent,
@@ -648,7 +649,7 @@ export const routes: Routes = [
     component: PageContextDemoPageComponent,
     title: 'Page Context Demo',
   },
-  // ── Route Memory ────────────────────────────────────────────────
+  // â”€â”€ Route Memory â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-route-memory',
     component: AngularRouteMemoryHomePageComponent,
@@ -659,7 +660,7 @@ export const routes: Routes = [
     component: RouteMemoryDemoPageComponent,
     title: 'Route Memory Demo',
   },
-  // ── Scroll State ────────────────────────────────────────────────
+  // â”€â”€ Scroll State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-scroll-state',
     component: AngularScrollStateHomePageComponent,
@@ -670,7 +671,18 @@ export const routes: Routes = [
     component: ScrollStateDemoPageComponent,
     title: 'Scroll State Demo',
   },
-  // ── Theme ────────────────────────────────────────────────────────
+  // â”€â”€ Color â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  {
+    path: 'packages/angular-color',
+    component: AngularColorHomePageComponent,
+    title: 'Angular Color Demos',
+  },
+  {
+    path: 'packages/angular-color/demo',
+    component: ColorDemoPageComponent,
+    title: 'Color Demo',
+  },
+  // â”€â”€ Theme â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-theme',
     component: AngularThemeHomePageComponent,
@@ -681,7 +693,7 @@ export const routes: Routes = [
     component: ThemeDemoPageComponent,
     title: 'Theme Demo',
   },
-  // ── Dirty State ─────────────────────────────────────────────────
+  // â”€â”€ Dirty State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-dirty-state',
     component: AngularDirtyStateHomePageComponent,
@@ -692,7 +704,7 @@ export const routes: Routes = [
     component: DirtyStateDemoPageComponent,
     title: 'Dirty State Demo',
   },
-  // ── Table State ─────────────────────────────────────────────────
+  // â”€â”€ Table State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-table-state',
     component: AngularTableStateHomePageComponent,
@@ -703,7 +715,7 @@ export const routes: Routes = [
     component: TableStateDemoPageComponent,
     title: 'Table State Demo',
   },
-  // ── Signal Persist ──────────────────────────────────────────────
+  // â”€â”€ Signal Persist â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-signal-persist',
     component: AngularSignalPersistHomePageComponent,
@@ -714,7 +726,7 @@ export const routes: Routes = [
     component: SignalPersistDemoPageComponent,
     title: 'Signal Persist Demo',
   },
-  // ── Signal Utils ────────────────────────────────────────────────
+  // â”€â”€ Signal Utils â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-signal-utils',
     component: AngularSignalUtilsHomePageComponent,
@@ -725,7 +737,7 @@ export const routes: Routes = [
     component: SignalUtilsDemoPageComponent,
     title: 'Signal Utils Demo',
   },
-  // ── Preferences ─────────────────────────────────────────────────
+  // â”€â”€ Preferences â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-preferences',
     component: AngularPreferencesHomePageComponent,
@@ -736,7 +748,7 @@ export const routes: Routes = [
     component: PreferencesDemoPageComponent,
     title: 'Preferences Demo',
   },
-  // ── HTTP Dedupe ─────────────────────────────────────────────────
+  // â”€â”€ HTTP Dedupe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-http-dedupe',
     component: AngularHttpDedupeHomePageComponent,
@@ -747,7 +759,7 @@ export const routes: Routes = [
     component: HttpDedupeDemoPageComponent,
     title: 'HTTP Dedupe Demo',
   },
-  // ── Query Signal Forms ──────────────────────────────────────────
+  // â”€â”€ Query Signal Forms â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-query-signal-forms',
     component: AngularQuerySignalFormsHomePageComponent,
@@ -758,7 +770,7 @@ export const routes: Routes = [
     component: QuerySignalFormsDemoPageComponent,
     title: 'Query Signal Forms Demo',
   },
-  // ── Recently Viewed ─────────────────────────────────────────────
+  // â”€â”€ Recently Viewed â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-recently-viewed',
     component: AngularRecentlyViewedHomePageComponent,
@@ -769,7 +781,7 @@ export const routes: Routes = [
     component: RecentlyViewedDemoPageComponent,
     title: 'Recently Viewed Demo',
   },
-  // ── Wizard State ────────────────────────────────────────────────
+  // â”€â”€ Wizard State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'packages/angular-wizard-state',
     component: AngularWizardStateHomePageComponent,
@@ -780,7 +792,7 @@ export const routes: Routes = [
     component: WizardStateDemoPageComponent,
     title: 'Wizard State Demo',
   },
-  // ── .NET showcase routes ────────────────────────────────────────
+  // â”€â”€ .NET showcase routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'dotnet',
     component: DotnetHomePageComponent,
@@ -826,7 +838,7 @@ export const routes: Routes = [
     component: SampleApiExplorerPageComponent,
     title: 'SampleApi Explorer',
   },
-  // ── Blazor showcase routes ──────────────────────────────────────
+  // â”€â”€ Blazor showcase routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'blazor',
     component: BlazorHomePageComponent,
@@ -837,7 +849,7 @@ export const routes: Routes = [
     component: BlazorDebouncedInputHubPageComponent,
     title: 'HexGuard.Blazor.DebouncedInput',
   },
-  // ── Legacy redirects ────────────────────────────────────────────
+  // â”€â”€ Legacy redirects â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
     path: 'orders',
     redirectTo: ANGULAR_URL_STATE_ORDERS_DEMO.route.slice(1),
@@ -911,3 +923,4 @@ export const routes: Routes = [
     redirectTo: '',
   },
 ];
+
