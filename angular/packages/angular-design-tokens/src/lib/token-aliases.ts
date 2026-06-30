@@ -37,9 +37,7 @@ export function tokenAliases(
 
   for (const [aliasPath, targetPath] of Object.entries(aliases)) {
     if (resolved.has(aliasPath)) {
-      throw new Error(
-        `Circular alias detected: "${aliasPath}" is referenced more than once.`,
-      );
+      throw new Error(`Circular alias detected: "${aliasPath}" is referenced more than once.`);
     }
 
     // Resolve chain: alias → target → maybe another alias → raw value
@@ -65,9 +63,7 @@ function resolveAliasChain(
   visited = new Set<string>(),
 ): string {
   if (visited.has(targetPath)) {
-    throw new Error(
-      `Circular alias detected: "${origin}" → ... → "${targetPath}" forms a cycle.`,
-    );
+    throw new Error(`Circular alias detected: "${origin}" → ... → "${targetPath}" forms a cycle.`);
   }
   visited.add(targetPath);
 
@@ -80,9 +76,7 @@ function resolveAliasChain(
   // Resolve from source registry
   const value = registry.get(targetPath);
   if (value === undefined) {
-    throw new Error(
-      `Alias "${origin}" → "${targetPath}" does not resolve to a known token.`,
-    );
+    throw new Error(`Alias "${origin}" → "${targetPath}" does not resolve to a known token.`);
   }
   return value;
 }

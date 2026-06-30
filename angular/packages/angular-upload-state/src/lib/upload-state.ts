@@ -28,6 +28,7 @@ export function injectUploadState(options: UploadOptions): UploadState {
     method = 'POST',
     headers = {},
     formFields = {},
+    sender,
   } = options;
 
   const destroyRef = inject(DestroyRef);
@@ -36,6 +37,7 @@ export function injectUploadState(options: UploadOptions): UploadState {
 
   const items = signal<UploadItem[]>([]);
   const xhrMap = new Map<string, XMLHttpRequest>();
+  const abortMap = new Map<string, AbortController>();
 
   // ── Derived signals ──────────────────────────────────────────
 
@@ -70,6 +72,27 @@ export function injectUploadState(options: UploadOptions): UploadState {
 
   function startUpload(item: UploadItem): void {
     updateItem(item.id, { status: 'uploading', progress: 0 });
+
+    if (sender) {
+      const controller = new AbortController();
+      abortMap.set(item.id, controller);
+      sender({ file: item.file, id: item.id }, (pct: number) => {
+        updateItem(item.id, { progress: pct });
+      })
+        .then((response) => {
+          if (!controller.signal.aborted) {
+            updateItem(item.id, { status: 'completed', progress: 100, response });
+          }
+          abortMap.delete(item.id);
+        })
+        .catch((err: unknown) => {
+          if (!controller.signal.aborted) {
+            updateItem(item.id, { status: 'failed', error: err instanceof Error ? err.message : String(err) });
+          }
+          abortMap.delete(item.id);
+        });
+      return;
+    }
 
     const xhr = new XMLHttpRequest();
     xhrMap.set(item.id, xhr);
@@ -161,6 +184,11 @@ export function injectUploadState(options: UploadOptions): UploadState {
       xhr.abort();
       xhrMap.delete(itemId);
     }
+    const abort = abortMap.get(itemId);
+    if (abort) {
+      abort.abort();
+      abortMap.delete(itemId);
+    }
     updateItem(itemId, { status: 'cancelled', progress: 0 });
   }
 
@@ -169,19 +197,18 @@ export function injectUploadState(options: UploadOptions): UploadState {
   }
 
   function clearAll(): void {
-    // Cancel any in-flight
-    for (const [id, xhr] of xhrMap) {
-      xhr.abort();
-      xhrMap.delete(id);
-    }
+    for (const [, xhr] of xhrMap) { xhr.abort(); }
+    for (const [, abort] of abortMap) { abort.abort(); }
+    xhrMap.clear();
+    abortMap.clear();
     items.set([]);
   }
 
   destroyRef.onDestroy(() => {
-    for (const [, xhr] of xhrMap) {
-      xhr.abort();
-    }
+    for (const [, xhr] of xhrMap) { xhr.abort(); }
+    for (const [, abort] of abortMap) { abort.abort(); }
     xhrMap.clear();
+    abortMap.clear();
   });
 
   return {

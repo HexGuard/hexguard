@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { provideConsentManager } from './consent-providers';
 import { injectConsentManager } from './consent-manager';
 import { defaultConsentCategories, defaultCcpCategories } from './default-categories';
+
+beforeAll(() => {
+  TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+});
 
 const TEST_CATEGORIES = defaultConsentCategories();
 

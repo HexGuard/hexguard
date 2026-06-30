@@ -279,6 +279,16 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component.ts',
   },
   {
+    id: 'angular-design-tokens/demo-state',
+    title: 'Design Tokens demo component source',
+    description:
+      'Generated from the real Design Tokens demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-design-tokens/pages/design-tokens-demo-page/design-tokens-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-design-tokens/pages/design-tokens-demo-page/design-tokens-demo-page.component.ts',
+  },
+  {
     id: 'angular-clipboard/demo-state',
     title: 'Clipboard demo component source',
     description:
@@ -591,4 +601,3 @@ writeFileSync(
   generatedSnippetsPath,
   await formatWithResolvedConfig(generated, generatedSnippetsPath),
 );
-

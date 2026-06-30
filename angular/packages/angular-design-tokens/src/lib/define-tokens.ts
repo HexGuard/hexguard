@@ -63,9 +63,7 @@ class TokenRegistryImpl implements TokenRegistry {
         try {
           Color.fromHex(value);
         } catch {
-          errors.push(
-            `Token "${path}" value "${value}" is not a valid hex color.`,
-          );
+          errors.push(`Token "${path}" value "${value}" is not a valid hex color.`);
         }
       }
     }
@@ -75,11 +73,7 @@ class TokenRegistryImpl implements TokenRegistry {
 
 // ── Flatten helper ─────────────────────────────────────────
 
-function flattenDefinition(
-  def: TokenDefinition,
-  prefix: string,
-  out: Map<string, string>,
-): void {
+function flattenDefinition(def: TokenDefinition, prefix: string, out: Map<string, string>): void {
   for (const [key, val] of Object.entries(def)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;
     if (typeof val === 'object' && val !== null && !Array.isArray(val)) {

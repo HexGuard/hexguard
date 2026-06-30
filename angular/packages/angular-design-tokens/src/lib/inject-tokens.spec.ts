@@ -58,9 +58,7 @@ describe('injectTokens', () => {
   it('syncCss option syncs to :root', () => {
     // Clean up any prior sync
     if (typeof document !== 'undefined') {
-      document.documentElement.style.removeProperty(
-        '--hexguard-color-primary-500',
-      );
+      document.documentElement.style.removeProperty('--hexguard-color-primary-500');
     }
 
     TestBed.runInInjectionContext(() => {
@@ -68,9 +66,7 @@ describe('injectTokens', () => {
     });
 
     if (typeof document !== 'undefined') {
-      const value = document.documentElement.style.getPropertyValue(
-        '--hexguard-color-primary-500',
-      );
+      const value = document.documentElement.style.getPropertyValue('--hexguard-color-primary-500');
       expect(value).toBe('#3b82f6');
     }
   });

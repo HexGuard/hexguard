@@ -27,6 +27,20 @@ export interface UploadOptions {
   headers?: Record<string, string>;
   /** Additional form fields to include. */
   formFields?: Record<string, string>;
+  /**
+   * Custom sender function that replaces the default `XMLHttpRequest`-based upload.
+   * Receives the item and an `onProgress` callback. Must resolve when the upload
+   * completes or reject with an error. Useful for testing or custom transport.
+   *
+   * @example
+   * ```typescript
+   * injectUploadState({
+   *   url: '/api/upload',
+   *   sender: (item, onProgress) => myHttpClient.upload(item.file, onProgress),
+   * });
+   * ```
+   */
+  sender?: (item: { file: File; id: string }, onProgress: (pct: number) => void) => Promise<unknown>;
 }
 
 /** Reactive handle returned by `injectUploadState`. */

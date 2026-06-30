@@ -145,6 +145,8 @@ import { AngularClipboardHomePageComponent } from './features/packages/angular/a
 import { ClipboardDemoPageComponent } from './features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component';
 import { AngularColorHomePageComponent } from './features/packages/angular/angular-color/angular-color-home-page.component';
 import { ColorDemoPageComponent } from './features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component';
+import { AngularDesignTokensHomePageComponent } from './features/packages/angular/angular-design-tokens/angular-design-tokens-home-page.component';
+import { DesignTokensDemoPageComponent } from './features/packages/angular/angular-design-tokens/pages/design-tokens-demo-page/design-tokens-demo-page.component';
 import { AngularDirtyStateHomePageComponent } from './features/packages/angular/angular-dirty-state/angular-dirty-state-home-page.component';
 import { DirtyStateDemoPageComponent } from './features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component';
 import { AngularTableStateHomePageComponent } from './features/packages/angular/angular-table-state/angular-table-state-home-page.component';
@@ -219,6 +221,16 @@ export const routes: Routes = [
     path: 'dotnet/hexguard-validation-contracts',
     component: DotnetValidationContractsHubPageComponent,
     title: 'HexGuard.ValidationContracts Package Hub',
+  },
+  {
+    path: 'packages/angular-design-tokens',
+    component: AngularDesignTokensHomePageComponent,
+    title: 'Angular Design Tokens Demos',
+  },
+  {
+    path: 'packages/angular-design-tokens/demo',
+    component: DesignTokensDemoPageComponent,
+    title: 'Design Tokens Demo',
   },
   {
     path: 'packages/angular-url-state',
@@ -417,7 +429,8 @@ export const routes: Routes = [
     component: NavigationPendingDemoPageComponent,
     title: 'Navigation Pending Demo',
     canDeactivate: [slowDeactivateGuard(2500)],
-  },  {
+  },
+  {
     path: 'packages/angular-click-outside',
     component: AngularClickOutsideHomePageComponent,
     title: 'Angular Click Outside Demos',
@@ -967,4 +980,3 @@ export const routes: Routes = [
     redirectTo: '',
   },
 ];
-

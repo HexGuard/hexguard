@@ -61,9 +61,7 @@ describe('TokenThemeLayer', () => {
     layer.syncToDom();
 
     if (typeof document !== 'undefined') {
-      const value = document.documentElement.style.getPropertyValue(
-        '--hexguard-color-surface',
-      );
+      const value = document.documentElement.style.getPropertyValue('--hexguard-color-surface');
       expect(value).toBe('#1a1a1a');
     }
   });

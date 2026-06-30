@@ -6,11 +6,7 @@
  * and per-theme override layers.
  */
 export { defineTokens } from './lib/define-tokens';
-export type {
-  TokenRegistry,
-  TokenDefinition,
-  FlatTokens,
-} from './lib/define-tokens';
+export type { TokenRegistry, TokenDefinition, FlatTokens } from './lib/define-tokens';
 export { syncTokensToRoot, unsyncTokensFromRoot } from './lib/css-sync';
 export type { SyncOptions } from './lib/css-sync';
 export { injectTokens } from './lib/inject-tokens';

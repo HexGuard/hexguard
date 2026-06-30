@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { defineTokens, injectTokens, syncTokensToRoot, tokenAliases, TokenThemeLayer } from '@hexguard/angular-design-tokens';
+import {
+  defineTokens,
+  injectTokens,
+  syncTokensToRoot,
+  tokenAliases,
+  TokenThemeLayer,
+} from '@hexguard/angular-design-tokens';
 import { ANGULAR_DESIGN_TOKENS_DEMO } from '../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../shared/components/demo-navigation-strip.component';

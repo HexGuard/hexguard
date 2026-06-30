@@ -106,3 +106,78 @@ describe('injectUploadState', () => {
     expect(upload.progress()).toBeGreaterThanOrEqual(0);
   });
 });
+
+describe('injectUploadState with custom sender', () => {
+  it('should use sender instead of XHR', async () => {
+    const sender = vi.fn().mockResolvedValue({ success: true });
+    const upload = TestBed.runInInjectionContext(() =>
+      injectUploadState({ url: '/test', sender }),
+    );
+
+    const file = new File(['data'], 'test.txt');
+    upload.upload(file);
+    expect(sender).toHaveBeenCalledTimes(1);
+    expect(sender).toHaveBeenCalledWith(
+      expect.objectContaining({ file }),
+      expect.any(Function),
+    );
+  });
+
+  it('should mark item completed on sender resolve', async () => {
+    const sender = vi.fn().mockResolvedValue({ id: 'resp-1' });
+    const upload = TestBed.runInInjectionContext(() =>
+      injectUploadState({ url: '/test', sender }),
+    );
+
+    const file = new File(['data'], 'test.txt');
+    upload.upload(file);
+
+    // Wait for microtask to process the resolved promise
+    await Promise.resolve();
+    await Promise.resolve();
+
+    const item = upload.queue()[0];
+    expect(item.status).toBe('completed');
+    expect(item.progress).toBe(100);
+    expect(item.response).toEqual({ id: 'resp-1' });
+  });
+
+  it('should mark item failed on sender reject', async () => {
+    const sender = vi.fn().mockRejectedValue(new Error('Upload failed'));
+    const upload = TestBed.runInInjectionContext(() =>
+      injectUploadState({ url: '/test', sender }),
+    );
+
+    const file = new File(['data'], 'test.txt');
+    upload.upload(file);
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    const item = upload.queue()[0];
+    expect(item.status).toBe('failed');
+    expect(item.error).toBe('Upload failed');
+  });
+
+  it('should report progress via callback', async () => {
+    let progressCallback!: (pct: number) => void;
+    const sender = vi.fn().mockImplementation((_item: unknown, onProgress: (pct: number) => void) => {
+      progressCallback = onProgress;
+      return new Promise((r) => setTimeout(r, 100));
+    });
+
+    const upload = TestBed.runInInjectionContext(() =>
+      injectUploadState({ url: '/test', sender }),
+    );
+
+    const file = new File(['data'], 'test.txt');
+    upload.upload(file);
+
+    // Simulate progress
+    expect(upload.queue()[0].progress).toBe(0);
+    progressCallback!(50);
+    expect(upload.queue()[0].progress).toBe(50);
+    progressCallback!(100);
+    expect(upload.queue()[0].progress).toBe(100);
+  });
+});

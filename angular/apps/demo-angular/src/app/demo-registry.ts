@@ -954,6 +954,8 @@ export const ANGULAR_DESIGN_TOKENS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_DESIGN_TOKENS_DEMO],
 };
 
+const ANGULAR_DESIGN_TOKENS_CATALOG = getGeneratedCurrentPackage('angular-design-tokens');
+const ANGULAR_DESIGN_TOKENS_DOCS = ANGULAR_DESIGN_TOKENS_CATALOG.docsLinks;
 const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
 const ANGULAR_DEBOUNCE_DOCS = ANGULAR_DEBOUNCE_CATALOG.docsLinks;
 
@@ -1317,9 +1319,24 @@ export const ANGULAR_RESOURCE_DEMO: DemoPageEntry = {
   legacyRoute: '/resource',
   label: 'Resource',
   title: 'Cached, retry, and deduplicated resource helpers',
-  description: 'Demonstrates cachedResource() with TTL and stale-while-revalidate, retryResource() with exponential backoff, and deduplicatedResource() for sharing in-flight requests.',
-  docsLinks: [{ label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-resource/README.md' }, { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-resource.md' }],
-  codeSample: { snippetId: 'angular-resource/demo', label: 'Resource demo source', description: 'Source code for the resource demo component demonstrating caching, retry, and dedup.' },
+  description:
+    'Demonstrates cachedResource() with TTL and stale-while-revalidate, retryResource() with exponential backoff, and deduplicatedResource() for sharing in-flight requests.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-resource/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-resource.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-resource/demo',
+    label: 'Resource demo source',
+    description:
+      'Source code for the resource demo component demonstrating caching, retry, and dedup.',
+  },
 };
 
 export const ANGULAR_UPLOAD_STATE_DEMO: DemoPageEntry = {
@@ -1329,9 +1346,23 @@ export const ANGULAR_UPLOAD_STATE_DEMO: DemoPageEntry = {
   legacyRoute: '/upload-state',
   label: 'Upload State',
   title: 'File upload queue with progress, cancel, and retry',
-  description: 'Demonstrates injectUploadState() with queue, per-file progress, overall progress, cancel, retry, and clear operations.',
-  docsLinks: [{ label: 'Package README', href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-upload-state/README.md' }, { label: 'Deep package notes', href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-upload-state.md' }],
-  codeSample: { snippetId: 'angular-upload-state/demo', label: 'Upload state demo source', description: 'Source code for the upload state demo component.' },
+  description:
+    'Demonstrates injectUploadState() with queue, per-file progress, overall progress, cancel, retry, and clear operations.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-upload-state/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-upload-state.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-upload-state/demo',
+    label: 'Upload state demo source',
+    description: 'Source code for the upload state demo component.',
+  },
 };
 export const ANGULAR_CLICK_OUTSIDE_DEMO: DemoPageEntry = {
   id: 'click-outside',
@@ -2477,7 +2508,8 @@ export const DEMO_PACKAGES = [
   ANGULAR_SIGNAL_PERSIST_PACKAGE,
   ANGULAR_SIGNAL_UTILS_PACKAGE,
   ANGULAR_PREFERENCES_PACKAGE,
-  ANGULAR_HTTP_DEDUPE_PACKAGE,  ANGULAR_RESOURCE_PACKAGE,
+  ANGULAR_HTTP_DEDUPE_PACKAGE,
+  ANGULAR_RESOURCE_PACKAGE,
   ANGULAR_UPLOAD_STATE_PACKAGE,
   ANGULAR_RECENTLY_VIEWED_PACKAGE,
   ANGULAR_FORM_UTILS_PACKAGE,
@@ -2963,7 +2995,3 @@ export function getDotnetPackage(packageId: string): DotnetPackageEntry | undefi
 export function getDotnetDemoPage(pageId: string): DotnetDemoPageEntry | undefined {
   return DOTNET_PACKAGES.flatMap((pkg) => pkg.demos).find((entry) => entry.id === pageId);
 }
-
-
-
-

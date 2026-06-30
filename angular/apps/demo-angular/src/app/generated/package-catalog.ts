@@ -411,6 +411,51 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-design-tokens',
+    packageName: '@hexguard/angular-design-tokens',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless design token registry for Angular — typed token definitions, CSS custom property synchronization, signal-based token access, aliasing, and theme layers.',
+    detail:
+      'Provides defineTokens() for typed token definitions with recursive flattening, syncTokensToRoot() for CSS custom property output, injectTokens() for signal-based access, tokenAliases() for semantic mapping, and TokenThemeLayer for per-theme overrides.',
+    installCommand: 'pnpm add @hexguard/angular-design-tokens @hexguard/angular-color',
+    featureHighlights: [
+      'Typed token definitions with recursive flattening to dot-separated paths.',
+      'Automatic CSS custom property sync to :root with cleanup support.',
+      'Signal-based token access via injectTokens() for reactive UI binding.',
+      'Semantic token aliasing with circular-detection safety.',
+      'Theme-specific override layers via TokenThemeLayer.',
+    ],
+    bestFitScenarios: [
+      'Design systems that need a single source of truth for design values.',
+      'Angular apps that want CSS custom properties generated from typed token definitions.',
+      'Multi-theme applications needing per-theme token override layers.',
+      'Teams standardizing spacing, color, typography, and radius tokens across components.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless design token primitive for Angular apps.',
+      'It focuses on typed definitions, CSS custom property output, signal access, and a validated publish surface across docs, demos, and package artifacts.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-design-tokens',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-design-tokens/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-design-tokens.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-debounce',
     packageName: '@hexguard/angular-debounce',
     category: 'Utilities',

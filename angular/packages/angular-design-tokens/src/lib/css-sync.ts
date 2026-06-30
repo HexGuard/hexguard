@@ -23,10 +23,7 @@ const CSS_PROP_PREFIX = '--';
  * // Sets: --hexguard-color-primary-500: #3b82f6 on <html>
  * ```
  */
-export function syncTokensToRoot(
-  registry: TokenRegistry,
-  options?: SyncOptions,
-): void {
+export function syncTokensToRoot(registry: TokenRegistry, options?: SyncOptions): void {
   if (typeof document === 'undefined') return;
 
   const target = options?.target ?? document.documentElement;
@@ -46,10 +43,7 @@ export function syncTokensToRoot(
  * unsyncTokensFromRoot(registry);
  * ```
  */
-export function unsyncTokensFromRoot(
-  registry: TokenRegistry,
-  options?: SyncOptions,
-): void {
+export function unsyncTokensFromRoot(registry: TokenRegistry, options?: SyncOptions): void {
   if (typeof document === 'undefined') return;
 
   const target = options?.target ?? document.documentElement;

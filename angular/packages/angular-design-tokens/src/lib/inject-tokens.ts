@@ -1,10 +1,4 @@
-import {
-  computed,
-  effect,
-  type Signal,
-  inject,
-  DestroyRef,
-} from '@angular/core';
+import { computed, effect, type Signal, inject, DestroyRef } from '@angular/core';
 import type { TokenRegistry } from './define-tokens';
 import { syncTokensToRoot, unsyncTokensFromRoot } from './css-sync';
 

@@ -268,8 +268,10 @@
     readmePath: 'angular/packages/angular-design-tokens/README.md',
     deepDivePath: 'docs/packages/angular-design-tokens.md',
     repositoryPath: 'angular/packages/angular-design-tokens',
-    summary: 'Headless design token registry for Angular — typed token definitions, CSS custom property synchronization, signal-based token access, aliasing, and theme layers.',
-    detail: 'Provides defineTokens() for typed token definitions with recursive flattening, syncTokensToRoot() for CSS custom property output, injectTokens() for signal-based access, tokenAliases() for semantic mapping, and TokenThemeLayer for per-theme overrides.',
+    summary:
+      'Headless design token registry for Angular — typed token definitions, CSS custom property synchronization, signal-based token access, aliasing, and theme layers.',
+    detail:
+      'Provides defineTokens() for typed token definitions with recursive flattening, syncTokensToRoot() for CSS custom property output, injectTokens() for signal-based access, tokenAliases() for semantic mapping, and TokenThemeLayer for per-theme overrides.',
     installCommand: 'pnpm add @hexguard/angular-design-tokens @hexguard/angular-color',
     featureHighlights: [
       'Typed token definitions with recursive flattening to dot-separated paths.',
@@ -437,7 +439,8 @@
       'This package provides two surfaces â€” one injectable and one directive â€” for click-outside detection.',
       'It uses capture-phase pointerdown events for reliable outside-click detection, with zero runtime dependencies beyond Angular core and tslib.',
     ],
-  },  {
+  },
+  {
     id: 'angular-resource',
     packageName: '@hexguard/angular-resource',
     status: 'Available',
@@ -446,12 +449,25 @@
     readmePath: 'angular/packages/angular-resource/README.md',
     deepDivePath: 'docs/packages/angular-resource.md',
     repositoryPath: 'angular/packages/angular-resource',
-    summary: 'Helper utilities for Angular 22+ resource() API: in-memory caching with TTL, exponential-backoff retry, and request deduplication.',
-    detail: 'Extends Angular 22 resource() with production-ready patterns: in-memory cache with configurable TTL and stale-while-revalidate, exponential-backoff retry for transient failures, and request deduplication for concurrent identical fetches.',
+    summary:
+      'Helper utilities for Angular 22+ resource() API: in-memory caching with TTL, exponential-backoff retry, and request deduplication.',
+    detail:
+      'Extends Angular 22 resource() with production-ready patterns: in-memory cache with configurable TTL and stale-while-revalidate, exponential-backoff retry for transient failures, and request deduplication for concurrent identical fetches.',
     installCommand: 'pnpm add @hexguard/angular-resource',
-    featureHighlights: ['cachedResource() with configurable TTL and stale-while-revalidate.', 'retryResource() with exponential backoff up to configurable max retries.', 'deduplicatedResource() sharing in-flight promises for identical requests.'],
-    bestFitScenarios: ['Data fetching where the same resource is accessed from multiple components.', 'APIs with transient failures where automatic retry improves UX.', 'Search or list pages where debouncing still produces duplicate requests.'],
-    statusNoteParagraphs: ['Wraps Angular 22 resource() internally and returns ResourceRef<T | undefined> for a familiar API.', 'No runtime dependencies beyond @angular/core and tslib.'],
+    featureHighlights: [
+      'cachedResource() with configurable TTL and stale-while-revalidate.',
+      'retryResource() with exponential backoff up to configurable max retries.',
+      'deduplicatedResource() sharing in-flight promises for identical requests.',
+    ],
+    bestFitScenarios: [
+      'Data fetching where the same resource is accessed from multiple components.',
+      'APIs with transient failures where automatic retry improves UX.',
+      'Search or list pages where debouncing still produces duplicate requests.',
+    ],
+    statusNoteParagraphs: [
+      'Wraps Angular 22 resource() internally and returns ResourceRef<T | undefined> for a familiar API.',
+      'No runtime dependencies beyond @angular/core and tslib.',
+    ],
   },
   {
     id: 'angular-upload-state',
@@ -462,12 +478,25 @@
     readmePath: 'angular/packages/angular-upload-state/README.md',
     deepDivePath: 'docs/packages/angular-upload-state.md',
     repositoryPath: 'angular/packages/angular-upload-state',
-    summary: 'File upload lifecycle state for Angular: queue management, progress tracking, cancellation, and retry via signal-based API.',
-    detail: 'Manages file upload lifecycle state with XMLHttpRequest-based progress tracking, queue management, per-item cancellation via xhr.abort(), retry by recreating uploads from failed data, and aggregate progress signals.',
+    summary:
+      'File upload lifecycle state for Angular: queue management, progress tracking, cancellation, and retry via signal-based API.',
+    detail:
+      'Manages file upload lifecycle state with XMLHttpRequest-based progress tracking, queue management, per-item cancellation via xhr.abort(), retry by recreating uploads from failed data, and aggregate progress signals.',
     installCommand: 'pnpm add @hexguard/angular-upload-state',
-    featureHighlights: ['Per-file progress tracking with overall progress signal (0-100%).', 'Cancel and retry individual uploads.', 'maxFileSize client-side validation and single/multi-file modes.'],
-    bestFitScenarios: ['Document upload screens with progress bars and cancel buttons.', 'Image upload widgets that need retry on failure.', 'Attachment workflows across forms and dialogs.'],
-    statusNoteParagraphs: ['Uses XMLHttpRequest for reliable upload.onprogress tracking across all browsers.', 'Headless state — no UI dependencies, compose with any template.'],
+    featureHighlights: [
+      'Per-file progress tracking with overall progress signal (0-100%).',
+      'Cancel and retry individual uploads.',
+      'maxFileSize client-side validation and single/multi-file modes.',
+    ],
+    bestFitScenarios: [
+      'Document upload screens with progress bars and cancel buttons.',
+      'Image upload widgets that need retry on failure.',
+      'Attachment workflows across forms and dialogs.',
+    ],
+    statusNoteParagraphs: [
+      'Uses XMLHttpRequest for reliable upload.onprogress tracking across all browsers.',
+      'Headless state — no UI dependencies, compose with any template.',
+    ],
   },
   {
     id: 'angular-clipboard',
@@ -2130,4 +2159,3 @@ export const roadmapPackages = [
     showOnSiteHome: false,
   },
 ];
-

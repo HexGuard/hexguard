@@ -18,6 +18,7 @@ another.
 | `@hexguard/angular-permissions`         | Released    | Headless capability and role evaluation for Angular routes, templates, and feature code.                                                                                                                                                      | [Deep Dive](angular-permissions.md), [npm-facing README](../../angular/packages/angular-permissions/README.md), [Demo runbook](../demo/README.md)                  |
 | `HexGuard.Blazor.DebouncedInput`        | Available   | Headless debounced value primitive for Blazor â€” delay value propagation with configurable trailing, leading, and leading+trailing modes.                                                                                                    | [Deep Dive](hexguard-blazor-debounced-input.md), [npm-facing README](../../dotnet/src/HexGuard.Blazor.DebouncedInput/README.md), [Demo runbook](../demo/README.md) |
 | `HexGuard.ReferenceData`                | Released    | Typed reference-data catalog contracts and validation helpers for .NET applications.                                                                                                                                                          | [Deep Dive](hexguard-reference-data.md), [npm-facing README](../../dotnet/src/HexGuard.ReferenceData/README.md), [Demo runbook](../demo/README.md)                 |
+| `@hexguard/angular-design-tokens`       | Available   | Headless design token registry for Angular — typed token definitions, CSS custom property synchronization, signal-based token access, aliasing, and theme layers.                                                                             | [Deep Dive](angular-design-tokens.md), [npm-facing README](../../angular/packages/angular-design-tokens/README.md), [Demo runbook](../demo/README.md)              |
 | `@hexguard/angular-debounce`            | Released    | Debounced value signal primitive for Angular: wraps a source signal and produces a throttled output with configurable leading/trailing edge behavior.                                                                                         | [Deep Dive](angular-debounce.md), [npm-facing README](../../angular/packages/angular-debounce/README.md), [Demo runbook](../demo/README.md)                        |
 | `@hexguard/angular-breakpoint-observer` | Released    | Signal-based reactive breakpoint detection for Angular: wraps window.matchMedia into typed breakpoint signals with above/below/active/matches helpers.                                                                                        | [Deep Dive](angular-breakpoint-observer.md), [npm-facing README](../../angular/packages/angular-breakpoint-observer/README.md), [Demo runbook](../demo/README.md)  |
 | `@hexguard/angular-visibility`          | Released    | Document and element visibility tracking for Angular: tab-hidden detection, idle-timeout, user-activity signals, and IntersectionObserver-based element visibility.                                                                           | [Deep Dive](angular-visibility.md), [npm-facing README](../../angular/packages/angular-visibility/README.md), [Demo runbook](../demo/README.md)                    |
@@ -153,6 +154,16 @@ Status: Released
 This package is the first .NET library in the HexGuard catalog and anchors the backend side of the reference-data story.
 
 It focuses on explicit catalog contracts, validation-on-construct patterns, and a shared SampleApi that proves end-to-end integration with the Angular lookups package.
+
+<a id="package-angular-design-tokens"></a>
+
+### `@hexguard/angular-design-tokens`
+
+Status: Available
+
+This package is available as a headless design token primitive for Angular apps.
+
+It focuses on typed definitions, CSS custom property output, signal access, and a validated publish surface across docs, demos, and package artifacts.
 
 <a id="package-angular-debounce"></a>
 

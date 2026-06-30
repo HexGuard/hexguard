@@ -1,10 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { defineTokens } from './define-tokens';
-import {
-  syncTokensToRoot,
-  unsyncTokensFromRoot,
-  tokenPathToCssProp,
-} from './css-sync';
+import { syncTokensToRoot, unsyncTokensFromRoot, tokenPathToCssProp } from './css-sync';
 
 describe('css-sync', () => {
   describe('tokenPathToCssProp', () => {
@@ -19,9 +15,7 @@ describe('css-sync', () => {
     });
 
     it('handles custom prefix', () => {
-      expect(tokenPathToCssProp('myapp', 'spacing.lg')).toBe(
-        '--myapp-spacing-lg',
-      );
+      expect(tokenPathToCssProp('myapp', 'spacing.lg')).toBe('--myapp-spacing-lg');
     });
   });
 
@@ -42,12 +36,8 @@ describe('css-sync', () => {
       syncTokensToRoot(tokens);
 
       const styles = getComputedStyle(document.documentElement);
-      expect(styles.getPropertyValue('--hexguard-color-primary-500').trim()).toBe(
-        '#3b82f6',
-      );
-      expect(styles.getPropertyValue('--hexguard-color-neutral-100').trim()).toBe(
-        '#f5f5f5',
-      );
+      expect(styles.getPropertyValue('--hexguard-color-primary-500').trim()).toBe('#3b82f6');
+      expect(styles.getPropertyValue('--hexguard-color-neutral-100').trim()).toBe('#f5f5f5');
     });
 
     it('unsyncs tokens removes CSS custom properties', () => {
@@ -63,9 +53,7 @@ describe('css-sync', () => {
       const div = document.createElement('div');
       syncTokensToRoot(tokens, { target: div });
 
-      expect(div.style.getPropertyValue('--hexguard-color-primary-500')).toBe(
-        '#3b82f6',
-      );
+      expect(div.style.getPropertyValue('--hexguard-color-primary-500')).toBe('#3b82f6');
     });
 
     it('is a no-op when document is unavailable', () => {
