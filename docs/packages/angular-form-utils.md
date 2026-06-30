@@ -20,6 +20,7 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 - `formDiff(initial, current)` — Deep partial diff between two form value snapshots.
 - `IsInvalidPipe` — `| isInvalid` pipe: `touched && invalid` in templates.
 - `FormErrorPipe` — `| formError` pipe: extract all or specific validation errors by key.
+- `ShowFormErrorDirective` — `*showFormError` structural directive: shows content only when control is touched and invalid, exposes errors as context. Subscribes to `valueChanges`/`statusChanges` for auto-update.
 
 ## Assessment
 

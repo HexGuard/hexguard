@@ -2073,6 +2073,7 @@ export const GENERATED_CURRENT_PACKAGES = [
       'formDiff() — deep partial diff between two form value snapshots.',
       'IsInvalidPipe — | isInvalid template pipe for touched && invalid checks.',
       'FormErrorPipe — | formError template pipe for extracting validation errors by key.',
+      'ShowFormErrorDirective — *showFormError structural directive for touched && invalid conditional display.',
     ],
     bestFitScenarios: [
       'Confirm-password and confirm-email validation patterns.',

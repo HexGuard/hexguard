@@ -72,13 +72,13 @@
     <!-- aggregateFormErrors demo -->
     <fieldset class="demo-fieldset">
       <legend>aggregateFormErrors</legend>
-      <p class="demo-hint">Fill in fields and trigger validation to see aggregated errors below.</p>
+      <p class="demo-hint">Fill in fields to see aggregated errors update live below.</p>
       <div [formGroup]="errorForm">
-        <label>Name (required): <input formControlName="name" (blur)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-name-input" /></label>
-        <label>Email (required, valid): <input formControlName="email" (blur)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-email-input" /></label>
+        <label>Name (required): <input formControlName="name" (input)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-name-input" /></label>
+        <label>Email (required, valid): <input formControlName="email" (input)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-email-input" /></label>
         <fieldset class="demo-nested">
           <legend>Address (nested)</legend>
-          <label>Street (required): <input formControlName="address.street" (blur)="errorForm.get('address.street')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-street-input" /></label>
+          <label>Street (required): <input formControlName="address.street" (input)="errorForm.get('address.street')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-street-input" /></label>
         </fieldset>
       </div>
       <pre class="demo-errors-json" data-testid="errors-json">{{ aggregateFormErrors(errorForm) | json }}</pre>
@@ -196,6 +196,23 @@
         }
       </div>
       <p class="demo-hint">Pipe usage: <code>{{ pipeUsage }}</code></p>
+    </fieldset>
+
+    <!-- showFormError directive demo -->
+    <fieldset class="demo-fieldset">
+      <legend>showFormError Directive</legend>
+      <p class="demo-hint">Structural directive that shows content only when the control is touched and invalid. Error context is exposed via <code>let errors</code>.</p>
+      <div [formGroup]="errorForm">
+        <label>Name (required):
+          <input formControlName="name" (input)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="dir-name-input" />
+        </label>
+        <p *showFormError="errorForm.get('name'); let err" class="demo-error" data-testid="dir-name-error">Name is invalid: {{ err | json }}</p>
+
+        <label>Email (required, valid email):
+          <input formControlName="email" (input)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="dir-email-input" />
+        </label>
+        <p *showFormError="errorForm.get('email'); let err" class="demo-error" data-testid="dir-email-error">Email errors: {{ err | json }}</p>
+      </div>
     </fieldset>
   </article>
   <demo-inspector-panel demoAside panelTestId="form-utils-inspector-panel" title="Form Utils snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="form-utils-snapshot-json" codeTestId="form-utils-code-sample" />

@@ -1,4 +1,5 @@
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './cross-field-validators';
@@ -7,6 +8,7 @@ import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
 import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
 import { controlSignal, isControlInvalid, formDiff } from './form-control-utils';
 import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
+import { ShowFormErrorDirective } from './form-directives';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -597,5 +599,52 @@ describe('FormErrorPipe', () => {
     const ctrl = new FormControl('', [Validators.required]);
     ctrl.updateValueAndValidity();
     expect(pipe.transform(ctrl, 'email')).toBeNull();
+  });
+});
+
+describe('ShowFormErrorDirective', () => {
+  @Component({
+    template: ` <p *showFormError="control; let errors" data-testid="error-block">{{ errors | json }}</p> `,
+    standalone: true,
+    imports: [ShowFormErrorDirective, JsonPipe],
+  })
+  class TestHostComponent {
+    readonly control = new FormControl('', [Validators.required]);
+  }
+
+  function setup() {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    return fixture;
+  }
+
+  it('should not show content when control is valid', () => {
+    const fixture = setup();
+    fixture.componentInstance.control.setValue('hello');
+    fixture.componentInstance.control.markAsTouched();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-testid="error-block"]')).toBeNull();
+  });
+
+  it('should show content when control is touched and invalid', () => {
+    const fixture = setup();
+    fixture.componentInstance.control.markAsTouched();
+    fixture.componentInstance.control.updateValueAndValidity();
+    fixture.detectChanges();
+    const el = fixture.nativeElement.querySelector('[data-testid="error-block"]');
+    expect(el).not.toBeNull();
+    expect(el.textContent).toContain('required');
+  });
+
+  it('should hide content when control becomes valid after being invalid', () => {
+    const fixture = setup();
+    fixture.componentInstance.control.markAsTouched();
+    fixture.componentInstance.control.updateValueAndValidity();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-testid="error-block"]')).not.toBeNull();
+
+    fixture.componentInstance.control.setValue('now valid');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-testid="error-block"]')).toBeNull();
   });
 });

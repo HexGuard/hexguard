@@ -6,3 +6,4 @@ export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayVal
 export type { FormArrayDirtyState } from './lib/form-array';
 export { controlSignal, isControlInvalid, formDiff } from './lib/form-control-utils';
 export { IsInvalidPipe, FormErrorPipe } from './lib/form-pipes';
+export { ShowFormErrorDirective } from './lib/form-directives';

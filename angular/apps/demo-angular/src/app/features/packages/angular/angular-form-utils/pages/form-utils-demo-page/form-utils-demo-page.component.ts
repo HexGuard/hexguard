@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff, IsInvalidPipe, FormErrorPipe } from '@hexguard/angular-form-utils';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff, IsInvalidPipe, FormErrorPipe, ShowFormErrorDirective } from '@hexguard/angular-form-utils';
 import { ANGULAR_FORM_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -14,7 +14,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   selector: 'demo-form-utils-demo-page',
   templateUrl: './form-utils-demo-page.component.html',
   styleUrl: './form-utils-demo-page.component.css',
-  imports: [DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent, DemoStatusStripComponent, ReactiveFormsModule, JsonPipe, IsInvalidPipe, FormErrorPipe],
+  imports: [DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent, DemoStatusStripComponent, ReactiveFormsModule, JsonPipe, IsInvalidPipe, FormErrorPipe, ShowFormErrorDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormUtilsDemoPageComponent {
@@ -57,6 +57,14 @@ export class FormUtilsDemoPageComponent {
       street: new FormControl('', [Validators.required]),
     }),
   });
+
+  /** Bumped on every errorForm value change so snapshotJson recomputes. */
+  private readonly _errorVersion = signal(0);
+
+  constructor() {
+    this.errorForm.valueChanges.subscribe(() => this._errorVersion.update(v => v + 1));
+    this.errorForm.statusChanges.subscribe(() => this._errorVersion.update(v => v + 1));
+  }
 
   protected readonly aggregateFormErrors = aggregateFormErrors;
 
@@ -123,8 +131,9 @@ export class FormUtilsDemoPageComponent {
     }
   }
 
-  protected readonly snapshotJson = computed(() =>
-    formatSnapshot({
+  protected readonly snapshotJson = computed(() => {
+    this._errorVersion(); // Track form changes for aggregateFormErrors
+    return formatSnapshot({
       passwordMatch: this.passwordForm.valid ? '✅' : this.passwordForm.errors?.['fieldsEqual']?.message,
       emailDiff: this.emailForm.valid ? '✅' : this.emailForm.errors?.['fieldsNotEqual']?.message,
       contactErrors: this.contactForm.valid ? '✅' : Object.keys(this.contactForm.errors ?? {}),
@@ -135,7 +144,8 @@ export class FormUtilsDemoPageComponent {
       arrayValues: this.tagArray.value,
       arrayDirty: this.arrayDirty.isDirty(),
       arrayItemStates: this.arrayDirty.itemStates(),
-    }));
+    });
+  });
 
   protected checkUsername(): void {
     const ctrl = this.asyncForm.get('username');
