@@ -94,6 +94,22 @@ describe('injectStorage', () => {
       });
     });
 
+    it('calls onUpgrade to migrate on version mismatch', () => {
+      store.set('prefs', JSON.stringify({ _value: { oldField: 'hello' }, _v: 1 }));
+
+      TestBed.runInInjectionContext(() => {
+        const s = injectStorage('prefs', {
+          defaultValue: { newField: '' },
+          version: 2,
+          onUpgrade(raw, fromVersion) {
+            return { newField: `${(raw as Record<string, unknown>)['oldField']} (migrated from v${fromVersion})` };
+          },
+        });
+        expect(s.value()).toEqual({ newField: 'hello (migrated from v1)' });
+        expect(s.meta()).toBe('stored');
+      });
+    });
+
     it('treats expired TTL value as expired', () => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date('2026-06-18T00:00:00Z'));

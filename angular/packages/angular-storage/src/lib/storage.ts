@@ -16,6 +16,27 @@ export interface StorageOptions<T> {
   readonly version?: number;
 
   /**
+   * Upgrade callback invoked when the stored version differs from the expected version.
+   * Receives the raw stored value (at the old version) and the old version number,
+   * and must return the migrated value for the current version.
+   *
+   * If not provided, version mismatches fall through to `defaultValue` (lossy).
+   *
+   * @example
+   * ```ts
+   * const prefs = injectStorage('prefs', {
+   *   defaultValue: { theme: 'light' },
+   *   version: 2,
+   *   onUpgrade(raw, fromVersion) {
+   *     if (fromVersion === 1) return { theme: raw.theme ?? 'light' };
+   *     return raw;
+   *   },
+   * });
+   * ```
+   */
+  readonly onUpgrade?: (raw: Record<string, unknown>, fromVersion: number) => T;
+
+  /**
    * Time-to-live in milliseconds. When set, values older than `ttlMs` are treated as expired.
    * @default undefined (no expiry)
    */
@@ -73,7 +94,7 @@ export interface TypedStorage<T> {
  * ```
  */
 export function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage<T> {
-  const { defaultValue, version = 1, ttlMs, storage: storageType = 'local' } = options;
+  const { defaultValue, version = 1, onUpgrade, ttlMs, storage: storageType = 'local' } = options;
 
   const destroyRef = inject(DestroyRef);
   let storageApi: Storage | null = null;
@@ -103,7 +124,13 @@ export function injectStorage<T>(key: string, options: StorageOptions<T>): Typed
         const storedTimestamp: number | undefined = parsed._ts;
 
         if (storedVersion !== version) {
-          initialMeta = 'versionMismatch';
+          if (onUpgrade) {
+            const rawValue = parsed._value !== undefined ? parsed._value : {};
+            initialValue = onUpgrade(rawValue, storedVersion);
+            initialMeta = 'stored';
+          } else {
+            initialMeta = 'versionMismatch';
+          }
         } else if (
           ttlMs !== undefined &&
           storedTimestamp !== undefined &&

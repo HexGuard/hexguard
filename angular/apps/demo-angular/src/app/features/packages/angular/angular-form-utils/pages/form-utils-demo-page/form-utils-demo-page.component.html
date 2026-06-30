@@ -76,9 +76,9 @@
       <div [formGroup]="errorForm">
         <label>Name (required): <input formControlName="name" (input)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-name-input" /></label>
         <label>Email (required, valid): <input formControlName="email" (input)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-email-input" /></label>
-        <fieldset class="demo-nested">
+        <fieldset class="demo-nested" formGroupName="address">
           <legend>Address (nested)</legend>
-          <label>Street (required): <input formControlName="address.street" (input)="errorForm.get('address.street')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-street-input" /></label>
+          <label>Street (required): <input formControlName="street" (input)="errorForm.get('address.street')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-street-input" /></label>
         </fieldset>
       </div>
       <pre class="demo-errors-json" data-testid="errors-json">{{ aggregateFormErrors(errorForm) | json }}</pre>

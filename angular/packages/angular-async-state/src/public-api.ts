@@ -7,6 +7,8 @@
  */
 export { asyncAction } from './lib/async-action';
 export type { AsyncActionOptions } from './lib/async-action-options';
+export { withRetry } from './lib/async-action-retry';
+export type { RetryOptions } from './lib/async-action-retry';
 export { HexguardAsyncActionOutletComponent } from './lib/async-action-outlet.component';
 export { asyncState } from './lib/async-state';
 export type { AsyncStateOptions } from './lib/async-state-options';
