@@ -206,7 +206,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 })
 export class PaginationDemoPageComponent {
   protected readonly demo = ANGULAR_PAGINATION_DEMO;
-  protected readonly pag = injectPagination({ pageSize: 10 });
+  protected readonly pag = injectPagination({ pageSize: 10, persistPageSize: 'demo-page-size' });
   protected readonly pageRange = computed(() => {
     const total = this.pag.totalPages();
     const current = this.pag.page();

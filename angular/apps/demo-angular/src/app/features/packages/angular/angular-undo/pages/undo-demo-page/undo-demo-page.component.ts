@@ -83,6 +83,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
 
         <div class="undo-section">
           <h4 class="undo-section__title">Pending Undos</h4>
+          <p class="undo-hint">Ctrl+Z to undo the latest pending action.</p>
           @if (undo.hasPending()) {
             <div class="undo-pending-list">
               @for (action of undo.pendingUndos(); track action.id) {
@@ -207,6 +208,11 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
         font-style: italic;
         font-size: 0.9rem;
       }
+      .undo-hint {
+        color: var(--color-text-weak);
+        font-size: 0.8rem;
+        margin: 0 0 0.75rem;
+      }
       .undo-log {
         display: grid;
         gap: 0.25rem;
@@ -228,6 +234,10 @@ export class UndoDemoPageComponent {
     defaultTtlMs: 8000,
     onCommit: (action) => this.logAction(`Committed: ${action.type} ${action.data.label}`),
   });
+
+  constructor() {
+    this.undo.withKeyboardShortcuts();
+  }
 
   private readonly logEntries = signal<{ text: string; color: string }[]>([]);
 

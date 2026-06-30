@@ -87,6 +87,12 @@ export class PermissionsDemoSessionService {
   readonly context = computed<PermissionContext<string, string>>(() => ({
     capabilities: this.persona().capabilities,
     roles: this.persona().roles,
+    hierarchy: {
+      admin: ['approver', 'analyst', 'auditor'],
+      approver: ['analyst'],
+      auditor: ['analyst'],
+      analyst: ['guest'],
+    },
   }));
 
   setPersona(id: string): void {

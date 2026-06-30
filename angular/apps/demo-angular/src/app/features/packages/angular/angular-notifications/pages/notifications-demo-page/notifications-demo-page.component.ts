@@ -76,6 +76,14 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
                   {{ action.label }}
                 </button>
               }
+              <button
+                type="button"
+                class="demo-button demo-button--sm"
+                (click)="notifyGrouped()"
+                data-testid="notify-grouped"
+              >
+                3x Grouped Error
+              </button>
             </div>
 
             <div class="notify-config">
@@ -229,6 +237,7 @@ export class NotificationsDemoPageComponent {
     formatSnapshot({
       count: this.service.count(),
       types: this.service.notifications().map((n) => n.type),
+      groups: this.service.notifications().filter((n) => n.groupKey).map((n) => ({ key: n.groupKey, count: n.groupCount })),
     }),
   );
 
@@ -236,6 +245,15 @@ export class NotificationsDemoPageComponent {
     const duration = this.durationMs();
     const options = duration > 0 ? { duration } : { duration: 0 };
     this.service.show(`This is a ${type} notification.`, type, options);
+  }
+
+  notifyGrouped(): void {
+    for (let i = 0; i < 3; i++) {
+      this.service.show('Save failed due to network error.', 'error', {
+        duration: 10000,
+        groupKey: 'save-error',
+      });
+    }
   }
 
   dismissAll(): void {
