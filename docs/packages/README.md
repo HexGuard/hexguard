@@ -27,6 +27,8 @@ another.
 | `@hexguard/angular-resource`            | Available   | Helper utilities for Angular 22+ resource() API: in-memory caching with TTL, exponential-backoff retry, and request deduplication.                                                                                                            | [Deep Dive](angular-resource.md), [npm-facing README](../../angular/packages/angular-resource/README.md), [Demo runbook](../demo/README.md)                        |
 | `@hexguard/angular-upload-state`        | Available   | File upload lifecycle state for Angular: queue management, progress tracking, cancellation, and retry via signal-based API.                                                                                                                   | [Deep Dive](angular-upload-state.md), [npm-facing README](../../angular/packages/angular-upload-state/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-clipboard`           | Available   | Headless clipboard interaction state for Angular: copy, paste, permission handling, execCommand fallback, and in-memory history with signal-based primitives.                                                                                 | [Deep Dive](angular-clipboard.md), [npm-facing README](../../angular/packages/angular-clipboard/README.md), [Demo runbook](../demo/README.md)                      |
+| `@hexguard/angular-consent-manager`     | Available   | Headless consent management engine for Angular — state machine, cookie and localStorage storage, region detection, Google Consent Mode v2, audit trail, and consent-driven script loading.                                                    | [Deep Dive](angular-consent-manager.md), [npm-facing README](../../angular/packages/angular-consent-manager/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-cookie-consent`      | Available   | Cookie consent UI layer for Angular — banner, preference center, floating button, cookie declaration, directives, and pipe. Depends on @hexguard/angular-consent-manager.                                                                     | [Deep Dive](angular-cookie-consent.md), [npm-facing README](../../angular/packages/angular-cookie-consent/README.md), [Demo runbook](../demo/README.md)            |
 | `@hexguard/angular-color`               | Available   | Color manipulation utilities and headless color picker state for Angular â€” parse, convert, and manipulate colors across Hex, RGB, HSL, HSV color spaces with contrast calculation, palette generation, and signal-based color picker state. | [Deep Dive](angular-color.md), [npm-facing README](../../angular/packages/angular-color/README.md), [Demo runbook](../demo/README.md)                              |
 | `@hexguard/angular-theme`               | Available   | Theme switching state for Angular: light/dark/system modes, CSS class management, prefers-color-scheme detection, persistence, and smooth transitions with signal-based primitives.                                                           | [Deep Dive](angular-theme.md), [npm-facing README](../../angular/packages/angular-theme/README.md), [Demo runbook](../demo/README.md)                              |
 | `@hexguard/angular-undo`                | Released    | Timer-based undo stack for Angular: reversible action flows with configurable undo windows, TTL expiry, group undo, and commit-or-revert behavior.                                                                                            | [Deep Dive](angular-undo.md), [npm-facing README](../../angular/packages/angular-undo/README.md), [Demo runbook](../demo/README.md)                                |
@@ -47,18 +49,21 @@ another.
 | `@hexguard/angular-storage`             | In Progress | Typed, signal-friendly wrappers around localStorage and sessionStorage with automatic serialization, versioning, cross-tab change detection, and optional expiry for Angular apps.                                                            | [Deep Dive](angular-storage.md), [npm-facing README](../../angular/packages/angular-storage/README.md), [Demo runbook](../demo/README.md)                          |
 | `@hexguard/angular-date-utils`          | In Progress | Date-range state models, relative-time formatting, locale-aware compact notation, and date-comparison helpers that go beyond Angular built-in DatePipe for date-heavy business apps.                                                          | [Deep Dive](angular-date-utils.md), [npm-facing README](../../angular/packages/angular-date-utils/README.md), [Demo runbook](../demo/README.md)                    |
 | `@hexguard/angular-selection-state`     | Released    | Keyed selection state model for lists and tables: toggle, select-all, clear, and bulk-action enablement through a headless signal-based contract.                                                                                             | [Deep Dive](angular-selection-state.md), [npm-facing README](../../angular/packages/angular-selection-state/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-skeleton`            | Available   | Headless skeleton loading state for Angular — standardized placeholder state with configurable shapes, shimmer animation, and async-state integration.                                                                                        | [Deep Dive](angular-skeleton.md), [npm-facing README](../../angular/packages/angular-skeleton/README.md), [Demo runbook](../demo/README.md)                        |
 | `@hexguard/angular-bulk-operations`     | Released    | Angular bulk-operation service for HTTP 207 Multi-Status workflows: typed request/response contracts, per-item result tracking, and partial-failure display.                                                                                  | [Deep Dive](angular-bulk-operations.md), [npm-facing README](../../angular/packages/angular-bulk-operations/README.md), [Demo runbook](../demo/README.md)          |
 | `@hexguard/angular-route-memory`        | Available   | Route-to-route memory for Angular: save and restore list filters, active tabs, and scroll positions across navigations with signal-based primitives.                                                                                          | [Deep Dive](angular-route-memory.md), [npm-facing README](../../angular/packages/angular-route-memory/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-page-context`        | Available   | Page-level metadata for Angular: standardized titles, breadcrumbs, tabs, and contextual actions with signal-based state and route-scoped lifecycle.                                                                                           | [Deep Dive](angular-page-context.md), [npm-facing README](../../angular/packages/angular-page-context/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-scroll-state`        | Available   | Scroll position save/restore, infinite-scroll detection, scroll-spy section tracking, and imperative smooth-scroll helpers with signal-based primitives.                                                                                      | [Deep Dive](angular-scroll-state.md), [npm-facing README](../../angular/packages/angular-scroll-state/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-wizard-state`        | Available   | Multi-step flow state for Angular: linear and conditional step progression, validation gates, resume behavior, and review-or-confirm steps with signal-based primitives.                                                                      | [Deep Dive](angular-wizard-state.md), [npm-facing README](../../angular/packages/angular-wizard-state/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-command-palette`     | Available   | Headless command registry for Angular: register, search, and invoke commands with keyboard shortcuts, context-aware enablement, and palette open/close state.                                                                                 | [Deep Dive](angular-command-palette.md), [npm-facing README](../../angular/packages/angular-command-palette/README.md), [Demo runbook](../demo/README.md)          |
+| `@hexguard/angular-component-variants`  | Available   | Headless component variant system for Angular — declarative variant definitions with auto-generated CSS classes, ARIA attributes, and default resolution.                                                                                     | [Deep Dive](angular-component-variants.md), [npm-facing README](../../angular/packages/angular-component-variants/README.md), [Demo runbook](../demo/README.md)    |
 | `@hexguard/angular-dirty-state`         | Available   | Unsaved-change tracking for Angular: signal-based isDirty state with markDirty/markClean/reset and route deactivation guard integration.                                                                                                      | [Deep Dive](angular-dirty-state.md), [npm-facing README](../../angular/packages/angular-dirty-state/README.md), [Demo runbook](../demo/README.md)                  |
 | `@hexguard/angular-table-state`         | Available   | Unified table state for Angular: compose sorting, pagination, selection, and filtering into one signal-based handle.                                                                                                                          | [Deep Dive](angular-table-state.md), [npm-facing README](../../angular/packages/angular-table-state/README.md), [Demo runbook](../demo/README.md)                  |
 | `@hexguard/angular-signal-persist`      | Available   | One-call signal persistence for Angular: wrap any WritableSignal to auto-persist to localStorage/sessionStorage with TTL, migration, and cross-tab sync.                                                                                      | [Deep Dive](angular-signal-persist.md), [npm-facing README](../../angular/packages/angular-signal-persist/README.md), [Demo runbook](../demo/README.md)            |
 | `@hexguard/angular-signal-utils`        | Available   | Signal utility helpers for Angular: computedFrom, injectToggle, memoized, and throttledSignal â€” pure function primitives for common signal patterns.                                                                                        | [Deep Dive](angular-signal-utils.md), [npm-facing README](../../angular/packages/angular-signal-utils/README.md), [Demo runbook](../demo/README.md)                |
 | `@hexguard/angular-preferences`         | Available   | Typed user preferences for Angular: schema-driven key-value persistence with per-key signals backed by @hexguard/angular-storage.                                                                                                             | [Deep Dive](angular-preferences.md), [npm-facing README](../../angular/packages/angular-preferences/README.md), [Demo runbook](../demo/README.md)                  |
 | `@hexguard/angular-http-dedupe`         | Available   | Collapse duplicate concurrent HTTP requests in Angular: keyed in-flight deduplication with optional response caching.                                                                                                                         | [Deep Dive](angular-http-dedupe.md), [npm-facing README](../../angular/packages/angular-http-dedupe/README.md), [Demo runbook](../demo/README.md)                  |
+| `@hexguard/angular-icon-registry`       | Available   | Headless icon registry for Angular — centralized SVG icon management with lazy loading, caching, aliasing, sizing, and color control.                                                                                                         | [Deep Dive](angular-icon-registry.md), [npm-facing README](../../angular/packages/angular-icon-registry/README.md), [Demo runbook](../demo/README.md)              |
 | `@hexguard/angular-recently-viewed`     | Available   | Recently-viewed item tracking for Angular: configurable max, dedup, TTL expiry, and storage-backed persistence via @hexguard/angular-storage.                                                                                                 | [Deep Dive](angular-recently-viewed.md), [npm-facing README](../../angular/packages/angular-recently-viewed/README.md), [Demo runbook](../demo/README.md)          |
 | `@hexguard/angular-form-utils`          | Available   | Form utility helpers for Angular: cross-field validators, form dirty state tracking, unsaved-changes route guard, error aggregation, and async validation.                                                                                    | [Deep Dive](angular-form-utils.md), [npm-facing README](../../angular/packages/angular-form-utils/README.md), [Demo runbook](../demo/README.md)                    |
 | `@hexguard/angular-query-signal-forms`  | Available   | URL-state adapter for Angular Signal Forms: bind typed query parameters to signal form models through @hexguard/angular-url-state with sync modes and reset-on-change rules.                                                                  | [Deep Dive](angular-query-signal-forms.md), [npm-facing README](../../angular/packages/angular-query-signal-forms/README.md), [Demo runbook](../demo/README.md)    |
@@ -244,6 +249,26 @@ Status: Available
 This package is available as a headless clipboard primitive for Angular apps.
 
 It focuses on text-only clipboard, async API with fallback, and a validated publish surface across docs, demos, and package artifacts.
+
+<a id="package-angular-consent-manager"></a>
+
+### `@hexguard/angular-consent-manager`
+
+Status: Available
+
+This package is the headless engine for consent management. It provides no UI components — use @hexguard/angular-cookie-consent for the banner and preference center.
+
+IAB TCF v2.2 support is available as an optional secondary entrypoint (import from @hexguard/angular-consent-manager/tcf).
+
+<a id="package-angular-cookie-consent"></a>
+
+### `@hexguard/angular-cookie-consent`
+
+Status: Available
+
+This package provides the UI layer and depends on @hexguard/angular-consent-manager for all consent logic.
+
+The Accept All and Reject All buttons are rendered with equal visual weight to comply with EU DPA guidance.
 
 <a id="package-angular-color"></a>
 
@@ -449,6 +474,16 @@ This package is available as a headless selection state companion for Angular li
 
 It focuses on keyed selection, explicit toggle/clear semantics, and a validated publish surface across docs, demos, and package artifacts.
 
+<a id="package-angular-skeleton"></a>
+
+### `@hexguard/angular-skeleton`
+
+Status: Available
+
+This package is available as a headless skeleton-state primitive.
+
+Rendering, CSS animations, and design-token sizing are consumer responsibilities.
+
 <a id="package-angular-bulk-operations"></a>
 
 ### `@hexguard/angular-bulk-operations`
@@ -509,6 +544,16 @@ This package is available as a headless command-registry primitive for Angular a
 
 It focuses on command registration, keyboard shortcuts, search, and a validated publish surface. Palette UI helpers are deferred to a future version.
 
+<a id="package-angular-component-variants"></a>
+
+### `@hexguard/angular-component-variants`
+
+Status: Available
+
+This package is available as a headless variant-system primitive for Angular apps.
+
+It focuses on declarative definitions, signal-based class/ARIA output, and a validated publish surface.
+
 <a id="package-angular-dirty-state"></a>
 
 ### `@hexguard/angular-dirty-state`
@@ -568,6 +613,16 @@ Status: Available
 This package deduplicates by request key across all consumers.
 
 HttpInterceptorFn integration deferred to a future version.
+
+<a id="package-angular-icon-registry"></a>
+
+### `@hexguard/angular-icon-registry`
+
+Status: Available
+
+This package is available as a headless icon registry primitive.
+
+Lazy loading, caching, and design-token integration deferred to future versions.
 
 <a id="package-angular-recently-viewed"></a>
 

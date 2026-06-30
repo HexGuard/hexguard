@@ -197,3 +197,47 @@ describe('extendVariants', () => {
     );
   });
 });
+
+describe('Compound variants', () => {
+  const COMPOUND_VARIANTS = defineVariants(
+    {
+      size: { sm: 'btn-sm', lg: 'btn-lg' },
+      color: { primary: 'btn-primary', outline: 'btn-outline' },
+    },
+    {
+      compounds: [
+        { conditions: { size: 'lg', color: 'primary' }, class: 'btn-lg-primary' },
+        { conditions: { size: 'lg', color: 'outline' }, class: 'btn-lg-outline' },
+      ],
+    },
+  );
+
+  it('adds compound class when all conditions match', () => {
+    TestBed.runInInjectionContext(() => {
+      const state = injectVariantState(COMPOUND_VARIANTS);
+      state.set('size', 'lg');
+      state.set('color', 'primary');
+      expect(state.cssClasses()).toContain('btn-lg-primary');
+      expect(state.cssClasses()).toContain('btn-lg');
+      expect(state.cssClasses()).toContain('btn-primary');
+    });
+  });
+
+  it('does not add compound class when not all conditions match', () => {
+    TestBed.runInInjectionContext(() => {
+      const state = injectVariantState(COMPOUND_VARIANTS);
+      state.set('size', 'sm');
+      state.set('color', 'primary');
+      expect(state.cssClasses()).not.toContain('btn-lg-primary');
+    });
+  });
+
+  it('validates compound group references', () => {
+    expect(() =>
+      defineVariants(
+        { size: { sm: 'btn-sm' } },
+        { compounds: [{ conditions: { unknown: 'x' }, class: 'x' }] },
+      ),
+    ).toThrow(/unknown variant group/i);
+  });
+});

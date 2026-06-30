@@ -11,12 +11,22 @@ export type VariantGroups = Readonly<Record<string, VariantGroup>>;
 /** ARIA attribute mapping: `"group.variant"` → `{ "aria-*": "value" }`. */
 export type AriaMap = Readonly<Record<string, Readonly<Record<string, string>>>>;
 
+/** A compound variant rule: when all conditions match, add the given CSS class. */
+export interface CompoundVariant {
+  /** Conditions: group → variant value that must all match. */
+  readonly conditions: Readonly<Record<string, string>>;
+  /** CSS class to add when all conditions are met. */
+  readonly class: string;
+}
+
 /** Configuration for `defineVariants()`. */
 export interface VariantConfig {
   /** Default variant per group. */
   readonly defaults?: Readonly<Record<string, string>>;
   /** ARIA attributes per variant value. Key format: `"group.variant"`. */
   readonly aria?: AriaMap;
+  /** Compound variant rules: extra CSS classes when multiple conditions match. */
+  readonly compounds?: readonly CompoundVariant[];
 }
 
 /**
@@ -37,6 +47,8 @@ export interface VariantDefinition {
   readonly defaults: Readonly<Record<string, string>>;
   /** ARIA attribute map (keyed by "group.variant"). */
   readonly aria: AriaMap;
+  /** Compound variant rules. */
+  readonly compounds: readonly CompoundVariant[];
 }
 
 /**
@@ -117,9 +129,26 @@ export function defineVariants(groups: VariantGroups, config?: VariantConfig): V
     defaults[groupName] = config?.defaults?.[groupName] ?? firstKey;
   }
 
+  // Validate compounds
+  if (config?.compounds) {
+    for (const compound of config.compounds) {
+      for (const [group, variant] of Object.entries(compound.conditions)) {
+        if (!groups[group]) {
+          throw new Error(`Compound references unknown variant group "${group}".`);
+        }
+        if (!(variant in groups[group])) {
+          throw new Error(
+            `Compound value "${variant}" not found in group "${group}".`,
+          );
+        }
+      }
+    }
+  }
+
   return {
     groups,
     defaults,
     aria: config?.aria ?? {},
+    compounds: config?.compounds ?? [],
   };
 }

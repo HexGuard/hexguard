@@ -1,0 +1,156 @@
+<demo-page-layout testId="resource-demo-page">
+  <demo-navigation-strip demoNavigation testId="resource-demo-navigation" [demo]="demo" />
+
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Resource</p>
+        <h2>Cached, retry, and deduplicated resource helpers</h2>
+      </div>
+    </div>
+    <p class="demo-card__summary">
+      <code>cachedResource()</code>, <code>retryResource()</code>, and
+      <code>deduplicatedResource()</code> extend Angular 22's
+      <code>resource()</code> API with production-ready patterns — caching with
+      TTL, exponential-backoff retry, and in-flight deduplication.
+    </p>
+
+    <demo-status-strip
+      testId="resource-demo-status"
+      summary="Interactive demos for cachedResource, retryResource, and deduplicatedResource."
+      currentUrl="Angular Resource — Demo"
+      summaryTestId="resource-demo-summary"
+      urlTestId="resource-demo-url"
+    />
+  </article>
+
+  <article
+    demoPrimary
+    class="demo-card demo-card--stack"
+    data-testid="resource-playground"
+  >
+    <!-- ── cachedResource ────────────────────────────────────── -->
+    <!-- demo-snippet:start angular-resource/demo -->
+    <section class="resource-section" data-testid="resource-cache-section">
+      <div class="resource-section-header">
+        <span class="demo-hint-pill">cachedResource</span>
+        <span class="resource-subtitle">5 s TTL · stale-while-revalidate</span>
+      </div>
+
+      <div class="resource-state">
+        <span class="resource-label">Value:</span>
+        @if (cached.isLoading()) {
+          <span class="resource-loading" data-testid="cache-loading">⏳ Loading…</span>
+        } @else if (cached.error(); as err) {
+          <span class="resource-error" data-testid="cache-error">{{ err.message }}</span>
+        } @else if (cached.hasValue()) {
+          <span class="resource-value" data-testid="cache-value">{{ cached.value() }}</span>
+        } @else {
+          <span class="resource-value resource-value--empty">—</span>
+        }
+      </div>
+
+      <div class="demo-actions-row">
+        <button class="demo-button" (click)="refreshCache()" data-testid="cache-refresh-btn">
+          Refresh (new version)
+        </button>
+        <button
+          class="demo-button demo-button--ghost"
+          (click)="cached.reload()"
+          data-testid="cache-reload-btn"
+        >
+          Reload (same version)
+        </button>
+      </div>
+
+      @if (cacheFetchCount > 0) {
+        <p class="resource-hint" data-testid="cache-hint">
+          Fetcher invoked <strong>{{ cacheFetchCount }} time{{ cacheFetchCount === 1 ? '' : 's' }}</strong>.
+          Reloading within 5 s returns cached data without calling the fetcher.
+        </p>
+      }
+    </section>
+
+    <!-- ── retryResource ─────────────────────────────────────── -->
+    <section class="resource-section" data-testid="resource-retry-section">
+      <div class="resource-section-header">
+        <span class="demo-hint-pill">retryResource</span>
+        <span class="resource-subtitle">3 retries · 300 ms base delay</span>
+      </div>
+
+      <div class="resource-state">
+        <span class="resource-label">Value:</span>
+        @if (retried.isLoading()) {
+          <span class="resource-loading" data-testid="retry-loading">⏳ Loading…</span>
+        } @else if (retried.error(); as err) {
+          <span class="resource-error" data-testid="retry-error">{{ err.message }}</span>
+        } @else if (retried.hasValue()) {
+          <span class="resource-value" data-testid="retry-value">{{ retried.value() }}</span>
+        } @else {
+          <span class="resource-value resource-value--empty">—</span>
+        }
+      </div>
+
+      @if (retryAttempts > 0 && !retried.isLoading()) {
+        <p class="resource-hint" data-testid="retry-hint">
+          Fetcher ran <strong>{{ retryAttempts }} time{{ retryAttempts === 1 ? '' : 's' }}</strong>
+          (the first 2 throw, the 3rd succeeds after retry).
+        </p>
+      }
+
+      <div class="demo-actions-row">
+        <button class="demo-button" (click)="triggerRetry()" data-testid="retry-trigger-btn">
+          Fetch (fails twice, then succeeds)
+        </button>
+      </div>
+    </section>
+
+    <!-- ── deduplicatedResource ───────────────────────────────── -->
+    <section class="resource-section" data-testid="resource-dedup-section">
+      <div class="resource-section-header">
+        <span class="demo-hint-pill">deduplicatedResource</span>
+        <span class="resource-subtitle">In-flight promise sharing</span>
+      </div>
+
+      <div class="resource-state">
+        <span class="resource-label">Value:</span>
+        @if (deduped.isLoading()) {
+          <span class="resource-loading" data-testid="dedup-loading">⏳ Loading…</span>
+        } @else if (deduped.error(); as err) {
+          <span class="resource-error" data-testid="dedup-error">{{ err.message }}</span>
+        } @else if (deduped.hasValue()) {
+          <span class="resource-value" data-testid="dedup-value">{{ deduped.value() }}</span>
+        } @else {
+          <span class="resource-value resource-value--empty">—</span>
+        }
+      </div>
+
+      @if (dedupFetchCount > 0 && !deduped.isLoading()) {
+        <p class="resource-hint" data-testid="dedup-hint">
+          Fetcher ran <strong>{{ dedupFetchCount }} time{{ dedupFetchCount === 1 ? '' : 's' }}</strong>
+          — two concurrent loads shared one promise.
+        </p>
+      }
+
+      <div class="demo-actions-row">
+        <button class="demo-button" (click)="triggerDedup()" data-testid="dedup-trigger-btn">
+          Load Two (concurrent, deduped)
+        </button>
+      </div>
+    </section>
+    <!-- demo-snippet:end -->
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="resource-inspector-panel"
+    eyebrow="Reference"
+    title="Resource snapshot"
+    summary="Live state of all three resource helpers."
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="resource-snapshot-json"
+    codeTestId="resource-code-sample"
+  />
+</demo-page-layout>

@@ -1,0 +1,142 @@
+<demo-page-layout testId="skeleton-demo">
+  <demo-navigation-strip demoNavigation testId="skeleton-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Skeleton</p>
+        <h2>Headless skeleton loading state with configurable shapes and shimmer.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="skeleton-demo-status"
+      summary="8 shape variants, shimmer animation signals, and bindLoading() bridge for async-state integration."
+      currentUrl="Angular Skeleton — Demo"
+      summaryTestId="skeleton-demo-summary"
+      urlTestId="skeleton-demo-url"
+    />
+  </article>
+
+  <!-- demo-snippet:start angular-skeleton/demo-state -->
+  <!-- Shape Variant Showcase -->
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="shape-showcase">
+    <h3>Shape Variants</h3>
+
+    <div class="skeleton-grid">
+      <!-- Card -->
+      <div class="skeleton-section">
+        <h4>Card (×3, shimmer)</h4>
+        @if (cardSkeleton.isActive()) {
+          @for (i of [].constructor(cardSkeleton.count()); track i) {
+            <div class="skeleton-card" [class.skeleton--shimmer]="cardSkeleton.shimmer().active">
+              <div class="skeleton-card__image"></div>
+              <div class="skeleton-card__line skeleton-card__line--title"></div>
+              <div class="skeleton-card__line skeleton-card__line--body"></div>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- Table Row -->
+      <div class="skeleton-section">
+        <h4>Table Row (×4, shimmer)</h4>
+        @if (tableSkeleton.isActive()) {
+          <div class="skeleton-table">
+            @for (i of [].constructor(tableSkeleton.count()); track i) {
+              <div class="skeleton-row" [class.skeleton--shimmer]="tableSkeleton.shimmer().active">
+                <div class="skeleton-row__cell skeleton-row__cell--checkbox"></div>
+                <div class="skeleton-row__cell skeleton-row__cell--text"></div>
+                <div
+                  class="skeleton-row__cell skeleton-row__cell--text skeleton-row__cell--short"
+                ></div>
+                <div class="skeleton-row__cell skeleton-row__cell--badge"></div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Text -->
+      <div class="skeleton-section">
+        <h4>Text (×2, no shimmer)</h4>
+        @if (textSkeleton.isActive()) {
+          @for (i of [].constructor(textSkeleton.count()); track i) {
+            <div class="skeleton-text">
+              <div class="skeleton-text__line skeleton-text__line--long"></div>
+              <div class="skeleton-text__line skeleton-text__line--medium"></div>
+              <div class="skeleton-text__line skeleton-text__line--short"></div>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- Avatar -->
+      <div class="skeleton-section">
+        <h4>Avatar (×1, shimmer)</h4>
+        @if (avatarSkeleton.isActive()) {
+          <div
+            class="skeleton-avatar-row"
+            [class.skeleton--shimmer]="avatarSkeleton.shimmer().active"
+          >
+            <div class="skeleton-avatar-row__circle"></div>
+            <div class="skeleton-avatar-row__lines">
+              <div class="skeleton-text__line skeleton-text__line--medium"></div>
+              <div class="skeleton-text__line skeleton-text__line--short"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </article>
+
+  <!-- bindLoading Demo -->
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="loading-bridge-demo">
+    <h3>bindLoading() — Async-State Bridge</h3>
+    <p class="demo-description">
+      Click "Simulate Load" to trigger a 2-second loading state. The skeleton auto-shows/hides via
+      bindLoading().
+    </p>
+
+    <div class="loading-demo">
+      <button
+        class="demo-button"
+        (click)="simulateLoading()"
+        data-testid="btn-simulate-load"
+        [disabled]="isLoading()"
+      >
+        {{ isLoading() ? '⏳ Loading...' : 'Simulate Load' }}
+      </button>
+
+      @if (loadingSkeleton.isActive()) {
+        <div class="skeleton-table" data-testid="loading-skeleton">
+          @for (i of [].constructor(loadingSkeleton.count()); track i) {
+            <div class="skeleton-row" [class.skeleton--shimmer]="loadingSkeleton.shimmer().active">
+              <div class="skeleton-row__cell skeleton-row__cell--text"></div>
+              <div
+                class="skeleton-row__cell skeleton-row__cell--text skeleton-row__cell--short"
+              ></div>
+              <div class="skeleton-row__cell skeleton-row__cell--badge"></div>
+            </div>
+          }
+        </div>
+      }
+
+      @if (!isLoading() && !loadingSkeleton.isActive()) {
+        <div class="loaded-content" data-testid="loaded-content">
+          <p>✅ Data loaded successfully. Skeleton auto-hidden.</p>
+        </div>
+      }
+    </div>
+  </article>
+  <!-- demo-snippet:end -->
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="skeleton-inspector-panel"
+    title="Skeleton snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="skeleton-snapshot-json"
+    codeTestId="skeleton-code-sample"
+  />
+</demo-page-layout>

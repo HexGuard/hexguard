@@ -598,6 +598,7 @@
     ],
   },
   {
+    id: 'angular-color',
     packageName: '@hexguard/angular-color',
     status: 'Available',
     scope: 'Angular',

@@ -922,6 +922,51 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
 const ANGULAR_DESIGN_TOKENS_CATALOG = getGeneratedCurrentPackage('angular-design-tokens');
 const ANGULAR_DESIGN_TOKENS_DOCS = ANGULAR_DESIGN_TOKENS_CATALOG.docsLinks;
 
+// ── angular-component-variants demo entries ─────────────────
+
+const ANGULAR_COMPONENT_VARIANTS_CATALOG = getGeneratedCurrentPackage('angular-component-variants');
+const ANGULAR_COMPONENT_VARIANTS_DOCS = ANGULAR_COMPONENT_VARIANTS_CATALOG.docsLinks;
+
+export const ANGULAR_COMPONENT_VARIANTS_DEMO: DemoPageEntry = {
+  id: 'component-variants',
+  packageId: 'angular-component-variants',
+  route: '/packages/angular-component-variants/demo',
+  legacyRoute: '/component-variants',
+  label: 'Component Variants',
+  title: 'Interactive variant matrix with live CSS class and ARIA attribute preview',
+  description:
+    'Click chips to change button size, color, and state variants. See cssClasses and aria signals update in real time.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-component-variants/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-component-variants.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-component-variants/demo-state',
+    label: 'Component Variants demo source',
+    description: 'The full component variants demo source.',
+  },
+};
+
+export const ANGULAR_COMPONENT_VARIANTS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-component-variants',
+  route: '/packages/angular-component-variants',
+  label: 'Angular Component Variants',
+  title: ANGULAR_COMPONENT_VARIANTS_CATALOG.packageName,
+  description: ANGULAR_COMPONENT_VARIANTS_CATALOG.summary,
+  docsLinks: ANGULAR_COMPONENT_VARIANTS_DOCS,
+  demos: [ANGULAR_COMPONENT_VARIANTS_DEMO],
+};
+
 export const ANGULAR_DESIGN_TOKENS_DEMO: DemoPageEntry = {
   id: 'design-tokens',
   packageId: 'angular-design-tokens',
@@ -961,6 +1006,96 @@ export const ANGULAR_DESIGN_TOKENS_PACKAGE: DemoPackageEntry = {
   description: ANGULAR_DESIGN_TOKENS_CATALOG.summary,
   docsLinks: ANGULAR_DESIGN_TOKENS_DOCS,
   demos: [ANGULAR_DESIGN_TOKENS_DEMO],
+};
+
+// ── angular-icon-registry demo entries ──────────────────────
+
+const ANGULAR_ICON_REGISTRY_CATALOG = getGeneratedCurrentPackage('angular-icon-registry');
+const ANGULAR_ICON_REGISTRY_DOCS = ANGULAR_ICON_REGISTRY_CATALOG.docsLinks;
+
+export const ANGULAR_ICON_REGISTRY_DEMO: DemoPageEntry = {
+  id: 'icon-registry',
+  packageId: 'angular-icon-registry',
+  route: '/packages/angular-icon-registry/demo',
+  legacyRoute: '/icon-registry',
+  label: 'Icon Registry',
+  title: 'Interactive icon gallery with 8 icons, alias resolution, and size control',
+  description:
+    'Click any icon to inspect render data. Resize with slider. Alias table shows gear→settings, heart→favorite.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-icon-registry/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-icon-registry.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-icon-registry/demo-state',
+    label: 'Icon Registry demo source',
+    description: 'The full icon registry demo source.',
+  },
+};
+
+export const ANGULAR_ICON_REGISTRY_PACKAGE: DemoPackageEntry = {
+  id: 'angular-icon-registry',
+  route: '/packages/angular-icon-registry',
+  label: 'Angular Icon Registry',
+  title: ANGULAR_ICON_REGISTRY_CATALOG.packageName,
+  description: ANGULAR_ICON_REGISTRY_CATALOG.summary,
+  docsLinks: ANGULAR_ICON_REGISTRY_DOCS,
+  demos: [ANGULAR_ICON_REGISTRY_DEMO],
+};
+
+// ── angular-skeleton demo entries ───────────────────────────
+
+const ANGULAR_SKELETON_CATALOG = getGeneratedCurrentPackage('angular-skeleton');
+const ANGULAR_SKELETON_DOCS = ANGULAR_SKELETON_CATALOG.docsLinks;
+
+export const ANGULAR_SKELETON_DEMO: DemoPageEntry = {
+  id: 'skeleton',
+  packageId: 'angular-skeleton',
+  route: '/packages/angular-skeleton/demo',
+  legacyRoute: '/skeleton',
+  label: 'Skeleton',
+  title: 'Shape variant showcase with card, table-row, text, avatar + bindLoading() bridge',
+  description:
+    'Four shape variants with shimmer animation. Click "Simulate Load" for 2-second loading skeleton via bindLoading().',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-skeleton/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-skeleton.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-skeleton/demo-state',
+    label: 'Skeleton demo source',
+    description: 'The full skeleton demo source.',
+  },
+};
+
+export const ANGULAR_SKELETON_PACKAGE: DemoPackageEntry = {
+  id: 'angular-skeleton',
+  route: '/packages/angular-skeleton',
+  label: 'Angular Skeleton',
+  title: ANGULAR_SKELETON_CATALOG.packageName,
+  description: ANGULAR_SKELETON_CATALOG.summary,
+  docsLinks: ANGULAR_SKELETON_DOCS,
+  demos: [ANGULAR_SKELETON_DEMO],
 };
 
 const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
@@ -2053,7 +2188,8 @@ export const ANGULAR_CONSENT_MANAGER_DEMO: DemoPageEntry = {
   route: '/packages/angular-consent-manager/demo',
   legacyRoute: '/consent-manager',
   label: 'Consent Manager',
-  title: 'Headless consent engine: state machine, storage, region detection, Google Consent Mode, audit trail',
+  title:
+    'Headless consent engine: state machine, storage, region detection, Google Consent Mode, audit trail',
   description:
     'A live demo shows consent state transitions, category toggles, region selection, cookie declaration table, audit trail viewer, and real-time consent snapshot.',
   docsLinks: [
@@ -2580,6 +2716,9 @@ export const DEMO_PACKAGES = [
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
   ANGULAR_DESIGN_TOKENS_PACKAGE,
+  ANGULAR_COMPONENT_VARIANTS_PACKAGE,
+  ANGULAR_ICON_REGISTRY_PACKAGE,
+  ANGULAR_SKELETON_PACKAGE,
   ANGULAR_DIRTY_STATE_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
   ANGULAR_FEATURE_FLAGS_PACKAGE,
@@ -2859,6 +2998,30 @@ export const DOTNET_PAGINATION_HOME: DotnetDemoPageEntry = {
   ],
 };
 
+export const DOTNET_UPLOADS_HOME: DotnetDemoPageEntry = {
+  id: 'hexguard-uploads',
+  packageId: 'hexguard-uploads',
+  route: '/dotnet/uploads',
+  label: 'Uploads Library',
+  title: 'HexGuard.Uploads — upload session management for .NET APIs',
+  description:
+    'Demonstrates UploadSession, IUploadStore, and InMemoryUploadStore from the HexGuard.Uploads library, with Minimal API endpoints served via the shared SampleApi. Pairs with @hexguard/angular-upload-state.',
+  docsLinks: [
+    {
+      label: 'Source code',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Uploads',
+    },
+    {
+      label: 'Sample API',
+      href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+    },
+    {
+      label: 'Angular counterpart',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-upload-state/README.md',
+    },
+  ],
+};
+
 export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
   {
     id: 'hexguard-pagination',
@@ -3080,6 +3243,37 @@ export const DOTNET_PACKAGES: readonly DotnetPackageEntry[] = [
     ],
     demos: [],
     stackId: 'blazor',
+  },
+  {
+    id: 'hexguard-uploads',
+    route: '/dotnet/hexguard-uploads',
+    label: 'HexGuard Uploads',
+    title: 'HexGuard.Uploads',
+    nugetId: 'HexGuard.Uploads',
+    description:
+      'Upload session management for .NET APIs — UploadSession model, IUploadStore abstraction, InMemoryUploadStore, and Minimal API endpoints. Pairs with @hexguard/angular-upload-state.',
+    summary:
+      'UploadSession record, IUploadStore interface, InMemoryUploadStore, and Minimal API endpoints for file upload lifecycle (create, poll, cancel).',
+    status: 'Available',
+    docsLinks: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/src/HexGuard.Uploads',
+      },
+      {
+        label: 'Sample API',
+        href: 'https://github.com/HexGuard/hexguard/tree/main/dotnet/samples/HexGuard.SampleApi',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/hexguard-uploads.md',
+      },
+      {
+        label: 'Angular counterpart',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-upload-state/README.md',
+      },
+    ],
+    demos: [DOTNET_UPLOADS_HOME],
   },
 ];
 

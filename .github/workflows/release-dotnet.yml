@@ -11,6 +11,7 @@ on:
       - 'dotnet-pagination-v*'
       - 'dotnet-featureflags-v*'
       - 'dotnet-blazor-debouncedinput-v*'
+      - 'dotnet-uploads-v*'
   workflow_dispatch:
     inputs:
       package_id:
@@ -26,6 +27,7 @@ on:
           - HexGuard.Pagination
           - HexGuard.FeatureFlags
           - HexGuard.Blazor.DebouncedInput
+          - HexGuard.Uploads
       release_tag:
         description: 'Git tag to attach the GitHub release to when running manually'
         required: false

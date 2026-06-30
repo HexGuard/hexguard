@@ -798,6 +798,100 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-consent-manager',
+    packageName: '@hexguard/angular-consent-manager',
+    category: 'Permissions & Access',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless consent management engine for Angular — state machine, cookie and localStorage storage, region detection, Google Consent Mode v2, audit trail, and consent-driven script loading.',
+    detail:
+      'Provides provideConsentManager(config) and injectConsentManager() for managing cookie/data processing consent. Includes consent state machine (unknown→pending→granted/denied→expired), configurable categories, region-based rules (GDPR opt-in, CCPA opt-out), Google Consent Mode v2 integration, audit trail with timestamped records, and consent-gated script loading.',
+    installCommand: 'pnpm add @hexguard/angular-consent-manager',
+    featureHighlights: [
+      'Consent state machine with full lifecycle: unknown, pending, granted, denied, withdrawn, expired.',
+      'GDPR default categories (necessary, functional, analytics, marketing) and CCPA opt-out variant.',
+      'Google Consent Mode v2 integration with default and update consent signals.',
+      'Region detection via browser timezone with override support.',
+      'Consent audit trail with timestamped, exportable records.',
+      'Consent-gated script loading with block_until_consent and load_always strategies.',
+      'Cookie + localStorage dual storage for server-readable compact consent and full state.',
+    ],
+    bestFitScenarios: [
+      'Angular apps that need GDPR/ePrivacy-compliant cookie consent management.',
+      'Multi-region apps serving EU (opt-in), UK, US (opt-out), and Brazil users.',
+      'Apps using Google Tag Manager, Google Analytics 4, or Google Ads requiring Consent Mode v2.',
+      'Any Angular app needing a privacy-compliant, auditable consent framework.',
+    ],
+    statusNoteParagraphs: [
+      'This package is the headless engine for consent management. It provides no UI components — use @hexguard/angular-cookie-consent for the banner and preference center.',
+      'IAB TCF v2.2 support is available as an optional secondary entrypoint (import from @hexguard/angular-consent-manager/tcf).',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-consent-manager',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-consent-manager/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-consent-manager.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-cookie-consent',
+    packageName: '@hexguard/angular-cookie-consent',
+    category: 'Permissions & Access',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Cookie consent UI layer for Angular — banner, preference center, floating button, cookie declaration, directives, and pipe. Depends on @hexguard/angular-consent-manager.',
+    detail:
+      'Provides ready-to-use Angular components for cookie consent: banner (bottom/top/center), preference center (modal/drawer/inline), floating settings button, and filterable cookie declaration table. Includes *hexConsent structural directive and hexConsent pipe for template-level consent checks. Fully customizable via CSS custom properties.',
+    installCommand: 'pnpm add @hexguard/angular-cookie-consent',
+    featureHighlights: [
+      'Cookie consent banner with Accept All, Reject All, and Customize actions.',
+      'Preference center with granular category toggles and purpose descriptions.',
+      'Floating settings button for persistent access to preference center.',
+      'Filterable cookie declaration table for legal cookie listing.',
+      '*hexConsent structural directive for template-level consent gating.',
+      'hexConsent pipe for inline category checks in templates.',
+      'Full CSS custom property theming (10+ variables).',
+    ],
+    bestFitScenarios: [
+      'Angular apps needing a GDPR-compliant cookie consent banner.',
+      'Apps that need an interactive preference center with per-category consent toggles.',
+      'Sites requiring a cookie declaration table for transparency.',
+      'Any Angular app using @hexguard/angular-consent-manager that needs the UI layer.',
+    ],
+    statusNoteParagraphs: [
+      'This package provides the UI layer and depends on @hexguard/angular-consent-manager for all consent logic.',
+      'The Accept All and Reject All buttons are rendered with equal visual weight to comply with EU DPA guidance.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-cookie-consent',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-cookie-consent/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-cookie-consent.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-color',
     packageName: '@hexguard/angular-color',
     category: 'Utilities',
@@ -1661,6 +1755,49 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-skeleton',
+    packageName: '@hexguard/angular-skeleton',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless skeleton loading state for Angular — standardized placeholder state with configurable shapes, shimmer animation, and async-state integration.',
+    detail:
+      'Provides skeletonState() for headless skeleton signals (isActive, variant, count, shimmer) and bindLoading() for bridging to any loading signal.',
+    installCommand: 'pnpm add @hexguard/angular-skeleton',
+    featureHighlights: [
+      'Configurable shape variants: text, circle, avatar, card, table-row, and more.',
+      'Shimmer animation signal with active flag and duration.',
+      'bindLoading() bridges any Signal<boolean> to skeleton visibility.',
+      'Zero runtime deps beyond Angular core and tslib.',
+    ],
+    bestFitScenarios: [
+      'Angular apps standardizing skeleton/placeholder loading screens.',
+      'Components that want headless skeleton state without CSS or animation opinions.',
+      'Teams integrating skeleton screens with async-state loading signals.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless skeleton-state primitive.',
+      'Rendering, CSS animations, and design-token sizing are consumer responsibilities.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-skeleton',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-skeleton/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-skeleton.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-bulk-operations',
     packageName: '@hexguard/angular-bulk-operations',
     category: 'UI Infrastructure',
@@ -1921,6 +2058,50 @@ export const GENERATED_CURRENT_PACKAGES = [
     ],
   },
   {
+    id: 'angular-component-variants',
+    packageName: '@hexguard/angular-component-variants',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless component variant system for Angular — declarative variant definitions with auto-generated CSS classes, ARIA attributes, and default resolution.',
+    detail:
+      'Provides defineVariants() for declarative variant group definitions, useVariants()/injectVariantState() for signal-based CSS class and ARIA attribute generation, and extendVariants() for variant composition.',
+    installCommand: 'pnpm add @hexguard/angular-component-variants',
+    featureHighlights: [
+      'Declarative variant groups: size, color, state, etc. with CSS class mappings.',
+      'Auto-computed cssClasses signal — space-joined active class string.',
+      'ARIA attribute generation from variant configuration.',
+      'Default variant resolution per group with override support.',
+      'extendVariants() for composing variant definitions without duplication.',
+    ],
+    bestFitScenarios: [
+      'Component libraries that need consistent variant class binding.',
+      'Design systems standardizing size, color, and state variants across components.',
+      'Angular apps eliminating per-component [class.*] binding boilerplate.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless variant-system primitive for Angular apps.',
+      'It focuses on declarative definitions, signal-based class/ARIA output, and a validated publish surface.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-component-variants',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-component-variants/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-component-variants.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
     id: 'angular-dirty-state',
     packageName: '@hexguard/angular-dirty-state',
     category: 'Utilities',
@@ -2173,6 +2354,49 @@ export const GENERATED_CURRENT_PACKAGES = [
       {
         label: 'Deep package notes',
         href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-http-dedupe.md',
+      },
+      {
+        label: 'Demo runbook',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+      },
+    ],
+  },
+  {
+    id: 'angular-icon-registry',
+    packageName: '@hexguard/angular-icon-registry',
+    category: 'UI Infrastructure',
+    status: 'Available',
+    scope: 'Angular',
+    summary:
+      'Headless icon registry for Angular — centralized SVG icon management with lazy loading, caching, aliasing, sizing, and color control.',
+    detail:
+      'Provides provideIcons() for icon registration and injectIcons() for signal-based icon resolution with alias support, default sizing, and currentColor rendering.',
+    installCommand: 'pnpm add @hexguard/angular-icon-registry',
+    featureHighlights: [
+      'Centralized icon registry with typed icon names and aliases.',
+      'Signal-based icon access via injectIcons().get(name).',
+      'Alias resolution with multi-alias support.',
+      'Configurable default size and currentColor-based coloring.',
+    ],
+    bestFitScenarios: [
+      'Design systems that need centralized SVG icon management.',
+      'Angular apps standardizing icon rendering across components.',
+      'Teams wanting typed icon contracts instead of ad hoc SVG inlining.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless icon registry primitive.',
+      'Lazy loading, caching, and design-token integration deferred to future versions.',
+    ],
+    repositoryHref:
+      'https://github.com/HexGuard/hexguard/tree/main/angular/packages/angular-icon-registry',
+    docsLinks: [
+      {
+        label: 'Package README',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-icon-registry/README.md',
+      },
+      {
+        label: 'Deep package notes',
+        href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-icon-registry.md',
       },
       {
         label: 'Demo runbook',

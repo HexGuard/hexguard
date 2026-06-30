@@ -4,17 +4,17 @@
 **Version:** 0.1.0  
 **Scope:** Angular package
 
-| Category | Rating | Notes |
-|----------|--------|-------|
-| API Design | ✅ | Narrow public-api.ts, clear names, JSDoc on all exports |
-| Implementation Quality | ✅ | Signal-first, proper delegation to pagination + selection-state, no browser globals |
-| Tests | ✅ | 11 tests covering sort toggle/direction/clear, filter add/remove/clear-all, selection, resetAll, sortState computed |
-| Documentation | ✅ | README with install/quickstart/API table/scope boundaries; deep-doc with improvement matrix. Fixed: removed non-existent defaultSortColumn/URL sync docs |
-| Demo Integration | ✅ | Hub page, demo page (TS+HTML+CSS), routes, snippet entry, DemoPackageEntry in registry |
-| Package Metadata | ✅ | name, version, description, peerDeps aligned, workspace devDependencies added, publishConfig.public, MIT. Fixed: removed unused @hexguard/angular-url-state peer dep |
-| Build Output | ✅ | `pnpm build:lib:table-state` passes (builds pagination+selection-state first); `pnpm verify:package:table-state` produces valid tarball with README, LICENSE, ESM, DTS |
-| Release Workflow | ✅ | `.github/workflows/release-angular-table-state.yml` with tag pattern `angular-table-state-v*` |
-| Performance | ✅ | No unnecessary allocations; filter/sort create new objects per call (acceptable for table operations) |
+| Category               | Rating | Notes                                                                                                                                                                  |
+| ---------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API Design             | ✅     | Narrow public-api.ts, clear names, JSDoc on all exports                                                                                                                |
+| Implementation Quality | ✅     | Signal-first, proper delegation to pagination + selection-state, no browser globals                                                                                    |
+| Tests                  | ✅     | 11 tests covering sort toggle/direction/clear, filter add/remove/clear-all, selection, resetAll, sortState computed                                                    |
+| Documentation          | ✅     | README with install/quickstart/API table/scope boundaries; deep-doc with improvement matrix. Fixed: removed non-existent defaultSortColumn/URL sync docs               |
+| Demo Integration       | ✅     | Hub page, demo page (TS+HTML+CSS), routes, snippet entry, DemoPackageEntry in registry                                                                                 |
+| Package Metadata       | ✅     | name, version, description, peerDeps aligned, workspace devDependencies added, publishConfig.public, MIT. Fixed: removed unused @hexguard/angular-url-state peer dep   |
+| Build Output           | ✅     | `pnpm build:lib:table-state` passes (builds pagination+selection-state first); `pnpm verify:package:table-state` produces valid tarball with README, LICENSE, ESM, DTS |
+| Release Workflow       | ✅     | `.github/workflows/release-angular-table-state.yml` with tag pattern `angular-table-state-v*`                                                                          |
+| Performance            | ✅     | No unnecessary allocations; filter/sort create new objects per call (acceptable for table operations)                                                                  |
 
 **Overall: ✅ Pass** — All 9 categories rated pass. Package is production-ready.
 

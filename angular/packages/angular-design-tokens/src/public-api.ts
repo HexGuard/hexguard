@@ -13,3 +13,4 @@ export { injectTokens } from './lib/inject-tokens';
 export type { TokenAccess } from './lib/inject-tokens';
 export { tokenAliases } from './lib/token-aliases';
 export { TokenThemeLayer } from './lib/theme-layers';
+export { transformToken, injectScopedTokens } from './lib/token-transforms';

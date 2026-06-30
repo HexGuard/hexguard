@@ -1,0 +1,18 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { getSitePackage } from '../../../../site-catalog';
+import { PackageHubPageComponent } from '../../../../shared/components/package-hub-page.component';
+
+@Component({
+  standalone: true,
+  selector: 'demo-angular-component-variants-home-page',
+  imports: [PackageHubPageComponent],
+  template: `<demo-package-hub-page
+    [packageEntry]="packageEntry"
+    overviewTestId="package-angular-component-variants"
+    demoTestIdPrefix="package-component-variants-demo-"
+  />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AngularComponentVariantsHomePageComponent {
+  readonly packageEntry = getSitePackage('angular-component-variants');
+}

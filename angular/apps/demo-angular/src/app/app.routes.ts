@@ -139,6 +139,7 @@ import { DotnetValidationContractsHubPageComponent } from './features/packages/d
 import { DotnetCapabilitiesHubPageComponent } from './features/packages/dotnet/hexguard-capabilities/dotnet-capabilities-hub-page.component';
 import { DotnetPaginationHubPageComponent } from './features/packages/dotnet/hexguard-pagination/dotnet-hexguard-pagination-hub-page.component';
 import { DotnetPaginationDemoPageComponent } from './features/packages/dotnet/hexguard-pagination/pages/pagination-demo-page.component';
+import { DotnetUploadsHubPageComponent } from './features/packages/dotnet/hexguard-uploads/dotnet-hexguard-uploads-hub-page.component';
 import { BlazorDebouncedInputHubPageComponent } from './features/packages/blazor/hexguard-blazor-debounced-input/blazor-debounced-input-hub-page.component';
 import { BlazorHomePageComponent } from './features/packages/blazor/blazor-home/blazor-home-page.component';
 import { AngularClipboardHomePageComponent } from './features/packages/angular/angular-clipboard/angular-clipboard-home-page.component';
@@ -151,6 +152,12 @@ import { AngularCookieConsentHomePageComponent } from './features/packages/angul
 import { CookieConsentDemoPageComponent } from './features/packages/angular/angular-cookie-consent/pages/cookie-consent-demo-page/cookie-consent-demo-page.component';
 import { AngularDesignTokensHomePageComponent } from './features/packages/angular/angular-design-tokens/angular-design-tokens-home-page.component';
 import { DesignTokensDemoPageComponent } from './features/packages/angular/angular-design-tokens/pages/design-tokens-demo-page/design-tokens-demo-page.component';
+import { AngularComponentVariantsHomePageComponent } from './features/packages/angular/angular-component-variants/angular-component-variants-home-page.component';
+import { ComponentVariantsDemoPageComponent } from './features/packages/angular/angular-component-variants/pages/component-variants-demo-page/component-variants-demo-page.component';
+import { AngularIconRegistryHomePageComponent } from './features/packages/angular/angular-icon-registry/angular-icon-registry-home-page.component';
+import { IconRegistryDemoPageComponent } from './features/packages/angular/angular-icon-registry/pages/icon-registry-demo-page/icon-registry-demo-page.component';
+import { AngularSkeletonHomePageComponent } from './features/packages/angular/angular-skeleton/angular-skeleton-home-page.component';
+import { SkeletonDemoPageComponent } from './features/packages/angular/angular-skeleton/pages/skeleton-demo-page/skeleton-demo-page.component';
 import { AngularDirtyStateHomePageComponent } from './features/packages/angular/angular-dirty-state/angular-dirty-state-home-page.component';
 import { DirtyStateDemoPageComponent } from './features/packages/angular/angular-dirty-state/pages/dirty-state-demo-page/dirty-state-demo-page.component';
 import { AngularTableStateHomePageComponent } from './features/packages/angular/angular-table-state/angular-table-state-home-page.component';
@@ -235,6 +242,36 @@ export const routes: Routes = [
     path: 'packages/angular-design-tokens/demo',
     component: DesignTokensDemoPageComponent,
     title: 'Design Tokens Demo',
+  },
+  {
+    path: 'packages/angular-component-variants',
+    component: AngularComponentVariantsHomePageComponent,
+    title: 'Angular Component Variants Demos',
+  },
+  {
+    path: 'packages/angular-component-variants/demo',
+    component: ComponentVariantsDemoPageComponent,
+    title: 'Component Variants Demo',
+  },
+  {
+    path: 'packages/angular-icon-registry',
+    component: AngularIconRegistryHomePageComponent,
+    title: 'Angular Icon Registry Demos',
+  },
+  {
+    path: 'packages/angular-icon-registry/demo',
+    component: IconRegistryDemoPageComponent,
+    title: 'Icon Registry Demo',
+  },
+  {
+    path: 'packages/angular-skeleton',
+    component: AngularSkeletonHomePageComponent,
+    title: 'Angular Skeleton Demos',
+  },
+  {
+    path: 'packages/angular-skeleton/demo',
+    component: SkeletonDemoPageComponent,
+    title: 'Skeleton Demo',
   },
   {
     path: 'packages/angular-url-state',
@@ -910,6 +947,16 @@ export const routes: Routes = [
     path: 'dotnet/pagination',
     component: DotnetPaginationDemoPageComponent,
     title: 'Pagination (.NET) Demo',
+  },
+  {
+    path: 'dotnet/hexguard-uploads',
+    component: DotnetUploadsHubPageComponent,
+    title: 'HexGuard.Uploads',
+  },
+  {
+    path: 'dotnet/uploads',
+    component: DotnetUploadsHubPageComponent,
+    title: 'Uploads (.NET) Demo',
   },
   {
     path: 'dotnet/capabilities',

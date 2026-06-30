@@ -40,7 +40,7 @@ export function injectVariantState(definition: VariantDefinition): VariantState 
     return rec;
   });
 
-  /** Space-joined CSS class string. */
+  /** Space-joined CSS class string including compound matches. */
   const cssClasses = computed(() => {
     const parts: string[] = [];
     for (const [group, sig] of groupSignals) {
@@ -48,6 +48,18 @@ export function injectVariantState(definition: VariantDefinition): VariantState 
       const cssClass = definition.groups[group]?.[variant];
       if (cssClass) {
         parts.push(cssClass);
+      }
+    }
+    // Compound variants: add classes when all conditions match
+    for (const compound of definition.compounds) {
+      const allMatch = Object.entries(compound.conditions).every(
+        ([group, variant]) => {
+          const sig = groupSignals.get(group);
+          return sig && sig() === variant;
+        },
+      );
+      if (allMatch) {
+        parts.push(compound.class);
       }
     }
     return parts.join(' ');

@@ -296,6 +296,22 @@ export const SITE_ECOSYSTEMS: readonly Ecosystem[] = [
     ],
   },
   {
+    id: 'upload-state',
+    label: 'Upload state',
+    pairingLabel: 'Upload state',
+    description:
+      'The Angular upload-state client (injectUploadState) manages the client-side upload queue with progress, cancel, and retry, while HexGuard.Uploads provides the server-side session model (UploadSession, IUploadStore) and Minimal API endpoints. The shared SampleApi proves end-to-end integration.',
+    members: [
+      { packageId: 'angular-upload-state', role: 'Consumer' },
+      { packageId: 'hexguard-uploads', role: 'Provider' },
+    ],
+    integrationNotes: [
+      'The @hexguard/angular-upload-state Angular package and HexGuard.Uploads .NET library work together through the shared file upload lifecycle.',
+      'Angular code manages the client-side upload queue (progress, cancel, retry). The .NET library provides the UploadSession model, IUploadStore abstraction, and Minimal API endpoints for creating, polling, and canceling uploads.',
+      'The shared SampleApi exposes demo endpoints at /api/uploads/sample-files for end-to-end integration testing.',
+    ],
+  },
+  {
     id: 'capabilities',
     label: 'Capabilities / permissions',
     pairingLabel: 'Capabilities / permissions',
@@ -397,6 +413,15 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       route: '/dotnet/hexguard-pagination',
     },
   ],
+  'angular-upload-state': [
+    {
+      packageId: 'hexguard-uploads',
+      label: 'HexGuard.Uploads',
+      stack: 'dotnet',
+      relationship: 'Cross-stack counterpart',
+      route: '/dotnet/hexguard-uploads',
+    },
+  ],
   'hexguard-pagination': [
     {
       packageId: 'angular-pagination',
@@ -458,6 +483,15 @@ const PACKAGE_DEPENDENCIES: Record<string, readonly PackageDependency[]> = {
       route: '/packages/angular-bulk-operations',
     },
   ],
+  'hexguard-uploads': [
+    {
+      packageId: 'angular-upload-state',
+      label: '@hexguard/angular-upload-state',
+      stack: 'angular',
+      relationship: 'Cross-stack counterpart',
+      route: '/packages/angular-upload-state',
+    },
+  ],
   'hexguard-problem-details': [
     {
       packageId: 'angular-api-errors',
@@ -497,6 +531,8 @@ export const DOTNET_TO_ANGULAR_COUNTERPART: Record<string, string> = {
  */
 export const ANGULAR_TO_DOTNET_COUNTERPART: Record<string, string> = {
   'angular-pagination': 'hexguard-pagination',
+  'hexguard-uploads': 'angular-upload-state',
+  'angular-upload-state': 'hexguard-uploads',
 };
 
 /**

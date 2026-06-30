@@ -48,7 +48,7 @@ export class ColorDemoPageComponent {
       alpha: this.picker.alpha(),
       contrastRatio: this.contrastRatio(),
       contrastLevel: this.contrastLevel(),
-      palette: this.palette().map((c) => c.toHex()),
+      palette: this.palette().map((c: Color) => c.toHex()),
     }),
   );
 

@@ -1,0 +1,88 @@
+<demo-page-layout testId="component-variants-demo">
+  <demo-navigation-strip demoNavigation testId="component-variants-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Component Variants</p>
+        <h2>Declarative variants for buttons, cards, alerts, badges — with directive, compound variants, and ARIA.</h2>
+      </div>
+    </div>
+    <demo-status-strip testId="component-variants-demo-status" summary="4 component types. Button uses the directive. Card uses compound variants. Alert shows non-button usage." currentUrl="Angular Component Variants — Demo" summaryTestId="component-variants-demo-summary" urlTestId="component-variants-demo-url" />
+  </article>
+
+  <!-- demo-snippet:start angular-component-variants/demo-state -->
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="button-variant-directive">
+    <h3>Button — Directive <code>[hexguardVariants]</code></h3>
+    <p class="demo-description">No <code>[class]</code> bindings. The directive sets <code>class</code> and <code>aria-*</code> from the definition. Compound: lg+primary, lg+outline, sm+ghost.</p>
+    <div class="variant-preview">
+      <button [hexguardVariants]="ButtonVariants" [hexguardVariantSize]="button.get('size')()" [hexguardVariantColor]="button.get('color')()" [hexguardVariantState]="button.get('state')()" data-testid="directive-button">
+        {{ button.get('state')() === 'loading' ? '⏳ Saving...' : 'Directive Button' }}
+      </button>
+    </div>
+    <div class="variant-controls">
+      <div class="variant-group"><h4>Size</h4><div class="chip-row">@for (s of sizeOptions; track s) {<button class="chip" [class.chip--active]="button.get('size')() === s" (click)="setButtonSize(s)" [attr.data-testid]="'btn-size-' + s">{{ s }}</button>}</div></div>
+      <div class="variant-group"><h4>Color</h4><div class="chip-row">@for (c of colorOptions; track c) {<button class="chip" [class.chip--active]="button.get('color')() === c" (click)="setButtonColor(c)" [attr.data-testid]="'btn-color-' + c">{{ c }}</button>}</div></div>
+      <div class="variant-group"><h4>State</h4><div class="chip-row">@for (st of stateOptions; track st) {<button class="chip" [class.chip--active]="button.get('state')() === st" (click)="setButtonState(st)" [attr.data-testid]="'btn-state-' + st">{{ st }}</button>}</div></div>
+    </div>
+    <div class="output-row" data-testid="button-output">
+      <code class="output-code">cssClasses: {{ button.cssClasses() }}</code>
+      <code class="output-code">compound: {{ button.cssClasses().includes('btn-lg-primary') ? '✅ btn-lg-primary' : button.cssClasses().includes('btn-lg-outline') ? '✅ btn-lg-outline' : button.cssClasses().includes('btn-sm-ghost') ? '✅ btn-sm-ghost' : '—' }}</code>
+      <code class="output-code">aria: {{ button.aria() | json }}</code>
+    </div>
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="card-variant-matrix">
+    <h3>Card — Compound Variants</h3>
+    <p class="demo-description"><code>lg + floating</code> triggers extra <code>card-lg-floating</code> class. Works for any component.</p>
+    <div class="variant-preview">
+      <div class="card-preview" [class]="card.cssClasses()" data-testid="card-preview">
+        <div class="card-title">Card Preview</div>
+        <div class="card-body">size={{ card.get('size')() }}, elevation={{ card.get('elevation')() }}</div>
+        <code class="card-classes">{{ card.cssClasses() }}</code>
+      </div>
+    </div>
+    <div class="variant-controls">
+      <div class="variant-group"><h4>Size</h4><div class="chip-row">@for (s of ['sm', 'md', 'lg']; track s) {<button class="chip" [class.chip--active]="card.get('size')() === s" (click)="setCardSize(s)" [attr.data-testid]="'card-size-' + s">{{ s }}</button>}</div></div>
+      <div class="variant-group"><h4>Elevation</h4><div class="chip-row">@for (e of ['flat', 'raised', 'floating']; track e) {<button class="chip" [class.chip--active]="card.get('elevation')() === e" (click)="setCardElevation(e)" [attr.data-testid]="'card-elevation-' + e">{{ e }}</button>}</div></div>
+    </div>
+    <div class="output-row" data-testid="card-output"><code class="output-code">cssClasses: {{ card.cssClasses() }}</code></div>
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="alert-variant-matrix">
+    <h3>Alert — Proves it works beyond buttons</h3>
+    <div class="variant-preview">
+      <div class="alert-preview" [class]="alert.cssClasses()" data-testid="alert-preview">
+        <span class="alert-icon">@switch (alert.get('severity')()) { @case ('info') {ℹ️} @case ('success') {✅} @case ('warning') {⚠️} @case ('error') {🚫}}</span>
+        <span>This is an {{ alert.get('severity')() }} alert</span>
+        @if (alert.get('dismissible')() === 'yes') {<button class="alert-close">×</button>}
+      </div>
+    </div>
+    <div class="variant-controls">
+      <div class="variant-group"><h4>Severity</h4><div class="chip-row">@for (s of ['info', 'success', 'warning', 'error']; track s) {<button class="chip" [class.chip--active]="alert.get('severity')() === s" (click)="setAlertSeverity(s)" [attr.data-testid]="'alert-severity-' + s">{{ s }}</button>}</div></div>
+      <div class="variant-group"><h4>Dismissible</h4><div class="chip-row">@for (d of ['yes', 'no']; track d) {<button class="chip" [class.chip--active]="alert.get('dismissible')() === d" (click)="setAlertDismissible(d)" [attr.data-testid]="'alert-dismiss-' + d">{{ d }}</button>}</div></div>
+    </div>
+    <div class="output-row" data-testid="alert-output"><code class="output-code">cssClasses: {{ alert.cssClasses() }}</code></div>
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="badge-variant-demo">
+    <h3>Badge — Simple two-group variant</h3>
+    <div class="variant-preview"><span class="variant-badge" [class]="badge.cssClasses()">{{ badge.get('color')() }} — {{ badge.get('style')() }}</span></div>
+    <div class="variant-controls">
+      <div class="variant-group"><h4>Color</h4><div class="chip-row">@for (c of ['info', 'success', 'warning', 'error']; track c) {<button class="chip" [class.chip--active]="badge.get('color')() === c" (click)="setBadgeColor(c)" [attr.data-testid]="'badge-color-' + c">{{ c }}</button>}</div></div>
+      <div class="variant-group"><h4>Style</h4><div class="chip-row">@for (s of ['filled', 'outline']; track s) {<button class="chip" [class.chip--active]="badge.get('style')() === s" (click)="setBadgeStyle(s)" [attr.data-testid]="'badge-style-' + s">{{ s }}</button>}</div></div>
+    </div>
+  </article>
+  <!-- demo-snippet:end -->
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="component-variants-inspector-panel"
+    title="Variant snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="component-variants-snapshot-json"
+    codeTestId="component-variants-code-sample"
+  />
+</demo-page-layout>

@@ -1,10 +1,19 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import {
+  cachedResource,
+  deduplicatedResource,
+  retryResource,
+} from '@hexguard/angular-resource';
 import { ANGULAR_RESOURCE_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
 import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
 import { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';
 import { formatSnapshot } from '../../../../../../shared/formatting';
+
+function delay(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 @Component({
   standalone: true,
@@ -15,85 +24,108 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
     DemoPageLayoutComponent,
     DemoStatusStripComponent,
   ],
-  template: `
-    <demo-page-layout testId="resource-demo-page">
-      <demo-navigation-strip demoNavigation testId="resource-demo-navigation" [demo]="demo" />
-
-      <article demoIntro class="demo-card demo-card--stack">
-        <div class="demo-card__header">
-          <div>
-            <p class="demo-eyebrow">Angular Resource</p>
-            <h2>Cached, retry, and deduplicated resource helpers</h2>
-          </div>
-        </div>
-        <p class="demo-card__summary">
-          <code>cachedResource()</code>, <code>retryResource()</code>, and
-          <code>deduplicatedResource()</code> extend Angular 22's resource() API with
-          production-ready patterns.
-        </p>
-
-        <demo-status-strip
-          testId="resource-demo-status"
-          summary="Resource helpers: cache, retry, dedup."
-          currentUrl="Angular Resource — Demo"
-          summaryTestId="resource-demo-summary"
-          urlTestId="resource-demo-url"
-        />
-      </article>
-
-      <article
-        demoPrimary
-        class="demo-card demo-card--stack"
-        data-testid="resource-playground"
-      >
-        <div class="demo-card__header">
-          <div>
-            <p class="demo-eyebrow">Resource Helpers</p>
-            <h3>Live resource operations</h3>
-          </div>
-        </div>
-
-        <div class="demo-message">
-          <p>
-            The <strong>angular-resource</strong> package provides three wrappers around
-            Angular 22's <code>resource()</code> API that add caching, retry, and
-            deduplication. These helpers work in any injection context where
-            <code>resource()</code> is available.
-          </p>
-          <ul>
-            <li><strong>cachedResource</strong> — in-memory cache with configurable TTL and stale-while-revalidate.</li>
-            <li><strong>retryResource</strong> — exponential-backoff retry on transient failures.</li>
-            <li><strong>deduplicatedResource</strong> — shares in-flight promises for identical concurrent requests.</li>
-          </ul>
-        </div>
-      </article>
-
-      <demo-inspector-panel
-        demoAside
-        panelTestId="resource-inspector-panel"
-        eyebrow="Reference"
-        title="Resource snapshot"
-        summary="Resource helper reference."
-        [snapshotJson]="snapshotJson()"
-        [snippetId]="demo.codeSample.snippetId"
-        [docsLinks]="demo.docsLinks"
-        snapshotTestId="resource-snapshot-json"
-        codeTestId="resource-code-sample"
-      />
-    </demo-page-layout>
-  `,
-  styles: [`
-    .demo-message { padding: 1rem; background: var(--color-surface-weak); border-radius: 0.75rem; }
-    .demo-message ul { margin-top: 0.75rem; padding-left: 1.25rem; }
-    .demo-message li { margin-bottom: 0.5rem; }
-  `],
+  templateUrl: './resource-demo-page.component.html',
+  styleUrl: './resource-demo-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceDemoPageComponent {
-  readonly demo = ANGULAR_RESOURCE_DEMO;
-  readonly snapshotJson = computed(() => formatSnapshot({
-    package: 'angular-resource',
-    exports: ['cachedResource', 'retryResource', 'deduplicatedResource'],
-    status: 'Available',
-  }));
+  protected readonly demo = ANGULAR_RESOURCE_DEMO;
+
+  // ── cachedResource demo ───────────────────────────────────────
+  protected readonly cacheVersion = signal(0);
+  private _cacheFetchCount = 0;
+
+  protected readonly cached = cachedResource(
+    () => ({ v: this.cacheVersion() }),
+    async () => {
+      this._cacheFetchCount++;
+      await delay(600);
+      return `Cached result #${this._cacheFetchCount} (v${this.cacheVersion()})`;
+    },
+    { ttl: 5000, staleWhileRevalidate: true },
+  );
+
+  protected get cacheFetchCount(): number {
+    return this._cacheFetchCount;
+  }
+
+  refreshCache(): void {
+    this.cacheVersion.update((n) => n + 1);
+  }
+
+  // ── retryResource demo ────────────────────────────────────────
+  protected readonly retryVersion = signal(0);
+  private retryAttempt = 0;
+
+  protected readonly retried = retryResource(
+    () => ({ v: this.retryVersion() }),
+    async () => {
+      this.retryAttempt++;
+      if (this.retryAttempt <= 2) {
+        throw new Error(`Transient failure (attempt ${this.retryAttempt})`);
+      }
+      return `Success after ${this.retryAttempt} attempts`;
+    },
+    { maxRetries: 3, baseDelay: 300 },
+  );
+
+  protected get retryAttempts(): number {
+    return this.retryAttempt;
+  }
+
+  triggerRetry(): void {
+    this.retryAttempt = 0;
+    this.retryVersion.update((n) => n + 1);
+  }
+
+  // ── deduplicatedResource demo ──────────────────────────────────
+  protected readonly dedupVersion = signal(0);
+  private dedupCallCount = 0;
+
+  protected readonly deduped = deduplicatedResource(
+    () => ({ v: this.dedupVersion() }),
+    async () => {
+      this.dedupCallCount++;
+      await delay(500);
+      return `Dedup result (fetcher ran ${this.dedupCallCount}x, v${this.dedupVersion()})`;
+    },
+  );
+
+  protected get dedupFetchCount(): number {
+    return this.dedupCallCount;
+  }
+
+  /** Trigger two identical resource loads in parallel to show dedup. */
+  triggerDedup(): void {
+    this.dedupCallCount = 0;
+    this.dedupVersion.update((n) => n + 1);
+    // Kick off a second load immediately — the resource will re-run
+    // due to the param change, but dedup ensures only one fetcher call.
+    queueMicrotask(() => this.deduped.reload());
+  }
+
+  // ── Snapshot ──────────────────────────────────────────────────
+  protected readonly snapshotJson = computed(() =>
+    formatSnapshot({
+      cachedResource: {
+        value: this.cached.value(),
+        isLoading: this.cached.isLoading(),
+        status: this.cached.status(),
+        fetchCount: this._cacheFetchCount,
+      },
+      retryResource: {
+        value: this.retried.value(),
+        error: this.retried.error()?.message ?? null,
+        isLoading: this.retried.isLoading(),
+        status: this.retried.status(),
+        attempts: this.retryAttempt,
+      },
+      deduplicatedResource: {
+        value: this.deduped.value(),
+        isLoading: this.deduped.isLoading(),
+        status: this.deduped.status(),
+        fetcherCalls: this.dedupCallCount,
+      },
+    }),
+  );
 }
