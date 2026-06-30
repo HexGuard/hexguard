@@ -146,8 +146,8 @@
 
 ## Prioritization Matrix
 
-All 386 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
-Extensions are listed in `docs/.ai/backlog/package-extensions.md` (181 items across 22 packages).
+All 396 proposed packages, categorized by priority tier. **All packages are headless** (state/signals/services only — no rendered UI).
+Extensions are listed in `docs/.ai/backlog/package-extensions.md` (188 items across 22 packages).
 
 ### 🟢 P0 — Foundation / Released
 
@@ -457,7 +457,7 @@ Valid ideas with narrower audience. Good for ecosystem completeness.
 
 ## Headless Compliance Audit (2026-06-27)
 
-All 386 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
+All 396 briefs verified — **zero rendered elements or templates**. Two briefs were revised:
 
 | Brief | Issue | Resolution |
 |-------|-------|------------|

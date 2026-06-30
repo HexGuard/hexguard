@@ -894,3 +894,10 @@ const routes = [
 | 179 | `HexGuard.Blazor.ComponentVariants` | `variantStorybook` — auto-generate variant matrix for visual testing | Blazor | Medium | Medium |
 | 180 | `HexGuard.Blazor.IconRegistry` | `iconOptimizer` — SVG optimization and sprite generation at build | Blazor | Medium | High |
 | 181 | `@hexguard/angular-icon-registry` | `spriteGenerator` — auto-generate SVG sprite sheets from icon set | Angular | Medium | High |
+| 182 | `@hexguard/angular-error-reporter` | `sourceMapResolver` — resolve minified stack traces via source maps | Angular | High | High |
+| 183 | `@hexguard/angular-performance` | `perfBudgetCi` — CI-enforceable performance budgets with regression alerts | Angular | Medium | High |
+| 184 | `@hexguard/angular-hydration` | `hydrationTimeline` — visual hydration timeline in dev mode | Angular | Medium | Medium |
+| 185 | `HexGuard.Blazor.ErrorReporter` | `circuitContextEnricher` — auto-attach circuit/user/URL to every error | Blazor | Low | High |
+| 186 | `HexGuard.Blazor.Performance` | `assemblySizeMonitor` — WASM bundle size tracking over releases | Blazor | Low | Medium |
+| 187 | `HexGuard.Blazor.SsrOptimizer` | `edgeCaching` — CDN-compatible cache control headers and surrogate keys | Blazor | Medium | High |
+| 188 | `@hexguard/angular-content-projection` | `slotDebugger` — dev-mode slot inspection overlay showing slot fill state | Angular | Low | Medium |
