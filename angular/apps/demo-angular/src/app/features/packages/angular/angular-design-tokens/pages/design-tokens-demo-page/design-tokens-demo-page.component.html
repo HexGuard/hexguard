@@ -1,0 +1,72 @@
+<demo-page-layout testId="design-tokens-demo">
+  <demo-navigation-strip demoNavigation testId="design-tokens-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Design Tokens</p>
+        <h2>Typed token registry with CSS custom property sync.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="design-tokens-demo-status"
+      summary="Define typed design tokens, sync them as CSS custom properties, create semantic aliases, and apply theme-specific override layers."
+      currentUrl="Angular Design Tokens — Demo"
+      summaryTestId="design-tokens-demo-summary"
+      urlTestId="design-tokens-demo-url"
+    />
+  </article>
+
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="token-tree">
+    <!-- demo-snippet:start angular-design-tokens/demo-state -->
+    <h3>Token Registry ({{ tokens.all().size }} tokens)</h3>
+    <div class="token-grid">
+      @for (entry of tokenEntries(); track entry.key) {
+        <div class="token-item" data-testid="token-item">
+          <span class="token-key">{{ entry.key }}</span>
+          <span class="token-value" [style.background-color]="entry.key.startsWith('color.') ? entry.value : 'transparent'">
+            {{ entry.value }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <h3>Semantic Aliases</h3>
+    <div class="token-grid">
+      @for (entry of Array.from(semantic.entries.entries()).filter(([k]) => k.startsWith('color.')); track entry[0]) {
+        <div class="token-item token-item--alias">
+          <span class="token-key">{{ entry[0] }}</span>
+          <span class="token-value" [style.background-color]="entry[1]">{{ entry[1] }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="theme-controls" data-testid="theme-layer-controls">
+      <h3>Theme Layer</h3>
+      <button class="demo-button" (click)="applyDarkLayer()" data-testid="btn-dark-layer">Apply Dark Layer</button>
+      <button class="demo-button" (click)="removeDarkLayer()" data-testid="btn-remove-layer">Remove Layer</button>
+    </div>
+
+    <div class="validation" data-testid="validation">
+      <h3>Validation</h3>
+      @if (TOKENS.validate().length === 0) {
+        <p class="validation-ok">✅ All tokens valid</p>
+      } @else {
+        @for (err of TOKENS.validate(); track err) {
+          <p class="validation-error">❌ {{ err }}</p>
+        }
+      }
+    </div>
+    <!-- demo-snippet:end -->
+  </article>
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="design-tokens-inspector-panel"
+    title="Token snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="design-tokens-snapshot-json"
+    codeTestId="design-tokens-code-sample"
+  />
+</demo-page-layout>

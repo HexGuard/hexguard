@@ -33,8 +33,8 @@
         "./packages/angular-breakpoint-observer/src/public-api.ts"
       ],
       "@hexguard/angular-click-outside": ["./packages/angular-click-outside/src/public-api.ts"],
-      "@hexguard/angular-color": ["./packages/angular-color/src/public-api.ts"],
-      "@hexguard/angular-consent-manager": ["./dist/angular-consent-manager/types/hexguard-angular-consent-manager.d.ts"],
+      "@hexguard/angular-color": ["./dist/angular-color"],
+      "@hexguard/angular-consent-manager": ["./dist/angular-consent-manager"],
       "@hexguard/angular-cookie-consent": ["./packages/angular-cookie-consent/src/public-api.ts"],
       "@hexguard/angular-clipboard": ["./packages/angular-clipboard/src/public-api.ts"],
       "@hexguard/angular-live-data": ["./packages/angular-live-data/src/public-api.ts"],

@@ -913,6 +913,47 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
 
 // â”€â”€ angular-debounce demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+export const ANGULAR_DESIGN_TOKENS_DEMO: DemoPageEntry = {
+  id: 'design-tokens',
+  packageId: 'angular-design-tokens',
+  route: '/packages/angular-design-tokens/demo',
+  legacyRoute: '/design-tokens',
+  label: 'Design Tokens',
+  title: 'Token registry with CSS custom property sync, aliases, and theme layers',
+  description:
+    'A live demo shows token definitions, CSS custom property synchronization, semantic aliases, dark theme layer application, and token validation.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-design-tokens/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-design-tokens.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-design-tokens/demo-state',
+    label: 'Design Tokens demo component source',
+    description:
+      'The full design tokens demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_DESIGN_TOKENS_PACKAGE: DemoPackageEntry = {
+  id: 'angular-design-tokens',
+  route: '/packages/angular-design-tokens',
+  label: 'Angular Design Tokens',
+  title: ANGULAR_DESIGN_TOKENS_CATALOG.packageName,
+  description: ANGULAR_DESIGN_TOKENS_CATALOG.summary,
+  docsLinks: ANGULAR_DESIGN_TOKENS_DOCS,
+  demos: [ANGULAR_DESIGN_TOKENS_DEMO],
+};
+
 const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
 const ANGULAR_DEBOUNCE_DOCS = ANGULAR_DEBOUNCE_CATALOG.docsLinks;
 
@@ -2412,6 +2453,7 @@ export const DEMO_PACKAGES = [
   ANGULAR_COMMAND_PALETTE_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,
+  ANGULAR_DESIGN_TOKENS_PACKAGE,
   ANGULAR_DIRTY_STATE_PACKAGE,
   ANGULAR_ERROR_BOUNDARY_PACKAGE,
   ANGULAR_FEATURE_FLAGS_PACKAGE,
