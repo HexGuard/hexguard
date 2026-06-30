@@ -90,14 +90,22 @@ describe(injectLiveData.name, () => {
     await flushMicrotasks();
     expect(live.data()).toBe('value-1');
 
+    // Advance past staleAfter. Interleave flushMicrotasks between poll
+    // intervals so the in-flight dedup doesn't skip polls.
+    vi.advanceTimersByTime(10_000);
+    await flushMicrotasks();
+    vi.advanceTimersByTime(10_000);
+    await flushMicrotasks();
+    expect(live.data()).toBe('value-3');
+    expect(live.stale()).toBe(false);
+
+    // Now let the stale interval accumulate past the threshold
     vi.advanceTimersByTime(25_000);
     expect(live.stale()).toBe(true);
 
-    // Next poll succeeds. During advanceTimersByTime the fetcher is called
-    // synchronously (++count), and the promise resolves on flushMicrotasks.
+    // Next poll succeeds and clears stale
     vi.advanceTimersByTime(10_000);
     await flushMicrotasks();
-    // t=10s: count=2; t=20s: count=3; t=30s: count=4 — last resolve wins
     expect(live.data()).toBe('value-4');
     expect(live.stale()).toBe(false);
   });
