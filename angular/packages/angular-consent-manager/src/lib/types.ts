@@ -43,6 +43,10 @@ export interface ConsentCategory {
   readonly defaultConsent: ConsentValue;
   /** Sub-purposes within this category. */
   readonly purposes: readonly ConsentPurpose[];
+  /** IAB TCF v2.2 purpose IDs this category maps to. */
+  readonly iabPurposeIds?: readonly number[];
+  /** IAB TCF v2.2 special feature IDs this category maps to. */
+  readonly iabSpecialFeatureIds?: readonly number[];
   /** Google Consent Mode type this category maps to. */
   readonly googleConsentType?: GoogleConsentType;
   /** Identifiers of scripts that fall under this category. */

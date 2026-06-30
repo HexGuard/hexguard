@@ -30,6 +30,7 @@ export function defaultConsentCategories(): ConsentCategory[] {
       description: 'Remembers your preferences to enhance your experience. Includes language, region, and display preferences.',
       required: false,
       defaultConsent: null,
+      iabPurposeIds: [1],
       purposes: [
         { id: 'language', label: 'Language Preference', description: 'Remembers your language selection.' },
         { id: 'region', label: 'Region Selection', description: 'Stores your region for localized content.' },
@@ -43,6 +44,7 @@ export function defaultConsentCategories(): ConsentCategory[] {
       description: 'Collects anonymous usage data to help us improve the website. Includes page views, navigation paths, and feature usage.',
       required: false,
       defaultConsent: null,
+      iabPurposeIds: [7, 8, 9, 10],
       purposes: [
         { id: 'page-views', label: 'Page Views', description: 'Tracks pages visited and time spent on each page.' },
         { id: 'navigation', label: 'Navigation Analysis', description: 'Analyzes how users navigate through the site.' },
@@ -56,6 +58,8 @@ export function defaultConsentCategories(): ConsentCategory[] {
       description: 'Tracks your browsing across sites to deliver relevant ads and measure campaign effectiveness.',
       required: false,
       defaultConsent: null,
+      iabPurposeIds: [2, 3, 4, 5, 6],
+      iabSpecialFeatureIds: [1, 2],
       purposes: [
         { id: 'ad-personalization', label: 'Ad Personalization', description: 'Shows ads tailored to your interests.' },
         { id: 'ad-measurement', label: 'Ad Measurement', description: 'Measures the effectiveness of advertising campaigns.' },

@@ -34,7 +34,11 @@
       ],
       "@hexguard/angular-click-outside": ["./packages/angular-click-outside/src/public-api.ts"],
       "@hexguard/angular-color": ["./dist/angular-color"],
+      "@hexguard/angular-component-variants": ["./dist/angular-component-variants"],
+      "@hexguard/angular-icon-registry": ["./dist/angular-icon-registry"],
+      "@hexguard/angular-skeleton": ["./dist/angular-skeleton"],
       "@hexguard/angular-consent-manager": ["./dist/angular-consent-manager"],
+      "@hexguard/angular-consent-manager/tcf": ["./packages/angular-consent-manager/src/tcf/public-api.ts"],
       "@hexguard/angular-cookie-consent": ["./packages/angular-cookie-consent/src/public-api.ts"],
       "@hexguard/angular-clipboard": ["./packages/angular-clipboard/src/public-api.ts"],
       "@hexguard/angular-live-data": ["./packages/angular-live-data/src/public-api.ts"],
@@ -162,6 +166,18 @@
     },
     {
       "path": "./packages/angular-wizard-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-consent-manager/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-cookie-consent/tsconfig.lib.json"
+    },
+    {
+      "path": "./packages/angular-consent-manager/tsconfig.spec.json"
+    },
+    {
+      "path": "./packages/angular-cookie-consent/tsconfig.spec.json"
     },
     {
       "path": "./apps/demo-angular/tsconfig.app.json"

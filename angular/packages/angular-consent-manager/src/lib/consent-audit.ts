@@ -54,13 +54,6 @@ export function injectConsentAudit(): ConsentAuditHandle {
   return {
     getRecords: () => service.getAuditRecords(),
     exportRecords: () => JSON.stringify(service.getAuditRecords(), null, 2),
-    clearRecords: () => {
-      try {
-        const ls = typeof window !== 'undefined' ? window.localStorage : null;
-        if (ls) {
-          ls.removeItem('hexguard_consent_audit');
-        }
-      } catch { /* ignore */ }
-    },
+    clearRecords: () => service.clearAuditRecords(),
   };
 }

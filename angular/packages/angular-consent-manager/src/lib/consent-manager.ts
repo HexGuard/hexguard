@@ -51,6 +51,11 @@ export interface ConsentManagerFacade {
   withdrawConsent(): void;
   /** Refresh consent state from storage and check expiry. */
   refreshConsent(): void;
+  /**
+   * Change the detected region and re-apply regional category overrides.
+   * Resets non-necessary categories to their region-specific defaults.
+   */
+  setRegion(regionCode: string | null): void;
 }
 
 /**
@@ -100,5 +105,6 @@ export function injectConsentManager(): ConsentManagerFacade {
     updateConsent: (partial, method) => service.updateConsent(partial, method),
     withdrawConsent: () => service.withdrawConsent(),
     refreshConsent: () => service.refreshConsent(),
+    setRegion: (code) => service.setRegion(code),
   };
 }

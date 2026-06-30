@@ -59,6 +59,21 @@ export interface ConsentManagerConfig {
   /** Google Consent Mode v2 configuration. Set `enabled: false` to disable. */
   readonly googleConsentMode?: GoogleConsentModeConfig;
 
+  // ── IAB TCF v2.2 Support ──────────────────────────────────────────
+  /** IAB TCF v2.2 support configuration. Omit to disable TCF integration. */
+  readonly tcfSupport?: {
+    /** IAB-assigned CMP ID (required for registered CMPs). */
+    readonly cmpId: number;
+    /** CMP version. Default: `1`. */
+    readonly cmpVersion?: number;
+    /** Global Vendor List URL override. Default: IAB's standard URL. */
+    readonly gvlUrl?: string;
+    /** Whether GDPR applies. Default: `true` (auto-detected from region). */
+    readonly gdprApplies?: boolean;
+    /** Whether the vendor list is available. Default: `false`. */
+    readonly vendorListAvailable?: boolean;
+  };
+
   // ── Storage ───────────────────────────────────────────────────────
   /** Storage backend for consent state. Default: `'both'`. */
   readonly storageBackend?: StorageBackend;

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { injectConsentManager, defaultConsentCategories, injectConsentAudit } from '@hexguard/angular-consent-manager';
+import { DatePipe, JsonPipe, SlicePipe } from '@angular/common';
+import { injectConsentManager, defaultConsentCategories, injectConsentAudit, injectTcfApi, IAB_PURPOSES, decodeTcString } from '@hexguard/angular-consent-manager';
 import { ANGULAR_CONSENT_MANAGER_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -14,6 +15,9 @@ import { DEMO_REGIONS, DEMO_CONSENT_COOKIES } from '../../data/consent-manager-d
   templateUrl: './consent-manager-demo-page.component.html',
   styleUrl: './consent-manager-demo-page.component.css',
   imports: [
+    DatePipe,
+    JsonPipe,
+    SlicePipe,
     DemoInspectorPanelComponent,
     DemoNavigationStripComponent,
     DemoPageLayoutComponent,
@@ -25,6 +29,8 @@ export class ConsentManagerDemoPageComponent {
   protected readonly demo = ANGULAR_CONSENT_MANAGER_DEMO;
   protected readonly consent = injectConsentManager();
   protected readonly audit = injectConsentAudit();
+  protected readonly tcf = injectTcfApi();
+  protected readonly iabPurposes = IAB_PURPOSES;
   protected readonly regions = DEMO_REGIONS;
   protected readonly demoCookies = DEMO_CONSENT_COOKIES;
   protected selectedRegion = signal('');
@@ -51,6 +57,9 @@ export class ConsentManagerDemoPageComponent {
       hasDecided: this.consent.hasDecided(),
       isExpired: this.consent.isExpired(),
       state: this.consent.state(),
+      tcString: this.tcf.tcString(),
+      tcfAvailable: this.tcf.isAvailable(),
+      auditRecords: this.audit.getRecords().length,
     }),
   );
 
@@ -58,7 +67,41 @@ export class ConsentManagerDemoPageComponent {
     formatSnapshot(this.audit.getRecords()),
   );
 
+  /** Reactive audit records — recomputes whenever consent status or state changes. */
+  protected readonly auditRecords = computed(() => {
+    // Track consent changes so this computed re-evaluates
+    this.consent.status();
+    this.consent.state();
+    return this.audit.getRecords();
+  });
+
+  protected readonly tcfPurposeStates = computed(() =>
+    this.iabPurposes.map(p => ({
+      id: p.id,
+      name: p.name,
+      consented: this.tcf.isPurposeConsented(p.id)(),
+    })),
+  );
+
+  protected readonly decodedTcString = computed(() => {
+    const tc = this.tcf.tcString();
+    if (!tc) return null;
+    return decodeTcString(tc);
+  });
+
   protected onSelectRegion(code: string): void {
+    this.consent.setRegion(code);
     this.selectedRegion.set(code);
+  }
+
+  protected downloadAudit(): void {
+    const json = this.audit.exportRecords();
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `consent-audit-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 }

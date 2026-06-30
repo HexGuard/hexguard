@@ -18,12 +18,12 @@
   <article demoPrimary class="demo-card demo-card--stack" data-testid="consent-manager-playground">
     <h3>Consent Actions</h3>
     <div class="consent-actions" data-testid="consent-manager-actions">
-      <button class="demo-button demo-button--primary" (click)="consent.acceptAll()" attr.data-testid="btn-accept-all">Accept All</button>
-      <button class="demo-button demo-button--secondary" (click)="consent.rejectAll()" attr.data-testid="btn-reject-all">Reject All</button>
-      <button class="demo-button" (click)="consent.withdrawConsent()" attr.data-testid="btn-withdraw">Withdraw Consent</button>
-      <button class="demo-button" (click)="consent.refreshConsent()" attr.data-testid="btn-refresh">Refresh Consent</button>
-      <button class="demo-button" (click)="consent.acceptCategory('analytics')" attr.data-testid="btn-accept-analytics">Accept Analytics</button>
-      <button class="demo-button demo-button--secondary" (click)="consent.rejectCategory('marketing')" attr.data-testid="btn-reject-marketing">Reject Marketing</button>
+      <button class="demo-button demo-button--primary" (click)="consent.acceptAll()" data-testid="btn-accept-all">Accept All</button>
+      <button class="demo-button demo-button--secondary" (click)="consent.rejectAll()" data-testid="btn-reject-all">Reject All</button>
+      <button class="demo-button" (click)="consent.withdrawConsent()" data-testid="btn-withdraw">Withdraw Consent</button>
+      <button class="demo-button" (click)="consent.refreshConsent()" data-testid="btn-refresh">Refresh Consent</button>
+      <button class="demo-button" (click)="consent.acceptCategory('analytics')" data-testid="btn-accept-analytics">Accept Analytics</button>
+      <button class="demo-button demo-button--secondary" (click)="consent.rejectCategory('marketing')" data-testid="btn-reject-marketing">Reject Marketing</button>
     </div>
 
     <h3>Status</h3>
@@ -71,7 +71,66 @@
     </div>
 
     <h3>Audit Trail</h3>
-    <button class="demo-button" (click)="audit.clearRecords()" attr.data-testid="btn-clear-audit">Clear Audit</button>
+    <p data-testid="audit-record-count"><strong>Records:</strong> {{ auditRecords().length }}</p>
+    <div class="consent-audit-actions">
+      <button class="demo-button" (click)="audit.clearRecords()" data-testid="btn-clear-audit">Clear Audit</button>
+      <button class="demo-button" (click)="downloadAudit()" data-testid="btn-download-audit">Download JSON</button>
+    </div>
+    @if (auditRecords().length > 0) {
+      <div class="consent-audit-table" data-testid="audit-table">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Time</th>
+              <th>Action</th>
+              <th>Method</th>
+              <th>Region</th>
+              <th>Consent ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (rec of auditRecords(); track rec.id; let i = $index) {
+              <tr attr.data-testid="audit-row-{{i}}">
+                <td>{{ i + 1 }}</td>
+                <td>{{ rec.timestamp | date:'HH:mm:ss' }}</td>
+                <td>{{ rec.action }}</td>
+                <td>{{ rec.method }}</td>
+                <td>{{ rec.region || '-' }}</td>
+                <td class="audit-id" title="{{ rec.consentId }}">{{ (rec.consentId || '-') | slice:0:12 }}…</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="consent-audit-empty" data-testid="audit-empty">No audit records yet. Use the consent actions above to create a record.</p>
+    }
+
+    <h3>IAB TCF v2.2</h3>
+    <div class="tcf-info" data-testid="tcf-section">
+      <p><strong>TC string:</strong> <code data-testid="tcf-tc-string">{{ tcf.tcString() || 'Not available' }}</code></p>
+      <p><strong>TCF available:</strong> {{ tcf.isAvailable() }}</p>
+      <p><strong>Policy version:</strong> {{ tcf.tcfPolicyVersion() }}</p>
+      @if (decodedTcString(); as decoded) {
+        <details>
+          <summary>Decoded TC String</summary>
+          <pre class="tcf-decoded" data-testid="tcf-decoded">{{ decoded | json }}</pre>
+        </details>
+      }
+      <h4>IAB Purpose Consents</h4>
+      <div class="tcf-purposes" data-testid="tcf-purposes">
+        @for (p of tcfPurposeStates(); track p.id) {
+          <div class="tcf-purpose" attr.data-testid="tcf-purpose-{{p.id}}">
+            <span class="tcf-purpose__id">Purpose {{ p.id }}</span>
+            <span class="tcf-purpose__name">{{ p.name }}</span>
+            <span class="tcf-purpose__value" [style.color]="p.consented ? 'green' : 'gray'">
+              {{ p.consented ? 'Consented' : 'Not consented' }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
   </article>
   <demo-inspector-panel
     demoAside

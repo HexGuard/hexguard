@@ -18,6 +18,9 @@ import type { ConsentManagedScript } from './types';
 import { detectRegion } from './region-detection';
 import type { GoogleConsentModeService } from './google-consent-mode';
 import type { ConsentRecord, ConsentMethod } from './consent-audit';
+import { TcfCmpApi } from '../tcf/lib/tcf-cmp-api';
+import { encodeTcString } from '../tcf/lib/tc-string-encoder';
+import { EU_CONSENT_COOKIE, TCF_POLICY_VERSION } from '../tcf/lib/tcf-constants';
 
 const CONSENT_COOKIE_DEFAULT = 'hexguard_consent';
 
@@ -59,6 +62,9 @@ export class ConsentManagerService {
   readonly expiresAt: WritableSignal<number | null> = signal(null);
   readonly region: WritableSignal<string | null> = signal(null);
 
+  /** The current IAB TCF v2.2 TC string (null if TCF is not configured). */
+  readonly tcString: WritableSignal<string | null> = signal(null);
+
   // ── Derived signals ───────────────────────────────────────────────
   /** True if at least one non-necessary category has been granted. */
   readonly isConsented: Signal<boolean> = computed(() => {
@@ -88,6 +94,7 @@ export class ConsentManagerService {
   // ── Internal state ────────────────────────────────────────────────
   private auditRecords: ConsentRecord[] | null = null;
   private scriptLoader: { register: (scripts: ConsentManagedScript[]) => void; onConsentChange: (state: ConsentState) => void } | null = null;
+  private tcfApi: TcfCmpApi | null = null;
 
   constructor() {
     // Injected services for cleanup
@@ -136,6 +143,11 @@ export class ConsentManagerService {
     // Initialize script loader
     if (this.config.scriptLoading?.enabled && this.config.scriptLoading.scripts) {
       this.initScriptLoader([...this.config.scriptLoading.scripts]);
+    }
+
+    // Initialize IAB TCF v2.2 support (if configured)
+    if (this.config.tcfSupport) {
+      this.initTcfSupport(this.config.tcfSupport);
     }
 
     // Check expiry
@@ -230,6 +242,7 @@ export class ConsentManagerService {
     this.recordAudit(prevState, reset, 'withdraw', 'api');
     this.updateGoogleConsent(reset);
     this.notifyScriptLoader(reset);
+    this.updateTcfConsent(reset, 'useractioncomplete');
   }
 
   refreshConsent(): void {
@@ -267,6 +280,47 @@ export class ConsentManagerService {
   /** Internal: set config reference (used by injectConsentManager). */
   setConfigRef(config: ConsentManagerConfig): void {
     this.config = this.resolveConfig(config);
+  }
+
+  /**
+   * Updates the detected region and re-applies regional config overrides.
+   * Resets consent state for non-necessary categories when the region changes.
+   * Useful for demo/testing — typically region is auto-detected and fixed.
+   */
+  setRegion(regionCode: string | null): void {
+    if (!this.config) return;
+    this.region.set(regionCode);
+
+    // Apply regional override categories, or keep default
+    const override = regionCode ? this.config.regionalOverrides?.[regionCode] : undefined;
+    if (override?.categories) {
+      this.config = { ...this.config, categories: override.categories };
+    }
+
+    // Reset state to defaults for the current region's categories
+    const now = Date.now();
+    const expiryMs = (this.config.consentExpiryDays ?? 365) * 24 * 60 * 60 * 1000;
+    const resetState: ConsentState = {};
+    for (const cat of this.config.categories) {
+      resetState[cat.id] = cat.required ? true : cat.defaultConsent !== undefined ? cat.defaultConsent : null;
+    }
+
+    this.state.set(resetState);
+    this.status.set('unknown');
+    this.consentId.set(null);
+    this.consentedAt.set(null);
+    this.expiresAt.set(null);
+
+    this.writeToStorage({
+      v: 1,
+      cid: '',
+      s: resetState,
+      ts: now,
+      ex: now + expiryMs,
+      r: regionCode ?? undefined,
+    });
+    this.updateGoogleConsent(resetState);
+    this.updateTcfConsent(resetState, 'useractioncomplete');
   }
 
   // ── Internal ──────────────────────────────────────────────────────
@@ -327,6 +381,7 @@ export class ConsentManagerService {
     this.recordAudit(prevState, newState, 'grant', method);
     this.updateGoogleConsent(newState);
     this.notifyScriptLoader(newState);
+    this.updateTcfConsent(newState, 'useractioncomplete');
   }
 
   private hydrate(persisted: PersistedConsent, defaults: ConsentState): void {
@@ -382,6 +437,116 @@ export class ConsentManagerService {
       this.recordAudit(prevState, reset, 'expire', 'expiry');
       this.writeToStorage(null);
     }
+  }
+
+  // ── IAB TCF v2.2 Support ─────────────────────────────────────────
+
+  private initTcfSupport(tcfConfig: NonNullable<ConsentManagerConfig['tcfSupport']>): void {
+    const gdprApplies = tcfConfig.gdprApplies ?? this.isGdprRegion(this.region());
+
+    this.tcfApi = new TcfCmpApi({
+      cmpId: tcfConfig.cmpId,
+      cmpVersion: tcfConfig.cmpVersion ?? 1,
+      gdprApplies,
+    });
+
+    // Connect the TC string signal
+    this.tcfApi.connectSignals(this.tcString);
+
+    // Try to restore existing TC string from euconsent-v2 cookie
+    const existingTcString = this.readCookie(EU_CONSENT_COOKIE);
+    if (existingTcString) {
+      this.tcString.set(existingTcString);
+    }
+
+    // Generate initial TC string from current state
+    const currentState = this.state();
+    this.updateTcfConsent(currentState, 'tcloaded');
+  }
+
+  /** Generate a TC string from the current consent state and push to CMP API. */
+  private updateTcfConsent(state: ConsentState, eventStatus: 'tcloaded' | 'useractioncomplete'): void {
+    if (!this.tcfApi || !this.config?.tcfSupport) return;
+
+    const tcfConfig = this.config.tcfSupport;
+    const categories = this.config.categories;
+    const gdprApplies = tcfConfig.gdprApplies ?? this.isGdprRegion(this.region());
+
+    // Build purpose consent list
+    const consentedPurposes: number[] = [];
+    const liPurposes: number[] = [];
+    const specialFeatureOptIns: number[] = [];
+    const purposeConsentsMap: Record<number, boolean> = {};
+    const purposeLiMap: Record<number, boolean> = {};
+    const sfMap: Record<number, boolean> = {};
+
+    for (const cat of categories) {
+      const isGranted = state[cat.id] === true;
+
+      if (cat.iabPurposeIds) {
+        for (const purposeId of cat.iabPurposeIds) {
+          purposeConsentsMap[purposeId] = isGranted;
+          if (isGranted) {
+            consentedPurposes.push(purposeId);
+            // Legitimate interest: granted when the category is consented
+            liPurposes.push(purposeId);
+            purposeLiMap[purposeId] = true;
+          } else if (state[cat.id] === false) {
+            purposeLiMap[purposeId] = false;
+          }
+        }
+      }
+
+      if (cat.iabSpecialFeatureIds && isGranted) {
+        for (const sfId of cat.iabSpecialFeatureIds) {
+          specialFeatureOptIns.push(sfId);
+          sfMap[sfId] = true;
+        }
+      }
+    }
+
+    const tcString = encodeTcString({
+      cmpId: tcfConfig.cmpId,
+      cmpVersion: tcfConfig.cmpVersion ?? 1,
+      consentScreen: 0,
+      vendorListVersion: 0,
+      isServiceSpecific: false,
+      useNonStandardStacks: false,
+      specialFeatureOptIns,
+      purposeConsents: consentedPurposes,
+      purposeLegitimateInterest: liPurposes,
+      purposeOneTreatment: false,
+      publisherCC: 'XX',
+    });
+
+    this.tcString.set(tcString);
+
+    // Write the standard IAB euconsent-v2 cookie
+    this.writeCookie(EU_CONSENT_COOKIE, tcString, 365);
+
+    // Push to CMP API
+    this.tcfApi.updateConsent({
+      tcString,
+      cmpId: tcfConfig.cmpId,
+      cmpVersion: tcfConfig.cmpVersion ?? 1,
+      purposeConsents: purposeConsentsMap,
+      purposeLegitimateInterest: purposeLiMap,
+      specialFeatureOptIns: sfMap,
+      eventStatus,
+      gdprApplies,
+    });
+  }
+
+  /** Determine if a region is under GDPR. */
+  private isGdprRegion(regionCode: string | null): boolean {
+    if (!regionCode) return true; // default to GDPR
+    const eeaCountries = new Set([
+      'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
+      'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
+      'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO',
+      'CH', 'GB', 'GI',
+    ]);
+    return eeaCountries.has(regionCode);
   }
 
   // ── Storage ───────────────────────────────────────────────────────
@@ -609,6 +774,16 @@ export class ConsentManagerService {
     }
   }
 
+  /** Clear all stored audit records. */
+  clearAuditRecords(): void {
+    try {
+      const ls = this.getLocalStorage();
+      if (!ls) return;
+      const key = `${this.getCookieName()}_audit`;
+      ls.removeItem(key);
+    } catch { /* ignore */ }
+  }
+
   // ── Script Loader ─────────────────────────────────────────────────
 
   private initScriptLoader(scripts: ConsentManagedScript[]): void {
@@ -632,6 +807,7 @@ export class ConsentManagerService {
   private destroy(): void {
     this.scriptLoader = null;
     this.gcmService = null;
+    this.tcfApi = null;
     this.config = null;
   }
 }
