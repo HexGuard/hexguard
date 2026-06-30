@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "hexguard-repo",
   "private": true,
   "packageManager": "pnpm@10.27.0",
@@ -87,6 +87,8 @@
     "angular:build:lib:signal-utils": "pnpm --dir angular build:lib:signal-utils",
     "angular:build:lib:preferences": "pnpm --dir angular build:lib:preferences",
     "angular:build:lib:http-dedupe": "pnpm --dir angular build:lib:http-dedupe",
+    "angular:build:lib:resource": "pnpm --dir angular build:lib:resource",
+    "angular:build:lib:upload-state": "pnpm --dir angular build:lib:upload-state",
     "angular:test:lib:selection-state": "pnpm --dir angular test:lib:selection-state",
     "angular:test:lib:debounce": "pnpm --dir angular test:lib:debounce",
     "angular:test:lib:bulk-operations": "pnpm --dir angular test:lib:bulk-operations",
@@ -245,3 +247,4 @@
     "prettier": "^3.8.1"
   }
 }
+
