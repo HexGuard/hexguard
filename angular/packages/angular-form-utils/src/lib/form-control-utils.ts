@@ -1,5 +1,5 @@
-import { DestroyRef, inject, signal, type Signal } from '@angular/core';
-import type { AbstractControl } from '@angular/forms';
+import { DestroyRef, computed, inject, signal, type Signal } from '@angular/core';
+import type { AbstractControl, ValidationErrors } from '@angular/forms';
 
 /**
  * Creates a typed `Signal<T>` that tracks the value of a form control at the
@@ -182,5 +182,170 @@ export function formSubmitHandler(
         });
       }
     }
+  };
+}
+
+/**
+ * Handle returned by `injectFormField`.
+ */
+export interface FormFieldHandle<T> {
+  /** Read-only signal backed by the control's value. */
+  readonly value: Signal<T>;
+  /** Whether the control is touched and invalid. */
+  readonly isInvalid: Signal<boolean>;
+  /** The current validation errors, or null. */
+  readonly errors: Signal<ValidationErrors | null>;
+  /** Whether the control is dirty. */
+  readonly isDirty: Signal<boolean>;
+  /** Whether the control is disabled. */
+  readonly isDisabled: Signal<boolean>;
+  /** Whether the control is pending (async validation in progress). */
+  readonly isPending: Signal<boolean>;
+  /** Update the control's value. Emits via the form control so validators fire. */
+  setValue(value: T): void;
+  /** Mark the control as touched (shows validation errors). */
+  markAsTouched(): void;
+}
+
+/**
+ * Creates a typed signal-based facade for a single form control.
+ *
+ * Provides convenient reactive signals (`value`, `isInvalid`, `errors`,
+ * `isDirty`, `isDisabled`, `isPending`) that stay in sync with the control
+ * via `valueChanges` and `statusChanges` subscriptions.
+ *
+ * @example
+ * ```typescript
+ * readonly form = new FormGroup({ name: new FormControl('', [Validators.required]) });
+ * readonly name = injectFormField<string>(form, 'name');
+ *
+ * name.value();        // read current value
+ * name.setValue('x');  // write — updates control, signal follows
+ * name.isInvalid();    // touched && invalid
+ * name.errors();       // ValidationErrors | null
+ * name.markAsTouched();// show validation errors
+ * ```
+ */
+export function injectFormField<T>(
+  form: AbstractControl,
+  path: string,
+): FormFieldHandle<T> {
+  const destroyRef = inject(DestroyRef);
+  const control = form.get(path);
+
+  if (!control) {
+    throw new Error(`injectFormField: no control found at path "${path}".`);
+  }
+
+  const valueSignal = signal<T>(control.value as T);
+  const errorsSignal = signal<ValidationErrors | null>(control.errors);
+  const statusSignal = signal(control.status);
+  const isInvalidSignal = signal<boolean>(control.touched && control.invalid);
+  const isDirtySignal = signal<boolean>(control.dirty);
+
+  const refresh = () => {
+    errorsSignal.set(control.errors);
+    statusSignal.set(control.status);
+    isInvalidSignal.set(control.touched && control.invalid);
+    isDirtySignal.set(control.dirty);
+  };
+
+  const valueSub = control.valueChanges.subscribe({
+    next: (v: T) => { valueSignal.set(v); refresh(); },
+  });
+
+  const statusSub = control.statusChanges.subscribe({
+    next: refresh,
+  });
+
+  destroyRef.onDestroy(() => {
+    valueSub.unsubscribe();
+    statusSub.unsubscribe();
+  });
+
+  const isPending = computed<boolean>(() => statusSignal() === 'PENDING');
+  const isDisabled = computed<boolean>(() => statusSignal() === 'DISABLED');
+
+  return {
+    value: valueSignal.asReadonly(),
+    isInvalid: isInvalidSignal.asReadonly(),
+    errors: errorsSignal.asReadonly(),
+    isDirty: isDirtySignal.asReadonly(),
+    isDisabled,
+    isPending,
+    setValue: (val: T) => control.setValue(val),
+    markAsTouched: () => { control.markAsTouched(); refresh(); },
+  };
+}
+
+/**
+ * Handle returned by `injectFormSubmission`.
+ */
+export interface FormSubmissionHandle {
+  /** Whether a submission is currently in progress. */
+  readonly submitting: Signal<boolean>;
+  /** The last submission error, or `null` if the last submit succeeded. */
+  readonly error: Signal<unknown>;
+  /** Whether the form is disabled (submitting or form-level disabled). */
+  readonly disabled: Signal<boolean>;
+  /** Submit the form. Returns a promise that resolves when complete. */
+  submit(): Promise<void>;
+}
+
+/**
+ * Creates a form submission handler with loading state and double-submit
+ * prevention.
+ *
+ * Marks all controls as touched, triggers validation, and calls the provided
+ * action only if the form is valid. While the action is executing, `submitting`
+ * is `true` and a subsequent `submit()` call is a no-op.
+ *
+ * @example
+ * ```typescript
+ * readonly form = new FormGroup({ name: new FormControl('', [Validators.required]) });
+ * readonly sub = injectFormSubmission(form, async () => {
+ *   await this.api.save(form.value);
+ * });
+ *
+ * // Template: <button (click)="sub.submit()" [disabled]="sub.disabled()">Save</button>
+ * //           @if (sub.submitting()) { <span>Saving…</span> }
+ * //           @if (sub.error(); let err) { <span class="error">{{ err }}</span> }
+ * ```
+ */
+export function injectFormSubmission(
+  form: AbstractControl,
+  onSubmit: () => Promise<void>,
+): FormSubmissionHandle {
+  const submitting = signal(false);
+  const error = signal<unknown>(null);
+
+  const disabled = computed<boolean>(() => submitting() || form.disabled);
+
+  async function submit(): Promise<void> {
+    if (submitting()) return; // prevent double-submit
+
+    form.markAllAsTouched();
+    form.updateValueAndValidity();
+
+    if (!form.valid) return;
+
+    submitting.set(true);
+    error.set(null);
+
+    try {
+      await onSubmit();
+    } catch (err) {
+      error.set(err);
+      throw err;
+    } finally {
+      submitting.set(false);
+    }
+  }
+
+  return {
+    submitting: submitting.asReadonly(),
+    error: error.asReadonly(),
+    disabled,
+    submit,
   };
 }

@@ -146,14 +146,90 @@ import { IsInvalidPipe, FormErrorPipe } from '@hexguard/angular-form-utils';
 
 Import `ShowFormErrorDirective` and add it to your component's `imports` array. The directive subscribes to `valueChanges` and `statusChanges` so the view updates automatically.
 
+## New APIs
+
+### `injectFormArray<T>()` — Typed FormArray wrapper
+
+```typescript
+const items = injectFormArray<FormControl<string>>(() => [
+  new FormControl('a', { nonNullable: true }),
+  new FormControl('b', { nonNullable: true }),
+]);
+
+items.length();      // Signal<number>
+items.value();       // Signal<string[]>
+items.dirty();       // Signal<boolean>
+items.valid();       // Signal<boolean>
+
+items.push(new FormControl('c', { nonNullable: true }));
+items.remove(0);
+items.insert(1, new FormControl('x', { nonNullable: true }));
+items.move(0, 2);    // Move first to third position
+items.swap(0, 1);    // Swap first and second
+items.clear();
+items.reset();
+items.at(0);         // FormControl<string> | undefined
+```
+
+### `injectFormField<T>()` — Signal facade for a form control
+
+```typescript
+const form = new FormGroup({ name: new FormControl('') });
+const name = injectFormField<string>(form, 'name');
+
+name.value();        // Signal<string> — reads control value
+name.setValue('x');  // updates control (signal follows via valueChanges)
+name.isInvalid();    // Signal<boolean> — touched && invalid
+name.errors();       // Signal<ValidationErrors | null>
+name.isDirty();      // Signal<boolean>
+name.isDisabled();   // Signal<boolean>
+name.isPending();    // Signal<boolean> — async validation in progress
+name.markAsTouched();// shows validation errors
+```
+
+### `injectFormSubmission()` — Submit lifecycle
+
+```typescript
+const form = new FormGroup({ name: new FormControl('', [Validators.required]) });
+const sub = injectFormSubmission(form, async () => {
+  await this.api.save(form.value);
+});
+
+// Template:
+// <button (click)="sub.submit()" [disabled]="sub.disabled()">Save</button>
+// @if (sub.submitting()) { <spinner /> }
+// @if (sub.error(); let err) { <error [message]="err" /> }
+
+sub.submitting();  // Signal<boolean>
+sub.disabled();    // Signal<boolean> — submitting || form.disabled
+sub.error();       // Signal<unknown> — last submit error
+sub.submit();      // () => Promise<void> — double-submit safe
+```
+
+### `debouncedServerValidator()` — Debounced async validation
+
+```typescript
+const validator = debouncedServerValidator<string>(async (username) => {
+  const taken = await checkUsername(username);
+  return taken ? { usernameTaken: true } : null;
+}, 400);
+
+const form = new FormGroup({
+  username: new FormControl('', { asyncValidators: validator }),
+});
+```
+
+Cancels the previous pending request when a new value is emitted, making it safe for server-side uniqueness checks.
+
 ### Scope Boundaries
 
 | Concern | Status |
 |---------|--------|
 | cross-field validators (4 factories) | ✅ |
 | injectFormDirtyState / formUnsavedGuard | ✅ |
-| aggregateFormErrors / asyncFieldValidator | ✅ |
-| FormArray helpers (5 functions) | ✅ |
+| aggregateFormErrors / asyncFieldValidator / debouncedServerValidator | ✅ |
+| FormArray helpers — injectFormArray, dirty state, toggle, move, sync | ✅ |
+| injectFormField / injectFormSubmission | ✅ |
 | controlSignal / isControlInvalid / formDiff / formStatusSignal / formSubmitHandler | ✅ |
 | IsInvalidPipe / FormErrorPipe | ✅ |
 | ShowFormErrorDirective | ✅ |

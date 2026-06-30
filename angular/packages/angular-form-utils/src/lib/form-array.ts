@@ -1,5 +1,5 @@
 import { DestroyRef, inject, signal, type Signal } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, type AbstractControl } from '@angular/forms';
 
 /**
  * Handle returned by `injectFormArrayDirtyState`.
@@ -149,6 +149,123 @@ export function moveArrayItem<T>(
  * // tags now has ['c', 'a'] — 'b' was removed, 'c' was added, 'a' was kept
  * ```
  */
+/**
+ * Handle returned by `injectFormArray`.
+ */
+export interface FormArrayHandle<T extends AbstractControl> {
+  /** The current controls as a signal (updates on structural changes). */
+  readonly controls: Signal<T[]>;
+  /** The current length of the array. */
+  readonly length: Signal<number>;
+  /** Whether any control in the array is dirty. */
+  readonly dirty: Signal<boolean>;
+  /** Whether the array is valid. */
+  readonly valid: Signal<boolean>;
+  /** The raw values of all controls. */
+  readonly value: Signal<ReturnType<T['getRawValue']>[]>;
+
+  /** Push a new control. */
+  push(control: T): void;
+  /** Remove control at index. */
+  remove(index: number): void;
+  /** Insert control at index. */
+  insert(index: number, control: T): void;
+  /** Move control from `fromIndex` to `toIndex`. */
+  move(fromIndex: number, toIndex: number): void;
+  /** Swap controls at `indexA` and `indexB`. */
+  swap(indexA: number, indexB: number): void;
+  /** Clear all controls. */
+  clear(): void;
+  /** Reset the array to initial state. */
+  reset(): void;
+  /** Get control at index, or `undefined` if out of bounds. */
+  at(index: number): T | undefined;
+}
+
+/**
+ * Creates a typed `FormArray` handle with signal-based state tracking.
+ *
+ * Provides reactive `controls`, `length`, `dirty`, `valid`, and `value`
+ * signals that update automatically on structural changes. All mutation
+ * methods (`push`, `remove`, `insert`, `move`, `swap`, `clear`, `reset`)
+ * are type-safe and include index bounds validation.
+ *
+ * @example
+ * ```typescript
+ * interface LineItem { name: string; qty: number }
+ *
+ * readonly items = injectFormArray<FormGroup<{
+ *   name: FormControl<string>;
+ *   qty: FormControl<number>;
+ * }>>(() => [new FormGroup({ name: new FormControl('', {nonNullable: true}), qty: new FormControl(1) })]);
+ *
+ * items.length(); // Signal<number>
+ * items.push(new FormGroup({ name: new FormControl('Item', {nonNullable: true}), qty: new FormControl(2) }));
+ * items.move(0, 1);
+ * ```
+ */
+export function injectFormArray<T extends AbstractControl>(
+  controlsOrFactory: T[] | (() => T[]),
+): FormArrayHandle<T> {
+  const destroyRef = inject(DestroyRef);
+  const initial = typeof controlsOrFactory === 'function' ? controlsOrFactory() : controlsOrFactory;
+  const array = new FormArray(initial);
+  const version = signal(0);
+  const controlsSignal = signal<T[]>(array.controls as T[]);
+  const lengthSignal = signal(array.length);
+  const dirtySignal = signal(array.dirty);
+  const validSignal = signal(array.valid);
+  const valueSignal = signal(array.getRawValue() as ReturnType<T['getRawValue']>[]);
+
+  const refresh = () => {
+    controlsSignal.set(array.controls as T[]);
+    lengthSignal.set(array.length);
+    dirtySignal.set(array.dirty);
+    validSignal.set(array.valid);
+    valueSignal.set(array.getRawValue() as ReturnType<T['getRawValue']>[]);
+    version.update((v) => v + 1);
+  };
+
+  const sub = array.valueChanges.subscribe({ next: refresh });
+  const statusSub = array.statusChanges.subscribe({ next: refresh });
+  destroyRef.onDestroy(() => { sub.unsubscribe(); statusSub.unsubscribe(); });
+
+  return {
+    controls: controlsSignal.asReadonly(),
+    length: lengthSignal.asReadonly(),
+    dirty: dirtySignal.asReadonly(),
+    valid: validSignal.asReadonly(),
+    value: valueSignal.asReadonly(),
+    push: (control: T) => { array.push(control); refresh(); },
+    remove: (index: number) => { if (index >= 0 && index < array.length) { array.removeAt(index); refresh(); } },
+    insert: (index: number, control: T) => { array.insert(index, control); refresh(); },
+    move: (fromIndex: number, toIndex: number) => {
+      if (fromIndex === toIndex) return;
+      if (fromIndex < 0 || fromIndex >= array.length) return;
+      if (toIndex < 0 || toIndex >= array.length) return;
+      const ctrl = array.at(fromIndex) as T;
+      array.removeAt(fromIndex);
+      array.insert(toIndex, ctrl);
+      refresh();
+    },
+    swap: (indexA: number, indexB: number) => {
+      if (indexA === indexB) return;
+      if (indexA < 0 || indexA >= array.length) return;
+      if (indexB < 0 || indexB >= array.length) return;
+      const ctrlA = array.at(indexA) as T;
+      const ctrlB = array.at(indexB) as T;
+      array.removeAt(Math.max(indexA, indexB));
+      array.removeAt(Math.min(indexA, indexB));
+      array.insert(Math.min(indexA, indexB), ctrlB);
+      array.insert(Math.max(indexA, indexB), ctrlA);
+      refresh();
+    },
+    clear: () => { array.clear(); refresh(); },
+    reset: () => { array.reset(); refresh(); },
+    at: (index: number) => (index >= 0 && index < array.length ? (array.at(index) as T) : undefined),
+  };
+}
+
 export function syncArrayValues<T>(
   array: FormArray<FormControl<T>>,
   values: T[],

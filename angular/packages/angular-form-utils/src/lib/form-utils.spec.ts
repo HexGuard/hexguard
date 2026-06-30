@@ -5,10 +5,13 @@ import { TestBed } from '@angular/core/testing';
 import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './cross-field-validators';
 import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
-import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
-import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler } from './form-control-utils';
+import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray } from './form-array';
+import type { FormArrayHandle } from './form-array';
+import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission } from './form-control-utils';
+import type { FormFieldHandle, FormSubmissionHandle } from './form-control-utils';
 import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
 import { ShowFormErrorDirective } from './form-directives';
+import { debouncedServerValidator } from './form-errors';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -719,5 +722,259 @@ describe('formSubmitHandler', () => {
     submit();
     await Promise.resolve();
     expect(completed).toBe(true);
+  });
+});
+
+describe('injectFormArray', () => {
+  function setup() {
+    @Component({ template: '', standalone: true })
+    class TestComponent {
+      readonly items = injectFormArray<FormControl<string>>(() => [
+        new FormControl('a', { nonNullable: true }),
+        new FormControl('b', { nonNullable: true }),
+      ]);
+    }
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    return fixture.componentInstance;
+  }
+
+  it('should expose initial controls', () => {
+    const { items } = setup();
+    expect(items.length()).toBe(2);
+    expect(items.value()).toEqual(['a', 'b']);
+  });
+
+  it('should expose dirty state', () => {
+    const { items } = setup();
+    expect(items.dirty()).toBe(false);
+    items.at(0)?.markAsDirty();
+    items.at(0)?.updateValueAndValidity(); // triggers statusChanges on parent
+    expect(items.dirty()).toBe(true);
+  });
+
+  it('should push a new control', () => {
+    const { items } = setup();
+    items.push(new FormControl('c', { nonNullable: true }));
+    expect(items.length()).toBe(3);
+    expect(items.value()).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should remove a control at index', () => {
+    const { items } = setup();
+    items.remove(0);
+    expect(items.length()).toBe(1);
+    expect(items.value()).toEqual(['b']);
+  });
+
+  it('should insert a control at index', () => {
+    const { items } = setup();
+    items.insert(1, new FormControl('x', { nonNullable: true }));
+    expect(items.value()).toEqual(['a', 'x', 'b']);
+  });
+
+  it('should move a control', () => {
+    const { items } = setup();
+    items.move(0, 1);
+    expect(items.value()).toEqual(['b', 'a']);
+  });
+
+  it('should swap two controls', () => {
+    const { items } = setup();
+    items.push(new FormControl('c', { nonNullable: true }));
+    items.swap(0, 2);
+    expect(items.value()).toEqual(['c', 'b', 'a']);
+  });
+
+  it('should clear all controls', () => {
+    const { items } = setup();
+    items.clear();
+    expect(items.length()).toBe(0);
+  });
+
+  it('should reset values to initial', () => {
+    const { items } = setup();
+    items.at(0)?.setValue('x');
+    items.at(1)?.setValue('y');
+    expect(items.value()).toEqual(['x', 'y']);
+    items.reset();
+    expect(items.value()).toEqual(['a', 'b']);
+  });
+
+  it('should get control at index', () => {
+    const { items } = setup();
+    expect(items.at(0)?.value).toBe('a');
+    expect(items.at(99)).toBeUndefined();
+  });
+});
+
+describe('injectFormField', () => {
+  function setup() {
+    @Component({ template: '', standalone: true })
+    class TestComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('Alice', { nonNullable: true }),
+        email: new FormControl('', [Validators.required, Validators.email]),
+      });
+      readonly name = injectFormField<string>(this.form, 'name');
+      readonly email = injectFormField<string>(this.form, 'email');
+    }
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    return fixture.componentInstance;
+  }
+
+  it('should return initial value', () => {
+    const { name } = setup();
+    expect(name.value()).toBe('Alice');
+  });
+
+  it('should track value changes', () => {
+    const { form, name } = setup();
+    form.get('name')?.setValue('Bob');
+    expect(name.value()).toBe('Bob');
+  });
+
+  it('should set value via setValue', () => {
+    const { form, name } = setup();
+    name.setValue('Charlie');
+    expect(form.get('name')?.value).toBe('Charlie');
+    expect(name.value()).toBe('Charlie');
+  });
+
+  it('should track invalid state', () => {
+    const { email } = setup();
+    expect(email.isInvalid()).toBe(false);
+    email.markAsTouched();
+    expect(email.isInvalid()).toBe(true);
+  });
+
+  it('should track errors', () => {
+    const { email } = setup();
+    email.markAsTouched();
+    expect(email.errors()).not.toBeNull();
+    expect(email.errors()!['required']).toBe(true);
+  });
+
+  it('should track dirty state', () => {
+    const { form, name } = setup();
+    expect(name.isDirty()).toBe(false);
+    form.get('name')?.markAsDirty();
+    form.get('name')?.updateValueAndValidity();
+    expect(name.isDirty()).toBe(true);
+  });
+
+  it('should throw for invalid path', () => {
+    expect(() => {
+      @Component({ template: '', standalone: true })
+      class InvalidComponent {
+        readonly form = new FormGroup({ x: new FormControl('') });
+        readonly f = injectFormField(this.form, 'nonexistent');
+      }
+      const fixture = TestBed.createComponent(InvalidComponent);
+      fixture.detectChanges();
+    }).toThrow(/nonexistent/);
+  });
+});
+
+describe('injectFormSubmission', () => {
+  function setup() {
+    @Component({ template: '', standalone: true })
+    class TestComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('Alice', [Validators.required]),
+      });
+      readonly sub = injectFormSubmission(this.form, async () => {
+        await Promise.resolve();
+      });
+    }
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    return fixture.componentInstance;
+  }
+
+  it('should start not submitting', () => {
+    const { sub } = setup();
+    expect(sub.submitting()).toBe(false);
+  });
+
+  it('should submit and complete', async () => {
+    const { sub } = setup();
+    await sub.submit();
+    expect(sub.submitting()).toBe(false);
+  });
+
+  it('should not submit when form is invalid', async () => {
+    @Component({ template: '', standalone: true })
+    class InvalidComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+      });
+      readonly sub = injectFormSubmission(this.form, async () => {
+        await Promise.resolve();
+      });
+    }
+    const fixture = TestBed.createComponent(InvalidComponent);
+    fixture.detectChanges();
+    const { sub } = fixture.componentInstance;
+    await sub.submit();
+    expect(sub.submitting()).toBe(false);
+  });
+
+  it('should prevent double submit', async () => {
+    let callCount = 0;
+    @Component({ template: '', standalone: true })
+    class DoubleComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('Alice', [Validators.required]),
+      });
+      readonly sub = injectFormSubmission(this.form, async () => {
+        callCount++;
+        await new Promise((r) => setTimeout(r, 100));
+      });
+    }
+    const fixture = TestBed.createComponent(DoubleComponent);
+    fixture.detectChanges();
+    const { sub } = fixture.componentInstance;
+    // Start two submits — second should be no-op
+    const p1 = sub.submit();
+    const p2 = sub.submit();
+    await Promise.all([p1, p2]);
+    expect(callCount).toBe(1);
+  });
+
+  it('should capture error on submit failure', async () => {
+    @Component({ template: '', standalone: true })
+    class ErrorComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('Alice', [Validators.required]),
+      });
+      readonly sub = injectFormSubmission(this.form, async () => {
+        throw new Error('Submit failed');
+      });
+    }
+    const fixture = TestBed.createComponent(ErrorComponent);
+    fixture.detectChanges();
+    const { sub } = fixture.componentInstance;
+    await expect(sub.submit()).rejects.toThrow('Submit failed');
+    expect(sub.error()).toBeTruthy();
+    expect(sub.submitting()).toBe(false);
+  });
+});
+
+describe('debouncedServerValidator', () => {
+  it('should return null for valid value', async () => {
+    const validator = debouncedServerValidator<string>(async () => null, 0);
+    const ctrl = new FormControl('ok');
+    const result = await validator(ctrl);
+    expect(result).toBeNull();
+  });
+
+  it('should return errors for invalid value', async () => {
+    const validator = debouncedServerValidator<string>(async (v: string) =>
+      v === 'taken' ? { taken: true } : null, 0);
+    const ctrl = new FormControl('taken');
+    const result = await validator(ctrl);
+    expect(result).toEqual({ taken: true });
   });
 });

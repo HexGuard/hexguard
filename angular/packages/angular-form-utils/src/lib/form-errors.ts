@@ -71,3 +71,64 @@ export function asyncFieldValidator<T>(
     return validateFn(control.value as T, control);
   };
 }
+
+/**
+ * Creates a debounced async validator that waits for the user to stop typing
+ * before calling the validation function.
+ *
+ * Cancels the previous pending request when a new value is emitted, making it
+ * safe for server-side uniqueness checks. The validation function receives
+ * the current control value and should return `null` for valid or a
+ * `ValidationErrors` object for invalid.
+ *
+ * @param validateFn - Async validation function.
+ * @param debounceMs - Debounce delay in milliseconds. Default: 400ms.
+ *
+ * @example
+ * ```typescript
+ * const validator = debouncedServerValidator<string>(async (username) => {
+ *   const taken = await checkUsername(username);
+ *   return taken ? { usernameTaken: true } : null;
+ * }, 500);
+ *
+ * const form = new FormGroup({
+ *   username: new FormControl('', { asyncValidators: validator }),
+ * });
+ * ```
+ */
+export function debouncedServerValidator<T>(
+  validateFn: (value: T, control: AbstractControl) => Promise<ValidationErrors | null>,
+  debounceMs = 400,
+): AsyncValidatorFn {
+  // Track the latest debounce timer and pending promise per control instance
+  const state = new WeakMap<
+    AbstractControl,
+    { timer: ReturnType<typeof setTimeout> | null; reject: ((reason: unknown) => void) | null }
+  >();
+
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+    // Cancel previous timer and reject pending promise
+    const existing = state.get(control);
+    if (existing) {
+      if (existing.timer !== null) clearTimeout(existing.timer);
+      if (existing.reject !== null) {
+        existing.reject(new DOMException('Aborted', 'AbortError'));
+      }
+    }
+
+    return new Promise<ValidationErrors | null>((resolve, reject) => {
+      const timer = setTimeout(async () => {
+        try {
+          const result = await validateFn(control.value as T, control);
+          state.delete(control);
+          resolve(result);
+        } catch (err) {
+          state.delete(control);
+          reject(err);
+        }
+      }, debounceMs);
+
+      state.set(control, { timer, reject });
+    });
+  };
+}
