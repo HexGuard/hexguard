@@ -214,6 +214,28 @@
         <p *showFormError="errorForm.get('email'); let err" class="demo-error" data-testid="dir-email-error">Email errors: {{ err | json }}</p>
       </div>
     </fieldset>
+
+    <!-- formStatusSignal + formSubmitHandler demo -->
+    <fieldset class="demo-fieldset">
+      <legend>formStatusSignal + formSubmitHandler</legend>
+      <p class="demo-hint">Reactive form status tracking and standardized submit handling.</p>
+      <div [formGroup]="statusForm">
+        <label>Name (required, min 3 chars):
+          <input formControlName="name" (input)="statusForm.get('name')?.markAsTouched(); statusForm.updateValueAndValidity()" data-testid="fs-name-input" />
+        </label>
+        <label>Email (required, valid email):
+          <input formControlName="email" (input)="statusForm.get('email')?.markAsTouched(); statusForm.updateValueAndValidity()" data-testid="fs-email-input" />
+        </label>
+      </div>
+      <div class="demo-dirty-controls">
+        <span>Status: <strong data-testid="fs-status">{{ formStatus() }}</strong></span>
+        <button class="demo-button" (click)="submitHandler()" data-testid="fs-submit-btn" [disabled]="formStatus() !== 'VALID'">Submit</button>
+      </div>
+      @if (submitMessage()) {
+        <p class="demo-success" data-testid="fs-message">{{ submitMessage() }}</p>
+      }
+      <p class="demo-hint">Submit button is <strong>disabled</strong> when status is not VALID. <code>formSubmitHandler</code> marks all fields touched on click — fill fields and click Submit to test.</p>
+    </fieldset>
   </article>
   <demo-inspector-panel demoAside panelTestId="form-utils-inspector-panel" title="Form Utils snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="form-utils-snapshot-json" codeTestId="form-utils-code-sample" />
 </demo-page-layout>

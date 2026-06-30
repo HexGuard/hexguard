@@ -6,7 +6,7 @@ import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './c
 import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
 import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
-import { controlSignal, isControlInvalid, formDiff } from './form-control-utils';
+import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler } from './form-control-utils';
 import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
 import { ShowFormErrorDirective } from './form-directives';
 
@@ -646,5 +646,78 @@ describe('ShowFormErrorDirective', () => {
     fixture.componentInstance.control.setValue('now valid');
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('[data-testid="error-block"]')).toBeNull();
+  });
+});
+
+describe('formStatusSignal', () => {
+  function setup() {
+    @Component({ template: '', standalone: true })
+    class TestComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+      });
+      readonly status = formStatusSignal(this.form);
+    }
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    return fixture.componentInstance;
+  }
+
+  it('should return initial status', () => {
+    const { status } = setup();
+    expect(status()).toBe('INVALID');
+  });
+
+  it('should update when form becomes valid', () => {
+    const { form, status } = setup();
+    form.get('name')?.setValue('Alice');
+    expect(status()).toBe('VALID');
+  });
+
+  it('should update when form becomes invalid again', () => {
+    const { form, status } = setup();
+    form.get('name')?.setValue('Alice');
+    expect(status()).toBe('VALID');
+    form.get('name')?.setValue('');
+    form.get('name')?.updateValueAndValidity();
+    expect(status()).toBe('INVALID');
+  });
+});
+
+describe('formSubmitHandler', () => {
+  it('should call onValid when form is valid', () => {
+    const form = new FormGroup({ name: new FormControl('Alice') });
+    const onValid = vi.fn();
+    const submit = formSubmitHandler(form, onValid);
+    submit();
+    expect(onValid).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call onValid when form is invalid', () => {
+    const form = new FormGroup({ name: new FormControl('', [Validators.required]) });
+    const onValid = vi.fn();
+    const submit = formSubmitHandler(form, onValid);
+    submit();
+    expect(onValid).not.toHaveBeenCalled();
+  });
+
+  it('should mark all controls as touched', () => {
+    const form = new FormGroup({ name: new FormControl('', [Validators.required]) });
+    const submit = formSubmitHandler(form, vi.fn());
+    expect(form.get('name')?.touched).toBe(false);
+    submit();
+    expect(form.get('name')?.touched).toBe(true);
+  });
+
+  it('should support async onValid', async () => {
+    const form = new FormGroup({ name: new FormControl('Alice') });
+    let completed = false;
+    const submit = formSubmitHandler(form, async () => {
+      await Promise.resolve();
+      completed = true;
+    });
+    submit();
+    await Promise.resolve();
+    expect(completed).toBe(true);
   });
 });

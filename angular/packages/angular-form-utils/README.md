@@ -102,6 +102,13 @@ isControlInvalid(form.get('name')); // boolean
 
 // Deep partial diff between two form value snapshots
 formDiff({ name: 'Alice' }, { name: 'Bob' }); // → { name: 'Bob' }
+
+// Reactive form status signal
+const status = formStatusSignal(form);           // Signal<'VALID'|'INVALID'|'PENDING'|'DISABLED'>
+
+// Standardized form submit handler
+const submit = formSubmitHandler(form, () => this.save());
+// Template: <button (click)="submit()">Save</button>
 ```
 
 ### Template pipes
@@ -147,7 +154,7 @@ Import `ShowFormErrorDirective` and add it to your component's `imports` array. 
 | injectFormDirtyState / formUnsavedGuard | ✅ |
 | aggregateFormErrors / asyncFieldValidator | ✅ |
 | FormArray helpers (5 functions) | ✅ |
-| controlSignal / isControlInvalid / formDiff | ✅ |
+| controlSignal / isControlInvalid / formDiff / formStatusSignal / formSubmitHandler | ✅ |
 | IsInvalidPipe / FormErrorPipe | ✅ |
 | ShowFormErrorDirective | ✅ |
 | Template-driven forms | ❌ (Reactive Forms only) |

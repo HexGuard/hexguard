@@ -1411,6 +1411,8 @@ export const currentPackages = [
       'controlSignal() — typed Signal from a form control value at a dotted path.',
       'isControlInvalid() — touched && invalid shorthand for template error display.',
       'formDiff() — deep partial diff between two form value snapshots.',
+      'formStatusSignal() — reactive Signal tracking form status (VALID/INVALID/PENDING/DISABLED).',
+      'formSubmitHandler() — standardized submit handler with mark-all-touched and validation.',
       'IsInvalidPipe — | isInvalid template pipe for touched && invalid checks.',
       'FormErrorPipe — | formError template pipe for extracting validation errors by key.',
       'ShowFormErrorDirective — *showFormError structural directive for touched && invalid conditional display.',

@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff, IsInvalidPipe, FormErrorPipe, ShowFormErrorDirective } from '@hexguard/angular-form-utils';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, IsInvalidPipe, FormErrorPipe, ShowFormErrorDirective } from '@hexguard/angular-form-utils';
 import { ANGULAR_FORM_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -102,6 +102,17 @@ export class FormUtilsDemoPageComponent {
   protected readonly isControlInvalid = isControlInvalid;
   protected readonly controlSignal = controlSignal;
   protected readonly pipeUsage = '@if (control | isInvalid) \u2022 {{ control | formError:\'required\' }} \u2022 {{ control | formError | json }}';
+
+  // formStatusSignal + formSubmitHandler demo
+  protected readonly statusForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
+  protected readonly formStatus = formStatusSignal(this.statusForm);
+  protected readonly submitMessage = signal('');
+  protected readonly submitHandler = formSubmitHandler(this.statusForm, () => {
+    this.submitMessage.set(`Submitted: ${JSON.stringify(this.statusForm.value)}`);
+  });
 
   protected addTag(): void {
     const val = this.tagInput().trim();

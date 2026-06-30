@@ -18,6 +18,8 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 - `controlSignal(form, path)` — Create a typed `Signal<T>` from a form control's value at a dotted path.
 - `isControlInvalid(control)` — `touched && invalid` shorthand for template validation display.
 - `formDiff(initial, current)` — Deep partial diff between two form value snapshots.
+- `formStatusSignal(form)` — Reactive `Signal<'VALID'|'INVALID'|'PENDING'|'DISABLED'>` tracking form validity.
+- `formSubmitHandler(form, onValid)` — Creates a submit handler that marks all touched, validates, and calls onValid only if valid.
 - `IsInvalidPipe` — `| isInvalid` pipe: `touched && invalid` in templates.
 - `FormErrorPipe` — `| formError` pipe: extract all or specific validation errors by key.
 - `ShowFormErrorDirective` — `*showFormError` structural directive: shows content only when control is touched and invalid, exposes errors as context. Subscribes to `valueChanges`/`statusChanges` for auto-update.
