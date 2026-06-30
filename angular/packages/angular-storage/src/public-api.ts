@@ -5,6 +5,7 @@
  * with JSON serialization, versioning, cross-tab sync, and TTL expiry.
  */
 export { injectStorage } from './lib/storage';
+export { StorageService } from './lib/storage-service';
 export { fromStorageKey } from './lib/storage-observable';
 export type { StorageOptions, TypedStorage, StorageMeta } from './lib/storage';
 export { cookieStorage } from './lib/cookie-storage';

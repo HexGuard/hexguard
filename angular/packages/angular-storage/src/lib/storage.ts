@@ -1,5 +1,7 @@
 import { DestroyRef, inject, signal } from '@angular/core';
 
+import { StorageService } from './storage-service';
+
 /** Metadata about the current stored value. */
 export type StorageMeta = 'stored' | 'expired' | 'missing' | 'versionMismatch';
 
@@ -57,6 +59,13 @@ export interface TypedStorage<T> {
   /** Signal emitting the current storage metadata. */
   readonly meta: import('@angular/core').Signal<StorageMeta>;
 
+  /**
+   * Signal that increments on every value change — same-tab writes,
+   * cross-tab sync, and programmatic clears all bump this counter.
+   * Useful for `effect()` or `computed()` that should react to any change.
+   */
+  readonly changed: import('@angular/core').Signal<number>;
+
   /** Persist a new value. */
   set(value: T): void;
 
@@ -94,130 +103,6 @@ export interface TypedStorage<T> {
  * ```
  */
 export function injectStorage<T>(key: string, options: StorageOptions<T>): TypedStorage<T> {
-  const { defaultValue, version = 1, onUpgrade, ttlMs, storage: storageType = 'local' } = options;
-
-  const destroyRef = inject(DestroyRef);
-  let storageApi: Storage | null = null;
-
-  // Attempt to access the storage API (may throw in private browsing)
-  try {
-    storageApi = storageType === 'local' ? localStorage : sessionStorage;
-    // Probe by writing a test value
-    const testKey = `__hexguard_storage_test__`;
-    storageApi.setItem(testKey, '1');
-    storageApi.removeItem(testKey);
-  } catch {
-    storageApi = null;
-  }
-
-  // ── Read initial value from storage ──────────────────────────
-
-  let initialValue: T = defaultValue;
-  let initialMeta: StorageMeta = 'missing';
-
-  if (storageApi) {
-    try {
-      const raw = storageApi.getItem(key);
-      if (raw !== null) {
-        const parsed = JSON.parse(raw);
-        const storedVersion: number = parsed._v ?? 1;
-        const storedTimestamp: number | undefined = parsed._ts;
-
-        if (storedVersion !== version) {
-          if (onUpgrade) {
-            const rawValue = parsed._value !== undefined ? parsed._value : {};
-            initialValue = onUpgrade(rawValue, storedVersion);
-            initialMeta = 'stored';
-          } else {
-            initialMeta = 'versionMismatch';
-          }
-        } else if (
-          ttlMs !== undefined &&
-          storedTimestamp !== undefined &&
-          Date.now() - storedTimestamp > ttlMs
-        ) {
-          initialMeta = 'expired';
-        } else {
-          initialValue = parsed._value !== undefined ? parsed._value : defaultValue;
-          initialMeta = 'stored';
-        }
-      }
-    } catch {
-      // Malformed JSON or other read error — use default
-      initialMeta = 'missing';
-    }
-  }
-
-  const value = signal<T>(initialValue);
-  const meta = signal<StorageMeta>(initialMeta);
-
-  // ── Persistence helper ───────────────────────────────────────
-
-  function persist(newValue: T): void {
-    value.set(newValue);
-    meta.set('stored');
-
-    if (!storageApi) return;
-
-    try {
-      const envelope: Record<string, unknown> = {
-        _value: newValue,
-        _v: version,
-      };
-      if (ttlMs !== undefined) {
-        envelope['_ts'] = Date.now();
-      }
-      storageApi.setItem(key, JSON.stringify(envelope));
-    } catch {
-      // Storage full or unavailable — keep in-memory value
-      meta.set('missing');
-    }
-  }
-
-  // ── Cross-tab synchronization ────────────────────────────────
-
-  if (typeof window !== 'undefined' && storageApi) {
-    const handleStorageEvent = (e: StorageEvent): void => {
-      if (e.key !== key || e.storageArea !== storageApi) return;
-
-      if (e.newValue === null) {
-        // Key was removed in another tab
-        value.set(defaultValue);
-        meta.set('missing');
-      } else {
-        try {
-          const parsed = JSON.parse(e.newValue);
-          value.set(parsed._value !== undefined ? parsed._value : defaultValue);
-          meta.set('stored');
-        } catch {
-          // Ignore malformed JSON from other tabs
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageEvent);
-    destroyRef.onDestroy(() => {
-      window.removeEventListener('storage', handleStorageEvent);
-    });
-  }
-
-  // ── Public API ────────────────────────────────────────────────
-
-  return {
-    value: value.asReadonly(),
-    meta: meta.asReadonly(),
-    set: persist,
-    patch: (partial) => persist({ ...value(), ...partial } as T),
-    clear: () => {
-      if (storageApi) {
-        try {
-          storageApi.removeItem(key);
-        } catch {
-          /* ignore */
-        }
-      }
-      value.set(defaultValue);
-      meta.set('missing');
-    },
-  };
+  const service = inject(StorageService);
+  return service.get(key, options);
 }
