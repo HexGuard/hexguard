@@ -6,6 +6,7 @@
  * with `active`, `above`, `below`, `matches`, and per-breakpoint helpers.
  */
 export { injectBreakpointObserver } from './lib/breakpoint-observer';
+export { BreakpointObserverService } from './lib/breakpoint-observer-service';
 export { fromBreakpointChanges } from './lib/breakpoint-observer-observable';
 export { DEFAULT_BREAKPOINTS } from './lib/types';
 export type { BreakpointObserverOptions, BreakpointObserver } from './lib/types';

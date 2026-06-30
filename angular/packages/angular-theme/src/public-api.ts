@@ -6,4 +6,5 @@
  * management, prefers-color-scheme detection, and persistence.
  */
 export { injectTheme } from './lib/theme';
+export { ThemeService } from './lib/theme-service';
 export type { ThemeMode, ThemeConfig, ThemeHandle } from './lib/types';

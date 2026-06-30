@@ -6,7 +6,7 @@
  *
  * Also provides observable-based alternatives for RxJS consumers.
  */
-export { injectNetworkStatus } from './lib/network-status';
+export { injectNetworkStatus, NetworkStatusService } from './lib/network-status';
 export { createNetworkStatusObservables } from './lib/network-status-observable';
 export type { NetworkStatusObservables } from './lib/network-status-observable';
 export type {
