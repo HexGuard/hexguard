@@ -4,14 +4,14 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './cross-field-validators';
 import { injectFormDirtyState } from './form-dirty-state';
-import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
-import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray } from './form-array';
+import { aggregateFormErrors, asyncFieldValidator, debouncedServerValidator, injectValidator } from './form-errors';
+import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray, injectFormArrayItem } from './form-array';
 import type { FormArrayHandle } from './form-array';
-import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission } from './form-control-utils';
+import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission, controlErrorMessages } from './form-control-utils';
 import type { FormFieldHandle, FormSubmissionHandle } from './form-control-utils';
 import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
 import { ShowFormErrorDirective } from './form-directives';
-import { debouncedServerValidator } from './form-errors';
+import { createControlValueAccessor } from './form-control-value-accessor';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -976,5 +976,217 @@ describe('debouncedServerValidator', () => {
     const ctrl = new FormControl('taken');
     const result = await validator(ctrl);
     expect(result).toEqual({ taken: true });
+  });
+});
+
+describe('injectValidator', () => {
+  it('should return null when validation passes', () => {
+    const v = injectValidator<string>((value) => value === 'ok' ? null : { notOk: true });
+    const ctrl = new FormControl('ok');
+    expect(v.validate(ctrl)).toBeNull();
+  });
+
+  it('should return errors when validation fails', () => {
+    const v = injectValidator<string>((value) => value === 'ok' ? null : { notOk: true });
+    const ctrl = new FormControl('bad');
+    const result = v.validate(ctrl);
+    expect(result).toEqual({ notOk: true });
+  });
+
+  it('should include async validator when provided', async () => {
+    const v = injectValidator<string>(
+      () => null,
+      async (value) => value === 'taken' ? { taken: true } : null,
+    );
+    expect(v.asyncValidator).toBeDefined();
+    const ctrl = new FormControl('taken');
+    const result = await v.asyncValidator!(ctrl);
+    expect(result).toEqual({ taken: true });
+  });
+
+  it('should provide NG_VALIDATORS provider', () => {
+    const v = injectValidator<string>(() => null);
+    expect(v.providers.length).toBeGreaterThan(0);
+  });
+});
+
+describe('controlErrorMessages', () => {
+  it('should return empty array for valid control', () => {
+    const ctrl = new FormControl('hello');
+    const msgs = controlErrorMessages(ctrl, { required: 'Required.' });
+    expect(msgs()).toEqual([]);
+  });
+
+  it('should return messages for active errors', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.markAsTouched();
+    ctrl.updateValueAndValidity();
+    const msgs = controlErrorMessages(ctrl, { required: 'Required.' });
+    expect(msgs()).toEqual(['Required.']);
+  });
+
+  it('should support function messages', () => {
+    const ctrl = new FormControl('', [Validators.minLength(5)]);
+    ctrl.markAsTouched();
+    ctrl.setValue('ab');
+    ctrl.updateValueAndValidity();
+    const msgs = controlErrorMessages(ctrl, {
+      minlength: (err: any) => `Need at least ${err.requiredLength} chars.`,
+    });
+    expect(msgs()).toContain('Need at least 5 chars.');
+  });
+
+  it('should update reactively', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.markAsTouched();
+    ctrl.updateValueAndValidity();
+    const msgs = controlErrorMessages(ctrl, { required: 'Required.' });
+    expect(msgs()).toEqual(['Required.']);
+    ctrl.setValue('ok');
+    ctrl.updateValueAndValidity();
+    expect(msgs()).toEqual([]);
+  });
+});
+
+describe('injectFormArrayItem', () => {
+  function setup() {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+      new FormControl('c', { nonNullable: true }),
+    ]);
+    return { array };
+  }
+
+  it('should provide index', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 0);
+      expect(item.index()).toBe(0);
+    });
+  });
+
+  it('should detect first and last', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const first = injectFormArrayItem(array, 0);
+      expect(first.isFirst()).toBe(true);
+      expect(first.isLast()).toBe(false);
+      const last = injectFormArrayItem(array, 2);
+      expect(last.isFirst()).toBe(false);
+      expect(last.isLast()).toBe(true);
+    });
+  });
+
+  it('should remove self', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 1);
+      expect(array.length).toBe(3);
+      item.removeSelf();
+      expect(array.length).toBe(2);
+      expect(array.value).toEqual(['a', 'c']);
+    });
+  });
+
+  it('should move up', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 2);
+      item.moveUp();
+      expect(array.value).toEqual(['a', 'c', 'b']);
+    });
+  });
+
+  it('should move down', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 0);
+      item.moveDown();
+      expect(array.value).toEqual(['b', 'a', 'c']);
+    });
+  });
+
+  it('should no-op moveUp on first item', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 0);
+      item.moveUp();
+      expect(array.value).toEqual(['a', 'b', 'c']);
+    });
+  });
+
+  it('should no-op moveDown on last item', () => {
+    const { array } = setup();
+    TestBed.runInInjectionContext(() => {
+      const item = injectFormArrayItem(array, 2);
+      item.moveDown();
+      expect(array.value).toEqual(['a', 'b', 'c']);
+    });
+  });
+});
+
+describe('createControlValueAccessor', () => {
+  it('should start with initial value', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('hello');
+      expect(cva.value()).toBe('hello');
+      expect(cva.touched()).toBe(false);
+      expect(cva.disabled()).toBe(false);
+    });
+  });
+
+  it('should update value on onChange', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      cva.onChange('world');
+      expect(cva.value()).toBe('world');
+    });
+  });
+
+  it('should mark touched on onTouched', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      expect(cva.touched()).toBe(false);
+      cva.onTouched();
+      expect(cva.touched()).toBe(true);
+    });
+  });
+
+  it('should support writeValue from Angular forms', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      cva.writeValue('from-forms');
+      expect(cva.value()).toBe('from-forms');
+    });
+  });
+
+  it('should support setDisabledState', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      expect(cva.disabled()).toBe(false);
+      cva.setDisabledState(true);
+      expect(cva.disabled()).toBe(true);
+    });
+  });
+
+  it('should call onChange callback on value change', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      let called = false;
+      cva.registerOnChange(() => { called = true; });
+      cva.onChange('test');
+      expect(called).toBe(true);
+    });
+  });
+
+  it('should call onTouched callback', () => {
+    TestBed.runInInjectionContext(() => {
+      const cva = createControlValueAccessor('');
+      let called = false;
+      cva.registerOnTouched(() => { called = true; });
+      cva.onTouched();
+      expect(called).toBe(true);
+    });
   });
 });

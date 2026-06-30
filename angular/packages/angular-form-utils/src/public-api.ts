@@ -1,10 +1,12 @@
 export { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './lib/cross-field-validators';
 export { injectFormDirtyState, formUnsavedGuard } from './lib/form-dirty-state';
 export type { FormDirtyState } from './lib/form-dirty-state';
-export { aggregateFormErrors, asyncFieldValidator, debouncedServerValidator } from './lib/form-errors';
-export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray } from './lib/form-array';
-export type { FormArrayDirtyState, FormArrayHandle } from './lib/form-array';
-export { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission } from './lib/form-control-utils';
+export { aggregateFormErrors, asyncFieldValidator, debouncedServerValidator, injectValidator } from './lib/form-errors';
+export type { ValidatorHandle } from './lib/form-errors';
+export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray, injectFormArrayItem } from './lib/form-array';
+export type { FormArrayDirtyState, FormArrayHandle, FormArrayItemHandle } from './lib/form-array';
+export { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission, controlErrorMessages } from './lib/form-control-utils';
 export type { FormFieldHandle, FormSubmissionHandle } from './lib/form-control-utils';
 export { IsInvalidPipe, FormErrorPipe } from './lib/form-pipes';
 export { ShowFormErrorDirective } from './lib/form-directives';
+export { createControlValueAccessor, provideControlValueAccessor } from './lib/form-control-value-accessor';

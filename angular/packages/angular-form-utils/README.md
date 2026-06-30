@@ -221,6 +221,93 @@ const form = new FormGroup({
 
 Cancels the previous pending request when a new value is emitted, making it safe for server-side uniqueness checks.
 
+### `createControlValueAccessor<T>()` — Custom form control CVA helper
+
+```typescript
+import { createControlValueAccessor, provideControlValueAccessor } from '@hexguard/angular-form-utils';
+
+@Component({
+  selector: 'app-rating',
+  standalone: true,
+  providers: [provideControlValueAccessor(RatingComponent)],
+  template: `...`,
+})
+class RatingComponent implements ControlValueAccessor {
+  readonly cva = createControlValueAccessor(0);
+  readonly value = this.cva.value;     // Signal<number>
+  readonly disabled = this.cva.disabled; // Signal<boolean>
+
+  writeValue(v: number): void { this.cva.writeValue(v); }
+  registerOnChange(fn: any): void { this.cva.registerOnChange(fn); }
+  registerOnTouched(fn: any): void { this.cva.registerOnTouched(fn); }
+  setDisabledState(d: boolean): void { this.cva.setDisabledState(d); }
+
+  // Call in template:
+  // (input)="cva.onChange($any($event).value)" (blur)="cva.onTouched()"
+}
+```
+
+Saves ~25 lines of `ControlValueAccessor` boilerplate per custom form control. The `onChange()` and `onTouched()` methods update both the signals and Angular's forms.
+
+### `injectValidator<T>()` — Custom control validator helper
+
+```typescript
+import { injectValidator } from '@hexguard/angular-form-utils';
+
+@Component({
+  selector: 'app-color-picker',
+  standalone: true,
+  providers: [validators.providers],
+  template: `...`,
+})
+class ColorPickerComponent implements Validator {
+  readonly validators = injectValidator<string>(
+    (value) => ALLOWED_COLORS.includes(value) ? null : { invalidColor: true },
+    async (value) => serverCheck(value) ? { colorTaken: true } : null, // optional
+  );
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.validators.validate(control);
+  }
+}
+```
+
+Eliminates `NG_VALIDATORS` and `NG_ASYNC_VALIDATORS` provider boilerplate from custom form controls.
+
+### `injectFormArrayItem()` — FormArray item context
+
+```typescript
+const items = injectFormArray<FormControl<string>>(() => [...]);
+
+// Inside @for loop:
+// <button (click)="ctx.removeSelf()">Remove</button>
+// <button (click)="ctx.moveUp()" [disabled]="ctx.isFirst()">↑</button>
+const ctx = injectFormArrayItem(items, computed(() => index()));
+ctx.index();      // Signal<number>
+ctx.isFirst();    // Signal<boolean>
+ctx.isLast();     // Signal<boolean>
+ctx.removeSelf(); // Remove this item
+ctx.moveUp();     // Move toward index 0
+ctx.moveDown();   // Move toward the end
+```
+
+### `controlErrorMessages()` — Reactive error message mapping
+
+```typescript
+readonly emailErrors = controlErrorMessages(form.get('email')!, {
+  required: 'Email is required.',
+  email: 'Enter a valid email address.',
+  emailTaken: (err) => `"${err.value}" is already in use.`,
+});
+
+// Template:
+// @for (msg of emailErrors(); track msg) {
+//   <p class="error">{{ msg }}</p>
+// }
+```
+
+Returns a `Signal<string[]>` that updates automatically when the control's errors change.
+
 ### Scope Boundaries
 
 | Concern | Status |
@@ -228,11 +315,15 @@ Cancels the previous pending request when a new value is emitted, making it safe
 | cross-field validators (4 factories) | ✅ |
 | injectFormDirtyState / formUnsavedGuard | ✅ |
 | aggregateFormErrors / asyncFieldValidator / debouncedServerValidator | ✅ |
-| FormArray helpers — injectFormArray, dirty state, toggle, move, sync | ✅ |
+| injectValidator — custom control validator helper | ✅ |
+| FormArray helpers — injectFormArray, injectFormArrayItem, dirty state, toggle, move, sync | ✅ |
 | injectFormField / injectFormSubmission | ✅ |
+| controlErrorMessages — reactive error mapping | ✅ |
+| createControlValueAccessor / provideControlValueAccessor | ✅ |
 | controlSignal / isControlInvalid / formDiff / formStatusSignal / formSubmitHandler | ✅ |
 | IsInvalidPipe / FormErrorPipe | ✅ |
 | ShowFormErrorDirective | ✅ |
+| Template-driven forms | ❌ (Reactive Forms only) |
 | Template-driven forms | ❌ (Reactive Forms only) |
 
 ## Demo

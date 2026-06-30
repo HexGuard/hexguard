@@ -1,4 +1,7 @@
-import type { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import type { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+import { Provider, inject } from '@angular/core';
+import { NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
 
 function hasControls(control: AbstractControl): control is AbstractControl & { controls: Record<string, AbstractControl> } {
   return 'controls' in control;
@@ -130,5 +133,77 @@ export function debouncedServerValidator<T>(
 
       state.set(control, { timer, reject });
     });
+  };
+}
+
+/**
+ * Handle returned by `injectValidator`.
+ */
+export interface ValidatorHandle {
+  /** Provider array for `NG_VALIDATORS`. Spread or merge into `@Component.providers`. */
+  readonly providers: Provider[];
+
+  /** The validator function — call from your `validate()` method. */
+  validate(control: AbstractControl): ValidationErrors | null;
+
+  /** The async validator function — call from your `asyncValidator()` method. */
+  readonly asyncValidator?: (control: AbstractControl) => Promise<ValidationErrors | null>;
+}
+
+/**
+ * Creates a validator that a custom form control can inject to implement
+ * `Validator` without manual `NG_VALIDATORS` boilerplate.
+ *
+ * The returned `providers` array registers the validator with Angular's forms.
+ * The component must implement `Validator` and delegate `validate()` and
+ * `asyncValidator()` to the handle.
+ *
+ * @param validateFn - Synchronous validation function.
+ * @param asyncValidateFn - Optional async validation function.
+ *
+ * @example
+ * ```typescript
+ * @Component({
+ *   selector: 'app-color-picker',
+ *   standalone: true,
+ *   providers: [validators.providers],
+ *   template: `...`,
+ * })
+ * class ColorPickerComponent implements Validator {
+ *   readonly validators = injectValidator<string>(
+ *     (value) => ALLOWED_COLORS.includes(value) ? null : { invalidColor: true },
+ *   );
+ *
+ *   validate(control: AbstractControl): ValidationErrors | null {
+ *     return this.validators.validate(control);
+ *   }
+ * }
+ * ```
+ */
+export function injectValidator<T>(
+  validateFn: (value: T, control: AbstractControl) => ValidationErrors | null,
+  asyncValidateFn?: (value: T, control: AbstractControl) => Promise<ValidationErrors | null>,
+): ValidatorHandle {
+  const providers: Provider[] = [
+    { provide: NG_VALIDATORS, useFactory: () => validatorFn, multi: true },
+  ];
+
+  const validatorFn: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    return validateFn(control.value as T, control);
+  };
+
+  let asyncValidatorFn: ((control: AbstractControl) => Promise<ValidationErrors | null>) | undefined;
+
+  if (asyncValidateFn) {
+    asyncValidatorFn = (control: AbstractControl): Promise<ValidationErrors | null> => {
+      return asyncValidateFn!(control.value as T, control);
+    };
+    providers.push({ provide: NG_ASYNC_VALIDATORS, useFactory: () => asyncValidatorFn, multi: true });
+  }
+
+  return {
+    providers,
+    validate: validatorFn,
+    ...(asyncValidatorFn ? { asyncValidator: asyncValidatorFn } : {}),
   };
 }

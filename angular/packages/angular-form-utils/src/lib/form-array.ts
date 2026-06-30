@@ -1,4 +1,4 @@
-import { DestroyRef, inject, signal, type Signal } from '@angular/core';
+import { DestroyRef, computed, inject, signal, type Signal } from '@angular/core';
 import { FormArray, FormControl, type AbstractControl } from '@angular/forms';
 
 /**
@@ -289,4 +289,88 @@ export function syncArrayValues<T>(
       array.push(toControl?.(value) ?? new FormControl(value, { nonNullable: true }));
     }
   }
+}
+
+/**
+ * Handle returned by `injectFormArrayItem`.
+ */
+export interface FormArrayItemHandle {
+  /** The current index of this item in the array. */
+  readonly index: Signal<number>;
+  /** Whether this is the first item (index === 0). */
+  readonly isFirst: Signal<boolean>;
+  /** Whether this is the last item. */
+  readonly isLast: Signal<boolean>;
+  /** Remove this item from the array. */
+  removeSelf(): void;
+  /** Move this item one position up (toward index 0). No-op if already first. */
+  moveUp(): void;
+  /** Move this item one position down (toward the end). No-op if already last. */
+  moveDown(): void;
+}
+
+/**
+ * Creates a context handle for an item rendered inside a `FormArray`'s
+ * iteration (e.g., `@for`). Provides the item's index, boundary checks,
+ * and remove/move-up/move-down operations.
+ *
+ * @param array - The parent FormArray.
+ * @param index - A signal or number for the item's current index.
+ *
+ * @example
+ * ```typescript
+ * @Component({
+ *   template: `
+ *     @for (item of items.controls(); track $index; let idx = $index) {
+ *       <app-line-item [array]="items" [index]="idx" />
+ *     }
+ *   `,
+ * })
+ * class LineItemComponent {
+ *   readonly array = input<FormArrayHandle<FormControl<string>>>(undefined!);
+ *   readonly index = input<number>(0);
+ *   readonly ctx = injectFormArrayItem(this.array(), computed(() => this.index()));
+ *
+ *   // Template: <button (click)="ctx.removeSelf()">Remove</button>
+ *   //           <button (click)="ctx.moveUp()" [disabled]="ctx.isFirst()">↑</button>
+ * }
+ * ```
+ */
+export function injectFormArrayItem(
+  array: FormArray,
+  index: Signal<number> | number,
+): FormArrayItemHandle {
+  const indexSignal: Signal<number> = typeof index === 'number' ? signal(index).asReadonly() : index;
+  const destroyRef = inject(DestroyRef);
+
+  const isFirst = computed(() => indexSignal() === 0);
+  const isLast = computed(() => indexSignal() === array.length - 1);
+
+  return {
+    index: indexSignal,
+    isFirst,
+    isLast,
+    removeSelf() {
+      const idx = indexSignal();
+      if (idx >= 0 && idx < array.length) {
+        array.removeAt(idx);
+      }
+    },
+    moveUp() {
+      const idx = indexSignal();
+      if (idx > 0) {
+        const ctrl = array.at(idx);
+        array.removeAt(idx);
+        array.insert(idx - 1, ctrl);
+      }
+    },
+    moveDown() {
+      const idx = indexSignal();
+      if (idx < array.length - 1) {
+        const ctrl = array.at(idx);
+        array.removeAt(idx);
+        array.insert(idx + 1, ctrl);
+      }
+    },
+  };
 }

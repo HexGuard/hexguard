@@ -349,3 +349,71 @@ export function injectFormSubmission(
     submit,
   };
 }
+
+/**
+ * Creates a reactive signal that maps a form control's `ValidationErrors` to
+ * user-readable error message strings, using a provided message map.
+ *
+ * The returned signal updates automatically when the control's errors change
+ * (via `statusChanges` subscription). Message values can be a static string
+ * or a function receiving the error entry for dynamic messages.
+ *
+ * @param control - The form control to watch.
+ * @param messages - A record mapping error keys to message strings or
+ *   `(errorValue) => string` functions.
+ * @returns A signal emitting an array of resolved error message strings.
+ *
+ * @example
+ * ```typescript
+ * readonly form = new FormGroup({
+ *   email: new FormControl('', [Validators.required, Validators.email]),
+ * });
+ * readonly emailErrors = controlErrorMessages(form.get('email')!, {
+ *   required: 'Email is required.',
+ *   email: 'Enter a valid email address.',
+ * });
+ *
+ * // Template:
+ * // @for (msg of emailErrors(); track msg) {
+ * //   <p class="error">{{ msg }}</p>
+ * // }
+ * ```
+ */
+export function controlErrorMessages(
+  control: AbstractControl,
+  messages: Record<string, string | ((errorValue: unknown) => string)>,
+): Signal<string[]> {
+  const errorsSignal = signal<string[]>(resolveMessages(control.errors, messages));
+
+  // Subscribe to statusChanges for reactive updates
+  const sub = control.statusChanges.subscribe(() => {
+    errorsSignal.set(resolveMessages(control.errors, messages));
+  });
+
+  // Attempt to register cleanup with DestroyRef if in injection context
+  try {
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => sub.unsubscribe());
+  } catch {
+    // Not in an injection context — no cleanup needed (e.g., short-lived test)
+  }
+
+  return errorsSignal.asReadonly();
+}
+
+function resolveMessages(
+  errors: Record<string, unknown> | null,
+  messages: Record<string, string | ((errorValue: unknown) => string)>,
+): string[] {
+  if (!errors) return [];
+  const result: string[] = [];
+  for (const [key, errorValue] of Object.entries(errors)) {
+    const msg = messages[key];
+    if (typeof msg === 'function') {
+      result.push(msg(errorValue));
+    } else if (msg !== undefined) {
+      result.push(msg);
+    }
+  }
+  return result;
+}
