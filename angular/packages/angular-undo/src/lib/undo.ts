@@ -104,6 +104,10 @@ export function injectUndoStack<T>(options?: UndoStackOptions<T>): UndoStack<T> 
 
   const pendingUndos = actions.asReadonly();
   const hasPending = computed(() => actions().length > 0);
+  const latestPendingId = computed(() => {
+    const list = actions();
+    return list.length > 0 ? list[list.length - 1].id : null;
+  });
 
   const undosForTypeCache = new Map<string, ReturnType<typeof computed<UndoAction<T>[]>>>();
 
@@ -125,6 +129,31 @@ export function injectUndoStack<T>(options?: UndoStackOptions<T>): UndoStack<T> 
     return result;
   }
 
+  let keyboardCleanup: (() => void) | null = null;
+
+  function withKeyboardShortcuts(): void {
+    // Avoid duplicate registration
+    if (keyboardCleanup) return;
+
+    const handler = (e: KeyboardEvent): void => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        const id = latestPendingId();
+        if (id) {
+          e.preventDefault();
+          undo(id);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handler);
+    keyboardCleanup = () => document.removeEventListener('keydown', handler);
+
+    destroyRef.onDestroy(() => {
+      keyboardCleanup?.();
+      keyboardCleanup = null;
+    });
+  }
+
   return {
     pendingUndos,
     hasPending,
@@ -134,5 +163,6 @@ export function injectUndoStack<T>(options?: UndoStackOptions<T>): UndoStack<T> 
     undoGroup,
     commit,
     clear,
+    withKeyboardShortcuts,
   };
 }

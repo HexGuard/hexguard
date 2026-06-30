@@ -21,6 +21,12 @@ export interface PaginationOptions {
    * Useful for resetting pagination when search/filter parameters change.
    */
   readonly resetOn?: Signal<unknown>;
+
+  /**
+   * Key for persisting the user's page size preference to localStorage.
+   * When set, the page size is saved on change and restored on init.
+   */
+  readonly persistPageSize?: string;
 }
 
 /**

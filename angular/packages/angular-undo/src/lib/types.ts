@@ -106,6 +106,12 @@ export interface UndoStack<T> {
    * No undo or commit callbacks are called.
    */
   clear(): void;
+
+  /**
+   * Registers Ctrl+Z keyboard shortcut to undo the latest pending action.
+   * Cleans up the event listener on destroy.
+   */
+  withKeyboardShortcuts(): void;
 }
 
 /** @internal Default TTL for undo windows. */

@@ -35,6 +35,14 @@ export interface NotificationOptions {
    * Useful for grouping related notifications or adding strong emphasis.
    */
   readonly title?: string;
+
+  /**
+   * Group key for collapsing duplicate notifications.
+   * When set, a subsequent notification with the same groupKey
+   * increments the existing entry's groupCount instead of adding
+   * a new notification.
+   */
+  readonly groupKey?: string;
 }
 
 /**
@@ -55,6 +63,14 @@ export interface Notification {
   readonly timestamp: number;
   /** Optional action attached to this notification. */
   readonly action?: NotificationAction;
+  /**
+   * Group key for collapsing duplicate notifications.
+   * When set, notifications with the same groupKey are merged into one
+   * with an incremented `groupCount`.
+   */
+  readonly groupKey?: string;
+  /** How many notifications have been grouped under this entry (1 = original). */
+  readonly groupCount?: number;
 }
 
 /**

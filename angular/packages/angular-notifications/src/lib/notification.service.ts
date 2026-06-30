@@ -71,6 +71,35 @@ export class NotificationService {
     const id = this.generateId();
     const duration =
       options?.duration ?? this.globalOptions.defaultDuration ?? BUILTIN_DEFAULT_DURATION_MS;
+    const groupKey = options?.groupKey;
+
+    // If groupKey is set, try to find and increment an existing notification
+    if (groupKey) {
+      const existing = this.notificationsSignal().find((n) => n.groupKey === groupKey);
+      if (existing) {
+        const currentCount = (existing.groupCount ?? 1) + 1;
+        this.updateNotification(existing.id, {
+          duration: options?.duration,
+          title: options?.title ? options.title : existing.title,
+        });
+        // Override the message and count
+        this.notificationsSignal.update((list) =>
+          list.map((n) =>
+            n.id === existing.id
+              ? { ...n, message, groupCount: currentCount, timestamp: Date.now() }
+              : n,
+          ),
+        );
+        // Return handle for the updated notification
+        return {
+          id: existing.id,
+          dismiss: () => this.dismiss(existing.id),
+          update: (updateOptions: Partial<NotificationOptions>) => {
+            this.updateNotification(existing.id, updateOptions);
+          },
+        };
+      }
+    }
 
     const notification: Notification = {
       id,
@@ -78,6 +107,8 @@ export class NotificationService {
       message,
       duration,
       timestamp: Date.now(),
+      groupKey,
+      groupCount: 1,
       ...(options?.title ? { title: options.title } : {}),
       ...(options?.action ? { action: options.action } : {}),
     };
@@ -86,7 +117,6 @@ export class NotificationService {
       const updated = [notification, ...list];
       const maxVisible = this.globalOptions.maxVisible;
       if (maxVisible !== undefined && maxVisible > 0 && updated.length > maxVisible) {
-        // Dismiss the oldest (last) notifications that exceed the limit
         const toRemove = updated.slice(maxVisible);
         for (const n of toRemove) {
           this.cancelTimer(n.id);

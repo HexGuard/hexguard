@@ -13,6 +13,14 @@ export interface PermissionContext<
 > {
   readonly capabilities: PermissionCollection<TCapability>;
   readonly roles?: PermissionCollection<TRole>;
+
+  /**
+   * Role hierarchy for inherited permissions.
+   * Each key inherits from its listed values.
+   * E.g. `{ admin: ['editor', 'viewer'], editor: ['viewer'] }`
+   * means admin has all editor and viewer permissions.
+   */
+  readonly hierarchy?: Readonly<Record<TRole, readonly TRole[]>>;
 }
 
 /** Requirement keys surfaced in `PermissionDecision.failedRequirements`. */

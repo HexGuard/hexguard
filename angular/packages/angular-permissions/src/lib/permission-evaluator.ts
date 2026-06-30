@@ -10,6 +10,18 @@ import type {
 const EMPTY_PERMISSION_SET: ReadonlySet<never> = new Set<never>();
 const EMPTY_FAILED_REQUIREMENTS: readonly PermissionRequirementKey[] = Object.freeze([]);
 
+function resolveHierarchy<TRole extends PermissionKey>(
+  role: TRole,
+  hierarchy: Readonly<Record<TRole, readonly TRole[]>> | undefined,
+  visited: Set<TRole> = new Set(),
+): TRole[] {
+  if (!hierarchy || visited.has(role)) return [role];
+  visited.add(role);
+  const inherited = hierarchy[role];
+  if (!inherited) return [role];
+  return [role, ...inherited.flatMap((r) => resolveHierarchy(r, hierarchy, visited))];
+}
+
 /** Pure capability and role evaluation shared by all Angular adapters. */
 export function evaluatePermission<
   TCapability extends PermissionKey = string,
@@ -19,7 +31,16 @@ export function evaluatePermission<
   requirement: PermissionRequirement<TCapability, TRole> = {},
 ): PermissionDecision<TCapability, TRole> {
   const capabilities = toPermissionSet(context.capabilities);
-  const roles = toPermissionSet(context.roles);
+  const hierarchy = context.hierarchy;
+
+  // Resolve inherited roles through hierarchy
+  const rawRoles = toPermissionSet(context.roles);
+  const roles = new Set(rawRoles);
+  for (const role of rawRoles) {
+    for (const inherited of resolveHierarchy(role as TRole, hierarchy as any)) {
+      roles.add(inherited as any);
+    }
+  }
   const failedRequirements: PermissionRequirementKey[] = [];
 
   if (!hasAll(capabilities, requirement.allCapabilities)) {

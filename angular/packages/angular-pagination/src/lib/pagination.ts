@@ -28,9 +28,22 @@ const DEFAULT_PAGE_SIZE = 20;
  * ```
  */
 export function injectPagination(options?: PaginationOptions): PaginationHandle {
-  const pageSize = options?.pageSize ?? DEFAULT_PAGE_SIZE;
+  const persistKey = options?.persistPageSize;
+  const savedSize = persistKey ? tryReadPageSize(persistKey) : null;
+  const pageSize = savedSize ?? options?.pageSize ?? DEFAULT_PAGE_SIZE;
   const initialPage = options?.initialPage ?? 1;
   const resetOn = options?.resetOn;
+
+  function tryReadPageSize(key: string): number | null {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw !== null) {
+        const parsed = parseInt(raw, 10);
+        if (!isNaN(parsed) && parsed > 0) return parsed;
+      }
+    } catch { /* quota or permission denied */ }
+    return null;
+  }
 
   // ── Mutable state ───────────────────────────────────────────────
   const state: PaginationInternalState = {
@@ -119,6 +132,9 @@ export function injectPagination(options?: PaginationOptions): PaginationHandle 
   function setPageSize(size: number): void {
     state.pageSize.set(size);
     state.page.set(1);
+    if (persistKey) {
+      try { localStorage.setItem(persistKey, String(size)); } catch { /* ignore */ }
+    }
   }
 
   return {

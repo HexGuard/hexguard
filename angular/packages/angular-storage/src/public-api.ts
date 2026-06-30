@@ -7,3 +7,5 @@
 export { injectStorage } from './lib/storage';
 export { fromStorageKey } from './lib/storage-observable';
 export type { StorageOptions, TypedStorage, StorageMeta } from './lib/storage';
+export { cookieStorage } from './lib/cookie-storage';
+export type { CookieStorageOptions } from './lib/cookie-storage';
