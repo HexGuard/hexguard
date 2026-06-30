@@ -1,0 +1,33 @@
+{
+  "name": "@hexguard/angular-icon-registry",
+  "version": "0.1.0",
+  "description": "Headless icon registry for Angular — centralized SVG icon management with lazy loading, caching, sizing via design tokens, and color control.",
+  "keywords": [
+    "angular",
+    "signals",
+    "icon",
+    "svg",
+    "registry",
+    "headless"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-icon-registry",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-icon-registry"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

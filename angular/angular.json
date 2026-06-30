@@ -417,6 +417,26 @@
         }
       }
     },
+    "angular-skeleton": {
+      "projectType": "library",
+      "root": "packages/angular-skeleton",
+      "sourceRoot": "packages/angular-skeleton/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-skeleton/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-skeleton/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-skeleton/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-signal-persist": {
       "projectType": "library",
       "root": "packages/angular-signal-persist",
@@ -1202,6 +1222,26 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": { "tsConfig": "packages/angular-http-dedupe/tsconfig.spec.json" }
+        }
+      }
+    },
+    "angular-icon-registry": {
+      "projectType": "library",
+      "root": "packages/angular-icon-registry",
+      "sourceRoot": "packages/angular-icon-registry/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-icon-registry/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-icon-registry/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-icon-registry/tsconfig.spec.json" }
         }
       }
     },

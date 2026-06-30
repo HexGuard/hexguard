@@ -1,0 +1,49 @@
+name: Release Angular Skeleton
+
+on:
+  push:
+    tags: ['angular-skeleton-v*']
+  workflow_dispatch:
+    inputs:
+      npm_tag: { description: 'npm dist-tag', required: false, default: 'latest' }
+      release_tag: { description: 'Git tag for manual release', required: false, default: '' }
+      create_github_release:
+        { description: 'Create GitHub release', required: false, type: boolean, default: false }
+
+permissions: { contents: write, id-token: write }
+
+jobs:
+  publish:
+    name: Publish @hexguard/angular-skeleton
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.27.0, run_install: false }
+      - uses: actions/setup-node@v4
+        with:
+          {
+            node-version: 22.22.3,
+            cache: pnpm,
+            cache-dependency-path: "pnpm-lock.yaml\nangular/pnpm-lock.yaml",
+            registry-url: 'https://registry.npmjs.org',
+          }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir angular install --frozen-lockfile
+      - run: pnpm build:lib:skeleton
+      - run: pnpm verify:package:skeleton
+      - name: Resolve publish metadata
+        id: metadata
+        shell: bash
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./angular/packages/angular-skeleton/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./angular/packages/angular-skeleton/package.json').name")
+          echo "tag_name=angular-skeleton-v${PACKAGE_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "package_name=$PACKAGE_NAME" >> "$GITHUB_OUTPUT"
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "npm_tag=${{ inputs.npm_tag || 'latest' }}" >> "$GITHUB_OUTPUT"
+      - name: Publish to npm
+        run: pnpm --dir angular/dist/angular-skeleton publish --no-git-checks --access public --provenance --tag "${{ steps.metadata.outputs.npm_tag }}"
+        env: { NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}' }

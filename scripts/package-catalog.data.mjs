@@ -538,8 +538,10 @@
     readmePath: 'angular/packages/angular-consent-manager/README.md',
     deepDivePath: 'docs/packages/angular-consent-manager.md',
     repositoryPath: 'angular/packages/angular-consent-manager',
-    summary: 'Headless consent management engine for Angular — state machine, cookie and localStorage storage, region detection, Google Consent Mode v2, audit trail, and consent-driven script loading.',
-    detail: 'Provides provideConsentManager(config) and injectConsentManager() for managing cookie/data processing consent. Includes consent state machine (unknown→pending→granted/denied→expired), configurable categories, region-based rules (GDPR opt-in, CCPA opt-out), Google Consent Mode v2 integration, audit trail with timestamped records, and consent-gated script loading.',
+    summary:
+      'Headless consent management engine for Angular — state machine, cookie and localStorage storage, region detection, Google Consent Mode v2, audit trail, and consent-driven script loading.',
+    detail:
+      'Provides provideConsentManager(config) and injectConsentManager() for managing cookie/data processing consent. Includes consent state machine (unknown→pending→granted/denied→expired), configurable categories, region-based rules (GDPR opt-in, CCPA opt-out), Google Consent Mode v2 integration, audit trail with timestamped records, and consent-gated script loading.',
     installCommand: 'pnpm add @hexguard/angular-consent-manager',
     featureHighlights: [
       'Consent state machine with full lifecycle: unknown, pending, granted, denied, withdrawn, expired.',
@@ -570,8 +572,10 @@
     readmePath: 'angular/packages/angular-cookie-consent/README.md',
     deepDivePath: 'docs/packages/angular-cookie-consent.md',
     repositoryPath: 'angular/packages/angular-cookie-consent',
-    summary: 'Cookie consent UI layer for Angular — banner, preference center, floating button, cookie declaration, directives, and pipe. Depends on @hexguard/angular-consent-manager.',
-    detail: 'Provides ready-to-use Angular components for cookie consent: banner (bottom/top/center), preference center (modal/drawer/inline), floating settings button, and filterable cookie declaration table. Includes *hexConsent structural directive and hexConsent pipe for template-level consent checks. Fully customizable via CSS custom properties.',
+    summary:
+      'Cookie consent UI layer for Angular — banner, preference center, floating button, cookie declaration, directives, and pipe. Depends on @hexguard/angular-consent-manager.',
+    detail:
+      'Provides ready-to-use Angular components for cookie consent: banner (bottom/top/center), preference center (modal/drawer/inline), floating settings button, and filterable cookie declaration table. Includes *hexConsent structural directive and hexConsent pipe for template-level consent checks. Fully customizable via CSS custom properties.',
     installCommand: 'pnpm add @hexguard/angular-cookie-consent',
     featureHighlights: [
       'Cookie consent banner with Accept All, Reject All, and Customize actions.',
@@ -1200,6 +1204,36 @@
     ],
   },
   {
+    id: 'angular-skeleton',
+    packageName: '@hexguard/angular-skeleton',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'UI Infrastructure',
+    readmePath: 'angular/packages/angular-skeleton/README.md',
+    deepDivePath: 'docs/packages/angular-skeleton.md',
+    repositoryPath: 'angular/packages/angular-skeleton',
+    summary:
+      'Headless skeleton loading state for Angular — standardized placeholder state with configurable shapes, shimmer animation, and async-state integration.',
+    detail:
+      'Provides skeletonState() for headless skeleton signals (isActive, variant, count, shimmer) and bindLoading() for bridging to any loading signal.',
+    installCommand: 'pnpm add @hexguard/angular-skeleton',
+    featureHighlights: [
+      'Configurable shape variants: text, circle, avatar, card, table-row, and more.',
+      'Shimmer animation signal with active flag and duration.',
+      'bindLoading() bridges any Signal<boolean> to skeleton visibility.',
+      'Zero runtime deps beyond Angular core and tslib.',
+    ],
+    bestFitScenarios: [
+      'Angular apps standardizing skeleton/placeholder loading screens.',
+      'Components that want headless skeleton state without CSS or animation opinions.',
+      'Teams integrating skeleton screens with async-state loading signals.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless skeleton-state primitive.',
+      'Rendering, CSS animations, and design-token sizing are consumer responsibilities.',
+    ],
+  },
+  {
     id: 'angular-bulk-operations',
     packageName: '@hexguard/angular-bulk-operations',
     status: 'Released',
@@ -1592,6 +1626,36 @@
     statusNoteParagraphs: [
       'This package deduplicates by request key across all consumers.',
       'HttpInterceptorFn integration deferred to a future version.',
+    ],
+  },
+  {
+    id: 'angular-icon-registry',
+    packageName: '@hexguard/angular-icon-registry',
+    status: 'Available',
+    scope: 'Angular',
+    category: 'UI Infrastructure',
+    readmePath: 'angular/packages/angular-icon-registry/README.md',
+    deepDivePath: 'docs/packages/angular-icon-registry.md',
+    repositoryPath: 'angular/packages/angular-icon-registry',
+    summary:
+      'Headless icon registry for Angular — centralized SVG icon management with lazy loading, caching, aliasing, sizing, and color control.',
+    detail:
+      'Provides provideIcons() for icon registration and injectIcons() for signal-based icon resolution with alias support, default sizing, and currentColor rendering.',
+    installCommand: 'pnpm add @hexguard/angular-icon-registry',
+    featureHighlights: [
+      'Centralized icon registry with typed icon names and aliases.',
+      'Signal-based icon access via injectIcons().get(name).',
+      'Alias resolution with multi-alias support.',
+      'Configurable default size and currentColor-based coloring.',
+    ],
+    bestFitScenarios: [
+      'Design systems that need centralized SVG icon management.',
+      'Angular apps standardizing icon rendering across components.',
+      'Teams wanting typed icon contracts instead of ad hoc SVG inlining.',
+    ],
+    statusNoteParagraphs: [
+      'This package is available as a headless icon registry primitive.',
+      'Lazy loading, caching, and design-token integration deferred to future versions.',
     ],
   },
   {
