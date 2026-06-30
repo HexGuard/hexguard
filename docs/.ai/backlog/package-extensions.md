@@ -887,3 +887,10 @@ const routes = [
 | 172 | `HexGuard.Blazor.I18n` | `autoTranslate` — machine translation fallback for missing keys | Blazor | Medium | Medium |
 | 173 | `HexGuard.Blazor.Cache` | `cacheWarming` — pre-populate cache at application startup | Blazor | Low | High |
 | 174 | `@hexguard/ts-a11y` | `axeConfig` — axe-core configuration builder with rule presets | TypeScript | Low | Medium |
+| 175 | `@hexguard/angular-design-tokens` | `tokenDocGen` — auto-generate token documentation from definitions | Angular | Low | High |
+| 176 | `@hexguard/angular-component-variants` | `variantPlayground` — dev-mode variant matrix preview state | Angular | Medium | Medium |
+| 177 | `@hexguard/angular-theme` | `tokenLayer` — bridge theme switching to design token override layers | Angular | Low | High |
+| 178 | `HexGuard.Blazor.DesignTokens` | `cssExport` — export tokens as CSS/SCSS/JSON at build time | Blazor | Low | High |
+| 179 | `HexGuard.Blazor.ComponentVariants` | `variantStorybook` — auto-generate variant matrix for visual testing | Blazor | Medium | Medium |
+| 180 | `HexGuard.Blazor.IconRegistry` | `iconOptimizer` — SVG optimization and sprite generation at build | Blazor | Medium | High |
+| 181 | `@hexguard/angular-icon-registry` | `spriteGenerator` — auto-generate SVG sprite sheets from icon set | Angular | Medium | High |
