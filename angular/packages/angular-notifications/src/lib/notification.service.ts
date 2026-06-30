@@ -2,6 +2,7 @@ import { computed, DestroyRef, inject, Injectable, signal, type Optional } from 
 
 import { HEXGUARD_NOTIFICATION_OPTIONS } from './notification-options';
 import type { HexGuardNotificationsOptions } from './notification-options';
+import { NotificationHistoryService } from './notification-history.service';
 import type {
   Notification,
   NotificationHandle,
@@ -46,6 +47,7 @@ export class NotificationService {
   /** Automatic cleanup on destroy when created through Angular DI. */
   constructor() {
     this.globalOptions = inject(HEXGUARD_NOTIFICATION_OPTIONS, { optional: true }) ?? {};
+    this.historyService = inject(NotificationHistoryService, { optional: true }) ?? null;
 
     try {
       const destroyRef = inject(DestroyRef);
@@ -54,6 +56,8 @@ export class NotificationService {
       // Outside injection context — no auto-cleanup. Call dismissAll() manually if needed.
     }
   }
+
+  private readonly historyService: NotificationHistoryService | null;
 
   /**
    * Show a notification of the given type.
@@ -167,31 +171,42 @@ export class NotificationService {
    */
   dismiss(id: string): void {
     this.cancelTimer(id);
-    this.notificationsSignal.update((list) => list.filter((n) => n.id !== id));
+    this.notificationsSignal.update((list) => {
+      const target = list.find((n) => n.id === id);
+      if (target && this.historyService) {
+        this.historyService.record(target);
+      }
+      return list.filter((n) => n.id !== id);
+    });
   }
 
   /** Dismiss all active notifications. */
   dismissAll(): void {
+    if (this.historyService) {
+      for (const n of this.notificationsSignal()) {
+        this.historyService.record(n);
+      }
+    }
     this.clearAllTimers();
     this.notificationsSignal.set([]);
   }
 
   /** Dismiss all notifications of the given type. */
   dismissByType(type: NotificationType): void {
-    const toRemove: string[] = [];
     this.notificationsSignal.update((list) => {
-      const remaining = list.filter((n) => {
+      const remaining: Notification[] = [];
+      for (const n of list) {
         if (n.type === type) {
-          toRemove.push(n.id);
-          return false;
+          if (this.historyService) {
+            this.historyService.record(n);
+          }
+          this.cancelTimer(n.id);
+        } else {
+          remaining.push(n);
         }
-        return true;
-      });
+      }
       return remaining;
     });
-    for (const id of toRemove) {
-      this.cancelTimer(id);
-    }
   }
 
   private generateId(): string {

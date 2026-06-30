@@ -306,3 +306,139 @@ export function nullableParam<T>(innerCodec: ParamCodec<T>): ParamCodec<T | null
     },
   };
 }
+
+/**
+ * Creates a codec for comma-separated list values (`?tags=a,b,c`).
+ *
+ * Unlike `arrayParam` (which handles repeated query params like `?tag=a&tag=b`),
+ * this codec parses a single query param whose value is a delimiter-separated list.
+ *
+ * @example
+ * ```typescript
+ * const tagsCodec = delimitedArrayCodec(stringParam(''), { delimiter: ',' });
+ * // ?tags=a,b,c → tags: ['a', 'b', 'c']
+ * ```
+ */
+export function delimitedArrayCodec<T>(
+  innerCodec: ParamCodec<T>,
+  options: { readonly delimiter?: string; readonly defaultValue?: readonly T[] } = {},
+): ParamCodec<T[]> {
+  const { delimiter = ',', defaultValue = [] } = options;
+  const clonedDefault = cloneArray(defaultValue);
+  const equals = innerCodec.equals ?? defaultEquals;
+
+  return {
+    defaultValue: clonedDefault,
+    parse(raw) {
+      if (raw === null) {
+        return ok(cloneArray(clonedDefault));
+      }
+
+      const rawStr = Array.isArray(raw) ? raw[0] : raw;
+      if (!rawStr || rawStr.trim() === '') {
+        return ok(cloneArray(clonedDefault));
+      }
+
+      const parts = rawStr.split(delimiter).map((p: string) => p.trim());
+      const parsedValues: T[] = [];
+
+      for (let i = 0; i < parts.length; i++) {
+        const parsed = innerCodec.parse(parts[i]);
+        if (!parsed.ok) {
+          return invalid(`Invalid item at position ${i}: ${parsed.reason}`, cloneArray(clonedDefault));
+        }
+        parsedValues.push(parsed.value);
+      }
+
+      return ok(parsedValues);
+    },
+    serialize(value) {
+      if (value.length === 0) return null;
+      const serialized = value.map((v) => innerCodec.serialize(v)).filter((s) => s !== null) as string[];
+      return serialized.length === 0 ? null : serialized.join(delimiter);
+    },
+    equals(left, right) {
+      if (left.length !== right.length) return false;
+      for (let i = 0; i < left.length; i++) {
+        if (!equals(left[i], right[i])) return false;
+      }
+      return true;
+    },
+  };
+}
+
+/**
+ * Creates a codec for nested object query params using dot-notation.
+ *
+ * Maps query params like `?filter.name=foo&filter.age=25` to
+ * `{ name: 'foo', age: 25 }`.
+ *
+ * @example
+ * ```typescript
+ * const filterCodec = objectCodec({
+ *   name: stringParam(''),
+ *   age: numberParam(0),
+ * });
+ * // ?filter.name=foo&filter.age=25 → { name: 'foo', age: 25 }
+ * ```
+ */
+export function objectCodec<TSchema extends Record<string, ParamCodec<unknown>>>(
+  schema: TSchema,
+): ParamCodec<{ [K in keyof TSchema]: ReturnType<TSchema[K]['parse']> extends { ok: true; value: infer V } ? V : never }> {
+  const keys = Object.keys(schema) as (keyof TSchema)[];
+
+  return {
+    defaultValue: undefined as any,
+    parse(raw) {
+      if (raw === null) {
+        return ok({} as any);
+      }
+
+      const rawArray = Array.isArray(raw) ? raw : [raw];
+      const result: Record<string, unknown> = {};
+      const rawByPrefix = new Map<string, string[]>();
+
+      for (const entry of rawArray) {
+        const dotIdx = entry.indexOf('.');
+        if (dotIdx > 0) {
+          const prefix = entry.slice(0, dotIdx);
+          const rest = entry.slice(dotIdx + 1);
+          if (!rawByPrefix.has(prefix)) rawByPrefix.set(prefix, []);
+          rawByPrefix.get(prefix)!.push(rest);
+        }
+      }
+
+      for (const key of keys as string[]) {
+        const codec = schema[key as keyof typeof schema] as ParamCodec<unknown>;
+        const values = rawByPrefix.get(key);
+        const parsed = codec.parse(values?.[0] ?? null);
+        if (parsed.ok) {
+          (result as Record<string, unknown>)[key] = parsed.value;
+        } else {
+          (result as Record<string, unknown>)[key] = codec.defaultValue;
+        }
+      }
+
+      return ok(result as any);
+    },
+    serialize(value) {
+      if (!value) return null;
+      const parts: string[] = [];
+      for (const key of keys as string[]) {
+        const codec = schema[key as keyof typeof schema] as ParamCodec<unknown>;
+        const fieldValue = (value as Record<string, unknown>)[key as string];
+        const serialized = codec.serialize(fieldValue);
+        if (serialized !== null) {
+          if (Array.isArray(serialized)) {
+            for (const item of serialized) {
+              parts.push(`${String(key)}.${item}`);
+            }
+          } else {
+            parts.push(`${String(key)}.${serialized as string}`);
+          }
+        }
+      }
+      return parts.length === 0 ? null : parts;
+    },
+  };
+}

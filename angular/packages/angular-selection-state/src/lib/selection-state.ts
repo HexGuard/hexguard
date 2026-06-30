@@ -65,6 +65,23 @@ export interface SelectionStateReturn<TKey extends string = string> {
 
   /** Select all visible keys unconditionally. */
   selectAll(visibleKeys: readonly TKey[]): void;
+
+  // ── Range selection (for shift-click and keyboard nav) ───────────
+
+  /** The anchor key for range selection (the start of a shift-click range). */
+  readonly anchorKey: Signal<TKey | null>;
+
+  /**
+   * Select all keys between the anchor and the given key.
+   * Sets the anchor if none is set. Keys are matched by position in visibleKeys.
+   */
+  selectRange(visibleKeys: readonly TKey[], toKey: TKey): void;
+
+  /** Select the next key after the last selected (arrow down). */
+  selectNext(visibleKeys: readonly TKey[]): void;
+
+  /** Select the previous key before the first selected (arrow up). */
+  selectPrev(visibleKeys: readonly TKey[]): void;
 }
 
 // ── Implementation ─────────────────────────────────────────────────
@@ -196,6 +213,67 @@ export function injectSelectionState<TKey extends string = string>(
     });
   }
 
+  // ── Range selection ──────────────────────────────────────────
+
+  const anchorKey = signal<TKey | null>(null);
+
+  function selectRange(visibleKeys: readonly TKey[], toKey: TKey): void {
+    const currentAnchor = anchorKey();
+    if (currentAnchor === null || !multi) {
+      // First click or single-select: just set anchor and select the key
+      anchorKey.set(toKey);
+      select(toKey);
+      return;
+    }
+
+    const fromIdx = visibleKeys.indexOf(currentAnchor);
+    const toIdx = visibleKeys.indexOf(toKey);
+    if (fromIdx === -1 || toIdx === -1) {
+      // Key not in visible list — fall back to single select
+      select(toKey);
+      return;
+    }
+
+    const start = Math.min(fromIdx, toIdx);
+    const end = Math.max(fromIdx, toIdx);
+
+    selectedSet.update((set) => {
+      const next = new Set(set);
+      for (let i = start; i <= end; i++) {
+        next.add(visibleKeys[i]);
+      }
+      return next;
+    });
+  }
+
+  function selectNext(visibleKeys: readonly TKey[]): void {
+    const current = first();
+    if (current === null) {
+      if (visibleKeys.length > 0) select(visibleKeys[0]);
+      return;
+    }
+    const idx = visibleKeys.indexOf(current);
+    if (idx >= 0 && idx < visibleKeys.length - 1) {
+      if (multi) clear();
+      select(visibleKeys[idx + 1]);
+      anchorKey.set(visibleKeys[idx + 1]);
+    }
+  }
+
+  function selectPrev(visibleKeys: readonly TKey[]): void {
+    const current = first();
+    if (current === null) {
+      if (visibleKeys.length > 0) select(visibleKeys[visibleKeys.length - 1]);
+      return;
+    }
+    const idx = visibleKeys.indexOf(current);
+    if (idx > 0) {
+      if (multi) clear();
+      select(visibleKeys[idx - 1]);
+      anchorKey.set(visibleKeys[idx - 1]);
+    }
+  }
+
   return {
     selected,
     count,
@@ -210,5 +288,9 @@ export function injectSelectionState<TKey extends string = string>(
     replace,
     toggleAll,
     selectAll,
+    anchorKey: anchorKey.asReadonly(),
+    selectRange,
+    selectNext,
+    selectPrev,
   };
 }

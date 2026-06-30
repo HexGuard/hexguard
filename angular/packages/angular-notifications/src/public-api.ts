@@ -6,6 +6,7 @@
  * standalone outlet component, and global defaults configuration.
  */
 export { NotificationService } from './lib/notification.service';
+export { NotificationHistoryService } from './lib/notification-history.service';
 export { createNotificationStream } from './lib/notification-observable';
 export { HexguardNotificationOutletComponent } from './lib/notification-outlet.component';
 export {
