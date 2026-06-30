@@ -567,6 +567,66 @@
         }
       }
     },
+    "angular-click-outside": {
+      "projectType": "library",
+      "root": "packages/angular-click-outside",
+      "sourceRoot": "packages/angular-click-outside/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-click-outside/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-click-outside/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-click-outside/tsconfig.spec.json" }
+        }
+      }
+    },
+    "angular-resource": {
+      "projectType": "library",
+      "root": "packages/angular-resource",
+      "sourceRoot": "packages/angular-resource/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-resource/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-resource/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-resource/tsconfig.spec.json" }
+        }
+      }
+    },
+    "angular-upload-state": {
+      "projectType": "library",
+      "root": "packages/angular-upload-state",
+      "sourceRoot": "packages/angular-upload-state/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": { "tsConfig": "packages/angular-upload-state/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "packages/angular-upload-state/tsconfig.lib.json" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": { "tsConfig": "packages/angular-upload-state/tsconfig.spec.json" }
+        }
+      }
+    },
     "angular-pagination": {
       "projectType": "library",
       "root": "packages/angular-pagination",
