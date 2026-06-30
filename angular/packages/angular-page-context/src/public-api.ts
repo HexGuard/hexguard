@@ -6,4 +6,5 @@
  * contextual actions via signals.
  */
 export { injectPageContext } from './lib/page-context';
+export { PageContextService } from './lib/page-context-service';
 export type { PageContextHandle, PageContext, Breadcrumb, PageAction, PageTab } from './lib/types';

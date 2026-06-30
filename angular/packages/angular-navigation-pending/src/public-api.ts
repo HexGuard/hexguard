@@ -6,6 +6,7 @@
  * state with configurable slow-navigation delay and route-scoped mode.
  */
 export { injectNavigationPending } from './lib/navigation-pending';
+export { NavigationPendingService } from './lib/navigation-pending-service';
 export { fromRouterNavigation } from './lib/navigation-pending-observable';
 export type { NavigationPendingOptions, NavigationPendingState } from './lib/types';
 export type { NavigationPendingObservables } from './lib/navigation-pending-observable';

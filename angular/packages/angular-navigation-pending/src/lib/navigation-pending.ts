@@ -1,17 +1,7 @@
 import { computed, DestroyRef, inject, signal } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-
-import {
-  DEFAULT_DELAY_MS,
-  type NavigationPendingOptions,
-  type NavigationPendingState,
-} from './types';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import type { NavigationPendingOptions, NavigationPendingState } from './types';
+import { NavigationPendingService } from './navigation-pending-service';
 
 /**
  * Injects a navigation pending handle that tracks route transition state
@@ -41,19 +31,19 @@ import {
 export function injectNavigationPending(
   options?: NavigationPendingOptions,
 ): NavigationPendingState {
-  const router = inject(Router);
+  const service = inject(NavigationPendingService);
   const destroyRef = inject(DestroyRef);
-  const delayedIndicatorMs = options?.delayedIndicatorMs ?? DEFAULT_DELAY_MS;
+  const delayedIndicatorMs = options?.delayedIndicatorMs ?? 200;
   const routeScoped = options?.routeScoped ?? false;
 
-  const navigating = signal<boolean>(false);
-  const slowTimerActive = signal<boolean>(false);
-  const ready = signal<boolean>(false);
+  const ready = signal(false);
+  const slowTimerActive = signal(false);
   let slowTimerId: ReturnType<typeof setTimeout> | null = null;
 
-  const subscription = router.events.subscribe((event) => {
+  // Per-consumer: listen for navigation start to manage slow timer
+  const router = inject(Router);
+  const sub = router.events.subscribe((event) => {
     if (event instanceof NavigationStart) {
-      navigating.set(true);
       slowTimerActive.set(false);
       ready.set(false);
 
@@ -70,7 +60,6 @@ export function injectNavigationPending(
       event instanceof NavigationCancel ||
       event instanceof NavigationError
     ) {
-      navigating.set(false);
       slowTimerActive.set(false);
       if (slowTimerId !== null) {
         clearTimeout(slowTimerId);
@@ -80,27 +69,21 @@ export function injectNavigationPending(
   });
 
   destroyRef.onDestroy(() => {
-    subscription.unsubscribe();
+    sub.unsubscribe();
     if (slowTimerId !== null) {
       clearTimeout(slowTimerId);
     }
   });
 
-  function markReady(): void {
-    if (routeScoped) {
-      ready.set(true);
-    }
-  }
-
   const isNavigatingSignal = computed<boolean>(() => {
     if (!routeScoped) {
-      return navigating();
+      return service.navigating();
     }
-    return navigating() && !ready();
+    return service.navigating() && !ready();
   });
 
   const isSlowNavigationSignal = computed<boolean>(() => {
-    if (!navigating()) {
+    if (!service.navigating()) {
       return false;
     }
     if (delayedIndicatorMs === 0) {
@@ -112,6 +95,10 @@ export function injectNavigationPending(
   return {
     isNavigating: isNavigatingSignal,
     isSlowNavigation: isSlowNavigationSignal,
-    markReady,
+    markReady: () => {
+      if (routeScoped) {
+        ready.set(true);
+      }
+    },
   };
 }

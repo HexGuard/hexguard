@@ -1,53 +1,20 @@
-import { DestroyRef, inject, signal } from '@angular/core';
+import { DestroyRef, inject } from '@angular/core';
 import type { ConfirmationHandle, ConfirmationRequest, ConfirmationResult } from './types';
-
-let nextId = 0;
+import { ConfirmationService } from './confirmation-service';
 
 export function injectConfirmation(): ConfirmationHandle {
+  const service = inject(ConfirmationService);
   const destroyRef = inject(DestroyRef);
-  const isOpen = signal(false);
-  const currentRequest = signal<ConfirmationRequest | null>(null);
-  let resolveCurrent: ((value: boolean) => void) | null = null;
 
-  function cleanup(): void {
-    isOpen.set(false);
-    currentRequest.set(null);
-    resolveCurrent?.(false);
-    resolveCurrent = null;
-  }
-
-  function ask(request: Omit<ConfirmationRequest, 'id'>): Promise<boolean> {
-    if (isOpen()) {
-      return Promise.resolve(false);
-    }
-    const id = `confirm-${++nextId}`;
-    const req: ConfirmationRequest = { id, ...request };
-    currentRequest.set(req);
-    isOpen.set(true);
-    return new Promise<boolean>((resolve) => {
-      resolveCurrent = resolve;
-    });
-  }
-
-  function confirm(): void {
-    isOpen.set(false);
-    currentRequest.set(null);
-    resolveCurrent?.(true);
-    resolveCurrent = null;
-  }
-
-  function cancel(): void {
-    isOpen.set(false);
-    currentRequest.set(null);
-    resolveCurrent?.(false);
-    resolveCurrent = null;
-  }
+  destroyRef.onDestroy(() => {
+    service.cleanup();
+  });
 
   async function run<T>(
     request: Omit<ConfirmationRequest, 'id'>,
     action: () => Promise<T>,
   ): Promise<ConfirmationResult<T>> {
-    const ok = await ask(request);
+    const ok = await service.ask(request);
     if (!ok) {
       return { confirmed: false };
     }
@@ -55,17 +22,12 @@ export function injectConfirmation(): ConfirmationHandle {
     return { confirmed: true, result };
   }
 
-  // Clean up dangling promises when the component is destroyed
-  destroyRef.onDestroy(() => {
-    cleanup();
-  });
-
   return {
-    isOpen: isOpen.asReadonly(),
-    currentRequest: currentRequest.asReadonly(),
-    ask,
+    isOpen: service.isOpen.asReadonly(),
+    currentRequest: service.currentRequest.asReadonly(),
+    ask: (request) => service.ask(request),
     run,
-    confirm,
-    cancel,
+    confirm: () => service.confirm(),
+    cancel: () => service.cancel(),
   };
 }
