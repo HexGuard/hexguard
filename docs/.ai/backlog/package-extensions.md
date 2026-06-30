@@ -901,3 +901,10 @@ const routes = [
 | 186 | `HexGuard.Blazor.Performance` | `assemblySizeMonitor` — WASM bundle size tracking over releases | Blazor | Low | Medium |
 | 187 | `HexGuard.Blazor.SsrOptimizer` | `edgeCaching` — CDN-compatible cache control headers and surrogate keys | Blazor | Medium | High |
 | 188 | `@hexguard/angular-content-projection` | `slotDebugger` — dev-mode slot inspection overlay showing slot fill state | Angular | Low | Medium |
+| 189 | `@hexguard/angular-devtools` | `signalDiff` — signal value diff between two snapshots | Angular | Low | High |
+| 190 | `@hexguard/angular-mock-api` | `recordReplay` — record real API calls for replay in mocks | Angular | Medium | High |
+| 191 | `@hexguard/angular-smoke-test` | `deployGate` — block deployment pipeline if smoke tests fail | Angular | Medium | High |
+| 192 | `HexGuard.Blazor.StateInspector` | `renderTimeline` — visual render timeline in dev mode | Blazor | Medium | Medium |
+| 193 | `HexGuard.Blazor.MockApi` | `openApiGen` — auto-generate mock routes from OpenAPI spec | Blazor | Medium | High |
+| 194 | `@hexguard/ts-devtools` | `treeShakingPlugin` — build plugin to strip dev code in production | TypeScript | Low | High |
+| 195 | `@hexguard/ts-semver` | `conventionalBump` — auto-detect bump type from conventional commits | TypeScript | Low | High |
