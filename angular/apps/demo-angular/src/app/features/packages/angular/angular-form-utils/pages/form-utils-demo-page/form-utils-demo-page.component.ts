@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from '@hexguard/angular-form-utils';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff } from '@hexguard/angular-form-utils';
 import { ANGULAR_FORM_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -84,6 +84,15 @@ export class FormUtilsDemoPageComponent {
   protected readonly injectFormArrayDirtyState = injectFormArrayDirtyState;
   protected readonly moveArrayItem = moveArrayItem;
   protected readonly syncInput = signal('');
+  protected readonly formSnapshot = signal({ name: '', email: '' });
+
+  protected readonly formDiffResult = computed(() => {
+    const current = { name: this.formSnapshot().name, email: this.formSnapshot().email };
+    return formDiff({ name: 'initial', email: 'initial@test.com' }, current);
+  });
+
+  protected readonly isControlInvalid = isControlInvalid;
+  protected readonly controlSignal = controlSignal;
 
   protected addTag(): void {
     const val = this.tagInput().trim();

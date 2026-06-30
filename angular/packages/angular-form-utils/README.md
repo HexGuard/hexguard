@@ -86,31 +86,31 @@ const form = new FormGroup({
 
 Wraps an async validation function into an Angular `AsyncValidatorFn`. The function receives the current control value and the control itself, and returns a `Promise<ValidationErrors | null>`.
 
-### FormArray helpers
+### Control & diff utilities
 
 ```typescript
-import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from '@hexguard/angular-form-utils';
+import { controlSignal, isControlInvalid, formDiff } from '@hexguard/angular-form-utils';
 
-// Dirty state tracking for FormArray items
-const tags = new FormArray([new FormControl('a'), new FormControl('b')]);
-const dirty = injectFormArrayDirtyState(tags);
+// Signal-based form control value tracking
+const form = new FormGroup({
+  name: new FormControl(''),
+  address: new FormGroup({ street: new FormControl('') }),
+});
+const name$ = controlSignal(form, 'name');           // Signal<string>
+const street$ = controlSignal(form, 'address.street'); // Signal<string>
 
-dirty.isDirty();           // Signal<boolean>
-dirty.itemStates();        // Signal<Record<number, boolean>>
-dirty.markItemClean(0);
-dirty.markItemDirty(1);
-dirty.resetAll();
+// Touch+invalid shorthand for template validation display
+isControlInvalid(form.get('name')); // boolean — true only if touched && invalid
 
-// Toggle a value in a FormArray (add if absent, remove if present)
-arrayToggleItem(tags, 'c');           // → ['a', 'b', 'c']
-arrayToggleItem(tags, 'a');           // → ['b', 'c']
-
-// Move an item to a new position (useful for reordering)
-moveArrayItem(tags, 0, 2);            // → ['b', 'c', 'a']
-
-// Sync the FormArray to match an ordered set of values (preserves existing controls)
-syncArrayValues(tags, ['x', 'y', 'z']); // → ['x', 'y', 'z']
+// Deep partial diff between two form value snapshots
+const diff = formDiff(
+  { name: 'Alice', address: { city: 'NYC' } },
+  { name: 'Bob',   address: { city: 'NYC' } },
+);
+// → { name: 'Bob' }
 ```
+
+### Scope Boundaries
 
 | Concern | Status |
 |---------|--------|
@@ -120,9 +120,8 @@ syncArrayValues(tags, ['x', 'y', 'z']); // → ['x', 'y', 'z']
 | aggregateFormErrors | ✅ |
 | asyncFieldValidator | ✅ |
 | injectFormArrayDirtyState | ✅ |
-| arrayToggleItem | ✅ |
-| moveArrayItem | ✅ |
-| syncArrayValues | ✅ |
+| arrayToggleItem / moveArrayItem / syncArrayValues | ✅ |
+| controlSignal / isControlInvalid / formDiff | ✅ |
 | Template-driven forms | ❌ (Reactive Forms only) |
 
 ## Demo

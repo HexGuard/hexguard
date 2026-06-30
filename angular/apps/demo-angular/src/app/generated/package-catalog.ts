@@ -2068,6 +2068,9 @@ export const GENERATED_CURRENT_PACKAGES = [
       'arrayToggleItem() — add/remove values in a FormArray (toggle semantics).',
       'moveArrayItem() — reorder items by moving to a new index.',
       'syncArrayValues() — batch-sync a FormArray to match a set of values, preserving existing controls.',
+      'controlSignal() — typed Signal from a form control value at a dotted path.',
+      'isControlInvalid() — touched && invalid shorthand for template error display.',
+      'formDiff() — deep partial diff between two form value snapshots.',
     ],
     bestFitScenarios: [
       'Confirm-password and confirm-email validation patterns.',
@@ -2079,6 +2082,9 @@ export const GENERATED_CURRENT_PACKAGES = [
       'FormArray dirty tracking for dynamic list editors (injectFormArrayDirtyState).',
       'Reordering items in a FormArray with drag-and-drop or move buttons (moveArrayItem).',
       'Bulk-syncing a FormArray to a server response or saved preference list (syncArrayValues).',
+      'Reacting to nested form control values in signal-based components (controlSignal).',
+      'Clean template validation display without repeating touched && invalid (isControlInvalid).',
+      'Detecting what changed between form submissions or snapshots (formDiff).',
     ],
     statusNoteParagraphs: ['Reactive Forms only. Template-driven forms deferred to v0.2.'],
     repositoryHref:

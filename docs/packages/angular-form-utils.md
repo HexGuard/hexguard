@@ -15,6 +15,9 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 - `arrayToggleItem(array, value, toControl?)` — Toggle a value in a FormArray (add if absent, remove if present).
 - `moveArrayItem(array, fromIndex, toIndex)` — Move an item to a new position (reorder).
 - `syncArrayValues(array, values, toControl?)` — Sync FormArray to match an ordered set of values, preserving existing controls.
+- `controlSignal(form, path)` — Create a typed `Signal<T>` from a form control's value at a dotted path.
+- `isControlInvalid(control)` — `touched && invalid` shorthand for template validation display.
+- `formDiff(initial, current)` — Deep partial diff between two form value snapshots.
 
 ## Assessment
 
@@ -24,8 +27,8 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 | Tests | Nested form dirty state | ✅ Added |
 | API | Error aggregation helper | ✅ Added |
 | API | Async validator wrapper | ✅ Added |
-| API | FormArray dirty state + toggle | ✅ Added |
-| API | moveArrayItem + syncArrayValues | ✅ Added |
+| API | FormArray dirty state + toggle + move + sync | ✅ Added |
+| API | controlSignal + isControlInvalid + formDiff | ✅ Added |
 
 ## Code Examples
 
@@ -54,4 +57,15 @@ arrayToggleItem(tags, 'b');     // adds → ['a', 'b']
 arrayToggleItem(tags, 'a');     // removes → ['b']
 moveArrayItem(tags, 0, 1);      // reorder
 syncArrayValues(tags, ['x', 'y']); // sync → ['x', 'y']
+
+// Control signal — typed signal from a form control value
+const street = controlSignal(form, 'address.street');
+effect(() => console.log('Street:', street()));
+
+// Touch+invalid shorthand
+if (isControlInvalid(form.get('name'))) { /* show error */ }
+
+// Deep partial diff
+const diff = formDiff(initialValues, form.value);
+// → only changed keys
 ```

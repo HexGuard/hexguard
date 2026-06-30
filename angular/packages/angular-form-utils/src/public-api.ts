@@ -4,3 +4,4 @@ export type { FormDirtyState } from './lib/form-dirty-state';
 export { aggregateFormErrors, asyncFieldValidator } from './lib/form-errors';
 export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './lib/form-array';
 export type { FormArrayDirtyState } from './lib/form-array';
+export { controlSignal, isControlInvalid, formDiff } from './lib/form-control-utils';

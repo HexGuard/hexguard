@@ -5,6 +5,7 @@ import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './c
 import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
 import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
+import { controlSignal, isControlInvalid, formDiff } from './form-control-utils';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -421,5 +422,122 @@ describe('syncArrayValues', () => {
     ]);
     syncArrayValues(array, [], (v) => new FormControl(v, { nonNullable: true }));
     expect(array.length).toBe(0);
+  });
+});
+
+describe('isControlInvalid', () => {
+  it('should return false for null/undefined', () => {
+    expect(isControlInvalid(null)).toBe(false);
+    expect(isControlInvalid(undefined)).toBe(false);
+  });
+
+  it('should return false when control is untouched and invalid', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.updateValueAndValidity();
+    expect(isControlInvalid(ctrl)).toBe(false);
+  });
+
+  it('should return false when control is touched and valid', () => {
+    const ctrl = new FormControl('hello');
+    ctrl.markAsTouched();
+    expect(isControlInvalid(ctrl)).toBe(false);
+  });
+
+  it('should return true when control is touched and invalid', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.markAsTouched();
+    ctrl.updateValueAndValidity();
+    expect(isControlInvalid(ctrl)).toBe(true);
+  });
+});
+
+describe('formDiff', () => {
+  it('should return empty object when values are identical', () => {
+    const a = { name: 'Alice', age: 30 };
+    expect(formDiff(a, { ...a })).toEqual({});
+  });
+
+  it('should detect primitive value changes', () => {
+    const diff = formDiff({ name: 'Alice', age: 30 }, { name: 'Bob', age: 30 });
+    expect(diff).toEqual({ name: 'Bob' });
+  });
+
+  it('should detect nested object changes', () => {
+    const diff = formDiff(
+      { address: { city: 'NYC', zip: '10001' } },
+      { address: { city: 'LA', zip: '10001' } },
+    );
+    expect(diff).toEqual({ address: { city: 'LA' } });
+  });
+
+  it('should detect array changes', () => {
+    const diff = formDiff({ tags: ['a', 'b'] }, { tags: ['a', 'b', 'c'] });
+    expect(diff).toEqual({ tags: ['a', 'b', 'c'] });
+  });
+
+  it('should detect added keys', () => {
+    const diff = formDiff({ a: 1 } as Record<string, unknown>, { a: 1, b: 2 });
+    expect(diff).toEqual({ b: 2 });
+  });
+
+  it('should detect removed keys', () => {
+    const diff = formDiff({ a: 1, b: 2 } as Record<string, unknown>, { a: 1 });
+    expect(diff).toEqual({ b: undefined });
+  });
+
+  it('should return empty for null/undefined values that are equal', () => {
+    const diff = formDiff({ a: null } as Record<string, unknown>, { a: null });
+    expect(diff).toEqual({});
+  });
+});
+
+describe('controlSignal', () => {
+  function setup() {
+    @Component({ template: '', standalone: true })
+    class TestComponent {
+      readonly form = new FormGroup({
+        name: new FormControl('Alice', { nonNullable: true }),
+        nested: new FormGroup({
+          count: new FormControl(0, { nonNullable: true }),
+        }),
+      });
+      readonly nameSignal = controlSignal(this.form, 'name');
+      readonly countSignal = controlSignal(this.form, 'nested.count');
+    }
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    return fixture.componentInstance;
+  }
+
+  it('should return initial value', () => {
+    const { nameSignal } = setup();
+    expect(nameSignal()).toBe('Alice');
+  });
+
+  it('should track value changes', () => {
+    const { form, nameSignal } = setup();
+    form.get('name')?.setValue('Bob');
+    expect(nameSignal()).toBe('Bob');
+  });
+
+  it('should work with nested paths', () => {
+    const { form, countSignal } = setup();
+    expect(countSignal()).toBe(0);
+    form.get('nested.count')?.setValue(42);
+    expect(countSignal()).toBe(42);
+  });
+
+  it('should throw for invalid path', () => {
+    @Component({ template: '', standalone: true })
+    class InvalidComponent {
+      readonly form = new FormGroup({ name: new FormControl('') });
+      readonly result = (() => {
+        try { controlSignal(this.form, 'nonexistent'); return 'no error'; }
+        catch (e) { return (e as Error).message; }
+      })();
+    }
+    const fixture = TestBed.createComponent(InvalidComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.result).toContain('nonexistent');
   });
 });

@@ -14,3 +14,7 @@
 .tag-remove { cursor: pointer; border: none; background: none; color: var(--color-error, #d32f2f); font-size: 1em; line-height: 1; }
 .tag-move { cursor: pointer; border: none; background: none; color: var(--color-accent, #1976d2); font-size: 0.75em; line-height: 1; padding: 0 0.1rem; }
 .tag-move:disabled { opacity: 0.3; cursor: default; }
+.demo-diff-controls { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.demo-diff-controls label { display: flex; align-items: center; gap: 0.3rem; }
+.demo-diff-controls input { padding: 0.3rem; border: 1px solid var(--color-border, #ccc); border-radius: 4px; width: 160px; }
+.demo-diff-json { background: var(--color-surface, #f5f5f5); padding: 0.5rem; border-radius: 4px; font-size: 0.85em; max-height: 100px; overflow: auto; }
