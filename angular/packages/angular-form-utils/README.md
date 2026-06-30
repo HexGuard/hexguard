@@ -89,7 +89,7 @@ Wraps an async validation function into an Angular `AsyncValidatorFn`. The funct
 ### FormArray helpers
 
 ```typescript
-import { injectFormArrayDirtyState, arrayToggleItem } from '@hexguard/angular-form-utils';
+import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from '@hexguard/angular-form-utils';
 
 // Dirty state tracking for FormArray items
 const tags = new FormArray([new FormControl('a'), new FormControl('b')]);
@@ -104,6 +104,12 @@ dirty.resetAll();
 // Toggle a value in a FormArray (add if absent, remove if present)
 arrayToggleItem(tags, 'c');           // → ['a', 'b', 'c']
 arrayToggleItem(tags, 'a');           // → ['b', 'c']
+
+// Move an item to a new position (useful for reordering)
+moveArrayItem(tags, 0, 2);            // → ['b', 'c', 'a']
+
+// Sync the FormArray to match an ordered set of values (preserves existing controls)
+syncArrayValues(tags, ['x', 'y', 'z']); // → ['x', 'y', 'z']
 ```
 
 | Concern | Status |
@@ -115,8 +121,9 @@ arrayToggleItem(tags, 'a');           // → ['b', 'c']
 | asyncFieldValidator | ✅ |
 | injectFormArrayDirtyState | ✅ |
 | arrayToggleItem | ✅ |
+| moveArrayItem | ✅ |
+| syncArrayValues | ✅ |
 | Template-driven forms | ❌ (Reactive Forms only) |
-| FormArray helpers | ❌ (future) |
 
 ## Demo
 

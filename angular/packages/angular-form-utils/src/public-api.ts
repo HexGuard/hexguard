@@ -2,5 +2,5 @@ export { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './l
 export { injectFormDirtyState, formUnsavedGuard } from './lib/form-dirty-state';
 export type { FormDirtyState } from './lib/form-dirty-state';
 export { aggregateFormErrors, asyncFieldValidator } from './lib/form-errors';
-export { injectFormArrayDirtyState, arrayToggleItem } from './lib/form-array';
+export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './lib/form-array';
 export type { FormArrayDirtyState } from './lib/form-array';

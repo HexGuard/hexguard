@@ -2066,6 +2066,8 @@ export const GENERATED_CURRENT_PACKAGES = [
       'asyncFieldValidator() — typed wrapper for promise-based async validation.',
       'injectFormArrayDirtyState() — dirty state tracking for FormArray items with index-based access.',
       'arrayToggleItem() — add/remove values in a FormArray (toggle semantics).',
+      'moveArrayItem() — reorder items by moving to a new index.',
+      'syncArrayValues() — batch-sync a FormArray to match a set of values, preserving existing controls.',
     ],
     bestFitScenarios: [
       'Confirm-password and confirm-email validation patterns.',
@@ -2075,6 +2077,8 @@ export const GENERATED_CURRENT_PACKAGES = [
       'Server-side validation checks like username uniqueness (asyncFieldValidator).',
       'Tag pickers, checkbox groups, and multi-select interfaces (arrayToggleItem).',
       'FormArray dirty tracking for dynamic list editors (injectFormArrayDirtyState).',
+      'Reordering items in a FormArray with drag-and-drop or move buttons (moveArrayItem).',
+      'Bulk-syncing a FormArray to a server response or saved preference list (syncArrayValues).',
     ],
     statusNoteParagraphs: ['Reactive Forms only. Template-driven forms deferred to v0.2.'],
     repositoryHref:

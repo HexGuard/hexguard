@@ -105,7 +105,8 @@
     <!-- FormArray helpers demo -->
     <fieldset class="demo-fieldset">
       <legend>FormArray Helpers</legend>
-      <p class="demo-hint">Type a tag and click Add — same value toggles on/off.</p>
+      <p class="demo-hint">Toggle items, reorder with move buttons, or bulk-sync with comma-separated values.</p>
+
       <div>
         <label>
           Tag:
@@ -113,14 +114,26 @@
         </label>
         <button class="demo-button demo-button--ghost" (click)="addTag()" data-testid="formarray-add-btn">Add / Toggle</button>
       </div>
+
+      <div>
+        <label>
+          Sync tags (comma-separated):
+          <input [value]="syncInput()" (input)="syncInput.set($any($event.target).value)" data-testid="formarray-sync-input" />
+        </label>
+        <button class="demo-button demo-button--ghost" (click)="syncTags()" data-testid="formarray-sync-btn">Sync</button>
+      </div>
+
       <div class="demo-tags">
         @for (item of tagArray.controls; track $index) {
           <span class="demo-tag" data-testid="formarray-tag-chip">
             {{ item.value }}
+            <button class="tag-move" (click)="moveUp($index)" [disabled]="$index === 0" title="Move up">▲</button>
+            <button class="tag-move" (click)="moveDown($index)" [disabled]="$index === tagArray.length - 1" title="Move down">▼</button>
             <button class="tag-remove" (click)="removeTag(item.value)" title="Remove tag">×</button>
           </span>
         }
       </div>
+
       <div class="demo-dirty-controls">
         <span>arrayDirty: <strong data-testid="formarray-dirty-indicator">{{ arrayDirty.isDirty() ? 'YES' : 'no' }}</strong></span>
         <span>itemStates: {{ arrayDirty.itemStates() | json }}</span>

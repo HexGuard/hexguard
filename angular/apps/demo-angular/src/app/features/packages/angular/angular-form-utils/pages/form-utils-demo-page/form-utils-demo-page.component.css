@@ -12,3 +12,5 @@
 .demo-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
 .demo-tag { display: inline-flex; align-items: center; gap: 0.25rem; background: var(--color-surface, #e3f2fd); padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.85em; }
 .tag-remove { cursor: pointer; border: none; background: none; color: var(--color-error, #d32f2f); font-size: 1em; line-height: 1; }
+.tag-move { cursor: pointer; border: none; background: none; color: var(--color-accent, #1976d2); font-size: 0.75em; line-height: 1; padding: 0 0.1rem; }
+.tag-move:disabled { opacity: 0.3; cursor: default; }

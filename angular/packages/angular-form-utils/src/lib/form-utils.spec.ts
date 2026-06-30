@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './cross-field-validators';
 import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
-import { injectFormArrayDirtyState, arrayToggleItem } from './form-array';
+import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -306,5 +306,120 @@ describe('arrayToggleItem', () => {
     arrayToggleItem(array, 'b', (v) => new FormControl(v, { nonNullable: true }));
     expect(array.length).toBe(1);
     expect(array.value).toEqual(['a']);
+  });
+});
+
+describe('moveArrayItem', () => {
+  it('should move item forward (lower to higher index)', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+      new FormControl('c', { nonNullable: true }),
+    ]);
+    moveArrayItem(array, 0, 2);
+    expect(array.value).toEqual(['b', 'c', 'a']);
+  });
+
+  it('should move item backward (higher to lower index)', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+      new FormControl('c', { nonNullable: true }),
+    ]);
+    moveArrayItem(array, 2, 0);
+    expect(array.value).toEqual(['c', 'a', 'b']);
+  });
+
+  it('should be a no-op when fromIndex equals toIndex', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    moveArrayItem(array, 1, 1);
+    expect(array.value).toEqual(['a', 'b']);
+  });
+
+  it('should be a no-op when indices are out of bounds', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    moveArrayItem(array, -1, 1);
+    expect(array.value).toEqual(['a', 'b']);
+    moveArrayItem(array, 0, 5);
+    expect(array.value).toEqual(['a', 'b']);
+  });
+
+  it('should preserve dirty state of the moved control', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    array.at(0)?.markAsDirty();
+    moveArrayItem(array, 0, 1);
+    expect(array.at(1).dirty).toBe(true);
+  });
+});
+
+describe('syncArrayValues', () => {
+  it('should add missing values', () => {
+    const array = new FormArray([new FormControl('a', { nonNullable: true })]);
+    syncArrayValues(array, ['a', 'b', 'c'], (v) => new FormControl(v, { nonNullable: true }));
+    expect(array.value).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should remove values not in the new set', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+      new FormControl('c', { nonNullable: true }),
+    ]);
+    syncArrayValues(array, ['a', 'c'], (v) => new FormControl(v, { nonNullable: true }));
+    expect(array.value).toEqual(['a', 'c']);
+  });
+
+  it('should remove and add in one operation', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    syncArrayValues(array, ['b', 'c', 'd'], (v) => new FormControl(v, { nonNullable: true }));
+    expect(array.value).toEqual(['b', 'c', 'd']);
+  });
+
+  it('should preserve existing control when value matches', () => {
+    const array = new FormArray([new FormControl('a', { nonNullable: true })]);
+    array.at(0)?.markAsDirty();
+    syncArrayValues(array, ['a'], (v) => new FormControl(v, { nonNullable: true }));
+    // The existing dirty control should be preserved
+    expect(array.length).toBe(1);
+    expect(array.at(0).dirty).toBe(true);
+  });
+
+  it('should order values as given', () => {
+    const array = new FormArray([
+      new FormControl('c', { nonNullable: true }),
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    syncArrayValues(array, ['a', 'b', 'c'], (v) => new FormControl(v, { nonNullable: true }));
+    expect(array.value).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should create controls without a factory', () => {
+    const array = new FormArray([new FormControl('x', { nonNullable: true })]);
+    syncArrayValues(array, ['y', 'z']);
+    expect(array.length).toBe(2);
+    expect(array.at(0).value).toBe('y');
+    expect(array.at(1).value).toBe('z');
+  });
+
+  it('should handle empty new values by clearing', () => {
+    const array = new FormArray([
+      new FormControl('a', { nonNullable: true }),
+      new FormControl('b', { nonNullable: true }),
+    ]);
+    syncArrayValues(array, [], (v) => new FormControl(v, { nonNullable: true }));
+    expect(array.length).toBe(0);
   });
 });

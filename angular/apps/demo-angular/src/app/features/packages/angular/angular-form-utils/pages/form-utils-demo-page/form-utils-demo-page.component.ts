@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem } from '@hexguard/angular-form-utils';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from '@hexguard/angular-form-utils';
 import { ANGULAR_FORM_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -82,6 +82,8 @@ export class FormUtilsDemoPageComponent {
   protected readonly arrayDirty = injectFormArrayDirtyState(this.tagArray);
   protected readonly arrayToggleItem = arrayToggleItem;
   protected readonly injectFormArrayDirtyState = injectFormArrayDirtyState;
+  protected readonly moveArrayItem = moveArrayItem;
+  protected readonly syncInput = signal('');
 
   protected addTag(): void {
     const val = this.tagInput().trim();
@@ -93,6 +95,22 @@ export class FormUtilsDemoPageComponent {
 
   protected removeTag(value: string): void {
     arrayToggleItem(this.tagArray, value, (v) => new FormControl(v, { nonNullable: true }));
+  }
+
+  protected moveUp(index: number): void {
+    if (index > 0) moveArrayItem(this.tagArray, index, index - 1);
+  }
+
+  protected moveDown(index: number): void {
+    if (index < this.tagArray.length - 1) moveArrayItem(this.tagArray, index, index + 1);
+  }
+
+  protected syncTags(): void {
+    const values = this.syncInput().split(',').map(v => v.trim()).filter(Boolean);
+    if (values.length > 0) {
+      syncArrayValues(this.tagArray, values, (v) => new FormControl(v, { nonNullable: true }));
+      this.syncInput.set('');
+    }
   }
 
   protected readonly snapshotJson = computed(() =>

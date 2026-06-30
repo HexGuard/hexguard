@@ -13,6 +13,8 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 - `asyncFieldValidator(validateFn)` — Wrap a promise-based validator into an `AsyncValidatorFn`.
 - `injectFormArrayDirtyState(formArray)` — Track dirty state of FormArray items with index-based access.
 - `arrayToggleItem(array, value, toControl?)` — Toggle a value in a FormArray (add if absent, remove if present).
+- `moveArrayItem(array, fromIndex, toIndex)` — Move an item to a new position (reorder).
+- `syncArrayValues(array, values, toControl?)` — Sync FormArray to match an ordered set of values, preserving existing controls.
 
 ## Assessment
 
@@ -23,6 +25,7 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 | API | Error aggregation helper | ✅ Added |
 | API | Async validator wrapper | ✅ Added |
 | API | FormArray dirty state + toggle | ✅ Added |
+| API | moveArrayItem + syncArrayValues | ✅ Added |
 
 ## Code Examples
 
@@ -43,12 +46,12 @@ const uniqueUsername = asyncFieldValidator<string>(async (value) => {
   return taken ? { taken: { message: 'Taken.' } } : null;
 });
 
-// FormArray dirty state
+// FormArray helpers
 const tags = new FormArray([new FormControl('a')]);
 const dirty = injectFormArrayDirtyState(tags);
 dirty.isDirty(); // Signal<boolean>
-
-// Toggle array item
-arrayToggleItem(tags, 'b'); // adds
-arrayToggleItem(tags, 'a'); // removes
+arrayToggleItem(tags, 'b');     // adds → ['a', 'b']
+arrayToggleItem(tags, 'a');     // removes → ['b']
+moveArrayItem(tags, 0, 1);      // reorder
+syncArrayValues(tags, ['x', 'y']); // sync → ['x', 'y']
 ```

@@ -102,3 +102,74 @@ export function arrayToggleItem<T>(
     array.push(toControl?.(value) ?? new FormControl(value, { nonNullable: true }));
   }
 }
+
+/**
+ * Moves an item within a `FormArray` from one index to another, shifting
+ * other items as necessary. A no-op if both indices are the same or out of
+ * bounds.
+ *
+ * @example
+ * ```typescript
+ * const items = new FormArray([
+ *   new FormControl('a'),
+ *   new FormControl('b'),
+ *   new FormControl('c'),
+ * ]);
+ *
+ * moveArrayItem(items, 0, 2); // → ['b', 'c', 'a']
+ * moveArrayItem(items, 2, 0); // → ['a', 'b', 'c']
+ * ```
+ */
+export function moveArrayItem<T>(
+  array: FormArray<FormControl<T>>,
+  fromIndex: number,
+  toIndex: number,
+): void {
+  if (fromIndex === toIndex) return;
+  if (fromIndex < 0 || fromIndex >= array.length) return;
+  if (toIndex < 0 || toIndex >= array.length) return;
+
+  const control = array.at(fromIndex);
+  array.removeAt(fromIndex);
+  array.insert(toIndex, control);
+}
+
+/**
+ * Syncs a `FormArray`'s item values to match a given ordered list of values.
+ *
+ * Existing controls whose value is still in the new set are preserved (keeping
+ * their dirty/pristine state). Controls whose value is no longer in the set
+ * are removed. New controls are created for values not previously present.
+ *
+ * @example
+ * ```typescript
+ * const tags = new FormArray([new FormControl('a'), new FormControl('b')]);
+ *
+ * syncArrayValues(tags, ['c', 'a'], (v) => new FormControl(v));
+ * // tags now has ['c', 'a'] — 'b' was removed, 'c' was added, 'a' was kept
+ * ```
+ */
+export function syncArrayValues<T>(
+  array: FormArray<FormControl<T>>,
+  values: T[],
+  toControl?: (value: T) => FormControl<T>,
+): void {
+  // Map existing controls by value so we can preserve them
+  const existing = new Map<T, FormControl<T>>();
+  for (let i = 0; i < array.length; i++) {
+    const ctrl = array.at(i);
+    existing.set(ctrl.value, ctrl);
+  }
+
+  array.clear();
+
+  for (const value of values) {
+    const ctrl = existing.get(value);
+    if (ctrl) {
+      array.push(ctrl);
+      existing.delete(value);
+    } else {
+      array.push(toControl?.(value) ?? new FormControl(value, { nonNullable: true }));
+    }
+  }
+}
