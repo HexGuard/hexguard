@@ -1,0 +1,142 @@
+<demo-page-layout testId="icon-registry-demo">
+  <demo-navigation-strip demoNavigation testId="icon-registry-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Icon Registry</p>
+        <h2>Centralized SVG icon management with aliases and signal-based access.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="icon-registry-demo-status"
+      summary="8 icons registered with 11 aliases. Click any icon to inspect, resize with the slider."
+      currentUrl="Angular Icon Registry — Demo"
+      summaryTestId="icon-registry-demo-summary"
+      urlTestId="icon-registry-demo-url"
+    />
+  </article>
+
+  <!-- demo-snippet:start angular-icon-registry/demo-state -->
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="icon-gallery">
+    <div class="icon-layout">
+      <!-- Icon Gallery -->
+      <div class="icon-gallery">
+        <h3>Icon Gallery</h3>
+        @for (name of iconNames; track name) {
+          @if (icons.get(name)(); as icon) {
+            <button
+              class="icon-card"
+              [class.icon-card--selected]="selectedIcon() === name"
+              (click)="selectIcon(name)"
+              [attr.data-testid]="'icon-' + name"
+            >
+              <svg
+                [attr.viewBox]="icon.viewBox"
+                [style.width]="'2rem'"
+                [style.height]="'2rem'"
+                fill="currentColor"
+                [innerHTML]="sanitizeSvg(icon.svgContent)"
+              ></svg>
+              <span class="icon-name">{{ name }}</span>
+            </button>
+          }
+        }
+      </div>
+
+      <!-- Icon Inspector -->
+      @if (selectedIconData(); as icon) {
+        <div class="icon-inspector" data-testid="icon-inspector">
+          <h3>{{ selectedIcon() }}</h3>
+          <div class="icon-preview">
+            <svg
+              [attr.viewBox]="icon.viewBox"
+              [style.width]="iconSize()"
+              [style.height]="iconSize()"
+              fill="currentColor"
+              [innerHTML]="sanitizeSvg(icon.svgContent)"
+            ></svg>
+          </div>
+          <div class="icon-meta">
+            <div class="meta-row">
+              <span class="meta-label">ViewBox</span>
+              <code>{{ icon.viewBox }}</code>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Size</span>
+              <input
+                type="range"
+                min="0.5"
+                max="4"
+                step="0.25"
+                [value]="iconSize()"
+                (input)="setSize($event)"
+                data-testid="icon-size-slider"
+                class="size-slider"
+              />
+              <code>{{ iconSize() }}</code>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Color</span>
+              <code>currentColor</code>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Alias Table -->
+    <div class="alias-section" data-testid="alias-table">
+      <h3>Aliases</h3>
+      <table class="alias-table">
+        <thead>
+          <tr>
+            <th>Canonical</th>
+            <th>Aliases</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>settings</td>
+            <td>gear, cog</td>
+          </tr>
+          <tr>
+            <td>favorite</td>
+            <td>heart</td>
+          </tr>
+          <tr>
+            <td>person</td>
+            <td>user, account</td>
+          </tr>
+          <tr>
+            <td>delete</td>
+            <td>trash, remove</td>
+          </tr>
+          <tr>
+            <td>add</td>
+            <td>plus, new</td>
+          </tr>
+          <tr>
+            <td>close</td>
+            <td>x, cancel</td>
+          </tr>
+          <tr>
+            <td>check</td>
+            <td>done, tick</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+  <!-- demo-snippet:end -->
+
+  <demo-inspector-panel
+    demoAside
+    panelTestId="icon-registry-inspector-panel"
+    title="Registry snapshot"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="icon-registry-snapshot-json"
+    codeTestId="icon-registry-code-sample"
+  />
+</demo-page-layout>

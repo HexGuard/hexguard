@@ -4,16 +4,34 @@
 
 .stack-hub {
   display: grid;
-  gap: var(--space-section);
+  gap: var(--space-section, 2rem);
 }
 
 .stack-hub__hero {
   overflow: hidden;
-  gap: var(--space-card-gap);
+  gap: var(--space-card-gap, 1.5rem);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 241, 232, 0.84));
 }
 
 .stack-hub > :last-child {
   display: grid;
-  gap: var(--space-section);
+  gap: var(--space-section, 2rem);
+}
+
+/* Section-level spacing for all children inside sections */
+.stack-hub section {
+  padding: 0.5rem 0;
+}
+
+.stack-hub .stack-overview__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stack-overview__section {
+  margin-bottom: 0.5rem;
+}
+
+.stack-overview__section-heading {
+  margin-bottom: 1.25rem;
 }

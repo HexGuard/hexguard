@@ -44,12 +44,12 @@
       <h3>CSS Custom Properties</h3>
       <p class="theme-hint">These variables change automatically when the theme switches.</p>
       <div class="token-grid">
-        @for (token of cssTokens; track token.name) {
+        @for (token of cssTokens(); track token.name) {
           <div class="token-card" [attr.data-testid]="'token-' + token.name">
-            <div class="token-swatch" [style.background-color]="token.value()"></div>
+            <div class="token-swatch" [style.background-color]="token.value"></div>
             <div class="token-info">
               <code class="token-name">{{ token.cssVar }}</code>
-              <span class="token-value">{{ token.value() }}</span>
+              <span class="token-value">{{ token.value }}</span>
             </div>
           </div>
         }

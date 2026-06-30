@@ -51,7 +51,58 @@
       <button class="demo-button" (click)="removeDarkLayer()" data-testid="btn-remove-layer">
         Remove Layer
       </button>
+      @if (darkActive()) {
+        <span class="layer-badge layer-badge--active" data-testid="layer-status">🌙 Dark active</span>
+      } @else {
+        <span class="layer-badge" data-testid="layer-status">☀️ Light (default)</span>
+      }
     </div>
+
+    @if (darkActive()) {
+      <div class="dark-preview" data-testid="dark-preview">
+        <h3>Dark Layer Preview</h3>
+        <div class="dark-swatches">
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.50')">
+            <span>neutral.50</span>
+            <code>{{ getCssVar('color.neutral.50') }}</code>
+          </div>
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.100')">
+            <span>neutral.100</span>
+            <code>{{ getCssVar('color.neutral.100') }}</code>
+          </div>
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.500')">
+            <span>neutral.500</span>
+            <code>{{ getCssVar('color.neutral.500') }}</code>
+          </div>
+          <div class="dark-swatch dark-swatch--text" [style.background-color]="getCssVar('color.neutral.900')">
+            <span>neutral.900</span>
+            <code [style.color]="getCssVar('color.neutral.50')">{{ getCssVar('color.neutral.900') }}</code>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="light-preview" data-testid="light-preview">
+        <h3>Light Layer Preview (default tokens)</h3>
+        <div class="dark-swatches">
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.50')" [style.color]="'#171717'">
+            <span>neutral.50</span>
+            <code>{{ getCssVar('color.neutral.50') }}</code>
+          </div>
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.100')" [style.color]="'#171717'">
+            <span>neutral.100</span>
+            <code>{{ getCssVar('color.neutral.100') }}</code>
+          </div>
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.500')" [style.color]="'#fff'">
+            <span>neutral.500</span>
+            <code>{{ getCssVar('color.neutral.500') }}</code>
+          </div>
+          <div class="dark-swatch" [style.background-color]="getCssVar('color.neutral.900')" [style.color]="'#fff'">
+            <span>neutral.900</span>
+            <code>{{ getCssVar('color.neutral.900') }}</code>
+          </div>
+        </div>
+      </div>
+    }
 
     <div class="validation" data-testid="validation">
       <h3>Validation</h3>

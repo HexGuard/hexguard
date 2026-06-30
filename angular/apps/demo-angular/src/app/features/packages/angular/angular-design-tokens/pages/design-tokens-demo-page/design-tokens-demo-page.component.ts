@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
   defineTokens,
   injectTokens,
   syncTokensToRoot,
   tokenAliases,
   TokenThemeLayer,
+  unsyncTokensFromRoot,
 } from '@hexguard/angular-design-tokens';
 import { ANGULAR_DESIGN_TOKENS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
@@ -28,12 +29,12 @@ const SEMANTIC = tokenAliases(TOKENS, {
   'color.brand': 'color.primary.500',
 });
 
-const DARK_LAYER = new TokenThemeLayer({
-  'color.surface': '#1a1a1a',
-  'color.text': '#f0f0f0',
+const DARK_OVERRIDES: Record<string, string> = {
   'color.neutral.50': '#1a1a1a',
+  'color.neutral.100': '#262626',
+  'color.neutral.500': '#a3a3a3',
   'color.neutral.900': '#f0f0f0',
-});
+};
 
 @Component({
   standalone: true,
@@ -52,10 +53,10 @@ export class DesignTokensDemoPageComponent {
   protected readonly demo = ANGULAR_DESIGN_TOKENS_DEMO;
   protected readonly TOKENS = TOKENS;
   protected readonly tokens = injectTokens(TOKENS, { syncCss: true });
+  protected readonly darkActive = signal(false);
+
   protected readonly aliasedEntries = computed(() =>
-    Array.from(SEMANTIC.entries.entries()).filter(
-      ([k]) => k.startsWith('color.'),
-    ),
+    Array.from(SEMANTIC.entries.entries()).filter(([k]) => k.startsWith('color.')),
   );
 
   protected readonly tokenEntries = computed(() =>
@@ -66,6 +67,7 @@ export class DesignTokensDemoPageComponent {
     formatSnapshot({
       tokenCount: TOKENS.size,
       prefix: TOKENS.prefix,
+      darkLayerActive: this.darkActive(),
       primary500: TOKENS.get('color.primary.500'),
       brand: SEMANTIC.get('color.brand'),
       surface: SEMANTIC.get('color.surface'),
@@ -75,10 +77,38 @@ export class DesignTokensDemoPageComponent {
   );
 
   applyDarkLayer(): void {
-    DARK_LAYER.syncToDom();
+    this.darkActive.set(true);
+    // Override the CSS custom properties that syncTokensToRoot wrote
+    const style = document.documentElement.style;
+    for (const [path, value] of Object.entries(DARK_OVERRIDES)) {
+      const propName = `--${TOKENS.prefix}-${path.replace(/\./g, '-')}`;
+      style.setProperty(propName, value);
+    }
+    // Also set semantic properties
+    const surfacePath = `--${TOKENS.prefix}-color-surface`;
+    const textPath = `--${TOKENS.prefix}-color-text`;
+    style.setProperty(surfacePath, '#1a1a1a');
+    style.setProperty(textPath, '#f0f0f0');
   }
 
   removeDarkLayer(): void {
+    this.darkActive.set(false);
+    // Remove dark overrides and re-sync base tokens
+    const style = document.documentElement.style;
+    for (const path of Object.keys(DARK_OVERRIDES)) {
+      const propName = `--${TOKENS.prefix}-${path.replace(/\./g, '-')}`;
+      style.removeProperty(propName);
+    }
+    style.removeProperty(`--${TOKENS.prefix}-color-surface`);
+    style.removeProperty(`--${TOKENS.prefix}-color-text`);
     syncTokensToRoot(TOKENS);
+  }
+
+  /** Get the current value of a CSS custom property from :root (for display). */
+  getCssVar(path: string): string {
+    if (typeof document === 'undefined') return '';
+    return document.documentElement.style.getPropertyValue(
+      `--${TOKENS.prefix}-${path.replace(/\./g, '-')}`,
+    );
   }
 }

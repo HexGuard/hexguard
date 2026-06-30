@@ -33,11 +33,15 @@ export class ThemeDemoPageComponent {
     },
   });
 
-  // CSS tokens to display (computed from DOM)
-  protected readonly cssTokens = [
-    { name: 'surface', cssVar: '--demo-surface', value: this.readCssVar('--demo-surface') },
-    { name: 'text', cssVar: '--demo-text', value: this.readCssVar('--demo-text') },
-  ];
+  // CSS tokens to display (computed from DOM) — reactive to theme changes
+  protected readonly cssTokens = computed(() => {
+    // Track effective theme so this re-evaluates on theme switch
+    this.theme.effectiveTheme();
+    return [
+      { name: 'surface', cssVar: '--demo-surface', value: this.readCssVarRaw('--demo-surface') },
+      { name: 'text', cssVar: '--demo-text', value: this.readCssVarRaw('--demo-text') },
+    ];
+  });
 
   // System preference detection
   protected readonly systemPrefersDark = signal(
@@ -94,10 +98,6 @@ export class ThemeDemoPageComponent {
       useTransition: this.useTransition(),
     }),
   );
-
-  private readCssVar(name: string) {
-    return computed(() => this.readCssVarRaw(name));
-  }
 
   private readCssVarRaw(name: string): string {
     if (typeof document === 'undefined') return 'ssr';
