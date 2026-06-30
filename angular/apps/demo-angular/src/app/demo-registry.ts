@@ -74,6 +74,8 @@ const ANGULAR_WIZARD_STATE_CATALOG = getGeneratedCurrentPackage('angular-wizard-
 const ANGULAR_COMMAND_PALETTE_CATALOG = getGeneratedCurrentPackage('angular-command-palette');
 const ANGULAR_CLIPBOARD_CATALOG = getGeneratedCurrentPackage('angular-clipboard');
 const ANGULAR_COLOR_CATALOG = getGeneratedCurrentPackage('angular-color');
+const ANGULAR_CONSENT_MANAGER_CATALOG = getGeneratedCurrentPackage('angular-consent-manager');
+const ANGULAR_COOKIE_CONSENT_CATALOG = getGeneratedCurrentPackage('angular-cookie-consent');
 const ANGULAR_THEME_CATALOG = getGeneratedCurrentPackage('angular-theme');
 const ANGULAR_DIRTY_STATE_CATALOG = getGeneratedCurrentPackage('angular-dirty-state');
 const ANGULAR_TABLE_STATE_CATALOG = getGeneratedCurrentPackage('angular-table-state');
@@ -104,6 +106,8 @@ const ANGULAR_NETWORK_STATUS_DOCS = ANGULAR_NETWORK_STATUS_CATALOG.docsLinks;
 const ANGULAR_STORAGE_DOCS = ANGULAR_STORAGE_CATALOG.docsLinks;
 const ANGULAR_CLIPBOARD_DOCS = ANGULAR_CLIPBOARD_CATALOG.docsLinks;
 const ANGULAR_COLOR_DOCS = ANGULAR_COLOR_CATALOG.docsLinks;
+const ANGULAR_CONSENT_MANAGER_DOCS = ANGULAR_CONSENT_MANAGER_CATALOG.docsLinks;
+const ANGULAR_COOKIE_CONSENT_DOCS = ANGULAR_COOKIE_CONSENT_CATALOG.docsLinks;
 const ANGULAR_THEME_DOCS = ANGULAR_THEME_CATALOG.docsLinks;
 const ANGULAR_DIRTY_STATE_DOCS = ANGULAR_DIRTY_STATE_CATALOG.docsLinks;
 const ANGULAR_TABLE_STATE_DOCS = ANGULAR_TABLE_STATE_CATALOG.docsLinks;
@@ -913,6 +917,11 @@ export const ANGULAR_API_ERRORS_PACKAGE: DemoPackageEntry = {
 
 // â”€â”€ angular-debounce demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+// ── angular-design-tokens demo entries ─────────────────────
+
+const ANGULAR_DESIGN_TOKENS_CATALOG = getGeneratedCurrentPackage('angular-design-tokens');
+const ANGULAR_DESIGN_TOKENS_DOCS = ANGULAR_DESIGN_TOKENS_CATALOG.docsLinks;
+
 export const ANGULAR_DESIGN_TOKENS_DEMO: DemoPageEntry = {
   id: 'design-tokens',
   packageId: 'angular-design-tokens',
@@ -954,8 +963,6 @@ export const ANGULAR_DESIGN_TOKENS_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_DESIGN_TOKENS_DEMO],
 };
 
-const ANGULAR_DESIGN_TOKENS_CATALOG = getGeneratedCurrentPackage('angular-design-tokens');
-const ANGULAR_DESIGN_TOKENS_DOCS = ANGULAR_DESIGN_TOKENS_CATALOG.docsLinks;
 const ANGULAR_DEBOUNCE_CATALOG = getGeneratedCurrentPackage('angular-debounce');
 const ANGULAR_DEBOUNCE_DOCS = ANGULAR_DEBOUNCE_CATALOG.docsLinks;
 
@@ -2038,6 +2045,92 @@ export const ANGULAR_COLOR_PACKAGE: DemoPackageEntry = {
   demos: [ANGULAR_COLOR_DEMO],
 };
 
+// ── angular-consent-manager demo entries ──────────────────────────
+
+export const ANGULAR_CONSENT_MANAGER_DEMO: DemoPageEntry = {
+  id: 'consent-manager',
+  packageId: 'angular-consent-manager',
+  route: '/packages/angular-consent-manager/demo',
+  legacyRoute: '/consent-manager',
+  label: 'Consent Manager',
+  title: 'Headless consent engine: state machine, storage, region detection, Google Consent Mode, audit trail',
+  description:
+    'A live demo shows consent state transitions, category toggles, region selection, cookie declaration table, audit trail viewer, and real-time consent snapshot.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-consent-manager/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-consent-manager.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-consent-manager/demo-state',
+    label: 'Consent Manager demo component source',
+    description:
+      'The full consent manager demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_CONSENT_MANAGER_PACKAGE: DemoPackageEntry = {
+  id: 'angular-consent-manager',
+  route: '/packages/angular-consent-manager',
+  label: 'Angular Consent Manager',
+  title: ANGULAR_CONSENT_MANAGER_CATALOG.packageName,
+  description: ANGULAR_CONSENT_MANAGER_CATALOG.summary,
+  docsLinks: ANGULAR_CONSENT_MANAGER_DOCS,
+  demos: [ANGULAR_CONSENT_MANAGER_DEMO],
+};
+
+// ── angular-cookie-consent demo entries ───────────────────────────
+
+export const ANGULAR_COOKIE_CONSENT_DEMO: DemoPageEntry = {
+  id: 'cookie-consent',
+  packageId: 'angular-cookie-consent',
+  route: '/packages/angular-cookie-consent/demo',
+  legacyRoute: '/cookie-consent',
+  label: 'Cookie Consent',
+  title: 'Cookie consent UI: banner, preference center, floating button, cookie declaration',
+  description:
+    'A live demo shows the cookie consent banner, preference center with category toggles, floating settings button, and filterable cookie declaration table.',
+  docsLinks: [
+    {
+      label: 'Package README',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/angular/packages/angular-cookie-consent/README.md',
+    },
+    {
+      label: 'Deep package notes',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/packages/angular-cookie-consent.md',
+    },
+    {
+      label: 'Demo runbook',
+      href: 'https://github.com/HexGuard/hexguard/blob/main/docs/demo/README.md',
+    },
+  ],
+  codeSample: {
+    snippetId: 'angular-cookie-consent/demo-state',
+    label: 'Cookie Consent demo component source',
+    description:
+      'The full cookie consent demo component source, including TypeScript, template, and styles.',
+  },
+};
+
+export const ANGULAR_COOKIE_CONSENT_PACKAGE: DemoPackageEntry = {
+  id: 'angular-cookie-consent',
+  route: '/packages/angular-cookie-consent',
+  label: 'Angular Cookie Consent',
+  title: ANGULAR_COOKIE_CONSENT_CATALOG.packageName,
+  description: ANGULAR_COOKIE_CONSENT_CATALOG.summary,
+  docsLinks: ANGULAR_COOKIE_CONSENT_DOCS,
+  demos: [ANGULAR_COOKIE_CONSENT_DEMO],
+};
+
 // â”€â”€ angular-theme demo entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const ANGULAR_THEME_DEMO: DemoPageEntry = {
@@ -2481,6 +2574,8 @@ export const DEMO_PACKAGES = [
   ANGULAR_CLICK_OUTSIDE_PACKAGE,
   ANGULAR_CLIPBOARD_PACKAGE,
   ANGULAR_COLOR_PACKAGE,
+  ANGULAR_CONSENT_MANAGER_PACKAGE,
+  ANGULAR_COOKIE_CONSENT_PACKAGE,
   ANGULAR_COMMAND_PALETTE_PACKAGE,
   ANGULAR_CONFIRMATION_PACKAGE,
   ANGULAR_DEBOUNCE_PACKAGE,

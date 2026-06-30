@@ -1,0 +1,65 @@
+<demo-page-layout testId="cookie-consent-demo">
+  <demo-navigation-strip demoNavigation testId="cookie-consent-demo-navigation" [demo]="demo" />
+  <article demoIntro class="demo-card demo-card--stack">
+    <div class="demo-card__header">
+      <div>
+        <p class="demo-eyebrow">Angular Cookie Consent</p>
+        <h2>Cookie consent banner and preference center.</h2>
+      </div>
+    </div>
+    <demo-status-strip
+      testId="cookie-consent-demo-status"
+      summary="Cookie consent banner, preference center panel, floating button, and cookie declaration components."
+      currentUrl="Angular Cookie Consent — Demo"
+      summaryTestId="cookie-consent-demo-summary"
+      urlTestId="cookie-consent-demo-url"
+    />
+  </article>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="cookie-consent-playground">
+    <!-- demo-snippet:start angular-cookie-consent/demo-state -->
+    <h3>Cookie Consent Banner (live)</h3>
+    <p><em>The banner appears below when consent status is 'unknown' or 'expired'. Current status: <strong>{{ consent.status() }}</strong></em></p>
+
+    <div class="cookie-banner-preview" data-testid="cookie-banner-preview">
+      <hex-cookie-consent-banner
+        position="bottom"
+        (customize)="showPreferences.set(true)"
+      />
+    </div>
+
+    <h3>Preference Center</h3>
+    <div class="cookie-pref-center" data-testid="cookie-preference-center-preview">
+      <hex-consent-preference-center
+        mode="inline"
+        [(open)]="showPreferences"
+      />
+    </div>
+
+    <h3>Floating Button</h3>
+    <p><em>Floating button appears after a consent decision is made.</em></p>
+    <div class="cookie-floating-preview" data-testid="cookie-floating-preview">
+      <hex-consent-floating-btn
+        position="bottom-right"
+        label="Cookie Settings"
+        [(opened)]="showPreferences"
+      />
+    </div>
+
+    <h3>Cookie Declaration</h3>
+    <hex-cookie-declaration
+      [cookies]="demoCookies"
+      [filterable]="true"
+    />
+    <!-- demo-snippet:end -->
+  </article>
+  <demo-inspector-panel
+    demoAside
+    panelTestId="cookie-consent-inspector-panel"
+    title="Consent state"
+    [snapshotJson]="snapshotJson()"
+    [snippetId]="demo.codeSample.snippetId"
+    [docsLinks]="demo.docsLinks"
+    snapshotTestId="cookie-consent-snapshot-json"
+    codeTestId="cookie-consent-code-sample"
+  />
+</demo-page-layout>

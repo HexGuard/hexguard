@@ -145,6 +145,10 @@ import { AngularClipboardHomePageComponent } from './features/packages/angular/a
 import { ClipboardDemoPageComponent } from './features/packages/angular/angular-clipboard/pages/clipboard-demo-page/clipboard-demo-page.component';
 import { AngularColorHomePageComponent } from './features/packages/angular/angular-color/angular-color-home-page.component';
 import { ColorDemoPageComponent } from './features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component';
+import { AngularConsentManagerHomePageComponent } from './features/packages/angular/angular-consent-manager/angular-consent-manager-home-page.component';
+import { ConsentManagerDemoPageComponent } from './features/packages/angular/angular-consent-manager/pages/consent-manager-demo-page/consent-manager-demo-page.component';
+import { AngularCookieConsentHomePageComponent } from './features/packages/angular/angular-cookie-consent/angular-cookie-consent-home-page.component';
+import { CookieConsentDemoPageComponent } from './features/packages/angular/angular-cookie-consent/pages/cookie-consent-demo-page/cookie-consent-demo-page.component';
 import { AngularDesignTokensHomePageComponent } from './features/packages/angular/angular-design-tokens/angular-design-tokens-home-page.component';
 import { DesignTokensDemoPageComponent } from './features/packages/angular/angular-design-tokens/pages/design-tokens-demo-page/design-tokens-demo-page.component';
 import { AngularDirtyStateHomePageComponent } from './features/packages/angular/angular-dirty-state/angular-dirty-state-home-page.component';
@@ -727,6 +731,28 @@ export const routes: Routes = [
     path: 'packages/angular-scroll-state/demo',
     component: ScrollStateDemoPageComponent,
     title: 'Scroll State Demo',
+  },
+  // ── Consent Manager ──────────────────────────────────────────────
+  {
+    path: 'packages/angular-consent-manager',
+    component: AngularConsentManagerHomePageComponent,
+    title: 'Angular Consent Manager Demos',
+  },
+  {
+    path: 'packages/angular-consent-manager/demo',
+    component: ConsentManagerDemoPageComponent,
+    title: 'Consent Manager Demo',
+  },
+  // ── Cookie Consent ───────────────────────────────────────────────
+  {
+    path: 'packages/angular-cookie-consent',
+    component: AngularCookieConsentHomePageComponent,
+    title: 'Angular Cookie Consent Demos',
+  },
+  {
+    path: 'packages/angular-cookie-consent/demo',
+    component: CookieConsentDemoPageComponent,
+    title: 'Cookie Consent Demo',
   },
   // â”€â”€ Color â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {

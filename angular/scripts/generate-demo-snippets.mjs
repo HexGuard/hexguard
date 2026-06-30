@@ -279,6 +279,26 @@ const snippets = [
       'angular/apps/demo-angular/src/app/features/packages/angular/angular-color/pages/color-demo-page/color-demo-page.component.ts',
   },
   {
+    id: 'angular-consent-manager/demo-state',
+    title: 'Consent Manager demo component source',
+    description:
+      'Generated from the real Consent Manager demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-consent-manager/pages/consent-manager-demo-page/consent-manager-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-consent-manager/pages/consent-manager-demo-page/consent-manager-demo-page.component.ts',
+  },
+  {
+    id: 'angular-cookie-consent/demo-state',
+    title: 'Cookie Consent demo component source',
+    description:
+      'Generated from the real Cookie Consent demo component files, including TypeScript, template, and styles.',
+    workspacePath:
+      'apps/demo-angular/src/app/features/packages/angular/angular-cookie-consent/pages/cookie-consent-demo-page/cookie-consent-demo-page.component.ts',
+    sourcePath:
+      'angular/apps/demo-angular/src/app/features/packages/angular/angular-cookie-consent/pages/cookie-consent-demo-page/cookie-consent-demo-page.component.ts',
+  },
+  {
     id: 'angular-design-tokens/demo-state',
     title: 'Design Tokens demo component source',
     description:

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 — 2026-06-30
+
+- Add `tokens` config to `ThemeConfig` — per-theme CSS custom property overrides written to `<html>`.
+- Add `injectTokenTheme()` — combines theme switching with design token layer application.
+- Export `TokenLayerMap` type.
+
 ## 0.1.0 — 2026-06-28
 
 Initial release of `@hexguard/angular-theme`.

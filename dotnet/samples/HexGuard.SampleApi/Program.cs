@@ -10,7 +10,9 @@ using HexGuard.SampleApi.Packages.HexGuardValidationContracts;
 using HexGuard.SampleApi.Packages.HexGuardBulkOperations;
 using HexGuard.SampleApi.Packages.HexGuardCapabilities;
 using HexGuard.SampleApi.Packages.HexGuardPagination;
+using HexGuard.SampleApi.Packages.HexGuardUploads;
 using HexGuard.Capabilities;
+using HexGuard.Uploads;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -150,6 +152,7 @@ app.MapFeatureFlagsSampleEndpoints();
 app.MapBulkOperationsSampleEndpoints();
 app.MapPaginationSampleEndpoints();
 app.MapCapabilitiesSampleEndpoints();
+app.MapUploadsSampleEndpoints();
 
 app.Run();
 

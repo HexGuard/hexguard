@@ -2,6 +2,20 @@ import type { Signal } from '@angular/core';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
+/**
+ * Per-theme token overrides written as CSS custom properties on `<html>`.
+ * Keys are theme names ('light', 'dark', etc.), values are token path → CSS value maps.
+ *
+ * @example
+ * ```ts
+ * const tokens: TokenLayerMap = {
+ *   light: { 'color-surface': '#ffffff', 'color-text': '#171717' },
+ *   dark:  { 'color-surface': '#1a1a1a', 'color-text': '#f0f0f0' },
+ * };
+ * ```
+ */
+export type TokenLayerMap = Readonly<Record<string, Readonly<Record<string, string>>>>;
+
 export interface ThemeConfig {
   /** Default theme mode. Default: 'system'. */
   readonly defaultMode?: ThemeMode;
@@ -17,6 +31,12 @@ export interface ThemeConfig {
    * Only applies when `transitionClass` is set.
    */
   readonly transitionDuration?: number;
+  /**
+   * Per-theme token overrides. When the effective theme changes, the
+   * corresponding token layer is written as CSS custom properties on `<html>`.
+   * Property names follow `--{key}` pattern (e.g. `--color-surface`).
+   */
+  readonly tokens?: TokenLayerMap;
 }
 
 export interface ThemeHandle {

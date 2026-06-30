@@ -1,0 +1,34 @@
+{
+  "name": "@hexguard/angular-component-variants",
+  "version": "0.1.0",
+  "description": "Headless component variant system for Angular — declarative variant definitions with auto-generated CSS classes, ARIA attributes, and token-linked values.",
+  "keywords": [
+    "angular",
+    "signals",
+    "variants",
+    "css-classes",
+    "aria",
+    "design-system",
+    "headless"
+  ],
+  "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-component-variants",
+  "bugs": {
+    "url": "https://github.com/hexguard/hexguard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexguard/hexguard.git",
+    "directory": "angular/packages/angular-component-variants"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

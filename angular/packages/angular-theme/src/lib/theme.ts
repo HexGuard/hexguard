@@ -1,1 +1,1 @@
-export { injectTheme, ThemeService } from './theme-service';
+export { injectTheme, injectTokenTheme, ThemeService } from './theme-service';

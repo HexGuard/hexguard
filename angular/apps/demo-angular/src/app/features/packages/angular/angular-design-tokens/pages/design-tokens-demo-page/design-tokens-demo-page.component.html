@@ -35,10 +35,7 @@
 
     <h3>Semantic Aliases</h3>
     <div class="token-grid">
-      @for (
-        entry of Array.from(semantic.entries.entries()).filter(([k]) => k.startsWith('color.'));
-        track entry[0]
-      ) {
+      @for (entry of aliasedEntries(); track entry[0]) {
         <div class="token-item token-item--alias">
           <span class="token-key">{{ entry[0] }}</span>
           <span class="token-value" [style.background-color]="entry[1]">{{ entry[1] }}</span>

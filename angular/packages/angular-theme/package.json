@@ -1,10 +1,16 @@
 {
   "name": "@hexguard/angular-theme",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Theme switching state for Angular: light/dark/system modes, CSS class management, prefers-color-scheme detection, persistence, and smooth transitions with signal-based primitives.",
   "keywords": [
-    "angular", "signals", "theme", "dark-mode", "light-mode",
-    "prefers-color-scheme", "theming", "hexguard"
+    "angular",
+    "signals",
+    "theme",
+    "dark-mode",
+    "light-mode",
+    "prefers-color-scheme",
+    "theming",
+    "hexguard"
   ],
   "homepage": "https://github.com/hexguard/hexguard/tree/main/angular/packages/angular-theme",
   "bugs": {

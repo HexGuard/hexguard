@@ -12,6 +12,7 @@
     <Project Path="src/HexGuard.BulkOperations/HexGuard.BulkOperations.csproj" />
     <Project Path="src/HexGuard.Capabilities/HexGuard.Capabilities.csproj" />
     <Project Path="src/HexGuard.Pagination/HexGuard.Pagination.csproj" />
+    <Project Path="src/HexGuard.Uploads/HexGuard.Uploads.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/HexGuard.ProblemDetails.Tests/HexGuard.ProblemDetails.Tests.csproj" />
@@ -22,5 +23,6 @@
     <Project Path="tests/HexGuard.Blazor.DebouncedInput.Tests/HexGuard.Blazor.DebouncedInput.Tests.csproj" />
     <Project Path="tests/HexGuard.Capabilities.Tests/HexGuard.Capabilities.Tests.csproj" />
     <Project Path="tests/HexGuard.Pagination.Tests/HexGuard.Pagination.Tests.csproj" />
+    <Project Path="tests/HexGuard.Uploads.Tests/HexGuard.Uploads.Tests.csproj" />
   </Folder>
 </Solution>

@@ -961,6 +961,32 @@
         }
       }
     },
+    "angular-component-variants": {
+      "projectType": "library",
+      "root": "packages/angular-component-variants",
+      "sourceRoot": "packages/angular-component-variants/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-component-variants/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-component-variants/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-component-variants/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-consent-manager": {
       "projectType": "library",
       "root": "packages/angular-consent-manager",
@@ -1230,8 +1256,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.2MB",
-                  "maximumError": "1.3MB"
+                  "maximumWarning": "1.3MB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",

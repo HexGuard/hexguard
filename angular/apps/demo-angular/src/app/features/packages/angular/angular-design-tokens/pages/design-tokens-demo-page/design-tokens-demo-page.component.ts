@@ -6,12 +6,12 @@ import {
   tokenAliases,
   TokenThemeLayer,
 } from '@hexguard/angular-design-tokens';
-import { ANGULAR_DESIGN_TOKENS_DEMO } from '../../../../../demo-registry';
-import { DemoInspectorPanelComponent } from '../../../../../shared/components/demo-inspector-panel.component';
-import { DemoNavigationStripComponent } from '../../../../../shared/components/demo-navigation-strip.component';
-import { DemoPageLayoutComponent } from '../../../../../shared/components/demo-page-layout.component';
-import { DemoStatusStripComponent } from '../../../../../shared/components/demo-status-strip.component';
-import { formatSnapshot } from '../../../../../shared/formatting';
+import { ANGULAR_DESIGN_TOKENS_DEMO } from '../../../../../../demo-registry';
+import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
+import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
+import { DemoPageLayoutComponent } from '../../../../../../shared/components/demo-page-layout.component';
+import { DemoStatusStripComponent } from '../../../../../../shared/components/demo-status-strip.component';
+import { formatSnapshot } from '../../../../../../shared/formatting';
 
 const TOKENS = defineTokens({
   color: {
@@ -52,7 +52,11 @@ export class DesignTokensDemoPageComponent {
   protected readonly demo = ANGULAR_DESIGN_TOKENS_DEMO;
   protected readonly TOKENS = TOKENS;
   protected readonly tokens = injectTokens(TOKENS, { syncCss: true });
-  protected readonly semantic = SEMANTIC;
+  protected readonly aliasedEntries = computed(() =>
+    Array.from(SEMANTIC.entries.entries()).filter(
+      ([k]) => k.startsWith('color.'),
+    ),
+  );
 
   protected readonly tokenEntries = computed(() =>
     Array.from(TOKENS.entries.entries()).map(([k, v]) => ({ key: k, value: v })),

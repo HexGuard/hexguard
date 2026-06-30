@@ -14,5 +14,6 @@
     <ProjectReference Include="../../src/HexGuard.BulkOperations/HexGuard.BulkOperations.csproj" />
     <ProjectReference Include="../../src/HexGuard.Capabilities/HexGuard.Capabilities.csproj" />
     <ProjectReference Include="../../src/HexGuard.Pagination/HexGuard.Pagination.csproj" />
+    <ProjectReference Include="../../src/HexGuard.Uploads/HexGuard.Uploads.csproj" />
   </ItemGroup>
 </Project>

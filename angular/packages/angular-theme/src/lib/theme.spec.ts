@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { injectTheme } from './theme';
+import { injectTokenTheme } from './theme-service';
 
 describe(injectTheme.name, () => {
   beforeEach(() => {
@@ -96,6 +97,70 @@ describe(injectTheme.name, () => {
       theme.setMode('light');
       expect(localStorage.getItem('my-theme')).toBe('light');
       expect(localStorage.getItem('hexguard-theme')).toBeNull();
+    });
+  });
+});
+
+describe(injectTokenTheme.name, () => {
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.removeAttribute('data-theme');
+  });
+
+  it('writes token CSS custom properties on theme change', () => {
+    TestBed.runInInjectionContext(() => {
+      const theme = injectTokenTheme({
+        tokens: {
+          light: { 'color-surface': '#ffffff' },
+          dark: { 'color-surface': '#1a1a1a' },
+        },
+      });
+
+      theme.setMode('dark');
+      TestBed.flushEffects();
+      const value = document.documentElement.style.getPropertyValue('--color-surface');
+      expect(value).toBe('#1a1a1a');
+    });
+  });
+
+  it('writes token CSS custom properties for light theme', () => {
+    TestBed.runInInjectionContext(() => {
+      const theme = injectTokenTheme({
+        tokens: {
+          light: { 'color-surface': '#fafafa' },
+          dark: { 'color-surface': '#1a1a1a' },
+        },
+      });
+
+      theme.setMode('light');
+      TestBed.flushEffects();
+      const value = document.documentElement.style.getPropertyValue('--color-surface');
+      expect(value).toBe('#fafafa');
+    });
+  });
+
+  it('no-ops when no token layer matches the theme', () => {
+    TestBed.runInInjectionContext(() => {
+      const theme = injectTokenTheme({
+        tokens: {
+          light: { 'color-surface': '#ffffff' },
+        },
+      });
+
+      // No 'dark' layer defined — should not throw
+      theme.setMode('dark');
+      // The light token may still be set from initial system mode
+      // Just verify no error occurred
+      expect(theme.effectiveTheme()).toBe('dark');
+    });
+  });
+
+  it('works without tokens config (backward compat)', () => {
+    TestBed.runInInjectionContext(() => {
+      const theme = injectTokenTheme();
+      expect(theme.mode()).toBe('system');
+      theme.setMode('dark');
+      expect(theme.effectiveTheme()).toBe('dark');
     });
   });
 });

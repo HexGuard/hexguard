@@ -49,7 +49,7 @@ function generateConsentId(): string {
 export class ConsentManagerService {
   // ── Configuration (set by provideConsentManager) ──────────────────
   private config: ConsentManagerConfig | null = null;
-  private gcmService: GoogleConsentModeService | null = null;
+  private gcmService: null = null;
 
   // ── State signals ─────────────────────────────────────────────────
   readonly status: WritableSignal<ConsentStatus> = signal('unknown');
@@ -264,9 +264,9 @@ export class ConsentManagerService {
     return this.config;
   }
 
-  /** Internal: get GCM service reference (set by GCM module). */
-  setGcmService(service: GoogleConsentModeService): void {
-    this.gcmService = service;
+  /** Internal: set config reference (used by injectConsentManager). */
+  setConfigRef(config: ConsentManagerConfig): void {
+    this.config = this.resolveConfig(config);
   }
 
   // ── Internal ──────────────────────────────────────────────────────

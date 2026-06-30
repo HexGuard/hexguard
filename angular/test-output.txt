@@ -1,0 +1,311 @@
+﻿ÔØ» Building...
+Ô£ö Building...
+Application bundle generation complete. [1.610 seconds] - 2026-06-30T15:17:24.711Z
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.8 [39m[90mC:/Development/Repositories/hexguard/angular[39m
+
+ [31mÔØ»[39m [30m[42m angular-consent-manager [49m[39m packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m should push default consent on initialize[39m[32m 6[2mms[22m[39m
+[31m     [31m├ù[31m should push update consent[39m[32m 4[2mms[22m[39m
+[31m     [31m├ù[31m should only initialize once[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m should apply custom default consent overrides[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m should set url_passthrough when configured[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m [30m[42m angular-consent-manager [49m[39m packages/angular-consent-manager/src/lib/consent-service.spec.ts [2m([22m[2m38 tests[22m[2m | [22m[31m38 failed[39m[2m)[22m[32m 45[2mms[22m[39m
+[31m       [31m├ù[31m should start with unknown status[39m[32m 16[2mms[22m[39m
+[31m       [31m├ù[31m should have necessary category set to true[39m[32m 5[2mms[22m[39m
+[31m       [31m├ù[31m should have non-necessary categories set to null[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should have null consentId before first decision[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should have null consentedAt before first decision[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should provide categories[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should not be consented initially[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should not have decided initially[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should not be expired initially[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set all categories to true[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set status to granted[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set consentId[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set consentedAt[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set expiresAt[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should be consented after acceptAll[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should have decided after acceptAll[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set non-necessary categories to false[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should set status to denied[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should not be consented after rejectAll[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should have decided after rejectAll[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should set specific categories[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should keep necessary always true[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should set status based on state[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should update specific categories without changing others[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should reset non-necessary categories to null[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should set status to unknown[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should clear consentId[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should return true for granted category[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should return false for denied category[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should return false for undecided category[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should return true when parent category is granted[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should return false when parent category is denied[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should accept a single category[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should reject a single category[39m[32m 1[2mms[22m[39m
+[31m       [31m├ù[31m should persist consent to cookie after acceptAll[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should persist consent to localStorage after acceptAll[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should hydrate from persisted consent on new instance[39m[32m 0[2mms[22m[39m
+[31m       [31m├ù[31m should use opt-out defaults when configured[39m[32m 1[2mms[22m[39m
+node.exe : 
+At line:1 char:1
++ & "C:\nvm4w\nodejs/node.exe" "C:\nvm4w\nodejs/node_modules/npm/bin/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m[1m[41m Failed Tests 43 
+[49m[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould start 
+with unknown status
+[31m[1mError[22m: Need to call TestBed.initTestEnvironment() first[39m
+[90m [2mÔØ»[22m TestBedImpl.get compiler [as compiler] packages/darwin_arm64
+-fastbuild-ST-fdfa778d11ba/bin/packages/core/testing/src/test_bed.ts:[2m739:12
+[22m[39m
+[90m [2mÔØ»[22m compiler packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/bin
+/packages/core/testing/src/test_bed.ts:[2m594:9[22m[39m
+[90m [2mÔØ»[22m configureTestingModule packages/darwin_arm64-fastbuild-ST-fd
+fa778d11ba/bin/packages/core/testing/src/test_bed.ts:[2m325:32[22m[39m
+[36m [2mÔØ»[22m setup packages/angular-consent-manager/src/lib/consent-servi
+ce.spec.ts:[2m16:13[22m[39m
+    [90m 14|[39m     }
+    [90m 15|[39m
+    [90m 16|[39m     
+[33mTestBed[39m[33m.[39m[34mconfigureTestingModule[39m({
+    [90m   |[39m             [31m^[39m
+    [90m 17|[39m       providers[33m:[39m [
+    [90m 18|[39m         [34mprovideConsentManager[39m({
+[90m [2mÔØ»[22m packages/angular-consent-manager/src/lib/consent-service.spe
+c.ts:[2m40:23[22m[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[
+1/43]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould have 
+necessary category set to true
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould have 
+non-necessary categories set to null
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould have 
+null consentId before first decision
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould have 
+null consentedAt before first decision
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould provide 
+categories
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould not be 
+consented initially
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould not have 
+decided initially
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22minitial state[2m > [22mshould not be 
+expired initially
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould set all 
+categories to true
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould set status 
+to granted
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould set consentId
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould set 
+consentedAt
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould set expiresAt
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould be consented 
+after acceptAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptAll[2m > [22mshould have decided 
+after acceptAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mrejectAll[2m > [22mshould set 
+non-necessary categories to false
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mrejectAll[2m > [22mshould set status 
+to denied
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mrejectAll[2m > [22mshould not be 
+consented after rejectAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mrejectAll[2m > [22mshould have decided 
+after rejectAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22msetConsent[2m > [22mshould set 
+specific categories
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22msetConsent[2m > [22mshould keep 
+necessary always true
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22msetConsent[2m > [22mshould set status 
+based on state
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mupdateConsent[2m > [22mshould update 
+specific categories without changing others
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mwithdrawConsent[2m > [22mshould reset 
+non-necessary categories to null
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mwithdrawConsent[2m > [22mshould set 
+status to unknown
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mwithdrawConsent[2m > [22mshould clear 
+consentId
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22misCategoryGranted[2m > [22mshould 
+return true for granted category
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22misCategoryGranted[2m > [22mshould 
+return false for denied category
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22misCategoryGranted[2m > [22mshould 
+return false for undecided category
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22misPurposeGranted[2m > [22mshould 
+return true when parent category is granted
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22misPurposeGranted[2m > [22mshould 
+return false when parent category is denied
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22macceptCategory[2m > [22mshould accept 
+a single category
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mrejectCategory[2m > [22mshould reject 
+a single category
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mstorage persistence[2m > [22mshould 
+persist consent to cookie after acceptAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mstorage persistence[2m > [22mshould 
+persist consent to localStorage after acceptAll
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mstorage persistence[2m > [22mshould 
+hydrate from persisted consent on new instance
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/consent-service.spec.ts[2m > 
+[22mConsentManagerService[2m > [22mCCPA categories[2m > [22mshould use 
+opt-out defaults when configured
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts[2m > 
+[22mGoogleConsentModeService[2m > [22mshould push update consent
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts[2m > 
+[22mGoogleConsentModeService[2m > [22mshould only initialize once
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts[2m > 
+[22mGoogleConsentModeService[2m > [22mshould apply custom default consent 
+overrides
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts[2m > 
+[22mGoogleConsentModeService[2m > [22mshould set url_passthrough when 
+configured
+[31m[1mTypeError[22m: Cannot read properties of null (reading 
+'ngModule')[39m
+[90m [2mÔØ»[22m ngModule packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/bin
+/packages/core/src/render3/jit/util.ts:[2m18:37[22m[39m
+[90m [2mÔØ»[22m isModuleWithProviders packages/darwin_arm64-fastbuild-ST-fdf
+a778d11ba/bin/packages/core/src/render3/jit/module.ts:[2m683:6[22m[39m
+[90m [2mÔØ»[22m map packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/bin/pack
+ages/core/src/render3/jit/module.ts:[2m154:13[22m[39m
+[90m [2mÔØ»[22m NG_MOD_DEF packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/b
+in/packages/core/src/render3/def_getters.ts:[2m18:14[22m[39m
+[90m [2mÔØ»[22m getNgModuleDef packages/darwin_arm64-fastbuild-ST-fdfa778d11
+ba/bin/packages/core/src/render3/def_getters.ts:[2m22:22[22m[39m
+[90m [2mÔØ»[22m getNgModuleDefOrThrow packages/darwin_arm64-fastbuild-ST-fdf
+a778d11ba/bin/packages/core/src/render3/jit/module.ts:[2m257:18[22m[39m
+[90m [2mÔØ»[22m verifySemanticsOfNgModuleDef packages/darwin_arm64-fastbuild
+-ST-fdfa778d11ba/bin/packages/core/src/render3/jit/module.ts:[2m200:21[22m[3
+9m
+[90m [2mÔØ»[22m NG_INJ_DEF packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/b
+in/packages/core/testing/src/test_bed_compiler.ts:[2m680:43[22m[39m
+[90m [2mÔØ»[22m applyProviderOverridesInScope packages/darwin_arm64-fastbuil
+d-ST-fdfa778d11ba/bin/packages/core/testing/src/test_bed_compiler.ts:[2m1040:9
+[22m[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[
+2/43]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m angular-consent-manager [49m[39m 
+packages/angular-consent-manager/src/lib/google-consent-mode.spec.ts[2m > 
+[22mGoogleConsentModeService[2m > [22mshould push default consent on 
+initialize
+[31m[1mError[22m: Need to call TestBed.initTestEnvironment() first[39m
+[90m [2mÔØ»[22m TestBedImpl.get compiler [as compiler] packages/darwin_arm64
+-fastbuild-ST-fdfa778d11ba/bin/packages/core/testing/src/test_bed.ts:[2m739:12
+[22m[39m
+[90m [2mÔØ»[22m compiler packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/bin
+/packages/core/testing/src/test_bed.ts:[2m750:33[22m[39m
+[90m [2mÔØ»[22m testModuleRef packages/darwin_arm64-fastbuild-ST-fdfa778d11b
+a/bin/packages/core/testing/src/test_bed.ts:[2m616:24[22m[39m
+[90m [2mÔØ»[22m inject packages/darwin_arm64-fastbuild-ST-fdfa778d11ba/bin/p
+ackages/core/testing/src/test_bed.ts:[2m404:32[22m[39m
+[36m [2mÔØ»[22m packages/angular-consent-manager/src/lib/google-consent-mode
+.spec.ts:[2m12:23[22m[39m
+    [90m 10|[39m     [35mconst[39m w [33m=[39m window [35mas[39m 
+unknown [35mas[39m [33mRecord[39m[33m<[39mstring[33m,[39m 
+unknown[][33m>[39m[33m;[39m
+    [90m 11|[39m     w[[32m'dataLayer'[39m] [33m=[39m 
+dataLayer[33m;[39m
+    [90m 12|[39m     service [33m=[39m [33mTestBed[39m[33m.[39m[34minj
+ect[39m([33mGoogleConsentModeService[39m)[33m;[39m
+    [90m   |[39m                       [31m^[39m
+    [90m 13|[39m   })[33m;[39m
+    [90m 14|[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[
+3/43]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m43 failed[39m[22m[2m | [22m[1m[32m13 passed[39m[22m[90m (56)[39m
+[2m   Start at [22m 16:17:25
+[2m   Duration [22m 12.37s[2m (transform 758ms, setup 1.73s, import 1.12s, tests 102ms, environment 3.93s)[22m
+

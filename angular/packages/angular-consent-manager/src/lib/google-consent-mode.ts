@@ -1,5 +1,4 @@
-import { inject, Injectable } from '@angular/core';
-import { ConsentManagerService } from './consent-service';
+import { Injectable } from '@angular/core';
 
 /**
  * Configuration for Google Consent Mode v2 integration.
@@ -11,7 +10,7 @@ export interface GoogleConsentModeConfig {
    * Custom default consent overrides.
    * If omitted, all non-security types default to `'denied'`.
    */
-  readonly defaultConsent?: Partial<Record<GoogleConsentTypeString, 'granted' | 'denied'>>;
+  readonly defaultConsent?: Partial<Record<string, 'granted' | 'denied'>>;
   /** Milliseconds for GTM to wait for the CMP update. Default: `500`. */
   readonly waitForUpdate?: number;
   /** Enable URL passthrough for conversion modeling. Default: `false`. */
@@ -20,22 +19,12 @@ export interface GoogleConsentModeConfig {
   readonly adsDataRedaction?: boolean;
 }
 
-type GoogleConsentTypeString =
-  | 'ad_storage'
-  | 'ad_user_data'
-  | 'ad_personalization'
-  | 'analytics_storage'
-  | 'functionality_storage'
-  | 'personalization_storage'
-  | 'security_storage';
-
 /**
  * Service that manages Google Consent Mode v2 integration.
  * Called automatically by ConsentManagerService when enabled.
  */
 @Injectable({ providedIn: 'root' })
 export class GoogleConsentModeService {
-  private readonly consentManager = inject(ConsentManagerService);
   private initialized = false;
 
   /** Initialize default consent (call before Google tags load). */
@@ -53,7 +42,6 @@ export class GoogleConsentModeService {
       security_storage: 'granted',
     };
 
-    // Apply custom defaults
     if (config.defaultConsent) {
       for (const [key, val] of Object.entries(config.defaultConsent)) {
         if (val) defaults[key] = val;
