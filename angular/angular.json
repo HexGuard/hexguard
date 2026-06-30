@@ -241,6 +241,32 @@
         }
       }
     },
+    "angular-design-tokens": {
+      "projectType": "library",
+      "root": "packages/angular-design-tokens",
+      "sourceRoot": "packages/angular-design-tokens/src",
+      "prefix": "hexguard",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular-design-tokens/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular-design-tokens/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "packages/angular-design-tokens/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "angular-dirty-state": {
       "projectType": "library",
       "root": "packages/angular-dirty-state",

@@ -1,10 +1,10 @@
 import {
   Directive,
-  computed,
+  TemplateRef,
+  ViewContainerRef,
+  effect,
   inject,
   input,
-  templateRef,
-  ViewContainerRef,
 } from '@angular/core';
 import { injectConsentManager } from '@hexguard/angular-consent-manager';
 
@@ -32,9 +32,9 @@ import { injectConsentManager } from '@hexguard/angular-consent-manager';
   selector: '[hexConsent]',
 })
 export class ConsentDirective {
-  private readonly templateRef = inject(TemplateRef<unknown>);
   private readonly viewContainer = inject(ViewContainerRef);
   private readonly consent = injectConsentManager();
+  private readonly templateRef = inject(TemplateRef<unknown>);
 
   /** The consent category to check. */
   readonly hexConsent = input.required<string>({ alias: 'hexConsent' });
@@ -42,33 +42,20 @@ export class ConsentDirective {
   /** Optional template to show when consent is denied. */
   readonly hexConsentElse = input<TemplateRef<unknown>>(undefined, { alias: 'hexConsentElse' });
 
-  private readonly isGranted = computed(() => {
-    const categoryId = this.hexConsent();
-    return this.consent.isCategoryGranted(categoryId)();
-  });
-
   constructor() {
-    // Initial render
-    this.updateView();
+    effect(() => {
+      const categoryId = this.hexConsent();
+      const isGranted = this.consent.isCategoryGranted(categoryId)();
 
-    // React to changes via effect
-    import('@angular/core').then(({ effect }) => {
-      effect(() => {
-        this.isGranted();
-        this.updateView();
-      });
-    });
-  }
-
-  private updateView(): void {
-    this.viewContainer.clear();
-    if (this.isGranted()) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-    } else {
-      const elseTpl = this.hexConsentElse();
-      if (elseTpl) {
-        this.viewContainer.createEmbeddedView(elseTpl);
+      this.viewContainer.clear();
+      if (isGranted) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      } else {
+        const elseTpl = this.hexConsentElse();
+        if (elseTpl) {
+          this.viewContainer.createEmbeddedView(elseTpl);
+        }
       }
-    }
+    });
   }
 }
