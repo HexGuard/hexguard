@@ -176,6 +176,27 @@
       <p class="demo-hint">Initial values: <code>{{ '{' }} name: "initial", email: "initial@test.com" {{ '}' }}</code></p>
       <pre class="demo-diff-json" data-testid="diff-json">{{ formDiffResult() | json }}</pre>
     </fieldset>
+
+    <!-- Form pipes demo -->
+    <fieldset class="demo-fieldset">
+      <legend>Form Pipes</legend>
+      <p class="demo-hint">Use <code>| isInvalid</code> and <code>| formError</code> pipes in templates for cleaner validation display.</p>
+      <div [formGroup]="errorForm">
+        <label>Name (required):
+          <input formControlName="name" (blur)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="pipe-name-input" />
+        </label>
+        @if (errorForm.get('name') | isInvalid) {
+          <p class="demo-error" data-testid="pipe-name-error">Name is invalid: {{ errorForm.get('name') | formError:'required' | json }}</p>
+        }
+        <label>Email (required, valid email):
+          <input formControlName="email" (blur)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="pipe-email-input" />
+        </label>
+        @if (errorForm.get('email') | isInvalid) {
+          <p class="demo-error" data-testid="pipe-email-error">Email errors: {{ errorForm.get('email') | formError | json }}</p>
+        }
+      </div>
+      <p class="demo-hint">Pipe usage: <code>{{ pipeUsage }}</code></p>
+    </fieldset>
   </article>
   <demo-inspector-panel demoAside panelTestId="form-utils-inspector-panel" title="Form Utils snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="form-utils-snapshot-json" codeTestId="form-utils-code-sample" />
 </demo-page-layout>

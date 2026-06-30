@@ -6,6 +6,7 @@ import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator } from './form-errors';
 import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './form-array';
 import { controlSignal, isControlInvalid, formDiff } from './form-control-utils';
+import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
 
 describe('cross-field validators', () => {
   describe('fieldsEqual', () => {
@@ -539,5 +540,62 @@ describe('controlSignal', () => {
     const fixture = TestBed.createComponent(InvalidComponent);
     fixture.detectChanges();
     expect(fixture.componentInstance.result).toContain('nonexistent');
+  });
+});
+
+describe('IsInvalidPipe', () => {
+  const pipe = new IsInvalidPipe();
+
+  it('should return false for null/undefined', () => {
+    expect(pipe.transform(null)).toBe(false);
+    expect(pipe.transform(undefined)).toBe(false);
+  });
+
+  it('should return false when control is untouched and invalid', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.updateValueAndValidity();
+    expect(pipe.transform(ctrl)).toBe(false);
+  });
+
+  it('should return true when control is touched and invalid', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.markAsTouched();
+    ctrl.updateValueAndValidity();
+    expect(pipe.transform(ctrl)).toBe(true);
+  });
+});
+
+describe('FormErrorPipe', () => {
+  const pipe = new FormErrorPipe();
+
+  it('should return null for null/undefined', () => {
+    expect(pipe.transform(null)).toBeNull();
+    expect(pipe.transform(undefined)).toBeNull();
+  });
+
+  it('should return null when control has no errors', () => {
+    const ctrl = new FormControl('hello');
+    expect(pipe.transform(ctrl)).toBeNull();
+  });
+
+  it('should return all errors when no error key is given', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.updateValueAndValidity();
+    const errors = pipe.transform(ctrl);
+    expect(errors).toEqual({ required: true });
+  });
+
+  it('should return specific error when error key is given', () => {
+    const ctrl = new FormControl('bad', [Validators.email]);
+    ctrl.markAsTouched();
+    ctrl.updateValueAndValidity();
+    const error = pipe.transform(ctrl, 'email');
+    expect(error).toEqual(true);
+  });
+
+  it('should return null for a non-matching error key', () => {
+    const ctrl = new FormControl('', [Validators.required]);
+    ctrl.updateValueAndValidity();
+    expect(pipe.transform(ctrl, 'email')).toBeNull();
   });
 });

@@ -86,42 +86,35 @@ const form = new FormGroup({
 
 Wraps an async validation function into an Angular `AsyncValidatorFn`. The function receives the current control value and the control itself, and returns a `Promise<ValidationErrors | null>`.
 
-### Control & diff utilities
+### Template pipes
 
 ```typescript
-import { controlSignal, isControlInvalid, formDiff } from '@hexguard/angular-form-utils';
-
-// Signal-based form control value tracking
-const form = new FormGroup({
-  name: new FormControl(''),
-  address: new FormGroup({ street: new FormControl('') }),
-});
-const name$ = controlSignal(form, 'name');           // Signal<string>
-const street$ = controlSignal(form, 'address.street'); // Signal<string>
-
-// Touch+invalid shorthand for template validation display
-isControlInvalid(form.get('name')); // boolean — true only if touched && invalid
-
-// Deep partial diff between two form value snapshots
-const diff = formDiff(
-  { name: 'Alice', address: { city: 'NYC' } },
-  { name: 'Bob',   address: { city: 'NYC' } },
-);
-// → { name: 'Bob' }
+import { IsInvalidPipe, FormErrorPipe } from '@hexguard/angular-form-utils';
 ```
 
-### Scope Boundaries
+```html
+<!-- Show error only when control is touched AND invalid -->
+@if (form.get('name') | isInvalid) {
+  <p class="error">Name is required.</p>
+}
+
+<!-- Extract a specific error by key -->
+@if (form.get('email') | formError:'required'; as err) {
+  <p>{{ err.message }}</p>
+}
+
+<!-- Get all errors as a map -->
+<pre>{{ form.get('email') | formError | json }}</pre>
+```
 
 | Concern | Status |
 |---------|--------|
 | cross-field validators (4 factories) | ✅ |
-| injectFormDirtyState | ✅ |
-| formUnsavedGuard | ✅ |
-| aggregateFormErrors | ✅ |
-| asyncFieldValidator | ✅ |
-| injectFormArrayDirtyState | ✅ |
-| arrayToggleItem / moveArrayItem / syncArrayValues | ✅ |
+| injectFormDirtyState / formUnsavedGuard | ✅ |
+| aggregateFormErrors / asyncFieldValidator | ✅ |
+| FormArray helpers (5 functions) | ✅ |
 | controlSignal / isControlInvalid / formDiff | ✅ |
+| IsInvalidPipe / FormErrorPipe | ✅ |
 | Template-driven forms | ❌ (Reactive Forms only) |
 
 ## Demo

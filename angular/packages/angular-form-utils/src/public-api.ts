@@ -5,3 +5,4 @@ export { aggregateFormErrors, asyncFieldValidator } from './lib/form-errors';
 export { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues } from './lib/form-array';
 export type { FormArrayDirtyState } from './lib/form-array';
 export { controlSignal, isControlInvalid, formDiff } from './lib/form-control-utils';
+export { IsInvalidPipe, FormErrorPipe } from './lib/form-pipes';

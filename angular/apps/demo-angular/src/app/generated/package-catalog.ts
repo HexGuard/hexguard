@@ -2071,6 +2071,8 @@ export const GENERATED_CURRENT_PACKAGES = [
       'controlSignal() — typed Signal from a form control value at a dotted path.',
       'isControlInvalid() — touched && invalid shorthand for template error display.',
       'formDiff() — deep partial diff between two form value snapshots.',
+      'IsInvalidPipe — | isInvalid template pipe for touched && invalid checks.',
+      'FormErrorPipe — | formError template pipe for extracting validation errors by key.',
     ],
     bestFitScenarios: [
       'Confirm-password and confirm-email validation patterns.',

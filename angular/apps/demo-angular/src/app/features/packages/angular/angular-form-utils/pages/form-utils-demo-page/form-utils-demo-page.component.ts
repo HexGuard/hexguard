@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff } from '@hexguard/angular-form-utils';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState, aggregateFormErrors, asyncFieldValidator, injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, controlSignal, isControlInvalid, formDiff, IsInvalidPipe, FormErrorPipe } from '@hexguard/angular-form-utils';
 import { ANGULAR_FORM_UTILS_DEMO } from '../../../../../../demo-registry';
 import { DemoInspectorPanelComponent } from '../../../../../../shared/components/demo-inspector-panel.component';
 import { DemoNavigationStripComponent } from '../../../../../../shared/components/demo-navigation-strip.component';
@@ -14,7 +14,7 @@ import { formatSnapshot } from '../../../../../../shared/formatting';
   selector: 'demo-form-utils-demo-page',
   templateUrl: './form-utils-demo-page.component.html',
   styleUrl: './form-utils-demo-page.component.css',
-  imports: [DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent, DemoStatusStripComponent, ReactiveFormsModule, JsonPipe],
+  imports: [DemoInspectorPanelComponent, DemoNavigationStripComponent, DemoPageLayoutComponent, DemoStatusStripComponent, ReactiveFormsModule, JsonPipe, IsInvalidPipe, FormErrorPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormUtilsDemoPageComponent {
@@ -93,6 +93,7 @@ export class FormUtilsDemoPageComponent {
 
   protected readonly isControlInvalid = isControlInvalid;
   protected readonly controlSignal = controlSignal;
+  protected readonly pipeUsage = '@if (control | isInvalid) \u2022 {{ control | formError:\'required\' }} \u2022 {{ control | formError | json }}';
 
   protected addTag(): void {
     const val = this.tagInput().trim();

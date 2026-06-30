@@ -18,17 +18,15 @@ Form utility helpers: cross-field validators, form dirty state, unsaved-changes 
 - `controlSignal(form, path)` — Create a typed `Signal<T>` from a form control's value at a dotted path.
 - `isControlInvalid(control)` — `touched && invalid` shorthand for template validation display.
 - `formDiff(initial, current)` — Deep partial diff between two form value snapshots.
+- `IsInvalidPipe` — `| isInvalid` pipe: `touched && invalid` in templates.
+- `FormErrorPipe` — `| formError` pipe: extract all or specific validation errors by key.
 
 ## Assessment
 
 | Area | Suggestion | Priority |
 |------|-----------|----------|
 | Tests | Missing: formUnsavedGuard with confirm | Low |
-| Tests | Nested form dirty state | ✅ Added |
-| API | Error aggregation helper | ✅ Added |
-| API | Async validator wrapper | ✅ Added |
-| API | FormArray dirty state + toggle + move + sync | ✅ Added |
-| API | controlSignal + isControlInvalid + formDiff | ✅ Added |
+| API | All form utilities + pipes | ✅ Complete |
 
 ## Code Examples
 
