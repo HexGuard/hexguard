@@ -350,3 +350,23 @@ class MyComp {
   readonly b = injectMyService(OP_B.token);
 }
 ```
+
+### Service vs Factory Decision Guide
+
+When designing an `inject*()` factory function, evaluate whether to use a singleton `@Injectable({ providedIn: 'root' })` service or per-call factory state.
+
+**Use a singleton service when:**
+- State is conceptually global (theme, network status, scroll position, clipboard, navigation state, page context).
+- Multiple consumers would benefit from shared event listeners / timer / subscriptions.
+- The API already uses module-level mutable state (e.g., `let counter` or `const CACHE` at module scope).
+- The `inject*()` function's return type exposes signals that should be consistent across all components.
+
+**Use per-call factory state when:**
+- State is inherently per-instance (pagination per list, undo stack per editor, form dirty state per form).
+- Each call requires unique configuration that cannot be shared.
+- The factory is a thin wrapper around a pure helper or a different DI token.
+
+**Reference:** See `angular/packages/angular-*` for real examples:
+- Full singleton: `ThemeService`, `NetworkStatusService`, `VisibilityService`, `CommandRegistryService`
+- `createHandle()` pattern: `LiveDataService`, `BreakpointObserverService`, `PersistSignalService`
+- Core delegation: `FilePickerService.validateFile()`, `ClipboardService`
