@@ -8,6 +8,7 @@
  * - `scrollTo()` — imperative smooth-scroll helper.
  */
 export { injectScrollState } from './lib/scroll-state';
+export { ScrollStateService } from './lib/scroll-state-service';
 export { inInfiniteScroll } from './lib/infinite-scroll';
 export { inScrollSpy } from './lib/scroll-spy';
 export { scrollTo } from './lib/scroll-to';

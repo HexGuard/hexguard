@@ -6,4 +6,5 @@
  * via an effect(), with hydration on init, TTL expiry, migration, and cross-tab sync.
  */
 export { injectPersistedSignal } from './lib/signal-persist';
+export { PersistSignalService } from './lib/persist-signal-service';
 export type { PersistSignalOptions } from './lib/types';

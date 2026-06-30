@@ -18,7 +18,7 @@ describe('liveData$', () => {
 
     const stream = liveData$({ pollInterval: 10_000, fetcher });
     const dataValues: string[] = [];
-    stream.data$.subscribe((v: string) => dataValues.push(v));
+    stream.data$.subscribe((v: unknown) => dataValues.push(v as string));
 
     await flushMicrotasks();
     expect(dataValues).toEqual(['value-1']);
@@ -56,7 +56,7 @@ describe('liveData$', () => {
 
     const stream = liveData$({ pollInterval: 10_000, fetcher });
     const dataValues: string[] = [];
-    stream.data$.subscribe((v: string) => dataValues.push(v));
+    stream.data$.subscribe((v: unknown) => dataValues.push(v as string));
 
     await flushMicrotasks();
     expect(dataValues).toEqual(['value-1']);
@@ -113,7 +113,7 @@ describe('liveData$', () => {
 
     const stream = liveData$({ pollInterval: 60_000, fetcher });
     const dataValues: string[] = [];
-    stream.data$.subscribe((v: string) => dataValues.push(v));
+    stream.data$.subscribe((v: unknown) => dataValues.push(v as string));
 
     await flushMicrotasks();
     expect(dataValues).toEqual(['value-1']);
@@ -135,7 +135,7 @@ describe('liveData$', () => {
     let loadingComplete = false;
 
     stream.data$.subscribe({
-      next: (v: string) => dataValues.push(v),
+      next: (v: unknown) => dataValues.push(v as string),
       complete: () => {
         dataComplete = true;
       },

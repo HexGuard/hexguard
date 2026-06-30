@@ -6,4 +6,5 @@
  * searchable command palette state, and context-aware enablement.
  */
 export { injectCommandRegistry } from './lib/command-registry';
+export { CommandRegistryService } from './lib/command-registry-service';
 export type { Command, CommandRegistryOptions, CommandRegistryHandle } from './lib/types';
