@@ -17,37 +17,80 @@
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="theme-playground">
     <!-- demo-snippet:start angular-theme/demo-state -->
-    <div class="theme-controls">
+    <section class="theme-section">
+      <h3>Theme Controls</h3>
       <p class="theme-current" data-testid="current-theme">
         Current mode: <strong>{{ theme.mode() }}</strong>
         (effective: <strong>{{ theme.effectiveTheme() }}</strong>)
       </p>
       <div class="theme-buttons">
-        <button
-          class="demo-button"
-          [class.demo-button--active]="theme.mode() === 'light'"
-          (click)="theme.setMode('light')"
-          data-testid="btn-light"
-        >☀️ Light</button>
-        <button
-          class="demo-button"
-          [class.demo-button--active]="theme.mode() === 'dark'"
-          (click)="theme.setMode('dark')"
-          data-testid="btn-dark"
-        >🌙 Dark</button>
-        <button
-          class="demo-button"
-          [class.demo-button--active]="theme.mode() === 'system'"
-          (click)="theme.resetToSystem()"
-          data-testid="btn-system"
-        >💻 System</button>
+        <button class="demo-button" [class.demo-button--active]="theme.mode() === 'light'"
+          (click)="theme.setMode('light')" data-testid="btn-light">☀️ Light</button>
+        <button class="demo-button" [class.demo-button--active]="theme.mode() === 'dark'"
+          (click)="theme.setMode('dark')" data-testid="btn-dark">🌙 Dark</button>
+        <button class="demo-button" [class.demo-button--active]="theme.mode() === 'system'"
+          (click)="theme.resetToSystem()" data-testid="btn-system">💻 System</button>
       </div>
-      <button
-        class="demo-button"
-        (click)="theme.toggle()"
-        data-testid="btn-toggle"
-      >Toggle ({{ theme.effectiveTheme() === 'dark' ? '→ Light' : '→ Dark' }})</button>
-    </div>
+      <button class="demo-button" (click)="theme.toggle()" data-testid="btn-toggle">
+        Toggle ({{ theme.effectiveTheme() === 'dark' ? '→ Light' : '→ Dark' }})
+      </button>
+      <label class="demo-checkbox">
+        <input type="checkbox" [checked]="useTransition()" (change)="toggleTransition()" data-testid="chk-transition" />
+        Animate theme switch (300ms fade)
+      </label>
+    </section>
+
+    <section class="theme-section">
+      <h3>CSS Custom Properties</h3>
+      <p class="theme-hint">These variables change automatically when the theme switches.</p>
+      <div class="token-grid">
+        @for (token of cssTokens; track token.name) {
+          <div class="token-card" [attr.data-testid]="'token-' + token.name">
+            <div class="token-swatch" [style.background-color]="token.value()"></div>
+            <div class="token-info">
+              <code class="token-name">{{ token.cssVar }}</code>
+              <span class="token-value">{{ token.value() }}</span>
+            </div>
+          </div>
+        }
+      </div>
+      <p class="theme-hint">
+        DOM attribute: <code data-testid="dom-data-theme">&lt;html data-theme="{{ domDataTheme() }}"&gt;</code>
+      </p>
+    </section>
+
+    <section class="theme-section">
+      <h3>System Preference Detection</h3>
+      <div class="pref-grid">
+        <div class="pref-item">
+          <span class="pref-label">Prefers dark</span>
+          <span class="pref-value" [class.pref-value--active]="systemPrefersDark()"
+            data-testid="pref-dark">{{ systemPrefersDark() ? '✓' : '—' }}</span>
+        </div>
+        <div class="pref-item">
+          <span class="pref-label">Prefers reduced motion</span>
+          <span class="pref-value" [class.pref-value--active]="systemPrefersReducedMotion()"
+            data-testid="pref-motion">{{ systemPrefersReducedMotion() ? '✓' : '—' }}</span>
+        </div>
+        <div class="pref-item">
+          <span class="pref-label">Prefers contrast</span>
+          <span class="pref-value" [class.pref-value--active]="systemPrefersContrast() !== 'no-preference'"
+            data-testid="pref-contrast">{{ systemPrefersContrast() }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="theme-section">
+      <h3>Token Layers <span class="badge">injectTokenTheme()</span></h3>
+      <p class="theme-hint">
+        Register per-theme CSS custom property overrides that sync with <code>injectTheme()</code>.
+      </p>
+      <div class="token-demo-box" [style.background-color]="'var(--demo-surface)'"
+        [style.color]="'var(--demo-text)'" data-testid="token-demo-box">
+        <span>This box uses <code>--demo-surface</code> and <code>--demo-text</code></span>
+        <span>tokened by <code>injectTokenTheme({{ '{' }} light: {{ '{' }} ... {{ '}' }}, dark: {{ '{' }} ... {{ '}' }} {{ '}' }})</code></span>
+      </div>
+    </section>
     <!-- demo-snippet:end -->
   </article>
   <demo-inspector-panel

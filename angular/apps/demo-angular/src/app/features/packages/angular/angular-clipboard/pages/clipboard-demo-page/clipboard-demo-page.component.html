@@ -17,45 +17,90 @@
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="clipboard-playground">
     <!-- demo-snippet:start angular-clipboard/demo-state -->
-    <div class="clipboard-controls">
-      <input
-        class="clipboard-input"
-        type="text"
-        [value]="copyText"
-        (input)="copyText = $any($event.target).value"
-        data-testid="clipboard-text-input"
-      />
-      <div class="clipboard-actions">
-        <button class="demo-button" (click)="onCopy()" data-testid="btn-copy" [disabled]="clip.isCopying()">
-          {{ clip.isCopying() ? 'Copying...' : 'Copy' }}
-        </button>
-        <button class="demo-button" (click)="onPaste()" data-testid="btn-paste">
-          Paste
-        </button>
-        <button class="demo-button" (click)="clip.clearHistory()" data-testid="btn-clear-history">
-          Clear History
-        </button>
-      </div>
-      @if (clip.copyError(); as error) {
-        <p class="clipboard-error" data-testid="copy-error">Error: {{ error }}</p>
-      }
-      @if (clip.lastCopied(); as copied) {
-        <p class="clipboard-success" data-testid="last-copied">Copied: "{{ copied }}"</p>
-      }
-      @if (clip.lastPasted(); as pasted) {
-        <p class="clipboard-success" data-testid="last-pasted">Pasted: "{{ pasted }}"</p>
-      }
-      @if (clip.history().length > 0) {
-        <div class="clipboard-history" data-testid="clipboard-history">
-          <h4>History ({{ clip.history().length }})</h4>
-          <ol>
-            @for (item of clip.history(); track item) {
-              <li>{{ item }}</li>
-            }
-          </ol>
+    <section class="clip-section">
+      <h3>Copy &amp; Paste</h3>
+      <div class="clipboard-controls">
+        <input class="clipboard-input" type="text" [value]="copyText"
+          (input)="onInputChange($any($event.target).value)" data-testid="clipboard-text-input" />
+        <div class="clipboard-actions">
+          <button class="demo-button" (click)="onCopy()" data-testid="btn-copy"
+            [disabled]="clip.isCopying()">
+            {{ clip.isCopying() ? 'Copying...' : 'Copy to clipboard' }}
+          </button>
+          <button class="demo-button" (click)="onPaste()" data-testid="btn-paste">
+            Paste from clipboard
+          </button>
+          <label class="demo-checkbox">
+            <input type="checkbox" [checked]="autoCopy()" (change)="autoCopy.set(!autoCopy())"
+              data-testid="chk-auto-copy" />
+            Auto-copy on input
+          </label>
         </div>
-      }
-    </div>
+        @if (clip.copyError(); as error) {
+          <p class="clipboard-error" data-testid="copy-error">Error: {{ error }}</p>
+        }
+        @if (clip.lastCopied(); as copied) {
+          <p class="clipboard-success" data-testid="last-copied">Copied: "{{ copied }}"</p>
+        }
+        @if (clip.lastPasted(); as pasted) {
+          <p class="clipboard-success" data-testid="last-pasted">Pasted: "{{ pasted }}"</p>
+        }
+      </div>
+    </section>
+
+    <section class="clip-section">
+      <h3>Quick Snippets</h3>
+      <p class="clip-hint">Pre-defined snippets — click to copy instantly.</p>
+      <div class="snippet-grid">
+        @for (snippet of snippets; track snippet.label) {
+          <button class="demo-button snippet-btn"
+            (click)="clip.copy(snippet.value)" [attr.data-testid]="'snippet-' + snippet.id">
+            {{ snippet.label }}
+            <span class="snippet-preview">{{ snippet.value }}</span>
+          </button>
+        }
+      </div>
+    </section>
+
+    <section class="clip-section">
+      <h3>Clipboard Permission</h3>
+      <div class="perm-display" data-testid="clipboard-permission">
+        <span class="perm-label">Permission state:</span>
+        <span class="perm-value" [class.perm-granted]="clip.permissionState() === 'granted'"
+          [class.perm-denied]="clip.permissionState() === 'denied'"
+          [class.perm-prompt]="clip.permissionState() === 'prompt'">
+          {{ clip.permissionState() }}
+        </span>
+        <span class="perm-hint">
+          @switch (clip.permissionState()) {
+            @case ('granted') { Clipboard access is allowed. }
+            @case ('denied') { Clipboard access was denied. Check browser permissions. }
+            @case ('prompt') { Clipboard access requires user gesture (click). }
+            @case ('unsupported') { Clipboard API not available in this browser. }
+          }
+        </span>
+      </div>
+    </section>
+
+    @if (clip.history().length > 0) {
+      <section class="clip-section">
+        <div class="clip-history-header">
+          <h3>History ({{ clip.history().length }})</h3>
+          <button class="demo-button demo-button--small" (click)="clip.clearHistory()"
+            data-testid="btn-clear-history">Clear</button>
+        </div>
+        <div class="clipboard-history" data-testid="clipboard-history">
+          @for (item of clip.history(); track item; let i = $index) {
+            <button class="history-item" (click)="copyFromHistory(item)"
+              [attr.data-testid]="'history-item-' + i">
+              <span class="history-index">{{ i + 1 }}.</span>
+              <span class="history-text">{{ item || '(empty)' }}</span>
+              <span class="history-action">copy</span>
+            </button>
+          }
+        </div>
+      </section>
+    }
     <!-- demo-snippet:end -->
   </article>
   <demo-inspector-panel

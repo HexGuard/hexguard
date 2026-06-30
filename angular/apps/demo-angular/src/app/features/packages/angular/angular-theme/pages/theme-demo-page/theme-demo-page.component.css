@@ -1,3 +1,12 @@
+.theme-section {
+  margin-bottom: 2rem;
+}
+
+.theme-section h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
 .theme-controls {
   display: flex;
   flex-direction: column;
@@ -13,6 +22,128 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.theme-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #666);
+  margin: 0.5rem 0 1rem;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--color-accent-soft, #dbeafe);
+  color: var(--color-accent-strong, #1d4ed8);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Token grid */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.token-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border-subtle, #e5e7eb);
+  border-radius: 8px;
+  background: var(--color-surface, #fff);
+}
+
+.token-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-subtle, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.token-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.token-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.token-value {
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #666);
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Preference grid */
+.pref-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pref-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-subtle, #e5e7eb);
+  border-radius: 6px;
+}
+
+.pref-label {
+  font-size: 0.9rem;
+}
+
+.pref-value {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #666);
+}
+
+.pref-value--active {
+  color: var(--color-accent-strong, #1d4ed8);
+  font-weight: 600;
+}
+
+/* Token demo box */
+.token-demo-box {
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-subtle, #e5e7eb);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.token-demo-box code {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Transition animation */
+:global(.theme-transitioning) {
+  transition: background-color 300ms ease, color 300ms ease,
+    border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.demo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .demo-button--active {
