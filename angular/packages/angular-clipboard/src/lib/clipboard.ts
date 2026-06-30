@@ -1,46 +1,30 @@
-import { DestroyRef, inject, signal } from '@angular/core';
-import type { ClipboardConfig, ClipboardHandle, PermissionState } from './types';
+import { inject } from '@angular/core';
+import type { ClipboardConfig, ClipboardHandle } from './types';
+import { ClipboardService } from './clipboard-service';
 
 export function injectClipboard(config?: ClipboardConfig): ClipboardHandle {
-  const destroyRef = inject(DestroyRef);
-  const historySize = config?.historySize ?? 10;
+  const service = inject(ClipboardService);
 
-  const lastCopied = signal<string | null>(null);
-  const lastPasted = signal<string | null>(null);
-  const history = signal<readonly string[]>([]);
-  const isCopying = signal(false);
-  const copyError = signal<string | null>(null);
-  const permissionState = signal<PermissionState>(detectPermissionState());
-
-  function detectPermissionState(): PermissionState {
-    if (typeof navigator === 'undefined') return 'unsupported';
-    if (!navigator.clipboard) return 'unsupported';
-    if (typeof navigator.permissions === 'undefined') return 'prompt';
-    // We'll query async later; initial sync check is conservative
-    return 'prompt';
+  if (config?.historySize != null) {
+    service.setHistorySize(config.historySize);
   }
 
   async function queryPermission(): Promise<void> {
     if (typeof navigator === 'undefined' || !navigator.permissions?.query) return;
     try {
       const result = await navigator.permissions.query({ name: 'clipboard-write' as PermissionName });
-      permissionState.set(result.state as PermissionState);
+      service.permissionState.set(result.state as 'granted' | 'denied' | 'prompt' | 'unsupported');
       result.addEventListener('change', () => {
-        permissionState.set(result.state as PermissionState);
+        service.permissionState.set(result.state as 'granted' | 'denied' | 'prompt' | 'unsupported');
       });
     } catch {
       // Permission query not supported; remain at current state
     }
   }
 
-  function addToHistory(text: string): void {
-    const current = history().slice(0, historySize - 1);
-    history.set([text, ...current]);
-  }
-
   async function copy(text: string): Promise<boolean> {
-    isCopying.set(true);
-    copyError.set(null);
+    service.isCopying.set(true);
+    service.copyError.set(null);
 
     try {
       if (navigator.clipboard?.writeText) {
@@ -49,14 +33,14 @@ export function injectClipboard(config?: ClipboardConfig): ClipboardHandle {
         // Fallback for older browsers or non-HTTPS contexts
         fallbackCopy(text);
       }
-      lastCopied.set(text);
-      addToHistory(text);
-      isCopying.set(false);
+      service.lastCopied.set(text);
+      service.addToHistory(text);
+      service.isCopying.set(false);
       return true;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Copy failed';
-      copyError.set(message);
-      isCopying.set(false);
+      service.copyError.set(message);
+      service.isCopying.set(false);
       return false;
     }
   }
@@ -90,15 +74,11 @@ export function injectClipboard(config?: ClipboardConfig): ClipboardHandle {
         }
       }
       const text = await navigator.clipboard.readText();
-      lastPasted.set(text);
+      service.lastPasted.set(text);
       return text;
     } catch {
       return null;
     }
-  }
-
-  function clearHistory(): void {
-    history.set([]);
   }
 
   // Kick off async permission query
@@ -106,20 +86,15 @@ export function injectClipboard(config?: ClipboardConfig): ClipboardHandle {
     void queryPermission();
   });
 
-  destroyRef.onDestroy(() => {
-    isCopying.set(false);
-    copyError.set(null);
-  });
-
   return {
-    lastCopied: lastCopied.asReadonly(),
-    lastPasted: lastPasted.asReadonly(),
-    history: history.asReadonly(),
-    isCopying: isCopying.asReadonly(),
-    copyError: copyError.asReadonly(),
-    permissionState: permissionState.asReadonly(),
+    lastCopied: service.lastCopied.asReadonly(),
+    lastPasted: service.lastPasted.asReadonly(),
+    history: service.history.asReadonly(),
+    isCopying: service.isCopying.asReadonly(),
+    copyError: service.copyError.asReadonly(),
+    permissionState: service.permissionState.asReadonly(),
     copy,
     paste,
-    clearHistory,
+    clearHistory: () => service.clearHistory(),
   };
 }

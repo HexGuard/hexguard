@@ -1,5 +1,4 @@
 import {
-  computed,
   DestroyRef,
   effect,
   ElementRef,
@@ -9,12 +8,10 @@ import {
 } from '@angular/core';
 
 import {
-  DEFAULT_ACTIVITY_EVENTS,
-  DEFAULT_IDLE_TIMEOUT_MS,
-  IDLE_DURATION_UPDATE_MS,
   type VisibilityOptions,
   type VisibilityState,
 } from './types';
+import { VisibilityService } from './visibility-service';
 
 /**
  * Injects a document-level visibility and idle-detection handle.
@@ -43,68 +40,14 @@ import {
  * ```
  */
 export function injectVisibility(options?: VisibilityOptions): VisibilityState {
-  const destroyRef = inject(DestroyRef);
-  const idleTimeoutMs = options?.idleTimeoutMs ?? DEFAULT_IDLE_TIMEOUT_MS;
-  const activityEvents = options?.activityEvents ?? DEFAULT_ACTIVITY_EVENTS;
-  const idleTrackingEnabled = idleTimeoutMs > 0;
-
-  // ── Tab visibility ─────────────────────────────────────────────
-
-  const isVisible = signal<boolean>(document.visibilityState === 'visible');
-
-  const visibilityHandler = (): void => {
-    isVisible.set(document.visibilityState === 'visible');
-  };
-
-  document.addEventListener('visibilitychange', visibilityHandler);
-  destroyRef.onDestroy(() => {
-    document.removeEventListener('visibilitychange', visibilityHandler);
-  });
-
-  // ── Idle detection ─────────────────────────────────────────────
-
-  const lastActivity = signal<number>(Date.now());
-  const idleDuration = signal<number>(0);
-  let idleTimerId: ReturnType<typeof setInterval> | null = null;
-
-  if (idleTrackingEnabled) {
-    const activityHandler = (): void => {
-      lastActivity.set(Date.now());
-      idleDuration.set(0);
-    };
-
-    for (const eventName of activityEvents) {
-      document.addEventListener(eventName, activityHandler, { passive: true });
-    }
-
-    // Periodic update of idle duration while user is idle
-    idleTimerId = setInterval(() => {
-      const elapsed = Date.now() - lastActivity();
-      idleDuration.set(elapsed);
-    }, IDLE_DURATION_UPDATE_MS);
-
-    destroyRef.onDestroy(() => {
-      for (const eventName of activityEvents) {
-        document.removeEventListener(eventName, activityHandler);
-      }
-      if (idleTimerId !== null) {
-        clearInterval(idleTimerId);
-      }
-    });
-  }
-
-  const isIdle = computed<boolean>(() => {
-    if (!idleTrackingEnabled) {
-      return false;
-    }
-    return idleDuration() >= idleTimeoutMs;
-  });
+  const service = inject(VisibilityService);
+  service.startIdleTracking(options);
 
   return {
-    isVisible: isVisible.asReadonly(),
-    isIdle,
-    idleDuration: idleDuration.asReadonly(),
-    lastActivity: lastActivity.asReadonly(),
+    isVisible: service.isVisible.asReadonly(),
+    isIdle: service.isIdle,
+    idleDuration: service.idleDuration.asReadonly(),
+    lastActivity: service.lastActivity.asReadonly(),
   };
 }
 

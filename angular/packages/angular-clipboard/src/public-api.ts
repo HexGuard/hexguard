@@ -6,4 +6,5 @@
  * execCommand fallback, and in-memory history tracking.
  */
 export { injectClipboard } from './lib/clipboard';
+export { ClipboardService } from './lib/clipboard-service';
 export type { ClipboardHandle, ClipboardConfig } from './lib/types';

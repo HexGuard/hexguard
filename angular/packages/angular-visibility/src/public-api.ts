@@ -6,6 +6,7 @@
  * - `inElementVisibility()` — IntersectionObserver-based element visibility as a signal.
  */
 export { injectVisibility, inElementVisibility } from './lib/visibility';
+export { VisibilityService } from './lib/visibility-service';
 export {
   fromVisibilityChanges,
   fromIdleState,
