@@ -2,12 +2,12 @@ import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne } from './cross-field-validators';
+import { fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, uniqueArrayValidator, minArrayLength, maxArrayLength } from './cross-field-validators';
 import { injectFormDirtyState } from './form-dirty-state';
 import { aggregateFormErrors, asyncFieldValidator, debouncedServerValidator, injectValidator } from './form-errors';
 import { injectFormArrayDirtyState, arrayToggleItem, moveArrayItem, syncArrayValues, injectFormArray, injectFormArrayItem } from './form-array';
 import type { FormArrayHandle } from './form-array';
-import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission, controlErrorMessages } from './form-control-utils';
+import { controlSignal, isControlInvalid, formDiff, formStatusSignal, formSubmitHandler, injectFormField, injectFormSubmission, controlErrorMessages, injectFormControl, injectControlTouched, formPatch } from './form-control-utils';
 import type { FormFieldHandle, FormSubmissionHandle } from './form-control-utils';
 import { IsInvalidPipe, FormErrorPipe } from './form-pipes';
 import { ShowFormErrorDirective } from './form-directives';
@@ -1188,5 +1188,100 @@ describe('createControlValueAccessor', () => {
       cva.onTouched();
       expect(called).toBe(true);
     });
+  });
+});
+
+describe('uniqueArrayValidator', () => {
+  it('should return null for unique values', () => {
+    const array = new FormArray([new FormControl('a'), new FormControl('b')]);
+    expect(uniqueArrayValidator()(array)).toBeNull();
+  });
+
+  it('should return error for duplicate values', () => {
+    const array = new FormArray([new FormControl('a'), new FormControl('a')]);
+    const result = uniqueArrayValidator()(array);
+    expect(result).not.toBeNull();
+    expect(result!['uniqueArray']).toBeDefined();
+    expect(result!['uniqueArray'].duplicate).toBe('a');
+  });
+
+  it('should return null for non-FormArray controls', () => {
+    const ctrl = new FormControl('test');
+    expect(uniqueArrayValidator()(ctrl)).toBeNull();
+  });
+});
+
+describe('minArrayLength', () => {
+  it('should return null when array has enough items', () => {
+    const array = new FormArray([new FormControl('a'), new FormControl('b')]);
+    expect(minArrayLength(2)(array)).toBeNull();
+  });
+
+  it('should return error when array has too few items', () => {
+    const array = new FormArray([new FormControl('a')]);
+    const result = minArrayLength(2)(array);
+    expect(result).not.toBeNull();
+    expect(result!['minArrayLength']).toBeDefined();
+  });
+
+  it('should return null for non-FormArray controls', () => {
+    const ctrl = new FormControl('test');
+    expect(minArrayLength(2)(ctrl)).toBeNull();
+  });
+});
+
+describe('maxArrayLength', () => {
+  it('should return null when array is within limit', () => {
+    const array = new FormArray([new FormControl('a')]);
+    expect(maxArrayLength(2)(array)).toBeNull();
+  });
+
+  it('should return error when array exceeds limit', () => {
+    const array = new FormArray([new FormControl('a'), new FormControl('b'), new FormControl('c')]);
+    const result = maxArrayLength(2)(array);
+    expect(result).not.toBeNull();
+    expect(result!['maxArrayLength']).toBeDefined();
+    expect(result!['maxArrayLength'].max).toBe(2);
+  });
+
+  it('should return null for non-FormArray controls', () => {
+    const ctrl = new FormControl('test');
+    expect(maxArrayLength(2)(ctrl)).toBeNull();
+  });
+});
+
+describe('injectFormControl', () => {
+  it('should wrap a FormControl directly', () => {
+    TestBed.runInInjectionContext(() => {
+      const ctrl = new FormControl('hello');
+      const field = injectFormControl(ctrl);
+      expect(field.value()).toBe('hello');
+      field.setValue('world');
+      expect(ctrl.value).toBe('world');
+    });
+  });
+});
+
+describe('injectControlTouched', () => {
+  it('should track touched state', () => {
+    TestBed.runInInjectionContext(() => {
+      const ctrl = new FormControl('');
+      const touched = injectControlTouched(ctrl);
+      expect(touched()).toBe(false);
+      ctrl.markAsTouched();
+      ctrl.updateValueAndValidity();
+      expect(touched()).toBe(true);
+    });
+  });
+});
+
+describe('formPatch', () => {
+  it('should patch values on a form group', () => {
+    const form = new FormGroup({
+      name: new FormControl(''),
+      email: new FormControl(''),
+    });
+    formPatch(form, { name: 'Alice' });
+    expect(form.value).toEqual({ name: 'Alice', email: '' });
   });
 });

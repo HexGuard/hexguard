@@ -59,3 +59,72 @@ export function requiresAtLeastOne(fields: string[], message?: string): Validato
     return { requiresAtLeastOne: { message: message ?? `At least one of [${fields.join(', ')}] is required.` } };
   };
 }
+
+/**
+ * Creates a validator that rejects a `FormArray` containing duplicate values.
+ * Compares by strict equality (`===`). Returns the first duplicate value found
+ * in the error payload.
+ *
+ * @example
+ * ```typescript
+ * readonly tags = new FormArray([new FormControl('a'), new FormControl('b')], [uniqueArrayValidator()]);
+ *
+ * tags.push(new FormControl('a')); // array becomes invalid
+ * tags.errors; // { uniqueArray: { duplicate: 'a' } }
+ * ```
+ */
+export function uniqueArrayValidator(message?: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!('controls' in control)) return null;
+    const values: unknown[] = [];
+    for (let i = 0; i < (control as { controls: unknown[] }).controls.length; i++) {
+      const ctrl = (control as { controls: Array<{ value: unknown }> }).controls[i];
+      const value = ctrl.value;
+      if (values.includes(value)) {
+        return { uniqueArray: { message: message ?? `Duplicate value: "${value}".`, duplicate: value } };
+      }
+      values.push(value);
+    }
+    return null;
+  };
+}
+
+/**
+ * Creates a validator that requires a `FormArray` to have at least `min`
+ * items.
+ *
+ * @example
+ * ```typescript
+ * readonly tags = new FormArray([new FormControl('a')], [minArrayLength(2)]);
+ * // tags is invalid — only 1 item
+ * ```
+ */
+export function minArrayLength(min: number, message?: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!('controls' in control)) return null;
+    const len = (control as { controls: unknown[] }).controls.length;
+    if (len >= min) return null;
+    return { minArrayLength: { message: message ?? `At least ${min} item(s) required.`, min, actual: len } };
+  };
+}
+
+/**
+ * Creates a validator that limits a `FormArray` to at most `max` items.
+ *
+ * @example
+ * ```typescript
+ * readonly tags = new FormArray(
+ *   [new FormControl('a'), new FormControl('b'), new FormControl('c')],
+ *   [maxArrayLength(2)],
+ * );
+ * // tags is invalid — 3 items, max is 2
+ * ```
+ */
+export function maxArrayLength(max: number, message?: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!('controls' in control)) return null;
+    const len = (control as { controls: unknown[] }).controls.length;
+    if (len <= max) return null;
+    return { maxArrayLength: { message: message ?? `Maximum ${max} item(s) allowed.`, max, actual: len } };
+  };
+}

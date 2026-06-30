@@ -1,5 +1,6 @@
 import { DestroyRef, computed, inject, signal, type Signal } from '@angular/core';
 import type { AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 /**
  * Creates a typed `Signal<T>` that tracks the value of a form control at the
@@ -348,6 +349,110 @@ export function injectFormSubmission(
     disabled,
     submit,
   };
+}
+
+/**
+ * Creates a typed signal-based facade for a single form control, given the
+ * control reference directly (unlike `injectFormField` which takes a path).
+ *
+ * @example
+ * ```typescript
+ * readonly nameControl = new FormControl('', [Validators.required]);
+ * readonly name = injectFormControl(this.nameControl);
+ *
+ * name.value();       // Signal<string>
+ * name.setValue('x'); // updates the control
+ * name.isInvalid();   // touched && invalid
+ * ```
+ */
+export function injectFormControl<T>(
+  control: FormControl<T>,
+): FormFieldHandle<T> {
+  const destroyRef = inject(DestroyRef);
+  const valueSignal = signal<T>(control.value as T);
+  const errorsSignal = signal<ValidationErrors | null>(control.errors);
+  const statusSignal = signal(control.status);
+  const isInvalidSignal = signal<boolean>(control.touched && control.invalid);
+  const isDirtySignal = signal<boolean>(control.dirty);
+
+  const refresh = () => {
+    errorsSignal.set(control.errors);
+    statusSignal.set(control.status);
+    isInvalidSignal.set(control.touched && control.invalid);
+    isDirtySignal.set(control.dirty);
+  };
+
+  const valueSub = control.valueChanges.subscribe({
+    next: (v: T) => { valueSignal.set(v); refresh(); },
+  });
+
+  const statusSub = control.statusChanges.subscribe({ next: refresh });
+  destroyRef.onDestroy(() => { valueSub.unsubscribe(); statusSub.unsubscribe(); });
+
+  const isPending = computed<boolean>(() => statusSignal() === 'PENDING');
+  const isDisabled = computed<boolean>(() => statusSignal() === 'DISABLED');
+
+  return {
+    value: valueSignal.asReadonly(),
+    isInvalid: isInvalidSignal.asReadonly(),
+    errors: errorsSignal.asReadonly(),
+    isDirty: isDirtySignal.asReadonly(),
+    isDisabled,
+    isPending,
+    setValue: (val: T) => control.setValue(val),
+    markAsTouched: () => { control.markAsTouched(); refresh(); },
+  };
+}
+
+/**
+ * Creates a signal that tracks whether a form control has been touched.
+ * Updates reactively when `markAsTouched()` is called.
+ *
+ * @example
+ * ```typescript
+ * readonly name = new FormControl('', [Validators.required]);
+ * readonly touched = injectControlTouched(this.name);
+ *
+ * // Template:
+ * // <input [class.touched]="touched()" (blur)="name.markAsTouched()" />
+ * ```
+ */
+export function injectControlTouched(control: AbstractControl): Signal<boolean> {
+  const touchedSignal = signal<boolean>(control.touched);
+
+  const sub = control.statusChanges.subscribe(() => {
+    touchedSignal.set(control.touched);
+  });
+
+  try {
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => sub.unsubscribe());
+  } catch {}
+
+  return touchedSignal.asReadonly();
+}
+
+/**
+ * Typed version of `patchValue` that preserves the form's type signature.
+ *
+ * Unlike raw `patchValue`, this provides full type inference so you can
+ * only pass valid keys for the form group.
+ *
+ * @example
+ * ```typescript
+ * readonly form = new FormGroup({
+ *   name: new FormControl(''),
+ *   email: new FormControl(''),
+ * });
+ *
+ * formPatch(form, { name: 'Alice' }); // Only 'name' patched — fully typed
+ * ```
+ */
+export function formPatch<T extends FormGroup>(
+  group: T,
+  value: Partial<ReturnType<T['getRawValue']>>,
+): void {
+  group.patchValue(value);
 }
 
 /**
