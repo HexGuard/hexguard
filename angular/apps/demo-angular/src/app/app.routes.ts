@@ -105,6 +105,10 @@ import { NavigationPendingDemoPageComponent } from './features/packages/angular/
 import { slowDeactivateGuard } from './features/packages/angular/angular-navigation-pending/data/navigation-pending-demo.resolver';
 import { AngularClickOutsideHomePageComponent } from './features/packages/angular/angular-click-outside/angular-click-outside-home-page.component';
 import { ClickOutsideDemoPageComponent } from './features/packages/angular/angular-click-outside/pages/click-outside-demo-page/click-outside-demo-page.component';
+import { AngularResourceHomePageComponent } from './features/packages/angular/angular-resource/angular-resource-home-page.component';
+import { ResourceDemoPageComponent } from './features/packages/angular/angular-resource/pages/resource-demo-page/resource-demo-page.component';
+import { AngularUploadStateHomePageComponent } from './features/packages/angular/angular-upload-state/angular-upload-state-home-page.component';
+import { UploadStateDemoPageComponent } from './features/packages/angular/angular-upload-state/pages/upload-state-demo-page/upload-state-demo-page.component';
 import { AngularUndoHomePageComponent } from './features/packages/angular/angular-undo/angular-undo-home-page.component';
 import { UndoDemoPageComponent } from './features/packages/angular/angular-undo/pages/undo-demo-page/undo-demo-page.component';
 import { AngularPaginationHomePageComponent } from './features/packages/angular/angular-pagination/angular-pagination-home-page.component';
@@ -422,6 +426,46 @@ export const routes: Routes = [
     path: 'packages/angular-click-outside/demo',
     component: ClickOutsideDemoPageComponent,
     title: 'Click Outside Demo',
+  },
+  {
+    path: 'packages/angular-resource',
+    component: AngularResourceHomePageComponent,
+    title: 'Angular Resource Demos',
+  },
+  {
+    path: 'packages/angular-resource/demo',
+    component: ResourceDemoPageComponent,
+    title: 'Resource Demo',
+  },
+  {
+    path: 'packages/angular-upload-state',
+    component: AngularUploadStateHomePageComponent,
+    title: 'Angular Upload State Demos',
+  },
+  {
+    path: 'packages/angular-upload-state/demo',
+    component: UploadStateDemoPageComponent,
+    title: 'Upload State Demo',
+  },
+  {
+    path: 'packages/angular-resource',
+    component: AngularResourceHomePageComponent,
+    title: 'Angular Resource Demos',
+  },
+  {
+    path: 'packages/angular-resource/demo',
+    component: ResourceDemoPageComponent,
+    title: 'Resource Demo',
+  },
+  {
+    path: 'packages/angular-upload-state',
+    component: AngularUploadStateHomePageComponent,
+    title: 'Angular Upload State Demos',
+  },
+  {
+    path: 'packages/angular-upload-state/demo',
+    component: UploadStateDemoPageComponent,
+    title: 'Upload State Demo',
   },
   {
     path: 'packages/angular-undo',
