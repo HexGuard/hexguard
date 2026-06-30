@@ -4,17 +4,129 @@
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Angular Form Utils</p>
-        <h2>Form validators and dirty state tracking.</h2>
+        <h2>Cross-field validators, form dirty state, and unsaved-changes guard.</h2>
       </div>
     </div>
-    <demo-status-strip testId="form-utils-demo-status" summary="Test cross-field validators and form dirty state." currentUrl="Angular Form Utils — Demo" summaryTestId="form-utils-demo-summary" urlTestId="form-utils-demo-url" />
+    <demo-status-strip testId="form-utils-demo-status" summary="Test fieldsEqual, fieldsNotEqual, requiredIf, requiresAtLeastOne, injectFormDirtyState." currentUrl="Angular Form Utils — Demo" summaryTestId="form-utils-demo-summary" urlTestId="form-utils-demo-url" />
   </article>
-  <article demoPrimary class="demo-card demo-card--stack" data-testid="form-utils-playground" [formGroup]="form">
-    <label>Password: <input formControlName="password" type="password" data-testid="password-input" /></label>
-    <label>Confirm: <input formControlName="confirm" type="password" data-testid="confirm-input" /></label>
-    @if (form.errors?.['fieldsEqual']) { <p class="error" data-testid="match-error">{{ form.errors!['fieldsEqual'].message }}</p> }
-    <p>Dirty: {{ dirty.isDirty() }}</p>
-    <button class="demo-button demo-button--ghost" (click)="dirty.resetAll()">Reset Dirty</button>
+  <article demoPrimary class="demo-card demo-card--stack" data-testid="form-utils-playground">
+    <!-- fieldsEqual demo -->
+    <fieldset class="demo-fieldset">
+      <legend>fieldsEqual — Confirm Password</legend>
+      <div [formGroup]="passwordForm">
+        <label>Password: <input formControlName="password" type="password" data-testid="password-input" /></label>
+        <label>Confirm: <input formControlName="confirm" type="password" data-testid="confirm-input" /></label>
+        @if (passwordForm.errors?.['fieldsEqual']; as err) { <p class="demo-error" data-testid="match-error">{{ err.message }}</p> }
+        @if (passwordForm.valid) { <p class="demo-success">✓ Passwords match</p> }
+      </div>
+    </fieldset>
+
+    <!-- fieldsNotEqual demo -->
+    <fieldset class="demo-fieldset">
+      <legend>fieldsNotEqual — New email must differ</legend>
+      <div [formGroup]="emailForm">
+        <label>Current: <input formControlName="currentEmail" data-testid="current-email-input" /></label>
+        <label>New: <input formControlName="newEmail" data-testid="new-email-input" /></label>
+        @if (emailForm.errors?.['fieldsNotEqual']; as err) { <p class="demo-error" data-testid="diff-error">{{ err.message }}</p> }
+        @if (emailForm.valid) { <p class="demo-success">✓ Emails differ</p> }
+      </div>
+    </fieldset>
+
+    <!-- requiredIf demo -->
+    <fieldset class="demo-fieldset">
+      <legend>requiredIf — Contact method</legend>
+      <div [formGroup]="contactForm">
+        <label>Method:
+          <select formControlName="contactMethod" data-testid="contact-method-select">
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+          </select>
+        </label>
+        @if (contactForm.value.contactMethod === 'email') {
+          <label>Email: <input formControlName="email" data-testid="contact-email-input" /></label>
+          @if (contactForm.get('email')?.invalid) { <p class="demo-error">Email is required when method is Email.</p> }
+        }
+        @if (contactForm.value.contactMethod === 'phone') {
+          <label>Phone: <input formControlName="phone" data-testid="contact-phone-input" /></label>
+          @if (contactForm.get('phone')?.invalid) { <p class="demo-error">Phone is required when method is Phone.</p> }
+        }
+      </div>
+    </fieldset>
+
+    <!-- injectFormDirtyState demo -->
+    <fieldset class="demo-fieldset">
+      <legend>injectFormDirtyState</legend>
+      <div [formGroup]="dirtyForm">
+        <label>Name: <input formControlName="name" data-testid="dirty-name-input" /></label>
+        <label>Bio: <input formControlName="bio" data-testid="dirty-bio-input" /></label>
+      </div>
+      <div class="demo-dirty-controls">
+        <span>isDirty: <strong data-testid="dirty-indicator">{{ dirty.isDirty() ? 'YES' : 'no' }}</strong></span>
+        <span>controlStates: {{ dirty.controlStates() | json }}</span>
+        <button class="demo-button demo-button--ghost" (click)="dirty.markControlClean('name')" data-testid="mark-clean-btn">Mark Name Clean</button>
+        <button class="demo-button demo-button--ghost" (click)="dirty.markControlDirty('name')" data-testid="mark-dirty-btn">Mark Name Dirty</button>
+        <button class="demo-button demo-button--ghost" (click)="dirty.resetAll()" data-testid="reset-dirty-btn">Reset All</button>
+      </div>
+    </fieldset>
+
+    <!-- aggregateFormErrors demo -->
+    <fieldset class="demo-fieldset">
+      <legend>aggregateFormErrors</legend>
+      <p class="demo-hint">Fill in fields and trigger validation to see aggregated errors below.</p>
+      <div [formGroup]="errorForm">
+        <label>Name (required): <input formControlName="name" (blur)="errorForm.get('name')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-name-input" /></label>
+        <label>Email (required, valid): <input formControlName="email" (blur)="errorForm.get('email')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-email-input" /></label>
+        <fieldset class="demo-nested">
+          <legend>Address (nested)</legend>
+          <label>Street (required): <input formControlName="address.street" (blur)="errorForm.get('address.street')?.markAsTouched(); errorForm.updateValueAndValidity()" data-testid="error-street-input" /></label>
+        </fieldset>
+      </div>
+      <pre class="demo-errors-json" data-testid="errors-json">{{ aggregateFormErrors(errorForm) | json }}</pre>
+    </fieldset>
+
+    <!-- asyncFieldValidator demo -->
+    <fieldset class="demo-fieldset">
+      <legend>asyncFieldValidator</legend>
+      <p class="demo-hint">Try <code>admin</code>, <code>root</code>, or <code>test</code> — those are taken.</p>
+      <div [formGroup]="asyncForm">
+        <label>Username:
+          <input formControlName="username" (input)="checkUsername()" data-testid="async-username-input" />
+        </label>
+      </div>
+      @if (asyncForm.get('username')?.pending) {
+        <p class="demo-pending" data-testid="async-pending">⏳ Checking availability...</p>
+      } @else if (asyncForm.get('username')?.valid && asyncForm.get('username')?.value) {
+        <p class="demo-success" data-testid="async-available">✅ Username available</p>
+      } @else if (asyncForm.get('username')?.errors?.['usernameTaken']; as err) {
+        <p class="demo-error" data-testid="async-taken">{{ err.message }}</p>
+      }
+    </fieldset>
+
+    <!-- FormArray helpers demo -->
+    <fieldset class="demo-fieldset">
+      <legend>FormArray Helpers</legend>
+      <p class="demo-hint">Type a tag and click Add — same value toggles on/off.</p>
+      <div>
+        <label>
+          Tag:
+          <input [value]="tagInput()" (input)="tagInput.set($any($event.target).value)" data-testid="formarray-tag-input" />
+        </label>
+        <button class="demo-button demo-button--ghost" (click)="addTag()" data-testid="formarray-add-btn">Add / Toggle</button>
+      </div>
+      <div class="demo-tags">
+        @for (item of tagArray.controls; track $index) {
+          <span class="demo-tag" data-testid="formarray-tag-chip">
+            {{ item.value }}
+            <button class="tag-remove" (click)="removeTag(item.value)" title="Remove tag">×</button>
+          </span>
+        }
+      </div>
+      <div class="demo-dirty-controls">
+        <span>arrayDirty: <strong data-testid="formarray-dirty-indicator">{{ arrayDirty.isDirty() ? 'YES' : 'no' }}</strong></span>
+        <span>itemStates: {{ arrayDirty.itemStates() | json }}</span>
+        <button class="demo-button demo-button--ghost" (click)="arrayDirty.resetAll()" data-testid="formarray-reset-btn">Reset All Dirty</button>
+      </div>
+    </fieldset>
   </article>
   <demo-inspector-panel demoAside panelTestId="form-utils-inspector-panel" title="Form Utils snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="form-utils-snapshot-json" codeTestId="form-utils-code-sample" />
 </demo-page-layout>

@@ -4,15 +4,89 @@
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Angular Query Signal Forms</p>
-        <h2>URL-state adapter for signal forms.</h2>
+        <h2>Signal-based reactive forms with URL-synced query state.</h2>
       </div>
     </div>
-    <demo-status-strip testId="query-signal-forms-demo-status" summary="Bind typed query params to signal form models." currentUrl="Angular Query Signal Forms — Demo" summaryTestId="query-signal-forms-demo-summary" urlTestId="query-signal-forms-demo-url" />
+    <demo-status-strip testId="query-signal-forms-demo-status" summary="Toggle sync mode, patch values, commit/revert in manual mode. Codecs: string, number, enum, boolean, array, date." currentUrl="Angular Query Signal Forms — Demo" summaryTestId="query-signal-forms-demo-summary" urlTestId="query-signal-forms-demo-url" />
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="query-signal-forms-playground">
-    <label>Search: <input #searchInput (input)="query.patch({ search: searchInput.value })" [value]="query.snapshot().search" data-testid="search-input" /></label>
-    <label>Page: <input #pageInput type="number" (input)="query.patch({ page: +pageInput.value })" [value]="query.snapshot().page" data-testid="page-input" /></label>
-    <button class="demo-button demo-button--ghost" (click)="query.reset()" data-testid="reset-btn">Reset</button>
+    <!-- Sync Mode Toggle -->
+    <div class="demo-controls">
+      <label class="demo-toggle">
+        <input type="checkbox" [checked]="syncMode() === 'manual'" (change)="toggleMode()" data-testid="sync-mode-toggle" />
+        Manual sync mode
+      </label>
+      <span class="demo-hint">Current: <strong>{{ syncMode() }}</strong></span>
+    </div>
+
+    <!-- Form fields (live-binding via wrapper methods) -->
+    @let snap = query().snapshot();
+
+    <fieldset class="demo-fieldset">
+      <legend>Filter Controls (all mapped to URL query params)</legend>
+
+      <label>Search:
+        <input [value]="snap.search" (input)="patch({ search: $any($event.target).value })" data-testid="search-input" />
+      </label>
+
+      <label>Page:
+        <input type="number" [value]="snap.page" (input)="patch({ page: +$any($event.target).value })" data-testid="page-input" />
+      </label>
+
+      <label>Status:
+        <select [value]="snap.status" (change)="patch({ status: $any($event.target).value })" data-testid="status-select">
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
+      </label>
+
+      <label>Priority:
+        <select [value]="snap.priority" (change)="patch({ priority: $any($event.target).value })" data-testid="priority-select">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+
+      <label>Archived:
+        <input type="checkbox" [checked]="snap.archived" (change)="patch({ archived: $any($event.target).checked })" data-testid="archived-checkbox" />
+      </label>
+
+      <label>Due after:
+        <input type="date" [value]="formatDate(snap.dueAfter)" (change)="patch({ dueAfter: parseDate($any($event.target).value) })" data-testid="due-date-input" />
+      </label>
+
+      <label>Tags:
+        <input #tagInput data-testid="tag-input" />
+        <button class="demo-button demo-button--ghost" (click)="addTag(tagInput.value); tagInput.value=''" data-testid="add-tag-btn">Add</button>
+      </label>
+      <div class="demo-tags">
+        @for (tag of snap.tags; track tag) {
+          <span class="demo-tag" data-testid="demo-tag">
+            {{ tag }}
+            <button class="tag-remove" (click)="removeTag(tag)" title="Remove tag">×</button>
+          </span>
+        }
+      </div>
+    </fieldset>
+
+    <!-- Manual sync controls -->
+    @if (syncMode() === 'manual') {
+      <fieldset class="demo-fieldset demo-fieldset--manual">
+        <legend>Manual Sync Controls</legend>
+        <div class="demo-controls">
+          <button class="demo-button" (click)="commit()" data-testid="commit-btn">Commit</button>
+          <button class="demo-button demo-button--ghost" (click)="revert()" data-testid="revert-btn">Revert</button>
+          <button class="demo-button demo-button--ghost" (click)="reset()" data-testid="reset-btn">Reset All</button>
+          <span class="demo-hint">Pending: <strong [class.pending]="query().hasPendingChanges()" data-testid="pending-indicator">{{ query().hasPendingChanges() ? 'YES' : 'no' }}</strong></span>
+        </div>
+      </fieldset>
+    } @else {
+      <div class="demo-controls">
+        <button class="demo-button demo-button--ghost" (click)="reset()" data-testid="live-reset-btn">Reset All</button>
+      </div>
+    }
   </article>
-  <demo-inspector-panel demoAside panelTestId="query-signal-forms-inspector-panel" title="Query Signal Forms snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="query-signal-forms-snapshot-json" codeTestId="query-signal-forms-code-sample" />
+  <demo-inspector-panel demoAside panelTestId="query-signal-forms-inspector-panel" title="Query snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="query-signal-forms-snapshot-json" codeTestId="query-signal-forms-code-sample" />
 </demo-page-layout>

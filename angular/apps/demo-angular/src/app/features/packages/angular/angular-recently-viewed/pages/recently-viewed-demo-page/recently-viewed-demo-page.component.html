@@ -4,20 +4,40 @@
     <div class="demo-card__header">
       <div>
         <p class="demo-eyebrow">Angular Recently Viewed</p>
-        <h2>Recently-viewed item tracking with persistence.</h2>
+        <h2>Recently-viewed item tracking with dedup, metadata, and route support.</h2>
       </div>
     </div>
-    <demo-status-strip testId="recently-viewed-demo-status" summary="Track recently viewed items with dedup, max items, and TTL." currentUrl="Angular Recently Viewed — Demo" summaryTestId="recently-viewed-demo-summary" urlTestId="recently-viewed-demo-url" />
+    <demo-status-strip testId="recently-viewed-demo-status" summary="Add items with metadata, test dedup strategies, navigate routes." currentUrl="Angular Recently Viewed — Demo" summaryTestId="recently-viewed-demo-summary" urlTestId="recently-viewed-demo-url" />
   </article>
   <article demoPrimary class="demo-card demo-card--stack" data-testid="recently-viewed-playground">
-    <button class="demo-button" (click)="addItem()" data-testid="add-btn">Add Item</button>
-    <button class="demo-button demo-button--ghost" (click)="recent.clear()" data-testid="clear-btn">Clear</button>
-    <ul>
+    <div class="demo-controls">
+      <button class="demo-button" (click)="addItem()" data-testid="add-btn">Add Item</button>
+      <button class="demo-button demo-button--ghost" (click)="recent.clear()" data-testid="clear-btn">Clear All</button>
+    </div>
+    <div class="demo-controls">
+      <button class="demo-button demo-button--ghost" (click)="addDuplicate()" data-testid="add-dup-btn">Test Dedup</button>
+      <span class="demo-hint">Adds same ID twice — observe dedup behavior</span>
+    </div>
+    <div class="demo-controls">
+      <label>Remove by ID:
+        <input #removeInput class="demo-input" data-testid="remove-input" />
+      </label>
+      <button class="demo-button demo-button--ghost" (click)="recent.remove(removeInput.value); removeInput.value=''" data-testid="remove-btn">Remove</button>
+    </div>
+    <p class="demo-subtitle">Items ({{ recent.count() }}):</p>
+    @if (recent.items().length === 0) {
+      <p class="demo-empty">No recent items. Click "Add Item" to start.</p>
+    }
+    <ul class="recent-list" data-testid="recent-list">
       @for (item of recent.items(); track item.id) {
-        <li data-testid="recent-item">{{ item.label }} <button (click)="recent.remove(item.id)">×</button></li>
+        <li class="recent-item" data-testid="recent-item">
+          <span class="recent-label">{{ item.label }}</span>
+          @if (item.route) { <span class="recent-route">→ {{ item.route }}</span> }
+          @if (item.meta; as m) { <span class="recent-meta">[{{ getMetaCategory(m) }}]</span> }
+          <button class="recent-remove" (click)="recent.remove(item.id)" title="Remove">×</button>
+        </li>
       }
     </ul>
-    <p>Count: {{ recent.count() }}</p>
   </article>
   <demo-inspector-panel demoAside panelTestId="recently-viewed-inspector-panel" title="Recently Viewed snapshot" [snapshotJson]="snapshotJson()" [snippetId]="demo.codeSample.snippetId" [docsLinks]="demo.docsLinks" snapshotTestId="recently-viewed-snapshot-json" codeTestId="recently-viewed-code-sample" />
 </demo-page-layout>

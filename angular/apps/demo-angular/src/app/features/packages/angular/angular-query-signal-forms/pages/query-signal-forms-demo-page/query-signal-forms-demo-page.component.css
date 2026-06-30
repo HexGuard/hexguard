@@ -1,1 +1,14 @@
-label { display: block; margin-bottom: 0.5rem; } input { margin-left: 0.5rem; padding: 0.3rem; }
+.demo-fieldset { border: 1px solid var(--color-border, #ddd); border-radius: 6px; padding: 1rem; margin-bottom: 1rem; }
+.demo-fieldset legend { font-weight: 600; padding: 0 0.5rem; }
+.demo-fieldset label { display: block; margin-bottom: 0.5rem; }
+.demo-fieldset input, .demo-fieldset select { margin-left: 0.5rem; padding: 0.3rem; border: 1px solid var(--color-border, #ccc); border-radius: 4px; }
+.demo-fieldset input[type="checkbox"] { margin-left: 0; }
+.demo-fieldset input[type="number"] { width: 80px; }
+.demo-controls { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.demo-toggle { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.demo-hint { font-size: 0.85em; color: var(--color-text-secondary, #666); }
+.pending { color: var(--color-warning, #f57c00); font-weight: 700; }
+.demo-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.demo-tag { display: inline-flex; align-items: center; gap: 0.25rem; background: var(--color-surface, #e3f2fd); padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.85em; }
+.tag-remove { cursor: pointer; border: none; background: none; color: var(--color-error, #d32f2f); font-size: 1em; line-height: 1; }
+.demo-fieldset--manual { border-color: var(--color-warning, #f57c00); background: var(--color-surface-warning, #fff3e0); }

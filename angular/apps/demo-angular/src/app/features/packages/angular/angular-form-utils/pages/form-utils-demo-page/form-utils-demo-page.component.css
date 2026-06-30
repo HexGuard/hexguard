@@ -1,1 +1,14 @@
-label { display: block; margin-bottom: 0.5rem; } input { margin-left: 0.5rem; padding: 0.3rem; } .error { color: var(--color-error, #d32f2f); }
+.demo-fieldset { border: 1px solid var(--color-border, #ddd); border-radius: 6px; padding: 1rem; margin-bottom: 1rem; }
+.demo-fieldset legend { font-weight: 600; padding: 0 0.5rem; }
+.demo-fieldset label { display: block; margin-bottom: 0.4rem; }
+.demo-fieldset input, .demo-fieldset select { margin-left: 0.5rem; padding: 0.3rem; border: 1px solid var(--color-border, #ccc); border-radius: 4px; }
+.demo-error { color: var(--color-error, #d32f2f); font-size: 0.85em; margin: 0.25rem 0; }
+.demo-success { color: var(--color-success, #2e7d32); font-size: 0.85em; margin: 0.25rem 0; }
+.demo-dirty-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; font-size: 0.85em; }
+.demo-hint { font-size: 0.85em; color: var(--color-text-secondary, #666); margin: 0 0 0.5rem; }
+.demo-nested { border: 1px dashed var(--color-border, #ccc); border-radius: 4px; padding: 0.5rem; margin-top: 0.5rem; }
+.demo-errors-json { background: var(--color-surface, #f5f5f5); padding: 0.5rem; border-radius: 4px; font-size: 0.85em; max-height: 120px; overflow: auto; }
+.demo-pending { color: var(--color-warning, #f57c00); font-size: 0.85em; margin: 0.25rem 0; }
+.demo-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.demo-tag { display: inline-flex; align-items: center; gap: 0.25rem; background: var(--color-surface, #e3f2fd); padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.85em; }
+.tag-remove { cursor: pointer; border: none; background: none; color: var(--color-error, #d32f2f); font-size: 1em; line-height: 1; }
